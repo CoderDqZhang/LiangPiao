@@ -1,0 +1,106 @@
+//
+//  TicketSceneTableViewCell.swift
+//  LiangPiao
+//
+//  Created by Zhang on 02/11/2016.
+//  Copyright © 2016 Zhang. All rights reserved.
+//
+
+import UIKit
+
+class TicketSceneTableViewCell: UITableViewCell {
+
+    var timeImageView:UIImageView!
+    var timeTitle:UILabel!
+    var ticketmMuch:UILabel!
+    var ticketMuch:UILabel!
+    var lineLabel:GloabLineView!
+    var didMakeContraints:Bool = false
+    
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.setUpView()
+    }
+    
+    func setUpView() {
+        
+        timeImageView = UIImageView()
+        timeImageView.image = UIImage.init(named: "Icon_Date")
+        self.contentView.addSubview(timeImageView)
+        
+        timeTitle = UILabel()
+        timeTitle.text = "2016.10.14 周五 20:00"
+        timeTitle.textColor = UIColor.init(hexString: Home_Ticket_Scene_Title_Color)
+        timeTitle.font = Home_Ticket_Scene_Font
+        self.contentView.addSubview(timeTitle)
+        
+        ticketmMuch = UILabel()
+        ticketmMuch.text = "元起"
+        ticketmMuch.textColor = UIColor.init(hexString: Home_Recommend_mMuch_Color)
+        ticketmMuch.font = Home_Recommend_mMuch_Font
+        self.contentView.addSubview(ticketmMuch)
+        
+        ticketMuch = UILabel()
+        ticketMuch.text = "280"
+        ticketMuch.textColor = UIColor.init(hexString: Home_Recommend_Much_Color)
+        ticketMuch.font = Home_Recommend_Much_Font
+        self.contentView.addSubview(ticketMuch)
+
+        lineLabel = GloabLineView(frame: CGRectMake(15, self.contentView.bounds.size.height - 0.5, SCREENWIDTH - 30, 0.5))
+        self.contentView.addSubview(lineLabel)
+        
+        self.updateConstraintsIfNeeded()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func updateConstraints() {
+        if !self.didMakeContraints {
+            timeImageView.snp_makeConstraints(closure: { (make) in
+                make.left.equalTo(self.contentView.snp_left).offset(15)
+                make.centerY.equalTo(self.contentView.snp_centerY).offset(0)
+                make.size.equalTo(CGSizeMake(24, 24))
+            })
+            
+            timeTitle.snp_makeConstraints(closure: { (make) in
+                make.left.equalTo(self.timeImageView.snp_right).offset(8)
+                make.centerY.equalTo(self.contentView.snp_centerY).offset(0)
+            })
+            
+            ticketmMuch.snp_makeConstraints(closure: { (make) in
+                make.right.equalTo(self.contentView.snp_right).offset(-15)
+                make.centerY.equalTo(self.contentView.snp_centerY).offset(3)
+                make.size.equalTo(CGSizeMake(22, 14))
+            })
+            
+            ticketMuch.snp_makeConstraints(closure: { (make) in
+                make.right.equalTo(self.ticketmMuch.snp_left).offset(-4)
+                make.centerY.equalTo(self.contentView.snp_centerY).offset(0)
+                make.height.equalTo(21)
+            })
+            
+            lineLabel.snp_makeConstraints(closure: { (make) in
+                make.left.equalTo(self.contentView.snp_left).offset(15)
+                make.right.equalTo(self.contentView.snp_right).offset(-15)
+                make.bottom.equalTo(self.contentView.snp_bottom).offset(-0.5)
+            })
+            self.didMakeContraints = true
+            
+        }
+        super.updateConstraints()
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        // Initialization code
+    }
+
+    override func setSelected(selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+
+        // Configure the view for the selected state
+    }
+
+}

@@ -1,0 +1,47 @@
+PODS:
+  - Alamofire (3.5.1)
+  - AMapFoundation (1.3.1)
+  - AMapLocation (2.1.1):
+    - AMapFoundation (~> 1.2)
+  - DZNEmptyDataSet (1.8.1)
+  - FDFullscreenPopGesture (1.1)
+  - MBProgressHUD (1.0.0)
+  - MJExtension (3.0.13)
+  - MJRefresh (3.1.12)
+  - ReactiveCocoa (4.2.2):
+    - Result (~> 2.0)
+  - Result (2.1.3)
+  - SDWebImage (4.0.0-beta2):
+    - SDWebImage/Core (= 4.0.0-beta2)
+  - SDWebImage/Core (4.0.0-beta2)
+  - SnapKit (0.22.0)
+
+DEPENDENCIES:
+  - Alamofire (~> 3.5.0)
+  - AMapLocation
+  - DZNEmptyDataSet
+  - FDFullscreenPopGesture (= 1.1)
+  - MBProgressHUD
+  - MJExtension
+  - MJRefresh
+  - ReactiveCocoa (~> 4.2.2)
+  - SDWebImage (~> 4.0.0-beta2)
+  - SnapKit (~> 0.22.0)
+
+SPEC CHECKSUMS:
+  Alamofire: 0dfba1184a543e2aa160f4e39cac4e8aba48d223
+  AMapFoundation: 636834a27cd003084f56b4232f3031e6a44c7e7e
+  AMapLocation: dd203f76b034ef5cb546600f4e1ffad2a3a14072
+  DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
+  FDFullscreenPopGesture: a8a620179e3d9c40e8e00256dcee1c1a27c6d0f0
+  MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
+  MJExtension: 5932755f451458eefa24239358817f8d291240c7
+  MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
+  ReactiveCocoa: 72263e7ac0770c274617ccd345e01049d0ca38ae
+  Result: 18e1a7597fbcca5923c565b40a25a98afafdee02
+  SDWebImage: e379f33106cf8d6766f970c0ef1c3fb609c94d78
+  SnapKit: 0dd2fd157330f1ea11fd84da13e6be8a7a22bae0
+
+PODFILE CHECKSUM: e6344c428caa7035be509197ab6ff2f6c38cef5e
+
+COCOAPODS: 1.0.0
