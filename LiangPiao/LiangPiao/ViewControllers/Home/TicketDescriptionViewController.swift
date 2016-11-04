@@ -11,7 +11,7 @@ import UIKit
 class TicketDescriptionViewController: UIViewController {
 
     var tableView:UITableView!
-    
+    var navigationBar:GlobalNavigationBarView!
     var ticketToolsView:UIView!
     var cell:TicketToolsTableViewCell!
     
@@ -47,7 +47,8 @@ class TicketDescriptionViewController: UIViewController {
 
     
     func setUpNavigationItems() {
-        self.title = "立即购票"
+        
+        self.isShowTicketNavigationBar(false)
         self.setNavigationItemBack()
         let likeItem = UIBarButtonItem(image: UIImage.init(named: "Icon_Like_Normal")?.imageWithRenderingMode(.AlwaysOriginal), style: .Plain, target: self, action: #selector(TicketDescriptionViewController.likeItemPress(_:) as (TicketDescriptionViewController) -> (UIBarButtonItem) -> ()))
         let shareItem = UIBarButtonItem(image: UIImage.init(named: "Icon_Share_Normal")?.imageWithRenderingMode(.AlwaysOriginal), style: .Plain, target: self, action: #selector(TicketDescriptionViewController.shareItemPress(_:)))
@@ -68,6 +69,19 @@ class TicketDescriptionViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func isShowTicketNavigationBar(isShowTicket:Bool) {
+//        if !isShowTicket {
+//            navigationBar = GlobalNavigationBarView(frame: CGRectMake(0, 0, SCREENWIDTH - 150, 42), title: "万有音乐系 陈粒《小梦大半》2016巡.", detail: "2016.11.12 20:00")
+//            self.navigationItem.titleView = navigationBar
+//        }else{
+//            if navigationBar != nil {
+//                navigationBar.hidden  = true
+//                navigationBar.removeFromSuperview()
+//            }
+//            self.navigationItem.titleView =  GlobalNavigationBarView(frame: CGRectMake(0, 0, SCREENWIDTH - 150, 42), title: "《小梦大半》2016巡.", detail: "2016.11.12 20:00")
+//        }
+        self.title = "立即购票"
+    }
 
     /*
     // MARK: - Navigation
@@ -79,6 +93,7 @@ class TicketDescriptionViewController: UIViewController {
     }
     */
     func ticketToolsViewShow(tag:NSInteger, frame:CGRect) {
+        self.isShowTicketNavigationBar(true)
         switch tag {
         case 1:
             if self.view.viewWithTag(200) != nil { self.view.viewWithTag(200)?.removeFromSuperview()}
@@ -89,6 +104,7 @@ class TicketDescriptionViewController: UIViewController {
                 ticketPrice.toolViewSelectIndexPathRow = { indexPath, str in
                     Notification(ToolViewNotifacationName, value: "100")
                     self.view.viewWithTag(100)?.removeFromSuperview()
+                    self.isShowTicketNavigationBar(false)
                 }
                 self.view.addSubview(ticketPrice)
             }else{
@@ -103,6 +119,7 @@ class TicketDescriptionViewController: UIViewController {
                 ticketRow.toolViewSelectIndexPathRow = { indexPath, str in
                     Notification(ToolViewNotifacationName, value: "200")
                     self.view.viewWithTag(200)?.removeFromSuperview()
+                    self.isShowTicketNavigationBar(false)
                 }
                 self.view.addSubview(ticketRow)
             }else{
@@ -116,6 +133,7 @@ class TicketDescriptionViewController: UIViewController {
                 sortPrice.toolViewSelectIndexPathRow = { indexPath, str in
                     Notification(ToolViewNotifacationName, value: "300")
                     self.view.viewWithTag(300)?.removeFromSuperview()
+                    self.isShowTicketNavigationBar(false)
                 }
                 sortPrice.tag = 300
                 self.view.addSubview(sortPrice)
@@ -153,6 +171,8 @@ extension TicketDescriptionViewController : UITableViewDelegate {
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        self.navigationController?.pushViewController(TicketConfirmViewController(), animated: true)
+        
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {

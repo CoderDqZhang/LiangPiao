@@ -116,6 +116,38 @@ class GlobalNavigationBarView : UIView {
     }
 }
 
+class GlobalNavigationBarWithLabelView : UIView {
+    
+    
+    var globalNavigationClouse:GlobalNavigationClouse!
+    
+    init(frame:CGRect, title:String) {
+        super.init(frame:frame)
+        let titleLabel:UILabel! = UILabel()
+        titleLabel.frame = CGRectMake(0, 0, frame.size.width, frame.size.height)
+        titleLabel.font = NavigationBar_Title_Font
+        titleLabel.textColor = UIColor.init(hexString: NavigationBar_TitleView_TitleLabel_Color)
+        titleLabel.textAlignment = .Center
+        titleLabel.text = title
+        self.addSubview(titleLabel)
+        
+        let singleTap = UITapGestureRecognizer(target: self, action: #selector(GlobalNavigationBarView.singleTapPress(_:)))
+        singleTap.numberOfTapsRequired = 1
+        singleTap.numberOfTouchesRequired = 1
+        self.addGestureRecognizer(singleTap)
+    }
+    
+    func singleTapPress(sender:UITapGestureRecognizer) {
+        if self.globalNavigationClouse != nil {
+            self.globalNavigationClouse()
+        }
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
 class GlobalTicketStatus : UIView {
     
     var globalNavigationClouse:GlobalNavigationClouse!

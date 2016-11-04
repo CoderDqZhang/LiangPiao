@@ -10,4 +10,5 @@
 #import "SDCycleScrollView.h"
 #import "TYTabButtonPagerController.h"
 #import "NSString+StringSize.h"
+#import "UIImage+ImageEffects.h"
 

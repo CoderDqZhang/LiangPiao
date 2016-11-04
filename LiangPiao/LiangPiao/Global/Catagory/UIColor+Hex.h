@@ -15,6 +15,7 @@
 
 + (UIColor *)colorWithHex:(UInt32)hex;
 + (UIColor *)colorWithHexString:(id)input;
++ (UIColor *)colorWithHexString:(id)hexString andAlpha:(CGFloat)alpha;
 
 - (UInt32)hexValue;
 

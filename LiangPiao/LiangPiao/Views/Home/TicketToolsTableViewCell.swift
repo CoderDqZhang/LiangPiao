@@ -20,7 +20,13 @@ class ToolView:UIView {
     
     init(frame: CGRect,data:NSArray) {
         super.init(frame: frame)
+        let image = UIImage.init(color: UIColor.init(hexString: Home_Recommend_Title_Color, andAlpha: 0.6), size: frame.size)
+        let newImage = image.applyBlurWithRadius(6, tintColor: UIColor.init(hexString: Home_Recommend_Title_Color, andAlpha: 0.6), saturationDeltaFactor: 0, maskImage: nil) as UIImage
+        let imageView = UIImageView(image: newImage)
+        imageView.frame = CGRectMake(0, 0, frame.size.width, frame.size.height)
+        self.addSubview(imageView)
         self.backgroundColor = UIColor.init(red: 56.0/255.0, green: 66.0/255.0, blue: 73.0/255.0, alpha: 0.6)
+        
         dataArray = NSArray(array: data as [AnyObject], copyItems: true)
         singnalTap = UITapGestureRecognizer(target: self, action: #selector(ToolView.viewSignalTap(_:)))
         singnalTap.numberOfTapsRequired = 1

@@ -16,6 +16,12 @@
 		1F62F2611DC9F1E600B591F1 /* TicketNumberTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F62F2601DC9F1E600B591F1 /* TicketNumberTableViewCell.swift */; };
 		1F62F2631DC9F1F200B591F1 /* TicketToolsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F62F2621DC9F1F200B591F1 /* TicketToolsTableViewCell.swift */; };
 		1F62F2651DC9F21800B591F1 /* TickerInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F62F2641DC9F21800B591F1 /* TickerInfoTableViewCell.swift */; };
+		1F6629921DCC495F00336700 /* CofimTicketTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6629911DCC495F00336700 /* CofimTicketTableViewCell.swift */; };
+		1FB7B2961DCC2B5200945B70 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FB7B2951DCC2B5200945B70 /* UIImage+ImageEffects.m */; };
+		1FB7B2981DCC31CB00945B70 /* TicketConfirmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB7B2971DCC31CB00945B70 /* TicketConfirmViewController.swift */; };
+		1FB7B29A1DCC320200945B70 /* OrderFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB7B2991DCC320200945B70 /* OrderFormView.swift */; };
+		1FB7B29C1DCC392900945B70 /* GloabTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB7B29B1DCC392900945B70 /* GloabTableViewCell.swift */; };
+		1FB7B29E1DCC412500945B70 /* OrderConfirmViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB7B29D1DCC412500945B70 /* OrderConfirmViewModel.swift */; };
 		1FC4FED31DC8729A00EBFD18 /* TicketPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC4FED21DC8729A00EBFD18 /* TicketPageViewController.swift */; };
 		1FC4FED51DC8734200EBFD18 /* BaseTicketsPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC4FED41DC8734200EBFD18 /* BaseTicketsPageViewController.swift */; };
 		1FC4FED71DC8739900EBFD18 /* AllTicketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC4FED61DC8739900EBFD18 /* AllTicketViewController.swift */; };
@@ -90,6 +96,13 @@
 		1F62F2601DC9F1E600B591F1 /* TicketNumberTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketNumberTableViewCell.swift; sourceTree = "<group>"; };
 		1F62F2621DC9F1F200B591F1 /* TicketToolsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketToolsTableViewCell.swift; sourceTree = "<group>"; };
 		1F62F2641DC9F21800B591F1 /* TickerInfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TickerInfoTableViewCell.swift; sourceTree = "<group>"; };
+		1F6629911DCC495F00336700 /* CofimTicketTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CofimTicketTableViewCell.swift; sourceTree = "<group>"; };
+		1FB7B2941DCC2B5200945B70 /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
+		1FB7B2951DCC2B5200945B70 /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
+		1FB7B2971DCC31CB00945B70 /* TicketConfirmViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketConfirmViewController.swift; sourceTree = "<group>"; };
+		1FB7B2991DCC320200945B70 /* OrderFormView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderFormView.swift; sourceTree = "<group>"; };
+		1FB7B29B1DCC392900945B70 /* GloabTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GloabTableViewCell.swift; sourceTree = "<group>"; };
+		1FB7B29D1DCC412500945B70 /* OrderConfirmViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderConfirmViewModel.swift; sourceTree = "<group>"; };
 		1FC4FED21DC8729A00EBFD18 /* TicketPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketPageViewController.swift; sourceTree = "<group>"; };
 		1FC4FED41DC8734200EBFD18 /* BaseTicketsPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTicketsPageViewController.swift; sourceTree = "<group>"; };
 		1FC4FED61DC8739900EBFD18 /* AllTicketViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllTicketViewController.swift; sourceTree = "<group>"; };
@@ -356,6 +369,8 @@
 				1FD245001DC2FD9700AFD3BC /* UIImage+QiNiuTools.m */,
 				1FD881BB1DC7255500B2B702 /* UIViewController+DismissKeyboard.h */,
 				1FD881BC1DC7255500B2B702 /* UIViewController+DismissKeyboard.m */,
+				1FB7B2941DCC2B5200945B70 /* UIImage+ImageEffects.h */,
+				1FB7B2951DCC2B5200945B70 /* UIImage+ImageEffects.m */,
 			);
 			path = Catagory;
 			sourceTree = "<group>";
@@ -409,6 +424,7 @@
 				1FC4FEDE1DC8740D00EBFD18 /* OtherTicketViewController.swift */,
 				1F62F2561DC9BC1900B591F1 /* TicketSceneViewController.swift */,
 				1F62F25C1DC9EE3400B591F1 /* TicketDescriptionViewController.swift */,
+				1FB7B2971DCC31CB00945B70 /* TicketConfirmViewController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -448,6 +464,7 @@
 			isa = PBXGroup;
 			children = (
 				1F62F25A1DC9C50300B591F1 /* HomeViewModel.swift */,
+				1FB7B29D1DCC412500945B70 /* OrderConfirmViewModel.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -486,6 +503,8 @@
 				1F62F2601DC9F1E600B591F1 /* TicketNumberTableViewCell.swift */,
 				1F62F2621DC9F1F200B591F1 /* TicketToolsTableViewCell.swift */,
 				1F62F2641DC9F21800B591F1 /* TickerInfoTableViewCell.swift */,
+				1F6629911DCC495F00336700 /* CofimTicketTableViewCell.swift */,
+				1FB7B2991DCC320200945B70 /* OrderFormView.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -569,6 +588,7 @@
 			isa = PBXGroup;
 			children = (
 				1FD881D31DC84FDA00B2B702 /* GloabView.swift */,
+				1FB7B29B1DCC392900945B70 /* GloabTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -760,16 +780,20 @@
 				1FD244EB1DC2FD3D00AFD3BC /* UIImage+Crop.swift in Sources */,
 				1FD881E61DC8546500B2B702 /* TAAnimatedDotView.m in Sources */,
 				1F62F2611DC9F1E600B591F1 /* TicketNumberTableViewCell.swift in Sources */,
+				1FB7B2961DCC2B5200945B70 /* UIImage+ImageEffects.m in Sources */,
 				1FD881CF1DC7621400B2B702 /* HomeCenterModel.swift in Sources */,
 				1FD881ED1DC854EE00B2B702 /* HomeScrollerTableViewCell.swift in Sources */,
 				1FD881E91DC8546500B2B702 /* SDCollectionViewCell.m in Sources */,
 				1FD245021DC2FD9700AFD3BC /* NSString+Utils.m in Sources */,
+				1FB7B29C1DCC392900945B70 /* GloabTableViewCell.swift in Sources */,
 				1FC4FEEC1DC8A32E00EBFD18 /* TYTabPagerController.m in Sources */,
 				1FD2459F1DC3570E00AFD3BC /* HomeViewController.swift in Sources */,
 				1F62F2651DC9F21800B591F1 /* TickerInfoTableViewCell.swift in Sources */,
 				1FD881E81DC8546500B2B702 /* TAPageControl.m in Sources */,
 				1FD2450A1DC2FD9700AFD3BC /* UIImage+QiNiuTools.m in Sources */,
 				1FD245A11DC3572C00AFD3BC /* SellTicketsViewController.swift in Sources */,
+				1FB7B29E1DCC412500945B70 /* OrderConfirmViewModel.swift in Sources */,
+				1FB7B2981DCC31CB00945B70 /* TicketConfirmViewController.swift in Sources */,
 				1F62F25F1DC9F1D800B591F1 /* TicketDescripTableViewCell.swift in Sources */,
 				1FD2458A1DC336B300AFD3BC /* BaseNetWorke.swift in Sources */,
 				1F62F25D1DC9EE3400B591F1 /* TicketDescriptionViewController.swift in Sources */,
@@ -785,6 +809,7 @@
 				1FD245071DC2FD9700AFD3BC /* NSFileManager+Utils.m in Sources */,
 				1FD245031DC2FD9700AFD3BC /* UIViewController+hideExcessLine.m in Sources */,
 				1FD2459D1DC356EA00AFD3BC /* BaseViewController.swift in Sources */,
+				1FB7B29A1DCC320200945B70 /* OrderFormView.swift in Sources */,
 				1FD245041DC2FD9700AFD3BC /* UIColor+Hex.m in Sources */,
 				1FD881EF1DC86BD400B2B702 /* HomeSearchNavigationBar.swift in Sources */,
 				1FD2450C1DC2FE5400AFD3BC /* RequestUrl.swift in Sources */,
@@ -796,6 +821,7 @@
 				1FD245101DC2FE8900AFD3BC /* Config.swift in Sources */,
 				1FD881D11DC83E8900B2B702 /* RecommendTableViewCell.swift in Sources */,
 				1FC4FED71DC8739900EBFD18 /* AllTicketViewController.swift in Sources */,
+				1F6629921DCC495F00336700 /* CofimTicketTableViewCell.swift in Sources */,
 				1FD2450E1DC2FE7300AFD3BC /* Define.swift in Sources */,
 				1FD881CB1DC75FE600B2B702 /* HomeToolsTableViewCell.swift in Sources */,
 				1FC4FEEB1DC8A32E00EBFD18 /* TYTabButtonPagerController.m in Sources */,
