@@ -11,4 +11,5 @@
 #import "TYTabButtonPagerController.h"
 #import "NSString+StringSize.h"
 #import "UIImage+ImageEffects.h"
+#import "UITextView+Placeholder.h"
 

@@ -18,8 +18,9 @@ class AppleThemeTool {
         UINavigationBar.appearance().tintColor = UIColor.whiteColor()
         UINavigationBar.appearance().barTintColor = UIColor.init(hexString: TablaBarItemTitleSelectColor)
         UINavigationBar.appearance().titleTextAttributes = [NSFontAttributeName:NavigationBar_Title_Font!,NSForegroundColorAttributeName:UIColor.init(hexString: NavigationBar_Title_Color)]
-        
+        UIBarButtonItem.appearance().setTitleTextAttributes([NSFontAttributeName:NavigationBar_Title_Font!,NSForegroundColorAttributeName:UIColor.init(hexString: NavigationBar_Title_Color)], forState: .Normal)
         UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: false)
+        
         
     }
 }

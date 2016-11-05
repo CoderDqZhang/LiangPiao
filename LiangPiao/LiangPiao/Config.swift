@@ -17,6 +17,10 @@ let TablaBarItemTitleSelectColor = "41c5b7"
 let HomePage_Brand_ImageColor = "F6F7FA"
 let HomePage_brand_BackGroudColor = "4bd4c5"
 
+let App_Theme_Text_Color = "384249"
+let App_Theme_BackGround_Color = "4BD4C5"
+
+
 let NavigationBar_Title_Color = "FFFFFF"
 let NavigationBar_Title_Font = IPHONE_VERSION > 9 ? UIFont.init(name:".SFUIText-Light", size: 17.0):UIFont.init(name: ".HelveticaNeueInterface-Light", size: 17)
 
@@ -110,6 +114,15 @@ let Home_Ticket_Introuduct_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(1
 
 let Home_Ticket_Introuduct_Field_Color = "DDE0E5"
 let Home_Ticket_Introuduct_Field_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(13.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 13.0)
+
+let Mine_Address_Name_Color = "384249"
+let Mine_Address_Name_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(13.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 13.0)
+
+let Mine_NomalAddress_Name_Color = "FFFFFF"
+let Mine_NomalAddress_Name_Font = IPHONE_VERSION > 9 ? UIFont.init(name: ".SFUIText-Light", size: 11.0):UIFont.init(name: ".HelveticaNeueInterface-Light", size: 11)
+
+let Mine_AddAddress_Name_Color = "FFFFFF"
+let Mine_AddAddress_Name_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(15.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 15.0)
 
 let APP_State_Ticket_Color = "4BD4C5"
 let APP_State_Ticket_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(12.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 12.0)

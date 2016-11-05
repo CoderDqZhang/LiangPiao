@@ -47,7 +47,8 @@ class HomeViewController: BaseViewController {
     func navigationPushTicketPage(index:NSInteger) {
         switch index {
         case 0:
-            let ticketPage = BaseTicketsPageViewController()
+//            let ticketPage = BaseTicketsPageViewController()
+            let ticketPage = AddressViewController()
             ticketPage.title = "演唱会"
             ticketPage.hidesBottomBarWhenPushed = true
             self.navigationController?.pushViewController(ticketPage, animated: true)
