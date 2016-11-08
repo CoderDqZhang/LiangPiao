@@ -23,7 +23,7 @@ class TicketPageViewController: TYTabButtonPagerController {
     let pageViewTitles = ["全部","音乐会","话剧和歌剧","体育比赛","其他"]
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "演出"
+        self.navigationItem.title = "演出"
         self.setUpNavigationItem()
         pageViewControllers = [allTicketViewController,muiscTicketViewController,operaTicketViewController,sportTicketViewController,otherTicketViewController]
         self.setUpPageViewControllerStyle()

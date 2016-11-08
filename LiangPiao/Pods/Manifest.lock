@@ -5,6 +5,7 @@ PODS:
     - AMapFoundation (~> 1.2)
   - DZNEmptyDataSet (1.8.1)
   - FDFullscreenPopGesture (1.1)
+  - IQKeyboardManagerSwift (4.0.5)
   - MBProgressHUD (1.0.0)
   - MJExtension (3.0.13)
   - MJRefresh (3.1.12)
@@ -21,6 +22,7 @@ DEPENDENCIES:
   - AMapLocation
   - DZNEmptyDataSet
   - FDFullscreenPopGesture (= 1.1)
+  - IQKeyboardManagerSwift (= 4.0.5)
   - MBProgressHUD
   - MJExtension
   - MJRefresh
@@ -34,6 +36,7 @@ SPEC CHECKSUMS:
   AMapLocation: dd203f76b034ef5cb546600f4e1ffad2a3a14072
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
   FDFullscreenPopGesture: a8a620179e3d9c40e8e00256dcee1c1a27c6d0f0
+  IQKeyboardManagerSwift: 41fd3a45a2cdb2a0e031af697708a95b865068a1
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
   MJExtension: 5932755f451458eefa24239358817f8d291240c7
   MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
@@ -42,6 +45,6 @@ SPEC CHECKSUMS:
   SDWebImage: e379f33106cf8d6766f970c0ef1c3fb609c94d78
   SnapKit: 0dd2fd157330f1ea11fd84da13e6be8a7a22bae0
 
-PODFILE CHECKSUM: e6344c428caa7035be509197ab6ff2f6c38cef5e
+PODFILE CHECKSUM: c4a8bccf6853ca006e4ceeea1e9845bdf363777b
 
 COCOAPODS: 1.0.0

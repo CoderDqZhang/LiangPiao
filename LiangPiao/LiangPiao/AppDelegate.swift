@@ -15,6 +15,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidFinishLaunching(application: UIApplication) {
         AppleThemeTool.setUpToolBarColor()
+        AppleThemeTool.setUpKeyBoardManager()
+        
     }
     
 //    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {

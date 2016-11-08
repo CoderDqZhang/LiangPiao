@@ -7,11 +7,13 @@
 //
 
 import UIKit
+import ReactiveCocoa
 
 class OrderConfirmViewModel: NSObject {
     
     
-    
+    var tableSelectSingle:RACSignal!
+
     override init() {
         
     }
@@ -47,6 +49,27 @@ class OrderConfirmViewModel: NSObject {
             default:
                 return "支付宝"
             }
+        }
+    }
+    
+    func tableViewDidSelect(tableView:UITableView, indexPath:NSIndexPath) {
+        if indexPath.section == 2 {
+            let cell = tableView.cellForRowAtIndexPath(indexPath) as! GloabTitleAndImageCell
+            cell.updateImageView(true)
+            if indexPath.row == 0 {
+                let cell = tableView.cellForRowAtIndexPath(NSIndexPath.init(forRow: 1, inSection: 2)) as! GloabTitleAndImageCell
+                cell.updateImageView(false)
+            }else{
+                let cell = tableView.cellForRowAtIndexPath(NSIndexPath.init(forRow: 0, inSection: 2)) as! GloabTitleAndImageCell
+                cell.updateImageView(false)
+            }
+            
+        }else{
+            tableSelectSingle = RACSignal.createSignal({ (subscriber) -> RACDisposable! in
+                subscriber.sendNext(indexPath)
+                subscriber.sendCompleted()
+                return nil
+            })
         }
     }
 }

@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import IQKeyboardManagerSwift
 
 class AppleThemeTool {
     class func setUpToolBarColor() {
@@ -22,5 +23,11 @@ class AppleThemeTool {
         UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: false)
         
         
+    }
+    
+    class func setUpKeyBoardManager() {
+        IQKeyboardManager.sharedManager().enable = true
+        IQKeyboardManager.sharedManager().enableAutoToolbar = false
+
     }
 }

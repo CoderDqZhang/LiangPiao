@@ -52,6 +52,11 @@ class HomeViewController: BaseViewController {
             ticketPage.title = "演唱会"
             ticketPage.hidesBottomBarWhenPushed = true
             self.navigationController?.pushViewController(ticketPage, animated: true)
+        case 1:
+            let ticketPage = OrderDetailViewController()
+            ticketPage.title = "订单详情"
+            ticketPage.hidesBottomBarWhenPushed = true
+            self.navigationController?.pushViewController(ticketPage, animated: true)
         default:
             let ticketPage = TicketPageViewController()
             ticketPage.progressHeight = 0

@@ -113,7 +113,7 @@ class GloabTitleAndFieldCell: UITableViewCell {
     }
     
     func setData(title:String, detail:String) {
-        self.titleLabel.text = title
+        titleLabel.text = title
         textField.placeholder = detail
         textField.attributedPlaceholder = NSAttributedString.init(string: detail, attributes: [NSFontAttributeName:Home_Ticket_Introuduct_Field_Font!,NSForegroundColorAttributeName:UIColor.init(hexString: Home_Ticket_Introuduct_Field_Color)])
     }

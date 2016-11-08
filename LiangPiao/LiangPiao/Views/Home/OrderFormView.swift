@@ -156,18 +156,7 @@ extension OrderFormView : UITableViewDelegate {
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.section == 2 {
-            let cell = tableView.cellForRowAtIndexPath(indexPath) as! GloabTitleAndImageCell
-            cell.updateImageView(true)
-            if indexPath.row == 0 {
-                let cell = tableView.cellForRowAtIndexPath(NSIndexPath.init(forRow: 1, inSection: 2)) as! GloabTitleAndImageCell
-                cell.updateImageView(false)
-            }else{
-                let cell = tableView.cellForRowAtIndexPath(NSIndexPath.init(forRow: 0, inSection: 2)) as! GloabTitleAndImageCell
-                cell.updateImageView(false)
-            }
-            
-        }
+        viewModel.tableViewDidSelect(tableView, indexPath:indexPath)
     }
     
     
@@ -199,7 +188,7 @@ extension OrderFormView : UITableViewDataSource {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         switch indexPath.section {
         case 0:
-            if self.formAddress == 3 {
+            if self.formAddress == 3 || self.formAddress == 2 {
                 let cell = tableView.dequeueReusableCellWithIdentifier("GloabTextFieldCell", forIndexPath: indexPath) as! GloabTextFieldCell
                 cell.selectionStyle = .None
                 if indexPath.row == 0 {
@@ -211,6 +200,11 @@ extension OrderFormView : UITableViewDataSource {
             }else{
                 let cell = tableView.dequeueReusableCellWithIdentifier("GloabTitleAndDetailImageCell", forIndexPath: indexPath) as! GloabTitleAndDetailImageCell
                 cell.selectionStyle = .None
+                if indexPath.row == 0 {
+                    cell.titleLabel.textColor = UIColor.init(hexString: App_Theme_BackGround_Color)
+                }else{
+                    
+                }
                 cell.setData(viewModel.configCellLabel(indexPath), detail: "测试")
                 return cell
             }

@@ -12,7 +12,7 @@ class MIneViewController: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.navigationItem.title = "dfsd"
         // Do any additional setup after loading the view.
     }
 

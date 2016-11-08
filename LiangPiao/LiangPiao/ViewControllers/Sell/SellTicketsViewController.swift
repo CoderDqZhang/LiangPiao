@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BuyTicketsViewController: BaseViewController {
+class SellTicketsViewController: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

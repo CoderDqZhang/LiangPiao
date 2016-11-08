@@ -21,7 +21,7 @@ class AddAddressViewController: UIViewController {
     }
     
     func setUpNavigationItem() {
-        self.title = "新增收货地址"
+        self.navigationItem.title = "新增收货地址"
         self.setNavigationItemBack()
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "保存", style: .Plain, target: self, action: #selector(AddAddressViewController.saveItemBarPress(_:)))
     }

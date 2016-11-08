@@ -80,7 +80,7 @@ class TicketDescriptionViewController: UIViewController {
 //            }
 //            self.navigationItem.titleView =  GlobalNavigationBarView(frame: CGRectMake(0, 0, SCREENWIDTH - 150, 42), title: "《小梦大半》2016巡.", detail: "2016.11.12 20:00")
 //        }
-        self.title = "立即购票"
+        self.navigationItem.title = "立即购票"
     }
 
     /*

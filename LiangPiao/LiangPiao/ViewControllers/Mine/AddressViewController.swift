@@ -21,7 +21,7 @@ class AddressViewController: UIViewController {
     }
     
     func setUpNavigationItem() {
-        self.title = "收货地址管理"
+        self.navigationItem.title = "收货地址管理"
         self.setNavigationItemBack()
     }
     

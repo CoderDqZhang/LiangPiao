@@ -13,11 +13,13 @@ class TicketConfirmViewController: UIViewController {
     var receiveView:ReciveView!
     var orderFormView:OrderFormView!
     var orderConfirm:ConfirmView!
+    let viewModel = OrderConfirmViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "确认订单"
+        self.navigationItem.title = "确认订单"
         self.setUpView()
+        self.bindViewModel()
         // Do any additional setup after loading the view.
     }
 
@@ -37,10 +39,22 @@ class TicketConfirmViewController: UIViewController {
         self.view.addSubview(receiveView)
         
         orderConfirm = ConfirmView(frame: CGRectMake(0, SCREENHEIGHT - 49, SCREENHEIGHT, 49))
+        orderConfirm.payButton.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (action) in
+            self.navigationController?.pushViewController(OrderDetailViewController(), animated: true)
+
+        }
         self.view.addSubview(orderConfirm)
         
         orderFormView = OrderFormView(frame: CGRectMake(0, CGRectGetMaxY(receiveView.frame), SCREENWIDTH, SCREENHEIGHT - CGRectGetMaxY(receiveView.frame) - 49), type: .withNomal)
         self.view.addSubview(orderFormView)
+    }
+    
+    func bindViewModel() {
+//        viewModel.tableSelectSingle.subscribeNext { (indexPath) in
+//            if indexPath.section == 0 && indexPath.row == 0 {
+//                self.navigationController?.pushViewController(AddressViewController(), animated: true)
+//            }
+//        }
     }
     
     override func didReceiveMemoryWarning() {
