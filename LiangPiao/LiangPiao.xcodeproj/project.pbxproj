@@ -23,6 +23,21 @@
 		1F0EAB791DD096F200D25B64 /* OrderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0EAB781DD096F200D25B64 /* OrderModel.swift */; };
 		1F0EAB7B1DD0AE2300D25B64 /* OrderPayTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0EAB7A1DD0AE2300D25B64 /* OrderPayTableViewCell.swift */; };
 		1F0EAB7D1DD16D0E00D25B64 /* OrderDoneTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0EAB7C1DD16D0E00D25B64 /* OrderDoneTableViewCell.swift */; };
+		1F0EAB811DD1B4BE00D25B64 /* CountDown.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0EAB801DD1B4BE00D25B64 /* CountDown.m */; };
+		1F0EAB831DD1B53200D25B64 /* OrderCountDownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0EAB821DD1B53200D25B64 /* OrderCountDownView.swift */; };
+		1F0EAB851DD1C88C00D25B64 /* MineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0EAB841DD1C88C00D25B64 /* MineViewModel.swift */; };
+		1F0EAB871DD1CC0700D25B64 /* MineHeadTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0EAB861DD1CC0700D25B64 /* MineHeadTableViewCell.swift */; };
+		1F0EAB891DD1D65C00D25B64 /* ServiceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0EAB881DD1D65C00D25B64 /* ServiceTableViewCell.swift */; };
+		1F0EAB8B1DD1DBC400D25B64 /* MyProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0EAB8A1DD1DBC400D25B64 /* MyProfileViewController.swift */; };
+		1F0EAB8D1DD1DD3C00D25B64 /* MyProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0EAB8C1DD1DD3C00D25B64 /* MyProfileViewModel.swift */; };
+		1F0EAB8F1DD1DF1E00D25B64 /* ProfileImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0EAB8E1DD1DF1E00D25B64 /* ProfileImageTableViewCell.swift */; };
+		1F0EAB911DD1E8F200D25B64 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0EAB901DD1E8F200D25B64 /* SettingViewController.swift */; };
+		1F0EAB931DD1E93C00D25B64 /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0EAB921DD1E93C00D25B64 /* SettingViewModel.swift */; };
+		1F0EAB971DD1EBAA00D25B64 /* ZHPickView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0EAB961DD1EBAA00D25B64 /* ZHPickView.m */; };
+		1F0EAB9B1DD2002000D25B64 /* ProvincesAndCities.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1F0EAB9A1DD2002000D25B64 /* ProvincesAndCities.plist */; };
+		1F0EAB9D1DD2038300D25B64 /* citydict.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1F0EAB9C1DD2038300D25B64 /* citydict.plist */; };
+		1F0EAB9F1DD203F000D25B64 /* city.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1F0EAB9E1DD203F000D25B64 /* city.plist */; };
+		1F0EABA11DD2C0A600D25B64 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0EABA01DD2C0A600D25B64 /* LoginViewController.swift */; };
 		1F62F2571DC9BC1900B591F1 /* TicketSceneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F62F2561DC9BC1900B591F1 /* TicketSceneViewController.swift */; };
 		1F62F2591DC9BDBF00B591F1 /* TicketSceneTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F62F2581DC9BDBF00B591F1 /* TicketSceneTableViewCell.swift */; };
 		1F62F25B1DC9C50300B591F1 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F62F25A1DC9C50300B591F1 /* HomeViewModel.swift */; };
@@ -79,7 +94,7 @@
 		1FD2458A1DC336B300AFD3BC /* BaseNetWorke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD245891DC336B300AFD3BC /* BaseNetWorke.swift */; };
 		1FD2459D1DC356EA00AFD3BC /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD2459C1DC356EA00AFD3BC /* BaseViewController.swift */; };
 		1FD2459F1DC3570E00AFD3BC /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD2459E1DC3570E00AFD3BC /* HomeViewController.swift */; };
-		1FD245A51DC3574800AFD3BC /* MIneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD245A41DC3574800AFD3BC /* MIneViewController.swift */; };
+		1FD245A51DC3574800AFD3BC /* MineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD245A41DC3574800AFD3BC /* MineViewController.swift */; };
 		1FD881B71DC7252800B2B702 /* UITableView+FDIndexPathHeightCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FD881B01DC7252800B2B702 /* UITableView+FDIndexPathHeightCache.m */; };
 		1FD881B81DC7252800B2B702 /* UITableView+FDKeyedHeightCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FD881B21DC7252800B2B702 /* UITableView+FDKeyedHeightCache.m */; };
 		1FD881B91DC7252800B2B702 /* UITableView+FDTemplateLayoutCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FD881B41DC7252800B2B702 /* UITableView+FDTemplateLayoutCell.m */; };
@@ -121,6 +136,23 @@
 		1F0EAB781DD096F200D25B64 /* OrderModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderModel.swift; sourceTree = "<group>"; };
 		1F0EAB7A1DD0AE2300D25B64 /* OrderPayTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderPayTableViewCell.swift; sourceTree = "<group>"; };
 		1F0EAB7C1DD16D0E00D25B64 /* OrderDoneTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderDoneTableViewCell.swift; sourceTree = "<group>"; };
+		1F0EAB7F1DD1B4BE00D25B64 /* CountDown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CountDown.h; sourceTree = "<group>"; };
+		1F0EAB801DD1B4BE00D25B64 /* CountDown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CountDown.m; sourceTree = "<group>"; };
+		1F0EAB821DD1B53200D25B64 /* OrderCountDownView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderCountDownView.swift; sourceTree = "<group>"; };
+		1F0EAB841DD1C88C00D25B64 /* MineViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MineViewModel.swift; sourceTree = "<group>"; };
+		1F0EAB861DD1CC0700D25B64 /* MineHeadTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MineHeadTableViewCell.swift; sourceTree = "<group>"; };
+		1F0EAB881DD1D65C00D25B64 /* ServiceTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceTableViewCell.swift; sourceTree = "<group>"; };
+		1F0EAB8A1DD1DBC400D25B64 /* MyProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyProfileViewController.swift; sourceTree = "<group>"; };
+		1F0EAB8C1DD1DD3C00D25B64 /* MyProfileViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyProfileViewModel.swift; sourceTree = "<group>"; };
+		1F0EAB8E1DD1DF1E00D25B64 /* ProfileImageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileImageTableViewCell.swift; sourceTree = "<group>"; };
+		1F0EAB901DD1E8F200D25B64 /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		1F0EAB921DD1E93C00D25B64 /* SettingViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
+		1F0EAB951DD1EBAA00D25B64 /* ZHPickView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHPickView.h; sourceTree = "<group>"; };
+		1F0EAB961DD1EBAA00D25B64 /* ZHPickView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHPickView.m; sourceTree = "<group>"; };
+		1F0EAB9A1DD2002000D25B64 /* ProvincesAndCities.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ProvincesAndCities.plist; sourceTree = "<group>"; };
+		1F0EAB9C1DD2038300D25B64 /* citydict.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = citydict.plist; sourceTree = "<group>"; };
+		1F0EAB9E1DD203F000D25B64 /* city.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = city.plist; sourceTree = "<group>"; };
+		1F0EABA01DD2C0A600D25B64 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		1F62F2561DC9BC1900B591F1 /* TicketSceneViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketSceneViewController.swift; sourceTree = "<group>"; };
 		1F62F2581DC9BDBF00B591F1 /* TicketSceneTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketSceneTableViewCell.swift; sourceTree = "<group>"; };
 		1F62F25A1DC9C50300B591F1 /* HomeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
@@ -196,7 +228,7 @@
 		1FD245891DC336B300AFD3BC /* BaseNetWorke.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseNetWorke.swift; sourceTree = "<group>"; };
 		1FD2459C1DC356EA00AFD3BC /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		1FD2459E1DC3570E00AFD3BC /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
-		1FD245A41DC3574800AFD3BC /* MIneViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MIneViewController.swift; sourceTree = "<group>"; };
+		1FD245A41DC3574800AFD3BC /* MineViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MineViewController.swift; sourceTree = "<group>"; };
 		1FD881AF1DC7252800B2B702 /* UITableView+FDIndexPathHeightCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+FDIndexPathHeightCache.h"; sourceTree = "<group>"; };
 		1FD881B01DC7252800B2B702 /* UITableView+FDIndexPathHeightCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+FDIndexPathHeightCache.m"; sourceTree = "<group>"; };
 		1FD881B11DC7252800B2B702 /* UITableView+FDKeyedHeightCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+FDKeyedHeightCache.h"; sourceTree = "<group>"; };
@@ -261,6 +293,7 @@
 			children = (
 				1F0EAB741DD095E900D25B64 /* OrderNumberTableViewCell.swift */,
 				1F0EAB761DD0961D00D25B64 /* OrderHandleTableViewCell.swift */,
+				1F0EAB821DD1B53200D25B64 /* OrderCountDownView.swift */,
 			);
 			path = Order;
 			sourceTree = "<group>";
@@ -300,6 +333,24 @@
 			children = (
 			);
 			path = Sell;
+			sourceTree = "<group>";
+		};
+		1F0EAB7E1DD1B4BE00D25B64 /* CountDown */ = {
+			isa = PBXGroup;
+			children = (
+				1F0EAB7F1DD1B4BE00D25B64 /* CountDown.h */,
+				1F0EAB801DD1B4BE00D25B64 /* CountDown.m */,
+			);
+			path = CountDown;
+			sourceTree = "<group>";
+		};
+		1F0EAB941DD1EBAA00D25B64 /* ZHPickView */ = {
+			isa = PBXGroup;
+			children = (
+				1F0EAB951DD1EBAA00D25B64 /* ZHPickView.h */,
+				1F0EAB961DD1EBAA00D25B64 /* ZHPickView.m */,
+			);
+			path = ZHPickView;
 			sourceTree = "<group>";
 		};
 		1FC4FEE01DC8A32E00EBFD18 /* TYPagerController */ = {
@@ -355,7 +406,10 @@
 				1FD244C91DC2F92E00AFD3BC /* Main.storyboard */,
 				1FD244CC1DC2F92E00AFD3BC /* Assets.xcassets */,
 				1FD244CE1DC2F92E00AFD3BC /* LaunchScreen.storyboard */,
+				1F0EAB9E1DD203F000D25B64 /* city.plist */,
 				1FD244D11DC2F92E00AFD3BC /* Info.plist */,
+				1F0EAB9C1DD2038300D25B64 /* citydict.plist */,
+				1F0EAB9A1DD2002000D25B64 /* ProvincesAndCities.plist */,
 			);
 			path = LiangPiao;
 			sourceTree = "<group>";
@@ -479,6 +533,8 @@
 		1FD244DF1DC2FCDA00AFD3BC /* Lib */ = {
 			isa = PBXGroup;
 			children = (
+				1F0EAB941DD1EBAA00D25B64 /* ZHPickView */,
+				1F0EAB7E1DD1B4BE00D25B64 /* CountDown */,
 				1FC4FEE01DC8A32E00EBFD18 /* TYPagerController */,
 				1FD881D51DC8546500B2B702 /* SDCycleScrollView */,
 				1FD881AE1DC7252800B2B702 /* UITableView-FDTempleateLayoutCell */,
@@ -523,9 +579,11 @@
 		1FD2458E1DC3553E00AFD3BC /* Mine */ = {
 			isa = PBXGroup;
 			children = (
-				1FD245A41DC3574800AFD3BC /* MIneViewController.swift */,
+				1FD245A41DC3574800AFD3BC /* MineViewController.swift */,
 				1F67D10D1DCD816000378116 /* AddressViewController.swift */,
 				1F67D10F1DCD816E00378116 /* AddAddressViewController.swift */,
+				1F0EAB8A1DD1DBC400D25B64 /* MyProfileViewController.swift */,
+				1F0EAB901DD1E8F200D25B64 /* SettingViewController.swift */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -546,6 +604,9 @@
 				1F67D1111DCD854800378116 /* AddressViewModel.swift */,
 				1F67D1151DCDB56A00378116 /* DetailAddressTableViewCell.swift */,
 				1F67D1171DCDB57A00378116 /* SetNomalAddressTableViewCell.swift */,
+				1F0EAB841DD1C88C00D25B64 /* MineViewModel.swift */,
+				1F0EAB8C1DD1DD3C00D25B64 /* MyProfileViewModel.swift */,
+				1F0EAB921DD1E93C00D25B64 /* SettingViewModel.swift */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -588,6 +649,10 @@
 			isa = PBXGroup;
 			children = (
 				1F67D1131DCD867A00378116 /* AddressTableViewCell.swift */,
+				1F0EAB861DD1CC0700D25B64 /* MineHeadTableViewCell.swift */,
+				1F0EAB881DD1D65C00D25B64 /* ServiceTableViewCell.swift */,
+				1F0EAB8E1DD1DF1E00D25B64 /* ProfileImageTableViewCell.swift */,
+				1F0EABA01DD2C0A600D25B64 /* LoginViewController.swift */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -758,8 +823,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F0EAB9D1DD2038300D25B64 /* citydict.plist in Resources */,
 				1FD244D01DC2F92E00AFD3BC /* LaunchScreen.storyboard in Resources */,
 				1FD244CD1DC2F92E00AFD3BC /* Assets.xcassets in Resources */,
+				1F0EAB9F1DD203F000D25B64 /* city.plist in Resources */,
+				1F0EAB9B1DD2002000D25B64 /* ProvincesAndCities.plist in Resources */,
 				1FD244CB1DC2F92E00AFD3BC /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -824,21 +892,25 @@
 				1FD881E71DC8546500B2B702 /* TADotView.m in Sources */,
 				1F62F2571DC9BC1900B591F1 /* TicketSceneViewController.swift in Sources */,
 				1FD881E51DC8546500B2B702 /* TAAbstractDotView.m in Sources */,
+				1F0EAB871DD1CC0700D25B64 /* MineHeadTableViewCell.swift in Sources */,
 				1FC4FED51DC8734200EBFD18 /* BaseTicketsPageViewController.swift in Sources */,
 				1FD245081DC2FD9700AFD3BC /* NSFileManager+Cache.m in Sources */,
 				1FD881EA1DC8546500B2B702 /* SDCycleScrollView.m in Sources */,
 				1F0EAB591DD052C700D25B64 /* OrderDetailViewController.swift in Sources */,
 				1FC4FEDB1DC873EF00EBFD18 /* OperaTicketViewController.swift in Sources */,
 				1FD881B91DC7252800B2B702 /* UITableView+FDTemplateLayoutCell.m in Sources */,
+				1F0EAB811DD1B4BE00D25B64 /* CountDown.m in Sources */,
 				1FD244C81DC2F92E00AFD3BC /* ViewController.swift in Sources */,
 				1FD244E81DC2FD3D00AFD3BC /* String+Size.swift in Sources */,
 				1FD881C71DC748A300B2B702 /* UITextView+Placeholder.m in Sources */,
 				1FD244EB1DC2FD3D00AFD3BC /* UIImage+Crop.swift in Sources */,
+				1F0EAB971DD1EBAA00D25B64 /* ZHPickView.m in Sources */,
 				1FD881E61DC8546500B2B702 /* TAAnimatedDotView.m in Sources */,
 				1F62F2611DC9F1E600B591F1 /* TicketNumberTableViewCell.swift in Sources */,
 				1F0EAB731DD0949A00D25B64 /* OrderListViewModel.swift in Sources */,
 				1FB7B2961DCC2B5200945B70 /* UIImage+ImageEffects.m in Sources */,
 				1F0EAB611DD05C2200D25B64 /* TicketLocationTableViewCell.swift in Sources */,
+				1F0EAB8D1DD1DD3C00D25B64 /* MyProfileViewModel.swift in Sources */,
 				1FD881CF1DC7621400B2B702 /* HomeCenterModel.swift in Sources */,
 				1FD881ED1DC854EE00B2B702 /* HomeScrollerTableViewCell.swift in Sources */,
 				1F67D1181DCDB57A00378116 /* SetNomalAddressTableViewCell.swift in Sources */,
@@ -850,6 +922,9 @@
 				1FD2459F1DC3570E00AFD3BC /* HomeViewController.swift in Sources */,
 				1F62F2651DC9F21800B591F1 /* TickerInfoTableViewCell.swift in Sources */,
 				1F0EAB5D1DD056DE00D25B64 /* OrderAddressTableViewCell.swift in Sources */,
+				1F0EAB8B1DD1DBC400D25B64 /* MyProfileViewController.swift in Sources */,
+				1F0EABA11DD2C0A600D25B64 /* LoginViewController.swift in Sources */,
+				1F0EAB911DD1E8F200D25B64 /* SettingViewController.swift in Sources */,
 				1FD881E81DC8546500B2B702 /* TAPageControl.m in Sources */,
 				1F67D1101DCD816E00378116 /* AddAddressViewController.swift in Sources */,
 				1FD2450A1DC2FD9700AFD3BC /* UIImage+QiNiuTools.m in Sources */,
@@ -871,6 +946,7 @@
 				1FC4FEED1DC8A32E00EBFD18 /* TYTabTitleViewCell.m in Sources */,
 				1FD245011DC2FD9700AFD3BC /* NSString+StringSize.m in Sources */,
 				1F0EAB681DD091FA00D25B64 /* OrderListViewController.swift in Sources */,
+				1F0EAB851DD1C88C00D25B64 /* MineViewModel.swift in Sources */,
 				1F62F2591DC9BDBF00B591F1 /* TicketSceneTableViewCell.swift in Sources */,
 				1FD245071DC2FD9700AFD3BC /* NSFileManager+Utils.m in Sources */,
 				1FD245031DC2FD9700AFD3BC /* UIViewController+hideExcessLine.m in Sources */,
@@ -883,17 +959,21 @@
 				1FD881BA1DC7252800B2B702 /* UITableView+FDTemplateLayoutCellDebug.m in Sources */,
 				1FD245051DC2FD9700AFD3BC /* UIImage+PureColor.m in Sources */,
 				1FD244E71DC2FD3D00AFD3BC /* AlertControl+Tools.swift in Sources */,
-				1FD245A51DC3574800AFD3BC /* MIneViewController.swift in Sources */,
+				1FD245A51DC3574800AFD3BC /* MineViewController.swift in Sources */,
 				1FD245101DC2FE8900AFD3BC /* Config.swift in Sources */,
 				1FD881D11DC83E8900B2B702 /* RecommendTableViewCell.swift in Sources */,
+				1F0EAB831DD1B53200D25B64 /* OrderCountDownView.swift in Sources */,
 				1F0EAB6E1DD0932400D25B64 /* SellTicketsViewController.swift in Sources */,
 				1FC4FED71DC8739900EBFD18 /* AllTicketViewController.swift in Sources */,
+				1F0EAB891DD1D65C00D25B64 /* ServiceTableViewCell.swift in Sources */,
 				1F0EAB7D1DD16D0E00D25B64 /* OrderDoneTableViewCell.swift in Sources */,
 				1F0EAB771DD0961D00D25B64 /* OrderHandleTableViewCell.swift in Sources */,
 				1F67D1121DCD854800378116 /* AddressViewModel.swift in Sources */,
 				1F6629921DCC495F00336700 /* CofimTicketTableViewCell.swift in Sources */,
+				1F0EAB8F1DD1DF1E00D25B64 /* ProfileImageTableViewCell.swift in Sources */,
 				1FD2450E1DC2FE7300AFD3BC /* Define.swift in Sources */,
 				1FD881CB1DC75FE600B2B702 /* HomeToolsTableViewCell.swift in Sources */,
+				1F0EAB931DD1E93C00D25B64 /* SettingViewModel.swift in Sources */,
 				1FC4FEEB1DC8A32E00EBFD18 /* TYTabButtonPagerController.m in Sources */,
 				1F0EAB5B1DD053EE00D25B64 /* OrderDetailViewModel.swift in Sources */,
 				1FC4FED31DC8729A00EBFD18 /* TicketPageViewController.swift in Sources */,

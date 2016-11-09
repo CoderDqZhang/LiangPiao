@@ -157,10 +157,10 @@
             </objects>
             <point key="canvasLocation" x="-416" y="892"/>
         </scene>
-        <!--Ine View Controller-->
+        <!--Mine View Controller-->
         <scene sceneID="5n4-xW-VN3">
             <objects>
-                <viewController id="CFw-gh-aT0" customClass="MIneViewController" customModule="LiangPiao" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="CFw-gh-aT0" customClass="MineViewController" customModule="LiangPiao" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="0Xi-ao-mEc"/>
                         <viewControllerLayoutGuide type="bottom" id="ZeZ-GX-uG3"/>

@@ -25,6 +25,14 @@ let ToolViewNotifacationName = "ToolsViewNotification"
 
 let KWINDOWDS = UIApplication.sharedApplication().keyWindow
 
+
+func AppCallViewShow(view:UIView, phone:String) {
+    let str = "tel:\(phone)"
+    let callWebView = UIWebView()
+    callWebView.loadRequest(NSURLRequest(URL: NSURL.init(string: str)!))
+    view.addSubview(callWebView)
+}
+
 func UserDefaultsSetSynchronize(value:AnyObject,key:String) {
     NSUserDefaults.standardUserDefaults().setObject(value, forKey: key)
     NSUserDefaults.standardUserDefaults().synchronize()

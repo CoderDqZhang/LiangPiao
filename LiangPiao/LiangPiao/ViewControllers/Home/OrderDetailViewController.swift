@@ -86,7 +86,9 @@ class OrderDetailViewController: UIViewController {
         tableView.separatorStyle = .None
         self.view.addSubview(tableView)
         tableView.snp_makeConstraints { (make) in
-            make.edges.equalTo(UIEdgeInsetsMake(0, 0, 0, 0))
+            make.top.equalTo(self.view.snp_top).offset(0)
+            make.left.equalTo(self.view.snp_left).offset(0)
+            make.right.equalTo(self.view.snp_right).offset(0)
         }
         
         payView = OrderPayView(frame: CGRectMake(0, SCREENHEIGHT - 49, SCREENWIDTH, 49))

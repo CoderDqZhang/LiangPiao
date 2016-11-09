@@ -92,6 +92,7 @@ extension OrderListViewController : UITableViewDataSource {
         case 0:
             let cell = tableView.dequeueReusableCellWithIdentifier("OrderNumberTableViewCell", forIndexPath: indexPath) as! OrderNumberTableViewCell
             cell.userInteractionEnabled = false
+            cell.selectionStyle = .None
             return cell
         case 1:
             let cell = tableView.dequeueReusableCellWithIdentifier("OrderTicketInfoTableViewCell", forIndexPath: indexPath) as! OrderTicketInfoTableViewCell

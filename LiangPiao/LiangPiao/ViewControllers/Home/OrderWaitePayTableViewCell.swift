@@ -23,6 +23,8 @@ class OrderWaitePayTableViewCell: UITableViewCell {
     
     var lineLabel:GloabLineView!
     
+    var orderCountDownView:OrderCountDownView!
+    
     var didMakeConstraints:Bool = false
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
@@ -40,7 +42,7 @@ class OrderWaitePayTableViewCell: UITableViewCell {
         
         orderTime = UILabel()
         orderTime.text = "剩余支付时间:"
-        orderTime.textColor = UIColor.init(hexString: Order_Status_Time_Color)
+        orderTime.textColor = UIColor.init(hexString: Home_Ticker_Descrip_Color)
         orderTime.font = Order_Status_Time_Font
         self.contentView.addSubview(orderTime)
         
@@ -65,6 +67,9 @@ class OrderWaitePayTableViewCell: UITableViewCell {
         orderAddress.font = Mine_Address_Name_Font
         self.contentView.addSubview(orderAddress)
         
+        orderCountDownView = OrderCountDownView(frame: CGRectMake(91, 55, 68, 15))
+        self.contentView.addSubview(orderCountDownView)
+        
         self.updateConstraintsIfNeeded()
     }
     
@@ -86,7 +91,7 @@ class OrderWaitePayTableViewCell: UITableViewCell {
             
             orderTime.snp_makeConstraints(closure: { (make) in
                 make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.top.equalTo(self.orderStatusWait.snp_bottom).offset(4)
+                make.top.equalTo(self.orderStatusWait.snp_bottom).offset(6)
             })
             
             orderImage.snp_makeConstraints(closure: { (make) in
@@ -103,7 +108,6 @@ class OrderWaitePayTableViewCell: UITableViewCell {
             orderAddress.snp_makeConstraints(closure: { (make) in
                 make.top.equalTo(self.orderName.snp_bottom).offset(1)
                 make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.bottom.equalTo(self.contentView.snp_bottom).offset(-32)
             })
             
             lineLabel.snp_makeConstraints(closure: { (make) in

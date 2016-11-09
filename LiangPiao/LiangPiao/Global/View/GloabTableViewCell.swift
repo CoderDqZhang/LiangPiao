@@ -12,6 +12,8 @@ let GlobalCell_Title_Color = "384249"
 let GlobalCell_mTitle_Color = "4BD4C5"
 let GlobalCell_Title_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(13.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 13.0)
 
+let GlobalCell_ImageTitle_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(13.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 13.0)
+
 let GlobalCell_Detail_Color = "8A96A2"
 let GlobalCell_Detail_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(13.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 13.0)
 
@@ -342,6 +344,80 @@ class GloabTextFieldCell: UITableViewCell {
             textField.snp_makeConstraints(closure: { (make) in
                 make.left.equalTo(self.contentView.snp_left).offset(15)
                 make.top.equalTo(self.contentView.snp_top).offset(15.5)
+            })
+            
+            lineLable.snp_makeConstraints(closure: { (make) in
+                make.left.equalTo(self.contentView.snp_left).offset(15)
+                make.right.equalTo(self.contentView.snp_right).offset(-15)
+                make.bottom.equalTo(self.contentView.snp_bottom).offset(-0.5)
+            })
+            
+            self.didMakeConstraints = true
+        }
+        super.updateConstraints()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+class GloabImageTitleAndImageCell: UITableViewCell {
+    var titleLabel:UILabel!
+    var infoImageView:UIImageView!
+    var detailImage:UIImageView!
+    
+    var lineLable:GloabLineView!
+    
+    var didMakeConstraints:Bool = false
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.setUpView()
+    }
+    
+    func setUpView() {
+        titleLabel = UILabel()
+        titleLabel.font = GlobalCell_ImageTitle_Font
+        titleLabel.textColor = UIColor.init(hexString: GlobalCell_Title_Color)
+        self.contentView.addSubview(titleLabel)
+        
+        infoImageView = UIImageView()
+        self.contentView.addSubview(infoImageView)
+        
+        detailImage = UIImageView()
+        detailImage.image = UIImage.init(named: "Btn_More")
+        self.contentView.addSubview(detailImage)
+        
+        lineLable = GloabLineView(frame: CGRectMake(15,0,SCREENWIDTH - 30, 0.5))
+        self.contentView.addSubview(lineLable)
+        
+        self.updateConstraintsIfNeeded()
+    }
+    
+    func setData(title:String, infoImage:UIImage) {
+        self.titleLabel.text = title
+        infoImageView.image = infoImage
+    }
+    
+    func hideLineLabel() {
+        self.lineLable.hidden = true
+    }
+    
+    override func updateConstraints() {
+        if !self.didMakeConstraints {
+            titleLabel.snp_makeConstraints(closure: { (make) in
+                make.left.equalTo(self.infoImageView.snp_right).offset(9)
+                make.centerY.equalTo(self.contentView.snp_centerY).offset(0)
+            })
+            
+            infoImageView.snp_makeConstraints(closure: { (make) in
+                make.left.equalTo(self.contentView.snp_left).offset(15)
+                make.centerY.equalTo(self.contentView.snp_centerY).offset(0)
+            })
+            
+            detailImage.snp_makeConstraints(closure: { (make) in
+                make.right.equalTo(self.contentView.snp_right).offset(-15)
+                make.top.equalTo(self.contentView.snp_top).offset(17.5)
             })
             
             lineLable.snp_makeConstraints(closure: { (make) in

@@ -130,6 +130,9 @@ let Order_Status_Wait_Done_Font = IPHONE_VERSION > 9 ? UIFont.init(name: ".SFUIT
 let Order_Status_Time_Color = "4BD4C5"
 let Order_Status_Time_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(11.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 11.0)
 
+let Count_Done_BackGround_Color = "8A96A2"
+let Count_Done_Text_Color = "FFFFFF"
+let Count_Done_Text_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(11.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 11.0)
 
 let Order_PayTable_Color = "384249"
 let Order_PayTable_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(12.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 12.0)
@@ -140,6 +143,23 @@ let APP_State_Ticket_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(12.0):U
 let APP_State_EmptyData_Color = "DDE0E5"
 let APP_State_EmptyData_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(16.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 16.0)
 
+let Mine_Header_Name_Color = "FFFFFF"
+let Mine_Header_Name_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(16.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 16.0)
+
+let Mine_Service_Color = "DDE0E5"
+let Mine_Service_mColor = "57DAD0"
+let Mine_Service_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(13.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 13.0)
+
+let LoginView_Label_Color = "8A96A2"
+let LoginView_Label_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(14.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 14.0)
+
+let LoginView_CodeSenderButton_Color = "FFFFFF"
+let LoginView_CodeSenderButton_bColor = "DDE0E5"
+let LoginView_CodeSenderButton_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(12.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 12.0)
+
+let LoginView_LoginButton_Font = IPHONE_VERSION > 9 ? UIFont.init(name:".SFUIText-Medium", size: 15.0):UIFont.init(name: ".HelveticaNeueInterface-Medium", size: 15.0)
+
+let LoginView_Service_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(12.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 12.0)
 
 let Home_Ticket_Status_BackGround_NColor = "4BD4C5"
 let Home_Ticket_Status_BackGround_SColor = "FF7A5E"
