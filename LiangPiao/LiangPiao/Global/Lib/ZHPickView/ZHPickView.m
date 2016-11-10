@@ -89,6 +89,7 @@
     self=[super init];
     if (self) {
         _defaulDate=defaulDate;
+        [self setUpPickView];
         [self setUpDatePickerWithdatePickerMode:(UIDatePickerMode)datePickerMode];
         [self setFrameWith:isHaveNavControler];
     }
@@ -162,14 +163,19 @@
     UIDatePicker *datePicker=[[UIDatePicker alloc] init];
     datePicker.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"zh_CN"];
     datePicker.datePickerMode = datePickerMode;
-    datePicker.backgroundColor=[UIColor lightGrayColor];
+    datePicker.backgroundColor= [UIColor whiteColor];
     if (_defaulDate) {
         [datePicker setDate:_defaulDate];
     }
     _datePicker=datePicker;
-    datePicker.frame=CGRectMake(0, ZHToobarHeight, datePicker.frame.size.width, datePicker.frame.size.height);
+    datePicker.frame=CGRectMake(0, ZHToobarHeight, [[UIScreen mainScreen] bounds].size.width, datePicker.frame.size.height);
+    [datePicker addTarget:self action:@selector(datePickerValueChanged) forControlEvents:UIControlEventValueChanged];
     _pickeviewHeight=datePicker.frame.size.height;
     [self addSubview:datePicker];
+}
+
+- (void)datePickerValueChanged {
+    
 }
 
 -(void)setUpToolBar{
@@ -316,10 +322,16 @@
 }
 -(void)doneClick
 {
-    if (_pickerView) {
-        
+    if (_datePicker) {
+        NSDate *selected = [_datePicker date];
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+        NSString *destDateString = [dateFormatter stringFromDate:selected];
+        _resultString=[NSString stringWithFormat:@"%@",destDateString];
+
+    }else if(_pickerView) {
         if (_resultString) {
-//            NSInteger cIndex = [_pickerView selectedRowInComponent:0];
+            NSInteger cIndex = [_pickerView selectedRowInComponent:0];
             
         }else{
             if (_isLevelString) {
@@ -345,9 +357,6 @@
               _resultString=[NSString stringWithFormat:@"%@ %@",_state,_city];
            }
         }
-    }else if (_datePicker) {
-      
-        _resultString=[NSString stringWithFormat:@"%@",_datePicker.date];
     }
     if ([self.delegate respondsToSelector:@selector(toobarDonBtnHaveClick:resultString:)]) {
         [self.delegate toobarDonBtnHaveClick:self resultString:_resultString];

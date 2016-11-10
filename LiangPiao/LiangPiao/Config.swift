@@ -20,6 +20,7 @@ let HomePage_brand_BackGroudColor = "4bd4c5"
 let App_Theme_Text_Color = "384249"
 let App_Theme_BackGround_Color = "4BD4C5"
 
+let App_Theme_TableViewBackGround_Color = "E9EBF2"
 
 let NavigationBar_Title_Color = "FFFFFF"
 let NavigationBar_Title_Font = IPHONE_VERSION > 9 ? UIFont.init(name:".SFUIText-Light", size: 17.0):UIFont.init(name: ".HelveticaNeueInterface-Light", size: 17)
@@ -60,6 +61,9 @@ let Home_Page_Ticket_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(13.0):U
 
 let Home_Ticket_Status_Title_Color = "FFFFFF"
 let Home_Ticket_Status_Font = IPHONE_VERSION > 9 ? UIFont.init(name: ".SFUIText-Light", size: 11.0):UIFont.init(name: ".HelveticaNeueInterface-Light", size: 11)
+
+let Home_Ticket_Tools_Color = "556169"
+let Home_Ticket_Tools_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(12.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 12.0)
 
 let Home_Ticket_Scene_Title_Color = "556169"
 let Home_Ticket_Scene_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(15.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 15.0)
@@ -158,6 +162,8 @@ let LoginView_CodeSenderButton_bColor = "DDE0E5"
 let LoginView_CodeSenderButton_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(12.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 12.0)
 
 let LoginView_LoginButton_Font = IPHONE_VERSION > 9 ? UIFont.init(name:".SFUIText-Medium", size: 15.0):UIFont.init(name: ".HelveticaNeueInterface-Medium", size: 15.0)
+
+
 
 let LoginView_Service_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(12.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 12.0)
 

@@ -13,6 +13,9 @@ import SnapKit
 class HomeViewController: BaseViewController {
 
     var tableView:UITableView!
+    
+    var cell:HomeSearchTableViewCell!
+    
     var searchNavigationBar = HomeSearchNavigationBar(frame: CGRectMake(0,0,SCREENWIDTH, 64),font:Home_Navigation_Search_Font)
     override func viewDidLoad() {
         self.setUpTableView()
@@ -29,6 +32,8 @@ class HomeViewController: BaseViewController {
         tableView = UITableView(frame: CGRect.zero, style: .Grouped)
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.keyboardDismissMode = .OnDrag
+        tableView.backgroundColor = UIColor.init(hexString: App_Theme_TableViewBackGround_Color)
         tableView.registerClass(HomeSearchTableViewCell.self, forCellReuseIdentifier: "HomeSearchTableViewCell")
         tableView.registerClass(HomeToolsTableViewCell.self, forCellReuseIdentifier: "HomeToolsTableViewCell")
         tableView.registerClass(HomeScrollerTableViewCell.self, forCellReuseIdentifier: "HomeScrollerTableViewCell")
@@ -77,7 +82,7 @@ extension HomeViewController : UITableViewDelegate {
                 case 0:
                     return 255
                 case 1:
-                    return 212
+                    return 100
                 default:
                     return 152
             }
@@ -115,6 +120,11 @@ extension HomeViewController : UITableViewDelegate {
         }else{
             searchNavigationBar.searchField.hidden = true
         }
+        if cell != nil {
+            if scrollView.contentOffset.y < 0 {
+                cell.cellBackView.frame = CGRectMake(0, scrollView.contentOffset.y, SCREENWIDTH, 255 - scrollView.contentOffset.y)
+            }
+        }
     }
 }
 
@@ -122,7 +132,7 @@ extension HomeViewController : UITableViewDataSource {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
-            return 3
+            return 2
         default:
             return 10
         }
@@ -133,7 +143,12 @@ extension HomeViewController : UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 10
+        switch section {
+        case 1:
+            return 0.0001
+        default:
+            return 10
+        }
     }
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -145,7 +160,7 @@ extension HomeViewController : UITableViewDataSource {
         case 0:
             switch indexPath.row {
             case 0:
-                let cell = tableView.dequeueReusableCellWithIdentifier("HomeSearchTableViewCell", forIndexPath: indexPath) as! HomeSearchTableViewCell
+                cell = tableView.dequeueReusableCellWithIdentifier("HomeSearchTableViewCell", forIndexPath: indexPath) as! HomeSearchTableViewCell
                 cell.selectionStyle = .None
                 return cell
             case 1:
@@ -167,7 +182,13 @@ extension HomeViewController : UITableViewDataSource {
                 var cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier)
                 if cell == nil {
                     cell = UITableViewCell(style: .Default, reuseIdentifier: cellIdentifier)
+                }else{
+                    for subView in (cell?.contentView.subviews)! {
+                        subView.removeFromSuperview()
+                    }
                 }
+                
+                
                  let recommentTitle = UILabel()
                 if IPHONE_VERSION >= 9 {
                     recommentTitle.frame = CGRectMake((SCREENWIDTH - 56) / 2, 30, 56, 20)

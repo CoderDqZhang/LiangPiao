@@ -22,6 +22,7 @@ enum HttpRequestType {
 
 class BaseNetWorke {
     private init() {
+    
     }
     
     static let sharedInstance = BaseNetWorke()

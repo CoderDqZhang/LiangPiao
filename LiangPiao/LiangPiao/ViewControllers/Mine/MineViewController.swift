@@ -11,6 +11,7 @@ import UIKit
 class MineViewController: BaseViewController {
 
     var tableView:UITableView!
+    var cell:MineHeadTableViewCell!
     let viewModel = MineViewModel()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,19 +29,24 @@ class MineViewController: BaseViewController {
         tableView = UITableView(frame: CGRectZero, style: .Plain)
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.keyboardDismissMode = .OnDrag
         tableView.separatorStyle = .None
         tableView.registerClass(MineHeadTableViewCell.self, forCellReuseIdentifier: "MineHeadTableViewCell")
         tableView.registerClass(GloabImageTitleAndImageCell.self, forCellReuseIdentifier: "GloabImageTitleAndImageCell")
         tableView.registerClass(ServiceTableViewCell.self, forCellReuseIdentifier: "ServiceTableViewCell")
         self.view.addSubview(tableView)
         tableView.snp_makeConstraints { (make) in
-            make.edges.equalTo(UIEdgeInsetsMake(-20, 0, 0, 0))
+            make.top.equalTo(self.view.snp_top).offset(-20)
+            make.left.equalTo(self.view.snp_left).offset(0)
+            make.right.equalTo(self.view.snp_right).offset(0)
+            make.bottom.equalTo(self.view.snp_bottom).offset(0)
         }
         
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        self.navigationController?.fd_prefersNavigationBarHidden = true
         self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
 
@@ -66,12 +72,12 @@ extension MineViewController : UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         switch indexPath.row {
         case 0:
-            let controller = LoginViewController()
-            controller.hidesBottomBarWhenPushed = true
-            self.navigationController?.pushViewController(controller, animated: true)
-//            let controller = MyProfileViewController()
+//            let controller = LoginViewController()
 //            controller.hidesBottomBarWhenPushed = true
 //            self.navigationController?.pushViewController(controller, animated: true)
+            let controller = MyProfileViewController()
+            controller.hidesBottomBarWhenPushed = true
+            self.navigationController?.pushViewController(controller, animated: true)
         case 2:
             let controller = AddressViewController()
             controller.hidesBottomBarWhenPushed = true
@@ -84,6 +90,14 @@ extension MineViewController : UITableViewDelegate {
             break;
         }
         
+    }
+    
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        if cell != nil {
+            if scrollView.contentOffset.y < 0 {
+                cell.cellBackView.frame = CGRectMake(0, scrollView.contentOffset.y, SCREENWIDTH, 255 - scrollView.contentOffset.y)
+            }
+        }
     }
 }
 
@@ -111,7 +125,7 @@ extension MineViewController : UITableViewDataSource {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         switch indexPath.row {
         case 0:
-            let cell = tableView.dequeueReusableCellWithIdentifier("MineHeadTableViewCell", forIndexPath: indexPath) as! MineHeadTableViewCell
+            cell = tableView.dequeueReusableCellWithIdentifier("MineHeadTableViewCell", forIndexPath: indexPath) as! MineHeadTableViewCell
             cell.setData("开往春天的地铁", photoImage: UIImage.init(named: "Avatar_Default")!)
             cell.selectionStyle = .None
             return cell

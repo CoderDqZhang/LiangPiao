@@ -89,7 +89,7 @@ class RecommendTableViewCell: UITableViewCell {
             })
             
             ticketTitle.snp_makeConstraints(closure: { (make) in
-                make.top.equalTo(self.contentView.snp_top).offset(15)
+                make.top.equalTo(self.contentView.snp_top).offset(13)
                 make.left.equalTo(self.ticketPhoto.snp_right).offset(12)
                 make.right.equalTo(self.contentView.snp_right).offset(-15)
             })

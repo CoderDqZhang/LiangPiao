@@ -35,6 +35,7 @@ class OrderFormView: UIView {
         tableView = UITableView(frame: CGRectZero, style: .Grouped)
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.keyboardDismissMode = .OnDrag
         tableView.registerClass(GloabTitleAndFieldCell.self, forCellReuseIdentifier: "GloabTitleAndFieldCell")
         tableView.registerClass(GloabTitleAndImageCell.self, forCellReuseIdentifier: "GloabTitleAndImageCell")
         tableView.registerClass(GloabTitleAndDetailImageCell.self, forCellReuseIdentifier: "GloabTitleAndDetailImageCell")

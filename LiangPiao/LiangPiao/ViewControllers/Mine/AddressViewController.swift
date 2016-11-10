@@ -7,12 +7,17 @@
 //
 
 import UIKit
-
+enum AddressType {
+    case addType
+    case editType
+}
 class AddressViewController: UIViewController {
 
     var tableView:UITableView!
     var addAddressView:AddAddressView!
     var viewModel = AddressViewModel()
+    var addressType:AddressType!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUpView()
@@ -29,6 +34,7 @@ class AddressViewController: UIViewController {
         tableView = UITableView(frame: CGRectZero, style: .Plain)
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.keyboardDismissMode = .OnDrag
         tableView.separatorStyle = .None
         tableView.registerClass(AddressTableViewCell.self, forCellReuseIdentifier: "AddressTableViewCell")
         self.view.addSubview(tableView)
@@ -48,8 +54,22 @@ class AddressViewController: UIViewController {
             make.right.equalTo(self.view.snp_right).offset(0)
             make.height.equalTo(49)
         }
+        
+        self.bindViewModle()
     }
 
+    func bindViewModle(){
+        viewModel.rac_signalForSelector(#selector(AddressViewModel.tableViewDidSelectIndexPath(_:indexPath:))).subscribeNext { (action) in
+            print(action)
+        }
+    }
+    
+    func pushEditAddressViewController() {
+        let editAddressView = AddAddressViewController()
+        editAddressView.hidesBottomBarWhenPushed = true
+        self.navigationController?.pushViewController(editAddressView, animated: true)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -70,7 +90,11 @@ class AddressViewController: UIViewController {
 
 extension AddressViewController : UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        viewModel.tableViewDidSelectIndexPath(tableView, indexPath: indexPath)
+        if viewModel.addressType == .editType {
+            self.pushEditAddressViewController()
+        }else{
+            viewModel.tableViewDidSelectIndexPath(tableView, indexPath: indexPath)
+        }
     }
     
     func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {

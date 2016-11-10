@@ -34,6 +34,7 @@ class AddAddressViewController: UIViewController {
         tableView = UITableView(frame: CGRectZero, style: .Grouped)
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.keyboardDismissMode = .OnDrag
         tableView.separatorStyle = .None
         tableView.registerClass(GloabTitleAndFieldCell.self, forCellReuseIdentifier: "GloabTitleAndFieldCell")
         tableView.registerClass(GloabTitleAndDetailImageCell.self, forCellReuseIdentifier: "GloabTitleAndDetailImageCell")
@@ -111,18 +112,22 @@ extension AddAddressViewController : UITableViewDataSource {
             switch indexPath.row {
             case 0,1:
                 let cell =  tableView.dequeueReusableCellWithIdentifier("GloabTitleAndFieldCell", forIndexPath: indexPath) as! GloabTitleAndFieldCell
+                cell.selectionStyle = .None
                 cell.setData(viewModel.tableViewConfigCell(indexPath), detail: "请输入")
                 return cell
             case 2:
                 let cell =  tableView.dequeueReusableCellWithIdentifier("GloabTitleAndDetailImageCell", forIndexPath: indexPath) as! GloabTitleAndDetailImageCell
+                cell.selectionStyle = .None
                 cell.setData(viewModel.tableViewConfigCell(indexPath), detail: "请选择")
                 return cell
             default:
                 let cell =  tableView.dequeueReusableCellWithIdentifier("DetailAddressTableViewCell", forIndexPath: indexPath) as! DetailAddressTableViewCell
+                cell.selectionStyle = .None
                 return cell
             }
         default:
             let cell = tableView.dequeueReusableCellWithIdentifier("SetNomalAddressTableViewCell", forIndexPath: indexPath) as! SetNomalAddressTableViewCell
+            cell.selectionStyle = .None
             return cell
         }
     }

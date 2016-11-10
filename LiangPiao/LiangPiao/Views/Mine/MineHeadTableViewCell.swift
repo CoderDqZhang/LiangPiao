@@ -13,7 +13,8 @@ class MineHeadTableViewCell: UITableViewCell {
     var nameAndePhone:UILabel!
     var editProfileImage:UIImageView!
     var photoImageView:UIImageView!
-   
+    var cellBackView:UIImageView!
+    
     var didMakeConstraints:Bool = false
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
@@ -23,6 +24,11 @@ class MineHeadTableViewCell: UITableViewCell {
     }
     
     func setUpView() {
+        
+        cellBackView = UIImageView()
+        cellBackView.image = UIImage.init(color: UIColor.init(hexString: App_Theme_BackGround_Color), size: CGSizeMake(SCREENWIDTH, 255))
+        self.contentView.addSubview(cellBackView)
+        
         nameAndePhone = UILabel()
         nameAndePhone.font = Mine_Header_Name_Font
         nameAndePhone.textColor = UIColor.init(hexString: Mine_Header_Name_Color)

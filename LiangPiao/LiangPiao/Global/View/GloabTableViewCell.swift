@@ -105,6 +105,7 @@ class GloabTitleAndFieldCell: UITableViewCell {
         
         textField = UITextField()
         textField.font = GlobalCell_Title_Font
+        textField.tintColor = UIColor.init(hexString: App_Theme_BackGround_Color)
         textField.textColor = UIColor.init(hexString: GlobalCell_Title_Color)
         self.contentView.addSubview(textField)
         
@@ -129,11 +130,13 @@ class GloabTitleAndFieldCell: UITableViewCell {
             titleLabel.snp_makeConstraints(closure: { (make) in
                 make.left.equalTo(self.contentView.snp_left).offset(15)
                 make.top.equalTo(self.contentView.snp_top).offset(15.5)
+                make.width.equalTo(70)
             })
             
             textField.snp_makeConstraints(closure: { (make) in
                 make.left.equalTo(self.titleLabel.snp_right).offset(6)
                 make.top.equalTo(self.contentView.snp_top).offset(15.5)
+                make.right.equalTo(self.contentView.snp_right).offset(-15)
             })
             
             lineLable.snp_makeConstraints(closure: { (make) in
@@ -343,6 +346,7 @@ class GloabTextFieldCell: UITableViewCell {
         
             textField.snp_makeConstraints(closure: { (make) in
                 make.left.equalTo(self.contentView.snp_left).offset(15)
+                make.right.equalTo(self.contentView.snp_right).offset(-15)
                 make.top.equalTo(self.contentView.snp_top).offset(15.5)
             })
             

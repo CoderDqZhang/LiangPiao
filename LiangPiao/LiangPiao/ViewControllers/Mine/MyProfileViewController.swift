@@ -38,9 +38,10 @@ class MyProfileViewController: UIViewController {
         tableView = UITableView(frame: CGRectZero, style: .Grouped)
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.keyboardDismissMode = .OnDrag
         tableView.separatorStyle = .None
         tableView.registerClass(ProfileImageTableViewCell.self, forCellReuseIdentifier: "ProfileImageTableViewCell")
-        tableView.registerClass(GloabTitleAndDetailCell.self, forCellReuseIdentifier: "GloabTitleAndDetailCell")
+        tableView.registerClass(GloabTitleAndFieldCell.self, forCellReuseIdentifier: "GloabTitleAndFieldCell")
         tableView.registerClass(GloabTitleAndDetailImageCell.self, forCellReuseIdentifier: "GloabTitleAndDetailImageCell")
         self.view.addSubview(tableView)
         tableView.snp_makeConstraints { (make) in
@@ -74,30 +75,69 @@ class MyProfileViewController: UIViewController {
         sexPickerView.setPickViewColer(UIColor.whiteColor())
         sexPickerView.setPickViewColer(UIColor.whiteColor())
         sexPickerView.setTintColor(UIColor.whiteColor())
+        sexPickerView.tag = 1
         sexPickerView.setToolbarTintColor(UIColor.whiteColor())
         sexPickerView.setTintFont(Mine_Service_Font, color: UIColor.init(hexString: App_Theme_Text_Color))
         sexPickerView.delegate = self
         sexPickerView.show()
     }
     
-    func showBirthDayPickerView(){
-//        sexPickerView = ZHPickView(datePickWithDate: NSDate(), datePickerMode: .Date, isHaveNavControler: false)
-//        sexPickerView.setPickViewColer(UIColor.whiteColor())
-//        sexPickerView.setTintColor(UIColor.whiteColor())
-//        sexPickerView.setToolbarTintColor(UIColor.whiteColor())
-//        sexPickerView.setTintFont(Mine_Service_Font, color: UIColor.init(hexString: App_Theme_Text_Color))
-//        sexPickerView.delegate = self
-//        sexPickerView.show()
+    func showBirthDayPickerView(){        
+        birthDayPickerView = ZHPickView(datePickWithDate: NSDate(), datePickerMode: .Date, isHaveNavControler: false)
+        birthDayPickerView.setPickViewColer(UIColor.whiteColor())
+        birthDayPickerView.setTintColor(UIColor.whiteColor())
+        birthDayPickerView.setToolbarTintColor(UIColor.whiteColor())
+        birthDayPickerView.tag = 2
+        birthDayPickerView.setTintFont(Mine_Service_Font, color: UIColor.init(hexString: App_Theme_Text_Color))
+        birthDayPickerView.delegate = self
+        birthDayPickerView.show()
     }
     
     func showCityPickerView(){
         cityPickerView = ZHPickView(pickviewWithPlistName: "city", isHaveNavControler: false)
         cityPickerView.setPickViewColer(UIColor.whiteColor())
         cityPickerView.setTintColor(UIColor.whiteColor())
+        cityPickerView.tag = 3
         cityPickerView.setToolbarTintColor(UIColor.whiteColor())
         cityPickerView.setTintFont(Mine_Service_Font, color: UIColor.init(hexString: App_Theme_Text_Color))
         cityPickerView.delegate = self
         cityPickerView.show()
+    }
+
+    func presentImagePickerView(){
+        let controller = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+        let cancel = UIAlertAction(title: "取消", style: .Cancel) { (cancelAction) in
+            
+        }
+        if (UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)){
+            let cameraAction = UIAlertAction(title: "拍照", style: .Default) { (cancelAction) in
+                let imagePicker = UIImagePickerController()
+                imagePicker.allowsEditing = true
+                imagePicker.sourceType = .Camera
+                imagePicker.delegate = self
+                self.presentViewController(imagePicker, animated: true) {
+                    
+                }
+            }
+            controller.addAction(cameraAction)
+        }
+
+        
+        let album = UIAlertAction(title: "相册", style: .Default) { (cancelAction) in
+            let imagePicker = UIImagePickerController()
+            imagePicker.allowsEditing = true
+            imagePicker.sourceType = .PhotoLibrary
+            imagePicker.delegate = self
+            self.presentViewController(imagePicker, animated: true) {
+                
+            }
+        }
+        controller.addAction(cancel)
+        controller.addAction(album)
+        self.presentViewController(controller, animated: true) { 
+            
+        }
+        
     }
 
 }
@@ -105,7 +145,7 @@ class MyProfileViewController: UIViewController {
 extension MyProfileViewController : UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.section == 0 {
-            
+            self.presentImagePickerView()
         }else{
             switch indexPath.row {
             case 1:
@@ -146,14 +186,18 @@ extension MyProfileViewController : UITableViewDataSource {
         switch indexPath.section {
         case 0:
             let cell = tableView.dequeueReusableCellWithIdentifier("ProfileImageTableViewCell", forIndexPath: indexPath) as! ProfileImageTableViewCell
+            if LoadImageTools.LoadImage("photoImage", path: "UserInfo") != nil {
+                cell.photoImageView.setImage(LoadImageTools.LoadImage("photoImage", path: "UserInfo"), forState: .Normal)
+            }
             cell.selectionStyle = .None
             return cell
         default:
             switch indexPath.row {
             case 0,4:
-                let cell = tableView.dequeueReusableCellWithIdentifier("GloabTitleAndDetailCell", forIndexPath: indexPath) as! GloabTitleAndDetailCell
+                let cell = tableView.dequeueReusableCellWithIdentifier("GloabTitleAndFieldCell", forIndexPath: indexPath) as! GloabTitleAndFieldCell
                 cell.setData(viewModel.cellTitle(indexPath), detail: "测试")
-                cell.detailLabel.textColor = UIColor.init(hexString: GlobalCell_Detail_Color)
+                cell.textField.textColor = UIColor.init(hexString: GlobalCell_Detail_Color)
+                cell.textField.textAlignment = .Right
                 cell.selectionStyle = .None
                 return cell
             default:
@@ -169,6 +213,28 @@ extension MyProfileViewController : UITableViewDataSource {
 
 extension MyProfileViewController : ZHPickViewDelegate {
     func toobarDonBtnHaveClick(pickView: ZHPickView!, resultString: String!) {
+        if resultString != nil {
+            viewModel.updateCellString(tableView, string: resultString, tag: pickView.tag)
+        }
+    }
+}
+
+extension MyProfileViewController : UIImagePickerControllerDelegate {
+    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
         
     }
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        var image = info[UIImagePickerControllerEditedImage] as! UIImage
+        if  SaveImageTools.SaveImage("photoImage", image: image, path: "UserInfo") {
+            print("保存成功")
+            tableView.reloadRowsAtIndexPaths([NSIndexPath.init(forRow: 0, inSection: 0)], withRowAnimation: .Automatic)
+        }
+       
+        picker.dismissViewControllerAnimated(true, completion: nil)
+    }
+}
+
+extension MyProfileViewController : UINavigationControllerDelegate {
+    
 }

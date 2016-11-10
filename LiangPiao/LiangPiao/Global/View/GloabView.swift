@@ -36,6 +36,7 @@ class HomeSearchNavigationBar: UIView {
         searchField.delegate = self
         searchField.contentVerticalAlignment = UIControlContentVerticalAlignment.Center
         searchField.leftView = leftImage
+        searchField.tintColor = UIColor.init(hexString: App_Theme_BackGround_Color)
         searchField.backgroundColor = UIColor.whiteColor()
         searchField.leftViewMode = .Always
         self.addSubview(searchField)

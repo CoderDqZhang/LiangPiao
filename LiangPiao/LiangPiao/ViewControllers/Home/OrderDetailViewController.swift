@@ -76,6 +76,7 @@ class OrderDetailViewController: UIViewController {
         tableView = UITableView(frame: CGRectZero, style: .Grouped)
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.keyboardDismissMode = .OnDrag
         tableView.registerClass(OrderAddressTableViewCell.self, forCellReuseIdentifier: "OrderAddressTableViewCell")
         tableView.registerClass(OrderTicketInfoTableViewCell.self, forCellReuseIdentifier: "OrderTicketInfoTableViewCell")
         tableView.registerClass(TicketLocationTableViewCell.self, forCellReuseIdentifier: "TicketLocationTableViewCell")

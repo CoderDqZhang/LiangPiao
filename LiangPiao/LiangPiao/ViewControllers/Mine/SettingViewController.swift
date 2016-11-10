@@ -29,6 +29,7 @@ class SettingViewController: UIViewController {
         tableView = UITableView(frame: CGRectZero, style: .Grouped)
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.keyboardDismissMode = .OnDrag
         tableView.separatorStyle = .None
         tableView.registerClass(GloabTitleAndDetailCell.self, forCellReuseIdentifier: "GloabTitleAndDetailCell")
         tableView.registerClass(GloabTitleAndDetailImageCell.self, forCellReuseIdentifier: "GloabTitleAndDetailImageCell")
@@ -58,7 +59,21 @@ class SettingViewController: UIViewController {
 
 extension SettingViewController : UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        
+        switch indexPath.section {
+        case 0:
+            switch indexPath.row {
+            case 0:
+                let storyBoard = UIStoryboard.init(name: "Main", bundle: nil)
+                let controllers = storyBoard.instantiateViewControllerWithIdentifier("AboutUsViewController") as! AboutUsViewController
+//                let controller = Storyboard("Main", controllerid: "AboutUsViewController") as! AboutUsViewController
+                controllers.hidesBottomBarWhenPushed = true
+                self.navigationController?.pushViewController(controllers, animated: true)
+            default:
+                break
+            }
+        default:
+            break
+        }
     }
 }
 

@@ -10,17 +10,29 @@ import UIKit
 
 class AddressViewModel: NSObject {
     
+    var addressType:AddressType = .editType
+    
     override init() {
         
     }
     
     func configCell(cell:AddressTableViewCell,indexPath:NSIndexPath) {
-        if indexPath.row == 0 {
-            cell.setData("冉灿    19932434234", address: "朝阳区香河园小区西坝河中里35号楼 UPlan Coffee 二层207", isNomal: true, isSelect: true)
-        }else if indexPath.row == 1 {
-            cell.setData("冉灿    19932434234", address: "宣武区大栅栏大街39号(大观楼电影院对面) ", isNomal: false, isSelect: false)
+        if self.addressType == .addType {
+            if indexPath.row == 0 {
+                cell.setData("冉灿    19932434234", address: "朝阳区香河园小区西坝河中里35号楼 UPlan Coffee 二层207", isNomal: false, isSelect: true)
+            }else if indexPath.row == 1 {
+                cell.setData("冉灿    19932434234", address: "宣武区大栅栏大街39号(大观楼电影院对面) ", isNomal: false, isSelect: false)
+            }else{
+                cell.setData("Randy RAN   18602035508", address: "Placerville OH State, Meadow Street, Vale base 86 95916-2621", isNomal: false, isSelect: false)
+            }
         }else{
-            cell.setData("Randy RAN   18602035508", address: "Placerville OH State, Meadow Street, Vale base 86 95916-2621", isNomal: false, isSelect: false)
+            if indexPath.row == 0 {
+                cell.setData("冉灿    19932434234", address: "朝阳区香河园小区西坝河中里35号楼 UPlan Coffee 二层207", isNomal: false, isSelect: false)
+            }else if indexPath.row == 1 {
+                cell.setData("冉灿    19932434234", address: "宣武区大栅栏大街39号(大观楼电影院对面) ", isNomal: false, isSelect: false)
+            }else{
+                cell.setData("Randy RAN   18602035508", address: "Placerville OH State, Meadow Street, Vale base 86 95916-2621", isNomal: false, isSelect: false)
+            }
         }
     }
     
@@ -31,15 +43,19 @@ class AddressViewModel: NSObject {
     }
 
     func tableViewDidSelectIndexPath(tableView:UITableView, indexPath:NSIndexPath) {
-        for i in 0...tableView.numberOfRowsInSection(0) - 1 {
-            if indexPath.row == i {
-                let cell = tableView.cellForRowAtIndexPath(indexPath) as! AddressTableViewCell
-
-               cell.updateSelectImage(true)
-            }else{
-                let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: i, inSection: indexPath.section)) as! AddressTableViewCell
-               cell.updateSelectImage(false)
+        if self.addressType == .addType {
+            for i in 0...tableView.numberOfRowsInSection(0) - 1 {
+                if indexPath.row == i {
+                    let cell = tableView.cellForRowAtIndexPath(indexPath) as! AddressTableViewCell
+                    
+                    cell.updateSelectImage(true)
+                }else{
+                    let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: i, inSection: indexPath.section)) as! AddressTableViewCell
+                    cell.updateSelectImage(false)
+                }
             }
+        }else{
+            
         }
     }
     

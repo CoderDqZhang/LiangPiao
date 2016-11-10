@@ -52,4 +52,9 @@ class MyProfileViewModel: NSObject {
             return ""
         }
     }
+    
+    func updateCellString(tableView:UITableView ,string:String, tag:NSInteger) {
+        let cell = tableView.cellForRowAtIndexPath(NSIndexPath.init(forRow: tag, inSection: 1)) as! GloabTitleAndDetailImageCell
+        cell.detailLabel.text = string            
+    }
 }

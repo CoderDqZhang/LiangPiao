@@ -24,6 +24,7 @@ class TicketSceneViewController: UIViewController {
         tableView = UITableView(frame: CGRectZero, style: .Plain)
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.keyboardDismissMode = .OnDrag
         tableView.separatorStyle = .None
         tableView.registerClass(TicketSceneTableViewCell.self, forCellReuseIdentifier: "TicketSceneTableViewCell")
         self.view.addSubview(tableView)

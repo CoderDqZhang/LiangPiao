@@ -31,6 +31,7 @@ class ProfileImageTableViewCell: UITableViewCell {
         
         photoImageView = UIButton(type: .Custom)
         photoImageView.layer.cornerRadius = 28
+        photoImageView.userInteractionEnabled = false
         photoImageView.layer.masksToBounds = true
         photoImageView.backgroundColor = UIColor.init(hexString: Home_Ticket_Introuduct_Back_Color)
         photoImageView.setImage(UIImage.init(named: "Icon_Camera"), forState: .Normal)

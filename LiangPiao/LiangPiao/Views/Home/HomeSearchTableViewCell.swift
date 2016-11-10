@@ -14,6 +14,10 @@ class HomeBandSearchField: UITextField {
     override func drawPlaceholderInRect(rect: CGRect) {
         super.drawPlaceholderInRect(CGRectMake(0, self.frame.height * 0.5 + 0.5, 0, 0))
     }
+    
+    override func leftViewRectForBounds(bounds: CGRect) -> CGRect {
+        return super.leftViewRectForBounds(CGRectMake(20, self.frame.height * 0.5 + 0.5, 0, 0))
+    }
 }
 
 class HomeSearchTableViewCell: UITableViewCell {
@@ -23,13 +27,21 @@ class HomeSearchTableViewCell: UITableViewCell {
     var searchField:UITextField!
     var didMakeConstraints:Bool = false
     
+    var cellBackView:UIImageView!
+    
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
         self.contentView.backgroundColor = UIColor.init(hexString: HomePage_brand_BackGroudColor)
         self.setUpView()
     }
     
     func setUpView() {
+        
+        cellBackView = UIImageView()
+        cellBackView.image = UIImage.init(color: UIColor.init(hexString: App_Theme_BackGround_Color), size: CGSizeMake(SCREENWIDTH, 255))
+        self.contentView.addSubview(cellBackView)
+        
         logoImage = UIImageView()
         logoImage.image = UIImage.init(named: "Homepage_Brand_Logo")
         self.contentView.addSubview(logoImage)
@@ -48,12 +60,17 @@ class HomeSearchTableViewCell: UITableViewCell {
         
         let searchImage = UIImage.init(named: "Icon_Search")
         let leftImage = UIImageView(image: searchImage)
-        leftImage.frame  = CGRectMake(15, 15, (searchImage?.size.width)!, (searchImage?.size.height)!)
+        leftImage.frame  = CGRectMake(0, 15, (searchImage?.size.width)!, (searchImage?.size.height)!)
         searchField = HomeBandSearchField()
         searchField.layer.cornerRadius = 4.0
         searchField.drawPlaceholderInRect(CGRectMake(20, 0, searchField.frame.size.width, searchField.frame.size.height))
         searchField.attributedPlaceholder = NSAttributedString.init(string: "搜索演出名称、演员、场馆...", attributes: [NSFontAttributeName:HomeSearch_Font!,NSForegroundColorAttributeName:UIColor.init(hexString: HomePage_Search_Color)])
         searchField.delegate = self
+        searchField.layer.shadowColor = UIColor.redColor().CGColor
+        searchField.layer.shadowOffset = CGSizeMake(SCREENWIDTH - 28, 48)
+        searchField.layer.shadowRadius = 4.0
+        searchField.layer.shadowOpacity = 0.6
+        searchField.layer.masksToBounds = true
         searchField.contentVerticalAlignment = UIControlContentVerticalAlignment.Center
         searchField.leftView = leftImage
         searchField.returnKeyType = .Search
