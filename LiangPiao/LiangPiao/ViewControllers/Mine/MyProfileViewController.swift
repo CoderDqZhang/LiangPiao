@@ -197,7 +197,10 @@ extension MyProfileViewController : UITableViewDataSource {
                 let cell = tableView.dequeueReusableCellWithIdentifier("GloabTitleAndFieldCell", forIndexPath: indexPath) as! GloabTitleAndFieldCell
                 cell.setData(viewModel.cellTitle(indexPath), detail: "测试")
                 cell.textField.textColor = UIColor.init(hexString: GlobalCell_Detail_Color)
+                cell.textField.returnKeyType = .Done
                 cell.textField.textAlignment = .Right
+                cell.textField.tag = indexPath.row
+                cell.textField.delegate = self
                 cell.selectionStyle = .None
                 return cell
             default:
@@ -215,6 +218,12 @@ extension MyProfileViewController : ZHPickViewDelegate {
     func toobarDonBtnHaveClick(pickView: ZHPickView!, resultString: String!) {
         if resultString != nil {
             viewModel.updateCellString(tableView, string: resultString, tag: pickView.tag)
+        }
+        if pickView.tag == 3 {
+            let cell = tableView.cellForRowAtIndexPath(NSIndexPath.init(forRow: 4, inSection: 1)) as! GloabTitleAndFieldCell
+            cell.textField.becomeFirstResponder()
+        }else{
+            self.tableView(tableView, didSelectRowAtIndexPath: NSIndexPath.init(forRow: pickView.tag + 1, inSection: 1))
         }
     }
 }
@@ -237,4 +246,20 @@ extension MyProfileViewController : UIImagePickerControllerDelegate {
 
 extension MyProfileViewController : UINavigationControllerDelegate {
     
+}
+
+extension MyProfileViewController : UITextFieldDelegate {
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.endEditing(true)
+        if textField.tag == 0 {
+            self.tableView(tableView, didSelectRowAtIndexPath: NSIndexPath.init(forRow: 1, inSection: 1))
+        }else{
+            self.view.endEditing(true)
+        }
+        return false
+    }
+    
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+        return true
+    }
 }

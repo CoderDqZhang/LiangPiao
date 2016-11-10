@@ -63,6 +63,9 @@ let kEncodedObjectPath = NSSearchPathForDirectoriesInDomains(NSSearchPathDirecto
 class SaveImageTools: NSObject {
     class func SaveImage(name:String, image:UIImage, path:String) -> Bool {
         let saveFilePath = SaveImageTools.getCachesDirectoryUserInfoDocumetPathDocument(path)
+        if saveFilePath == nil {
+            return false
+        }
         let saveName = saveFilePath?.stringByAppendingString(name)
         let imageData = UIImagePNGRepresentation(image)
         SaveImageTools.SaveSmallImage(name, image: image, path: path)

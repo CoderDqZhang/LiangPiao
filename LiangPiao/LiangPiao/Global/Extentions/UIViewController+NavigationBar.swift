@@ -18,6 +18,7 @@ extension UIViewController {
     }
 
     func backBtnPress(sender:UIButton){
+        self.view.endEditing(true)
         self.navigationController?.popViewControllerAnimated(true)
     }
 //

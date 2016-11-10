@@ -22,7 +22,7 @@ class OrderConfirmViewModel: NSObject {
         switch indexPath.section {
         case 0:
             switch indexPath.row {
-            case 0:
+            case 1:
                 return "新增收货地址"
             default:
                 return "配送方式"

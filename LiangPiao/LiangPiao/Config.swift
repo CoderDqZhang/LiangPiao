@@ -157,9 +157,11 @@ let Mine_Service_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(13.0):UIFon
 let LoginView_Label_Color = "8A96A2"
 let LoginView_Label_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(14.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 14.0)
 
-let LoginView_CodeSenderButton_Color = "FFFFFF"
 let LoginView_CodeSenderButton_bColor = "DDE0E5"
 let LoginView_CodeSenderButton_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(12.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 12.0)
+
+let Sell_View_Title_bColor = "DDE0E5"
+let Sell_View_Title_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(14.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 14.0)
 
 let LoginView_LoginButton_Font = IPHONE_VERSION > 9 ? UIFont.init(name:".SFUIText-Medium", size: 15.0):UIFont.init(name: ".HelveticaNeueInterface-Medium", size: 15.0)
 

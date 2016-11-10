@@ -10,10 +10,23 @@ import UIKit
 
 class SellTicketsViewController: BaseViewController {
 
+    @IBOutlet weak var serviceLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.setUpView()
         // Do any additional setup after loading the view.
+    }
+    
+    func setUpView() {
+        let str = "暂时可联系客服 400-837-8011 售票"
+        let attribute = NSMutableAttributedString(string: str)
+        attribute.addAttributes([NSForegroundColorAttributeName:UIColor.init(hexString: Sell_View_Title_bColor)], range: NSRange(location: 0, length: 8))
+        attribute.addAttributes([NSFontAttributeName:Sell_View_Title_Font!], range: NSRange.init(location: 0, length: 8))
+        attribute.addAttributes([NSForegroundColorAttributeName:UIColor.init(hexString: App_Theme_BackGround_Color)], range: NSRange(location: 8, length: 12))
+        attribute.addAttributes([NSFontAttributeName:Sell_View_Title_Font!], range: NSRange.init(location: 8, length: 12))
+        attribute.addAttributes([NSForegroundColorAttributeName:UIColor.init(hexString: Sell_View_Title_bColor)], range: NSRange(location: 14, length: 2))
+        attribute.addAttributes([NSFontAttributeName:Sell_View_Title_Font!], range: NSRange.init(location: 14, length: 2))
+        serviceLabel.attributedText = attribute
     }
 
     override func didReceiveMemoryWarning() {
