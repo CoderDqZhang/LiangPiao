@@ -22,6 +22,7 @@ class TicketSceneViewController: UIViewController {
         self.setNavigationItemBack()
 
         tableView = UITableView(frame: CGRectZero, style: .Plain)
+        tableView.backgroundColor = UIColor.init(hexString: App_Theme_TableViewBackGround_Color)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.keyboardDismissMode = .OnDrag

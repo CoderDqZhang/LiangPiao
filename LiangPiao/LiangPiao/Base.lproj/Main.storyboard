@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="mr5-8f-SoT">
-    <device id="retina3_5" orientation="portrait">
+    <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -55,7 +55,7 @@
                         <viewControllerLayoutGuide type="bottom" id="9IT-fi-heH"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="xlJ-6V-NhF">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -109,7 +109,7 @@
                         <viewControllerLayoutGuide type="bottom" id="H4D-jV-TRw"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="WgT-p3-cEF">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -129,7 +129,7 @@
                         <viewControllerLayoutGuide type="bottom" id="x8b-i6-69S"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="V6B-TI-ChP">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -149,24 +149,24 @@
                         <viewControllerLayoutGuide type="bottom" id="hVj-Oy-08l"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="5GK-Hb-YZB">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Icon" translatesAutoresizingMaskIntoConstraints="NO" id="vgI-ca-vMS">
-                                <rect key="frame" x="102" y="132" width="116" height="106"/>
+                                <rect key="frame" x="129.5" y="132" width="116" height="106"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="106" id="Fvm-Yc-4NW"/>
                                     <constraint firstAttribute="width" constant="116" id="Pa9-M4-f1K"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="暂时可联系客服 400-837-8011 售票" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9To-gZ-xdm">
-                                <rect key="frame" x="44.5" y="337.5" width="231" height="17"/>
+                                <rect key="frame" x="72" y="337.5" width="231" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="0.86619329450000004" green="0.87816351650000002" blue="0.89886033539999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="即将推出" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iP6-TC-0vY">
-                                <rect key="frame" x="103.5" y="300" width="113.5" height="33.5"/>
+                                <rect key="frame" x="130.5" y="300" width="114" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="28"/>
                                 <color key="textColor" red="0.86619329452514648" green="0.87816351652145386" blue="0.89886033535003662" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -185,12 +185,13 @@
                     <tabBarItem key="tabBarItem" title="卖票" id="lJt-yi-Jdo"/>
                     <navigationItem key="navigationItem" title="卖票" id="mXO-DG-b49"/>
                     <connections>
+                        <outlet property="logoImage" destination="vgI-ca-vMS" id="SJO-gt-xVU"/>
                         <outlet property="serviceLabel" destination="9To-gZ-xdm" id="DBU-ZI-GGU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1BM-D4-kLX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="423.19999999999999" y="-488.00599700149928"/>
+            <point key="canvasLocation" x="423.1884057971015" y="-488.31521739130437"/>
         </scene>
         <!--我的-->
         <scene sceneID="Yyq-r1-yrj">
@@ -218,11 +219,11 @@
                         <viewControllerLayoutGuide type="bottom" id="OjI-Cu-bGb"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="WXj-ew-h0L">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Version 0.0.1" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="quG-ie-T7q">
-                                <rect key="frame" x="118" y="191" width="84" height="17"/>
+                                <rect key="frame" x="145.5" y="161" width="84" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="17" id="WOP-4J-Y2K"/>
                                 </constraints>
@@ -231,7 +232,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="5gb-de-8tJ">
-                                <rect key="frame" x="28" y="261" width="264" height="110"/>
+                                <rect key="frame" x="55.5" y="231" width="264" height="110"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="110" id="93z-U9-Cfg"/>
@@ -246,13 +247,13 @@ marketing - zhaoming</string>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="COPYRIGHTS © 2016 liangpiao. ALL RIGHTS RESERVED." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n9p-f3-wMh">
-                                <rect key="frame" x="23.5" y="404" width="273" height="12"/>
+                                <rect key="frame" x="51" y="591" width="273" height="12"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5g1-8K-nCE">
-                                <rect key="frame" x="124" y="347" width="72" height="26"/>
+                                <rect key="frame" x="151.5" y="534" width="72" height="26"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="26" id="T2P-bI-OOv"/>
@@ -264,7 +265,7 @@ marketing - zhaoming</string>
                                 </state>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Homepage_Brand_Logo" translatesAutoresizingMaskIntoConstraints="NO" id="lco-Dw-i5r">
-                                <rect key="frame" x="125" y="105" width="70" height="67"/>
+                                <rect key="frame" x="152.5" y="75" width="70" height="67"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="70" id="IM0-85-PrC"/>
                                     <constraint firstAttribute="height" constant="67" id="cZx-8Q-KMc"/>
@@ -273,7 +274,7 @@ marketing - zhaoming</string>
                         </subviews>
                         <color key="backgroundColor" red="0.26005136966705322" green="0.83378976583480835" blue="0.77418917417526245" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="lco-Dw-i5r" firstAttribute="top" secondItem="sww-eB-CLD" secondAttribute="bottom" constant="85" id="0hQ-if-u67"/>
+                            <constraint firstItem="lco-Dw-i5r" firstAttribute="top" secondItem="sww-eB-CLD" secondAttribute="bottom" constant="55" id="0hQ-if-u67"/>
                             <constraint firstItem="n9p-f3-wMh" firstAttribute="centerX" secondItem="WXj-ew-h0L" secondAttribute="centerX" id="Hht-YD-TW0"/>
                             <constraint firstItem="5gb-de-8tJ" firstAttribute="centerX" secondItem="WXj-ew-h0L" secondAttribute="centerX" id="M6i-pU-6Ts"/>
                             <constraint firstItem="5g1-8K-nCE" firstAttribute="centerX" secondItem="WXj-ew-h0L" secondAttribute="centerX" id="U8N-u0-oY4"/>

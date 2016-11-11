@@ -10,11 +10,15 @@ import UIKit
 
 let Line_BackGround_Color = "E9EBF2"
 
+typealias SearchNavigationBarCancelClouse = () ->Void
+typealias SearchTextFieldBecomFirstRespoder = () ->Void
 
 class HomeSearchNavigationBar: UIView {
     
     var searchField:HomeBandSearchField!
-    
+    var cancelButton:UIButton!
+    var searchNavigationBarCancelClouse:SearchNavigationBarCancelClouse!
+    var searchTextFieldBecomFirstRespoder:SearchTextFieldBecomFirstRespoder!
     init(frame: CGRect, font:UIFont?) {
         super.init(frame: frame)
         self.backgroundColor = UIColor.init(hexString: HomePage_brand_BackGroudColor)
@@ -25,7 +29,21 @@ class HomeSearchNavigationBar: UIView {
         let searchImage = UIImage.init(named: "Icon_Search")
         let leftImage = UIImageView(image: searchImage)
         leftImage.frame  = CGRectMake(15, 15, (searchImage?.size.width)!, (searchImage?.size.height)!)
+        
+        cancelButton = UIButton(type: .Custom)
+        cancelButton.frame = CGRectMake(SCREENWIDTH - 64, 27,64, 30)
+        cancelButton.setTitle("取消", forState: .Normal)
+        cancelButton.titleLabel?.font = Search_TextField_Font
+        cancelButton.hidden = true
+        cancelButton.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (action) in
+            if self.searchNavigationBarCancelClouse != nil{
+                self.searchNavigationBarCancelClouse()
+            }
+        }
+        self.addSubview(cancelButton)
+        
         searchField = HomeBandSearchField(frame:CGRectMake(20, 27,SCREENWIDTH - 40, 30))
+        
         searchField.layer.cornerRadius = 4.0
         searchField.drawPlaceholderInRect(CGRectMake(20, 0, searchField.frame.size.width, searchField.frame.size.height))
         if font == nil {
@@ -39,7 +57,9 @@ class HomeSearchNavigationBar: UIView {
         searchField.tintColor = UIColor.init(hexString: App_Theme_BackGround_Color)
         searchField.backgroundColor = UIColor.whiteColor()
         searchField.leftViewMode = .Always
+        searchField.clearButtonMode = .Always
         self.addSubview(searchField)
+        self.updateConstraintsIfNeeded()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -49,7 +69,23 @@ class HomeSearchNavigationBar: UIView {
 }
 
 extension HomeSearchNavigationBar : UITextFieldDelegate {
+    func textFieldDidBeginEditing(textField: UITextField) {
+        if self.searchTextFieldBecomFirstRespoder != nil {
+            self.searchTextFieldBecomFirstRespoder()
+        }
+        textField.frame = CGRectMake(20, 27,SCREENWIDTH - 84, 30)
+        cancelButton.hidden = false
+    }
     
+    func textFieldDidEndEditing(textField: UITextField) {
+        textField.frame = CGRectMake(20, 27,SCREENWIDTH - 40, 30)
+        cancelButton.hidden = true
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        
+        return true
+    }
 }
 
 class GloabView: UIView {

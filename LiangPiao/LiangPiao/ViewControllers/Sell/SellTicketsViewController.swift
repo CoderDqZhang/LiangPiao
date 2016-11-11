@@ -10,7 +10,10 @@ import UIKit
 
 class SellTicketsViewController: BaseViewController {
 
+    @IBOutlet weak var logoImage: UIImageView!
     @IBOutlet weak var serviceLabel: UILabel!
+    var sigleTap:UITapGestureRecognizer!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUpView()
@@ -24,11 +27,21 @@ class SellTicketsViewController: BaseViewController {
         attribute.addAttributes([NSFontAttributeName:Sell_View_Title_Font!], range: NSRange.init(location: 0, length: 8))
         attribute.addAttributes([NSForegroundColorAttributeName:UIColor.init(hexString: App_Theme_BackGround_Color)], range: NSRange(location: 8, length: 12))
         attribute.addAttributes([NSFontAttributeName:Sell_View_Title_Font!], range: NSRange.init(location: 8, length: 12))
-        attribute.addAttributes([NSForegroundColorAttributeName:UIColor.init(hexString: Sell_View_Title_bColor)], range: NSRange(location: 14, length: 2))
-        attribute.addAttributes([NSFontAttributeName:Sell_View_Title_Font!], range: NSRange.init(location: 14, length: 2))
         serviceLabel.attributedText = attribute
+        serviceLabel.userInteractionEnabled = true
+        logoImage.snp_makeConstraints { (make) in
+            make.top.equalTo(self.view.snp_top).offset(148 * (SCREENHEIGHT - 340)/327)
+        }
+        sigleTap = UITapGestureRecognizer(target: self, action: #selector(SellTicketsViewController.sigleTapPress(_:)))
+        sigleTap.numberOfTapsRequired = 1
+        sigleTap.numberOfTouchesRequired = 1
+        serviceLabel.addGestureRecognizer(sigleTap)
     }
 
+    func sigleTapPress(sender:UITapGestureRecognizer){
+        AppCallViewShow(self.view, phone: "400-837-8011")
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

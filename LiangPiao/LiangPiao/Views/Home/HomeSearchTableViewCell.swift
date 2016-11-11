@@ -20,6 +20,8 @@ class HomeBandSearchField: UITextField {
     }
 }
 
+typealias HomeSearchTableViewCellClouse = () ->Void
+
 class HomeSearchTableViewCell: UITableViewCell {
 
     var logoImage:UIImageView!
@@ -27,6 +29,9 @@ class HomeSearchTableViewCell: UITableViewCell {
     var searchField:UITextField!
     var didMakeConstraints:Bool = false
     
+    let searchFieldView = UIView()
+    
+    var homeSearchTableViewCellClouse:HomeSearchTableViewCellClouse!
     var cellBackView:UIImageView!
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
@@ -65,7 +70,6 @@ class HomeSearchTableViewCell: UITableViewCell {
         searchField.layer.cornerRadius = 4.0
         searchField.drawPlaceholderInRect(CGRectMake(20, 0, searchField.frame.size.width, searchField.frame.size.height))
         searchField.attributedPlaceholder = NSAttributedString.init(string: "搜索演出名称、演员、场馆...", attributes: [NSFontAttributeName:HomeSearch_Font!,NSForegroundColorAttributeName:UIColor.init(hexString: HomePage_Search_Color)])
-        searchField.delegate = self
         searchField.layer.shadowColor = UIColor.redColor().CGColor
         searchField.layer.shadowOffset = CGSizeMake(SCREENWIDTH - 28, 48)
         searchField.layer.shadowRadius = 4.0
@@ -73,11 +77,24 @@ class HomeSearchTableViewCell: UITableViewCell {
         searchField.layer.masksToBounds = true
         searchField.contentVerticalAlignment = UIControlContentVerticalAlignment.Center
         searchField.leftView = leftImage
+        searchField.font = HomeSearch_Font
+        searchField.textColor = UIColor.init(hexString: App_Theme_Text_Color)
+        searchField.tintColor = UIColor.init(hexString: App_Theme_BackGround_Color)
         searchField.returnKeyType = .Search
         searchField.backgroundColor = UIColor.whiteColor()
         searchField.leftViewMode = .Always
+        searchField.userInteractionEnabled = true
+        searchField.enabled = false
         self.contentView.addSubview(searchField)
-
+    
+        searchFieldView.frame = searchField.frame
+        let sigleTap = UITapGestureRecognizer(target: self, action: #selector(HomeSearchTableViewCell.sigleTapPress(_:)))
+        searchFieldView.backgroundColor = UIColor.clearColor()
+        sigleTap.numberOfTapsRequired = 1
+        sigleTap.numberOfTouchesRequired = 1
+        searchFieldView.addGestureRecognizer(sigleTap)
+        self.contentView.addSubview(searchFieldView)
+         
         self.updateConstraintsIfNeeded()
         
     }
@@ -103,6 +120,13 @@ class HomeSearchTableViewCell: UITableViewCell {
                 make.height.equalTo(46)
             })
             
+            searchFieldView.snp_makeConstraints(closure: { (make) in
+                make.top.equalTo(self.logoImage.snp_bottom).offset(44)
+                make.left.equalTo(self.contentView.snp_left).offset(20)
+                make.right.equalTo(self.contentView.snp_right).offset(-20)
+                make.height.equalTo(46)
+            })
+            
             self.didMakeConstraints = true
         }
         super.updateConstraints()
@@ -122,12 +146,11 @@ class HomeSearchTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-
-}
-
-extension HomeSearchTableViewCell : UITextFieldDelegate {
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
-        self.endEditing(true)
-        return true
+    
+    func sigleTapPress(sender:UITapGestureRecognizer) {
+        if self.homeSearchTableViewCellClouse != nil {
+            self.homeSearchTableViewCellClouse()
+        }
     }
+
 }

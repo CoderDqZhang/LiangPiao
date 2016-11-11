@@ -9,11 +9,14 @@
 import UIKit
 import ReactiveCocoa
 
+
+typealias  OrderConfirmViewModelClouse = (indexPath:NSIndexPath) ->Void
+
 class OrderConfirmViewModel: NSObject {
     
     
     var tableSelectSingle:RACSignal!
-
+    var orderConfirmViewModelClouse:OrderConfirmViewModelClouse!
     override init() {
         
     }
@@ -65,11 +68,9 @@ class OrderConfirmViewModel: NSObject {
             }
             
         }else{
-            tableSelectSingle = RACSignal.createSignal({ (subscriber) -> RACDisposable! in
-                subscriber.sendNext(indexPath)
-                subscriber.sendCompleted()
-                return nil
-            })
+            if (self.orderConfirmViewModelClouse == nil) != nil {
+                self.orderConfirmViewModelClouse(indexPath:indexPath)
+            }
         }
     }
 }

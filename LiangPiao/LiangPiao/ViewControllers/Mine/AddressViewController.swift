@@ -36,6 +36,7 @@ class AddressViewController: UIViewController {
         tableView.dataSource = self
         tableView.keyboardDismissMode = .OnDrag
         tableView.separatorStyle = .None
+        tableView.backgroundColor = UIColor.init(hexString: App_Theme_TableViewBackGround_Color)
         tableView.registerClass(AddressTableViewCell.self, forCellReuseIdentifier: "AddressTableViewCell")
         self.view.addSubview(tableView)
         tableView.snp_makeConstraints { (make) in

@@ -12,10 +12,10 @@ import UIKit
 let Custom_Line_Color = "384249"
 
 let TablaBarItemTitleNomalColor = "8a96a2"
-let TablaBarItemTitleSelectColor = "41c5b7"
+let TablaBarItemTitleSelectColor = "4BD4C5"
 
 let HomePage_Brand_ImageColor = "F6F7FA"
-let HomePage_brand_BackGroudColor = "4bd4c5"
+let HomePage_brand_BackGroudColor = "4BD4C5"
 
 let App_Theme_Text_Color = "384249"
 let App_Theme_BackGround_Color = "4BD4C5"
@@ -165,6 +165,8 @@ let Sell_View_Title_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(14.0):UI
 
 let LoginView_LoginButton_Font = IPHONE_VERSION > 9 ? UIFont.init(name:".SFUIText-Medium", size: 15.0):UIFont.init(name: ".HelveticaNeueInterface-Medium", size: 15.0)
 
+
+let Search_TextField_Font = IPHONE_VERSION > 9 ? UIFont.init(name:".SFUIText-Light", size: 17.0):UIFont.init(name: ".HelveticaNeueInterface-Light", size: 17.0)
 
 
 let LoginView_Service_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(12.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 12.0)

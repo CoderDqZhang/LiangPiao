@@ -43,6 +43,7 @@ class TicketConfirmViewController: UIViewController {
         self.view.addSubview(orderConfirm)
         
         tableView = UITableView(frame: CGRectZero, style: .Grouped)
+        tableView.backgroundColor = UIColor.init(hexString: App_Theme_TableViewBackGround_Color)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.keyboardDismissMode = .OnDrag
@@ -66,11 +67,22 @@ class TicketConfirmViewController: UIViewController {
     }
     
     func bindViewModel() {
-//        viewModel.tableSelectSingle.subscribeNext { (indexPath) in
-//            if indexPath.section == 0 && indexPath.row == 0 {
-//                self.navigationController?.pushViewController(AddressViewController(), animated: true)
-//            }
-//        }
+        viewModel.orderConfirmViewModelClouse = { indexPath in
+            if indexPath.section == 0 {
+                switch indexPath.row {
+                case 1:
+                    let controller = AddressViewController()
+                    controller.addressType = .addType
+                    controller.viewModel.addressType = .addType
+                    controller.hidesBottomBarWhenPushed = true
+                    self.navigationController?.pushViewController(controller, animated: true)
+                default:
+                    let controller = AddressViewController()
+                    controller.hidesBottomBarWhenPushed = true
+                    self.navigationController?.pushViewController(controller, animated: true)
+                }
+            }
+        }
     }
     
     override func didReceiveMemoryWarning() {

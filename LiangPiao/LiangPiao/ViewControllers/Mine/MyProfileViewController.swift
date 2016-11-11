@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Haneke
 
 class MyProfileViewController: UIViewController {
 
@@ -34,8 +35,20 @@ class MyProfileViewController: UIViewController {
         
     }
     
+    override func viewWillDisappear(animated: Bool) {
+        self.view.endEditing(true)
+        if KWINDOWDS?.viewWithTag(1) != nil {
+            sexPickerView.remove()
+        }else if KWINDOWDS?.viewWithTag(2) != nil {
+            birthDayPickerView.remove()
+        }else if KWINDOWDS?.viewWithTag(3) != nil {
+            cityPickerView.remove()
+        }
+    }
+    
     func setUpView() {
         tableView = UITableView(frame: CGRectZero, style: .Grouped)
+        tableView.backgroundColor = UIColor.init(hexString: App_Theme_TableViewBackGround_Color)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.keyboardDismissMode = .OnDrag
@@ -71,36 +84,59 @@ class MyProfileViewController: UIViewController {
     }
     */
     func showSexPickerView(){
-        sexPickerView = ZHPickView(pickviewWithArray: ["男","女"], isHaveNavControler: false)
-        sexPickerView.setPickViewColer(UIColor.whiteColor())
-        sexPickerView.setPickViewColer(UIColor.whiteColor())
-        sexPickerView.setTintColor(UIColor.whiteColor())
-        sexPickerView.tag = 1
-        sexPickerView.setToolbarTintColor(UIColor.whiteColor())
-        sexPickerView.setTintFont(Mine_Service_Font, color: UIColor.init(hexString: App_Theme_Text_Color))
-        sexPickerView.delegate = self
+        if sexPickerView == nil {
+            sexPickerView = ZHPickView(pickviewWithArray: ["男","女"], isHaveNavControler: false)
+            sexPickerView.setPickViewColer(UIColor.whiteColor())
+            sexPickerView.setPickViewColer(UIColor.whiteColor())
+            sexPickerView.setTintColor(UIColor.whiteColor())
+            sexPickerView.tag = 1
+            sexPickerView.setToolbarTintColor(UIColor.whiteColor())
+            sexPickerView.setTintFont(Mine_Service_Font, color: UIColor.init(hexString: App_Theme_Text_Color))
+            sexPickerView.delegate = self
+        }
+        
+        if KWINDOWDS?.viewWithTag(2) != nil {
+            birthDayPickerView.remove()
+        }else if KWINDOWDS?.viewWithTag(3) != nil {
+            cityPickerView.remove()
+        }
         sexPickerView.show()
     }
     
-    func showBirthDayPickerView(){        
-        birthDayPickerView = ZHPickView(datePickWithDate: NSDate(), datePickerMode: .Date, isHaveNavControler: false)
-        birthDayPickerView.setPickViewColer(UIColor.whiteColor())
-        birthDayPickerView.setTintColor(UIColor.whiteColor())
-        birthDayPickerView.setToolbarTintColor(UIColor.whiteColor())
-        birthDayPickerView.tag = 2
-        birthDayPickerView.setTintFont(Mine_Service_Font, color: UIColor.init(hexString: App_Theme_Text_Color))
-        birthDayPickerView.delegate = self
+    func showBirthDayPickerView(){
+        if birthDayPickerView == nil {
+            birthDayPickerView = ZHPickView(datePickWithDate: NSDate(), datePickerMode: .Date, isHaveNavControler: false)
+            birthDayPickerView.setPickViewColer(UIColor.whiteColor())
+            birthDayPickerView.setTintColor(UIColor.whiteColor())
+            birthDayPickerView.setToolbarTintColor(UIColor.whiteColor())
+            birthDayPickerView.tag = 2
+            birthDayPickerView.setTintFont(Mine_Service_Font, color: UIColor.init(hexString: App_Theme_Text_Color))
+            birthDayPickerView.delegate = self
+            
+        }
+        if KWINDOWDS?.viewWithTag(1) != nil {
+            sexPickerView.remove()
+        }else if KWINDOWDS?.viewWithTag(3) != nil {
+            cityPickerView.remove()
+        }
         birthDayPickerView.show()
     }
     
     func showCityPickerView(){
-        cityPickerView = ZHPickView(pickviewWithPlistName: "city", isHaveNavControler: false)
-        cityPickerView.setPickViewColer(UIColor.whiteColor())
-        cityPickerView.setTintColor(UIColor.whiteColor())
-        cityPickerView.tag = 3
-        cityPickerView.setToolbarTintColor(UIColor.whiteColor())
-        cityPickerView.setTintFont(Mine_Service_Font, color: UIColor.init(hexString: App_Theme_Text_Color))
-        cityPickerView.delegate = self
+        if cityPickerView == nil {
+            cityPickerView = ZHPickView(pickviewWithPlistName: "city", isHaveNavControler: false)
+            cityPickerView.setPickViewColer(UIColor.whiteColor())
+            cityPickerView.setTintColor(UIColor.whiteColor())
+            cityPickerView.tag = 3
+            cityPickerView.setToolbarTintColor(UIColor.whiteColor())
+            cityPickerView.setTintFont(Mine_Service_Font, color: UIColor.init(hexString: App_Theme_Text_Color))
+            cityPickerView.delegate = self
+        }
+        if KWINDOWDS?.viewWithTag(1) != nil {
+            sexPickerView.remove()
+        }else if KWINDOWDS?.viewWithTag(2) != nil {
+            birthDayPickerView.remove()
+        }
         cityPickerView.show()
     }
 
@@ -144,6 +180,7 @@ class MyProfileViewController: UIViewController {
 
 extension MyProfileViewController : UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        self.view.endEditing(true)
         if indexPath.section == 0 {
             self.presentImagePickerView()
         }else{
@@ -186,9 +223,11 @@ extension MyProfileViewController : UITableViewDataSource {
         switch indexPath.section {
         case 0:
             let cell = tableView.dequeueReusableCellWithIdentifier("ProfileImageTableViewCell", forIndexPath: indexPath) as! ProfileImageTableViewCell
-            if LoadImageTools.LoadImage("photoImage", path: "UserInfo") != nil {
-                cell.photoImageView.setImage(LoadImageTools.LoadImage("photoImage", path: "UserInfo"), forState: .Normal)
-            }
+            Shared.imageCache.fetch(key: "photoImage", formatName: "original", failure: { (error) in
+                print(error)
+                }, success: { (image) in
+                    cell.photoImageView.setImage(image, forState: .Normal)
+            })
             cell.selectionStyle = .None
             return cell
         default:
@@ -202,6 +241,9 @@ extension MyProfileViewController : UITableViewDataSource {
                 cell.textField.tag = indexPath.row
                 cell.textField.delegate = self
                 cell.selectionStyle = .None
+                if indexPath.row == 4 {
+                    cell.hideLineLabel()
+                }
                 return cell
             default:
                 let cell = tableView.dequeueReusableCellWithIdentifier("GloabTitleAndDetailImageCell", forIndexPath: indexPath) as! GloabTitleAndDetailImageCell
@@ -234,12 +276,10 @@ extension MyProfileViewController : UIImagePickerControllerDelegate {
     }
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
-        var image = info[UIImagePickerControllerEditedImage] as! UIImage
-        if  SaveImageTools.SaveImage("photoImage", image: image, path: "UserInfo") {
-            print("保存成功")
-            tableView.reloadRowsAtIndexPaths([NSIndexPath.init(forRow: 0, inSection: 0)], withRowAnimation: .Automatic)
-        }
-       
+        let image = info[UIImagePickerControllerEditedImage] as! UIImage
+        Shared.imageCache.set(value: image, key: "photoImage")
+        self.tableView.reloadRowsAtIndexPaths([NSIndexPath.init(forRow: 0, inSection: 0)], withRowAnimation: .Automatic)
+        self.tableView.reloadData()
         picker.dismissViewControllerAnimated(true, completion: nil)
     }
 }

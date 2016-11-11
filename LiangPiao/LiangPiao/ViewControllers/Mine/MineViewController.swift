@@ -16,17 +16,12 @@ class MineViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUpView()
-        self.setUpNavigationItem()
         // Do any additional setup after loading the view.
-    }
-    
-    func setUpNavigationItem() {
-        self.navigationItem.title = "收货地址管理"
-        self.setNavigationItemBack()
     }
     
     func setUpView() {
         tableView = UITableView(frame: CGRectZero, style: .Plain)
+        tableView.backgroundColor = UIColor.init(hexString: App_Theme_TableViewBackGround_Color)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.keyboardDismissMode = .OnDrag
@@ -45,7 +40,6 @@ class MineViewController: BaseViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
         self.navigationController?.fd_prefersNavigationBarHidden = true
         self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
@@ -76,6 +70,13 @@ extension MineViewController : UITableViewDelegate {
 //            controller.hidesBottomBarWhenPushed = true
 //            self.navigationController?.pushViewController(controller, animated: true)
             let controller = MyProfileViewController()
+            controller.hidesBottomBarWhenPushed = true
+            self.navigationController?.pushViewController(controller, animated: true)
+        case 1:
+            //            let controller = LoginViewController()
+            //            controller.hidesBottomBarWhenPushed = true
+            //            self.navigationController?.pushViewController(controller, animated: true)
+            let controller = FavoriteViewController()
             controller.hidesBottomBarWhenPushed = true
             self.navigationController?.pushViewController(controller, animated: true)
         case 2:

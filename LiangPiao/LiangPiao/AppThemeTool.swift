@@ -21,7 +21,9 @@ class AppleThemeTool {
         UINavigationBar.appearance().titleTextAttributes = [NSFontAttributeName:NavigationBar_Title_Font!,NSForegroundColorAttributeName:UIColor.init(hexString: NavigationBar_Title_Color)]
         UIBarButtonItem.appearance().setTitleTextAttributes([NSFontAttributeName:NavigationBar_Title_Font!,NSForegroundColorAttributeName:UIColor.init(hexString: NavigationBar_Title_Color)], forState: .Normal)
         UIApplication.sharedApplication().setStatusBarStyle(.LightContent, animated: false)
-        
+        UINavigationBar.appearance().setBackgroundImage(UIImage.init(color: UIColor.init(hexString: TablaBarItemTitleSelectColor), size: CGSizeMake(SCREENWIDTH, 64)), forBarMetrics: .Default)
+        UINavigationBar.appearance().shadowImage = UIImage.init()
+        UINavigationBar.appearance().translucent = false
         
     }
     

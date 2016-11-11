@@ -26,8 +26,8 @@ class HomePageCenter: UIView {
             let imageView = UIImageView()
             imageView.image = titleArray[i].image
             imageView.tag = i
-            imageView.layer.masksToBounds = true
-            imageView.layer.cornerRadius = 21
+//            imageView.layer.masksToBounds = true
+//            imageView.layer.cornerRadius = 21
             imageView.frame = CGRectMake(originX + 4, originY, imageSizeWidth, imageSizeHeight)
             imageView.userInteractionEnabled = true
             

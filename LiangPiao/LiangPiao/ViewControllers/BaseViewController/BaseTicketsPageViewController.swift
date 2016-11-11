@@ -26,9 +26,9 @@ class BaseTicketsPageViewController: UIViewController {
     
     func setUpNavigationItem() {
         self.setNavigationItemBack()
-        let filtterItem = UIBarButtonItem(image: UIImage.init(named: "Icon_Filter_Normal")?.imageWithRenderingMode(.AlwaysOriginal), landscapeImagePhone: nil, style: .Plain, target: self, action: #selector(TicketPageViewController.filterPress(_:)))
+//        let filtterItem = UIBarButtonItem(image: UIImage.init(named: "Icon_Filter_Normal")?.imageWithRenderingMode(.AlwaysOriginal), landscapeImagePhone: nil, style: .Plain, target: self, action: #selector(TicketPageViewController.filterPress(_:)))
         let searchItem = UIBarButtonItem(image: UIImage.init(named: "Icon_Search_Normal")?.imageWithRenderingMode(.AlwaysOriginal), landscapeImagePhone: nil, style: .Plain, target: self, action: #selector(TicketPageViewController.searchPress(_:)))
-        self.navigationItem.rightBarButtonItems = [searchItem,filtterItem]
+        self.navigationItem.rightBarButtonItems = [searchItem]
     }
     
     func setUpView(){
@@ -37,6 +37,7 @@ class BaseTicketsPageViewController: UIViewController {
         tableView.dataSource = self
         tableView.separatorStyle = .None
         tableView.registerClass(RecommendTableViewCell.self, forCellReuseIdentifier: "RecommendTableViewCell")
+        tableView.backgroundColor = UIColor.init(hexString: App_Theme_TableViewBackGround_Color)
         self.view.addSubview(tableView)
         
         tableView.snp_makeConstraints { (make) in

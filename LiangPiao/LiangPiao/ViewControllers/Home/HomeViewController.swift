@@ -15,6 +15,7 @@ class HomeViewController: BaseViewController {
     var tableView:UITableView!
     
     var cell:HomeSearchTableViewCell!
+    var searchTableView:GlobalSearchTableView!
     
     var searchNavigationBar = HomeSearchNavigationBar(frame: CGRectMake(0,0,SCREENWIDTH, 64),font:Home_Navigation_Search_Font)
     override func viewDidLoad() {
@@ -52,16 +53,15 @@ class HomeViewController: BaseViewController {
     func navigationPushTicketPage(index:NSInteger) {
         switch index {
         case 0:
-//            let ticketPage = BaseTicketsPageViewController()
-            let ticketPage = AddressViewController()
+            let ticketPage = BaseTicketsPageViewController()
             ticketPage.title = "演唱会"
             ticketPage.hidesBottomBarWhenPushed = true
             self.navigationController?.pushViewController(ticketPage, animated: true)
-        case 1:
-            let ticketPage = OrderDetailViewController()
-            ticketPage.title = "订单详情"
-            ticketPage.hidesBottomBarWhenPushed = true
-            self.navigationController?.pushViewController(ticketPage, animated: true)
+//        case 1:
+//            let ticketPage = OrderDetailViewController()
+//            ticketPage.title = "订单详情"
+//            ticketPage.hidesBottomBarWhenPushed = true
+//            self.navigationController?.pushViewController(ticketPage, animated: true)
         default:
             let ticketPage = TicketPageViewController()
             ticketPage.progressHeight = 0
@@ -102,7 +102,9 @@ extension HomeViewController : UITableViewDelegate {
             break;
         default:
             if indexPath.row != 0 {
-                self.navigationController?.pushViewController(TicketSceneViewController(), animated: true)
+                let controller = TicketSceneViewController()
+                controller.hidesBottomBarWhenPushed = true
+                self.navigationController?.pushViewController(controller, animated: true)
             }
         }
         
@@ -125,6 +127,42 @@ extension HomeViewController : UITableViewDelegate {
                 cell.cellBackView.frame = CGRectMake(0, scrollView.contentOffset.y, SCREENWIDTH, 255 - scrollView.contentOffset.y)
             }
         }
+    }
+    
+    func searchViewController() {
+        searchNavigationBar.backgroundColor = UIColor.init(red: 75.0/255.0, green: 212.0/255.0, blue: 197.0/255.0, alpha: 1)
+        searchNavigationBar.searchTextFieldBecomFirstRespoder = { _ in
+            if self.searchTableView == nil {
+                self.searchTableView = GlobalSearchTableView(frame: CGRectMake(0, CGRectGetMaxY(self.searchNavigationBar.frame), SCREENWIDTH, SCREENHEIGHT - CGRectGetMaxY(self.searchNavigationBar.frame)))
+                self.view.addSubview(self.searchTableView)
+            }else{
+                self.searchTableView.hidden = false
+            }
+            self.tabBarController?.tabBar.hidden = true
+        }
+        searchNavigationBar.searchNavigationBarCancelClouse = { _ in
+            self.cancelSearchTable()
+        }
+        searchNavigationBar.searchField.hidden = false
+        searchNavigationBar.searchField.becomeFirstResponder()
+    }
+    
+    func cancelSearchTable() {
+        
+        if #available(iOS 10.0, *) {
+            searchNavigationBar.backgroundColor = UIColor.init(displayP3Red: 75.0/255.0, green: 212.0/255.0, blue: 197.0/255.0, alpha: tableView.contentOffset.y/165)
+        } else {
+            searchNavigationBar.backgroundColor = UIColor.init(red: 75.0/255.0, green: 212.0/255.0, blue: 197.0/255.0, alpha: tableView.contentOffset.y/165)
+            // Fallback on earlier versions
+        }
+        if tableView.contentOffset.y > 165 {
+            searchNavigationBar.searchField.hidden = false
+        }else{
+            searchNavigationBar.searchField.hidden = true
+        }
+        searchNavigationBar.searchField.resignFirstResponder()
+        searchTableView.hidden = true
+        self.tabBarController?.tabBar.hidden = false
     }
 }
 
@@ -161,6 +199,9 @@ extension HomeViewController : UITableViewDataSource {
             switch indexPath.row {
             case 0:
                 cell = tableView.dequeueReusableCellWithIdentifier("HomeSearchTableViewCell", forIndexPath: indexPath) as! HomeSearchTableViewCell
+                cell.homeSearchTableViewCellClouse = { _ in
+                    self.searchViewController()
+                }
                 cell.selectionStyle = .None
                 return cell
             case 1:
