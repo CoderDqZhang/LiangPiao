@@ -27,10 +27,12 @@ let KWINDOWDS = UIApplication.sharedApplication().keyWindow
 
 
 func AppCallViewShow(view:UIView, phone:String) {
-    let str = "tel:\(phone)"
-    let callWebView = UIWebView()
-    callWebView.loadRequest(NSURLRequest(URL: NSURL.init(string: str)!))
-    view.addSubview(callWebView)
+    dispatch_async(dispatch_get_main_queue()) { 
+        let str = "tel:\(phone)"
+        let callWebView = UIWebView()
+        callWebView.loadRequest(NSURLRequest(URL: NSURL.init(string: str)!))
+        view.addSubview(callWebView)
+    }
 }
 
 func UserDefaultsSetSynchronize(value:AnyObject,key:String) {
