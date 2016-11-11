@@ -90,4 +90,9 @@ class AddAddressViewModel: NSObject {
             cell.setData("Randy RAN   18602035508", address: "Placerville OH State, Meadow Street, Vale base 86 95916-2621", isNomal: false, isSelect: false)
         }
     }
+    
+    func updateCellString(tableView:UITableView ,string:String, tag:NSInteger) {
+        let cell = tableView.cellForRowAtIndexPath(NSIndexPath.init(forRow: tag, inSection: 0)) as! GloabTitleAndDetailImageCell
+        cell.detailLabel.text = string
+    }
 }
