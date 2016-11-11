@@ -102,6 +102,10 @@ extension FavoriteViewController : DZNEmptyDataSetDelegate {
 }
 
 extension FavoriteViewController :DZNEmptyDataSetSource {
+    func backgroundColorForEmptyDataSet(scrollView: UIScrollView!) -> UIColor {
+        return UIColor.init(hexString: App_Theme_Empty_BackGround_Color)
+    }
+    
     func descriptionForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
         let str = "还没有想看的演出\n先去首页看看吧"
         let attribute = NSMutableAttributedString(string: str)
@@ -110,12 +114,16 @@ extension FavoriteViewController :DZNEmptyDataSetSource {
         return attribute
     }
     
+    func verticalOffsetForEmptyDataSet(scrollView: UIScrollView!) -> CGFloat {
+        return -70
+    }
+    
     func spaceHeightForEmptyDataSet(scrollView: UIScrollView!) -> CGFloat {
         return 27
     }
     
     func imageForEmptyDataSet(scrollView: UIScrollView!) -> UIImage! {
-        return UIImage.init(named: "empty_order")
+        return UIImage.init(named: "Icon_Search_Empty")
     }
 }
 

@@ -27,7 +27,7 @@ class MineViewModel: NSObject {
         case 0:
             return 255
         case 4:
-            return SCREENHEIGHT - 282 - 164
+            return SCREENHEIGHT - 282 - 164 > 130 ? SCREENHEIGHT - 282 - 164 : 130
         default:
             return 47
         }

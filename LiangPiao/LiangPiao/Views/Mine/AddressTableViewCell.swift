@@ -39,7 +39,7 @@ class AddAddressView: UIView {
         addButton.snp_makeConstraints { (make) in
             make.centerX.equalTo(self.snp_centerX).offset(-5)
             make.centerY.equalTo(self.snp_centerY).offset(0)
-            make.width.equalTo(119)
+            make.width.equalTo(139)
         }
         super.updateConstraints()
     }
@@ -85,6 +85,8 @@ class AddressTableViewCell: UITableViewCell {
         
         isNomalLabel = UILabel()
         isNomalLabel.text = "默认地址"
+        isNomalLabel.layer.cornerRadius = 1.0
+        isNomalLabel.layer.masksToBounds = true
         isNomalLabel.textAlignment = .Center
         isNomalLabel.backgroundColor = UIColor.init(hexString: Home_ReciveView_Label_Nomal_nColor)
         isNomalLabel.font = Mine_NomalAddress_Name_Font

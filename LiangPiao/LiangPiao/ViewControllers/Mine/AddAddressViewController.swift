@@ -84,10 +84,10 @@ extension AddAddressViewController : UITableViewDelegate {
             if indexPath.row == 3 {
                 return 82
             }else{
-                return 51
+                return 48
             }
         default:
-            return 51
+            return 48
         }
     }
 }
@@ -114,7 +114,7 @@ extension AddAddressViewController : UITableViewDataSource {
             case 0,1:
                 let cell =  tableView.dequeueReusableCellWithIdentifier("GloabTitleAndFieldCell", forIndexPath: indexPath) as! GloabTitleAndFieldCell
                 cell.selectionStyle = .None
-                cell.setData(viewModel.tableViewConfigCell(indexPath), detail: "请输入")
+                cell.setData(viewModel.tableViewConfigCell(indexPath), detail: "")
                 return cell
             case 2:
                 let cell =  tableView.dequeueReusableCellWithIdentifier("GloabTitleAndDetailImageCell", forIndexPath: indexPath) as! GloabTitleAndDetailImageCell

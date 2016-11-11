@@ -20,7 +20,7 @@ class HomeViewController: BaseViewController {
     var searchNavigationBar = HomeSearchNavigationBar(frame: CGRectMake(0,0,SCREENWIDTH, 64),font:Home_Navigation_Search_Font)
     override func viewDidLoad() {
         self.setUpTableView()
-        
+        self.setSearchNavigatioBarClouse()
         self.view.addSubview(searchNavigationBar)
     }
     
@@ -129,8 +129,7 @@ extension HomeViewController : UITableViewDelegate {
         }
     }
     
-    func searchViewController() {
-        searchNavigationBar.backgroundColor = UIColor.init(red: 75.0/255.0, green: 212.0/255.0, blue: 197.0/255.0, alpha: 1)
+    func setSearchNavigatioBarClouse(){
         searchNavigationBar.searchTextFieldBecomFirstRespoder = { _ in
             if self.searchTableView == nil {
                 self.searchTableView = GlobalSearchTableView(frame: CGRectMake(0, CGRectGetMaxY(self.searchNavigationBar.frame), SCREENWIDTH, SCREENHEIGHT - CGRectGetMaxY(self.searchNavigationBar.frame)))
@@ -143,6 +142,10 @@ extension HomeViewController : UITableViewDelegate {
         searchNavigationBar.searchNavigationBarCancelClouse = { _ in
             self.cancelSearchTable()
         }
+    }
+    
+    func searchViewController() {
+        searchNavigationBar.backgroundColor = UIColor.init(red: 75.0/255.0, green: 212.0/255.0, blue: 197.0/255.0, alpha: 1)
         searchNavigationBar.searchField.hidden = false
         searchNavigationBar.searchField.becomeFirstResponder()
     }

@@ -68,9 +68,15 @@ extension GlobalSearchTableView : UITableViewDataSource {
 }
 
 extension GlobalSearchTableView : DZNEmptyDataSetDelegate {
+
 }
 
 extension GlobalSearchTableView :DZNEmptyDataSetSource {
+    
+    func backgroundColorForEmptyDataSet(scrollView: UIScrollView!) -> UIColor {
+        return UIColor.init(hexString: App_Theme_Empty_BackGround_Color)
+    }
+    
     func descriptionForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
         let str = "搜索你关注的演出"
         let attribute = NSMutableAttributedString(string: str)
@@ -92,7 +98,7 @@ extension GlobalSearchTableView :DZNEmptyDataSetSource {
     }
     
     func imageForEmptyDataSet(scrollView: UIScrollView!) -> UIImage! {
-        return UIImage.init(named: "Icon_Search_Default")
+        return UIImage.init(named: "Icon_Search_Empty")
     }
 }
 

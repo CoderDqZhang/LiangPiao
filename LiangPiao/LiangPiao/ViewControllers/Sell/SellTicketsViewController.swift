@@ -29,7 +29,7 @@ class SellTicketsViewController: BaseViewController {
         attribute.addAttributes([NSFontAttributeName:Sell_View_Title_Font!], range: NSRange.init(location: 8, length: 12))
         serviceLabel.attributedText = attribute
         serviceLabel.userInteractionEnabled = true
-        logoImage.snp_makeConstraints { (make) in
+        logoImage.snp_updateConstraints{ (make) in
             make.top.equalTo(self.view.snp_top).offset(148 * (SCREENHEIGHT - 340)/327)
         }
         sigleTap = UITapGestureRecognizer(target: self, action: #selector(SellTicketsViewController.sigleTapPress(_:)))

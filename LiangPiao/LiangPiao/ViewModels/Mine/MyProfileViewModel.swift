@@ -33,7 +33,7 @@ class MyProfileViewModel: NSObject {
         case 0:
             return 100
         default:
-            return 50
+            return 48
         }
     }
     

@@ -15,8 +15,8 @@ let SCREENHEIGHT = UIScreen.mainScreen().bounds.size.height
 let IPHONE_VERSION = UIDevice.currentDevice().systemVersion.floatValue
 let IPHONE_VERSION_LAST9 = UIDevice.currentDevice().systemVersion.floatValue >= 9 ? 1:0
 
-let IPHONE4 = SCREENWIDTH == 344 ? true:false
-let IPHONE5 = SCREENWIDTH == 568 ? true:false
+let IPHONE4 = SCREENHEIGHT == 480 ? true:false
+let IPHONE5 = SCREENHEIGHT == 568 ? true:false
 let IPHONE6 = SCREENWIDTH == 344 ? true:false
 let IPHONE6P = SCREENWIDTH == 344 ? true:false
 

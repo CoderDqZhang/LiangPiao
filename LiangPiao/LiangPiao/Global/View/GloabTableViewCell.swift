@@ -14,7 +14,7 @@ let GlobalCell_Title_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(13.0):U
 
 let GlobalCell_ImageTitle_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(13.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 13.0)
 
-let GlobalCell_Detail_Color = "8A96A2"
+let GlobalCell_Detail_Color = "BBC1CB"
 let GlobalCell_Detail_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(13.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 13.0)
 
 class GloabTableViewCell: NSObject {
@@ -62,12 +62,12 @@ class GloabTitleAndDetailCell: UITableViewCell {
         if !self.didMakeConstraints {
             titleLabel.snp_makeConstraints(closure: { (make) in
                 make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.top.equalTo(self.contentView.snp_top).offset(15.5)
+                make.centerY.equalTo(self.contentView.snp_centerY).offset(0)
             })
             
             detailLabel.snp_makeConstraints(closure: { (make) in
                 make.right.equalTo(self.contentView.snp_right).offset(-15)
-                make.top.equalTo(self.contentView.snp_top).offset(15.5)
+                make.centerY.equalTo(self.contentView.snp_centerY).offset(0)
             })
             
             lineLable.snp_makeConstraints(closure: { (make) in
@@ -129,13 +129,13 @@ class GloabTitleAndFieldCell: UITableViewCell {
         if !self.didMakeConstraints {
             titleLabel.snp_makeConstraints(closure: { (make) in
                 make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.top.equalTo(self.contentView.snp_top).offset(15.5)
+                make.centerY.equalTo(self.contentView.snp_centerY).offset(0)
                 make.width.equalTo(70)
             })
             
             textField.snp_makeConstraints(closure: { (make) in
                 make.left.equalTo(self.titleLabel.snp_right).offset(6)
-                make.top.equalTo(self.contentView.snp_top).offset(15.5)
+                make.centerY.equalTo(self.contentView.snp_centerY).offset(0)
                 make.right.equalTo(self.contentView.snp_right).offset(-15)
             })
             
@@ -202,17 +202,17 @@ class GloabTitleAndDetailImageCell: UITableViewCell {
         if !self.didMakeConstraints {
             titleLabel.snp_makeConstraints(closure: { (make) in
                 make.left.equalTo(self.contentView.snp_left).offset(15.5)
-                make.top.equalTo(self.contentView.snp_top).offset(17)
+                make.centerY.equalTo(self.contentView.snp_centerY).offset(0)
             })
             
             detailLabel.snp_makeConstraints(closure: { (make) in
                 make.right.equalTo(self.detailImage.snp_left).offset(-10)
-                make.top.equalTo(self.contentView.snp_top).offset(15.5)
+                make.centerY.equalTo(self.contentView.snp_centerY).offset(0)
             })
             
             detailImage.snp_makeConstraints(closure: { (make) in
                 make.right.equalTo(self.contentView.snp_right).offset(-15)
-                make.top.equalTo(self.contentView.snp_top).offset(17.5)
+                make.centerY.equalTo(self.contentView.snp_centerY).offset(0)
             })
             
             lineLable.snp_makeConstraints(closure: { (make) in
@@ -284,12 +284,12 @@ class GloabTitleAndImageCell: UITableViewCell {
         if !self.didMakeConstraints {
             titleLabel.snp_makeConstraints(closure: { (make) in
                 make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.top.equalTo(self.contentView.snp_top).offset(17)
+                make.centerY.equalTo(self.contentView.snp_centerY).offset(0)
             })
             
             detailImage.snp_makeConstraints(closure: { (make) in
                 make.right.equalTo(self.contentView.snp_right).offset(-15)
-                make.top.equalTo(self.contentView.snp_top).offset(17.5)
+                make.centerY.equalTo(self.contentView.snp_centerY).offset(1)
             })
             
             lineLable.snp_makeConstraints(closure: { (make) in
@@ -347,7 +347,7 @@ class GloabTextFieldCell: UITableViewCell {
             textField.snp_makeConstraints(closure: { (make) in
                 make.left.equalTo(self.contentView.snp_left).offset(15)
                 make.right.equalTo(self.contentView.snp_right).offset(-15)
-                make.top.equalTo(self.contentView.snp_top).offset(15.5)
+                make.centerY.equalTo(self.contentView.snp_centerY).offset(0)
             })
             
             lineLable.snp_makeConstraints(closure: { (make) in
@@ -421,7 +421,7 @@ class GloabImageTitleAndImageCell: UITableViewCell {
             
             detailImage.snp_makeConstraints(closure: { (make) in
                 make.right.equalTo(self.contentView.snp_right).offset(-15)
-                make.top.equalTo(self.contentView.snp_top).offset(17.5)
+                make.centerY.equalTo(self.contentView.snp_centerY).offset(1)
             })
             
             lineLable.snp_makeConstraints(closure: { (make) in

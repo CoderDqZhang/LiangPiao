@@ -10,7 +10,7 @@ import UIKit
 
 class OrderListViewModel: NSObject {
 
-    var orderArray = ["",""]
+    var orderArray = []
     override init() {
         
     }

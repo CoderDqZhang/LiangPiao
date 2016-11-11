@@ -22,6 +22,8 @@ class DetailAddressTableViewCell: UITableViewCell {
     func setUpView(){
         textView = UITextView()
         textView.placeholder = "请填写详细地址"
+        textView.placeholderLabel.font = NavigationBar_TitleView_TitleLabel_Font
+        textView.placeholderLabel.textColor = UIColor.init(hexString: HomePage_Search_Color)
         self.contentView.addSubview(textView)
         
         self.updateConstraintsIfNeeded()
@@ -34,9 +36,9 @@ class DetailAddressTableViewCell: UITableViewCell {
     override func updateConstraints() {
         if !self.didMakeConstraints {
             textView.snp_makeConstraints(closure: { (make) in
-                make.top.equalTo(self.contentView.snp_top).offset(17)
+                make.top.equalTo(self.contentView.snp_top).offset(7)
                 make.bottom.equalTo(self.contentView.snp_bottom).offset(-17)
-                make.left.equalTo(self.contentView.snp_left).offset(15)
+                make.left.equalTo(self.contentView.snp_left).offset(8)
                 make.right.equalTo(self.contentView.snp_right).offset(-15)
             })
             self.didMakeConstraints = true

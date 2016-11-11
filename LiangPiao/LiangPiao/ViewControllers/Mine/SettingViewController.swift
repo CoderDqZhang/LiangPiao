@@ -105,12 +105,16 @@ extension SettingViewController : UITableViewDataSource {
             let cell = tableView.dequeueReusableCellWithIdentifier("GloabTitleAndDetailImageCell", forIndexPath: indexPath) as! GloabTitleAndDetailImageCell
             cell.setData(viewModel.cellTitle(indexPath), detail: "")
             cell.selectionStyle = .None
+            if indexPath.row == viewModel.numbrOfRowInSection(indexPath.section) - 1 {
+                cell.hideLineLabel()
+            }
             return cell
         default:
             let cell = tableView.dequeueReusableCellWithIdentifier("GloabTitleAndDetailCell", forIndexPath: indexPath) as! GloabTitleAndDetailCell
             cell.setData(viewModel.cellTitle(indexPath), detail: "")
             cell.detailLabel.textColor = UIColor.init(hexString: GlobalCell_Detail_Color)
             cell.selectionStyle = .None
+            cell.hideLineLabel()
             return cell
         }
     }

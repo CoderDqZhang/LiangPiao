@@ -21,6 +21,8 @@ let App_Theme_Text_Color = "384249"
 let App_Theme_BackGround_Color = "4BD4C5"
 
 let App_Theme_TableViewBackGround_Color = "E9EBF2"
+let App_Theme_Empty_BackGround_Color = "F6F7FA"
+
 
 let NavigationBar_Title_Color = "FFFFFF"
 let NavigationBar_Title_Font = IPHONE_VERSION > 9 ? UIFont.init(name:".SFUIText-Light", size: 17.0):UIFont.init(name: ".HelveticaNeueInterface-Light", size: 17)

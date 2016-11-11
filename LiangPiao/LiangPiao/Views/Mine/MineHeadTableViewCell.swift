@@ -36,6 +36,8 @@ class MineHeadTableViewCell: UITableViewCell {
         
         photoImageView = UIImageView()
         photoImageView.layer.cornerRadius = 50
+        photoImageView.layer.borderColor = UIColor.whiteColor().CGColor
+        photoImageView.layer.borderWidth = 3.0
         photoImageView.layer.masksToBounds = true
         photoImageView.image = UIImage.init(named: "Checkbox_Selected")
         self.contentView.addSubview(photoImageView)

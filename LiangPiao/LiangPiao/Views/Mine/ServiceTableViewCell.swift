@@ -42,6 +42,9 @@ class ServiceTableViewCell: UITableViewCell {
         attribute.addAttributes([NSFontAttributeName:Mine_Service_Font!], range: NSRange.init(location: 18, length: 22))
         attribute.addAttributes([NSForegroundColorAttributeName:UIColor.init(hexString: Mine_Service_mColor)], range: NSRange(location: 5, length: 12))
         attribute.addAttributes([NSFontAttributeName:Mine_Service_Font!], range: NSRange.init(location: 5, length: 12))
+        let paragraph = NSMutableParagraphStyle()
+        paragraph.lineSpacing = 9
+        attribute.addAttributes([NSParagraphStyleAttributeName:paragraph], range: NSRange.init(location: 0, length: str.length))
         nameAndePhone.attributedText = attribute
         nameAndePhone.textAlignment = .Center
         self.contentView.addSubview(nameAndePhone)

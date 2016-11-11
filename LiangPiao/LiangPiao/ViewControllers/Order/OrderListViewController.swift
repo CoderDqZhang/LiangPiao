@@ -112,6 +112,11 @@ extension OrderListViewController : DZNEmptyDataSetDelegate {
 }
 
 extension OrderListViewController :DZNEmptyDataSetSource {
+    
+    func backgroundColorForEmptyDataSet(scrollView: UIScrollView!) -> UIColor {
+        return UIColor.init(hexString: App_Theme_Empty_BackGround_Color)
+    }
+    
     func descriptionForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
         let str = "还没有订单\n先去首页挑选喜欢的演出活动吧"
         let attribute = NSMutableAttributedString(string: str)
@@ -120,11 +125,15 @@ extension OrderListViewController :DZNEmptyDataSetSource {
         return attribute
     }
     
+    func verticalOffsetForEmptyDataSet(scrollView: UIScrollView!) -> CGFloat {
+        return -70
+    }
+    
     func spaceHeightForEmptyDataSet(scrollView: UIScrollView!) -> CGFloat {
-        return 30
+        return 27
     }
     
     func imageForEmptyDataSet(scrollView: UIScrollView!) -> UIImage! {
-        return UIImage.init(named: "empty_order")
+        return UIImage.init(named: "empty_order")?.imageWithRenderingMode(.AlwaysOriginal)
     }
 }
