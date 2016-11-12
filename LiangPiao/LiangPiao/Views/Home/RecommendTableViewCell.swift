@@ -110,12 +110,12 @@ class RecommendTableViewCell: UITableViewCell {
 
             ticketmMuch.snp_makeConstraints(closure: { (make) in
                 make.right.equalTo(self.contentView.snp_right).offset(-24)
-                make.bottom.equalTo(self.contentView.snp_bottom).offset(-15)
+                make.bottom.equalTo(self.contentView.snp_bottom).offset(-13)
                 make.size.equalTo(CGSizeMake(22, 14))
             })
 
             ticketMuch.snp_makeConstraints(closure: { (make) in
-                make.bottom.equalTo(self.contentView.snp_bottom).offset(-15)
+                make.bottom.equalTo(self.contentView.snp_bottom).offset(-13  )
                 make.right.equalTo(self.ticketmMuch.snp_left).offset(-4)
                 make.height.equalTo(21)
             })

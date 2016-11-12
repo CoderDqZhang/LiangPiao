@@ -22,4 +22,7 @@
 
 /** 忽略多少scrollView的contentInset的top */
 @property (assign, nonatomic) CGFloat ignoredScrollViewContentInsetTop;
+
+- (void)setState:(MJRefreshState)state;
+
 @end

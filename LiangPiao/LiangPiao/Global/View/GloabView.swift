@@ -21,7 +21,7 @@ class HomeSearchNavigationBar: UIView {
     var searchTextFieldBecomFirstRespoder:SearchTextFieldBecomFirstRespoder!
     init(frame: CGRect, font:UIFont?) {
         super.init(frame: frame)
-        self.backgroundColor = UIColor.init(hexString: HomePage_brand_BackGroudColor)
+        self.backgroundColor = UIColor.init(hexString: TablaBarItemTitleSelectColor)
         self.setUpView(font)
     }
     
@@ -57,6 +57,9 @@ class HomeSearchNavigationBar: UIView {
         searchField.tintColor = UIColor.init(hexString: App_Theme_BackGround_Color)
         searchField.backgroundColor = UIColor.whiteColor()
         searchField.leftViewMode = .Always
+        searchField.font = HomeSearch_Default_Font
+        searchField.attributedPlaceholder = NSAttributedString.init(string: "搜索演出名称、演员、场馆...", attributes: [NSFontAttributeName:HomeSearch_Font!,NSForegroundColorAttributeName:UIColor.init(hexString: HomePage_Search_Color)])
+        searchField.textColor = UIColor.init(hexString: App_Theme_Text_Color)
         searchField.clearButtonMode = .Always
         self.addSubview(searchField)
         self.updateConstraintsIfNeeded()

@@ -42,7 +42,8 @@ class TicketDescriptionViewController: UIViewController {
             make.right.equalTo(self.view.snp_right).offset(0)
             make.bottom.equalTo(self.view.snp_bottom).offset(0)
         }
-        ticketToolsView = UIView(frame: CGRectMake(0,64,SCREENWIDTH,42))
+        ticketToolsView = UIView(frame: CGRectMake(0,0,SCREENWIDTH,42))
+        ticketToolsView.hidden = true
         ticketToolsView.backgroundColor = UIColor.whiteColor()
         self.view.addSubview(ticketToolsView)
     }
@@ -186,7 +187,7 @@ extension TicketDescriptionViewController : UITableViewDelegate {
             self.updateTicketViewFrame(300)
         }
         
-        if scrollView.contentOffset.y > 200 {
+        if scrollView.contentOffset.y > 264 {
             ticketToolsView.hidden = false
             if ticketToolsView.viewWithTag(1000) == nil {
                 let ticketView = cell.setUpDescriptionView()

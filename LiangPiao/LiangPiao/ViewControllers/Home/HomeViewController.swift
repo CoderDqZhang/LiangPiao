@@ -9,6 +9,7 @@
 import UIKit
 import FDFullscreenPopGesture
 import SnapKit
+import MJRefresh
 
 class HomeViewController: BaseViewController {
 
@@ -17,10 +18,13 @@ class HomeViewController: BaseViewController {
     var cell:HomeSearchTableViewCell!
     var searchTableView:GlobalSearchTableView!
     
+    var homeRefreshView = LiangPiaoHomeRefreshHeader(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 88))
+    
     var searchNavigationBar = HomeSearchNavigationBar(frame: CGRectMake(0,0,SCREENWIDTH, 64),font:Home_Navigation_Search_Font)
     override func viewDidLoad() {
         self.setUpTableView()
         self.setSearchNavigatioBarClouse()
+        self.setUpMJRefeshView()
         self.view.addSubview(searchNavigationBar)
     }
     
@@ -50,6 +54,23 @@ class HomeViewController: BaseViewController {
         }
     }
     
+    func setUpMJRefeshView(){
+        homeRefreshView.hidden = true
+        self.view.addSubview(homeRefreshView)
+        self.tableView.mj_header = MJRefreshNormalHeader(refreshingBlock: { 
+            self.refreshHomeData()
+        })
+        
+        self.tableView.mj_footer = LiangPiaoLoadMoreDataFooter(refreshingBlock: {
+            
+        })
+    }
+    
+    func refreshHomeData(){
+        homeRefreshView.hidden = false
+        homeRefreshView.startAnimation()
+    }
+    
     func navigationPushTicketPage(index:NSInteger) {
         switch index {
         case 0:
@@ -71,6 +92,10 @@ class HomeViewController: BaseViewController {
             ticketPage.hidesBottomBarWhenPushed = true
             self.navigationController?.pushViewController(ticketPage, animated: true)
         }
+    }
+    
+    func setUpHomeData(){
+        
     }
 }
 

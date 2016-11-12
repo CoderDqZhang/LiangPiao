@@ -39,6 +39,10 @@
 		1F24DE931DD5A35900C6E8CA /* GlobalSearchTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F24DE921DD5A35900C6E8CA /* GlobalSearchTableView.swift */; };
 		1F24DE951DD5B9E100C6E8CA /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F24DE941DD5B9E100C6E8CA /* FavoriteViewController.swift */; };
 		1F24DE971DD5BA0A00C6E8CA /* FavoriteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F24DE961DD5BA0A00C6E8CA /* FavoriteViewModel.swift */; };
+		1F45C3F61DD72043008C60CD /* LiangPiaoLoadMoreDataFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F45C3F51DD72043008C60CD /* LiangPiaoLoadMoreDataFooter.swift */; };
+		1F45C3FE1DD73027008C60CD /* NSTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F45C3FD1DD73027008C60CD /* NSTimer.swift */; };
+		1F45C4001DD7361C008C60CD /* LiangPiaoHomeRefreshHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F45C3FF1DD7361C008C60CD /* LiangPiaoHomeRefreshHeader.swift */; };
+		1F45C4021DD73AA4008C60CD /* LiangNomalRefreshHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F45C4011DD73AA4008C60CD /* LiangNomalRefreshHeader.swift */; };
 		1F62F2571DC9BC1900B591F1 /* TicketSceneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F62F2561DC9BC1900B591F1 /* TicketSceneViewController.swift */; };
 		1F62F2591DC9BDBF00B591F1 /* TicketSceneTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F62F2581DC9BDBF00B591F1 /* TicketSceneTableViewCell.swift */; };
 		1F62F25B1DC9C50300B591F1 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F62F25A1DC9C50300B591F1 /* HomeViewModel.swift */; };
@@ -158,6 +162,10 @@
 		1F24DE921DD5A35900C6E8CA /* GlobalSearchTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalSearchTableView.swift; sourceTree = "<group>"; };
 		1F24DE941DD5B9E100C6E8CA /* FavoriteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
 		1F24DE961DD5BA0A00C6E8CA /* FavoriteViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteViewModel.swift; sourceTree = "<group>"; };
+		1F45C3F51DD72043008C60CD /* LiangPiaoLoadMoreDataFooter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiangPiaoLoadMoreDataFooter.swift; sourceTree = "<group>"; };
+		1F45C3FD1DD73027008C60CD /* NSTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSTimer.swift; sourceTree = "<group>"; };
+		1F45C3FF1DD7361C008C60CD /* LiangPiaoHomeRefreshHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiangPiaoHomeRefreshHeader.swift; sourceTree = "<group>"; };
+		1F45C4011DD73AA4008C60CD /* LiangNomalRefreshHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiangNomalRefreshHeader.swift; sourceTree = "<group>"; };
 		1F62F2561DC9BC1900B591F1 /* TicketSceneViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketSceneViewController.swift; sourceTree = "<group>"; };
 		1F62F2581DC9BDBF00B591F1 /* TicketSceneTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketSceneTableViewCell.swift; sourceTree = "<group>"; };
 		1F62F25A1DC9C50300B591F1 /* HomeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
@@ -532,6 +540,7 @@
 				1FD244E31DC2FD3D00AFD3BC /* String+Size.swift */,
 				1FD244E41DC2FD3D00AFD3BC /* UIViewController+NavigationBar.swift */,
 				1FD244E61DC2FD3D00AFD3BC /* UIImage+Crop.swift */,
+				1F45C3FD1DD73027008C60CD /* NSTimer.swift */,
 			);
 			path = Extentions;
 			sourceTree = "<group>";
@@ -721,6 +730,9 @@
 				1FD881D31DC84FDA00B2B702 /* GloabView.swift */,
 				1FB7B29B1DCC392900945B70 /* GloabTableViewCell.swift */,
 				1F24DE921DD5A35900C6E8CA /* GlobalSearchTableView.swift */,
+				1F45C3F51DD72043008C60CD /* LiangPiaoLoadMoreDataFooter.swift */,
+				1F45C3FF1DD7361C008C60CD /* LiangPiaoHomeRefreshHeader.swift */,
+				1F45C4011DD73AA4008C60CD /* LiangNomalRefreshHeader.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -945,6 +957,7 @@
 				1FB7B29E1DCC412500945B70 /* OrderConfirmViewModel.swift in Sources */,
 				1FB7B2981DCC31CB00945B70 /* TicketConfirmViewController.swift in Sources */,
 				1F62F25F1DC9F1D800B591F1 /* TicketDescripTableViewCell.swift in Sources */,
+				1F45C3F61DD72043008C60CD /* LiangPiaoLoadMoreDataFooter.swift in Sources */,
 				1FD2458A1DC336B300AFD3BC /* BaseNetWorke.swift in Sources */,
 				1F0EAB751DD095E900D25B64 /* OrderNumberTableViewCell.swift in Sources */,
 				1F0EAB651DD073B900D25B64 /* OrderWaitePayTableViewCell.swift in Sources */,
@@ -960,9 +973,11 @@
 				1FC4FEED1DC8A32E00EBFD18 /* TYTabTitleViewCell.m in Sources */,
 				1FD245011DC2FD9700AFD3BC /* NSString+StringSize.m in Sources */,
 				1F0EAB681DD091FA00D25B64 /* OrderListViewController.swift in Sources */,
+				1F45C4001DD7361C008C60CD /* LiangPiaoHomeRefreshHeader.swift in Sources */,
 				1F0EAB851DD1C88C00D25B64 /* MineViewModel.swift in Sources */,
 				1F62F2591DC9BDBF00B591F1 /* TicketSceneTableViewCell.swift in Sources */,
 				1FD245071DC2FD9700AFD3BC /* NSFileManager+Utils.m in Sources */,
+				1F45C3FE1DD73027008C60CD /* NSTimer.swift in Sources */,
 				1FD245031DC2FD9700AFD3BC /* UIViewController+hideExcessLine.m in Sources */,
 				1FD2459D1DC356EA00AFD3BC /* BaseViewController.swift in Sources */,
 				1FB7B29A1DCC320200945B70 /* OrderFormView.swift in Sources */,
@@ -987,6 +1002,7 @@
 				1F6629921DCC495F00336700 /* CofimTicketTableViewCell.swift in Sources */,
 				1F0EAB8F1DD1DF1E00D25B64 /* ProfileImageTableViewCell.swift in Sources */,
 				1FD2450E1DC2FE7300AFD3BC /* Define.swift in Sources */,
+				1F45C4021DD73AA4008C60CD /* LiangNomalRefreshHeader.swift in Sources */,
 				1FD881CB1DC75FE600B2B702 /* HomeToolsTableViewCell.swift in Sources */,
 				1F0EAB931DD1E93C00D25B64 /* SettingViewModel.swift in Sources */,
 				1FC4FEEB1DC8A32E00EBFD18 /* TYTabButtonPagerController.m in Sources */,

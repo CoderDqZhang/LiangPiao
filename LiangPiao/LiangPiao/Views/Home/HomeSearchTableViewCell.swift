@@ -15,6 +15,10 @@ class HomeBandSearchField: UITextField {
         super.drawPlaceholderInRect(CGRectMake(0, self.frame.height * 0.5 + 0.5, 0, 0))
     }
     
+    override func drawTextInRect(rect: CGRect) {
+        super.drawTextInRect(CGRectMake(0, self.frame.height * 0.5 + 0.5, 0, 0))
+    }
+    
     override func leftViewRectForBounds(bounds: CGRect) -> CGRect {
         return super.leftViewRectForBounds(CGRectMake(20, self.frame.height * 0.5 + 0.5, 0, 0))
     }

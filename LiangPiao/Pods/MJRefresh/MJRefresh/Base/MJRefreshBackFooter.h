@@ -10,4 +10,6 @@
 
 @interface MJRefreshBackFooter : MJRefreshFooter
 
+- (void)setState:(MJRefreshState)state;
+
 @end

@@ -34,7 +34,7 @@ class TicketConfirmViewController: UIViewController {
     func setUpView() {
         self.setNavigationItemBack()
         
-        orderConfirm = ConfirmView(frame: CGRectMake(0, SCREENHEIGHT - 49, SCREENHEIGHT, 49))
+        orderConfirm = ConfirmView(frame: CGRectMake(0, SCREENHEIGHT - 49 - 64, SCREENHEIGHT, 49))
         orderConfirm.payButton.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (action) in
             self.navigationController?.pushViewController(OrderDetailViewController(), animated: true)
 
@@ -58,10 +58,10 @@ class TicketConfirmViewController: UIViewController {
         self.view.addSubview(tableView)
 
         tableView.snp_makeConstraints { (make) in
-            make.top.equalTo(self.view.snp_top).offset(64)
+            make.top.equalTo(self.view.snp_top).offset(0)
             make.left.equalTo(self.view.snp_left).offset(0)
             make.right.equalTo(self.view.snp_right).offset(0)
-            make.bottom.equalTo(self.view.snp_bottom).offset(0)
+            make.bottom.equalTo(self.view.snp_bottom).offset(49)
         }
 
     }

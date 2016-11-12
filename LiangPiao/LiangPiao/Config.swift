@@ -35,6 +35,8 @@ let NavigationBar_TitleView_DetailLabel_Font = IPHONE_VERSION > 9 ? UIFont.syste
 
 let HomePage_Search_Color = "BBC1CB"
 let HomeSearch_Font = IPHONE_VERSION > 9 ? UIFont.init(name:".SFUIText-Light", size: 14.0):UIFont.init(name: ".HelveticaNeueInterface-Light", size: 14.0)
+let HomeSearch_Default_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(14.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 14.0)
+
 let Home_Navigation_Search_Font = IPHONE_VERSION > 9 ? UIFont.init(name:".SFUIText-Light", size: 12.0):UIFont.init(name: ".HelveticaNeueInterface-Light", size: 12.0)
 
 let HomePage_Search_Location_Color = "FFFFFF"
