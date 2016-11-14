@@ -14,4 +14,5 @@
 #import "UITextView+Placeholder.h"
 #import "CountDown.h"
 #import "ZHPickView.h"
-
+#import <AlipaySDK/AlipaySDK.h>
+#import "WXApi.h"

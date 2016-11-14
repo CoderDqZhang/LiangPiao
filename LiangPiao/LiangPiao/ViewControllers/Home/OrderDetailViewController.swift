@@ -22,6 +22,7 @@ class OrderPayView: UIView {
         singleTap.numberOfTapsRequired = 1
         singleTap.numberOfTouchesRequired = 1
         self.addGestureRecognizer(singleTap)
+        
     }
     
     func setUpButton() {
@@ -69,8 +70,26 @@ class OrderDetailViewController: UIViewController {
         super.viewDidLoad()
         self.setUpView()
         self.setNavigationItem()
+        
+        self.rac_observeKeyPath(AliPayStatues, options: .New, observer: self) { (object, objects, new, obj) in
+            
+        }
+        
+        self.rac_observeKeyPath(WeiXinPayStatues, options: .New, observer: self) { (object, objects, new, obj) in
+            
+        }
+        
+//        self.rac_observeKeyPath(WeiXinPayStatues, options: .New, observer: self) { (object, objects, new, obj) in
+//            
+//        }
+        
+//        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(WaitPayViewController.changePayStatues(_:)), name: WeiXinPayStatues, object: nil)
+//        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(WaitPayViewController.changePayStatues(_:)), name: AliPayStatues, object: nil)
         // Do any additional setup after loading the view.
     }
+    
+    
+    
     
     func setUpView() {
         tableView = UITableView(frame: CGRectZero, style: .Grouped)
@@ -124,6 +143,38 @@ class OrderDetailViewController: UIViewController {
         }
     }
 
+    
+    //    func loadPayInfo(){
+    //        viewModel.payOrder(orderModel.order_id, successBlock: { (dic) in
+    //            let payDic = dic as NSDictionary
+    //            self.aliPayurl = payDic.objectForKey("alipay") as! String
+    //            let weChatDic = payDic["wxpay"] as! NSDictionary;
+    //            self.weChatPayreq.nonceStr = weChatDic.objectForKey("noncestr") as! String
+    //            self.weChatPayreq.package = weChatDic.objectForKey("package") as! String
+    //            self.weChatPayreq.partnerId = weChatDic.objectForKey("partnerid") as! String
+    //            self.weChatPayreq.prepayId = weChatDic.objectForKey("prepayid") as! String
+    //            self.weChatPayreq.sign = weChatDic.objectForKey("sign") as! String
+    //            let timeString = (weChatDic.objectForKey("timestamp") as! String)
+    //            let time:UInt32 = UInt32(timeString)!
+    //            self.weChatPayreq.timeStamp = time
+    //            }, failBlock: { (dic) in
+    //
+    //        })
+    //    }
+    
+    //    func changePayStatues(notification:NSNotification) {
+    ////        viewModel.switchOrderStatus(orderModel.order_id, status: "5", succeccBlock: { (dic) in
+    //        let payCompleteVC = Stroyboard("Order", viewControllerId: "PayCompleteViewController") as! PayCompleteViewController
+    //        payCompleteVC.orderModel = self.orderModel
+    //        self.navigationController?.pushViewController(payCompleteVC, animated: true)
+    ////        }) { (dic) in
+    ////
+    ////        }
+    //        NSNotificationCenter.defaultCenter().removeObserver(self, name: WeiXinPayStatues, object: nil)
+    //        NSNotificationCenter.defaultCenter().removeObserver(self, name: AliPayStatues, object: nil)
+    //    }
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

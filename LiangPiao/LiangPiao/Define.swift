@@ -21,6 +21,9 @@ let IPHONE6 = SCREENWIDTH == 344 ? true:false
 let IPHONE6P = SCREENWIDTH == 344 ? true:false
 
 
+let WeiXinPayStatues = "WeiXinPayStatuesChange"
+let AliPayStatues = "AliPayStatuesChange"
+
 let ToolViewNotifacationName = "ToolsViewNotification"
 
 let KWINDOWDS = UIApplication.sharedApplication().keyWindow

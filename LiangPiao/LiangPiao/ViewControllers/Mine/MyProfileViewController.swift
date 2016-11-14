@@ -272,7 +272,9 @@ extension MyProfileViewController : ZHPickViewDelegate {
 
 extension MyProfileViewController : UIImagePickerControllerDelegate {
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {
-        
+        picker.dismissViewControllerAnimated(true) { 
+            
+        }
     }
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {

@@ -46,7 +46,55 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
+    
+    func application(application: UIApplication, handleOpenURL url: NSURL) -> Bool {
+        return WXApi.handleOpenURL(url, delegate: self)
+    }
+    
+    func application(app: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
+        if url.host == "asgepay" {
+            AlipaySDK.defaultService().processOrderWithPaymentResult(url, standbyCallback: { (resultDic) in
+                print(resultDic)
+            })
+            return true
+        }
+        return WXApi.handleOpenURL(url, delegate: self)
+    }
+    
+    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
+        if url.host == "asgepay" {
+            AlipaySDK.defaultService().processOrderWithPaymentResult(url, standbyCallback: { (resultDic) in
+                print(resultDic)
+            })
+            
+            AlipaySDK.defaultService().processAuthResult(url, standbyCallback: { (resultDic) in
+                print(resultDic)
+            })
+            
+            return true
+        }
+        return WXApi.handleOpenURL(url, delegate: self)
+    }
+}
 
-
+extension AppDelegate : WXApiDelegate {
+    func onReq(req: BaseReq!) {
+        
+    }
+    
+    func onResp(resp: BaseResp!) {
+        if resp.isEqual(PayResp.self) {
+            switch resp.errCode {
+            case 0:
+                print("展示成功页面")
+            case -1:
+                print("可能的原因：签名错误、未注册APPID、项目设置APPID不正确、注册的APPID与设置的不匹配、其他异常等。")
+            case -2:
+                print("无需处理。发生场景：用户不支付了，点击取消，返回APP。")
+            default:
+                break;
+            }
+        }
+    }
 }
 
