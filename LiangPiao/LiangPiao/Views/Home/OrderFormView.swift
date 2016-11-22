@@ -22,7 +22,7 @@ class ConfirmView: UIView {
     
     func setUpView() {
         muchInfoLabel = UILabel()
-        muchInfoLabel.text = "实付金额:"
+        muchInfoLabel.text = "实付金额："
         muchInfoLabel.font = Home_PayView_Label_Font
         muchInfoLabel.textColor = UIColor.init(hexString: Home_Ticker_Tools_Table_sColor)
         self.addSubview(muchInfoLabel)

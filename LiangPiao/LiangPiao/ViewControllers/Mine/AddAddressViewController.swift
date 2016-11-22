@@ -149,7 +149,7 @@ extension AddAddressViewController : UITableViewDataSource {
             case 2:
                 let cell =  tableView.dequeueReusableCellWithIdentifier("GloabTitleAndDetailImageCell", forIndexPath: indexPath) as! GloabTitleAndDetailImageCell
                 cell.selectionStyle = .None
-                cell.setData(viewModel.tableViewConfigCell(indexPath), detail: "请选择")
+                cell.setData(viewModel.tableViewConfigCell(indexPath), detail: "未选择")
                 return cell
             default:
                 let cell =  tableView.dequeueReusableCellWithIdentifier("DetailAddressTableViewCell", forIndexPath: indexPath) as! DetailAddressTableViewCell

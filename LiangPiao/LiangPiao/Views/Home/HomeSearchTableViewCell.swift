@@ -74,13 +74,12 @@ class HomeSearchTableViewCell: UITableViewCell {
         searchField.layer.cornerRadius = 4.0
         searchField.drawPlaceholderInRect(CGRectMake(20, 0, searchField.frame.size.width, searchField.frame.size.height))
         searchField.attributedPlaceholder = NSAttributedString.init(string: "搜索演出名称、演员、场馆...", attributes: [NSFontAttributeName:HomeSearch_Font!,NSForegroundColorAttributeName:UIColor.init(hexString: HomePage_Search_Color)])
-        searchField.layer.shadowColor = UIColor.redColor().CGColor
-        searchField.layer.shadowOffset = CGSizeMake(SCREENWIDTH - 28, 48)
-        searchField.layer.shadowRadius = 4.0
-        searchField.layer.shadowOpacity = 0.6
+        searchField.layer.borderColor = UIColor.init(hexString: App_Theme_Shaddown_Color).CGColor
+        searchField.layer.borderWidth = 0.5
         searchField.layer.masksToBounds = true
         searchField.contentVerticalAlignment = UIControlContentVerticalAlignment.Center
         searchField.leftView = leftImage
+        searchField.clipsToBounds = true
         searchField.font = HomeSearch_Font
         searchField.textColor = UIColor.init(hexString: App_Theme_Text_Color)
         searchField.tintColor = UIColor.init(hexString: App_Theme_BackGround_Color)
@@ -91,6 +90,12 @@ class HomeSearchTableViewCell: UITableViewCell {
         searchField.enabled = false
         self.contentView.addSubview(searchField)
     
+//        searchBack.frame = CGRectMake(19, 181, SCREENWIDTH - 38, 48)
+//        searchBack.layer.cornerRadius = 4.0
+//        searchBack.layer.masksToBounds = true
+//        searchBack.backgroundColor = UIColor.init(hexString: App_Theme_Shaddown_Color);
+//        self.contentView.addSubview(searchBack)
+        
         searchFieldView.frame = searchField.frame
         let sigleTap = UITapGestureRecognizer(target: self, action: #selector(HomeSearchTableViewCell.sigleTapPress(_:)))
         searchFieldView.backgroundColor = UIColor.clearColor()
@@ -108,7 +113,7 @@ class HomeSearchTableViewCell: UITableViewCell {
             logoImage.snp_makeConstraints(closure: { (make) in
                 make.top.equalTo(self.contentView.snp_top).offset(88)
                 make.centerX.equalTo(self.contentView.snp_centerX).offset(0)
-                make.size.equalTo(CGSizeMake(54, 51))
+                make.size.equalTo(CGSizeMake(54, 50))
             })
             
             location.snp_makeConstraints(closure: { (make) in

@@ -14,7 +14,8 @@ let GlobalCell_Title_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(13.0):U
 
 let GlobalCell_ImageTitle_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(13.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 13.0)
 
-let GlobalCell_Detail_Color = "BBC1CB"
+let GlobalCell_Detail_Color = "8A96A2"
+let GlobalCell_Detail_NoSelect_Color = "BBC1CB"
 let GlobalCell_Detail_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(13.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 13.0)
 
 class GloabTableViewCell: NSObject {
@@ -115,6 +116,11 @@ class GloabTitleAndFieldCell: UITableViewCell {
         self.updateConstraintsIfNeeded()
     }
     
+    func setPlachText(placeholder:String) {
+        textField.placeholder = placeholder
+        textField.attributedPlaceholder = NSAttributedString.init(string: placeholder, attributes: [NSFontAttributeName:Home_Ticket_Introuduct_Field_Font!,NSForegroundColorAttributeName:UIColor.init(hexString: Home_Ticket_Introuduct_Field_Color)])
+    }
+    
     func setData(title:String, detail:String) {
         titleLabel.text = title
         textField.placeholder = detail
@@ -192,6 +198,11 @@ class GloabTitleAndDetailImageCell: UITableViewCell {
     func setData(title:String, detail:String) {
         self.titleLabel.text = title
         detailLabel.text = detail
+        if detailLabel.text == "未选择" {
+            detailLabel.textColor = UIColor.init(hexString: GlobalCell_Detail_NoSelect_Color)
+        }else{
+            detailLabel.textColor = UIColor.init(hexString: GlobalCell_Detail_Color)
+        }
     }
     
     func hideLineLabel() {

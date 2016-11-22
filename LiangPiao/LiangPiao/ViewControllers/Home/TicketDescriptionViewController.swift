@@ -14,6 +14,7 @@ class TicketDescriptionViewController: UIViewController {
     var navigationBar:GlobalNavigationBarView!
     var ticketToolsView:UIView!
     var cell:TicketToolsTableViewCell!
+    let  viewModel = TicketDescriptionViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +35,7 @@ class TicketDescriptionViewController: UIViewController {
         tableView.registerClass(TicketNumberTableViewCell.self, forCellReuseIdentifier: "TicketNumberTableViewCell")
         tableView.registerClass(TickerInfoTableViewCell.self, forCellReuseIdentifier: "TickerInfoTableViewCell")
         tableView.registerClass(TicketToolsTableViewCell.self, forCellReuseIdentifier: "TicketToolsTableViewCell")
+        tableView.registerClass(TicketMapTableViewCell.self, forCellReuseIdentifier: "TicketMapTableViewCell")
         self.view.addSubview(tableView)
         
         tableView.snp_makeConstraints { (make) in
@@ -54,7 +56,9 @@ class TicketDescriptionViewController: UIViewController {
         self.isShowTicketNavigationBar(false)
         self.setNavigationItemBack()
         let likeItem = UIBarButtonItem(image: UIImage.init(named: "Icon_Like_Normal")?.imageWithRenderingMode(.AlwaysOriginal), style: .Plain, target: self, action: #selector(TicketDescriptionViewController.likeItemPress(_:) as (TicketDescriptionViewController) -> (UIBarButtonItem) -> ()))
+        likeItem.setBackgroundImage(UIImage.init(named: "Icon_Like_Press"), forState: .Selected, barMetrics: .Default)
         let shareItem = UIBarButtonItem(image: UIImage.init(named: "Icon_Share_Normal")?.imageWithRenderingMode(.AlwaysOriginal), style: .Plain, target: self, action: #selector(TicketDescriptionViewController.shareItemPress(_:)))
+        shareItem.setBackgroundImage(UIImage.init(named: "Icon_Share_Press"), forState: .Selected, barMetrics: .Default)
         self.navigationItem.rightBarButtonItems = [shareItem,likeItem]
 
     }
@@ -147,11 +151,11 @@ class TicketDescriptionViewController: UIViewController {
     }
     
     func updateTicketViewFrame(tag:NSInteger){
-        let rectInTableView = tableView.rectForRowAtIndexPath(NSIndexPath.init(forRow: 2, inSection: 0))
+        let rectInTableView = tableView.rectForRowAtIndexPath(NSIndexPath.init(forRow: 3, inSection: 0))
         let rect = tableView.convertRect(rectInTableView, toView: tableView.superview)
         if !ticketToolsView.hidden {
-            self.view.viewWithTag(tag)?.frame.origin.y = 102
-        }else if rect.origin.y > 42 {
+            self.view.viewWithTag(tag)?.frame.origin.y = 42
+        }else if rect.origin.y > 0 {
             self.view.viewWithTag(tag)?.frame.origin.y = rect.origin.y + 42
         }
         
@@ -161,16 +165,7 @@ class TicketDescriptionViewController: UIViewController {
 
 extension TicketDescriptionViewController : UITableViewDelegate {
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        switch indexPath.row {
-        case 0:
-            return 188
-        case 1:
-            return 80
-        case 2:
-            return 42
-        default:
-            return 60
-        }
+        return viewModel.tableViewHeight(indexPath.row)
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -187,7 +182,7 @@ extension TicketDescriptionViewController : UITableViewDelegate {
             self.updateTicketViewFrame(300)
         }
         
-        if scrollView.contentOffset.y > 264 {
+        if scrollView.contentOffset.y > 264 + viewModel.tableViewHeight(2) {
             ticketToolsView.hidden = false
             if ticketToolsView.viewWithTag(1000) == nil {
                 let ticketView = cell.setUpDescriptionView()
@@ -228,6 +223,10 @@ extension TicketDescriptionViewController : UITableViewDataSource {
             cell.selectionStyle = .None
             return cell
         case 2:
+            let cell = tableView.dequeueReusableCellWithIdentifier("TicketMapTableViewCell", forIndexPath: indexPath) as! TicketMapTableViewCell
+            cell.selectionStyle = .None
+            return cell
+        case 3:
             cell = tableView.dequeueReusableCellWithIdentifier("TicketToolsTableViewCell", forIndexPath: indexPath) as! TicketToolsTableViewCell
             cell.selectionStyle = .None
             cell.ticketCellClouse = { tag in

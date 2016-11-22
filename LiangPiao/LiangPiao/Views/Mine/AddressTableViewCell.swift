@@ -29,7 +29,7 @@ class AddAddressView: UIView {
         addButton.titleLabel?.font = Mine_AddAddress_Name_Font
         addButton.setTitleColor(UIColor.init(hexString: Mine_AddAddress_Name_Color), forState: .Normal)
         addButton.userInteractionEnabled = false
-        addButton.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0)
+        addButton.titleEdgeInsets = UIEdgeInsetsMake(0, 20, 0, 0)
         addButton.setImage(UIImage.init(named: "Icon_Add"), forState: .Normal)
         self.addSubview(addButton)
         self.updateConstraintsIfNeeded()
@@ -37,7 +37,7 @@ class AddAddressView: UIView {
     
     override func updateConstraints() {
         addButton.snp_makeConstraints { (make) in
-            make.centerX.equalTo(self.snp_centerX).offset(-5)
+            make.centerX.equalTo(self.snp_centerX).offset(-1)
             make.centerY.equalTo(self.snp_centerY).offset(0)
             make.width.equalTo(139)
         }
@@ -139,7 +139,7 @@ class AddressTableViewCell: UITableViewCell {
             })
             
             addressDetail.snp_makeConstraints(closure: { (make) in
-                make.top.equalTo(self.nameAndePhone.snp_bottom).offset(8)
+                make.top.equalTo(self.nameAndePhone.snp_bottom).offset(6)
                 make.left.equalTo(self.contentView.snp_left).offset(15)
                 make.right.equalTo(self.contentView.snp_right).offset(-70)
                 make.bottom.equalTo(self.contentView.snp_bottom).offset(-16)

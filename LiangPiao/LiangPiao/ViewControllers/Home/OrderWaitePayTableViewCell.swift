@@ -58,13 +58,13 @@ class OrderWaitePayTableViewCell: UITableViewCell {
         orderName = UILabel()
         orderName.text = "冉灿    18602035508"
         orderName.textColor = UIColor.init(hexString: Mine_Address_Name_Color)
-        orderName.font = Mine_Address_Name_Font
+        orderName.font = Ticket_Detail_Name_Font
         self.contentView.addSubview(orderName)
         
         orderAddress = UILabel()
         orderAddress.text = "朝阳区香河园小区西坝河中里35号楼二层207"
         orderAddress.textColor = UIColor.init(hexString: Mine_Address_Name_Color)
-        orderAddress.font = Mine_Address_Name_Font
+        orderAddress.font = Ticket_Detail_Name_Font
         self.contentView.addSubview(orderAddress)
         
         orderCountDownView = OrderCountDownView(frame: CGRectMake(91, 55, 68, 15))
@@ -112,7 +112,7 @@ class OrderWaitePayTableViewCell: UITableViewCell {
             
             lineLabel.snp_makeConstraints(closure: { (make) in
                 make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.bottom.equalTo(self.contentView.snp_bottom).offset(-85.5)
+                make.bottom.equalTo(self.contentView.snp_bottom).offset(-83.5)
                 make.right.equalTo(self.contentView.snp_right).offset(-125)
             })
             self.didMakeConstraints = true

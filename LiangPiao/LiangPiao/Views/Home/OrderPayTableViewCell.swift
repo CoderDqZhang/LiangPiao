@@ -33,15 +33,15 @@ class OrderPayTableViewCell: UITableViewCell {
         let packing = self.createLabel(CGRectMake(15, 89, 50, 17), name:"配送费")
         self.contentView.addSubview(packing)
         
-        receiptsLabel = self.createLabel(CGRectMake(SCREENWIDTH - 175, 25, 165, 17),name: "360元")
+        receiptsLabel = self.createLabel(CGRectMake(SCREENWIDTH - 180, 25, 165, 17),name: "360 元")
         receiptsLabel.textAlignment = .Right
         self.contentView.addSubview(receiptsLabel)
         
-        discountCoupon = self.createLabel(CGRectMake(SCREENWIDTH - 175, 57, 165, 17),name: "-30元")
+        discountCoupon = self.createLabel(CGRectMake(SCREENWIDTH - 180, 57, 165, 17),name: "-30 元")
         discountCoupon.textAlignment = .Right
         self.contentView.addSubview(discountCoupon)
         
-        packingFee = self.createLabel(CGRectMake(SCREENWIDTH - 175, 89, 165, 17),name: "8.00元")
+        packingFee = self.createLabel(CGRectMake(SCREENWIDTH - 180, 89, 165, 17),name: "8.00 元")
         packingFee.textAlignment = .Right
         self.contentView.addSubview(packingFee)
         

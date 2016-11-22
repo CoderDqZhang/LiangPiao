@@ -60,7 +60,7 @@ class TicketLocationTableViewCell: UITableViewCell {
             })
             
             detailAddress.snp_makeConstraints(closure: { (make) in
-                make.top.equalTo(self.addressLabel.snp_bottom).offset(1)
+                make.top.equalTo(self.addressLabel.snp_bottom).offset(2)
                 make.left.equalTo(self.contentView.snp_left).offset(15)
             })
             

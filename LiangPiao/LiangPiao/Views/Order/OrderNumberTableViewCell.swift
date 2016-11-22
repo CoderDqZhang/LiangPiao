@@ -24,14 +24,14 @@ class OrderNumberTableViewCell: UITableViewCell {
         
         orderNumber = UILabel()
         orderNumber.text = "订单编号：2877800028"
-        orderNumber.textColor = UIColor.init(hexString: Home_Ticket_Scene_Title_Color)
-        orderNumber.font = Home_Ticket_Scene_Font
+        orderNumber.textColor = UIColor.init(hexString: Order_List_Number_Color)
+        orderNumber.font = Order_List_Number_Font
         self.contentView.addSubview(orderNumber)
         
         orderStatus = UILabel()
         orderStatus.text = "已完成"
-        orderStatus.textColor = UIColor.init(hexString: Home_Ticket_Scene_Title_Color)
-        orderStatus.font = Home_Ticket_Scene_Font
+        orderStatus.textColor = UIColor.init(hexString: Order_List_Done_Color)
+        orderStatus.font = Order_List_Done_Font
         self.contentView.addSubview(orderStatus)
         
         lineLabel = GloabLineView(frame: CGRectMake(15, self.contentView.bounds.size.height - 0.5, SCREENWIDTH - 30, 0.5))
@@ -46,7 +46,7 @@ class OrderNumberTableViewCell: UITableViewCell {
             orderStatus.textColor = UIColor.init(hexString: App_Theme_BackGround_Color)
         }else{
             orderStatus.text = "已完成"
-            orderStatus.textColor = UIColor.init(hexString: App_Theme_Text_Color)
+            orderStatus.textColor = UIColor.init(hexString: Order_List_Done_Color)
         }
     }
     
@@ -64,7 +64,7 @@ class OrderNumberTableViewCell: UITableViewCell {
             
             orderStatus.snp_makeConstraints(closure: { (make) in
                 make.right.equalTo(self.contentView.snp_right).offset(-15)
-                make.centerY.equalTo(self.contentView.snp_centerY).offset(3)
+                make.centerY.equalTo(self.contentView.snp_centerY).offset(0)
             })
             
             lineLabel.snp_makeConstraints(closure: { (make) in

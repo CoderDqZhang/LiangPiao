@@ -11,10 +11,12 @@ import UIKit
 class TicketSceneViewController: UIViewController {
 
     var tableView:UITableView!
+    let viewModel = TicketSessionViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUpView()
+        self.bindViewModel()
         // Do any additional setup after loading the view.
     }
     
@@ -37,36 +39,24 @@ class TicketSceneViewController: UIViewController {
             make.bottom.equalTo(self.view.snp_bottom).offset(0)
         }
         
-        let navigationBar = GlobalNavigationBarView(frame: CGRectMake(0, 0, SCREENWIDTH - 150, 42), title: "万有音乐系 陈粒《小梦大半》2016巡.", detail: "2016.11.12 20:00")
+        let navigationBar = GlobalNavigationBarView(frame: CGRectMake(0, 0, SCREENWIDTH - 150, 42), title: viewModel.model.title, detail: viewModel.model.showDate)
         self.navigationItem.titleView = navigationBar
     }
 
+    func bindViewModel(){
+        viewModel.requestTicketSession(tableView)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
 
 extension TicketSceneViewController : UITableViewDelegate {
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        switch indexPath.row {
-        case 0:
-            return 70
-        default:
-            return 60
-        }
+        return viewModel.tableViewHeightForRowAtIndexPath(indexPath)
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -76,7 +66,7 @@ extension TicketSceneViewController : UITableViewDelegate {
 
 extension TicketSceneViewController : UITableViewDataSource {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return viewModel.numberOfRowsInSection(section)
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {

@@ -71,13 +71,13 @@ class OrderDetailViewController: UIViewController {
         self.setUpView()
         self.setNavigationItem()
         
-        self.rac_observeKeyPath(AliPayStatues, options: .New, observer: self) { (object, objects, new, obj) in
-            
-        }
-        
-        self.rac_observeKeyPath(WeiXinPayStatues, options: .New, observer: self) { (object, objects, new, obj) in
-            
-        }
+//        self.rac_observeKeyPath(AliPayStatues, options: .New, observer: self) { (object, objects, new, obj) in
+//            
+//        }
+//        
+//        self.rac_observeKeyPath(WeiXinPayStatues, options: .New, observer: self) { (object, objects, new, obj) in
+//            
+//        }
         
 //        self.rac_observeKeyPath(WeiXinPayStatues, options: .New, observer: self) { (object, objects, new, obj) in
 //            
@@ -97,8 +97,7 @@ class OrderDetailViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.keyboardDismissMode = .OnDrag
-        tableView.registerClass(OrderAddressTableViewCell.self, forCellReuseIdentifier: "OrderAddressTableViewCell")
-        tableView.registerClass(OrderTicketInfoTableViewCell.self, forCellReuseIdentifier: "OrderTicketInfoTableViewCell")
+        tableView.registerClass(TicketDetailInfoTableViewCell.self, forCellReuseIdentifier: "TicketDetailInfoTableViewCell")
         tableView.registerClass(TicketLocationTableViewCell.self, forCellReuseIdentifier: "TicketLocationTableViewCell")
         tableView.registerClass(OrderMuchTableViewCell.self, forCellReuseIdentifier: "OrderMuchTableViewCell")
         tableView.registerClass(OrderPayTableViewCell.self, forCellReuseIdentifier: "OrderPayTableViewCell")
@@ -112,12 +111,13 @@ class OrderDetailViewController: UIViewController {
             make.right.equalTo(self.view.snp_right).offset(0)
         }
         
-        payView = OrderPayView(frame: CGRectMake(0, SCREENHEIGHT - 49, SCREENWIDTH, 49))
+        payView = OrderPayView(frame: CGRectMake(0, SCREENHEIGHT - 49 - 64, SCREENWIDTH, 49))
         self.view.addSubview(payView)
         self.updateTableView(.orderWaitPay)
     }
     
     func setNavigationItem() {
+        self.title = "订单详情"
         self.setNavigationItemBack()
     }
     
@@ -183,7 +183,7 @@ class OrderDetailViewController: UIViewController {
     func tableOrderFooterView() -> UIView {
         let orderConfirmView = UIView(frame: CGRectMake(0,0,SCREENWIDTH,12))
         orderConfirmView.backgroundColor = UIColor.init(hexString: Home_Ticket_Introuduct_Back_Color)
-        let imageView = UIImageView(frame:CGRectMake(0,0,SCREENWIDTH,2))
+        let imageView = UIImageView(frame:CGRectMake(0,0,SCREENWIDTH,4))
         imageView.image = UIImage.init(named: "Pattern_Line")//Pattern_Line
         orderConfirmView.addSubview(imageView)
         return orderConfirmView
@@ -193,20 +193,23 @@ class OrderDetailViewController: UIViewController {
     func tableforFootView() -> UIView {
         let footView = UIView(frame: CGRectMake(0,0,SCREENWIDTH,118))
         footView.backgroundColor = UIColor.init(hexString: Home_Ticket_Introuduct_Back_Color)
-        let imageView = UIImageView(frame:CGRectMake(0,0,SCREENWIDTH,2))
+        let imageView = UIImageView(frame:CGRectMake(0,-0.5,SCREENWIDTH,4))
         imageView.image = UIImage.init(named: "Sawtooth")//Pattern_Line
         footView.addSubview(imageView)
-        let orderInfo = self.createLabel(CGRectMake(15,20,SCREENWIDTH - 30,17), text: "订单编号：18399939r7      订单时间：2016.12.08   12:08:54")
+        let orderInfo = self.createLabel(CGRectMake(15,20,SCREENWIDTH - 30,14), text: "订单编号：18399939r7")
         footView.addSubview(orderInfo)
         
-        let servicePhone = self.createLabel(CGRectMake(15,39,SCREENWIDTH - 30,17), text: "客服电话：400-873-8011")
-        footView.addSubview(servicePhone)
-        
-        let service = self.createLabel(CGRectMake(15,58,SCREENWIDTH - 30,17), text: "客服微信：liangpiao")
+        let service = self.createLabel(CGRectMake(15,36,SCREENWIDTH - 30,14), text: "订单时间：2016.12.08   12:08:54")
         footView.addSubview(service)
         
-        let serviceTime = self.createLabel(CGRectMake(15,77,SCREENWIDTH - 30,17), text: "客服工作时间：09:00-21:00")
+        
+        let servicePhone = self.createLabel(CGRectMake(15,52,SCREENWIDTH - 30,14), text: "客服电话：400-873-8011")
+        footView.addSubview(servicePhone)
+        
+        
+        let serviceTime = self.createLabel(CGRectMake(15,68,SCREENWIDTH - 30,14), text: "客服工作时间：09:00-21:00")
         footView.addSubview(serviceTime)
+        
         return footView
     }
 
@@ -309,7 +312,8 @@ extension OrderDetailViewController : UITableViewDataSource {
          case 1:
             switch indexPath.row {
             case 0:
-                let cell = tableView.dequeueReusableCellWithIdentifier("OrderTicketInfoTableViewCell", forIndexPath: indexPath) as! OrderTicketInfoTableViewCell
+                let cell = tableView.dequeueReusableCellWithIdentifier("TicketDetailInfoTableViewCell", forIndexPath: indexPath) as! TicketDetailInfoTableViewCell
+                cell.ticketPhoto.image = UIImage.init(named: "Feeds_Default_Cover_02")
                 cell.selectionStyle = .None
                 return cell
             default:

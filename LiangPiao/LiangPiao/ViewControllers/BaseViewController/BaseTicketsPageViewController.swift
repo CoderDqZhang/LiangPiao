@@ -11,7 +11,7 @@ import UIKit
 class BaseTicketsPageViewController: UIViewController {
 
     var tableView:UITableView!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUpView()
@@ -67,13 +67,13 @@ extension BaseTicketsPageViewController : UITableViewDelegate {
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        self.navigationController?.pushViewController(TicketSceneViewController(), animated: true)
+        TicketCategoryViewModel.sharedInstance.tableViewDidSelectRowAtIndexPath(indexPath, controller: self)
     }
 }
 
 extension BaseTicketsPageViewController : UITableViewDataSource {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return TicketCategoryViewModel.sharedInstance.numberOfRowsInSection()
         
     }
     
@@ -92,6 +92,7 @@ extension BaseTicketsPageViewController : UITableViewDataSource {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCellWithIdentifier("RecommendTableViewCell", forIndexPath: indexPath) as! RecommendTableViewCell
+        TicketCategoryViewModel.sharedInstance.tableViewCellForRowAtIndexPath(cell, indexPath: indexPath)
         cell.selectionStyle = .None
         return cell
     }

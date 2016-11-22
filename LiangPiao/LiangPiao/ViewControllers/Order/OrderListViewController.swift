@@ -44,6 +44,15 @@ class OrderListViewController: BaseViewController {
     }
     
 
+    func orderListView() -> UIView {
+        let orderListView = UIView(frame: CGRectMake(0,0,SCREENWIDTH,10))
+        orderListView.backgroundColor = UIColor.init(hexString: Home_Ticket_Introuduct_Back_Color)
+        let imageView = UIImageView(frame:CGRectMake(0,0,SCREENWIDTH,4))
+        imageView.image = UIImage.init(named: "Sawtooth")//Pattern_Line
+        orderListView.addSubview(imageView)
+        
+        return orderListView
+    }
     /*
     // MARK: - Navigation
 
@@ -77,15 +86,19 @@ extension OrderListViewController : UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 10
+        return 14
     }
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0.0001
     }
     
+    func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return self.orderListView()
+    }
+    
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return viewModel.tableViewHeightForRow(indexPath.row)
+        return viewModel.tableViewHeightForRow(indexPath)
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -93,10 +106,12 @@ extension OrderListViewController : UITableViewDataSource {
         case 0:
             let cell = tableView.dequeueReusableCellWithIdentifier("OrderNumberTableViewCell", forIndexPath: indexPath) as! OrderNumberTableViewCell
             cell.userInteractionEnabled = false
+            viewModel.tableViewOrderCellIndexPath(indexPath, cell: cell)
             cell.selectionStyle = .None
             return cell
         case 1:
             let cell = tableView.dequeueReusableCellWithIdentifier("OrderTicketInfoTableViewCell", forIndexPath: indexPath) as! OrderTicketInfoTableViewCell
+            viewModel.tableViewOrderTicketInfoCellIndexPath(indexPath,cell:cell)
             cell.backgroundColor = UIColor.whiteColor()
             cell.selectionStyle = .None
             return cell

@@ -7,3 +7,18 @@
 //
 
 import Foundation
+
+let BaseURL = "http://api.liangpiao.me/"
+
+let LoginUrl = "\(BaseURL)user/login/"
+let LoginCode = "\(BaseURL)user/login_code/"
+let UserAvatar = "\(BaseURL)user/avatar/"
+
+//演出分类 api
+let TicketCategory = "\(BaseURL)show/category/"
+let TickeHot = "\(BaseURL)show/hot/"
+
+let TickeCategoty = "\(BaseURL)show/category/"
+let TickeCategotyList = "\(BaseURL)show/list/"
+
+let TickeSession = "\(BaseURL)show/"

@@ -25,6 +25,7 @@ let WeiXinPayStatues = "WeiXinPayStatuesChange"
 let AliPayStatues = "AliPayStatuesChange"
 
 let ToolViewNotifacationName = "ToolsViewNotification"
+let LoginStatuesChange = "LoginStatuesChange"
 
 let KWINDOWDS = UIApplication.sharedApplication().keyWindow
 
@@ -51,8 +52,14 @@ func Storyboard(name:String,controllerid:String) -> UIViewController{
     return UIStoryboard.init(name: name, bundle: nil).instantiateViewControllerWithIdentifier(controllerid)
 }
 
-func Notification(name:String,value:String) {
+func Notification(name:String,value:String?) {
     NSNotificationCenter.defaultCenter().postNotificationName(name, object: value)
+}
+
+
+func NavigationPushView(formviewController:UIViewController, toConroller:UIViewController) {
+    toConroller.hidesBottomBarWhenPushed = true
+    formviewController.navigationController?.pushViewController(toConroller, animated: true)
 }
 
 

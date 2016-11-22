@@ -70,11 +70,10 @@ class TickerInfoTableViewCell: UITableViewCell {
             ticketRow.snp_makeConstraints(closure: { (make) in
                 make.top.equalTo(self.contentView.snp_top).offset(14)
                 make.centerX.equalTo(self.contentView.snp_centerX).offset(0)
-                make.height.equalTo(20)
             })
             
             ticketDescirp.snp_makeConstraints(closure: { (make) in
-                make.top.equalTo(self.ticketRow.snp_bottom).offset(1)
+                make.top.equalTo(self.ticketRow.snp_bottom).offset(7)
                 make.centerX.equalTo(self.contentView.snp_centerX).offset(0)
             })
             

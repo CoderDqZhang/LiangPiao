@@ -56,6 +56,11 @@ class TicketSceneTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func setData(model:TicketSessionModel) {
+        timeTitle.text = model.name
+        ticketMuch.text = "\(model.minPrice)"
+    }
+    
     override func updateConstraints() {
         if !self.didMakeContraints {
             timeImageView.snp_makeConstraints(closure: { (make) in

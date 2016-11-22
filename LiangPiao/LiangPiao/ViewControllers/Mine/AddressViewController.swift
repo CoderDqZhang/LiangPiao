@@ -11,12 +11,16 @@ enum AddressType {
     case addType
     case editType
 }
+
+typealias AddressInfoClouse = (name:String, address:String) -> Void
+
 class AddressViewController: UIViewController {
 
     var tableView:UITableView!
     var addAddressView:AddAddressView!
     var viewModel = AddressViewModel()
     var addressType:AddressType!
+    var addressInfoClouse:AddressInfoClouse!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +40,7 @@ class AddressViewController: UIViewController {
         tableView.dataSource = self
         tableView.keyboardDismissMode = .OnDrag
         tableView.separatorStyle = .None
-        tableView.backgroundColor = UIColor.init(hexString: App_Theme_TableViewBackGround_Color)
+        tableView.backgroundColor = UIColor.whiteColor()
         tableView.registerClass(AddressTableViewCell.self, forCellReuseIdentifier: "AddressTableViewCell")
         self.view.addSubview(tableView)
         tableView.snp_makeConstraints { (make) in
@@ -62,6 +66,13 @@ class AddressViewController: UIViewController {
     func bindViewModle(){
         viewModel.rac_signalForSelector(#selector(AddressViewModel.tableViewDidSelectIndexPath(_:indexPath:))).subscribeNext { (action) in
             print(action)
+        }
+        
+        viewModel.addressTableViewSelect = { indexPath in
+            if self.addressInfoClouse != nil {
+                self.addressInfoClouse(name: "ddddd",address:"dsdfsdfsdf")
+            }
+            self.navigationController?.popViewControllerAnimated(true)
         }
     }
     

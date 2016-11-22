@@ -21,11 +21,14 @@ class HomeViewController: BaseViewController {
     var homeRefreshView = LiangPiaoHomeRefreshHeader(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 88))
     
     var searchNavigationBar = HomeSearchNavigationBar(frame: CGRectMake(0,0,SCREENWIDTH, 64),font:Home_Navigation_Search_Font)
+    let viewModel = HomeViewModel()
+    
     override func viewDidLoad() {
         self.setUpTableView()
         self.setSearchNavigatioBarClouse()
         self.setUpMJRefeshView()
         self.view.addSubview(searchNavigationBar)
+        self.bindViewModel()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -71,27 +74,12 @@ class HomeViewController: BaseViewController {
         homeRefreshView.startAnimation()
     }
     
+    func bindViewModel(){
+        viewModel.requestHotTicket(tableView)
+    }
+    
     func navigationPushTicketPage(index:NSInteger) {
-        switch index {
-        case 0:
-            let ticketPage = BaseTicketsPageViewController()
-            ticketPage.title = "演唱会"
-            ticketPage.hidesBottomBarWhenPushed = true
-            self.navigationController?.pushViewController(ticketPage, animated: true)
-//        case 1:
-//            let ticketPage = OrderDetailViewController()
-//            ticketPage.title = "订单详情"
-//            ticketPage.hidesBottomBarWhenPushed = true
-//            self.navigationController?.pushViewController(ticketPage, animated: true)
-        default:
-            let ticketPage = TicketPageViewController()
-            ticketPage.progressHeight = 0
-            ticketPage.progressWidth = 0
-            ticketPage.adjustStatusBarHeight = true
-            ticketPage.progressColor = UIColor.init(hexString: TablaBarItemTitleSelectColor)
-            ticketPage.hidesBottomBarWhenPushed = true
-            self.navigationController?.pushViewController(ticketPage, animated: true)
-        }
+        viewModel.navigationPushTicketPage(index, controller:self)
     }
     
     func setUpHomeData(){
@@ -101,51 +89,21 @@ class HomeViewController: BaseViewController {
 
 extension HomeViewController : UITableViewDelegate {
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        switch indexPath.section {
-        case 0:
-            switch indexPath.row {
-                case 0:
-                    return 255
-                case 1:
-                    return 100
-                default:
-                    return 152
-            }
-        default:
-            switch indexPath.row {
-                case 0:
-                    return 57
-                default:
-                    return 140
-            }
-        }
+        return viewModel.tableViewHeightForRowAtIndexPath(indexPath)
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        switch indexPath.section {
-        case 0:
-            break;
-        default:
-            if indexPath.row != 0 {
-                let controller = TicketSceneViewController()
-                controller.hidesBottomBarWhenPushed = true
-                self.navigationController?.pushViewController(controller, animated: true)
-            }
-        }
-        
+        viewModel.tableViewDidSelectRowAtIndexPath(indexPath, controller:self)
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
-        if #available(iOS 10.0, *) {
-            searchNavigationBar.backgroundColor = UIColor.init(displayP3Red: 75.0/255.0, green: 212.0/255.0, blue: 197.0/255.0, alpha: scrollView.contentOffset.y/165)
-        } else {
-            searchNavigationBar.backgroundColor = UIColor.init(red: 75.0/255.0, green: 212.0/255.0, blue: 197.0/255.0, alpha: scrollView.contentOffset.y/165)
-            // Fallback on earlier versions
-        }
         if scrollView.contentOffset.y > 165 {
             searchNavigationBar.searchField.hidden = false
+            searchNavigationBar.hidden = false
+            searchNavigationBar.backgroundColor = UIColor.init(hexString: App_Theme_BackGround_Color)
         }else{
             searchNavigationBar.searchField.hidden = true
+            searchNavigationBar.hidden = true
         }
         if cell != nil {
             if scrollView.contentOffset.y < 0 {
@@ -171,6 +129,7 @@ extension HomeViewController : UITableViewDelegate {
     
     func searchViewController() {
         searchNavigationBar.backgroundColor = UIColor.init(red: 75.0/255.0, green: 212.0/255.0, blue: 197.0/255.0, alpha: 1)
+        searchNavigationBar.hidden = false
         searchNavigationBar.searchField.hidden = false
         searchNavigationBar.searchField.becomeFirstResponder()
     }
@@ -196,25 +155,15 @@ extension HomeViewController : UITableViewDelegate {
 
 extension HomeViewController : UITableViewDataSource {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-        case 0:
-            return 2
-        default:
-            return 10
-        }
+        return viewModel.numberOfRowsInSection(section)
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 2
+        return viewModel.numberOfSectionsInTableView()
     }
     
     func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        switch section {
-        case 1:
-            return 0.0001
-        default:
-            return 10
-        }
+        return viewModel.tableViewHeightForFooterInSection(section)
     }
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -256,9 +205,7 @@ extension HomeViewController : UITableViewDataSource {
                         subView.removeFromSuperview()
                     }
                 }
-                
-                
-                 let recommentTitle = UILabel()
+                let recommentTitle = UILabel()
                 if IPHONE_VERSION >= 9 {
                     recommentTitle.frame = CGRectMake((SCREENWIDTH - 56) / 2, 30, 56, 20)
                 }else{
@@ -267,7 +214,7 @@ extension HomeViewController : UITableViewDataSource {
                
                 recommentTitle.textColor = UIColor.init(hexString: Home_Recommend_RecommentTitle_Color)
                 recommentTitle.font = Home_Recommend_RecommentTitle_Font
-                recommentTitle.text = "热门推荐"
+                recommentTitle.text = "近期尾票"
                 cell?.contentView.addSubview(recommentTitle)
                 
                 let lineLabel = GloabLineView(frame: CGRectMake(CGRectGetMinX(recommentTitle.frame) - 50, 40, 30, 0.5))
@@ -281,6 +228,7 @@ extension HomeViewController : UITableViewDataSource {
             default:
                 let cell = tableView.dequeueReusableCellWithIdentifier("RecommendTableViewCell", forIndexPath: indexPath) as! RecommendTableViewCell
                 cell.selectionStyle = .None
+                viewModel.cellData(cell, indexPath:indexPath)
                 return cell
             }
         }

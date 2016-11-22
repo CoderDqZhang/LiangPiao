@@ -26,12 +26,12 @@ class LiangPiaoHomeRefreshHeader: UIView {
     func setUpView(){
         self.backgroundColor = UIColor.clearColor()
         imageView = UIImageView()
-        self.imageView.frame = CGRect.init(x: self.center.x - 14, y: 30, width: 28, height: 28)
+        self.imageView.frame = CGRect.init(x: self.center.x - 14, y: 49, width: 28, height: 28)
         self.addSubview(imageView)
 
         loadImageView = UIImageView()
         loadImageView.image = UIImage.init(named: "加载动画圆点")
-        self.loadImageView.frame = CGRect.init(x: self.center.x - 14, y: 30, width: 28, height: 28)
+        self.loadImageView.frame = CGRect.init(x: self.center.x - 14, y: 49, width: 28, height: 28)
         self.addSubview(loadImageView)
 
     }

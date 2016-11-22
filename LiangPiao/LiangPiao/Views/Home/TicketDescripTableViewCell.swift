@@ -33,6 +33,7 @@ class TicketDescripTableViewCell: UITableViewCell {
         
         ticketTitle = UILabel()
         ticketTitle.text = "万有音乐系 陈粒《小梦大半》2016巡回演唱会"
+        UILabel.changeLineSpaceForLabel(ticketTitle, withSpace: 3.0)
         ticketTitle.numberOfLines = 0
         ticketTitle.textColor = UIColor.init(hexString: Home_Recommend_Title_Color)
         ticketTitle.font = Home_Recommend_Title_Font
@@ -55,9 +56,10 @@ class TicketDescripTableViewCell: UITableViewCell {
         appTicketState.textColor = UIColor.init(hexString: APP_State_Ticket_Color)
         appTicketState.font = APP_State_Ticket_Font!
         appTicketState.numberOfLines = 0
+        UILabel.changeLineSpaceForLabel(appTicketState, withSpace: 3.0)
         self.contentView.addSubview(appTicketState)
         
-        ticketStatus = GlobalTicketStatus(frame: CGRectZero, titles: ["9.6折","最后5张","预售中"], types: [2])
+        ticketStatus = GlobalTicketStatus(frame: CGRectZero, titles: ["9.6折","预售中","最后5张"], types: [3])
         self.addSubview(ticketStatus)
         
         lineLabel = GloabLineView(frame: CGRectMake(15, 139.5, SCREENWIDTH - 30, 0.5))
@@ -105,12 +107,12 @@ class TicketDescripTableViewCell: UITableViewCell {
             
             appTicketState.snp_makeConstraints(closure: { (make) in
                 make.bottom.equalTo(self.contentView.snp_bottom).offset(-17)
-                make.left.equalTo(self.ticketPhoto.snp_right).offset(12)
+                make.left.equalTo(self.ticketPhoto.snp_right).offset(11)
                 make.right.equalTo(self.contentView.snp_right).offset(-15)
             })
             
             ticketStatus.snp_makeConstraints(closure: { (make) in
-                make.bottom.equalTo(self.appTicketState.snp_top).offset(-6)
+                make.bottom.equalTo(self.appTicketState.snp_top).offset(-7)
                 make.left.equalTo(self.ticketPhoto.snp_right).offset(12)
                 make.height.equalTo(16)
             })

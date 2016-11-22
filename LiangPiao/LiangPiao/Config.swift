@@ -19,6 +19,7 @@ let HomePage_brand_BackGroudColor = "4BD4C5"
 
 let App_Theme_Text_Color = "384249"
 let App_Theme_BackGround_Color = "4BD4C5"
+let App_Theme_Shaddown_Color = "40C6B7"
 
 let App_Theme_TableViewBackGround_Color = "E9EBF2"
 let App_Theme_Empty_BackGround_Color = "F6F7FA"
@@ -76,7 +77,7 @@ let Home_Ticker_DescripNumber_Color = "384249"
 let Home_Ticker_DescripNumber_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(13.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 13.0)
 
 let Home_Ticker_DescripNumber_bordColor = "384249"
-let Home_Ticker_DescripNumber_bordFont = IPHONE_VERSION > 9 ? UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 15.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 15.0)
+let Home_Ticker_DescripNumber_bordFont = IPHONE_VERSION > 9 ? UIFont.init(name: ".SFUIText-Medium", size: 15.0):UIFont.init(name: ".HelveticaNeueInterface-Medium", size: 15.0)
 
 let Home_Ticker_NomalPrice_Color = "384249"
 let Home_Ticker_NomalPrice_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(14.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 14.0)
@@ -95,11 +96,17 @@ let Home_Ticker_Tools_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(12.0):
 
 let Home_Ticker_Tools_Table_nColor = "4BD4C5"
 let Home_Ticker_Tools_Table_sColor = "384249"
+let Home_Ticker_Tools_Table_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(12.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 12.0)
+let Home_PayView_WaitPay_Much_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(18.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 18.0)
+
 let APP_State_Ticket_Table_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(14.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 14.0)
 
 let Home_OrderConfirmCell_Color = "F6F7FA"
 let Home_OrderConfirmCell_Info_Color = "A2ABB5"
 let Home_OrderConfirmCell_Info_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(12.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 12.0)
+
+let Home_Ticket_Info_Color = "8A96A2"
+
 
 let Home_OrderConfirmCell_Title_Color = "384249"
 let Home_OrderConfirmCell_Title_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(15.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 15.0)
@@ -112,8 +119,10 @@ let Home_ReciveView_Label_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(13
 let Home_PayView_MuchLabel_Color = "FFFFFF"
 let Home_PayView_Button_Title_Color = "FFFFFF"
 let Home_PayView_Label_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(14.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 14.0)
+
 let Home_PayView_Button_Title_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(15.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 15.0)
 let Home_PayView_MuchLabel_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(10.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 10.0)
+
 let Home_PayView_Much_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(17.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 17.0)
 
 let Home_Ticket_Introuduct_Color = "BBC1CB"
@@ -124,7 +133,9 @@ let Home_Ticket_Introuduct_Field_Color = "DDE0E5"
 let Home_Ticket_Introuduct_Field_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(13.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 13.0)
 
 let Mine_Address_Name_Color = "384249"
-let Mine_Address_Name_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(13.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 13.0)
+let Mine_Address_Name_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(14.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 14.0)
+
+let Ticket_Detail_Name_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(13.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 13.0)
 
 let Mine_NomalAddress_Name_Color = "FFFFFF"
 let Mine_NomalAddress_Name_Font = IPHONE_VERSION > 9 ? UIFont.init(name: ".SFUIText-Light", size: 11.0):UIFont.init(name: ".HelveticaNeueInterface-Light", size: 11)
@@ -137,6 +148,11 @@ let Order_Status_Wait_Done_Font = IPHONE_VERSION > 9 ? UIFont.init(name: ".SFUIT
 
 let Order_Status_Time_Color = "4BD4C5"
 let Order_Status_Time_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(11.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 11.0)
+
+let Order_List_Number_Color = "8A96A2"
+let Order_List_Done_Color = "A2ABB5"
+let Order_List_Number_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(12.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 12.0)
+let Order_List_Done_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(14.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 14.0)
 
 let Count_Done_BackGround_Color = "8A96A2"
 let Count_Done_Text_Color = "FFFFFF"

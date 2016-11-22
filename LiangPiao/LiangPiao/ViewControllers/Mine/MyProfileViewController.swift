@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Haneke
 
 class MyProfileViewController: UIViewController {
 
@@ -15,8 +14,6 @@ class MyProfileViewController: UIViewController {
     var viewModel:MyProfileViewModel = MyProfileViewModel()
     
     var sexPickerView:ZHPickView!
-    var birthDayPickerView:ZHPickView!
-    var cityPickerView:ZHPickView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,17 +29,13 @@ class MyProfileViewController: UIViewController {
     }
     
     func saveItemPress(sender:UIBarButtonItem) {
-        
+        Notification(LoginStatuesChange, value: nil);
     }
     
     override func viewWillDisappear(animated: Bool) {
         self.view.endEditing(true)
         if KWINDOWDS?.viewWithTag(1) != nil {
             sexPickerView.remove()
-        }else if KWINDOWDS?.viewWithTag(2) != nil {
-            birthDayPickerView.remove()
-        }else if KWINDOWDS?.viewWithTag(3) != nil {
-            cityPickerView.remove()
         }
     }
     
@@ -95,51 +88,9 @@ class MyProfileViewController: UIViewController {
             sexPickerView.delegate = self
         }
         
-        if KWINDOWDS?.viewWithTag(2) != nil {
-            birthDayPickerView.remove()
-        }else if KWINDOWDS?.viewWithTag(3) != nil {
-            cityPickerView.remove()
-        }
         sexPickerView.show()
     }
     
-    func showBirthDayPickerView(){
-        if birthDayPickerView == nil {
-            birthDayPickerView = ZHPickView(datePickWithDate: NSDate(), datePickerMode: .Date, isHaveNavControler: false)
-            birthDayPickerView.setPickViewColer(UIColor.whiteColor())
-            birthDayPickerView.setTintColor(UIColor.whiteColor())
-            birthDayPickerView.setToolbarTintColor(UIColor.whiteColor())
-            birthDayPickerView.tag = 2
-            birthDayPickerView.setTintFont(Mine_Service_Font, color: UIColor.init(hexString: App_Theme_Text_Color))
-            birthDayPickerView.delegate = self
-            
-        }
-        if KWINDOWDS?.viewWithTag(1) != nil {
-            sexPickerView.remove()
-        }else if KWINDOWDS?.viewWithTag(3) != nil {
-            cityPickerView.remove()
-        }
-        birthDayPickerView.show()
-    }
-    
-    func showCityPickerView(){
-        if cityPickerView == nil {
-            cityPickerView = ZHPickView(pickviewWithPlistName: "city", isHaveNavControler: false)
-            cityPickerView.setPickViewColer(UIColor.whiteColor())
-            cityPickerView.setTintColor(UIColor.whiteColor())
-            cityPickerView.tag = 3
-            cityPickerView.setToolbarTintColor(UIColor.whiteColor())
-            cityPickerView.setTintFont(Mine_Service_Font, color: UIColor.init(hexString: App_Theme_Text_Color))
-            cityPickerView.delegate = self
-        }
-        if KWINDOWDS?.viewWithTag(1) != nil {
-            sexPickerView.remove()
-        }else if KWINDOWDS?.viewWithTag(2) != nil {
-            birthDayPickerView.remove()
-        }
-        cityPickerView.show()
-    }
-
     func presentImagePickerView(){
         let controller = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
         let cancel = UIAlertAction(title: "取消", style: .Cancel) { (cancelAction) in
@@ -187,10 +138,6 @@ extension MyProfileViewController : UITableViewDelegate {
             switch indexPath.row {
             case 1:
                 self.showSexPickerView()
-            case 2:
-                self.showBirthDayPickerView()
-            case 3:
-                self.showCityPickerView()
             default:
                 break;
             }
@@ -223,18 +170,15 @@ extension MyProfileViewController : UITableViewDataSource {
         switch indexPath.section {
         case 0:
             let cell = tableView.dequeueReusableCellWithIdentifier("ProfileImageTableViewCell", forIndexPath: indexPath) as! ProfileImageTableViewCell
-            Shared.imageCache.fetch(key: "photoImage", formatName: "original", failure: { (error) in
-                print(error)
-                }, success: { (image) in
-                    cell.photoImageView.setImage(image, forState: .Normal)
-            })
+            let image = SaveImageTools.sharedInstance.LoadImage("photoImage.png", path: "headerImage") == nil ? UIImage.init(named: "Icon_Camera") : SaveImageTools.sharedInstance.LoadImage("photoImage.png", path: "headerImage")
+            cell.photoImageView.setImage(image, forState: .Normal)
             cell.selectionStyle = .None
             return cell
         default:
             switch indexPath.row {
-            case 0,4:
+            case 0,2:
                 let cell = tableView.dequeueReusableCellWithIdentifier("GloabTitleAndFieldCell", forIndexPath: indexPath) as! GloabTitleAndFieldCell
-                cell.setData(viewModel.cellTitle(indexPath), detail: "测试")
+                viewModel.tableViewGloabTitleAndFieldCellData(cell, indexPath: indexPath)
                 cell.textField.textColor = UIColor.init(hexString: GlobalCell_Detail_Color)
                 cell.textField.returnKeyType = .Done
                 cell.textField.textAlignment = .Right
@@ -247,7 +191,7 @@ extension MyProfileViewController : UITableViewDataSource {
                 return cell
             default:
                 let cell = tableView.dequeueReusableCellWithIdentifier("GloabTitleAndDetailImageCell", forIndexPath: indexPath) as! GloabTitleAndDetailImageCell
-                cell.setData(viewModel.cellTitle(indexPath), detail: "测试")
+                viewModel.tableViewGloabTitleAndDetailImageCellData(cell, indexPath: indexPath)
                 cell.selectionStyle = .None
                 return cell
             }
@@ -279,7 +223,8 @@ extension MyProfileViewController : UIImagePickerControllerDelegate {
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         let image = info[UIImagePickerControllerEditedImage] as! UIImage
-        Shared.imageCache.set(value: image, key: "photoImage")
+        SaveImageTools.sharedInstance.saveImage("photoImage.png", image: image, path: "headerImage")
+        viewModel.uploadImage(image)
         self.tableView.reloadRowsAtIndexPaths([NSIndexPath.init(forRow: 0, inSection: 0)], withRowAnimation: .Automatic)
         self.tableView.reloadData()
         picker.dismissViewControllerAnimated(true, completion: nil)

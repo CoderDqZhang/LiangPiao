@@ -20,18 +20,28 @@ class ToolView:UIView {
     
     init(frame: CGRect,data:NSArray) {
         super.init(frame: frame)
+        
+        
+        
         let image = UIImage.init(color: UIColor.init(hexString: Home_Recommend_Title_Color, andAlpha: 0.6), size: frame.size)
-        let newImage = image.applyBlurWithRadius(6, tintColor: UIColor.init(hexString: Home_Recommend_Title_Color, andAlpha: 0.6), saturationDeltaFactor: 0, maskImage: nil) as UIImage
+//        let newImage = image.applyBlurWithRadius(0.1, tintColor: UIColor.init(hexString: Home_Recommend_Title_Color, andAlpha: 0.6), saturationDeltaFactor: 0.8, maskImage: nil) as UIImage
+        let newImage = image.applyTintEffectWithColor(UIColor.init(hexString: Home_Recommend_Title_Color))
         let imageView = UIImageView(image: newImage)
         imageView.frame = CGRectMake(0, 0, frame.size.width, frame.size.height)
         self.addSubview(imageView)
-        self.backgroundColor = UIColor.init(red: 56.0/255.0, green: 66.0/255.0, blue: 73.0/255.0, alpha: 0.6)
+//        self.backgroundColor = UIColor.init(red: 56.0/255.0, green: 66.0/255.0, blue: 73.0/255.0, alpha: 0.9)
         
         dataArray = NSArray(array: data as [AnyObject], copyItems: true)
         singnalTap = UITapGestureRecognizer(target: self, action: #selector(ToolView.viewSignalTap(_:)))
         singnalTap.numberOfTapsRequired = 1
         singnalTap.numberOfTouchesRequired = 1
         self.addGestureRecognizer(singnalTap)
+        
+//        let effectView = UIVisualEffectView(effect: UIBlurEffect.init(style: .Light))
+//        effectView.frame = self.frame
+//        effectView.contentView.addSubview(imageView)
+//        self.addSubview(effectView)
+        
         
         self.setUpTableView()
         
@@ -181,7 +191,7 @@ class TicketToolsView: UIView {
                 make.left.equalTo(self.snp_left).offset(10)
             })
             imageView.snp_makeConstraints(closure: { (make) in
-                make.centerY.equalTo(self.snp_centerY).offset(0)
+                make.centerY.equalTo(self.snp_centerY).offset(1)
                 make.left.equalTo(self.toolsLabel.snp_right).offset(12)
             })
         case .center:
@@ -245,6 +255,10 @@ class TicketToolsTableViewCell: UITableViewCell {
     var sortPriceTick:TicketToolsView!
     var didMakeContraints:Bool = false
     var toolsView: UIView!
+    
+    var lineLabel:GloabLineView!
+
+    var toplineLabel:GloabLineView!
     
     var ticketCellClouse:TicketCellClouse!
     
@@ -315,9 +329,9 @@ class TicketToolsTableViewCell: UITableViewCell {
         }
         toolsView.addSubview(sortPriceTick)
         
-        let lineLabel = GloabLineView(frame: CGRectMake(15, 41.5, SCREENWIDTH - 30, 0.5))
+        lineLabel = GloabLineView(frame: CGRectMake(15, 41.5, SCREENWIDTH - 30, 0.5))
         toolsView.addSubview(lineLabel)
-
+        
         let signal = NSNotificationCenter.defaultCenter().rac_addObserverForName(ToolViewNotifacationName, object: nil)
         signal.subscribeNext { (object) in
             let str = object.object as! String
@@ -332,14 +346,17 @@ class TicketToolsTableViewCell: UITableViewCell {
         }
         
         self.updateConstraintsIfNeeded()
+        
+        toplineLabel = GloabLineView(frame: CGRectMake(15, 0, SCREENWIDTH - 30, 0.5))
+        self.contentView.addSubview(toplineLabel)
     }
     
     func setUpDescriptionView() -> UIView {
         
         let toolsView = UIView(frame: CGRectMake(0,0,SCREENWIDTH,42))
-        let nomalPriceTick = TicketToolsView(frame: CGRectMake(15, 0, TicketToolsViewWidth, 42), title: "票面价格", image: UIImage.init(named: "Icon_Selected_Form_Normal")!, type: .left)
-        let rowTicket = TicketToolsView(frame: CGRectMake(TicketToolsViewWidth + 15, 0, TicketToolsViewWidth, 42), title: "座位", image: UIImage.init(named: "Icon_Selected_Form_Normal")!, type: .center)
-        let sortPriceTick = TicketToolsView(frame: CGRectMake(TicketToolsViewWidth * 2 + 15, 0, TicketToolsViewWidth, 42), title: "价格", image: UIImage.init(named: "Icon_Ranking")!, type: .right)
+        let nomalPriceTick = TicketToolsView(frame: CGRectMake(15, 0, TicketToolsViewWidth, 41), title: "票面价格", image: UIImage.init(named: "Icon_Selected_Form_Normal")!, type: .left)
+        let rowTicket = TicketToolsView(frame: CGRectMake(TicketToolsViewWidth + 15, 1, TicketToolsViewWidth, 41), title: "座位", image: UIImage.init(named: "Icon_Selected_Form_Normal")!, type: .center)
+        let sortPriceTick = TicketToolsView(frame: CGRectMake(TicketToolsViewWidth * 2 + 15, 0, TicketToolsViewWidth, 41), title: "价格", image: UIImage.init(named: "Icon_Ranking")!, type: .right)
         nomalPriceTick.ticketToolsClouse = { tag in
             if nomalPriceTick.isShow {
                 nomalPriceTick.isShow = false
@@ -413,6 +430,10 @@ class TicketToolsTableViewCell: UITableViewCell {
                 self.sortPriceTick.isShow = false
             }
         }
+        
+        toplineLabel = GloabLineView(frame: CGRectMake(15, 0, SCREENWIDTH - 30, 0.5))
+        self.contentView.addSubview(toplineLabel)
+        
         return toolsView
     }
 

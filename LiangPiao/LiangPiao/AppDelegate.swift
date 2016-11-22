@@ -13,17 +13,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-    func applicationDidFinishLaunching(application: UIApplication) {
-        AppleThemeTool.setUpToolBarColor()
-        AppleThemeTool.setUpKeyBoardManager()
+    var spalshView:SpalshView!
+    
+    func addSplshView() {
         
+        spalshView = SpalshView(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: SCREENHEIGHT))
+        self.window!.addSubview(spalshView)
+        NSTimer.YQ_scheduledTimerWithTimeInterval(100, closure: { 
+            self.spalshView.removeFromSuperview()
+            }, repeats: false)
     }
     
-//    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-//        AppleThemeTool.setUpToolBarColor()
-//        // Override point for customization after application launch.
-//        return true
-//    }
+    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
+        AppleThemeTool.setUpToolBarColor()
+        AppleThemeTool.setUpToolBarColor()
+        AppleThemeTool.setUpKeyBoardManager()
+        self.window?.makeKeyAndVisible()
+//        self.addSplshView()
+        return true
+    }
 
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

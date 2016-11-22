@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class MineHeadTableViewCell: UITableViewCell {
 
@@ -44,14 +45,24 @@ class MineHeadTableViewCell: UITableViewCell {
         
         editProfileImage = UIImageView()
         editProfileImage.image = UIImage.init(named: "Icon_Edit_Normal")
+        editProfileImage.hidden = true
         self.contentView.addSubview(editProfileImage)
         
         self.updateConstraintsIfNeeded()
     }
     
-    func setData(namePhone:String, photoImage:UIImage) {
+    func setData(namePhone:String, photoImage:String, isLogin:Bool) {
         nameAndePhone.text = namePhone
-        photoImageView.image = photoImage
+        if isLogin {
+            editProfileImage.hidden = false
+            photoImageView.sd_setImageWithURL(NSURL.init(string: photoImage), placeholderImage: UIImage.init(named: "Avatar_Default"), options: .RetryFailed) { (image, error, cache, url) in
+                
+            }
+        }else{
+            editProfileImage.hidden = true
+            photoImageView.image = UIImage.init(named: "Avatar_Default")
+        }
+        
     }
     
     override func updateConstraints() {

@@ -206,7 +206,7 @@ class GlobalTicketStatus : UIView {
             statusLabel.textColor = UIColor.init(hexString: Home_Ticket_Status_Title_Color)
             statusLabel.textAlignment = .Center
             statusLabel.backgroundColor = UIColor.init(hexString: Home_Ticket_Status_BackGround_NColor)
-            statusLabel.layer.cornerRadius = 1
+            statusLabel.layer.cornerRadius = 1.5
             statusLabel.layer.masksToBounds = true
             originX = CGRectGetMaxX(statusLabel.frame) + 4
             self.addSubview(statusLabel)

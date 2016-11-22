@@ -66,7 +66,8 @@ class ReciveTableViewCell: UITableViewCell {
         label.tag = tag
         label.text = titleString
         label.textAlignment = .Center
-        label.layer.cornerRadius = 1.0
+        label.layer.cornerRadius = 2.0
+        label.layer.masksToBounds = true
         label.userInteractionEnabled = true
         label.font = Home_ReciveView_Label_Font!
         let singleTap = UITapGestureRecognizer(target: self, action: #selector(ReciveTableViewCell.singleTapPress(_:)))
@@ -80,11 +81,11 @@ class ReciveTableViewCell: UITableViewCell {
         case .Nomal:
             label.textColor = UIColor.init(hexString: Home_ReciveView_Label_Nomal_nColor)
             label.layer.borderColor = UIColor.init(hexString: Home_ReciveView_Label_Nomal_nColor).CGColor
-            label.layer.borderWidth = 0.5
+            label.layer.borderWidth = 1
         default:
             label.textColor = UIColor.init(hexString: Home_ReciveView_Label_Disable_nColor)
             label.layer.borderColor = UIColor.init(hexString: Home_ReciveView_Label_Disable_nColor).CGColor
-            label.layer.borderWidth = 0.5
+            label.layer.borderWidth = 1
         }
         return label
     }
@@ -109,7 +110,7 @@ class ReciveTableViewCell: UITableViewCell {
         let tagView = self.viewWithTag(tag) as! UILabel
         tagView.textColor = UIColor.init(hexString: Home_ReciveView_Label_Nomal_nColor)
         tagView.layer.borderColor = UIColor.init(hexString: Home_ReciveView_Label_Nomal_nColor).CGColor
-        tagView.layer.borderWidth = 0.5
+        tagView.layer.borderWidth = 1.0
         tagView.backgroundColor = UIColor.whiteColor()
         
     }

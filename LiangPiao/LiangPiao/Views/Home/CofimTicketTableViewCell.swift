@@ -46,11 +46,12 @@ class CofimTicketTableViewCell: UITableViewCell {
         
         ticketLocation = UILabel()
         ticketLocation.text = "场馆：大隐剧院 朝阳区光华路9号世贸天阶 C 座时尚大厦5楼"
-        let attributedString = NSMutableAttributedString(string: ticketLocation.text!)
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineSpacing = 1.5
-        attributedString.addAttribute(NSParagraphStyleAttributeName, value: paragraphStyle, range: NSRange(location: 0, length: ticketLocation.text!.length))
-        ticketLocation.attributedText = attributedString
+//        let attributedString = NSMutableAttributedString(string: ticketLocation.text!)
+//        let paragraphStyle = NSMutableParagraphStyle()
+//        paragraphStyle.lineSpacing = 1.5
+//        attributedString.addAttribute(NSParagraphStyleAttributeName, value: paragraphStyle, range: NSRange(location: 0, length: ticketLocation.text!.length))
+//        ticketLocation.attributedText = attributedString
+        UILabel.changeLineSpaceForLabel(ticketLocation, withSpace: 3.0)
         ticketLocation.numberOfLines = 0
         ticketLocation.textColor = UIColor.init(hexString: Home_OrderConfirmCell_Info_Color)
         ticketLocation.font = Home_OrderConfirmCell_Info_Font
@@ -92,7 +93,6 @@ class CofimTicketTableViewCell: UITableViewCell {
                 make.top.equalTo(self.ticketTitle.snp_bottom).offset(9)
                 make.left.equalTo(self.ticketPhoto.snp_right).offset(12)
                 make.right.equalTo(self.contentView.snp_right).offset(-15)
-                make.height.equalTo(14)
             })
             
             ticketLocation.snp_makeConstraints(closure: { (make) in
@@ -102,13 +102,12 @@ class CofimTicketTableViewCell: UITableViewCell {
             })
             
             ticketMuch.snp_makeConstraints(closure: { (make) in
-                make.top.equalTo(self.ticketLocation.snp_bottom).offset(1)
+                make.top.equalTo(self.ticketLocation.snp_bottom).offset(2)
                 make.left.equalTo(self.ticketPhoto.snp_right).offset(12)
-                make.height.equalTo(21)
             })
             
             ticketRow.snp_makeConstraints(closure: { (make) in
-                make.top.equalTo(self.ticketMuch.snp_bottom).offset(1)
+                make.top.equalTo(self.ticketMuch.snp_bottom).offset(2)
                 make.left.equalTo(self.ticketPhoto.snp_right).offset(12)
             })
             

@@ -21,7 +21,7 @@ class MineViewController: BaseViewController {
     
     func setUpView() {
         tableView = UITableView(frame: CGRectZero, style: .Plain)
-        tableView.backgroundColor = UIColor.init(hexString: App_Theme_TableViewBackGround_Color)
+        tableView.backgroundColor = UIColor.whiteColor()
         tableView.delegate = self
         tableView.dataSource = self
         tableView.keyboardDismissMode = .OnDrag
@@ -37,6 +37,8 @@ class MineViewController: BaseViewController {
             make.bottom.equalTo(self.view.snp_bottom).offset(0)
         }
         
+        self.bindViewModel()
+        
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -50,6 +52,12 @@ class MineViewController: BaseViewController {
     }
     
 
+    func bindViewModel(){
+        viewModel.reloadTableView = { _ in
+            self.tableView.reloadRowsAtIndexPaths([NSIndexPath.init(forRow: 0, inSection: 0)], withRowAnimation: .Automatic)
+        }
+
+    }
     /*
     // MARK: - Navigation
 
@@ -64,33 +72,7 @@ class MineViewController: BaseViewController {
 
 extension MineViewController : UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        switch indexPath.row {
-        case 0:
-//            let controller = LoginViewController()
-//            controller.hidesBottomBarWhenPushed = true
-//            self.navigationController?.pushViewController(controller, animated: true)
-            let controller = MyProfileViewController()
-            controller.hidesBottomBarWhenPushed = true
-            self.navigationController?.pushViewController(controller, animated: true)
-        case 1:
-            //            let controller = LoginViewController()
-            //            controller.hidesBottomBarWhenPushed = true
-            //            self.navigationController?.pushViewController(controller, animated: true)
-            let controller = FavoriteViewController()
-            controller.hidesBottomBarWhenPushed = true
-            self.navigationController?.pushViewController(controller, animated: true)
-        case 2:
-            let controller = AddressViewController()
-            controller.hidesBottomBarWhenPushed = true
-            self.navigationController?.pushViewController(controller, animated: true)
-        case 3:
-            let controller = SettingViewController()
-            controller.hidesBottomBarWhenPushed = true
-            self.navigationController?.pushViewController(controller, animated: true)
-        default:
-            break;
-        }
-        
+        viewModel.tableViewDidSelect(indexPath, controller: self)
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
@@ -112,33 +94,43 @@ extension MineViewController : UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 0.0001
+        if section == 0 {
+            return 10
+        }
+        return 0.000001
     }
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0.0001
     }
     
+    func tableView(tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
+        view.tintColor = UIColor.whiteColor()
+    }
+    
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return viewModel.tableViewHeightForRow(indexPath.row)
+        return viewModel.tableViewHeightForRow(indexPath)
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        switch indexPath.row {
+        switch indexPath.section {
         case 0:
             cell = tableView.dequeueReusableCellWithIdentifier("MineHeadTableViewCell", forIndexPath: indexPath) as! MineHeadTableViewCell
-            cell.setData("开往春天的地铁", photoImage: UIImage.init(named: "Avatar_Default")!)
-            cell.selectionStyle = .None
-            return cell
-        case 4:
-            let cell = tableView.dequeueReusableCellWithIdentifier("ServiceTableViewCell", forIndexPath: indexPath) as! ServiceTableViewCell
+            viewModel.tableViewPhotoCell(cell)
             cell.selectionStyle = .None
             return cell
         default:
-            let cell = tableView.dequeueReusableCellWithIdentifier("GloabImageTitleAndImageCell", forIndexPath: indexPath) as! GloabImageTitleAndImageCell
-            cell.setData(viewModel.cellTitle(indexPath.row), infoImage: viewModel.cellImage(indexPath.row))
-            cell.selectionStyle = .None
-            return cell
+            switch indexPath.row {
+            case 3:
+                let cell = tableView.dequeueReusableCellWithIdentifier("ServiceTableViewCell", forIndexPath: indexPath) as! ServiceTableViewCell
+                cell.selectionStyle = .None
+                return cell
+            default:
+                let cell = tableView.dequeueReusableCellWithIdentifier("GloabImageTitleAndImageCell", forIndexPath: indexPath) as! GloabImageTitleAndImageCell
+                cell.setData(viewModel.cellTitle(indexPath.row), infoImage: viewModel.cellImage(indexPath.row))
+                cell.selectionStyle = .None
+                return cell
+            }
         }
     }
 

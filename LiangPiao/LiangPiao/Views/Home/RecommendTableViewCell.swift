@@ -39,6 +39,7 @@ class RecommendTableViewCell: UITableViewCell {
         
         ticketTitle = UILabel()
         ticketTitle.text = "万有音乐系 陈粒《小梦大半》2016巡回演唱会"
+        UILabel.changeLineSpaceForLabel(ticketTitle, withSpace: 3.0)
         ticketTitle.numberOfLines = 0
         ticketTitle.textColor = UIColor.init(hexString: Home_Recommend_Title_Color)
         ticketTitle.font = Home_Recommend_Title_Font
@@ -77,6 +78,15 @@ class RecommendTableViewCell: UITableViewCell {
         
         self.updateConstraintsIfNeeded()
         
+    }
+    
+    func setData(model:HomeTicketModel) {
+        ticketPhoto.sd_setImageWithURL(NSURL.init(string: model.cover), placeholderImage: UIImage.init(named: "Feeds_Default_Cover")) { (image, error, cacheType, url) in
+        }
+        ticketTitle.text = model.title
+        ticketLocation.text = model.venue.name
+        ticketMuch.text = "\(model.minPrice)"
+        ticketTime.text = model.showDate
     }
     
     override func updateConstraints() {

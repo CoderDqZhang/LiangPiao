@@ -60,21 +60,7 @@ class SettingViewController: UIViewController {
 
 extension SettingViewController : UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        switch indexPath.section {
-        case 0:
-            switch indexPath.row {
-            case 0:
-                let storyBoard = UIStoryboard.init(name: "Main", bundle: nil)
-                let controllers = storyBoard.instantiateViewControllerWithIdentifier("AboutUsViewController") as! AboutUsViewController
-//                let controller = Storyboard("Main", controllerid: "AboutUsViewController") as! AboutUsViewController
-                controllers.hidesBottomBarWhenPushed = true
-                self.navigationController?.pushViewController(controllers, animated: true)
-            default:
-                break
-            }
-        default:
-            break
-        }
+        viewModel.tableViewDidSelect(indexPath, controller: self)
     }
 }
 

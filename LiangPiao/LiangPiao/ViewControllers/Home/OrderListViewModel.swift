@@ -10,7 +10,9 @@ import UIKit
 
 class OrderListViewModel: NSObject {
 
-    var orderArray = []
+    var orderArray = ["",""]
+//    var 
+    var orderTypeArrays:[OrderType] = [.orderDone,.orderWaitPay]
     override init() {
         
     }
@@ -35,15 +37,41 @@ class OrderListViewModel: NSObject {
         }
     }
     
-    func tableViewHeightForRow(row:Int) -> CGFloat {
-        switch row {
+    func tableViewHeightForRow(indexPath:NSIndexPath) -> CGFloat {
+        switch indexPath.row {
         case 0:
             return 49
         case 1:
+            if indexPath.section == 0 {
+                return 163
+            }
             return 149
         default:
             return 59
         }
+    }
+    
+    func tableViewOrderCellIndexPath(indexPath:NSIndexPath, cell:OrderNumberTableViewCell) {
+        let model = OrderModel()
+        if indexPath.section == 0 {
+            model.orderStatue = ""
+            cell.setData(model)
+        }else{
+            model.orderStatue = "waitePay"
+            cell.setData(model)
+        }
+    }
+    
+    func tableViewOrderTicketInfoCellIndexPath(indexPath:NSIndexPath, cell:OrderTicketInfoTableViewCell) {
+        if indexPath.section == 0 {
+            cell.setData(.orderDone)
+        }else{
+            cell.setData(.orderWaitPay)
+        }
+    }
+    
+    func tableViewOrderHandleCellIndexPath(indexPath:NSIndexPath, cell:OrderHandleTableViewCell) {
+        
     }
     
 }

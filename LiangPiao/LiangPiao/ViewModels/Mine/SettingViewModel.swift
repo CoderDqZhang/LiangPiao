@@ -43,4 +43,24 @@ class SettingViewModel: NSObject {
     func cellDetail(indexPath:NSIndexPath) -> String {
         return ""
     }
+    
+    func tableViewDidSelect(indexPath:NSIndexPath, controller:SettingViewController) {
+        switch indexPath.section {
+        case 0:
+            switch indexPath.row {
+            case 0:
+                let storyBoard = UIStoryboard.init(name: "Main", bundle: nil)
+                let controllers = storyBoard.instantiateViewControllerWithIdentifier("AboutUsViewController") as! AboutUsViewController
+                controllers.hidesBottomBarWhenPushed = true
+                controller.navigationController?.pushViewController(controllers, animated: true)
+            default:
+                break
+            }
+        default:
+            if UserInfoModel.shareInstance().deleteObject() {
+                Notification(LoginStatuesChange, value: nil)
+                controller.navigationController?.popViewControllerAnimated(true)
+            }
+        }
+    }
 }

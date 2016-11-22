@@ -8,8 +8,10 @@
 
 import UIKit
 
-let imageSizeWidth:CGFloat = 43
-let imageSizeHeight:CGFloat = 43
+let imageSizeWidth:CGFloat = 34
+let imageSizeHeight:CGFloat = 34
+
+let margerSizeWidth:Int = Int(SCREENWIDTH - 44 - 250)/4
 
 typealias HomePageCenterClouse = (index:NSInteger) ->Void
 
@@ -26,23 +28,18 @@ class HomePageCenter: UIView {
             let imageView = UIImageView()
             imageView.image = titleArray[i].image
             imageView.tag = i
-//            imageView.layer.masksToBounds = true
-//            imageView.layer.cornerRadius = 21
-            imageView.frame = CGRectMake(originX + 4, originY, imageSizeWidth, imageSizeHeight)
+            imageView.frame = CGRectMake(originX + 8, originY, imageSizeWidth, imageSizeHeight)
             imageView.userInteractionEnabled = true
             
-            let titleLabel = UILabel(frame: CGRectMake(originX, CGRectGetMaxY(imageView.frame) + 8, 50, 17))
+            let titleLabel = UILabel(frame: CGRectMake(originX, CGRectGetMaxY(imageView.frame) + 7, 50, 17))
             titleLabel.text = titleArray[i].title
             titleLabel.textAlignment = .Center
             titleLabel.font = Home_Ticket_Tools_Font
             titleLabel.textColor = UIColor.init(hexString: Home_Ticket_Tools_Color)
             self.addSubview(titleLabel)
             
-            originX = CGRectGetMaxX(titleLabel.frame) + (SCREENWIDTH - 30 - 250)/4
-//            if i == 3 {
-//                originY = CGRectGetMaxY(imageView.frame) + 30
-//                originX = 0
-//            }
+            
+            originX = CGRectGetMaxX(titleLabel.frame) + CGFloat(margerSizeWidth)
             let singleTap = UITapGestureRecognizer(target: self, action: #selector(HomePageCenter.singleTapPress(_:)))
             singleTap.numberOfTapsRequired = 1
             singleTap.numberOfTouchesRequired = 1
@@ -65,11 +62,12 @@ class HomePageCenter: UIView {
 }
 
 typealias HomeToolsClouse = (index:NSInteger) -> Void
+
 class HomeToolsTableViewCell: UITableViewCell {
 
     var homeToolsClouse:HomeToolsClouse!
-    let imageArray = ["Icon_Live","Icon_Concert","Icon_Opera","Icon_Sport","Icon_All"]
-    let titles = ["演唱会","音乐会","话剧歌剧","体育赛事","全部"]
+    let imageArray = ["Icon_Opera","Icon_Live","Icon_Concert","Icon_Sport","Icon_All"]
+    let titles = ["话剧歌剧","演唱会","音乐会","体育赛事","全部"]
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.setUpView()
@@ -84,7 +82,7 @@ class HomeToolsTableViewCell: UITableViewCell {
             model.title = titles[i]
             homeModel.append(model)
         }
-        let centerView = HomePageCenter(frame: CGRectMake(15, 19, SCREENWIDTH - 30, 68), titleArray: homeModel)
+        let centerView = HomePageCenter(frame: CGRectMake(22, 23, SCREENWIDTH - 44, 68), titleArray: homeModel)
         centerView.homePageCenterClouse = { index in
             if self.homeToolsClouse != nil {
                 self.homeToolsClouse(index:index)

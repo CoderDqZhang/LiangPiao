@@ -72,6 +72,12 @@
             dispatch_resume(_timer);
     }
 }
+
+-(long long)longLongFromDate:(NSDate*)date{
+    return [date timeIntervalSince1970] * 1000;
+}
+
+
 -(NSDate *)dateWithLongLong:(long long)longlongValue{
     long long value = longlongValue/1000;
     NSNumber *time = [NSNumber numberWithLongLong:value];
@@ -80,7 +86,7 @@
     NSDate *date = [[NSDate alloc] initWithTimeIntervalSince1970:nsTimeInterval];
     return date;
 }
--(void)countDownWithStratTimeStamp:(NSInteger)starTimeStamp finishTimeStamp:(NSInteger)finishTimeStamp completeBlock:(void (^)(NSInteger day,NSInteger hour,NSInteger minute,NSInteger second))completeBlock{
+-(void)countDownWithStratTimeStamp:(long long)starTimeStamp finishTimeStamp:(long long)finishTimeStamp completeBlock:(void (^)(NSInteger day,NSInteger hour,NSInteger minute,NSInteger second))completeBlock{
     if (_timer==nil) {
         
         NSDate *finishDate = [self dateWithLongLong:finishTimeStamp];

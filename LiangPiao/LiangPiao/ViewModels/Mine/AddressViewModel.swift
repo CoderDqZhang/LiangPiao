@@ -8,9 +8,12 @@
 
 import UIKit
 
+typealias AddressTableViewSelect = (indexPath:NSIndexPath) -> Void
+
 class AddressViewModel: NSObject {
     
     var addressType:AddressType = .editType
+    var addressTableViewSelect:AddressTableViewSelect!
     
     override init() {
         
@@ -19,7 +22,7 @@ class AddressViewModel: NSObject {
     func configCell(cell:AddressTableViewCell,indexPath:NSIndexPath) {
         if self.addressType == .addType {
             if indexPath.row == 0 {
-                cell.setData("冉灿    19932434234", address: "朝阳区香河园小区西坝河中里35号楼 UPlan Coffee 二层207", isNomal: false, isSelect: true)
+                cell.setData("冉灿    19932434234", address: "朝阳区香河园小区西坝河中里35号楼 UPlan Coffee 二层207", isNomal: true, isSelect: true)
             }else if indexPath.row == 1 {
                 cell.setData("冉灿    19932434234", address: "宣武区大栅栏大街39号(大观楼电影院对面) ", isNomal: false, isSelect: false)
             }else{
@@ -53,6 +56,9 @@ class AddressViewModel: NSObject {
                     let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: i, inSection: indexPath.section)) as! AddressTableViewCell
                     cell.updateSelectImage(false)
                 }
+            }
+            if self.addressTableViewSelect != nil {
+                self.addressTableViewSelect(indexPath:indexPath)
             }
         }else{
             

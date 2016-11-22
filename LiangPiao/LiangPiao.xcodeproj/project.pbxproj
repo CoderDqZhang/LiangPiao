@@ -10,7 +10,6 @@
 		1F089DD51DCB05E800762C14 /* GlobalTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F089DD41DCB05E800762C14 /* GlobalTools.swift */; };
 		1F0EAB591DD052C700D25B64 /* OrderDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0EAB581DD052C700D25B64 /* OrderDetailViewController.swift */; };
 		1F0EAB5B1DD053EE00D25B64 /* OrderDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0EAB5A1DD053EE00D25B64 /* OrderDetailViewModel.swift */; };
-		1F0EAB5D1DD056DE00D25B64 /* OrderAddressTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0EAB5C1DD056DE00D25B64 /* OrderAddressTableViewCell.swift */; };
 		1F0EAB5F1DD05A9800D25B64 /* OrderTicketInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0EAB5E1DD05A9800D25B64 /* OrderTicketInfoTableViewCell.swift */; };
 		1F0EAB611DD05C2200D25B64 /* TicketLocationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0EAB601DD05C2200D25B64 /* TicketLocationTableViewCell.swift */; };
 		1F0EAB631DD0616F00D25B64 /* OrderMuchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0EAB621DD0616F00D25B64 /* OrderMuchTableViewCell.swift */; };
@@ -44,6 +43,13 @@
 		1F45C4001DD7361C008C60CD /* LiangPiaoHomeRefreshHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F45C3FF1DD7361C008C60CD /* LiangPiaoHomeRefreshHeader.swift */; };
 		1F45C4021DD73AA4008C60CD /* LiangNomalRefreshHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F45C4011DD73AA4008C60CD /* LiangNomalRefreshHeader.swift */; };
 		1F45C4041DD73BC9008C60CD /* AllTicketTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F45C4031DD73BC9008C60CD /* AllTicketTableViewCell.swift */; };
+		1F52ED721DE31E2300916C91 /* TicketDetailInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F52ED711DE31E2300916C91 /* TicketDetailInfoTableViewCell.swift */; };
+		1F52ED741DE3FBC800916C91 /* HomeTicketModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F52ED731DE3FBC800916C91 /* HomeTicketModel.swift */; };
+		1F54C52E1DDC3A61009ADDA9 /* JKDBHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F54C52B1DDC3A61009ADDA9 /* JKDBHelper.m */; };
+		1F54C52F1DDC3A61009ADDA9 /* JKDBModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F54C52D1DDC3A61009ADDA9 /* JKDBModel.m */; };
+		1F54C5341DDC4891009ADDA9 /* UserInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F54C5331DDC4891009ADDA9 /* UserInfoModel.m */; };
+		1F5F059A1DE2CCCD00BF295B /* TicketMapTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5F05991DE2CCCD00BF295B /* TicketMapTableViewCell.swift */; };
+		1F5F059C1DE2CEC900BF295B /* TicketDescriptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5F059B1DE2CEC900BF295B /* TicketDescriptionViewModel.swift */; };
 		1F62F2571DC9BC1900B591F1 /* TicketSceneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F62F2561DC9BC1900B591F1 /* TicketSceneViewController.swift */; };
 		1F62F2591DC9BDBF00B591F1 /* TicketSceneTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F62F2581DC9BDBF00B591F1 /* TicketSceneTableViewCell.swift */; };
 		1F62F25B1DC9C50300B591F1 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F62F25A1DC9C50300B591F1 /* HomeViewModel.swift */; };
@@ -75,21 +81,37 @@
 		1F6BB9911DD960E200893932 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F6BB98C1DD960E200893932 /* libWeChatSDK.a */; };
 		1F6BB9921DD960E200893932 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1F6BB98D1DD960E200893932 /* README.txt */; };
 		1F6BB9961DD964F900893932 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F6BB9951DD964F900893932 /* libsqlite3.0.tbd */; };
+		1F6BB9B81DD9974300893932 /* OrderAddressTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6BB9B71DD9974300893932 /* OrderAddressTableViewCell.swift */; };
 		1F8AA0B61DD34B1700587C24 /* AboutUsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8AA0B51DD34B1700587C24 /* AboutUsViewController.swift */; };
 		1F8AA0B81DD475C000587C24 /* ReciveTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8AA0B71DD475C000587C24 /* ReciveTableViewCell.swift */; };
-		1FA6E6571DD320AC00050342 /* UserInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA6E6561DD320AC00050342 /* UserInfoModel.swift */; };
 		1FB7B2961DCC2B5200945B70 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FB7B2951DCC2B5200945B70 /* UIImage+ImageEffects.m */; };
 		1FB7B2981DCC31CB00945B70 /* TicketConfirmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB7B2971DCC31CB00945B70 /* TicketConfirmViewController.swift */; };
 		1FB7B29A1DCC320200945B70 /* OrderFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB7B2991DCC320200945B70 /* OrderFormView.swift */; };
 		1FB7B29C1DCC392900945B70 /* GloabTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB7B29B1DCC392900945B70 /* GloabTableViewCell.swift */; };
 		1FB7B29E1DCC412500945B70 /* OrderConfirmViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB7B29D1DCC412500945B70 /* OrderConfirmViewModel.swift */; };
+		1FBF86C31DDD47EF0057BB11 /* UILabel+ChangeLineSpaceAndWordSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FBF86C21DDD47EF0057BB11 /* UILabel+ChangeLineSpaceAndWordSpace.m */; };
+		1FBFC7C51DDAAD2B008D9CEC /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBFC7C41DDAAD2B008D9CEC /* LoginViewModel.swift */; };
+		1FBFC7E41DDABD48008D9CEC /* FMDatabase+FTS3.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FBFC7CA1DDABD48008D9CEC /* FMDatabase+FTS3.m */; };
+		1FBFC7E51DDABD48008D9CEC /* FMTokenizers.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FBFC7CC1DDABD48008D9CEC /* FMTokenizers.m */; };
+		1FBFC7E61DDABD48008D9CEC /* FMDatabase+InMemoryOnDiskIO.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FBFC7D01DDABD48008D9CEC /* FMDatabase+InMemoryOnDiskIO.m */; };
+		1FBFC7E71DDABD48008D9CEC /* FMDatabaseAdditionsVariadic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBFC7D21DDABD48008D9CEC /* FMDatabaseAdditionsVariadic.swift */; };
+		1FBFC7E81DDABD48008D9CEC /* FMDatabaseVariadic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBFC7D31DDABD48008D9CEC /* FMDatabaseVariadic.swift */; };
+		1FBFC7E91DDABD48008D9CEC /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FBFC7D61DDABD48008D9CEC /* FMDatabase.m */; };
+		1FBFC7EA1DDABD48008D9CEC /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FBFC7D81DDABD48008D9CEC /* FMDatabaseAdditions.m */; };
+		1FBFC7EB1DDABD48008D9CEC /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FBFC7DA1DDABD48008D9CEC /* FMDatabasePool.m */; };
+		1FBFC7EC1DDABD48008D9CEC /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FBFC7DC1DDABD48008D9CEC /* FMDatabaseQueue.m */; };
+		1FBFC7ED1DDABD48008D9CEC /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FBFC7DF1DDABD48008D9CEC /* FMResultSet.m */; };
+		1FBFC7EE1DDABD48008D9CEC /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1FBFC7E01DDABD48008D9CEC /* Info.plist */; };
+		1FBFC7F11DDAC45B008D9CEC /* ZDQFMDBHelp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBFC7F01DDAC45B008D9CEC /* ZDQFMDBHelp.swift */; };
+		1FBFC7F31DDACC02008D9CEC /* ZDQFMDBModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBFC7F21DDACC02008D9CEC /* ZDQFMDBModel.swift */; };
+		1FC3DDE51DE42C0D00420A05 /* SpalshView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC3DDE41DE42C0D00420A05 /* SpalshView.swift */; };
+		1FC3DDE71DE4510700420A05 /* TicketCategorys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC3DDE61DE4510700420A05 /* TicketCategorys.swift */; };
+		1FC3DDE91DE4520C00420A05 /* TicketCategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC3DDE81DE4520C00420A05 /* TicketCategoryViewModel.swift */; };
+		1FC3DDEB1DE45B1A00420A05 /* RecommentTickes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC3DDEA1DE45B1A00420A05 /* RecommentTickes.swift */; };
+		1FC3DDED1DE46DD700420A05 /* TicketSessionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC3DDEC1DE46DD700420A05 /* TicketSessionViewModel.swift */; };
+		1FC3DDEF1DE46F1600420A05 /* TicketSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC3DDEE1DE46F1600420A05 /* TicketSession.swift */; };
 		1FC4FED31DC8729A00EBFD18 /* TicketPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC4FED21DC8729A00EBFD18 /* TicketPageViewController.swift */; };
 		1FC4FED51DC8734200EBFD18 /* BaseTicketsPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC4FED41DC8734200EBFD18 /* BaseTicketsPageViewController.swift */; };
-		1FC4FED71DC8739900EBFD18 /* AllTicketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC4FED61DC8739900EBFD18 /* AllTicketViewController.swift */; };
-		1FC4FED91DC873CE00EBFD18 /* MuiscTicketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC4FED81DC873CE00EBFD18 /* MuiscTicketViewController.swift */; };
-		1FC4FEDB1DC873EF00EBFD18 /* OperaTicketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC4FEDA1DC873EF00EBFD18 /* OperaTicketViewController.swift */; };
-		1FC4FEDD1DC8740200EBFD18 /* SportTicketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC4FEDC1DC8740200EBFD18 /* SportTicketViewController.swift */; };
-		1FC4FEDF1DC8740D00EBFD18 /* OtherTicketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC4FEDE1DC8740D00EBFD18 /* OtherTicketViewController.swift */; };
 		1FC4FEEA1DC8A32E00EBFD18 /* TYPagerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FC4FEE21DC8A32E00EBFD18 /* TYPagerController.m */; };
 		1FC4FEEB1DC8A32E00EBFD18 /* TYTabButtonPagerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FC4FEE41DC8A32E00EBFD18 /* TYTabButtonPagerController.m */; };
 		1FC4FEEC1DC8A32E00EBFD18 /* TYTabPagerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FC4FEE61DC8A32E00EBFD18 /* TYTabPagerController.m */; };
@@ -148,7 +170,6 @@
 		1F089DD41DCB05E800762C14 /* GlobalTools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalTools.swift; sourceTree = "<group>"; };
 		1F0EAB581DD052C700D25B64 /* OrderDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderDetailViewController.swift; sourceTree = "<group>"; };
 		1F0EAB5A1DD053EE00D25B64 /* OrderDetailViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderDetailViewModel.swift; sourceTree = "<group>"; };
-		1F0EAB5C1DD056DE00D25B64 /* OrderAddressTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderAddressTableViewCell.swift; sourceTree = "<group>"; };
 		1F0EAB5E1DD05A9800D25B64 /* OrderTicketInfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderTicketInfoTableViewCell.swift; sourceTree = "<group>"; };
 		1F0EAB601DD05C2200D25B64 /* TicketLocationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketLocationTableViewCell.swift; sourceTree = "<group>"; };
 		1F0EAB621DD0616F00D25B64 /* OrderMuchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderMuchTableViewCell.swift; sourceTree = "<group>"; };
@@ -175,7 +196,7 @@
 		1F0EAB951DD1EBAA00D25B64 /* ZHPickView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHPickView.h; sourceTree = "<group>"; };
 		1F0EAB961DD1EBAA00D25B64 /* ZHPickView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHPickView.m; sourceTree = "<group>"; };
 		1F0EAB9E1DD203F000D25B64 /* city.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = city.plist; sourceTree = "<group>"; };
-		1F0EABA01DD2C0A600D25B64 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		1F0EABA01DD2C0A600D25B64 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginViewController.swift; path = ../../Views/Mine/LoginViewController.swift; sourceTree = "<group>"; };
 		1F24DE921DD5A35900C6E8CA /* GlobalSearchTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalSearchTableView.swift; sourceTree = "<group>"; };
 		1F24DE941DD5B9E100C6E8CA /* FavoriteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
 		1F24DE961DD5BA0A00C6E8CA /* FavoriteViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteViewModel.swift; sourceTree = "<group>"; };
@@ -184,6 +205,16 @@
 		1F45C3FF1DD7361C008C60CD /* LiangPiaoHomeRefreshHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiangPiaoHomeRefreshHeader.swift; sourceTree = "<group>"; };
 		1F45C4011DD73AA4008C60CD /* LiangNomalRefreshHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiangNomalRefreshHeader.swift; sourceTree = "<group>"; };
 		1F45C4031DD73BC9008C60CD /* AllTicketTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AllTicketTableViewCell.swift; path = ../../ViewControllers/Home/AllTicketTableViewCell.swift; sourceTree = "<group>"; };
+		1F52ED711DE31E2300916C91 /* TicketDetailInfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketDetailInfoTableViewCell.swift; sourceTree = "<group>"; };
+		1F52ED731DE3FBC800916C91 /* HomeTicketModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTicketModel.swift; sourceTree = "<group>"; };
+		1F54C52A1DDC3A61009ADDA9 /* JKDBHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKDBHelper.h; sourceTree = "<group>"; };
+		1F54C52B1DDC3A61009ADDA9 /* JKDBHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKDBHelper.m; sourceTree = "<group>"; };
+		1F54C52C1DDC3A61009ADDA9 /* JKDBModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKDBModel.h; sourceTree = "<group>"; };
+		1F54C52D1DDC3A61009ADDA9 /* JKDBModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKDBModel.m; sourceTree = "<group>"; };
+		1F54C5321DDC4891009ADDA9 /* UserInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoModel.h; sourceTree = "<group>"; };
+		1F54C5331DDC4891009ADDA9 /* UserInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoModel.m; sourceTree = "<group>"; };
+		1F5F05991DE2CCCD00BF295B /* TicketMapTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketMapTableViewCell.swift; sourceTree = "<group>"; };
+		1F5F059B1DE2CEC900BF295B /* TicketDescriptionViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketDescriptionViewModel.swift; sourceTree = "<group>"; };
 		1F62F2561DC9BC1900B591F1 /* TicketSceneViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketSceneViewController.swift; sourceTree = "<group>"; };
 		1F62F2581DC9BDBF00B591F1 /* TicketSceneTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketSceneTableViewCell.swift; sourceTree = "<group>"; };
 		1F62F25A1DC9C50300B591F1 /* HomeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
@@ -219,22 +250,49 @@
 		1F6BB9901DD960E200893932 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
 		1F6BB9931DD964E700893932 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		1F6BB9951DD964F900893932 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
+		1F6BB9B71DD9974300893932 /* OrderAddressTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderAddressTableViewCell.swift; path = ../../ViewModels/Home/OrderAddressTableViewCell.swift; sourceTree = "<group>"; };
 		1F8AA0B51DD34B1700587C24 /* AboutUsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutUsViewController.swift; sourceTree = "<group>"; };
 		1F8AA0B71DD475C000587C24 /* ReciveTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReciveTableViewCell.swift; sourceTree = "<group>"; };
-		1FA6E6561DD320AC00050342 /* UserInfoModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfoModel.swift; sourceTree = "<group>"; };
 		1FB7B2941DCC2B5200945B70 /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
 		1FB7B2951DCC2B5200945B70 /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
 		1FB7B2971DCC31CB00945B70 /* TicketConfirmViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketConfirmViewController.swift; sourceTree = "<group>"; };
 		1FB7B2991DCC320200945B70 /* OrderFormView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderFormView.swift; sourceTree = "<group>"; };
 		1FB7B29B1DCC392900945B70 /* GloabTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GloabTableViewCell.swift; sourceTree = "<group>"; };
 		1FB7B29D1DCC412500945B70 /* OrderConfirmViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderConfirmViewModel.swift; sourceTree = "<group>"; };
+		1FBF86C11DDD47EF0057BB11 /* UILabel+ChangeLineSpaceAndWordSpace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+ChangeLineSpaceAndWordSpace.h"; sourceTree = "<group>"; };
+		1FBF86C21DDD47EF0057BB11 /* UILabel+ChangeLineSpaceAndWordSpace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+ChangeLineSpaceAndWordSpace.m"; sourceTree = "<group>"; };
+		1FBFC7C41DDAAD2B008D9CEC /* LoginViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		1FBFC7C91DDABD48008D9CEC /* FMDatabase+FTS3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FMDatabase+FTS3.h"; sourceTree = "<group>"; };
+		1FBFC7CA1DDABD48008D9CEC /* FMDatabase+FTS3.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FMDatabase+FTS3.m"; sourceTree = "<group>"; };
+		1FBFC7CB1DDABD48008D9CEC /* FMTokenizers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMTokenizers.h; sourceTree = "<group>"; };
+		1FBFC7CC1DDABD48008D9CEC /* FMTokenizers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMTokenizers.m; sourceTree = "<group>"; };
+		1FBFC7CD1DDABD48008D9CEC /* fts3_tokenizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fts3_tokenizer.h; sourceTree = "<group>"; };
+		1FBFC7CF1DDABD48008D9CEC /* FMDatabase+InMemoryOnDiskIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FMDatabase+InMemoryOnDiskIO.h"; sourceTree = "<group>"; };
+		1FBFC7D01DDABD48008D9CEC /* FMDatabase+InMemoryOnDiskIO.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FMDatabase+InMemoryOnDiskIO.m"; sourceTree = "<group>"; };
+		1FBFC7D21DDABD48008D9CEC /* FMDatabaseAdditionsVariadic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FMDatabaseAdditionsVariadic.swift; sourceTree = "<group>"; };
+		1FBFC7D31DDABD48008D9CEC /* FMDatabaseVariadic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FMDatabaseVariadic.swift; sourceTree = "<group>"; };
+		1FBFC7D51DDABD48008D9CEC /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
+		1FBFC7D61DDABD48008D9CEC /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabase.m; sourceTree = "<group>"; };
+		1FBFC7D71DDABD48008D9CEC /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseAdditions.h; sourceTree = "<group>"; };
+		1FBFC7D81DDABD48008D9CEC /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseAdditions.m; sourceTree = "<group>"; };
+		1FBFC7D91DDABD48008D9CEC /* FMDatabasePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabasePool.h; sourceTree = "<group>"; };
+		1FBFC7DA1DDABD48008D9CEC /* FMDatabasePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabasePool.m; sourceTree = "<group>"; };
+		1FBFC7DB1DDABD48008D9CEC /* FMDatabaseQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseQueue.h; sourceTree = "<group>"; };
+		1FBFC7DC1DDABD48008D9CEC /* FMDatabaseQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseQueue.m; sourceTree = "<group>"; };
+		1FBFC7DD1DDABD48008D9CEC /* FMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDB.h; sourceTree = "<group>"; };
+		1FBFC7DE1DDABD48008D9CEC /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
+		1FBFC7DF1DDABD48008D9CEC /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
+		1FBFC7E01DDABD48008D9CEC /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1FBFC7F01DDAC45B008D9CEC /* ZDQFMDBHelp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZDQFMDBHelp.swift; sourceTree = "<group>"; };
+		1FBFC7F21DDACC02008D9CEC /* ZDQFMDBModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZDQFMDBModel.swift; sourceTree = "<group>"; };
+		1FC3DDE41DE42C0D00420A05 /* SpalshView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpalshView.swift; sourceTree = "<group>"; };
+		1FC3DDE61DE4510700420A05 /* TicketCategorys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketCategorys.swift; sourceTree = "<group>"; };
+		1FC3DDE81DE4520C00420A05 /* TicketCategoryViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketCategoryViewModel.swift; sourceTree = "<group>"; };
+		1FC3DDEA1DE45B1A00420A05 /* RecommentTickes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RecommentTickes.swift; path = ../../ViewModels/Home/RecommentTickes.swift; sourceTree = "<group>"; };
+		1FC3DDEC1DE46DD700420A05 /* TicketSessionViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketSessionViewModel.swift; sourceTree = "<group>"; };
+		1FC3DDEE1DE46F1600420A05 /* TicketSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketSession.swift; sourceTree = "<group>"; };
 		1FC4FED21DC8729A00EBFD18 /* TicketPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketPageViewController.swift; sourceTree = "<group>"; };
 		1FC4FED41DC8734200EBFD18 /* BaseTicketsPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTicketsPageViewController.swift; sourceTree = "<group>"; };
-		1FC4FED61DC8739900EBFD18 /* AllTicketViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllTicketViewController.swift; sourceTree = "<group>"; };
-		1FC4FED81DC873CE00EBFD18 /* MuiscTicketViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MuiscTicketViewController.swift; sourceTree = "<group>"; };
-		1FC4FEDA1DC873EF00EBFD18 /* OperaTicketViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OperaTicketViewController.swift; sourceTree = "<group>"; };
-		1FC4FEDC1DC8740200EBFD18 /* SportTicketViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SportTicketViewController.swift; sourceTree = "<group>"; };
-		1FC4FEDE1DC8740D00EBFD18 /* OtherTicketViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OtherTicketViewController.swift; sourceTree = "<group>"; };
 		1FC4FEE11DC8A32E00EBFD18 /* TYPagerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TYPagerController.h; sourceTree = "<group>"; };
 		1FC4FEE21DC8A32E00EBFD18 /* TYPagerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TYPagerController.m; sourceTree = "<group>"; };
 		1FC4FEE31DC8A32E00EBFD18 /* TYTabButtonPagerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TYTabButtonPagerController.h; sourceTree = "<group>"; };
@@ -421,6 +479,17 @@
 			path = ZHPickView;
 			sourceTree = "<group>";
 		};
+		1F54C5291DDC3A61009ADDA9 /* DBModel */ = {
+			isa = PBXGroup;
+			children = (
+				1F54C52A1DDC3A61009ADDA9 /* JKDBHelper.h */,
+				1F54C52B1DDC3A61009ADDA9 /* JKDBHelper.m */,
+				1F54C52C1DDC3A61009ADDA9 /* JKDBModel.h */,
+				1F54C52D1DDC3A61009ADDA9 /* JKDBModel.m */,
+			);
+			path = DBModel;
+			sourceTree = "<group>";
+		};
 		1F6BB98B1DD960E200893932 /* SDKExport */ = {
 			isa = PBXGroup;
 			children = (
@@ -431,6 +500,75 @@
 				1F6BB9901DD960E200893932 /* WXApiObject.h */,
 			);
 			path = SDKExport;
+			sourceTree = "<group>";
+		};
+		1FBFC7C61DDABD48008D9CEC /* FMDB */ = {
+			isa = PBXGroup;
+			children = (
+				1FBFC7C71DDABD48008D9CEC /* extra */,
+				1FBFC7D41DDABD48008D9CEC /* fmdb */,
+			);
+			name = FMDB;
+			path = src;
+			sourceTree = "<group>";
+		};
+		1FBFC7C71DDABD48008D9CEC /* extra */ = {
+			isa = PBXGroup;
+			children = (
+				1FBFC7C81DDABD48008D9CEC /* fts3 */,
+				1FBFC7CE1DDABD48008D9CEC /* InMemoryOnDiskIO */,
+				1FBFC7D11DDABD48008D9CEC /* Swift extensions */,
+			);
+			path = extra;
+			sourceTree = "<group>";
+		};
+		1FBFC7C81DDABD48008D9CEC /* fts3 */ = {
+			isa = PBXGroup;
+			children = (
+				1FBFC7C91DDABD48008D9CEC /* FMDatabase+FTS3.h */,
+				1FBFC7CA1DDABD48008D9CEC /* FMDatabase+FTS3.m */,
+				1FBFC7CB1DDABD48008D9CEC /* FMTokenizers.h */,
+				1FBFC7CC1DDABD48008D9CEC /* FMTokenizers.m */,
+				1FBFC7CD1DDABD48008D9CEC /* fts3_tokenizer.h */,
+			);
+			path = fts3;
+			sourceTree = "<group>";
+		};
+		1FBFC7CE1DDABD48008D9CEC /* InMemoryOnDiskIO */ = {
+			isa = PBXGroup;
+			children = (
+				1FBFC7CF1DDABD48008D9CEC /* FMDatabase+InMemoryOnDiskIO.h */,
+				1FBFC7D01DDABD48008D9CEC /* FMDatabase+InMemoryOnDiskIO.m */,
+			);
+			path = InMemoryOnDiskIO;
+			sourceTree = "<group>";
+		};
+		1FBFC7D11DDABD48008D9CEC /* Swift extensions */ = {
+			isa = PBXGroup;
+			children = (
+				1FBFC7D21DDABD48008D9CEC /* FMDatabaseAdditionsVariadic.swift */,
+				1FBFC7D31DDABD48008D9CEC /* FMDatabaseVariadic.swift */,
+			);
+			path = "Swift extensions";
+			sourceTree = "<group>";
+		};
+		1FBFC7D41DDABD48008D9CEC /* fmdb */ = {
+			isa = PBXGroup;
+			children = (
+				1FBFC7D51DDABD48008D9CEC /* FMDatabase.h */,
+				1FBFC7D61DDABD48008D9CEC /* FMDatabase.m */,
+				1FBFC7D71DDABD48008D9CEC /* FMDatabaseAdditions.h */,
+				1FBFC7D81DDABD48008D9CEC /* FMDatabaseAdditions.m */,
+				1FBFC7D91DDABD48008D9CEC /* FMDatabasePool.h */,
+				1FBFC7DA1DDABD48008D9CEC /* FMDatabasePool.m */,
+				1FBFC7DB1DDABD48008D9CEC /* FMDatabaseQueue.h */,
+				1FBFC7DC1DDABD48008D9CEC /* FMDatabaseQueue.m */,
+				1FBFC7DD1DDABD48008D9CEC /* FMDB.h */,
+				1FBFC7DE1DDABD48008D9CEC /* FMResultSet.h */,
+				1FBFC7DF1DDABD48008D9CEC /* FMResultSet.m */,
+				1FBFC7E01DDABD48008D9CEC /* Info.plist */,
+			);
+			path = fmdb;
 			sourceTree = "<group>";
 		};
 		1FC4FEE01DC8A32E00EBFD18 /* TYPagerController */ = {
@@ -594,6 +732,8 @@
 				1FD881BC1DC7255500B2B702 /* UIViewController+DismissKeyboard.m */,
 				1FB7B2941DCC2B5200945B70 /* UIImage+ImageEffects.h */,
 				1FB7B2951DCC2B5200945B70 /* UIImage+ImageEffects.m */,
+				1FBF86C11DDD47EF0057BB11 /* UILabel+ChangeLineSpaceAndWordSpace.h */,
+				1FBF86C21DDD47EF0057BB11 /* UILabel+ChangeLineSpaceAndWordSpace.m */,
 			);
 			path = Catagory;
 			sourceTree = "<group>";
@@ -613,6 +753,8 @@
 		1FD244DF1DC2FCDA00AFD3BC /* Lib */ = {
 			isa = PBXGroup;
 			children = (
+				1F54C5291DDC3A61009ADDA9 /* DBModel */,
+				1FBFC7C61DDABD48008D9CEC /* FMDB */,
 				1F0EAB941DD1EBAA00D25B64 /* ZHPickView */,
 				1F0EAB7E1DD1B4BE00D25B64 /* CountDown */,
 				1FC4FEE01DC8A32E00EBFD18 /* TYPagerController */,
@@ -634,6 +776,8 @@
 			isa = PBXGroup;
 			children = (
 				1F089DD41DCB05E800762C14 /* GlobalTools.swift */,
+				1FBFC7F01DDAC45B008D9CEC /* ZDQFMDBHelp.swift */,
+				1FBFC7F21DDACC02008D9CEC /* ZDQFMDBModel.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -643,11 +787,6 @@
 			children = (
 				1FD2459E1DC3570E00AFD3BC /* HomeViewController.swift */,
 				1FC4FED21DC8729A00EBFD18 /* TicketPageViewController.swift */,
-				1FC4FED61DC8739900EBFD18 /* AllTicketViewController.swift */,
-				1FC4FED81DC873CE00EBFD18 /* MuiscTicketViewController.swift */,
-				1FC4FEDA1DC873EF00EBFD18 /* OperaTicketViewController.swift */,
-				1FC4FEDC1DC8740200EBFD18 /* SportTicketViewController.swift */,
-				1FC4FEDE1DC8740D00EBFD18 /* OtherTicketViewController.swift */,
 				1F62F2561DC9BC1900B591F1 /* TicketSceneViewController.swift */,
 				1F62F25C1DC9EE3400B591F1 /* TicketDescriptionViewController.swift */,
 				1FB7B2971DCC31CB00945B70 /* TicketConfirmViewController.swift */,
@@ -659,6 +798,7 @@
 		1FD2458E1DC3553E00AFD3BC /* Mine */ = {
 			isa = PBXGroup;
 			children = (
+				1F0EABA01DD2C0A600D25B64 /* LoginViewController.swift */,
 				1FD245A41DC3574800AFD3BC /* MineViewController.swift */,
 				1F67D10D1DCD816000378116 /* AddressViewController.swift */,
 				1F67D10F1DCD816E00378116 /* AddAddressViewController.swift */,
@@ -674,6 +814,9 @@
 			isa = PBXGroup;
 			children = (
 				1F62F25A1DC9C50300B591F1 /* HomeViewModel.swift */,
+				1FC3DDE81DE4520C00420A05 /* TicketCategoryViewModel.swift */,
+				1FC3DDEC1DE46DD700420A05 /* TicketSessionViewModel.swift */,
+				1F5F059B1DE2CEC900BF295B /* TicketDescriptionViewModel.swift */,
 				1FB7B29D1DCC412500945B70 /* OrderConfirmViewModel.swift */,
 				1F0EAB5A1DD053EE00D25B64 /* OrderDetailViewModel.swift */,
 				1F24DE961DD5BA0A00C6E8CA /* FavoriteViewModel.swift */,
@@ -690,6 +833,7 @@
 				1F0EAB841DD1C88C00D25B64 /* MineViewModel.swift */,
 				1F0EAB8C1DD1DD3C00D25B64 /* MyProfileViewModel.swift */,
 				1F0EAB921DD1E93C00D25B64 /* SettingViewModel.swift */,
+				1FBFC7C41DDAAD2B008D9CEC /* LoginViewModel.swift */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -714,12 +858,14 @@
 				1F62F2581DC9BDBF00B591F1 /* TicketSceneTableViewCell.swift */,
 				1F62F25E1DC9F1D800B591F1 /* TicketDescripTableViewCell.swift */,
 				1F62F2601DC9F1E600B591F1 /* TicketNumberTableViewCell.swift */,
+				1F5F05991DE2CCCD00BF295B /* TicketMapTableViewCell.swift */,
 				1F62F2621DC9F1F200B591F1 /* TicketToolsTableViewCell.swift */,
 				1F62F2641DC9F21800B591F1 /* TickerInfoTableViewCell.swift */,
 				1F6629911DCC495F00336700 /* CofimTicketTableViewCell.swift */,
+				1F52ED711DE31E2300916C91 /* TicketDetailInfoTableViewCell.swift */,
 				1F8AA0B71DD475C000587C24 /* ReciveTableViewCell.swift */,
 				1FB7B2991DCC320200945B70 /* OrderFormView.swift */,
-				1F0EAB5C1DD056DE00D25B64 /* OrderAddressTableViewCell.swift */,
+				1F6BB9B71DD9974300893932 /* OrderAddressTableViewCell.swift */,
 				1F0EAB5E1DD05A9800D25B64 /* OrderTicketInfoTableViewCell.swift */,
 				1F0EAB601DD05C2200D25B64 /* TicketLocationTableViewCell.swift */,
 				1F0EAB621DD0616F00D25B64 /* OrderMuchTableViewCell.swift */,
@@ -737,7 +883,6 @@
 				1F0EAB861DD1CC0700D25B64 /* MineHeadTableViewCell.swift */,
 				1F0EAB881DD1D65C00D25B64 /* ServiceTableViewCell.swift */,
 				1F0EAB8E1DD1DF1E00D25B64 /* ProfileImageTableViewCell.swift */,
-				1F0EABA01DD2C0A600D25B64 /* LoginViewController.swift */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -746,6 +891,10 @@
 			isa = PBXGroup;
 			children = (
 				1FD881CE1DC7621400B2B702 /* HomeCenterModel.swift */,
+				1F52ED731DE3FBC800916C91 /* HomeTicketModel.swift */,
+				1FC3DDE61DE4510700420A05 /* TicketCategorys.swift */,
+				1FC3DDEA1DE45B1A00420A05 /* RecommentTickes.swift */,
+				1FC3DDEE1DE46F1600420A05 /* TicketSession.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -753,7 +902,8 @@
 		1FD245991DC355B900AFD3BC /* Mine */ = {
 			isa = PBXGroup;
 			children = (
-				1FA6E6561DD320AC00050342 /* UserInfoModel.swift */,
+				1F54C5321DDC4891009ADDA9 /* UserInfoModel.h */,
+				1F54C5331DDC4891009ADDA9 /* UserInfoModel.m */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -799,6 +949,7 @@
 				1F45C3F51DD72043008C60CD /* LiangPiaoLoadMoreDataFooter.swift */,
 				1F45C3FF1DD7361C008C60CD /* LiangPiaoHomeRefreshHeader.swift */,
 				1F45C4011DD73AA4008C60CD /* LiangNomalRefreshHeader.swift */,
+				1FC3DDE41DE42C0D00420A05 /* SpalshView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -871,12 +1022,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1FD244D41DC2F92E00AFD3BC /* Build configuration list for PBXNativeTarget "LiangPiao" */;
 			buildPhases = (
-				6843A9EE9B0B5F5268AD02D9 /* 📦 Check Pods Manifest.lock */,
+				6843A9EE9B0B5F5268AD02D9 /* [CP] Check Pods Manifest.lock */,
 				1FD244BE1DC2F92E00AFD3BC /* Sources */,
 				1FD244BF1DC2F92E00AFD3BC /* Frameworks */,
 				1FD244C01DC2F92E00AFD3BC /* Resources */,
-				EE54D18EE19CD21BD7606BE0 /* 📦 Embed Pods Frameworks */,
-				7EC71D3A7E148CA7050B1210 /* 📦 Copy Pods Resources */,
+				EE54D18EE19CD21BD7606BE0 /* [CP] Embed Pods Frameworks */,
+				7EC71D3A7E148CA7050B1210 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -934,35 +1085,36 @@
 				1F0EAB9F1DD203F000D25B64 /* city.plist in Resources */,
 				1F6BB9921DD960E200893932 /* README.txt in Resources */,
 				1FD244CB1DC2F92E00AFD3BC /* Main.storyboard in Resources */,
+				1FBFC7EE1DDABD48008D9CEC /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		6843A9EE9B0B5F5268AD02D9 /* 📦 Check Pods Manifest.lock */ = {
+		6843A9EE9B0B5F5268AD02D9 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		7EC71D3A7E148CA7050B1210 /* 📦 Copy Pods Resources */ = {
+		7EC71D3A7E148CA7050B1210 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -970,14 +1122,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LiangPiao/Pods-LiangPiao-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		EE54D18EE19CD21BD7606BE0 /* 📦 Embed Pods Frameworks */ = {
+		EE54D18EE19CD21BD7606BE0 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -993,18 +1145,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				1FD881BD1DC7255500B2B702 /* UIViewController+DismissKeyboard.m in Sources */,
-				1FC4FEDD1DC8740200EBFD18 /* SportTicketViewController.swift in Sources */,
 				1FD881E71DC8546500B2B702 /* TADotView.m in Sources */,
 				1F62F2571DC9BC1900B591F1 /* TicketSceneViewController.swift in Sources */,
 				1FD881E51DC8546500B2B702 /* TAAbstractDotView.m in Sources */,
 				1F0EAB871DD1CC0700D25B64 /* MineHeadTableViewCell.swift in Sources */,
 				1FC4FED51DC8734200EBFD18 /* BaseTicketsPageViewController.swift in Sources */,
 				1FD245081DC2FD9700AFD3BC /* NSFileManager+Cache.m in Sources */,
+				1FBFC7E71DDABD48008D9CEC /* FMDatabaseAdditionsVariadic.swift in Sources */,
 				1FD881EA1DC8546500B2B702 /* SDCycleScrollView.m in Sources */,
 				1F0EAB591DD052C700D25B64 /* OrderDetailViewController.swift in Sources */,
-				1FC4FEDB1DC873EF00EBFD18 /* OperaTicketViewController.swift in Sources */,
 				1FD881B91DC7252800B2B702 /* UITableView+FDTemplateLayoutCell.m in Sources */,
 				1F0EAB811DD1B4BE00D25B64 /* CountDown.m in Sources */,
+				1FBFC7E61DDABD48008D9CEC /* FMDatabase+InMemoryOnDiskIO.m in Sources */,
 				1FD244C81DC2F92E00AFD3BC /* ViewController.swift in Sources */,
 				1FD244E81DC2FD3D00AFD3BC /* String+Size.swift in Sources */,
 				1FD881C71DC748A300B2B702 /* UITextView+Placeholder.m in Sources */,
@@ -1015,23 +1167,29 @@
 				1F0EAB731DD0949A00D25B64 /* OrderListViewModel.swift in Sources */,
 				1FB7B2961DCC2B5200945B70 /* UIImage+ImageEffects.m in Sources */,
 				1F24DE951DD5B9E100C6E8CA /* FavoriteViewController.swift in Sources */,
+				1FC3DDED1DE46DD700420A05 /* TicketSessionViewModel.swift in Sources */,
+				1FBFC7C51DDAAD2B008D9CEC /* LoginViewModel.swift in Sources */,
 				1F0EAB611DD05C2200D25B64 /* TicketLocationTableViewCell.swift in Sources */,
 				1F0EAB8D1DD1DD3C00D25B64 /* MyProfileViewModel.swift in Sources */,
 				1FD881CF1DC7621400B2B702 /* HomeCenterModel.swift in Sources */,
 				1F8AA0B61DD34B1700587C24 /* AboutUsViewController.swift in Sources */,
 				1FD881ED1DC854EE00B2B702 /* HomeScrollerTableViewCell.swift in Sources */,
 				1F67D1181DCDB57A00378116 /* SetNomalAddressTableViewCell.swift in Sources */,
+				1F54C5341DDC4891009ADDA9 /* UserInfoModel.m in Sources */,
 				1FD881E91DC8546500B2B702 /* SDCollectionViewCell.m in Sources */,
 				1F24DE971DD5BA0A00C6E8CA /* FavoriteViewModel.swift in Sources */,
+				1F54C52E1DDC3A61009ADDA9 /* JKDBHelper.m in Sources */,
 				1FD245021DC2FD9700AFD3BC /* NSString+Utils.m in Sources */,
 				1F0EAB7B1DD0AE2300D25B64 /* OrderPayTableViewCell.swift in Sources */,
+				1F5F059A1DE2CCCD00BF295B /* TicketMapTableViewCell.swift in Sources */,
 				1FB7B29C1DCC392900945B70 /* GloabTableViewCell.swift in Sources */,
 				1FC4FEEC1DC8A32E00EBFD18 /* TYTabPagerController.m in Sources */,
 				1FD2459F1DC3570E00AFD3BC /* HomeViewController.swift in Sources */,
 				1F62F2651DC9F21800B591F1 /* TickerInfoTableViewCell.swift in Sources */,
-				1F0EAB5D1DD056DE00D25B64 /* OrderAddressTableViewCell.swift in Sources */,
 				1F0EAB8B1DD1DBC400D25B64 /* MyProfileViewController.swift in Sources */,
+				1FBFC7F11DDAC45B008D9CEC /* ZDQFMDBHelp.swift in Sources */,
 				1F0EABA11DD2C0A600D25B64 /* LoginViewController.swift in Sources */,
+				1FC3DDEF1DE46F1600420A05 /* TicketSession.swift in Sources */,
 				1F0EAB911DD1E8F200D25B64 /* SettingViewController.swift in Sources */,
 				1FD881E81DC8546500B2B702 /* TAPageControl.m in Sources */,
 				1F67D1101DCD816E00378116 /* AddAddressViewController.swift in Sources */,
@@ -1040,20 +1198,27 @@
 				1FB7B29E1DCC412500945B70 /* OrderConfirmViewModel.swift in Sources */,
 				1FB7B2981DCC31CB00945B70 /* TicketConfirmViewController.swift in Sources */,
 				1F62F25F1DC9F1D800B591F1 /* TicketDescripTableViewCell.swift in Sources */,
+				1FC3DDE51DE42C0D00420A05 /* SpalshView.swift in Sources */,
 				1F45C3F61DD72043008C60CD /* LiangPiaoLoadMoreDataFooter.swift in Sources */,
+				1F54C52F1DDC3A61009ADDA9 /* JKDBModel.m in Sources */,
+				1FC3DDE91DE4520C00420A05 /* TicketCategoryViewModel.swift in Sources */,
+				1F52ED721DE31E2300916C91 /* TicketDetailInfoTableViewCell.swift in Sources */,
 				1FD2458A1DC336B300AFD3BC /* BaseNetWorke.swift in Sources */,
 				1F0EAB751DD095E900D25B64 /* OrderNumberTableViewCell.swift in Sources */,
+				1F6BB9B81DD9974300893932 /* OrderAddressTableViewCell.swift in Sources */,
 				1F0EAB651DD073B900D25B64 /* OrderWaitePayTableViewCell.swift in Sources */,
 				1F62F25D1DC9EE3400B591F1 /* TicketDescriptionViewController.swift in Sources */,
 				1F089DD51DCB05E800762C14 /* GlobalTools.swift in Sources */,
-				1FC4FEDF1DC8740D00EBFD18 /* OtherTicketViewController.swift in Sources */,
+				1FBFC7E51DDABD48008D9CEC /* FMTokenizers.m in Sources */,
 				1FD881C41DC745DF00B2B702 /* TalbViewController.swift in Sources */,
 				1FD245061DC2FD9700AFD3BC /* NSFileManager+Paths.m in Sources */,
 				1F67D1141DCD867A00378116 /* AddressTableViewCell.swift in Sources */,
+				1FBFC7E81DDABD48008D9CEC /* FMDatabaseVariadic.swift in Sources */,
 				1F67D10E1DCD816000378116 /* AddressViewController.swift in Sources */,
 				1FD244C61DC2F92E00AFD3BC /* AppDelegate.swift in Sources */,
 				1F62F25B1DC9C50300B591F1 /* HomeViewModel.swift in Sources */,
 				1FC4FEED1DC8A32E00EBFD18 /* TYTabTitleViewCell.m in Sources */,
+				1FBFC7E41DDABD48008D9CEC /* FMDatabase+FTS3.m in Sources */,
 				1FD245011DC2FD9700AFD3BC /* NSString+StringSize.m in Sources */,
 				1F0EAB681DD091FA00D25B64 /* OrderListViewController.swift in Sources */,
 				1F45C4001DD7361C008C60CD /* LiangPiaoHomeRefreshHeader.swift in Sources */,
@@ -1063,6 +1228,8 @@
 				1F45C3FE1DD73027008C60CD /* NSTimer.swift in Sources */,
 				1FD245031DC2FD9700AFD3BC /* UIViewController+hideExcessLine.m in Sources */,
 				1FD2459D1DC356EA00AFD3BC /* BaseViewController.swift in Sources */,
+				1F5F059C1DE2CEC900BF295B /* TicketDescriptionViewModel.swift in Sources */,
+				1FBFC7EA1DDABD48008D9CEC /* FMDatabaseAdditions.m in Sources */,
 				1FB7B29A1DCC320200945B70 /* OrderFormView.swift in Sources */,
 				1FD245041DC2FD9700AFD3BC /* UIColor+Hex.m in Sources */,
 				1FD2450C1DC2FE5400AFD3BC /* RequestUrl.swift in Sources */,
@@ -1073,11 +1240,11 @@
 				1FD244E71DC2FD3D00AFD3BC /* AlertControl+Tools.swift in Sources */,
 				1FD245A51DC3574800AFD3BC /* MineViewController.swift in Sources */,
 				1FD245101DC2FE8900AFD3BC /* Config.swift in Sources */,
-				1FA6E6571DD320AC00050342 /* UserInfoModel.swift in Sources */,
+				1FC3DDE71DE4510700420A05 /* TicketCategorys.swift in Sources */,
+				1FBFC7EC1DDABD48008D9CEC /* FMDatabaseQueue.m in Sources */,
 				1FD881D11DC83E8900B2B702 /* RecommendTableViewCell.swift in Sources */,
 				1F0EAB831DD1B53200D25B64 /* OrderCountDownView.swift in Sources */,
 				1F0EAB6E1DD0932400D25B64 /* SellTicketsViewController.swift in Sources */,
-				1FC4FED71DC8739900EBFD18 /* AllTicketViewController.swift in Sources */,
 				1F0EAB891DD1D65C00D25B64 /* ServiceTableViewCell.swift in Sources */,
 				1F0EAB7D1DD16D0E00D25B64 /* OrderDoneTableViewCell.swift in Sources */,
 				1F0EAB771DD0961D00D25B64 /* OrderHandleTableViewCell.swift in Sources */,
@@ -1085,11 +1252,13 @@
 				1F6629921DCC495F00336700 /* CofimTicketTableViewCell.swift in Sources */,
 				1F0EAB8F1DD1DF1E00D25B64 /* ProfileImageTableViewCell.swift in Sources */,
 				1FD2450E1DC2FE7300AFD3BC /* Define.swift in Sources */,
+				1FBFC7F31DDACC02008D9CEC /* ZDQFMDBModel.swift in Sources */,
 				1F45C4021DD73AA4008C60CD /* LiangNomalRefreshHeader.swift in Sources */,
 				1FD881CB1DC75FE600B2B702 /* HomeToolsTableViewCell.swift in Sources */,
 				1F45C4041DD73BC9008C60CD /* AllTicketTableViewCell.swift in Sources */,
 				1F0EAB931DD1E93C00D25B64 /* SettingViewModel.swift in Sources */,
 				1FC4FEEB1DC8A32E00EBFD18 /* TYTabButtonPagerController.m in Sources */,
+				1FBF86C31DDD47EF0057BB11 /* UILabel+ChangeLineSpaceAndWordSpace.m in Sources */,
 				1F0EAB5B1DD053EE00D25B64 /* OrderDetailViewModel.swift in Sources */,
 				1FC4FED31DC8729A00EBFD18 /* TicketPageViewController.swift in Sources */,
 				1FD244E91DC2FD3D00AFD3BC /* UIViewController+NavigationBar.swift in Sources */,
@@ -1097,14 +1266,18 @@
 				1F0EAB791DD096F200D25B64 /* OrderModel.swift in Sources */,
 				1FC4FEEA1DC8A32E00EBFD18 /* TYPagerController.m in Sources */,
 				1FD881B81DC7252800B2B702 /* UITableView+FDKeyedHeightCache.m in Sources */,
+				1FBFC7EB1DDABD48008D9CEC /* FMDatabasePool.m in Sources */,
 				1FD881EB1DC8546500B2B702 /* UIView+SDExtension.m in Sources */,
 				1F24DE931DD5A35900C6E8CA /* GlobalSearchTableView.swift in Sources */,
+				1F52ED741DE3FBC800916C91 /* HomeTicketModel.swift in Sources */,
 				1FD881BF1DC736D300B2B702 /* HomeSearchTableViewCell.swift in Sources */,
 				1FD881D41DC84FDA00B2B702 /* GloabView.swift in Sources */,
 				1FD881B71DC7252800B2B702 /* UITableView+FDIndexPathHeightCache.m in Sources */,
-				1FC4FED91DC873CE00EBFD18 /* MuiscTicketViewController.swift in Sources */,
+				1FBFC7ED1DDABD48008D9CEC /* FMResultSet.m in Sources */,
+				1FC3DDEB1DE45B1A00420A05 /* RecommentTickes.swift in Sources */,
 				1F67D1161DCDB56A00378116 /* DetailAddressTableViewCell.swift in Sources */,
 				1F0EAB5F1DD05A9800D25B64 /* OrderTicketInfoTableViewCell.swift in Sources */,
+				1FBFC7E91DDABD48008D9CEC /* FMDatabase.m in Sources */,
 				1FD881C11DC7410D00B2B702 /* AppThemeTool.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1234,7 +1407,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = LiangPiao/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1260,7 +1433,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = LiangPiao/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

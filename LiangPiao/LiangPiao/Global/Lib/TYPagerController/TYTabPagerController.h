@@ -82,5 +82,7 @@ typedef NS_ENUM(NSUInteger, TYPagerBarStyle) {
 
 - (UICollectionViewCell *)cellForIndex:(NSInteger)index;
 
+- (void)tabScrollToIndex:(NSInteger)index animated:(BOOL)animated;
+
 @end
 

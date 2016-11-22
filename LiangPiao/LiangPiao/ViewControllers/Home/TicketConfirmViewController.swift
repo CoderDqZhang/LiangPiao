@@ -52,6 +52,7 @@ class TicketConfirmViewController: UIViewController {
         tableView.registerClass(GloabTitleAndDetailImageCell.self, forCellReuseIdentifier: "GloabTitleAndDetailImageCell")
         tableView.registerClass(GloabTitleAndDetailCell.self, forCellReuseIdentifier: "GloabTitleAndDetailCell")
         tableView.registerClass(CofimTicketTableViewCell.self, forCellReuseIdentifier: "CofimTicketTableViewCell")
+        tableView.registerClass(OrderConfirmAddressTableViewCell.self, forCellReuseIdentifier: "OrderConfirmAddressTableViewCell")
         tableView.registerClass(GloabTextFieldCell.self, forCellReuseIdentifier: "GloabTextFieldCell")
         tableView.registerClass(ReciveTableViewCell.self, forCellReuseIdentifier: "ReciveTableViewCell")
         tableView.separatorStyle = .None
@@ -61,7 +62,7 @@ class TicketConfirmViewController: UIViewController {
             make.top.equalTo(self.view.snp_top).offset(0)
             make.left.equalTo(self.view.snp_left).offset(0)
             make.right.equalTo(self.view.snp_right).offset(0)
-            make.bottom.equalTo(self.view.snp_bottom).offset(49)
+            make.bottom.equalTo(self.view.snp_bottom).offset(-49)
         }
 
     }
@@ -74,6 +75,10 @@ class TicketConfirmViewController: UIViewController {
                     let controller = AddressViewController()
                     controller.addressType = .addType
                     controller.viewModel.addressType = .addType
+                    controller.addressInfoClouse = { name, address in
+                        let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath.init(forRow: 1, inSection: 0)) as! OrderConfirmAddressTableViewCell
+                        cell.setData(name, address: address, type: .withAddress)
+                    }
                     controller.hidesBottomBarWhenPushed = true
                     self.navigationController?.pushViewController(controller, animated: true)
                 default:
@@ -103,7 +108,7 @@ class TicketConfirmViewController: UIViewController {
     func ticketIntrductView() -> UIView {
         let ticketIntrductView = UIView(frame: CGRectMake(0,0,SCREENWIDTH,67))
         ticketIntrductView.backgroundColor = UIColor.init(hexString: Home_Ticket_Introuduct_Back_Color)
-        let imageView = UIImageView(frame:CGRectMake(0,0,SCREENWIDTH,2))
+        let imageView = UIImageView(frame:CGRectMake(0,0,SCREENWIDTH,4))
         imageView.image = UIImage.init(named: "Sawtooth")//Pattern_Line
         ticketIntrductView.addSubview(imageView)
         
@@ -115,7 +120,7 @@ class TicketConfirmViewController: UIViewController {
     func orderConfirmView() -> UIView {
         let orderConfirmView = UIView(frame: CGRectMake(0,0,SCREENWIDTH,105))
         orderConfirmView.backgroundColor = UIColor.init(hexString: Home_Ticket_Introuduct_Back_Color)
-        let imageView = UIImageView(frame:CGRectMake(0,0,SCREENWIDTH,2))
+        let imageView = UIImageView(frame:CGRectMake(0,0,SCREENWIDTH,4))
         imageView.image = UIImage.init(named: "Pattern_Line")//Pattern_Line
         orderConfirmView.addSubview(imageView)
         
@@ -177,7 +182,7 @@ extension TicketConfirmViewController : UITableViewDelegate {
         case 0:
             switch indexPath.row {
             case 0:
-                return 102
+                return 86
             case 1:
                 return 52
             default:
@@ -255,32 +260,40 @@ extension TicketConfirmViewController : UITableViewDataSource {
                 if self.formAddress == 3 || self.formAddress == 2 {
                     let cell = tableView.dequeueReusableCellWithIdentifier("GloabTextFieldCell", forIndexPath: indexPath) as! GloabTextFieldCell
                     cell.selectionStyle = .None
-                    if indexPath.row == 0 {
+                    if indexPath.row == 1 {
                         cell.setData(viewModel.configCellLabel(indexPath), detail: "取票人姓名")
                     }else{
                         cell.setData(viewModel.configCellLabel(indexPath), detail: "取票人手机号码")
+                        cell.hideLineLabel()
                     }
                     return cell
                 }else{
-                    let cell = tableView.dequeueReusableCellWithIdentifier("GloabTitleAndDetailImageCell", forIndexPath: indexPath) as! GloabTitleAndDetailImageCell
-                    cell.selectionStyle = .None
-                    if indexPath.row == 0 {
-                        cell.titleLabel.textColor = UIColor.init(hexString: App_Theme_BackGround_Color)
+                    if indexPath.row == 1 {
+                        let cell = tableView.dequeueReusableCellWithIdentifier("OrderConfirmAddressTableViewCell", forIndexPath: indexPath) as! OrderConfirmAddressTableViewCell
+                        cell.setData("", address: "", type: .withNone)
+                        cell.selectionStyle = .None
+                        return cell
                     }else{
-                        
+                        let cell = tableView.dequeueReusableCellWithIdentifier("GloabTitleAndDetailImageCell", forIndexPath: indexPath) as! GloabTitleAndDetailImageCell
+                        cell.selectionStyle = .None
+                        cell.setData(viewModel.configCellLabel(indexPath), detail: "普通快递（8元）")
+                        if indexPath.row == 2 {
+                            cell.hideLineLabel()
+                        }
+                        return cell
                     }
-                    cell.setData(viewModel.configCellLabel(indexPath), detail: "测试")
-                    return cell
                 }
             }
         case 1:
             switch indexPath.row {
             case 0:
                 let cell = tableView.dequeueReusableCellWithIdentifier("CofimTicketTableViewCell", forIndexPath: indexPath) as! CofimTicketTableViewCell
+                cell.ticketPhoto.image = UIImage.init(named: "Feeds_Default_Cover_02")
                 cell.selectionStyle = .None
                 return cell
             case 1,3:
                 let cell = tableView.dequeueReusableCellWithIdentifier("GloabTitleAndDetailCell", forIndexPath: indexPath) as! GloabTitleAndDetailCell
+            
                 cell.selectionStyle = .None
                 cell.setData(viewModel.configCellLabel(indexPath), detail: "360.00元")
                 return cell
@@ -293,7 +306,8 @@ extension TicketConfirmViewController : UITableViewDataSource {
                 let cell = tableView.dequeueReusableCellWithIdentifier("GloabTitleAndFieldCell", forIndexPath: indexPath) as! GloabTitleAndFieldCell
                 cell.hideLineLabel()
                 cell.selectionStyle = .None
-                cell.setData(viewModel.configCellLabel(indexPath), detail: "备注关于本次交易的特别说明")
+                cell.setData(viewModel.configCellLabel(indexPath), detail: "")
+                
                 return cell
             }
             

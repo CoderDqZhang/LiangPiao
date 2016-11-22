@@ -28,7 +28,11 @@ class LoginViewController: UIViewController {
     var comfigLabel:UILabel!
     var proBtn:UIButton!
     
+    let loginForm = LoginForm()
+    
     var timeDownLabel:CountDown!
+    
+    var viewModel:LoginViewModel = LoginViewModel()
 
     
     override func viewDidLoad() {
@@ -61,14 +65,20 @@ class LoginViewController: UIViewController {
         
         confimCodeField = self.createTextFiled(CGRectZero)
         confimCodeField.delegate = self
+        confimCodeField.text = "1234"
+        confimCodeField.rac_textSignal().subscribeNext { (action) in
+            self.loginForm.code = action as! String
+        }
         confimCodeField.keyboardType = .PhonePad
         self.view.addSubview(confimCodeField)
         
         phontTextField = self.createTextFiled(CGRectZero)
         phontTextField.delegate = self
         phontTextField.tag = 1
+        phontTextField.text = "18363899723"
         phontTextField.keyboardType = .PhonePad
         phontTextField.rac_textSignal().subscribeNext { (action) in
+            self.loginForm.phone = action as! String
             if self.senderCode != nil {
                 if action.length == 11 {
                     self.senderCode.enabled = true
@@ -90,8 +100,7 @@ class LoginViewController: UIViewController {
         senderCode.layer.cornerRadius = 2.0
         senderCode.layer.masksToBounds = true
         senderCode.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (action) in
-            let aMinutes:NSTimeInterval = 60
-            self.startWithStartDate(NSDate(), finishDate: NSDate.init(timeIntervalSinceNow: aMinutes))
+            self.viewModel.requestLoginCode(self.loginForm.phone, controller: self)
         }
         self.view.addSubview(senderCode)
         
@@ -99,10 +108,12 @@ class LoginViewController: UIViewController {
         loginButton.backgroundColor = UIColor.init(hexString: App_Theme_BackGround_Color)
         loginButton.setTitle("立即登录", forState: .Normal)
         loginButton.titleLabel?.font = LoginView_LoginButton_Font
-        loginButton.enabled = false
+        loginButton.enabled = true
+        loginButton.layer.cornerRadius = 2.0
+        loginButton.layer.masksToBounds = true
         loginButton.setTitleColor(UIColor.init(hexString: NavigationBar_Title_Color), forState: .Normal)
         loginButton.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (action) in
-            
+            self.viewModel.requestLogin(self.loginForm, controller: self)
         }
         self.view.addSubview(loginButton)
         
@@ -164,33 +175,34 @@ class LoginViewController: UIViewController {
     
     func makeConstraints(){
         phoneLabel.snp_makeConstraints { (make) in
-            make.top.equalTo(self.view.snp_top).offset(114)
+            make.top.equalTo(self.view.snp_top).offset(50)
             make.left.equalTo(self.view.snp_left).offset(15)
-            make.width.equalTo(42)
+            make.width.equalTo(49)
         }
         
         phontTextField.snp_makeConstraints { (make) in
-            make.top.equalTo(self.view.snp_top).offset(112)
+            make.top.equalTo(self.view.snp_top).offset(48)
             make.left.equalTo(self.phoneLabel.snp_right).offset(28)
             make.right.equalTo(self.senderCode.snp_left).offset(-10)
             make.height.equalTo(20)
         }
         
         senderCode.snp_makeConstraints { (make) in
-            make.top.equalTo(self.view.snp_top).offset(110)
-            make.left.equalTo(self.phoneLabel.snp_right).offset(28)
+            make.top.equalTo(self.view.snp_top).offset(46)
+            make.right.equalTo(self.view.snp_right).offset(-15)
             make.size.equalTo(CGSizeMake(70, 29))
         }
         
         lineLabel.snp_makeConstraints { (make) in
-            make.top.equalTo(self.phoneLabel.snp_bottom).offset(20)
+            make.top.equalTo(self.phontTextField.snp_bottom).offset(20)
             make.left.equalTo(self.view.snp_left).offset(15)
+            make.right.equalTo(self.view.snp_right).offset(-15)
         }
         
         confimCodeLabel.snp_makeConstraints { (make) in
             make.top.equalTo(self.lineLabel.snp_bottom).offset(20)
             make.left.equalTo(self.view.snp_left).offset(15)
-            make.width.equalTo(42)
+            make.width.equalTo(49)
         }
         
         confimCodeField.snp_makeConstraints { (make) in
@@ -200,15 +212,10 @@ class LoginViewController: UIViewController {
             make.height.equalTo(20)
         }
         
-        senderCode.snp_makeConstraints { (make) in
-            make.right.equalTo(self.view.snp_right).offset(-15)
-            make.top.equalTo(self.view.snp_top).offset(114)
-            make.size.equalTo(CGSize(width: 70, height: 29))
-        }
-        
         lineLabel1.snp_makeConstraints { (make) in
             make.top.equalTo(self.confimCodeLabel.snp_bottom).offset(20)
             make.left.equalTo(self.view.snp_left).offset(15)
+            make.right.equalTo(self.view.snp_right).offset(-15)
         }
         
         loginButton.snp_makeConstraints { (make) in
@@ -237,7 +244,6 @@ class LoginViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
     /*
     // MARK: - Navigation
 

@@ -22,8 +22,8 @@ class OrderMuchTableViewCell: UITableViewCell {
     
     func setUpView() {
         muchInfoLabel = UILabel()
-        muchInfoLabel.text = "实付金额:"
-        muchInfoLabel.font = Home_PayView_Label_Font
+        muchInfoLabel.text = "实付金额："
+        muchInfoLabel.font = Home_Ticker_Tools_Table_Font
         muchInfoLabel.textColor = UIColor.init(hexString: Home_Ticker_Tools_Table_sColor)
         self.contentView.addSubview(muchInfoLabel)
         
@@ -31,7 +31,7 @@ class OrderMuchTableViewCell: UITableViewCell {
         muchLabel.text = "688.00 元"
         let attributeString = NSMutableAttributedString(string: muchLabel.text!)
         attributeString.addAttribute(NSFontAttributeName,
-                                     value: Home_PayView_Much_Font!,
+                                     value: Home_PayView_WaitPay_Much_Font!,
                                      range: NSMakeRange(0,muchLabel.text!.length - 1))
         attributeString.addAttribute(NSForegroundColorAttributeName, value: UIColor.init(hexString: Home_ReciveView_Label_Nomal_nColor),
                                      range: NSMakeRange(0, muchLabel.text!.length - 1))
@@ -58,7 +58,7 @@ class OrderMuchTableViewCell: UITableViewCell {
             })
             
             muchInfoLabel.snp_makeConstraints(closure: { (make) in
-                make.right.equalTo(self.muchLabel.snp_left).offset(-5)
+                make.right.equalTo(self.muchLabel.snp_left).offset(-2)
                 make.centerY.equalTo(self.contentView.snp_centerY).offset(0)
             })
             self.didMakeConstraints = true

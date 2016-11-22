@@ -27,6 +27,7 @@ class OrderHandleTableViewCell: UITableViewCell {
         self.contentView.addSubview(cancelOrderBtn)
         
         payOrderBtn = self.createButton("立即支付", backGround: UIColor.init(hexString: App_Theme_BackGround_Color), titleColor: UIColor.whiteColor())
+        payOrderBtn.layer.borderColor = UIColor.init(hexString: App_Theme_BackGround_Color).CGColor
         self.contentView.addSubview(payOrderBtn)
         
         linLabel = GloabLineView(frame: CGRectMake(15, 0, SCREENWIDTH - 30, 0.5))
@@ -39,11 +40,13 @@ class OrderHandleTableViewCell: UITableViewCell {
         let  button = UIButton(type: .Custom)
         button.setTitle(title, forState: .Normal)
         button.backgroundColor = UIColor.whiteColor()
-        button.layer.cornerRadius = 1.0
+        button.layer.cornerRadius = 2.0
+        button.clipsToBounds = true
         button.titleLabel?.font = Home_ReciveView_Label_Font
-        button.backgroundColor = backGround
+        button.layer.backgroundColor = backGround.CGColor
         button.layer.borderColor = titleColor.CGColor
         button.layer.borderWidth = 1.0
+        button.layer.masksToBounds = true
         button.setTitleColor(titleColor, forState: .Normal)
         return button
     }

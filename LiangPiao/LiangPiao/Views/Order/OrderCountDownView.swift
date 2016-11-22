@@ -20,8 +20,12 @@ class OrderCountDownView: UIView {
         super.init(frame: frame)
         self.setUpView()
         ///方法一倒计时测试
-        let startLongLong:NSInteger = 100
-        let finishLongLong:NSInteger = 100
+//        let startLongLong:NSInteger = 1467713971000
+//        let finishLongLong:NSInteger = 1467714322000
+        
+        let startLongLong:Int64 = self.countDownLabel.longLongFromDate(NSDate.init()) / 1000 * 1000
+        let secondeLongLong = 15 * 60 + 59
+        let finishLongLong:Int64  = startLongLong + secondeLongLong * 1000
         self.startLongLongStartStamp(startLongLong, longlongFinishStamp: finishLongLong)
     }
     
@@ -58,7 +62,7 @@ class OrderCountDownView: UIView {
         return label
     }
     
-    func startLongLongStartStamp(strtLL:NSInteger, longlongFinishStamp:NSInteger) {
+    func startLongLongStartStamp(strtLL:Int64 , longlongFinishStamp:Int64 ) {
         countDownLabel.countDownWithStratTimeStamp(strtLL, finishTimeStamp: longlongFinishStamp) { (day, hour, minute, second) in
             self.refreshView(day, hour: hour, minute: minute, secondes: second)
         }

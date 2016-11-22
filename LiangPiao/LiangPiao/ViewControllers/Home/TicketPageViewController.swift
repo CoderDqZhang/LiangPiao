@@ -14,35 +14,23 @@ let kCellSpacing:CGFloat = 10
 
 class TicketPageViewController: TYTabButtonPagerController {
 
-    let allTicketViewController = AllTicketViewController()
-    let muiscTicketViewController = MuiscTicketViewController()
-    let operaTicketViewController = OperaTicketViewController()
-    let sportTicketViewController = SportTicketViewController()
-    let otherTicketViewController = OtherTicketViewController()
-    var pageViewControllers:NSArray!
-    let pageViewTitles = ["全部","音乐会","话剧和歌剧","体育比赛","其他"]
+    let viewModel = TicketCategoryViewModel.sharedInstance
+    var index:Int = 0
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "演出"
         self.setUpNavigationItem()
-        pageViewControllers = [allTicketViewController,muiscTicketViewController,operaTicketViewController,sportTicketViewController,otherTicketViewController]
         self.setUpPageViewControllerStyle()
         self.setUpView()
+        self.bindViewModel()
         // Do any additional setup after loading the view.
     }
     
     func setUpPageViewControllerStyle(){
-        var stringSize:CGFloat = 0
-        for string in pageViewTitles {
-            let width = string.widthWithConstrainedHeight(string, font: Home_Page_Ticket_Font!, height: 18)
-            stringSize = stringSize + width
-        }
-        self.adjustStatusBarHeight = true
-        let cellEdging = ((SCREENWIDTH - kCollectionLayoutEdging * 2 - stringSize - CGFloat(5) * kCellSpacing) / CGFloat(9))
         self.collectionLayoutEdging = kCollectionLayoutEdging
         self.pagerBarColor = UIColor.init(hexString: TablaBarItemTitleSelectColor)
         self.cellSpacing = kCellSpacing
-        self.cellEdging = cellEdging
+        self.cellEdging = 10
         self.progressHeight = 2
         self.progressEdging = 0
         self.contentTopEdging = 40
@@ -58,12 +46,19 @@ class TicketPageViewController: TYTabButtonPagerController {
         self.view.addSubview(lineView)
     }
 
+    func bindViewModel(){
+        viewModel.requestCategotyDic(self,index:index)
+    }
     
     func setUpNavigationItem() {
         self.setNavigationItemBack()
         let filtterItem = UIBarButtonItem(image: UIImage.init(named: "Icon_Filter_Normal")?.imageWithRenderingMode(.AlwaysOriginal), landscapeImagePhone: nil, style: .Plain, target: self, action: #selector(TicketPageViewController.filterPress(_:)))
         let searchItem = UIBarButtonItem(image: UIImage.init(named: "Icon_Search_Normal")?.imageWithRenderingMode(.AlwaysOriginal), landscapeImagePhone: nil, style: .Plain, target: self, action: #selector(TicketPageViewController.searchPress(_:)))
         self.navigationItem.rightBarButtonItems = [searchItem,filtterItem]
+    }
+    
+    func pageViewControllerDidSelectIndexPath(index:Int) {
+        self.index = index
     }
     
     func filterPress(sender:UIBarButtonItem) {
@@ -89,19 +84,24 @@ class TicketPageViewController: TYTabButtonPagerController {
         super.pagerController(pagerController, configreCell: cell, forItemTitle: title, atIndexPath: indexPath)
     }
     
+    
+    override func pagerController(pagerController: TYTabPagerController!, didScrollToTabPageIndex index: Int) {
+        viewModel.pagerControllerDidScrollToTabPageIndex(index)
+    }
+    
     // MARK: - TYTabButtonDataSource
     override func numberOfControllersInPagerController() -> Int {
-        return pageViewTitles.count
+        return viewModel.numberOfControllersInPagerController()
     }
     override func pagerController(pagerController: TYPagerController!, titleForIndex index: Int) -> String! {
-        return pageViewTitles[index]
+        return viewModel.pagerControllerTitleForIndex(index)
     }
     
     override func pagerController(pagerController: TYPagerController!, numberForIndex index: Int) -> String! {
         return "0"
     }
     override func pagerController(pagerController: TYPagerController!, controllerForIndex index: Int) -> UIViewController! {
-        return pageViewControllers[index] as! UIViewController
+        return viewModel.pagerControllerControllerForIndex(index)
     }
 
 }
