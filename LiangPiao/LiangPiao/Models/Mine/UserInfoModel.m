@@ -70,6 +70,11 @@ static UserInfoModel *_instance = nil;
 //    NSFileManager *fileManager = [NSFileManager defaultManager];
 //    NSError *error;
 //    BOOL result = [fileManager removeItemAtPath:kEncodedObjectPath_User error:&error];
+    [UserInfoModel shareInstance].id = nil;
+    [UserInfoModel shareInstance].avatar = nil;
+    [UserInfoModel shareInstance].username = nil;
+    [UserInfoModel shareInstance].phone = nil;
+    [UserInfoModel shareInstance].gender = 0;
     return [[UserInfoModel shareInstance] deleteObject];;
 }
 

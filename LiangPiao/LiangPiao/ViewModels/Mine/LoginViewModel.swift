@@ -36,22 +36,24 @@ class LoginViewModel: NSObject {
     func requestLogin(form:LoginForm,controller:LoginViewController) {
         let dic = ["mobile_num":form.phone, "code":form.code]
         BaseNetWorke.sharedInstance.postUrlWithString(LoginUrl, parameters: dic).subscribeNext { (resultDic) in
-            if (resultDic as! NSDictionary).objectForKey("fail") != nil {
-                print("请求失败")
-            }else{
-                let model = UserInfoModel.mj_objectWithKeyValues(resultDic)
-                model.phone = form.phone
-                model.save()
-                self.savePhotoImage()
-                Notification(LoginStatuesChange, value: nil)
-                controller.navigationController?.popViewControllerAnimated(true)
-            }
+            let model = UserInfoModel.mj_objectWithKeyValues(resultDic)
+            model.phone = form.phone
+            UserInfoModel.shareInstance().avatar = model.avatar
+            UserInfoModel.shareInstance().username = model.username
+            UserInfoModel.shareInstance().id = model.id
+            UserInfoModel.shareInstance().gender = model.gender
+            UserInfoModel.shareInstance().phone = model.phone
+            
+            model.saveOrUpdate()
+            self.savePhotoImage()
+            Notification(LoginStatuesChange, value: nil)
+            controller.navigationController?.popViewControllerAnimated(true)
         }
     }
     
     func savePhotoImage(){
         if UserInfoModel.shareInstance().avatar != "" {
-            SDWebImageManager.sharedManager().loadImageWithURL(NSURL.init(fileURLWithPath: UserInfoModel.shareInstance().avatar), options: .RetryFailed, progress: { (star, end, url) in
+            SDWebImageManager.sharedManager().loadImageWithURL(NSURL.init(string: UserInfoModel.shareInstance().avatar), options: .RetryFailed, progress: { (star, end, url) in
                 
             }) { (image, data, error, cache, finish, url) in
                 if error == nil {

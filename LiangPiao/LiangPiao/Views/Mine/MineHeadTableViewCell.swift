@@ -55,8 +55,11 @@ class MineHeadTableViewCell: UITableViewCell {
         nameAndePhone.text = namePhone
         if isLogin {
             editProfileImage.hidden = false
-            photoImageView.sd_setImageWithURL(NSURL.init(string: photoImage), placeholderImage: UIImage.init(named: "Avatar_Default"), options: .RetryFailed) { (image, error, cache, url) in
-                
+            if SaveImageTools.sharedInstance.LoadImage("photoImage.png", path: "headerImage") == nil {
+                photoImageView.sd_setImageWithURL(NSURL.init(string: photoImage), placeholderImage: UIImage.init(named: "Avatar_Default"), options: .RetryFailed) { (image, error, cache, url) in
+                }
+            }else{
+                photoImageView.image = SaveImageTools.sharedInstance.LoadImage("photoImage.png", path: "headerImage")
             }
         }else{
             editProfileImage.hidden = true

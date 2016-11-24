@@ -329,32 +329,27 @@
         _resultString=[NSString stringWithFormat:@"%@",destDateString];
 
     }else if(_pickerView) {
-        if (_resultString) {
-            NSInteger cIndex = [_pickerView selectedRowInComponent:0];
+        if (_isLevelString && _resultString == nil) {
+            _resultString=[NSString stringWithFormat:@"%@",_plistArray[0]];
+        }else if (_isLevelArray){
+            _resultString=@"";
+            for (int i=0; i<_plistArray.count;i++) {
+                _resultString=[NSString stringWithFormat:@"%@ %@",_resultString,_plistArray[i][0]];
+            }
+        }else if (_isLevelDic){
             
-        }else{
-            if (_isLevelString) {
-                _resultString=[NSString stringWithFormat:@"%@",_plistArray[0]];
-            }else if (_isLevelArray){
-                _resultString=@"";
-                for (int i=0; i<_plistArray.count;i++) {
-                    _resultString=[NSString stringWithFormat:@"%@ %@",_resultString,_plistArray[i][0]];
-                }
-            }else if (_isLevelDic){
+            if (_state==nil) {
+                _state =_dicKeyArray[0][0];
+                NSDictionary *dicValueDic=_plistArray[0];
+                _city=[dicValueDic allValues][0][0];
+            }
+            if (_city==nil){
+                NSInteger cIndex = [_pickerView selectedRowInComponent:0];
+                NSDictionary *dicValueDic=_plistArray[cIndex];
+                _city=[dicValueDic allValues][0][0];
                 
-                if (_state==nil) {
-                     _state =_dicKeyArray[0][0];
-                    NSDictionary *dicValueDic=_plistArray[0];
-                    _city=[dicValueDic allValues][0][0];
-                }
-                if (_city==nil){
-                    NSInteger cIndex = [_pickerView selectedRowInComponent:0];
-                    NSDictionary *dicValueDic=_plistArray[cIndex];
-                    _city=[dicValueDic allValues][0][0];
-                    
-                }
-              _resultString=[NSString stringWithFormat:@"%@ %@",_state,_city];
-           }
+            }
+            _resultString=[NSString stringWithFormat:@"%@ %@",_state,_city];
         }
     }
     if ([self.delegate respondsToSelector:@selector(toobarDonBtnHaveClick:resultString:)]) {

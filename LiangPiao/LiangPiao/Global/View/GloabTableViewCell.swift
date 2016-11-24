@@ -116,10 +116,12 @@ class GloabTitleAndFieldCell: UITableViewCell {
         self.updateConstraintsIfNeeded()
     }
     
-    func setPlachText(placeholder:String) {
-        textField.placeholder = placeholder
-        textField.attributedPlaceholder = NSAttributedString.init(string: placeholder, attributes: [NSFontAttributeName:Home_Ticket_Introuduct_Field_Font!,NSForegroundColorAttributeName:UIColor.init(hexString: Home_Ticket_Introuduct_Field_Color)])
+    func setTextFieldText(text:String) {
+        textField.text = text
+        textField.textColor = UIColor.init(hexString: GlobalCell_Title_Color)
     }
+    
+    
     
     func setData(title:String, detail:String) {
         titleLabel.text = title

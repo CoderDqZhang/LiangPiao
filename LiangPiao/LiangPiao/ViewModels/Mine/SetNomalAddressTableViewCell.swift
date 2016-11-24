@@ -31,6 +31,7 @@ class SetNomalAddressTableViewCell: UITableViewCell {
         switchBar.onTintColor = UIColor.init(hexString: App_Theme_BackGround_Color)
         switchBar.setOn(true, animated: true)
         switchBar.tintColor = UIColor.init(hexString: App_Theme_BackGround_Color)
+        
         self.contentView.addSubview(switchBar)
         
         self.updateConstraintsIfNeeded()

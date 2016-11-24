@@ -53,6 +53,49 @@ class AddAddressView: UIView {
     }
 }
 
+class DeleteAddressView: UIView {
+    
+    var deleteButton:UIButton!
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.backgroundColor = UIColor.init(hexString: App_Theme_BackGround_Color)
+        self.setUpButton()
+        
+        let singleTap = UITapGestureRecognizer(target: self, action: #selector(AddAddressView.singTapPress(_:)))
+        singleTap.numberOfTapsRequired = 1
+        singleTap.numberOfTouchesRequired = 1
+        self.addGestureRecognizer(singleTap)
+    }
+    
+    func setUpButton() {
+        deleteButton = UIButton(type: .Custom)
+        deleteButton.setTitle("删除收货地址", forState: .Normal)
+        deleteButton.titleLabel?.font = Mine_AddAddress_Name_Font
+        deleteButton.setTitleColor(UIColor.init(hexString: Mine_AddAddress_Name_Color), forState: .Normal)
+        deleteButton.userInteractionEnabled = false
+//        addButton.titleEdgeInsets = UIEdgeInsetsMake(0, 20, 0, 0)
+//        addButton.setImage(UIImage.init(named: "Icon_Add"), forState: .Normal)
+        self.addSubview(deleteButton)
+        self.updateConstraintsIfNeeded()
+    }
+    
+    override func updateConstraints() {
+        deleteButton.snp_makeConstraints { (make) in
+            make.edges.equalTo(UIEdgeInsetsMake(0, 0, 0, 0))
+        }
+        super.updateConstraints()
+    }
+    
+    func singTapPress(sender:UITapGestureRecognizer) {
+        
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
 class AddressTableViewCell: UITableViewCell {
 
     var nameAndePhone:UILabel!
@@ -99,29 +142,21 @@ class AddressTableViewCell: UITableViewCell {
         self.updateConstraintsIfNeeded()
     }
     
-    func setData(namePhone:String, address:String, isNomal:Bool, isSelect:Bool) {
-        nameAndePhone.text = namePhone
-        addressDetail.text = address
+    func setData(model:AddressModel) {
+        nameAndePhone.text = "\(model.name) \(model.mobileNum)"
+        addressDetail.text = model.address
         let attributedString = NSMutableAttributedString(string: addressDetail.text!)
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 1.5
         attributedString.addAttribute(NSParagraphStyleAttributeName, value: paragraphStyle, range: NSRange(location: 0, length: addressDetail.text!.length))
         addressDetail.attributedText = attributedString
-        if isNomal {
+        if (model.defaultField != nil) && model.defaultField == true {
            isNomalLabel.hidden = false
         }else{
             isNomalLabel.hidden = true
         }
-        
-        if isSelect  {
-            selectImage.hidden = false
-        }else{
-            selectImage.hidden = true
-        }
-        
     }
-    
-    
+
     func updateSelectImage(isSelect:Bool) {
         if isSelect {
             selectImage.hidden = false

@@ -8,16 +8,34 @@
 
 import UIKit
 
+enum AddAddressViewControllerType {
+    case EditType
+    case AddType
+}
+
+typealias ReloadAddressViewClouse = () ->Void
+
 class AddAddressViewController: UIViewController {
 
     var tableView:UITableView!
-    var viewModel = AddAddressViewModel()
+    var viewModel = AddressViewModel()
+    var deleteView:DeleteAddressView!
     var cityPickerView:ZHPickView!
+    var models:AddressModel?
+    var type:AddAddressViewControllerType = .AddType
+    
+    var cell:SetNomalAddressTableViewCell!
+    
+    var reloadAddressViewClouse:ReloadAddressViewClouse!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUpView()
         self.setUpNavigationItem()
+        self.setupForDismissKeyboard()
+        if type == .AddType {
+            models = AddressModel.init(fromDictionary: ["address":"","default":false,"id":0,"location":"","mobile_num":"","name":""])
+        }
         // Do any additional setup after loading the view.
     }
     
@@ -28,13 +46,17 @@ class AddAddressViewController: UIViewController {
     }
     
     func setUpNavigationItem() {
-        self.navigationItem.title = "新增收货地址"
+        if type == .AddType {
+            self.navigationItem.title = "新增收货地址"
+        }else{
+            self.navigationItem.title = "编辑收货地址"
+        }
         self.setNavigationItemBack()
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "保存", style: .Plain, target: self, action: #selector(AddAddressViewController.saveItemBarPress(_:)))
     }
     
     func saveItemBarPress(sender:UIBarButtonItem) {
-        
+        viewModel.addressChange(self, type:type, model:models!)
     }
 
     func setUpView() {
@@ -49,8 +71,27 @@ class AddAddressViewController: UIViewController {
         tableView.registerClass(DetailAddressTableViewCell.self, forCellReuseIdentifier: "DetailAddressTableViewCell")
         tableView.registerClass(SetNomalAddressTableViewCell.self, forCellReuseIdentifier: "SetNomalAddressTableViewCell")
         self.view.addSubview(tableView)
-        tableView.snp_makeConstraints { (make) in
-            make.edges.equalTo(UIEdgeInsetsMake(0, 0, 0, 0))
+        if type == .EditType {
+            tableView.snp_makeConstraints { (make) in
+                make.edges.equalTo(UIEdgeInsetsMake(0, 0, -49, 0))
+            }
+            
+            deleteView = DeleteAddressView()
+            deleteView.rac_signalForSelector( #selector(AddAddressView.singTapPress(_:))).subscribeNext { (action) in
+                self.viewModel.deleteAddress(self, model: self.models!)
+            }
+            self.view.addSubview(deleteView)
+            
+            deleteView.snp_makeConstraints { (make) in
+                make.bottom.equalTo(self.view.snp_bottom).offset(0)
+                make.left.equalTo(self.view.snp_left).offset(0)
+                make.right.equalTo(self.view.snp_right).offset(0)
+                make.height.equalTo(49)
+            }
+        }else{
+            tableView.snp_makeConstraints { (make) in
+                make.edges.equalTo(UIEdgeInsetsMake(0, 0, 0, 0))
+            }
         }
     }
     
@@ -59,6 +100,11 @@ class AddAddressViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func reloadAddressView(){
+        if reloadAddressViewClouse != nil {
+            self.reloadAddressViewClouse()
+        }
+    }
 
     /*
     // MARK: - Navigation
@@ -78,7 +124,7 @@ class AddAddressViewController: UIViewController {
             cityPickerView.setTintColor(UIColor.whiteColor())
             cityPickerView.tag = 2
             cityPickerView.setToolbarTintColor(UIColor.whiteColor())
-            cityPickerView.setTintFont(Mine_Service_Font, color: UIColor.init(hexString: App_Theme_Text_Color))
+//            cityPickerView.setTintFont(Mine_Service_Font, color: UIColor.init(hexString: App_Theme_Text_Color))
             cityPickerView.delegate = self
         }
         cityPickerView.show()
@@ -145,20 +191,63 @@ extension AddAddressViewController : UITableViewDataSource {
                 cell.textField.delegate = self
                 cell.textField.tag = indexPath.row
                 cell.setData(viewModel.tableViewConfigCell(indexPath), detail: "")
+                if type == .EditType {
+                    if models != nil {
+                        if indexPath.row == 0 {
+                            cell.setTextFieldText((models?.name)!)
+                            
+                        }else{
+                            cell.setTextFieldText((models?.mobileNum)!)
+                        }
+                    }
+                }
+                if indexPath.row == 0 {
+                    cell.textField.rac_textSignal().subscribeNext({ (str) in
+                        self.models?.name = str as! String
+                    })
+                }else{
+                    cell.textField.rac_textSignal().subscribeNext({ (str) in
+                        self.models?.mobileNum = str as! String
+                    })
+                }
                 return cell
             case 2:
                 let cell =  tableView.dequeueReusableCellWithIdentifier("GloabTitleAndDetailImageCell", forIndexPath: indexPath) as! GloabTitleAndDetailImageCell
                 cell.selectionStyle = .None
                 cell.setData(viewModel.tableViewConfigCell(indexPath), detail: "未选择")
+                if type == .EditType {
+                    if models != nil {
+                        cell.detailLabel.text = models?.location
+                    }
+                }
                 return cell
             default:
                 let cell =  tableView.dequeueReusableCellWithIdentifier("DetailAddressTableViewCell", forIndexPath: indexPath) as! DetailAddressTableViewCell
                 cell.textView.delegate = self
+                
+                if type == .EditType {
+                    if models != nil {
+                        cell.textView.text = models?.address
+                    }
+                }
+                cell.textView.rac_textSignal().subscribeNext({ (str) in
+                    self.models?.address = str as! String
+                })
                 cell.selectionStyle = .None
                 return cell
             }
         default:
-            let cell = tableView.dequeueReusableCellWithIdentifier("SetNomalAddressTableViewCell", forIndexPath: indexPath) as! SetNomalAddressTableViewCell
+            cell = tableView.dequeueReusableCellWithIdentifier("SetNomalAddressTableViewCell", forIndexPath: indexPath) as! SetNomalAddressTableViewCell
+            if type == .EditType {
+                if models != nil {
+                    cell.switchBar.setOn((models?.defaultField)!, animated: true)
+                }else{
+                    cell.switchBar.setOn(false, animated: true)
+                }
+            }
+            cell.switchBar.rac_signalForControlEvents(.ValueChanged).subscribeNext({ (value) in
+                self.models?.defaultField = (value as! UISwitch).on
+            })
             cell.selectionStyle = .None
             return cell
         }
@@ -190,7 +279,9 @@ extension AddAddressViewController : UITextFieldDelegate {
 
 extension AddAddressViewController : ZHPickViewDelegate {
     func toobarDonBtnHaveClick(pickView: ZHPickView!, resultString: String!) {
+        print(resultString)
         if resultString != nil {
+            models?.location = resultString
             viewModel.updateCellString(tableView, string: resultString, tag: pickView.tag)
         }
         if pickView.tag == 2 {

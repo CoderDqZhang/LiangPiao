@@ -15,26 +15,24 @@ class AddressViewModel: NSObject {
     var addressType:AddressType = .editType
     var addressTableViewSelect:AddressTableViewSelect!
     
+    var addressModels = NSMutableArray()
+    var curentModel:AddressModel!
+    
     override init() {
         
     }
     
+    
+    
     func configCell(cell:AddressTableViewCell,indexPath:NSIndexPath) {
-        if self.addressType == .addType {
-            if indexPath.row == 0 {
-                cell.setData("冉灿    19932434234", address: "朝阳区香河园小区西坝河中里35号楼 UPlan Coffee 二层207", isNomal: true, isSelect: true)
-            }else if indexPath.row == 1 {
-                cell.setData("冉灿    19932434234", address: "宣武区大栅栏大街39号(大观楼电影院对面) ", isNomal: false, isSelect: false)
+        if addressModels.count > 0 {
+            if self.addressType == .addType {
+                let model = AddressModel.init(fromDictionary: addressModels.objectAtIndex(indexPath.row) as! NSDictionary)
+                cell.setData(model)
             }else{
-                cell.setData("Randy RAN   18602035508", address: "Placerville OH State, Meadow Street, Vale base 86 95916-2621", isNomal: false, isSelect: false)
-            }
-        }else{
-            if indexPath.row == 0 {
-                cell.setData("冉灿    19932434234", address: "朝阳区香河园小区西坝河中里35号楼 UPlan Coffee 二层207", isNomal: false, isSelect: false)
-            }else if indexPath.row == 1 {
-                cell.setData("冉灿    19932434234", address: "宣武区大栅栏大街39号(大观楼电影院对面) ", isNomal: false, isSelect: false)
-            }else{
-                cell.setData("Randy RAN   18602035508", address: "Placerville OH State, Meadow Street, Vale base 86 95916-2621", isNomal: false, isSelect: false)
+                let model = AddressModel.init(fromDictionary: addressModels.objectAtIndex(indexPath.row) as! NSDictionary)
+                cell.updateSelectImage(false)
+                cell.setData(model)
             }
         }
     }
@@ -45,12 +43,11 @@ class AddressViewModel: NSObject {
         })
     }
 
-    func tableViewDidSelectIndexPath(tableView:UITableView, indexPath:NSIndexPath) {
+    func tableViewDidSelectIndexPath(tableView:UITableView, indexPath:NSIndexPath, controller:AddressViewController) {
         if self.addressType == .addType {
             for i in 0...tableView.numberOfRowsInSection(0) - 1 {
                 if indexPath.row == i {
                     let cell = tableView.cellForRowAtIndexPath(indexPath) as! AddressTableViewCell
-                    
                     cell.updateSelectImage(true)
                 }else{
                     let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: i, inSection: indexPath.section)) as! AddressTableViewCell
@@ -61,19 +58,21 @@ class AddressViewModel: NSObject {
                 self.addressTableViewSelect(indexPath:indexPath)
             }
         }else{
-            
+            curentModel = AddressModel.init(fromDictionary: addressModels.objectAtIndex(indexPath.row) as! NSDictionary)
+            controller.pushEditAddressViewController(curentModel)
         }
     }
     
+    func requestAddress(tableView:UITableView) {
+        BaseNetWorke.sharedInstance.getUrlWithString(AddAddress, parameters: nil).subscribeNext { (resultDic) in
+            let resultModels =  NSMutableArray.mj_objectArrayWithKeyValuesArray(resultDic)
+            self.addressModels = resultModels.mutableCopy() as! NSMutableArray
+            tableView.reloadData()
+        }
+    }
     
     func tableViewNumberRowInSection(section:Int) -> Int {
-        return 3
-    }
-}
-
-class AddAddressViewModel: NSObject {
-    override init() {
-        
+        return self.addressModels.count
     }
     
     func tableViewConfigCell(indexPath:NSIndexPath)-> String{
@@ -87,18 +86,41 @@ class AddAddressViewModel: NSObject {
         }
     }
     
-    func configCell(cell:AddressTableViewCell,indexPath:NSIndexPath) {
-        if indexPath.row == 0 {
-            cell.setData("冉灿    19932434234", address: "朝阳区香河园小区西坝河中里35号楼 UPlan Coffee 二层207", isNomal: true, isSelect: true)
-        }else if indexPath.row == 1 {
-            cell.setData("冉灿    19932434234", address: "宣武区大栅栏大街39号(大观楼电影院对面) ", isNomal: false, isSelect: false)
-        }else{
-            cell.setData("Randy RAN   18602035508", address: "Placerville OH State, Meadow Street, Vale base 86 95916-2621", isNomal: false, isSelect: false)
-        }
+    func addressConfigCell(cell:AddressTableViewCell,indexPath:NSIndexPath) {
+        cell.setData(self.addressModels.objectAtIndex(indexPath.row) as! AddressModel)
     }
     
     func updateCellString(tableView:UITableView ,string:String, tag:NSInteger) {
         let cell = tableView.cellForRowAtIndexPath(NSIndexPath.init(forRow: tag, inSection: 0)) as! GloabTitleAndDetailImageCell
         cell.detailLabel.text = string
+    }
+    
+    func addressChange(controller:AddAddressViewController, type:AddAddressViewControllerType, model:AddressModel) {
+        if type == .EditType {
+            let parameters = model.toDictionary()
+            let url = "\(EditAddress)\(model.id)/"
+            BaseNetWorke.sharedInstance.postUrlWithString(url, parameters: parameters).subscribeNext({ (resultDic) in
+                controller.reloadAddressView()
+                controller.navigationController?.popViewControllerAnimated(true)
+            })
+        }else{
+            let parameters = model.toDictionary()
+            BaseNetWorke.sharedInstance.postUrlWithString(AddAddress, parameters: parameters).subscribeNext({ (resultDic) in
+                controller.reloadAddressView()
+                controller.navigationController?.popViewControllerAnimated(true)
+            })
+        }
+    }
+    
+    func deleteAddress(controller:AddAddressViewController, model:AddressModel){
+        let url = "\(EditAddress)\(model.id)/"
+        BaseNetWorke.sharedInstance.deleteUrlWithString(url, parameters: nil).subscribeNext { (resultDic) in
+            if (resultDic is NSDictionary) && (resultDic as! NSDictionary).objectForKey("fail") != nil {
+                print("请求失败")
+            }else{
+                controller.reloadAddressView()
+                controller.navigationController?.popViewControllerAnimated(true)
+            }
+        }
     }
 }

@@ -96,9 +96,17 @@ class MineViewModel: NSObject {
         default:
             switch indexPath.row {
             case 0:
-                NavigationPushView(controller, toConroller: FavoriteViewController())
+                if UserInfoModel.isLoggedIn() {
+                    NavigationPushView(controller, toConroller: FavoriteViewController())
+                }else{
+                    NavigationPushView(controller, toConroller: LoginViewController())
+                }
             case 1:
-                NavigationPushView(controller, toConroller: AddressViewController())
+                if UserInfoModel.isLoggedIn() {
+                    NavigationPushView(controller, toConroller: AddressViewController())
+                }else{
+                    NavigationPushView(controller, toConroller: LoginViewController())
+                }
             case 2:
                 NavigationPushView(controller, toConroller: SettingViewController())
             default:

@@ -38,10 +38,12 @@ class BaseNetWorke {
                 subscriber.sendCompleted()
                 }, failure: { (responseError) in
                     if responseError is NSDictionary {
-                        subscriber.sendNext(["fail":responseError])
+                        MainThreanShowErrorMessage(responseError)
                     }else{
+                        MainThreanShowNetWorkError(responseError)
                         subscriber.sendError(responseError as! NSError)
                     }
+                subscriber.sendCompleted()
             })
             return nil
         })
@@ -58,8 +60,10 @@ class BaseNetWorke {
                 subscriber.sendCompleted()
                 }, failure: { (responseError) in
                     if responseError is NSDictionary {
-                        subscriber.sendNext(["fail":responseError])
+                        MainThreanShowErrorMessage(responseError)
                     }else{
+                        print(responseError)
+                        MainThreanShowNetWorkError(responseError)
                         subscriber.sendError(responseError as! NSError)
                     }
                 subscriber.sendCompleted()
@@ -81,10 +85,12 @@ class BaseNetWorke {
                 subscriber.sendCompleted()
                 }, failure: { (responseError) in
                     if responseError is NSDictionary {
-                        subscriber.sendNext(["fail":responseError])
+                        MainThreanShowErrorMessage(responseError)
                     }else{
+                        MainThreanShowNetWorkError(responseError)
                         subscriber.sendError(responseError as! NSError)
                     }
+                subscriber.sendCompleted()
             })
             return nil
         })
@@ -103,10 +109,12 @@ class BaseNetWorke {
                 subscriber.sendCompleted()
                 }, failure: { (responseError) in
                     if responseError is NSDictionary {
-                        subscriber.sendNext(["fail":responseError])
+                        MainThreanShowErrorMessage(responseError)
                     }else{
+                        MainThreanShowNetWorkError(responseError)
                         subscriber.sendError(responseError as! NSError)
                     }
+                subscriber.sendCompleted()
             })
             return nil
         })
@@ -128,7 +136,7 @@ class BaseNetWorke {
                             if response.response?.statusCode == 200 || response.response?.statusCode == 201 {
                                 subscriber.sendNext(response.result.value!)
                             }else{
-                                subscriber.sendNext(["fail":response.result.value!])
+                                subscriber.sendNext(["fail":"error"])
                             }
 //                            debugPrint(response)
                             subscriber.sendCompleted()
@@ -138,6 +146,7 @@ class BaseNetWorke {
                         print(encodingError)
                         subscriber.sendCompleted()
                     }
+                subscriber.sendCompleted()
             })
             return nil
         })

@@ -16,6 +16,7 @@ class BaseTicketsPageViewController: UIViewController {
         super.viewDidLoad()
         self.setUpView()
         self.setUpNavigationItem()
+        self.view.backgroundColor = UIColor.whiteColor()
         // Do any additional setup after loading the view.
     }
 
@@ -37,7 +38,7 @@ class BaseTicketsPageViewController: UIViewController {
         tableView.dataSource = self
         tableView.separatorStyle = .None
         tableView.registerClass(RecommendTableViewCell.self, forCellReuseIdentifier: "RecommendTableViewCell")
-        tableView.backgroundColor = UIColor.init(hexString: App_Theme_TableViewBackGround_Color)
+        tableView.backgroundColor = UIColor.whiteColor()
         self.view.addSubview(tableView)
         
         tableView.snp_makeConstraints { (make) in
@@ -48,6 +49,11 @@ class BaseTicketsPageViewController: UIViewController {
         }
     }
     
+    func setUpLoadMoreData(){
+        self.tableView.mj_footer = LiangPiaoLoadMoreDataFooter(refreshingBlock: {
+            TicketCategoryViewModel.sharedInstance.requestCategotyData(1000, controller: self)
+        })
+    }
     
     /*
     // MARK: - Navigation

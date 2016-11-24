@@ -62,7 +62,7 @@ class MyProfileViewModel: NSObject {
         let cell = tableView.cellForRowAtIndexPath(NSIndexPath.init(forRow: tag, inSection: 1)) as! GloabTitleAndDetailImageCell
         switch tag {
         case 1:
-            let gender = string == "男" ? 0 : 1
+            let gender = string == "男" ? 1 : 2
             UserInfoModel.shareInstance().gender = gender
         default:
             break
@@ -73,6 +73,7 @@ class MyProfileViewModel: NSObject {
     func tableViewGloabTitleAndFieldCellData(cell:GloabTitleAndFieldCell, indexPath:NSIndexPath) {
         if indexPath.row == 0 {
             cell.setData(self.cellTitle(indexPath), detail: UserInfoModel.shareInstance().username)
+            cell.setTextFieldText(UserInfoModel.shareInstance().username)
             cell.textField.rac_textSignal().subscribeNext({ (str) in
                 UserInfoModel.shareInstance().username = str as! String
             })
@@ -85,7 +86,7 @@ class MyProfileViewModel: NSObject {
     func tableViewGloabTitleAndDetailImageCellData(cell:GloabTitleAndDetailImageCell, indexPath:NSIndexPath) {
         switch indexPath.row {
         case 1:
-            let str = UserInfoModel.shareInstance().gender == 0 ? "男" : "女"
+            let str = UserInfoModel.shareInstance().gender == 1 ? "男" : "女"
             cell.setData(self.cellTitle(indexPath), detail: str)
         default:
             break
@@ -103,6 +104,14 @@ class MyProfileViewModel: NSObject {
                     UserInfoModel.shareInstance().update()
                     Notification(LoginStatuesChange, value: nil)
                 }
+        }
+    }
+    
+    func changeUserInfoData(controller:MyProfileViewController){
+        let parameters = ["username":UserInfoModel.shareInstance().username,"gender":UserInfoModel.shareInstance().gender]
+        BaseNetWorke.sharedInstance.postUrlWithString(UserInfoChange, parameters: parameters).subscribeNext { (resultDic) in
+            UserInfoModel.shareInstance().update()
+            controller.navigationController?.popViewControllerAnimated(true)
         }
     }
 }

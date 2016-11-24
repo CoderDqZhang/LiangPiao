@@ -33,7 +33,6 @@
 		1F0EAB911DD1E8F200D25B64 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0EAB901DD1E8F200D25B64 /* SettingViewController.swift */; };
 		1F0EAB931DD1E93C00D25B64 /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0EAB921DD1E93C00D25B64 /* SettingViewModel.swift */; };
 		1F0EAB971DD1EBAA00D25B64 /* ZHPickView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0EAB961DD1EBAA00D25B64 /* ZHPickView.m */; };
-		1F0EAB9F1DD203F000D25B64 /* city.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1F0EAB9E1DD203F000D25B64 /* city.plist */; };
 		1F0EABA11DD2C0A600D25B64 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0EABA01DD2C0A600D25B64 /* LoginViewController.swift */; };
 		1F24DE931DD5A35900C6E8CA /* GlobalSearchTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F24DE921DD5A35900C6E8CA /* GlobalSearchTableView.swift */; };
 		1F24DE951DD5B9E100C6E8CA /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F24DE941DD5B9E100C6E8CA /* FavoriteViewController.swift */; };
@@ -82,8 +81,12 @@
 		1F6BB9921DD960E200893932 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1F6BB98D1DD960E200893932 /* README.txt */; };
 		1F6BB9961DD964F900893932 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F6BB9951DD964F900893932 /* libsqlite3.0.tbd */; };
 		1F6BB9B81DD9974300893932 /* OrderAddressTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6BB9B71DD9974300893932 /* OrderAddressTableViewCell.swift */; };
+		1F80A65C1DE6905400DA51AB /* ErrorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F80A65B1DE6905400DA51AB /* ErrorModel.swift */; };
 		1F8AA0B61DD34B1700587C24 /* AboutUsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8AA0B51DD34B1700587C24 /* AboutUsViewController.swift */; };
 		1F8AA0B81DD475C000587C24 /* ReciveTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8AA0B71DD475C000587C24 /* ReciveTableViewCell.swift */; };
+		1FAA85171DE54CA600F77835 /* AddressModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FAA85161DE54CA600F77835 /* AddressModel.swift */; };
+		1FAA851B1DE58FDB00F77835 /* city.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1FAA851A1DE58FDB00F77835 /* city.plist */; };
+		1FAA85201DE5C3BC00F77835 /* Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FAA851F1DE5C3BC00F77835 /* Tools.swift */; };
 		1FB7B2961DCC2B5200945B70 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FB7B2951DCC2B5200945B70 /* UIImage+ImageEffects.m */; };
 		1FB7B2981DCC31CB00945B70 /* TicketConfirmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB7B2971DCC31CB00945B70 /* TicketConfirmViewController.swift */; };
 		1FB7B29A1DCC320200945B70 /* OrderFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB7B2991DCC320200945B70 /* OrderFormView.swift */; };
@@ -195,7 +198,6 @@
 		1F0EAB921DD1E93C00D25B64 /* SettingViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
 		1F0EAB951DD1EBAA00D25B64 /* ZHPickView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHPickView.h; sourceTree = "<group>"; };
 		1F0EAB961DD1EBAA00D25B64 /* ZHPickView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHPickView.m; sourceTree = "<group>"; };
-		1F0EAB9E1DD203F000D25B64 /* city.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = city.plist; sourceTree = "<group>"; };
 		1F0EABA01DD2C0A600D25B64 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginViewController.swift; path = ../../Views/Mine/LoginViewController.swift; sourceTree = "<group>"; };
 		1F24DE921DD5A35900C6E8CA /* GlobalSearchTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalSearchTableView.swift; sourceTree = "<group>"; };
 		1F24DE941DD5B9E100C6E8CA /* FavoriteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
@@ -251,8 +253,12 @@
 		1F6BB9931DD964E700893932 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		1F6BB9951DD964F900893932 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		1F6BB9B71DD9974300893932 /* OrderAddressTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderAddressTableViewCell.swift; path = ../../ViewModels/Home/OrderAddressTableViewCell.swift; sourceTree = "<group>"; };
+		1F80A65B1DE6905400DA51AB /* ErrorModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorModel.swift; sourceTree = "<group>"; };
 		1F8AA0B51DD34B1700587C24 /* AboutUsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutUsViewController.swift; sourceTree = "<group>"; };
 		1F8AA0B71DD475C000587C24 /* ReciveTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReciveTableViewCell.swift; sourceTree = "<group>"; };
+		1FAA85161DE54CA600F77835 /* AddressModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressModel.swift; sourceTree = "<group>"; };
+		1FAA851A1DE58FDB00F77835 /* city.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = city.plist; sourceTree = "<group>"; };
+		1FAA851F1DE5C3BC00F77835 /* Tools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tools.swift; sourceTree = "<group>"; };
 		1FB7B2941DCC2B5200945B70 /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
 		1FB7B2951DCC2B5200945B70 /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
 		1FB7B2971DCC31CB00945B70 /* TicketConfirmViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketConfirmViewController.swift; sourceTree = "<group>"; };
@@ -621,10 +627,10 @@
 				1FD2450F1DC2FE8900AFD3BC /* Config.swift */,
 				1FD881C01DC7410D00B2B702 /* AppThemeTool.swift */,
 				1FD244EC1DC2FD9700AFD3BC /* LiangPiao-Bridging-Header.h */,
+				1FAA851A1DE58FDB00F77835 /* city.plist */,
 				1FD244C91DC2F92E00AFD3BC /* Main.storyboard */,
 				1FD244CC1DC2F92E00AFD3BC /* Assets.xcassets */,
 				1FD244CE1DC2F92E00AFD3BC /* LaunchScreen.storyboard */,
-				1F0EAB9E1DD203F000D25B64 /* city.plist */,
 				1FD244D11DC2F92E00AFD3BC /* Info.plist */,
 			);
 			path = LiangPiao;
@@ -778,6 +784,8 @@
 				1F089DD41DCB05E800762C14 /* GlobalTools.swift */,
 				1FBFC7F01DDAC45B008D9CEC /* ZDQFMDBHelp.swift */,
 				1FBFC7F21DDACC02008D9CEC /* ZDQFMDBModel.swift */,
+				1FAA851F1DE5C3BC00F77835 /* Tools.swift */,
+				1F80A65B1DE6905400DA51AB /* ErrorModel.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -904,6 +912,7 @@
 			children = (
 				1F54C5321DDC4891009ADDA9 /* UserInfoModel.h */,
 				1F54C5331DDC4891009ADDA9 /* UserInfoModel.m */,
+				1FAA85161DE54CA600F77835 /* AddressModel.swift */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -1081,8 +1090,8 @@
 			files = (
 				1F6BB9731DD954B300893932 /* AlipaySDK.bundle in Resources */,
 				1FD244D01DC2F92E00AFD3BC /* LaunchScreen.storyboard in Resources */,
+				1FAA851B1DE58FDB00F77835 /* city.plist in Resources */,
 				1FD244CD1DC2F92E00AFD3BC /* Assets.xcassets in Resources */,
-				1F0EAB9F1DD203F000D25B64 /* city.plist in Resources */,
 				1F6BB9921DD960E200893932 /* README.txt in Resources */,
 				1FD244CB1DC2F92E00AFD3BC /* Main.storyboard in Resources */,
 				1FBFC7EE1DDABD48008D9CEC /* Info.plist in Resources */,
@@ -1198,6 +1207,7 @@
 				1FB7B29E1DCC412500945B70 /* OrderConfirmViewModel.swift in Sources */,
 				1FB7B2981DCC31CB00945B70 /* TicketConfirmViewController.swift in Sources */,
 				1F62F25F1DC9F1D800B591F1 /* TicketDescripTableViewCell.swift in Sources */,
+				1F80A65C1DE6905400DA51AB /* ErrorModel.swift in Sources */,
 				1FC3DDE51DE42C0D00420A05 /* SpalshView.swift in Sources */,
 				1F45C3F61DD72043008C60CD /* LiangPiaoLoadMoreDataFooter.swift in Sources */,
 				1F54C52F1DDC3A61009ADDA9 /* JKDBModel.m in Sources */,
@@ -1218,6 +1228,7 @@
 				1FD244C61DC2F92E00AFD3BC /* AppDelegate.swift in Sources */,
 				1F62F25B1DC9C50300B591F1 /* HomeViewModel.swift in Sources */,
 				1FC4FEED1DC8A32E00EBFD18 /* TYTabTitleViewCell.m in Sources */,
+				1FAA85201DE5C3BC00F77835 /* Tools.swift in Sources */,
 				1FBFC7E41DDABD48008D9CEC /* FMDatabase+FTS3.m in Sources */,
 				1FD245011DC2FD9700AFD3BC /* NSString+StringSize.m in Sources */,
 				1F0EAB681DD091FA00D25B64 /* OrderListViewController.swift in Sources */,
@@ -1260,6 +1271,7 @@
 				1FC4FEEB1DC8A32E00EBFD18 /* TYTabButtonPagerController.m in Sources */,
 				1FBF86C31DDD47EF0057BB11 /* UILabel+ChangeLineSpaceAndWordSpace.m in Sources */,
 				1F0EAB5B1DD053EE00D25B64 /* OrderDetailViewModel.swift in Sources */,
+				1FAA85171DE54CA600F77835 /* AddressModel.swift in Sources */,
 				1FC4FED31DC8729A00EBFD18 /* TicketPageViewController.swift in Sources */,
 				1FD244E91DC2FD3D00AFD3BC /* UIViewController+NavigationBar.swift in Sources */,
 				1F62F2631DC9F1F200B591F1 /* TicketToolsTableViewCell.swift in Sources */,
@@ -1400,6 +1412,7 @@
 			baseConfigurationReference = 95CF3D41845421C0E94D6429 /* Pods-LiangPiao.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = 77L324L35A;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1426,6 +1439,7 @@
 			baseConfigurationReference = 8A6A0D77355C7ECF380D7770 /* Pods-LiangPiao.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = 77L324L35A;
 				FRAMEWORK_SEARCH_PATHS = (

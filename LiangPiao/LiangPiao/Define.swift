@@ -62,6 +62,23 @@ func NavigationPushView(formviewController:UIViewController, toConroller:UIViewC
     formviewController.navigationController?.pushViewController(toConroller, animated: true)
 }
 
+func MainThreadAlertShow(msg:String,view:UIView){
+    dispatch_async(dispatch_get_main_queue(), {
+        Tools.shareInstance.showMessage(view, msg: msg, autoHidder: true)
+    })
+}
+
+func MainThreanShowErrorMessage(error:AnyObject){
+    dispatch_async(dispatch_get_main_queue(), {
+        Tools.shareInstance.showErrorMessage(error)
+    })
+}
+
+func MainThreanShowNetWorkError(error:AnyObject){
+    dispatch_async(dispatch_get_main_queue(), {
+        Tools.shareInstance.showNetWorkError(error)
+    })
+}
 
 
 

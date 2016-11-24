@@ -20,6 +20,7 @@ class AddressViewController: UIViewController {
     var addAddressView:AddAddressView!
     var viewModel = AddressViewModel()
     var addressType:AddressType!
+    
     var addressInfoClouse:AddressInfoClouse!
     
     override func viewDidLoad() {
@@ -49,7 +50,11 @@ class AddressViewController: UIViewController {
         
         addAddressView = AddAddressView()
         addAddressView.rac_signalForSelector( #selector(AddAddressView.singTapPress(_:))).subscribeNext { (action) in
-            self.navigationController?.pushViewController(AddAddressViewController(), animated: true)
+            let editAddress = AddAddressViewController()
+            editAddress.reloadAddressViewClouse = { _ in
+                self.reloadData()
+            }
+            NavigationPushView(self, toConroller: editAddress)
         }
         self.view.addSubview(addAddressView)
         
@@ -64,8 +69,7 @@ class AddressViewController: UIViewController {
     }
 
     func bindViewModle(){
-        viewModel.rac_signalForSelector(#selector(AddressViewModel.tableViewDidSelectIndexPath(_:indexPath:))).subscribeNext { (action) in
-            print(action)
+        viewModel.rac_signalForSelector(#selector(AddressViewModel.tableViewDidSelectIndexPath(_:indexPath:controller:))).subscribeNext { (action) in
         }
         
         viewModel.addressTableViewSelect = { indexPath in
@@ -74,12 +78,22 @@ class AddressViewController: UIViewController {
             }
             self.navigationController?.popViewControllerAnimated(true)
         }
+        viewModel.requestAddress(tableView)
     }
     
-    func pushEditAddressViewController() {
+    func pushEditAddressViewController(model:AddressModel) {
         let editAddressView = AddAddressViewController()
+        editAddressView.models = model
+        editAddressView.reloadAddressViewClouse = { _ in
+            self.reloadData()
+        }
+        editAddressView.type = .EditType
         editAddressView.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(editAddressView, animated: true)
+    }
+    
+    func reloadData(){
+        viewModel.requestAddress(tableView)
     }
     
     override func didReceiveMemoryWarning() {
@@ -102,11 +116,7 @@ class AddressViewController: UIViewController {
 
 extension AddressViewController : UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if viewModel.addressType == .editType {
-            self.pushEditAddressViewController()
-        }else{
-            viewModel.tableViewDidSelectIndexPath(tableView, indexPath: indexPath)
-        }
+        viewModel.tableViewDidSelectIndexPath(tableView, indexPath: indexPath, controller: self)
     }
     
     func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {

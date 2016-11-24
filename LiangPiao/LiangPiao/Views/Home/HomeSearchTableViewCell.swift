@@ -79,6 +79,7 @@ class HomeSearchTableViewCell: UITableViewCell {
         searchField.layer.masksToBounds = true
         searchField.contentVerticalAlignment = UIControlContentVerticalAlignment.Center
         searchField.leftView = leftImage
+        searchField.returnKeyType = .Search
         searchField.clipsToBounds = true
         searchField.font = HomeSearch_Font
         searchField.textColor = UIColor.init(hexString: App_Theme_Text_Color)

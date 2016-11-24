@@ -13,6 +13,10 @@ let BaseURL = "http://api.liangpiao.me/"
 let LoginUrl = "\(BaseURL)user/login/"
 let LoginCode = "\(BaseURL)user/login_code/"
 let UserAvatar = "\(BaseURL)user/avatar/"
+let UserInfoChange = "\(BaseURL)user/"
+
+let AddAddress = "\(BaseURL)user/address/"
+let EditAddress = "\(BaseURL)user/address/"
 
 //演出分类 api
 let TicketCategory = "\(BaseURL)show/category/"
@@ -22,3 +26,4 @@ let TickeCategoty = "\(BaseURL)show/category/"
 let TickeCategotyList = "\(BaseURL)show/list/"
 
 let TickeSession = "\(BaseURL)show/"
+

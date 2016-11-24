@@ -22,7 +22,7 @@ class AllTicketTableViewCell: UITableViewCell {
     
     func setUpView() {
         titleLabel = UILabel()
-        self.titleLabel.text = ""
+        self.titleLabel.text = "加载全部"
         titleLabel.font = Home_Ticker_NomalPrice_Font
         titleLabel.textColor = UIColor.init(hexString: TablaBarItemTitleNomalColor)
         self.contentView.addSubview(titleLabel)

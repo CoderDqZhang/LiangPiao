@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class MyProfileViewController: UIViewController {
 
@@ -19,6 +20,7 @@ class MyProfileViewController: UIViewController {
         super.viewDidLoad()
         self.navigationItem.title = "完善资料"
         self.setUpView()
+        self.setupForDismissKeyboard()
         self.setNavigationItem()
         // Do any additional setup after loading the view.
     }
@@ -30,6 +32,7 @@ class MyProfileViewController: UIViewController {
     
     func saveItemPress(sender:UIBarButtonItem) {
         Notification(LoginStatuesChange, value: nil);
+        viewModel.changeUserInfoData(self)
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -171,6 +174,15 @@ extension MyProfileViewController : UITableViewDataSource {
         case 0:
             let cell = tableView.dequeueReusableCellWithIdentifier("ProfileImageTableViewCell", forIndexPath: indexPath) as! ProfileImageTableViewCell
             let image = SaveImageTools.sharedInstance.LoadImage("photoImage.png", path: "headerImage") == nil ? UIImage.init(named: "Icon_Camera") : SaveImageTools.sharedInstance.LoadImage("photoImage.png", path: "headerImage")
+            if SaveImageTools.sharedInstance.LoadImage("photoImage.png", path: "headerImage") == nil && UserInfoModel.shareInstance().avatar != "" {
+                SDWebImageManager.sharedManager().loadImageWithURL(NSURL.init(string: UserInfoModel.shareInstance().avatar), options: .RetryFailed, progress: { (star, end, url) in
+                    
+                }) { (image, data, error, cache, finish, url) in
+                    if error == nil {
+                        SaveImageTools.sharedInstance.saveImage("photoImage.png", image: image!, path: "headerImage")
+                    }
+                }
+            }
             cell.photoImageView.setImage(image, forState: .Normal)
             cell.selectionStyle = .None
             return cell

@@ -46,6 +46,7 @@ class HomeViewController: BaseViewController {
         tableView.registerClass(HomeToolsTableViewCell.self, forCellReuseIdentifier: "HomeToolsTableViewCell")
         tableView.registerClass(HomeScrollerTableViewCell.self, forCellReuseIdentifier: "HomeScrollerTableViewCell")
         tableView.registerClass(RecommendTableViewCell.self, forCellReuseIdentifier: "RecommendTableViewCell")
+        tableView.registerClass(AllTicketTableViewCell.self, forCellReuseIdentifier: "AllTicketTableViewCell")
         tableView.separatorStyle = .None
         self.view.addSubview(tableView)
         
@@ -60,12 +61,9 @@ class HomeViewController: BaseViewController {
     func setUpMJRefeshView(){
         homeRefreshView.hidden = true
         self.view.addSubview(homeRefreshView)
-        self.tableView.mj_header = MJRefreshNormalHeader(refreshingBlock: { 
+        self.tableView.mj_header = MJRefreshNormalHeader(refreshingBlock: {
             self.refreshHomeData()
-        })
-        
-        self.tableView.mj_footer = LiangPiaoLoadMoreDataFooter(refreshingBlock: {
-            
+            self.viewModel.requestHotTicket(self.tableView, controller: self)
         })
     }
     
@@ -74,16 +72,17 @@ class HomeViewController: BaseViewController {
         homeRefreshView.startAnimation()
     }
     
+    func endRefreshView(){
+        homeRefreshView.hidden = true
+        homeRefreshView.stopAnimation()
+    }
+    
     func bindViewModel(){
-        viewModel.requestHotTicket(tableView)
+        viewModel.requestHotTicket(tableView, controller:self)
     }
     
     func navigationPushTicketPage(index:NSInteger) {
         viewModel.navigationPushTicketPage(index, controller:self)
-    }
-    
-    func setUpHomeData(){
-        
     }
 }
 
@@ -179,6 +178,9 @@ extension HomeViewController : UITableViewDataSource {
                 cell.homeSearchTableViewCellClouse = { _ in
                     self.searchViewController()
                 }
+                cell.location.rac_signalForControlEvents(.TouchUpInside).subscribeNext({ (action) in
+                    MainThreadAlertShow("更多城市正在开拓中...", view: self.view)
+                })
                 cell.selectionStyle = .None
                 return cell
             case 1:
@@ -225,6 +227,10 @@ extension HomeViewController : UITableViewDataSource {
                 cell?.contentView.addSubview(lineLabel1)
                 cell!.selectionStyle = .None
                 return cell!
+            case viewModel.numberOfRowsInSection(indexPath.section) - 1:
+                let cell = tableView.dequeueReusableCellWithIdentifier("AllTicketTableViewCell", forIndexPath: indexPath) as! AllTicketTableViewCell
+                cell.selectionStyle = .None
+                return cell
             default:
                 let cell = tableView.dequeueReusableCellWithIdentifier("RecommendTableViewCell", forIndexPath: indexPath) as! RecommendTableViewCell
                 cell.selectionStyle = .None

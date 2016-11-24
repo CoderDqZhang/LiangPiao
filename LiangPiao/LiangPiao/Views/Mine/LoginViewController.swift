@@ -66,6 +66,8 @@ class LoginViewController: UIViewController {
         confimCodeField = self.createTextFiled(CGRectZero)
         confimCodeField.delegate = self
         confimCodeField.text = "1234"
+        confimCodeField.textColor = UIColor.init(hexString: App_Theme_Text_Color)
+        confimCodeField.font = Login_TextField_Font
         confimCodeField.rac_textSignal().subscribeNext { (action) in
             self.loginForm.code = action as! String
         }
@@ -76,7 +78,9 @@ class LoginViewController: UIViewController {
         phontTextField.delegate = self
         phontTextField.tag = 1
         phontTextField.text = "18363899723"
+        phontTextField.textColor = UIColor.init(hexString: App_Theme_Text_Color)
         phontTextField.keyboardType = .PhonePad
+        phontTextField.font = Login_TextField_Font
         phontTextField.rac_textSignal().subscribeNext { (action) in
             self.loginForm.phone = action as! String
             if self.senderCode != nil {
@@ -181,14 +185,14 @@ class LoginViewController: UIViewController {
         }
         
         phontTextField.snp_makeConstraints { (make) in
-            make.top.equalTo(self.view.snp_top).offset(48)
+            make.top.equalTo(self.view.snp_top).offset(49)
             make.left.equalTo(self.phoneLabel.snp_right).offset(28)
             make.right.equalTo(self.senderCode.snp_left).offset(-10)
             make.height.equalTo(20)
         }
         
         senderCode.snp_makeConstraints { (make) in
-            make.top.equalTo(self.view.snp_top).offset(46)
+            make.top.equalTo(self.view.snp_top).offset(45)
             make.right.equalTo(self.view.snp_right).offset(-15)
             make.size.equalTo(CGSizeMake(70, 29))
         }
@@ -206,7 +210,7 @@ class LoginViewController: UIViewController {
         }
         
         confimCodeField.snp_makeConstraints { (make) in
-            make.top.equalTo(self.lineLabel.snp_bottom).offset(18)
+            make.top.equalTo(self.lineLabel.snp_bottom).offset(17)
             make.left.equalTo(self.confimCodeLabel.snp_right).offset(28)
             make.right.equalTo(self.view.snp_right).offset(-15)
             make.height.equalTo(20)
@@ -219,7 +223,7 @@ class LoginViewController: UIViewController {
         }
         
         loginButton.snp_makeConstraints { (make) in
-            make.top.equalTo(self.lineLabel1.snp_bottom).offset(27)
+            make.top.equalTo(self.lineLabel1.snp_bottom).offset(28)
             make.left.equalTo(self.view.snp_left).offset(15)
             make.right.equalTo(self.view.snp_right).offset(-15)
             make.height.equalTo(49)

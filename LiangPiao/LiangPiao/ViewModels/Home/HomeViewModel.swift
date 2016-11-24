@@ -26,7 +26,7 @@ class HomeViewModel: NSObject {
         case 0:
             return 2
         default:
-            return models.count + 1
+            return models.count + 2
         }
     }
     
@@ -55,6 +55,8 @@ class HomeViewModel: NSObject {
             switch indexPath.row {
             case 0:
                 return 57
+            case self.numberOfRowsInSection(indexPath.section) - 1:
+                return 79
             default:
                 return 140
             }
@@ -73,7 +75,7 @@ class HomeViewModel: NSObject {
         }else{
             ticketPage.pageViewControllerDidSelectIndexPath(index + 1)
         }
-        controller.navigationController?.pushViewController(ticketPage, animated: true)
+        NavigationPushView(controller, toConroller: ticketPage)
     }
     
     func tableViewDidSelectRowAtIndexPath(indexPath:NSIndexPath, controller:HomeViewController) {
@@ -81,10 +83,15 @@ class HomeViewModel: NSObject {
         case 0:
             break;
         default:
-            if indexPath.row != 0 {
+            switch indexPath.row {
+            case 0:
+                break;
+            case self.numberOfRowsInSection(indexPath.section) - 1:
+                self.navigationPushTicketPage(4, controller: controller)
+            default:
                 let controllerVC = TicketSceneViewController()
                 controllerVC.viewModel.model = HomeTicketModel.init(fromDictionary: models.objectAtIndex(indexPath.row - 1) as! NSDictionary)
-               NavigationPushView(controller, toConroller: controllerVC)
+                NavigationPushView(controller, toConroller: controllerVC)
             }
         }
         
@@ -95,7 +102,7 @@ class HomeViewModel: NSObject {
         cell.setData(model)
     }
     
-    func requestHotTicket(tableView:UITableView){
+    func requestHotTicket(tableView:UITableView, controller:HomeViewController){
         BaseNetWorke.sharedInstance.getUrlWithString(TickeHot, parameters: nil).subscribeNext { (resultDic) in
             if  ((resultDic is NSDictionary) && (resultDic as! NSDictionary).objectForKey("fail") != nil) {
                 print("请求失败")
@@ -103,6 +110,10 @@ class HomeViewModel: NSObject {
                 let resultModels =  NSMutableArray.mj_objectArrayWithKeyValuesArray(resultDic)
                 self.models = resultModels.mutableCopy() as! NSMutableArray
                 tableView.reloadSections(NSIndexSet.init(index: 1), withRowAnimation: .Automatic)
+                if tableView.mj_header != nil {
+                    tableView.mj_header.endRefreshing()
+                    controller.endRefreshView()
+                }
             }
         }
     }

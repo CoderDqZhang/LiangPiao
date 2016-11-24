@@ -15,7 +15,7 @@ class TicketCategoryViewModel: NSObject {
     var pageViewTitles:NSMutableArray!
     var pageControllers:NSMutableArray = NSMutableArray()
     var reconmmendModels:NSMutableArray = NSMutableArray()
-    
+    var tempCategory:NSMutableArray = NSMutableArray()
     
     var selectIdex:Int = 0
     
@@ -28,6 +28,7 @@ class TicketCategoryViewModel: NSObject {
     func genderData(models:NSMutableArray) {
         let nomalDic = ["id":0,"name":"全部","showCount":10]
         let nomalModel = TicketCategorys.init(fromDictionary: nomalDic)
+        tempCategory.addObject(nomalModel)
         categoryModels.addObject(nomalModel)
         pageControllers.addObject(BaseTicketsPageViewController())
         let array = NSMutableArray()
@@ -35,9 +36,26 @@ class TicketCategoryViewModel: NSObject {
         for dic in models {
             let model = TicketCategorys.init(fromDictionary: dic as! NSDictionary)
             if model.showCount != 0 {
-                categoryModels.addObject(model)
+                tempCategory.addObject(model)
+                categoryModels.addObject(nomalModel)
                 pageControllers.addObject(BaseTicketsPageViewController())
                 reconmmendModels.addObject(array)
+            }
+        }
+        for i in 0...tempCategory.count - 1 {
+            let model = tempCategory[i] as! TicketCategorys
+            if model.name == "话剧歌剧" {
+                categoryModels.replaceObjectAtIndex(1, withObject: model)
+            }else if model.name == "演唱会" {
+                categoryModels.replaceObjectAtIndex(2, withObject: model)
+            }else if model.name == "音乐会" {
+                categoryModels.replaceObjectAtIndex(3, withObject: model)
+            }else if model.name == "体育赛事" {
+                categoryModels.replaceObjectAtIndex(4, withObject: model)
+            }else if model.name == "舞蹈芭蕾" {
+                categoryModels.replaceObjectAtIndex(5, withObject: model)
+            }else if model.name == "曲苑杂技" {
+                categoryModels.replaceObjectAtIndex(6, withObject: model)
             }
         }
         
@@ -62,8 +80,17 @@ class TicketCategoryViewModel: NSObject {
     }
     
     func requestCategotyData(index:Int, controller:BaseTicketsPageViewController) {
-        let model = categoryModels.objectAtIndex(index) as! TicketCategorys
-        BaseNetWorke.sharedInstance.getUrlWithString("\(TickeCategotyList)?cat_id=\(model.id)", parameters: nil).subscribeNext { (resultDic) in
+        let model:TicketCategorys
+        let url:String
+        if index == 1000 {
+            model = categoryModels.objectAtIndex(selectIdex) as! TicketCategorys
+            let recommentModel:RecommentTickes = reconmmendModels[selectIdex] as! RecommentTickes
+            url = "\(TickeCategotyList)?cat_id=\(recommentModel.nextStart)"
+        }else{
+            model = categoryModels.objectAtIndex(index) as! TicketCategorys
+            url = "\(TickeCategotyList)?cat_id=\(model.id)"
+        }
+        BaseNetWorke.sharedInstance.getUrlWithString(url, parameters: nil).subscribeNext { (resultDic) in
             if  ((resultDic is NSDictionary) && (resultDic as! NSDictionary).objectForKey("fail") != nil) {
                 print("请求失败")
             }else{

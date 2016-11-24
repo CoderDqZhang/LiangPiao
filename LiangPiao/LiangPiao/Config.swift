@@ -21,6 +21,8 @@ let App_Theme_Text_Color = "384249"
 let App_Theme_BackGround_Color = "4BD4C5"
 let App_Theme_Shaddown_Color = "40C6B7"
 
+let Login_TextField_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(14.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 14.0)
+
 let App_Theme_TableViewBackGround_Color = "E9EBF2"
 let App_Theme_Empty_BackGround_Color = "F6F7FA"
 
