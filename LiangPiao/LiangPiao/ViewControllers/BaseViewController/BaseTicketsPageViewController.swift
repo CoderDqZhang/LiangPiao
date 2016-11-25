@@ -47,12 +47,29 @@ class BaseTicketsPageViewController: UIViewController {
             make.right.equalTo(self.view.snp_right).offset(0)
             make.bottom.equalTo(self.view.snp_bottom).offset(0)
         }
+        self.setUpRefreshView()
+    }
+    
+    func setUpRefreshView(){
+        self.tableView.mj_header = LiangNomalRefreshHeader(refreshingBlock: { 
+            TicketCategoryViewModel.sharedInstance.refreshDataView(self)
+        })
     }
     
     func setUpLoadMoreData(){
         self.tableView.mj_footer = LiangPiaoLoadMoreDataFooter(refreshingBlock: {
             TicketCategoryViewModel.sharedInstance.requestCategotyData(1000, controller: self)
         })
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        print(TicketCategoryViewModel.sharedInstance.selectIdex)
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        print(TicketCategoryViewModel.sharedInstance.selectIdex)
     }
     
     /*
@@ -94,6 +111,7 @@ extension BaseTicketsPageViewController : UITableViewDataSource {
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0.00001
     }
+    
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         

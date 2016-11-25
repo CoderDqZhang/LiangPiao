@@ -84,9 +84,16 @@ class TicketPageViewController: TYTabButtonPagerController {
         super.pagerController(pagerController, configreCell: cell, forItemTitle: title, atIndexPath: indexPath)
     }
     
-    
     override func pagerController(pagerController: TYTabPagerController!, didScrollToTabPageIndex index: Int) {
         viewModel.pagerControllerDidScrollToTabPageIndex(index)
+    }
+    
+    override func pagerController(pagerController: TYPagerController!, transitionFromIndex fromIndex: Int, toIndex: Int, animated: Bool) {
+        
+    }
+    
+    override func pagerController(pagerController: TYPagerController!, willAddViewController index: Int) {
+        viewModel.willAddViewController = index
     }
     
     // MARK: - TYTabButtonDataSource

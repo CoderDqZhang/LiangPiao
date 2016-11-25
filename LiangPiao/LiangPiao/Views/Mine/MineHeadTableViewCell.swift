@@ -14,6 +14,7 @@ class MineHeadTableViewCell: UITableViewCell {
     var nameAndePhone:UILabel!
     var editProfileImage:UIImageView!
     var photoImageView:UIImageView!
+    var defaultImage:UIImageView!
     var cellBackView:UIImageView!
     
     var didMakeConstraints:Bool = false
@@ -35,10 +36,14 @@ class MineHeadTableViewCell: UITableViewCell {
         nameAndePhone.textColor = UIColor.init(hexString: Mine_Header_Name_Color)
         self.contentView.addSubview(nameAndePhone)
         
+        defaultImage = UIImageView()
+        defaultImage.layer.cornerRadius = 53
+        defaultImage.layer.masksToBounds = true
+        defaultImage.image = UIImage.init(named: "Avatar_Default")
+        self.contentView.addSubview(defaultImage)
+        
         photoImageView = UIImageView()
         photoImageView.layer.cornerRadius = 50
-        photoImageView.layer.borderColor = UIColor.whiteColor().CGColor
-        photoImageView.layer.borderWidth = 3.0
         photoImageView.layer.masksToBounds = true
         photoImageView.image = UIImage.init(named: "Checkbox_Selected")
         self.contentView.addSubview(photoImageView)
@@ -72,14 +77,20 @@ class MineHeadTableViewCell: UITableViewCell {
         if !self.didMakeConstraints {
             
             nameAndePhone.snp_makeConstraints(closure: { (make) in
-                make.top.equalTo(self.photoImageView.snp_bottom).offset(18)
+                make.top.equalTo(self.photoImageView.snp_bottom).offset(20)
                 make.centerX.equalTo(self.contentView.snp_centerX).offset(0)
             })
             
             photoImageView.snp_makeConstraints(closure: { (make) in
-                make.top.equalTo(self.contentView.snp_top).offset(64)
+                make.top.equalTo(self.contentView.snp_top).offset(67)
                 make.centerX.equalTo(self.contentView.snp_centerX).offset(0)
                 make.size.equalTo(CGSizeMake(100, 100))
+            })
+            
+            defaultImage.snp_makeConstraints(closure: { (make) in
+                make.top.equalTo(self.contentView.snp_top).offset(64)
+                make.centerX.equalTo(self.contentView.snp_centerX).offset(0)
+                make.size.equalTo(CGSizeMake(106, 106))
             })
             
             editProfileImage.snp_makeConstraints(closure: { (make) in

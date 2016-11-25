@@ -25,11 +25,11 @@ class ToolView:UIView {
         
         let image = UIImage.init(color: UIColor.init(hexString: Home_Recommend_Title_Color, andAlpha: 0.6), size: frame.size)
 //        let newImage = image.applyBlurWithRadius(0.1, tintColor: UIColor.init(hexString: Home_Recommend_Title_Color, andAlpha: 0.6), saturationDeltaFactor: 0.8, maskImage: nil) as UIImage
-        let newImage = image.applyTintEffectWithColor(UIColor.init(hexString: Home_Recommend_Title_Color))
-        let imageView = UIImageView(image: newImage)
+//        let newImage = image.applyTintEffectWithColor(UIColor.init(hexString: Home_Recommend_Title_Color))
+        let imageView = UIImageView(image: image)
         imageView.frame = CGRectMake(0, 0, frame.size.width, frame.size.height)
         self.addSubview(imageView)
-//        self.backgroundColor = UIColor.init(red: 56.0/255.0, green: 66.0/255.0, blue: 73.0/255.0, alpha: 0.9)
+        self.backgroundColor = UIColor.init(red: 56.0/255.0, green: 66.0/255.0, blue: 73.0/255.0, alpha: 0.9)
         
         dataArray = NSArray(array: data as [AnyObject], copyItems: true)
         singnalTap = UITapGestureRecognizer(target: self, action: #selector(ToolView.viewSignalTap(_:)))
@@ -37,10 +37,10 @@ class ToolView:UIView {
         singnalTap.numberOfTouchesRequired = 1
         self.addGestureRecognizer(singnalTap)
         
-//        let effectView = UIVisualEffectView(effect: UIBlurEffect.init(style: .Light))
-//        effectView.frame = self.frame
-//        effectView.contentView.addSubview(imageView)
-//        self.addSubview(effectView)
+        let effectView = UIVisualEffectView(effect: UIBlurEffect.init(style: .Light))
+        effectView.frame = self.frame
+        effectView.contentView.addSubview(imageView)
+        self.addSubview(effectView)
         
         
         self.setUpTableView()

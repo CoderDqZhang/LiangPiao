@@ -84,6 +84,8 @@ class HomeViewController: BaseViewController {
     func navigationPushTicketPage(index:NSInteger) {
         viewModel.navigationPushTicketPage(index, controller:self)
     }
+    
+    
 }
 
 extension HomeViewController : UITableViewDelegate {

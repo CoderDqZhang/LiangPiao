@@ -19,6 +19,7 @@
         unsigned int configreReusableCell :1;
         unsigned int configreNumberReusableCell :1;
         unsigned int didSelectAtIndexPath :1;
+        unsigned int wiilAddViewIndex :1;
         unsigned int didScrollToTabPageIndex :1;
         unsigned int transitionFromeCellAnimated :1;
         unsigned int transitionFromeCellProgress :1;
@@ -154,6 +155,7 @@
     _tabDelegateFlags.didScrollToTabPageIndex = [self.delegate respondsToSelector:@selector(pagerController:didScrollToTabPageIndex:)];
     _tabDelegateFlags.transitionFromeCellAnimated = [self.delegate respondsToSelector:@selector(pagerController:transitionFromeCell:toCell:animated:)];
     _tabDelegateFlags.transitionFromeCellProgress = [self.delegate respondsToSelector:@selector(pagerController:transitionFromeCell:toCell:progress:)];
+    _tabDelegateFlags.wiilAddViewIndex = [self.delegate respondsToSelector:@selector(pagerController:viewWillAddViewController:)];
 }
 
 - (void)setDataSource:(id<TYPagerControllerDataSource>)dataSource
@@ -326,6 +328,11 @@
     
     
     [self setUnderLineFrameWithfromIndex:fromIndex toIndex:toIndex progress:progress];
+}
+
+- (void)pagerController:(TYPagerController *)pagerController willAddViewController:(NSInteger)index
+{
+    
 }
 
 #pragma mark - UICollectionViewDataSource

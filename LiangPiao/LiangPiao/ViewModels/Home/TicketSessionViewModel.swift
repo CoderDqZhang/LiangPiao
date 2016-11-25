@@ -52,13 +52,9 @@ class TicketSessionViewModel: NSObject {
     func requestTicketSession(tableView:UITableView){
         let url = "\(TickeSession)\(model.id)/session"
         BaseNetWorke.sharedInstance.getUrlWithString(url, parameters: nil).subscribeNext { (resultDic) in
-            if  ((resultDic is NSDictionary) && (resultDic as! NSDictionary).objectForKey("fail") != nil) {
-                print("请求失败")
-            }else{
-                let resultModels =  NSMutableArray.mj_objectArrayWithKeyValuesArray(resultDic)
-                self.models = resultModels.mutableCopy() as! NSMutableArray
-                tableView.reloadData()
-            }
+            let resultModels =  NSMutableArray.mj_objectArrayWithKeyValuesArray(resultDic)
+            self.models = resultModels.mutableCopy() as! NSMutableArray
+            tableView.reloadData()
         }
     }
 }

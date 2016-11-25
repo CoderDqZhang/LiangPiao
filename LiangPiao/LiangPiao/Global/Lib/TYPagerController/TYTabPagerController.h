@@ -13,6 +13,9 @@
 @protocol TYTabPagerControllerDelegate <TYPagerControllerDelegate>
 
 @optional
+
+- (void)pagerController:(TYPagerController *)pagerController viewWillAddViewController:(NSInteger)index;
+
 // configre collectionview cell
 - (void)pagerController:(TYTabPagerController *)pagerController configreCell:(UICollectionViewCell *)cell forItemTitle:(NSString *)title atIndexPath:(NSIndexPath *)indexPath;
 

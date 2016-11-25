@@ -26,7 +26,10 @@ class HomeViewModel: NSObject {
         case 0:
             return 2
         default:
-            return models.count + 2
+            if models.count > 0{
+                return models.count + 2
+            }
+            return 1
         }
     }
     
@@ -89,12 +92,25 @@ class HomeViewModel: NSObject {
             case self.numberOfRowsInSection(indexPath.section) - 1:
                 self.navigationPushTicketPage(4, controller: controller)
             default:
-                let controllerVC = TicketSceneViewController()
-                controllerVC.viewModel.model = HomeTicketModel.init(fromDictionary: models.objectAtIndex(indexPath.row - 1) as! NSDictionary)
-                NavigationPushView(controller, toConroller: controllerVC)
+                self.getTicketScent(HomeTicketModel.init(fromDictionary: models.objectAtIndex(indexPath.row - 1) as! NSDictionary), controller:controller)
             }
         }
         
+    }
+    
+    func getTicketScent(model:HomeTicketModel,controller:HomeViewController){
+        let url = "\(TickeSession)\(model.id)/session"
+        BaseNetWorke.sharedInstance.getUrlWithString(url, parameters: nil).subscribeNext { (resultDic) in
+            let resultModels =  NSMutableArray.mj_objectArrayWithKeyValuesArray(resultDic)
+            if resultModels.count > 1{
+                let controllerVC = TicketSceneViewController()
+                controllerVC.viewModel.model = model
+                NavigationPushView(controller, toConroller: controllerVC)
+            }else{
+                let controllerVC = TicketDescriptionViewController()
+                NavigationPushView(controller, toConroller: controllerVC)
+            }
+        }
     }
     
     func cellData(cell:RecommendTableViewCell, indexPath:NSIndexPath) {
@@ -104,16 +120,12 @@ class HomeViewModel: NSObject {
     
     func requestHotTicket(tableView:UITableView, controller:HomeViewController){
         BaseNetWorke.sharedInstance.getUrlWithString(TickeHot, parameters: nil).subscribeNext { (resultDic) in
-            if  ((resultDic is NSDictionary) && (resultDic as! NSDictionary).objectForKey("fail") != nil) {
-                print("请求失败")
-            }else{
-                let resultModels =  NSMutableArray.mj_objectArrayWithKeyValuesArray(resultDic)
-                self.models = resultModels.mutableCopy() as! NSMutableArray
-                tableView.reloadSections(NSIndexSet.init(index: 1), withRowAnimation: .Automatic)
-                if tableView.mj_header != nil {
-                    tableView.mj_header.endRefreshing()
-                    controller.endRefreshView()
-                }
+            let resultModels =  NSMutableArray.mj_objectArrayWithKeyValuesArray(resultDic)
+            self.models = resultModels.mutableCopy() as! NSMutableArray
+            tableView.reloadSections(NSIndexSet.init(index: 1), withRowAnimation: .Automatic)
+            if tableView.mj_header != nil {
+                tableView.mj_header.endRefreshing()
+                controller.endRefreshView()
             }
         }
     }

@@ -23,11 +23,13 @@ typedef NS_ENUM(NSUInteger, TYPagerControllerDirection) {
     struct {
         unsigned int transitionFromIndexToIndex :1;
         unsigned int transitionFromIndexToIndexProgress :1;
+        unsigned int willAddViewController :1;
     }_delegateFlags;
     
     struct {
         unsigned int transitionFromIndexToIndex :1;
         unsigned int transitionFromIndexToIndexProgress :1;
+        unsigned int willAddViewController :1;
     }_methodFlags;
 }
 
@@ -167,12 +169,14 @@ NS_INLINE NSRange visibleRangWithOffset(CGFloat offset,CGFloat width, NSInteger 
     
     _delegateFlags.transitionFromIndexToIndex = [_delegate respondsToSelector:@selector(pagerController:transitionFromIndex:toIndex:animated:)];
     _delegateFlags.transitionFromIndexToIndexProgress = [_delegate respondsToSelector:@selector(pagerController:transitionFromIndex:toIndex:progress:)];
+    _delegateFlags.willAddViewController = [_delegate respondsToSelector:@selector(pagerController:willAddViewController:)];
 }
 
 - (void)configureMethods
 {
     _methodFlags.transitionFromIndexToIndex = [self respondsToSelector:@selector(transitionFromIndex:toIndex:animated:)];
     _methodFlags.transitionFromIndexToIndexProgress = [self respondsToSelector:@selector(transitionFromIndex:toIndex:progress:)];
+    _methodFlags.willAddViewController = [self respondsToSelector:@selector(pagerController:willAddViewController:)];
     
 }
 
@@ -419,6 +423,10 @@ NS_INLINE NSRange visibleRangWithOffset(CGFloat offset,CGFloat width, NSInteger 
         if (![_visibleControllers objectForKey:@(index)]) {
             [_visibleControllers setObject:viewController forKey:@(index)];
         }
+        if (_methodFlags.willAddViewController) {
+            [_delegate pagerController:self willAddViewController:index];
+        }
+        
     }else {
         // if VC have parentViewController，change the frame
         viewController.view.frame = frameForControllerAtIndex(index, _contentView.frame);

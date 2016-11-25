@@ -110,8 +110,8 @@ let Home_OrderConfirmCell_Info_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSi
 let Home_Ticket_Info_Color = "8A96A2"
 
 
-let Home_OrderConfirmCell_Title_Color = "384249"
-let Home_OrderConfirmCell_Title_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(15.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 15.0)
+let Home_OrderConfirmCell_Title_Color = "556169"
+let Home_OrderConfirmCell_Title_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(14.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 14.0)
 
 let Home_ReciveView_Label_Select_nColor = "FFFFFF"
 let Home_ReciveView_Label_Nomal_nColor = "4BD4C5"

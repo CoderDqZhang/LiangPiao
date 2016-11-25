@@ -166,6 +166,7 @@
 		1FD881EA1DC8546500B2B702 /* SDCycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FD881E21DC8546500B2B702 /* SDCycleScrollView.m */; };
 		1FD881EB1DC8546500B2B702 /* UIView+SDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FD881E41DC8546500B2B702 /* UIView+SDExtension.m */; };
 		1FD881ED1DC854EE00B2B702 /* HomeScrollerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD881EC1DC854EE00B2B702 /* HomeScrollerTableViewCell.swift */; };
+		1FE723321DE7F83B00FA2F88 /* AllTicketTicketViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE723311DE7F83B00FA2F88 /* AllTicketTicketViewController.swift */; };
 		FF939C055E3696DD0A65FE1D /* Pods_LiangPiao.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9F98174D1FB502062618746 /* Pods_LiangPiao.framework */; };
 /* End PBXBuildFile section */
 
@@ -381,6 +382,7 @@
 		1FD881E31DC8546500B2B702 /* UIView+SDExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+SDExtension.h"; sourceTree = "<group>"; };
 		1FD881E41DC8546500B2B702 /* UIView+SDExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SDExtension.m"; sourceTree = "<group>"; };
 		1FD881EC1DC854EE00B2B702 /* HomeScrollerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeScrollerTableViewCell.swift; sourceTree = "<group>"; };
+		1FE723311DE7F83B00FA2F88 /* AllTicketTicketViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllTicketTicketViewController.swift; sourceTree = "<group>"; };
 		8A6A0D77355C7ECF380D7770 /* Pods-LiangPiao.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiangPiao.release.xcconfig"; path = "Pods/Target Support Files/Pods-LiangPiao/Pods-LiangPiao.release.xcconfig"; sourceTree = "<group>"; };
 		95CF3D41845421C0E94D6429 /* Pods-LiangPiao.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiangPiao.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LiangPiao/Pods-LiangPiao.debug.xcconfig"; sourceTree = "<group>"; };
 		E9F98174D1FB502062618746 /* Pods_LiangPiao.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LiangPiao.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -795,6 +797,7 @@
 			children = (
 				1FD2459E1DC3570E00AFD3BC /* HomeViewController.swift */,
 				1FC4FED21DC8729A00EBFD18 /* TicketPageViewController.swift */,
+				1FE723311DE7F83B00FA2F88 /* AllTicketTicketViewController.swift */,
 				1F62F2561DC9BC1900B591F1 /* TicketSceneViewController.swift */,
 				1F62F25C1DC9EE3400B591F1 /* TicketDescriptionViewController.swift */,
 				1FB7B2971DCC31CB00945B70 /* TicketConfirmViewController.swift */,
@@ -1235,6 +1238,7 @@
 				1F45C4001DD7361C008C60CD /* LiangPiaoHomeRefreshHeader.swift in Sources */,
 				1F0EAB851DD1C88C00D25B64 /* MineViewModel.swift in Sources */,
 				1F62F2591DC9BDBF00B591F1 /* TicketSceneTableViewCell.swift in Sources */,
+				1FE723321DE7F83B00FA2F88 /* AllTicketTicketViewController.swift in Sources */,
 				1FD245071DC2FD9700AFD3BC /* NSFileManager+Utils.m in Sources */,
 				1F45C3FE1DD73027008C60CD /* NSTimer.swift in Sources */,
 				1FD245031DC2FD9700AFD3BC /* UIViewController+hideExcessLine.m in Sources */,

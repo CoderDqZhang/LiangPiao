@@ -17,6 +17,8 @@ class TicketCategoryViewModel: NSObject {
     var reconmmendModels:NSMutableArray = NSMutableArray()
     var tempCategory:NSMutableArray = NSMutableArray()
     
+    var willAddViewController:NSInteger = 0
+    
     var selectIdex:Int = 0
     
     private override init() {
@@ -64,14 +66,11 @@ class TicketCategoryViewModel: NSObject {
     func requestCategotyDic(controller:TicketPageViewController, index:Int) {
         if categoryModels.count == 0 {
             BaseNetWorke.sharedInstance.getUrlWithString(TickeCategoty, parameters: nil).subscribeNext { (resultDic) in
-                if  ((resultDic is NSDictionary) && (resultDic as! NSDictionary).objectForKey("fail") != nil) {
-                    print("请求失败")
-                }else{
-                    let resultModels =  NSMutableArray.mj_objectArrayWithKeyValuesArray(resultDic)
-                    self.genderData(resultModels)
-                    controller.reloadData()
-                    controller.moveToControllerAtIndex(index, animated: false)
-                }
+                let resultModels =  NSMutableArray.mj_objectArrayWithKeyValuesArray(resultDic)
+                self.genderData(resultModels)
+                controller.reloadData()
+                controller.moveToControllerAtIndex(index, animated: false)
+
             }
         }else{
             controller.reloadData()
@@ -91,13 +90,24 @@ class TicketCategoryViewModel: NSObject {
             url = "\(TickeCategotyList)?cat_id=\(model.id)"
         }
         BaseNetWorke.sharedInstance.getUrlWithString(url, parameters: nil).subscribeNext { (resultDic) in
-            if  ((resultDic is NSDictionary) && (resultDic as! NSDictionary).objectForKey("fail") != nil) {
-                print("请求失败")
+            let resultModels =  RecommentTickes.init(fromDictionary: resultDic as! NSDictionary)
+            if index == 1000 {
+                self.reconmmendModels.replaceObjectAtIndex(self.selectIdex, withObject: resultModels)
             }else{
-                let resultModels =  RecommentTickes.init(fromDictionary: resultDic as! NSDictionary)
                 self.reconmmendModels.replaceObjectAtIndex(index, withObject: resultModels)
-                controller.tableView.reloadData()
             }
+            controller.tableView.reloadData()
+        }
+    }
+    
+    func refreshDataView(controller:BaseTicketsPageViewController){
+        let model = categoryModels.objectAtIndex(selectIdex) as! TicketCategorys
+        let url = "\(TickeCategotyList)?cat_id=\(model.id)"
+        BaseNetWorke.sharedInstance.getUrlWithString(url, parameters: nil).subscribeNext { (resultDic) in
+            let resultModels =  RecommentTickes.init(fromDictionary: resultDic as! NSDictionary)
+            self.reconmmendModels.replaceObjectAtIndex(self.selectIdex, withObject: resultModels)
+            controller.tableView.reloadData()
+            controller.tableView.mj_header.endRefreshing()
         }
     }
     
@@ -123,10 +133,11 @@ class TicketCategoryViewModel: NSObject {
     
     
     func numberOfRowsInSection() ->Int {
-        if reconmmendModels[selectIdex] is RecommentTickes {
+        if reconmmendModels[selectIdex] is RecommentTickes && willAddViewController == selectIdex {
             return (reconmmendModels[selectIdex] as! RecommentTickes).showList.count
         }
-        return reconmmendModels[selectIdex].count as Int
+        return 0
+//        return reconmmendModels[selectIdex].count as Int
     }
     
     func tableViewCellForRowAtIndexPath(cell:RecommendTableViewCell, indexPath:NSIndexPath) {
@@ -137,9 +148,22 @@ class TicketCategoryViewModel: NSObject {
     }
     
     func tableViewDidSelectRowAtIndexPath(indexPath:NSIndexPath, controller:BaseTicketsPageViewController){
-        let controllerVC = TicketSceneViewController()
         let recommentModel:RecommentTickes = reconmmendModels[selectIdex] as! RecommentTickes
-        controllerVC.viewModel.model = recommentModel.showList[indexPath.row]
-        NavigationPushView(controller, toConroller: controllerVC)
+        self .getTicketScent(recommentModel.showList[indexPath.row], controller: controller)
+    }
+    
+    func getTicketScent(model:HomeTicketModel,controller:BaseTicketsPageViewController){
+        let url = "\(TickeSession)\(model.id)/session"
+        BaseNetWorke.sharedInstance.getUrlWithString(url, parameters: nil).subscribeNext { (resultDic) in
+            let resultModels =  NSMutableArray.mj_objectArrayWithKeyValuesArray(resultDic)
+            if resultModels.count > 1{
+                let controllerVC = TicketSceneViewController()
+                controllerVC.viewModel.model = model
+                NavigationPushView(controller, toConroller: controllerVC)
+            }else{
+                let controllerVC = TicketDescriptionViewController()
+                NavigationPushView(controller, toConroller: controllerVC)
+            }
+        }
     }
 }
