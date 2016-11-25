@@ -96,6 +96,7 @@ class TicketCategoryViewModel: NSObject {
             }else{
                 self.reconmmendModels.replaceObjectAtIndex(index, withObject: resultModels)
             }
+            controller.isLoadData = true
             controller.tableView.reloadData()
         }
     }
@@ -106,6 +107,7 @@ class TicketCategoryViewModel: NSObject {
         BaseNetWorke.sharedInstance.getUrlWithString(url, parameters: nil).subscribeNext { (resultDic) in
             let resultModels =  RecommentTickes.init(fromDictionary: resultDic as! NSDictionary)
             self.reconmmendModels.replaceObjectAtIndex(self.selectIdex, withObject: resultModels)
+            
             controller.tableView.reloadData()
             controller.tableView.mj_header.endRefreshing()
         }
@@ -133,11 +135,15 @@ class TicketCategoryViewModel: NSObject {
     
     
     func numberOfRowsInSection() ->Int {
-        if reconmmendModels[selectIdex] is RecommentTickes && willAddViewController == selectIdex {
+        let pageController = pageControllers.objectAtIndex(willAddViewController) as! BaseTicketsPageViewController
+        if pageController.isLoadData {
             return (reconmmendModels[selectIdex] as! RecommentTickes).showList.count
+        }else{
+            return 0
         }
-        return 0
-//        return reconmmendModels[selectIdex].count as Int
+//        if reconmmendModels[selectIdex] is RecommentTickes && willAddViewController == selectIdex {
+//            return (reconmmendModels[selectIdex] as! RecommentTickes).showList.count
+//        }
     }
     
     func tableViewCellForRowAtIndexPath(cell:RecommendTableViewCell, indexPath:NSIndexPath) {

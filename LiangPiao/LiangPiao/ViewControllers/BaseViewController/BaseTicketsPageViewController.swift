@@ -11,6 +11,7 @@ import UIKit
 class BaseTicketsPageViewController: UIViewController {
 
     var tableView:UITableView!
+    var isLoadData:Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
