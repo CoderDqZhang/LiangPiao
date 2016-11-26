@@ -41,6 +41,7 @@ class LoginViewController: UIViewController {
         self.setUpView()
         self.setupForDismissKeyboard()
         self.setUpNavigationItem()
+        self.talKingDataPageName = "登录"
         // Do any additional setup after loading the view.
     }
     

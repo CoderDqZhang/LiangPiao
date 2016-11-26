@@ -17,6 +17,7 @@ class OrderListViewController: BaseViewController {
         super.viewDidLoad()
         self.setUpView()
         self.navigationItem.title = viewModel.listTitle()
+        self.talKingDataPageName = "订单列表"
 //        self.navigationController!.title = viewModel.listTitle()
         // Do any additional setup after loading the view.
     }

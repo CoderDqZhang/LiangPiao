@@ -89,6 +89,7 @@ class TicketCategoryViewModel: NSObject {
             model = categoryModels.objectAtIndex(index) as! TicketCategorys
             url = "\(TickeCategotyList)?cat_id=\(model.id)"
         }
+        controller.talKingDataPageName = model.name
         BaseNetWorke.sharedInstance.getUrlWithString(url, parameters: nil).subscribeNext { (resultDic) in
             let resultModels =  RecommentTickes.init(fromDictionary: resultDic as! NSDictionary)
             if index == 1000 {

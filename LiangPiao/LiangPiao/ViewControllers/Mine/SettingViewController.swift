@@ -18,6 +18,7 @@ class SettingViewController: UIViewController {
         self.navigationItem.title = "设置"
         self.setUpView()
         self.setNavigationItem()
+        self.talKingDataPageName = "设置"
         // Do any additional setup after loading the view.
     }
     

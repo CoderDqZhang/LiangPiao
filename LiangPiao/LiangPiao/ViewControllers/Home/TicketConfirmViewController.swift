@@ -28,6 +28,7 @@ class TicketConfirmViewController: UIViewController {
         self.navigationItem.title = "确认订单"
         self.setUpView()
         self.bindViewModel()
+        self.talKingDataPageName = "确认订单"
         // Do any additional setup after loading the view.
     }
 

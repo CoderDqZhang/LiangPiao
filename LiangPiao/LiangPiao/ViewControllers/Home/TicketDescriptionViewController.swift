@@ -20,6 +20,7 @@ class TicketDescriptionViewController: UIViewController {
         super.viewDidLoad()
         self.setUpView()
         self.setUpNavigationItems()
+        self.talKingDataPageName = "演出详情"
         // Do any additional setup after loading the view.
     }
     

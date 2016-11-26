@@ -27,6 +27,8 @@ let AliPayStatues = "AliPayStatuesChange"
 let ToolViewNotifacationName = "ToolsViewNotification"
 let LoginStatuesChange = "LoginStatuesChange"
 
+let TalkingDataKey = "AC559E27399F4ECEA0D9880E0C6977FB"
+
 let KWINDOWDS = UIApplication.sharedApplication().keyWindow
 
 

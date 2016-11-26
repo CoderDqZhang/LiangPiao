@@ -19,3 +19,6 @@
 #import "FMDB.h"
 #import "UserInfoModel.h"
 #import "UILabel+ChangeLineSpaceAndWordSpace.h"
+#import "TalkingData.h"
+#import "UIViewController+TalKingData.h"
+

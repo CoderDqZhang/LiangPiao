@@ -48,8 +48,10 @@ class AddAddressViewController: UIViewController {
     func setUpNavigationItem() {
         if type == .AddType {
             self.navigationItem.title = "新增收货地址"
+            self.talKingDataPageName = "新增收货地址"
         }else{
             self.navigationItem.title = "编辑收货地址"
+            self.talKingDataPageName = "编辑收货地址"
         }
         self.setNavigationItemBack()
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "保存", style: .Plain, target: self, action: #selector(AddAddressViewController.saveItemBarPress(_:)))
@@ -124,7 +126,7 @@ class AddAddressViewController: UIViewController {
             cityPickerView.setTintColor(UIColor.whiteColor())
             cityPickerView.tag = 2
             cityPickerView.setToolbarTintColor(UIColor.whiteColor())
-//            cityPickerView.setTintFont(Mine_Service_Font, color: UIColor.init(hexString: App_Theme_Text_Color))
+            cityPickerView.setTintFont(Mine_Service_Font, color: UIColor.init(hexString: App_Theme_Text_Color))
             cityPickerView.delegate = self
         }
         cityPickerView.show()
@@ -244,6 +246,8 @@ extension AddAddressViewController : UITableViewDataSource {
                 }else{
                     cell.switchBar.setOn(false, animated: true)
                 }
+            }else{
+                cell.switchBar.setOn(false, animated: true)
             }
             cell.switchBar.rac_signalForControlEvents(.ValueChanged).subscribeNext({ (value) in
                 self.models?.defaultField = (value as! UISwitch).on

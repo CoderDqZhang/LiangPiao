@@ -29,6 +29,7 @@ class HomeViewController: BaseViewController {
         self.setUpMJRefeshView()
         self.view.addSubview(searchNavigationBar)
         self.bindViewModel()
+        self.talKingDataPageName = "Home"
     }
     
     override func viewWillAppear(animated: Bool) {

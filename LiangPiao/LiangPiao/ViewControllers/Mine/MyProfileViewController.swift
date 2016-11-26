@@ -22,6 +22,7 @@ class MyProfileViewController: UIViewController {
         self.setUpView()
         self.setupForDismissKeyboard()
         self.setNavigationItem()
+        self.talKingDataPageName = "个人信息"
         // Do any additional setup after loading the view.
     }
     

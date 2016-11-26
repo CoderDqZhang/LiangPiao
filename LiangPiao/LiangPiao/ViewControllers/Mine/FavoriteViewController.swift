@@ -17,6 +17,7 @@ class FavoriteViewController: UIViewController {
         super.viewDidLoad()
         self.setUpView()
         self.setUpNavigationItem()
+        self.talKingDataPageName = "想看的演出"
         // Do any additional setup after loading the view.
     }
     
@@ -28,6 +29,7 @@ class FavoriteViewController: UIViewController {
     func setUpNavigationItem() {
         self.navigationItem.title = "想看的演出"
         self.setNavigationItemBack()
+        
     }
     
     func setUpView(){

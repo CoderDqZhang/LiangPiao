@@ -37,8 +37,8 @@ class OrderTicketInfoTableViewCell: UITableViewCell {
         ticketTitle = UILabel()
         ticketTitle.text = "万有音乐系 陈粒《小梦大半》2016巡回演唱会"
         UILabel.changeLineSpaceForLabel(ticketTitle, withSpace: 3.0)
-        ticketTitle.textColor = UIColor.init(hexString: Home_OrderConfirmCell_Title_Color)
-        ticketTitle.font = Home_OrderConfirmCell_Title_Font
+        ticketTitle.textColor = UIColor.init(hexString: App_Theme_Text_Color)
+        ticketTitle.font = Home_OrderListCell_Title_Font
         ticketTitle.numberOfLines = 0
         self.contentView.addSubview(ticketTitle)
         

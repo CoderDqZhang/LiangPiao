@@ -23,6 +23,7 @@ class OrderPayView: UIView {
         singleTap.numberOfTouchesRequired = 1
         self.addGestureRecognizer(singleTap)
         
+        
     }
     
     func setUpButton() {
@@ -70,7 +71,7 @@ class OrderDetailViewController: UIViewController {
         super.viewDidLoad()
         self.setUpView()
         self.setNavigationItem()
-        
+        self.talKingDataPageName = "订单详情"
 //        self.rac_observeKeyPath(AliPayStatues, options: .New, observer: self) { (object, objects, new, obj) in
 //            
 //        }

@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Fabric
+import Crashlytics
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -28,12 +30,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         AppleThemeTool.setUpToolBarColor()
         AppleThemeTool.setUpToolBarColor()
         AppleThemeTool.setUpKeyBoardManager()
+        
+        TalkingData.sessionStarted(TalkingDataKey, withChannelId: "AppStore")
+        
+        self.logUser()
+        Crashlytics.sharedInstance().debugMode = true
+        Fabric.with([Crashlytics.self])
+        
         UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .None)
         self.window?.makeKeyAndVisible()
 //        self.addSplshView()
         return true
     }
     
+    
+    func logUser(){
+        Crashlytics.sharedInstance().setUserIdentifier(UserInfoModel.shareInstance().id)
+        Crashlytics.sharedInstance().setUserName(UserInfoModel.shareInstance().phone)
+    }
 
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

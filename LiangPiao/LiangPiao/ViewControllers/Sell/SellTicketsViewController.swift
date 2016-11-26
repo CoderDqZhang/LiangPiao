@@ -17,6 +17,7 @@ class SellTicketsViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUpView()
+        self.talKingDataPageName = "卖票"
         // Do any additional setup after loading the view.
     }
     

@@ -17,6 +17,7 @@ class TicketSceneViewController: UIViewController {
         super.viewDidLoad()
         self.setUpView()
         self.bindViewModel()
+        self.talKingDataPageName = "场次"
         // Do any additional setup after loading the view.
     }
     

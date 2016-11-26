@@ -17,6 +17,7 @@ class AboutUsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUpView()
+        self.talKingDataPageName = "关于我们"
         // Do any additional setup after loading the view.
     }
     

@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1F0360951DE943F300594767 /* libTalkingData.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F0360931DE943F300594767 /* libTalkingData.a */; };
+		1F0360971DE9493A00594767 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F0360961DE9493A00594767 /* AdSupport.framework */; };
+		1F0360991DE9494D00594767 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F0360981DE9494D00594767 /* Security.framework */; };
+		1F03609C1DE94A5100594767 /* UIViewController+TalkingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F03609B1DE94A5100594767 /* UIViewController+TalkingData.swift */; };
 		1F089DD51DCB05E800762C14 /* GlobalTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F089DD41DCB05E800762C14 /* GlobalTools.swift */; };
 		1F0EAB591DD052C700D25B64 /* OrderDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0EAB581DD052C700D25B64 /* OrderDetailViewController.swift */; };
 		1F0EAB5B1DD053EE00D25B64 /* OrderDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0EAB5A1DD053EE00D25B64 /* OrderDetailViewModel.swift */; };
@@ -166,10 +170,16 @@
 		1FD881EA1DC8546500B2B702 /* SDCycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FD881E21DC8546500B2B702 /* SDCycleScrollView.m */; };
 		1FD881EB1DC8546500B2B702 /* UIView+SDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FD881E41DC8546500B2B702 /* UIView+SDExtension.m */; };
 		1FD881ED1DC854EE00B2B702 /* HomeScrollerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD881EC1DC854EE00B2B702 /* HomeScrollerTableViewCell.swift */; };
+		1FF2A5F61DE96C0700FC3909 /* UIViewController+TalKingData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF2A5F51DE96C0700FC3909 /* UIViewController+TalKingData.m */; };
 		FF939C055E3696DD0A65FE1D /* Pods_LiangPiao.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9F98174D1FB502062618746 /* Pods_LiangPiao.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1F0360931DE943F300594767 /* libTalkingData.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTalkingData.a; sourceTree = "<group>"; };
+		1F0360941DE943F300594767 /* TalkingData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TalkingData.h; sourceTree = "<group>"; };
+		1F0360961DE9493A00594767 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		1F0360981DE9494D00594767 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		1F03609B1DE94A5100594767 /* UIViewController+TalkingData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+TalkingData.swift"; sourceTree = "<group>"; };
 		1F089DD41DCB05E800762C14 /* GlobalTools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalTools.swift; sourceTree = "<group>"; };
 		1F0EAB581DD052C700D25B64 /* OrderDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderDetailViewController.swift; sourceTree = "<group>"; };
 		1F0EAB5A1DD053EE00D25B64 /* OrderDetailViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderDetailViewModel.swift; sourceTree = "<group>"; };
@@ -381,6 +391,8 @@
 		1FD881E31DC8546500B2B702 /* UIView+SDExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+SDExtension.h"; sourceTree = "<group>"; };
 		1FD881E41DC8546500B2B702 /* UIView+SDExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SDExtension.m"; sourceTree = "<group>"; };
 		1FD881EC1DC854EE00B2B702 /* HomeScrollerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeScrollerTableViewCell.swift; sourceTree = "<group>"; };
+		1FF2A5F41DE96C0700FC3909 /* UIViewController+TalKingData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+TalKingData.h"; sourceTree = "<group>"; };
+		1FF2A5F51DE96C0700FC3909 /* UIViewController+TalKingData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+TalKingData.m"; sourceTree = "<group>"; };
 		8A6A0D77355C7ECF380D7770 /* Pods-LiangPiao.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiangPiao.release.xcconfig"; path = "Pods/Target Support Files/Pods-LiangPiao/Pods-LiangPiao.release.xcconfig"; sourceTree = "<group>"; };
 		95CF3D41845421C0E94D6429 /* Pods-LiangPiao.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiangPiao.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LiangPiao/Pods-LiangPiao.debug.xcconfig"; sourceTree = "<group>"; };
 		E9F98174D1FB502062618746 /* Pods_LiangPiao.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LiangPiao.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -391,16 +403,19 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F0360991DE9494D00594767 /* Security.framework in Frameworks */,
+				1F6BB98A1DD9554700893932 /* CoreMotion.framework in Frameworks */,
+				1F6BB97C1DD954E700893932 /* CoreTelephony.framework in Frameworks */,
+				1F0360971DE9493A00594767 /* AdSupport.framework in Frameworks */,
 				1F6BB9961DD964F900893932 /* libsqlite3.0.tbd in Frameworks */,
 				1F6BB9911DD960E200893932 /* libWeChatSDK.a in Frameworks */,
-				1F6BB98A1DD9554700893932 /* CoreMotion.framework in Frameworks */,
 				1F6BB9881DD9554200893932 /* CFNetwork.framework in Frameworks */,
 				1F6BB9861DD9553B00893932 /* Foundation.framework in Frameworks */,
 				1F6BB9841DD9553300893932 /* UIKit.framework in Frameworks */,
 				1F6BB9821DD9550000893932 /* CoreGraphics.framework in Frameworks */,
 				1F6BB9801DD954F600893932 /* CoreText.framework in Frameworks */,
 				1F6BB97E1DD954EE00893932 /* QuartzCore.framework in Frameworks */,
-				1F6BB97C1DD954E700893932 /* CoreTelephony.framework in Frameworks */,
+				1F0360951DE943F300594767 /* libTalkingData.a in Frameworks */,
 				1F6BB97A1DD954DC00893932 /* SystemConfiguration.framework in Frameworks */,
 				1F6BB9781DD954D500893932 /* libz.tbd in Frameworks */,
 				1F6BB9761DD954CE00893932 /* libc++.tbd in Frameworks */,
@@ -412,6 +427,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1F0360921DE943C500594767 /* TalkingData */ = {
+			isa = PBXGroup;
+			children = (
+				1F0360931DE943F300594767 /* libTalkingData.a */,
+				1F0360941DE943F300594767 /* TalkingData.h */,
+			);
+			path = TalkingData;
+			sourceTree = "<group>";
+		};
 		1F0EAB661DD091FA00D25B64 /* Order */ = {
 			isa = PBXGroup;
 			children = (
@@ -651,6 +675,7 @@
 		1FD244D81DC2FC8A00AFD3BC /* Uti */ = {
 			isa = PBXGroup;
 			children = (
+				1F0360921DE943C500594767 /* TalkingData */,
 				1F6BB98B1DD960E200893932 /* SDKExport */,
 			);
 			name = Uti;
@@ -740,6 +765,8 @@
 				1FB7B2951DCC2B5200945B70 /* UIImage+ImageEffects.m */,
 				1FBF86C11DDD47EF0057BB11 /* UILabel+ChangeLineSpaceAndWordSpace.h */,
 				1FBF86C21DDD47EF0057BB11 /* UILabel+ChangeLineSpaceAndWordSpace.m */,
+				1FF2A5F41DE96C0700FC3909 /* UIViewController+TalKingData.h */,
+				1FF2A5F51DE96C0700FC3909 /* UIViewController+TalKingData.m */,
 			);
 			path = Catagory;
 			sourceTree = "<group>";
@@ -751,6 +778,7 @@
 				1FD244E31DC2FD3D00AFD3BC /* String+Size.swift */,
 				1FD244E41DC2FD3D00AFD3BC /* UIViewController+NavigationBar.swift */,
 				1FD244E61DC2FD3D00AFD3BC /* UIImage+Crop.swift */,
+				1F03609B1DE94A5100594767 /* UIViewController+TalkingData.swift */,
 				1F45C3FD1DD73027008C60CD /* NSTimer.swift */,
 			);
 			path = Extentions;
@@ -995,6 +1023,8 @@
 		A6EDDA7D546857A6EFCA593E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1F0360981DE9494D00594767 /* Security.framework */,
+				1F0360961DE9493A00594767 /* AdSupport.framework */,
 				1F6BB9951DD964F900893932 /* libsqlite3.0.tbd */,
 				1F6BB9931DD964E700893932 /* libsqlite3.tbd */,
 				1F6BB9891DD9554700893932 /* CoreMotion.framework */,
@@ -1037,6 +1067,7 @@
 				1FD244C01DC2F92E00AFD3BC /* Resources */,
 				EE54D18EE19CD21BD7606BE0 /* [CP] Embed Pods Frameworks */,
 				7EC71D3A7E148CA7050B1210 /* [CP] Copy Pods Resources */,
+				1FF2A5F31DE96B0300FC3909 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1101,6 +1132,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		1FF2A5F31DE96B0300FC3909 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" d47ac8119a649873d439b6eca77cfe7383ce9547 f671014474098b6fc66a07c9f9ea1f830e6f9caa06241bda71042ee724d3a675";
+		};
 		6843A9EE9B0B5F5268AD02D9 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1154,6 +1198,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1FD881BD1DC7255500B2B702 /* UIViewController+DismissKeyboard.m in Sources */,
+				1FF2A5F61DE96C0700FC3909 /* UIViewController+TalKingData.m in Sources */,
 				1FD881E71DC8546500B2B702 /* TADotView.m in Sources */,
 				1F62F2571DC9BC1900B591F1 /* TicketSceneViewController.swift in Sources */,
 				1FD881E51DC8546500B2B702 /* TAAbstractDotView.m in Sources */,
@@ -1180,6 +1225,7 @@
 				1FBFC7C51DDAAD2B008D9CEC /* LoginViewModel.swift in Sources */,
 				1F0EAB611DD05C2200D25B64 /* TicketLocationTableViewCell.swift in Sources */,
 				1F0EAB8D1DD1DD3C00D25B64 /* MyProfileViewModel.swift in Sources */,
+				1F03609C1DE94A5100594767 /* UIViewController+TalkingData.swift in Sources */,
 				1FD881CF1DC7621400B2B702 /* HomeCenterModel.swift in Sources */,
 				1F8AA0B61DD34B1700587C24 /* AboutUsViewController.swift in Sources */,
 				1FD881ED1DC854EE00B2B702 /* HomeScrollerTableViewCell.swift in Sources */,
@@ -1425,6 +1471,8 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/LiangPiao/Uti/SDKExport",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/LiangPiao/Uti/TalkingData",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.liangpiao.liangpiao;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1452,6 +1500,8 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/LiangPiao/Uti/SDKExport",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/LiangPiao/Uti/TalkingData",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.liangpiao.liangpiao;
 				PRODUCT_NAME = "$(TARGET_NAME)";

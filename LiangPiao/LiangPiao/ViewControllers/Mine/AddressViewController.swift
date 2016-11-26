@@ -27,6 +27,7 @@ class AddressViewController: UIViewController {
         super.viewDidLoad()
         self.setUpView()
         self.setUpNavigationItem()
+        self.talKingDataPageName = "收货地址管理"
         // Do any additional setup after loading the view.
     }
     
