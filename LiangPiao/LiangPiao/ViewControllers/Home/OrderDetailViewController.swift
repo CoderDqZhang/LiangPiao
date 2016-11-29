@@ -72,6 +72,7 @@ class OrderDetailViewController: UIViewController {
         self.setUpView()
         self.setNavigationItem()
         self.talKingDataPageName = "订单详情"
+        viewModel.requestPayUrl(self)
 //        self.rac_observeKeyPath(AliPayStatues, options: .New, observer: self) { (object, objects, new, obj) in
 //            
 //        }
@@ -113,6 +114,9 @@ class OrderDetailViewController: UIViewController {
         }
         
         payView = OrderPayView(frame: CGRectMake(0, SCREENHEIGHT - 49 - 64, SCREENWIDTH, 49))
+        payView.payButton.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (action) in
+            self.viewModel.requestPayUrl(self)
+        }
         self.view.addSubview(payView)
         self.updateTableView(.orderWaitPay)
     }

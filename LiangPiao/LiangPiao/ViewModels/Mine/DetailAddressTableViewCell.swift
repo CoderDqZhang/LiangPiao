@@ -25,6 +25,8 @@ class DetailAddressTableViewCell: UITableViewCell {
         textView.tintColor = UIColor.init(hexString: App_Theme_BackGround_Color)
         textView.placeholderLabel.font = NavigationBar_TitleView_TitleLabel_Font
         textView.placeholderLabel.textColor = UIColor.init(hexString: HomePage_Search_Color)
+        textView.scrollEnabled = false
+        textView.returnKeyType = .Done
         textView.font = NavigationBar_TitleView_TitleLabel_Font
         textView.textColor = UIColor.init(hexString: App_Theme_Text_Color)
         self.contentView.addSubview(textView)
@@ -47,6 +49,10 @@ class DetailAddressTableViewCell: UITableViewCell {
             self.didMakeConstraints = true
         }
         super.updateConstraints()
+    }
+    
+    func setPlaceholerText(text:String) {
+        textView.placeholder = text
     }
     
     override func awakeFromNib() {

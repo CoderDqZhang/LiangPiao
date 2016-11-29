@@ -52,13 +52,13 @@ class OrderConfirmAddressTableViewCell: UITableViewCell {
         
         
         orderName = UILabel()
-        orderName.text = "冉灿    18602035508"
+        orderName.text = ""
         orderName.textColor = UIColor.init(hexString: Mine_Address_Name_Color)
         orderName.font = Mine_Address_Name_Font
         self.contentView.addSubview(orderName)
         
         orderAddress = UILabel()
-        orderAddress.text = "朝阳区香河园小区西坝河中里35号楼二层207"
+        orderAddress.text = ""
         orderAddress.textColor = UIColor.init(hexString: Mine_Address_Name_Color)
         orderAddress.font = Mine_Address_Name_Font
         self.contentView.addSubview(orderAddress)
@@ -66,7 +66,7 @@ class OrderConfirmAddressTableViewCell: UITableViewCell {
         self.updateConstraintsIfNeeded()
     }
     
-    func setData(name:String, address:String, type:AddAddressType) {
+    func setData(model:AddressModel, type:AddAddressType) {
         
         if type == .withNone {
             orderName.hidden = true
@@ -76,8 +76,8 @@ class OrderConfirmAddressTableViewCell: UITableViewCell {
             orderName.hidden = false
             orderAddress.hidden = false
             orderAddAddress.hidden = true
-            orderName.text = name
-            orderAddress.text = address
+            orderName.text = model.name
+            orderAddress.text = model.mobileNum
         }
     }
     

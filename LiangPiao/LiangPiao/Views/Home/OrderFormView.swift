@@ -29,18 +29,7 @@ class ConfirmView: UIView {
         
         muchLabel = UILabel()
         muchLabel.text = "688.00 元"
-        let attributeString = NSMutableAttributedString(string: muchLabel.text!)
-        attributeString.addAttribute(NSFontAttributeName,
-                                     value: Home_PayView_Much_Font!,
-                                     range: NSMakeRange(0,muchLabel.text!.length - 1))
-        attributeString.addAttribute(NSForegroundColorAttributeName, value: UIColor.init(hexString: Home_ReciveView_Label_Nomal_nColor),
-                                     range: NSMakeRange(0, muchLabel.text!.length - 1))
-        attributeString.addAttribute(NSFontAttributeName,
-                                     value: Home_PayView_MuchLabel_Font!,
-                                     range: NSMakeRange(muchLabel.text!.length - 1,1))
-        attributeString.addAttribute(NSForegroundColorAttributeName, value: UIColor.init(hexString: Home_Ticker_Descrip_Color),
-                                     range: NSMakeRange(muchLabel.text!.length - 1,1))
-        muchLabel.attributedText = attributeString
+        
         self.addSubview(muchLabel)
         
         payButton = UIButton(type: .Custom)
@@ -54,6 +43,22 @@ class ConfirmView: UIView {
         self.addSubview(payButton)
         
         self.updateConstraintsIfNeeded()
+    }
+    
+    func setMuchLabelText(text:String){
+        muchLabel.text = text
+        let attributeString = NSMutableAttributedString(string: muchLabel.text!)
+        attributeString.addAttribute(NSFontAttributeName,
+                                     value: Home_PayView_Much_Font!,
+                                     range: NSMakeRange(0,muchLabel.text!.length - 1))
+        attributeString.addAttribute(NSForegroundColorAttributeName, value: UIColor.init(hexString: Home_ReciveView_Label_Nomal_nColor),
+                                     range: NSMakeRange(0, muchLabel.text!.length - 1))
+        attributeString.addAttribute(NSFontAttributeName,
+                                     value: Home_PayView_MuchLabel_Font!,
+                                     range: NSMakeRange(muchLabel.text!.length - 1,1))
+        attributeString.addAttribute(NSForegroundColorAttributeName, value: UIColor.init(hexString: Home_Ticker_Descrip_Color),
+                                     range: NSMakeRange(muchLabel.text!.length - 1,1))
+        muchLabel.attributedText = attributeString
     }
     
     override func updateConstraints() {

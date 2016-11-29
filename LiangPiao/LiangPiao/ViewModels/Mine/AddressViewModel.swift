@@ -22,12 +22,13 @@ class AddressViewModel: NSObject {
         
     }
     
-    
-    
     func configCell(cell:AddressTableViewCell,indexPath:NSIndexPath) {
         if addressModels.count > 0 {
             if self.addressType == .addType {
                 let model = AddressModel.init(fromDictionary: addressModels.objectAtIndex(indexPath.row) as! NSDictionary)
+                if indexPath.row != 0 {
+                    cell.updateSelectImage(false)
+                }
                 cell.setData(model)
             }else{
                 let model = AddressModel.init(fromDictionary: addressModels.objectAtIndex(indexPath.row) as! NSDictionary)

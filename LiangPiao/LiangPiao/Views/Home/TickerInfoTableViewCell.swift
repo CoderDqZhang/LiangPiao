@@ -14,7 +14,7 @@ class TickerInfoTableViewCell: UITableViewCell {
     var ticketRow:UILabel!
     var ticketDescirp:UILabel!
     var ticketNowPrice:UILabel!
-    var ticketStatus:GlobalTicketStatus!
+    var ticketStatusView:GlobalTicketStatus!
     var lineLabel:GloabLineView!
     var didMakeConstraints:Bool = false
     
@@ -52,11 +52,78 @@ class TickerInfoTableViewCell: UITableViewCell {
         ticketNowPrice.textColor = UIColor.init(hexString: Home_Ticker_NowPrice_Color)
         self.addSubview(ticketNowPrice)
         
-        ticketStatus = GlobalTicketStatus(frame: CGRectZero, titles: ["连","最后五张"], types: nil)
-        self.addSubview(ticketStatus)
-        
         lineLabel = GloabLineView(frame: CGRectMake(15, 59.5, SCREENWIDTH - 30, 0.5))
         self.addSubview(lineLabel)
+        self.updateConstraintsIfNeeded()
+    }
+    
+    
+    func setData(model:TicketList) {
+        ticketNomalPrice.text = "\(model.originalTicket.name)"
+        if model.region == "" {
+            ticketRow.text = "择优选座"
+        }else{
+            let row = model.row != "" ? "\(model.row)排" : ""
+            ticketRow.text = "\(model.region) \(row)"
+        }
+        ticketNowPrice.text = "\(model.price)"
+        ticketDescirp.text = self.setUpTickeDelivery(model)
+        self.setUpTicketStatues(model)
+        
+        self.updateConstraintsIfNeeded()
+        
+    }
+    
+    func setUpTickeDelivery(model:TicketList) -> String{
+        var delivery:String = ""
+        let typeArray = model.deliveryType.componentsSeparatedByString(",")
+        if model.seatType == 2 {
+            delivery = delivery.stringByAppendingString("打包购买 ")
+        }
+        for str in typeArray {
+            if str == "1" {
+               delivery = delivery.stringByAppendingString("快递 ")
+            }else if str == "2" {
+                delivery = delivery.stringByAppendingString("现场 ")
+            }else if str == "3" {
+                delivery = delivery.stringByAppendingString("自取 ")
+            }
+        }
+        return delivery
+    }
+    
+    func setUpTicketStatues(model:TicketList){
+        var statuesArray:[String] = []
+        if model.seatType == 1{
+            statuesArray.append("连")
+        }
+        if model.remainCount != 0 {
+            let str = model.remainCount >= 20 ? "剩余\(model.remainCount)张" : "最后\(model.remainCount)张"
+            statuesArray.append(str)
+        }
+        if statuesArray.count > 0 {
+            self.setUpStatuesView(statuesArray, types: nil)
+        }else{
+            self.setUpStatuesView([], types: nil)
+        }
+    }
+    
+    func setUpStatuesView(titles:[String], types:NSArray?){
+        if ticketStatusView == nil {
+            ticketStatusView = GlobalTicketStatus(frame: CGRectZero, titles: titles, types: types)
+            self.addSubview(ticketStatusView)
+            
+            ticketStatusView.snp_remakeConstraints(closure: { (make) in
+                make.right.equalTo(self.contentView.snp_right).offset(-(ticketStatusView.getMaxWidth() + 25))
+                make.top.equalTo(self.ticketNowPrice.snp_bottom).offset(3)
+            })
+        }else{
+            ticketStatusView.setUpView(titles, types: types)
+            ticketStatusView.snp_remakeConstraints(closure: { (make) in
+                make.right.equalTo(self.contentView.snp_right).offset(-(ticketStatusView.getMaxWidth() + 25))
+                make.top.equalTo(self.ticketNowPrice.snp_bottom).offset(3)
+            })
+        }
         self.updateConstraintsIfNeeded()
     }
     
@@ -80,11 +147,6 @@ class TickerInfoTableViewCell: UITableViewCell {
             ticketNowPrice.snp_makeConstraints(closure: { (make) in
                 make.right.equalTo(self.contentView.snp_right).offset(-25)
                 make.top.equalTo(self.contentView.snp_top).offset(14)
-            })
-            
-            ticketStatus.snp_makeConstraints(closure: { (make) in
-                make.right.equalTo(self.contentView.snp_right).offset(-(ticketStatus.getMaxWidth() + 25))
-                make.top.equalTo(self.ticketNowPrice.snp_bottom).offset(3)
             })
             
             lineLabel.snp_makeConstraints(closure: { (make) in

@@ -40,8 +40,8 @@ class OrderNumberTableViewCell: UITableViewCell {
         self.updateConstraintsIfNeeded()
     }
     
-    func setData(model:OrderModel) {
-        if model.orderStatue == "waitePay" {
+    func setData(model:OrderList) {
+        if model.status == 0 {
             orderStatus.text = "待付款"
             orderStatus.textColor = UIColor.init(hexString: App_Theme_BackGround_Color)
         }else{

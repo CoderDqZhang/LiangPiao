@@ -341,7 +341,9 @@
             if (_state==nil) {
                 _state =_dicKeyArray[0][0];
                 NSDictionary *dicValueDic=_plistArray[0];
-                _city=[dicValueDic allValues][0][0];
+                if (_city == nil) {
+                    _city=[dicValueDic allValues][0][0];
+                }
             }
             if (_city==nil){
                 NSInteger cIndex = [_pickerView selectedRowInComponent:0];

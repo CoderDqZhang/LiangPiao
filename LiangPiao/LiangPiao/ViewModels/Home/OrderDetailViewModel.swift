@@ -11,6 +11,8 @@ import UIKit
 class OrderDetailViewModel: NSObject {
 
     var orderType:OrderType = .orderWaitPay
+    var aliPayurl:String = ""
+    
     override init() {
         
     }
@@ -46,6 +48,14 @@ class OrderDetailViewModel: NSObject {
             return "8.00元"
         default:
             return ""
+        }
+    }
+    
+    func requestPayUrl(cnotroller:OrderDetailViewController){
+        BaseNetWorke.sharedInstance.getUrlWithString("http://api.liangpiao.me/order/pay_info/0bf127c08c830c62608295feb04c0a3b/", parameters: nil).subscribeNext { (resultDic) in
+            self.aliPayurl = resultDic.objectForKey("alipay") as! String
+            AlipaySDK.defaultService().payOrder(self.aliPayurl, fromScheme: "LiangPiaoAlipay") { (resultDic) in
+            }
         }
     }
 }

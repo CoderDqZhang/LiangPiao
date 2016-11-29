@@ -181,9 +181,11 @@ class HomeTicketModel : NSObject, NSCoding{
     var city : String!
     var cover : String!
     var id : Int!
-    var maxPrice : Int!
+    var minDiscount : String!
     var minPrice : Int!
+    var sessionCount : Int!
     var showDate : String!
+    var ticketCount : Int!
     var ticketStatus : Int!
     var title : String!
     var venue : Venue!
@@ -199,9 +201,11 @@ class HomeTicketModel : NSObject, NSCoding{
         city = dictionary["city"] as? String
         cover = dictionary["cover"] as? String
         id = dictionary["id"] as? Int
-        maxPrice = dictionary["max_price"] as? Int
+        minDiscount = dictionary["min_discount"] as? String
         minPrice = dictionary["min_price"] as? Int
+        sessionCount = dictionary["session_count"] as? Int
         showDate = dictionary["show_date"] as? String
+        ticketCount = dictionary["ticket_count"] as? Int
         ticketStatus = dictionary["ticket_status"] as? Int
         title = dictionary["title"] as? String
         if let venueData = dictionary["venue"] as? NSDictionary{
@@ -227,14 +231,20 @@ class HomeTicketModel : NSObject, NSCoding{
         if id != nil{
             dictionary["id"] = id
         }
-        if maxPrice != nil{
-            dictionary["max_price"] = maxPrice
+        if minDiscount != nil{
+            dictionary["min_discount"] = minDiscount
         }
         if minPrice != nil{
             dictionary["min_price"] = minPrice
         }
+        if sessionCount != nil{
+            dictionary["session_count"] = sessionCount
+        }
         if showDate != nil{
             dictionary["show_date"] = showDate
+        }
+        if ticketCount != nil{
+            dictionary["ticket_count"] = ticketCount
         }
         if ticketStatus != nil{
             dictionary["ticket_status"] = ticketStatus
@@ -258,9 +268,11 @@ class HomeTicketModel : NSObject, NSCoding{
         city = aDecoder.decodeObjectForKey("city") as? String
         cover = aDecoder.decodeObjectForKey("cover") as? String
         id = aDecoder.decodeObjectForKey("id") as? Int
-        maxPrice = aDecoder.decodeObjectForKey("max_price") as? Int
+        minDiscount = aDecoder.decodeObjectForKey("min_discount") as? String
         minPrice = aDecoder.decodeObjectForKey("min_price") as? Int
+        sessionCount = aDecoder.decodeObjectForKey("session_count") as? Int
         showDate = aDecoder.decodeObjectForKey("show_date") as? String
+        ticketCount = aDecoder.decodeObjectForKey("ticket_count") as? Int
         ticketStatus = aDecoder.decodeObjectForKey("ticket_status") as? Int
         title = aDecoder.decodeObjectForKey("title") as? String
         venue = aDecoder.decodeObjectForKey("venue") as? Venue
@@ -285,14 +297,20 @@ class HomeTicketModel : NSObject, NSCoding{
         if id != nil{
             aCoder.encodeObject(id, forKey: "id")
         }
-        if maxPrice != nil{
-            aCoder.encodeObject(maxPrice, forKey: "max_price")
+        if minDiscount != nil{
+            aCoder.encodeObject(minDiscount, forKey: "min_discount")
         }
         if minPrice != nil{
             aCoder.encodeObject(minPrice, forKey: "min_price")
         }
+        if sessionCount != nil{
+            aCoder.encodeObject(sessionCount, forKey: "session_count")
+        }
         if showDate != nil{
             aCoder.encodeObject(showDate, forKey: "show_date")
+        }
+        if ticketCount != nil{
+            aCoder.encodeObject(ticketCount, forKey: "ticket_count")
         }
         if ticketStatus != nil{
             aCoder.encodeObject(ticketStatus, forKey: "ticket_status")
@@ -305,7 +323,5 @@ class HomeTicketModel : NSObject, NSCoding{
         }
         
     }
+    
 }
-
-
-

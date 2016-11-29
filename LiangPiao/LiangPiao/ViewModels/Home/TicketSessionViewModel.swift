@@ -44,11 +44,6 @@ class TicketSessionViewModel: NSObject {
         }
     }
     
-    func cellData(cell:TicketSceneTableViewCell, indexPath:NSIndexPath) {
-        let model = TicketSessionModel.init(fromDictionary: models.objectAtIndex(indexPath.row - 1) as! NSDictionary)
-        cell.setData(model)
-    }
-    
     func requestTicketSession(tableView:UITableView){
         let url = "\(TickeSession)\(model.id)/session"
         BaseNetWorke.sharedInstance.getUrlWithString(url, parameters: nil).subscribeNext { (resultDic) in
@@ -56,5 +51,16 @@ class TicketSessionViewModel: NSObject {
             self.models = resultModels.mutableCopy() as! NSMutableArray
             tableView.reloadData()
         }
+    }
+    
+    func didSelectRowAtIndexPath(indexPath:NSIndexPath,controller:TicketSceneViewController) {
+        let controllerVC = TicketDescriptionViewController()
+        controllerVC.viewModel.ticketModel = model
+        NavigationPushView(controller, toConroller: controllerVC)
+    }
+    
+    func cellForRowAtIndexPath(indexPath:NSIndexPath,cell:TicketSceneTableViewCell){
+        let model = TicketSessionModel.init(fromDictionary: models.objectAtIndex(indexPath.row) as! NSDictionary)
+        cell.setData(model)
     }
 }

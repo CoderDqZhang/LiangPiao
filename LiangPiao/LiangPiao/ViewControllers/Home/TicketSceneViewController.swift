@@ -61,7 +61,7 @@ extension TicketSceneViewController : UITableViewDelegate {
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        self.navigationController?.pushViewController(TicketDescriptionViewController(), animated: true)
+        viewModel.didSelectRowAtIndexPath(indexPath, controller:self)
     }
 }
 
@@ -85,6 +85,7 @@ extension TicketSceneViewController : UITableViewDataSource {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("TicketSceneTableViewCell", forIndexPath: indexPath) as! TicketSceneTableViewCell
         cell.selectionStyle = .None
+        viewModel.cellForRowAtIndexPath(indexPath, cell: cell)
         return cell
     }
     

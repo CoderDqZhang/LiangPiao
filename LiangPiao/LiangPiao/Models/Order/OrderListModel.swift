@@ -1,111 +1,14 @@
 //
-//  OrderModel.swift
+//  OrderListModel.swift
 //  LiangPiao
 //
-//  Created by Zhang on 07/11/2016.
+//  Created by Zhang on 30/11/2016.
 //  Copyright © 2016 Zhang. All rights reserved.
 //
 
 import UIKit
-class Wxpay : NSObject, NSCoding{
-    
-    
-    
-    /**
-     * Instantiate the instance using the passed dictionary values to set the properties values
-     */
-    init(fromDictionary dictionary: NSDictionary){
-    }
-    
-    /**
-     * Returns all the available property values in the form of NSDictionary object where the key is the approperiate json key and the value is the value of the corresponding property
-     */
-    func toDictionary() -> NSDictionary
-    {
-        let dictionary = NSMutableDictionary()
-        return dictionary
-    }
-    
-    /**
-     * NSCoding required initializer.
-     * Fills the data from the passed decoder
-     */
-    @objc required init(coder aDecoder: NSCoder)
-    {
-        
-    }
-    
-    /**
-     * NSCoding required method.
-     * Encodes mode properties into the decoder
-     */
-    @objc func encodeWithCoder(aCoder: NSCoder)
-    {
-        
-    }
-    
-}
 
-class PayUrl : NSObject, NSCoding{
-    
-    var alipay : String!
-    var wxpay : Wxpay!
-    
-    
-    /**
-     * Instantiate the instance using the passed dictionary values to set the properties values
-     */
-    init(fromDictionary dictionary: NSDictionary){
-        alipay = dictionary["alipay"] as? String
-        if let wxpayData = dictionary["wxpay"] as? NSDictionary{
-            wxpay = Wxpay(fromDictionary: wxpayData)
-        }
-    }
-    
-    /**
-     * Returns all the available property values in the form of NSDictionary object where the key is the approperiate json key and the value is the value of the corresponding property
-     */
-    func toDictionary() -> NSDictionary
-    {
-        let dictionary = NSMutableDictionary()
-        if alipay != nil{
-            dictionary["alipay"] = alipay
-        }
-        if wxpay != nil{
-            dictionary["wxpay"] = wxpay.toDictionary()
-        }
-        return dictionary
-    }
-    
-    /**
-     * NSCoding required initializer.
-     * Fills the data from the passed decoder
-     */
-    @objc required init(coder aDecoder: NSCoder)
-    {
-        alipay = aDecoder.decodeObjectForKey("alipay") as? String
-        wxpay = aDecoder.decodeObjectForKey("wxpay") as? Wxpay
-        
-    }
-    
-    /**
-     * NSCoding required method.
-     * Encodes mode properties into the decoder
-     */
-    @objc func encodeWithCoder(aCoder: NSCoder)
-    {
-        if alipay != nil{
-            aCoder.encodeObject(alipay, forKey: "alipay")
-        }
-        if wxpay != nil{
-            aCoder.encodeObject(wxpay, forKey: "wxpay")
-        }
-        
-    }
-    
-}
-
-class OrderModel : NSObject, NSCoding{
+class OrderList : NSObject, NSCoding{
     
     var created : String!
     var deliveryPrice : Int!
@@ -116,12 +19,14 @@ class OrderModel : NSObject, NSCoding{
     var orderId : String!
     var payDate : String!
     var payType : Int!
-    var payUrl : PayUrl!
     var phone : String!
     var price : Int!
     var reason : String!
+    var session : TicketSessionModel!
+    var show : HomeTicketModel!
     var status : Int!
     var statusDesc : String!
+    var ticket : TicketList!
     var ticketCount : Int!
     var total : Int!
     
@@ -139,14 +44,20 @@ class OrderModel : NSObject, NSCoding{
         orderId = dictionary["order_id"] as? String
         payDate = dictionary["pay_date"] as? String
         payType = dictionary["pay_type"] as? Int
-        if let payUrlData = dictionary["pay_url"] as? NSDictionary{
-            payUrl = PayUrl(fromDictionary: payUrlData)
-        }
         phone = dictionary["phone"] as? String
         price = dictionary["price"] as? Int
         reason = dictionary["reason"] as? String
+        if let sessionData = dictionary["session"] as? NSDictionary{
+            session = TicketSessionModel(fromDictionary: sessionData)
+        }
+        if let showData = dictionary["show"] as? NSDictionary{
+            show = HomeTicketModel(fromDictionary: showData)
+        }
         status = dictionary["status"] as? Int
         statusDesc = dictionary["status_desc"] as? String
+        if let ticketData = dictionary["ticket"] as? NSDictionary{
+            ticket = TicketList(fromDictionary: ticketData)
+        }
         ticketCount = dictionary["ticket_count"] as? Int
         total = dictionary["total"] as? Int
     }
@@ -184,9 +95,6 @@ class OrderModel : NSObject, NSCoding{
         if payType != nil{
             dictionary["pay_type"] = payType
         }
-        if payUrl != nil{
-            dictionary["pay_url"] = payUrl.toDictionary()
-        }
         if phone != nil{
             dictionary["phone"] = phone
         }
@@ -196,11 +104,20 @@ class OrderModel : NSObject, NSCoding{
         if reason != nil{
             dictionary["reason"] = reason
         }
+        if session != nil{
+            dictionary["session"] = session.toDictionary()
+        }
+        if show != nil{
+            dictionary["show"] = show.toDictionary()
+        }
         if status != nil{
             dictionary["status"] = status
         }
         if statusDesc != nil{
             dictionary["status_desc"] = statusDesc
+        }
+        if ticket != nil{
+            dictionary["ticket"] = ticket.toDictionary()
         }
         if ticketCount != nil{
             dictionary["ticket_count"] = ticketCount
@@ -226,12 +143,14 @@ class OrderModel : NSObject, NSCoding{
         orderId = aDecoder.decodeObjectForKey("order_id") as? String
         payDate = aDecoder.decodeObjectForKey("pay_date") as? String
         payType = aDecoder.decodeObjectForKey("pay_type") as? Int
-        payUrl = aDecoder.decodeObjectForKey("pay_url") as? PayUrl
         phone = aDecoder.decodeObjectForKey("phone") as? String
         price = aDecoder.decodeObjectForKey("price") as? Int
         reason = aDecoder.decodeObjectForKey("reason") as? String
+        session = aDecoder.decodeObjectForKey("session") as? TicketSessionModel
+        show = aDecoder.decodeObjectForKey("show") as? HomeTicketModel
         status = aDecoder.decodeObjectForKey("status") as? Int
         statusDesc = aDecoder.decodeObjectForKey("status_desc") as? String
+        ticket = aDecoder.decodeObjectForKey("ticket") as? TicketList
         ticketCount = aDecoder.decodeObjectForKey("ticket_count") as? Int
         total = aDecoder.decodeObjectForKey("total") as? Int
         
@@ -270,9 +189,6 @@ class OrderModel : NSObject, NSCoding{
         if payType != nil{
             aCoder.encodeObject(payType, forKey: "pay_type")
         }
-        if payUrl != nil{
-            aCoder.encodeObject(payUrl, forKey: "pay_url")
-        }
         if phone != nil{
             aCoder.encodeObject(phone, forKey: "phone")
         }
@@ -282,14 +198,109 @@ class OrderModel : NSObject, NSCoding{
         if reason != nil{
             aCoder.encodeObject(reason, forKey: "reason")
         }
+        if session != nil{
+            aCoder.encodeObject(session, forKey: "session")
+        }
+        if show != nil{
+            aCoder.encodeObject(show, forKey: "show")
+        }
         if status != nil{
             aCoder.encodeObject(status, forKey: "status")
         }
         if statusDesc != nil{
             aCoder.encodeObject(statusDesc, forKey: "status_desc")
         }
+        if ticket != nil{
+            aCoder.encodeObject(ticket, forKey: "ticket")
+        }
         if ticketCount != nil{
             aCoder.encodeObject(ticketCount, forKey: "ticket_count")
+        }
+        if total != nil{
+            aCoder.encodeObject(total, forKey: "total")
+        }
+        
+    }
+    
+}
+
+
+class OrderListModel : NSObject, NSCoding{
+    
+    var hasNext : Bool!
+    var nextPage : Int!
+    var orderList : [OrderList]!
+    var total : Int!
+    
+    
+    /**
+     * Instantiate the instance using the passed dictionary values to set the properties values
+     */
+    init(fromDictionary dictionary: NSDictionary){
+        hasNext = dictionary["has_next"] as? Bool
+        nextPage = dictionary["next_page"] as? Int
+        orderList = [OrderList]()
+        if let orderListArray = dictionary["order_list"] as? [NSDictionary]{
+            for dic in orderListArray{
+                let value = OrderList(fromDictionary: dic)
+                orderList.append(value)
+            }
+        }
+        total = dictionary["total"] as? Int
+    }
+    
+    /**
+     * Returns all the available property values in the form of NSDictionary object where the key is the approperiate json key and the value is the value of the corresponding property
+     */
+    func toDictionary() -> NSDictionary
+    {
+        let dictionary = NSMutableDictionary()
+        if hasNext != nil{
+            dictionary["has_next"] = hasNext
+        }
+        if nextPage != nil{
+            dictionary["next_page"] = nextPage
+        }
+        if orderList != nil{
+            var dictionaryElements = [NSDictionary]()
+            for orderListElement in orderList {
+                dictionaryElements.append(orderListElement.toDictionary())
+            }
+            dictionary["order_list"] = dictionaryElements
+        }
+        if total != nil{
+            dictionary["total"] = total
+        }
+        return dictionary
+    }
+    
+    /**
+     * NSCoding required initializer.
+     * Fills the data from the passed decoder
+     */
+    @objc required init(coder aDecoder: NSCoder)
+    {
+        hasNext = aDecoder.decodeObjectForKey("has_next") as? Bool
+        nextPage = aDecoder.decodeObjectForKey("next_page") as? Int
+        orderList = aDecoder.decodeObjectForKey("order_list") as? [OrderList]
+        total = aDecoder.decodeObjectForKey("total") as? Int
+        
+    }
+    
+    /**
+     * NSCoding required method.
+     * Encodes mode properties into the decoder
+     */
+    @objc func encodeWithCoder(aCoder: NSCoder)
+    {
+        if hasNext != nil{
+            aCoder.encodeObject(hasNext, forKey: "has_next")
+        }
+        if nextPage != nil{
+            aCoder.encodeObject(nextPage, forKey: "next_page")
+        }
+        if orderList != nil{
+            aCoder.encodeObject(orderList, forKey: "order_list")
         }
         if total != nil{
             aCoder.encodeObject(total, forKey: "total")

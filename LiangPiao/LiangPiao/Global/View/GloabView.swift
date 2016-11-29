@@ -47,9 +47,9 @@ class HomeSearchNavigationBar: UIView {
         searchField.layer.cornerRadius = 4.0
         searchField.drawPlaceholderInRect(CGRectMake(20, 0, searchField.frame.size.width, searchField.frame.size.height))
         if font == nil {
-            searchField.attributedPlaceholder = NSAttributedString.init(string: "搜索演出名称、演员、场馆...", attributes: [NSFontAttributeName:HomeSearch_Font!,NSForegroundColorAttributeName:UIColor.init(hexString: HomePage_Search_Color)])
+            searchField.attributedPlaceholder = NSAttributedString.init(string: "搜索演出名称、演员...", attributes: [NSFontAttributeName:HomeSearch_Font!,NSForegroundColorAttributeName:UIColor.init(hexString: HomePage_Search_Color)])
         }else{
-            searchField.attributedPlaceholder = NSAttributedString.init(string: "搜索演出名称、演员、场馆...", attributes: [NSFontAttributeName:font!,NSForegroundColorAttributeName:UIColor.init(hexString: HomePage_Search_Color)])
+            searchField.attributedPlaceholder = NSAttributedString.init(string: "搜索演出名称、演员...", attributes: [NSFontAttributeName:font!,NSForegroundColorAttributeName:UIColor.init(hexString: HomePage_Search_Color)])
         }
         searchField.delegate = self
         searchField.contentVerticalAlignment = UIControlContentVerticalAlignment.Center
@@ -59,7 +59,7 @@ class HomeSearchNavigationBar: UIView {
         searchField.leftViewMode = .Always
         searchField.returnKeyType = .Search
         searchField.font = HomeSearch_Default_Font
-        searchField.attributedPlaceholder = NSAttributedString.init(string: "搜索演出名称、演员、场馆...", attributes: [NSFontAttributeName:HomeSearch_Font!,NSForegroundColorAttributeName:UIColor.init(hexString: HomePage_Search_Color)])
+        searchField.attributedPlaceholder = NSAttributedString.init(string: "搜索演出名称、演员...", attributes: [NSFontAttributeName:HomeSearch_Font!,NSForegroundColorAttributeName:UIColor.init(hexString: HomePage_Search_Color)])
         searchField.textColor = UIColor.init(hexString: App_Theme_Text_Color)
         searchField.clearButtonMode = .Always
         self.addSubview(searchField)
@@ -195,6 +195,13 @@ class GlobalTicketStatus : UIView {
     var viewWidth:CGFloat = 0
     init(frame:CGRect, titles:[String], types:NSArray?) {
         super.init(frame:frame)
+        self.setUpView(titles, types: types)
+    }
+    
+    func setUpView(titles:[String], types:NSArray?){
+        for view in self.subviews {
+            view.removeFromSuperview()
+        }
         var originX:CGFloat = 0
         var i = 1
         for str in titles {

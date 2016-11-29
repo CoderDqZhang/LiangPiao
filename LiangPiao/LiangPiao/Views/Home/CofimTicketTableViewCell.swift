@@ -29,7 +29,7 @@ class CofimTicketTableViewCell: UITableViewCell {
         ticketPhoto = UIImageView()
         ticketPhoto.layer.cornerRadius = 3
         ticketPhoto.layer.masksToBounds = true
-        ticketPhoto.image = UIImage.init(named: "Feeds_Default_Cover")
+        ticketPhoto.image = UIImage.init(named: "Feeds_Default_Cover_02")
         self.contentView.addSubview(ticketPhoto)
         
         ticketTitle = UILabel()
@@ -46,11 +46,6 @@ class CofimTicketTableViewCell: UITableViewCell {
         
         ticketLocation = UILabel()
         ticketLocation.text = "场馆：大隐剧院 朝阳区光华路9号世贸天阶 C 座时尚大厦5楼"
-//        let attributedString = NSMutableAttributedString(string: ticketLocation.text!)
-//        let paragraphStyle = NSMutableParagraphStyle()
-//        paragraphStyle.lineSpacing = 1.5
-//        attributedString.addAttribute(NSParagraphStyleAttributeName, value: paragraphStyle, range: NSRange(location: 0, length: ticketLocation.text!.length))
-//        ticketLocation.attributedText = attributedString
         UILabel.changeLineSpaceForLabel(ticketLocation, withSpace: 3.0)
         ticketLocation.numberOfLines = 0
         ticketLocation.textColor = UIColor.init(hexString: Home_OrderConfirmCell_Info_Color)
@@ -73,6 +68,24 @@ class CofimTicketTableViewCell: UITableViewCell {
         
     }
     
+    func setData(model:HomeTicketModel, ticketModel:TicketList, sessionModel:TicketSessionModel) {
+        ticketPhoto.sd_setImageWithURL(NSURL.init(string: model.cover), placeholderImage: UIImage.init(named: "Feeds_Default_Cover_02")) { (image, error, cacheType, url) in
+        }
+        ticketTitle.text = model.title
+        ticketTime.text = "时间：\(sessionModel.startTime)"
+        ticketLocation.text = "场馆：\(model.venue.name)"
+        ticketMuch.text = "票面：\(ticketModel.originalTicket.price)"
+        var str = ""
+        if ticketModel.seatType == 1 {
+            str = "连座"
+        }else if ticketModel.seatType == 2 {
+            str = "散座"
+        }else {
+            str = "连座"
+        }
+        ticketRow.text = "座位：\(str)"
+    }
+    
     override func updateConstraints() {
         if !self.didMakeConstraints {
             ticketPhoto.snp_makeConstraints(closure: { (make) in
@@ -90,25 +103,25 @@ class CofimTicketTableViewCell: UITableViewCell {
             })
             
             ticketTime.snp_makeConstraints(closure: { (make) in
-                make.top.equalTo(self.ticketTitle.snp_bottom).offset(9)
+                make.bottom.equalTo(self.ticketLocation.snp_top).offset(-2)
                 make.left.equalTo(self.ticketPhoto.snp_right).offset(12)
                 make.right.equalTo(self.contentView.snp_right).offset(-15)
             })
             
             ticketLocation.snp_makeConstraints(closure: { (make) in
-                make.top.equalTo(self.ticketTime.snp_bottom).offset(2)
+                make.bottom.equalTo(self.ticketMuch.snp_top).offset(-2)
                 make.left.equalTo(self.ticketPhoto.snp_right).offset(12)
                 make.right.equalTo(self.contentView.snp_right).offset(-15)
             })
             
             ticketMuch.snp_makeConstraints(closure: { (make) in
-                make.top.equalTo(self.ticketLocation.snp_bottom).offset(2)
+                make.bottom.equalTo(self.ticketRow.snp_top).offset(-2)
                 make.left.equalTo(self.ticketPhoto.snp_right).offset(12)
             })
             
             ticketRow.snp_makeConstraints(closure: { (make) in
-                make.top.equalTo(self.ticketMuch.snp_bottom).offset(2)
                 make.left.equalTo(self.ticketPhoto.snp_right).offset(12)
+                make.bottom.equalTo(self.contentView.snp_bottom).offset(-20)
             })
             
             self.didMakeConstraints = true

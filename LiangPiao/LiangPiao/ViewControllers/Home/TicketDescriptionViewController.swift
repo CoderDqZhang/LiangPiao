@@ -21,6 +21,7 @@ class TicketDescriptionViewController: UIViewController {
         self.setUpView()
         self.setUpNavigationItems()
         self.talKingDataPageName = "演出详情"
+        self.bindeViewModel()
         // Do any additional setup after loading the view.
     }
     
@@ -51,6 +52,9 @@ class TicketDescriptionViewController: UIViewController {
         self.view.addSubview(ticketToolsView)
     }
 
+    func bindeViewModel(){
+        viewModel.requestTicketSession(tableView)
+    }
     
     func setUpNavigationItems() {
         
@@ -105,14 +109,14 @@ class TicketDescriptionViewController: UIViewController {
         switch tag {
         case 1:
             if self.view.viewWithTag(200) != nil { self.view.viewWithTag(200)?.removeFromSuperview()}
-            if self.view.viewWithTag(300) != nil { self.view.viewWithTag(300)?.removeFromSuperview()}
             if self.view.viewWithTag(100) == nil {
-                let ticketPrice = ToolView(frame: CGRectMake(0, frame.origin.y + 42, SCREENWIDTH, SCREENHEIGHT), data: ["220","250","820","900"])
+                let ticketPrice = ToolView(frame: CGRectMake(0, frame.origin.y + 42, SCREENWIDTH, SCREENHEIGHT), data: viewModel.ticketPriceArray)
                 ticketPrice.tag = 100
                 ticketPrice.toolViewSelectIndexPathRow = { indexPath, str in
                     Notification(ToolViewNotifacationName, value: "100")
                     self.view.viewWithTag(100)?.removeFromSuperview()
                     self.isShowTicketNavigationBar(false)
+                    self.viewModel.sortTickeByOriginTicketPrice(str as? NSNumber, controller:self)
                 }
                 self.view.addSubview(ticketPrice)
             }else{
@@ -120,35 +124,28 @@ class TicketDescriptionViewController: UIViewController {
             }
         case 2:
             if self.view.viewWithTag(100) != nil { self.view.viewWithTag(100)?.removeFromSuperview()}
-            if self.view.viewWithTag(300) != nil { self.view.viewWithTag(300)?.removeFromSuperview()}
             if self.view.viewWithTag(200) == nil {
-                let ticketRow = ToolView(frame: CGRectMake(0, frame.origin.y + 42, SCREENWIDTH, SCREENHEIGHT), data: ["1","2","3","4","5"])
+                let ticketRow = ToolView(frame: CGRectMake(0, frame.origin.y + 42, SCREENWIDTH, SCREENHEIGHT), data: viewModel.ticketRowArray)
                 ticketRow.tag = 200
                 ticketRow.toolViewSelectIndexPathRow = { indexPath, str in
                     Notification(ToolViewNotifacationName, value: "200")
                     self.view.viewWithTag(200)?.removeFromSuperview()
                     self.isShowTicketNavigationBar(false)
+                    self.viewModel.sortTickeByRowTicketPrice(str as? String, controller:self)
                 }
                 self.view.addSubview(ticketRow)
             }else{
                 self.view.viewWithTag(200)?.removeFromSuperview()
             }
         default:
-            if self.view.viewWithTag(100) != nil { self.view.viewWithTag(100)?.removeFromSuperview()}
-            if self.view.viewWithTag(200) != nil { self.view.viewWithTag(200)?.removeFromSuperview()}
-            if self.view.viewWithTag(300) == nil {
-                let sortPrice = ToolView(frame: CGRectMake(0, frame.origin.y + 42, SCREENWIDTH, SCREENHEIGHT), data: ["22","33","44","55","66"])
-                sortPrice.toolViewSelectIndexPathRow = { indexPath, str in
-                    Notification(ToolViewNotifacationName, value: "300")
-                    self.view.viewWithTag(300)?.removeFromSuperview()
-                    self.isShowTicketNavigationBar(false)
-                }
-                sortPrice.tag = 300
-                self.view.addSubview(sortPrice)
-            }else{
-                self.view.viewWithTag(300)?.removeFromSuperview()
-            }
+            break
         }
+    }
+    
+    func ticketToolsViewSortPrice(type:TicketSortType){
+        if self.view.viewWithTag(100) != nil { self.view.viewWithTag(100)?.removeFromSuperview()}
+        if self.view.viewWithTag(200) != nil { self.view.viewWithTag(200)?.removeFromSuperview()}
+        viewModel.sortTicket(self, type:type)
     }
     
     func updateTicketViewFrame(tag:NSInteger){
@@ -170,8 +167,7 @@ extension TicketDescriptionViewController : UITableViewDelegate {
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        self.navigationController?.pushViewController(TicketConfirmViewController(), animated: true)
-        
+       viewModel.tableViewDidSelectRowAtIndexPath(self, indexPath: indexPath)
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
@@ -179,8 +175,6 @@ extension TicketDescriptionViewController : UITableViewDelegate {
             self.updateTicketViewFrame(100)
         }else if self.view.viewWithTag(200) != nil {
             self.updateTicketViewFrame(200)
-        }else if self.view.viewWithTag(300) != nil {
-            self.updateTicketViewFrame(300)
         }
         
         if scrollView.contentOffset.y > 264 + viewModel.tableViewHeight(2) {
@@ -198,11 +192,11 @@ extension TicketDescriptionViewController : UITableViewDelegate {
 
 extension TicketDescriptionViewController : UITableViewDataSource {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 20
+        return viewModel.tableViewnumberOfRowsInSection(section)
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
+        return viewModel.numberOfSectionsInTableView()
     }
     
     func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -217,10 +211,12 @@ extension TicketDescriptionViewController : UITableViewDataSource {
         switch indexPath.row {
         case 0:
             let cell = tableView.dequeueReusableCellWithIdentifier("TicketDescripTableViewCell", forIndexPath: indexPath) as! TicketDescripTableViewCell
+            viewModel.configCellTicketDescripTableViewCell(cell)
             cell.selectionStyle = .None
             return cell
         case 1:
             let cell = tableView.dequeueReusableCellWithIdentifier("TicketNumberTableViewCell", forIndexPath: indexPath) as! TicketNumberTableViewCell
+            viewModel.configCellTicketNumberTableViewCell(cell)
             cell.selectionStyle = .None
             return cell
         case 2:
@@ -239,9 +235,13 @@ extension TicketDescriptionViewController : UITableViewDataSource {
                     self.ticketToolsViewShow(tag, frame: rect)
                 }
             }
+            cell.ticketCellSortClouse = { tag,type in
+                self.ticketToolsViewSortPrice(type)
+            }
             return cell
         default:
             let cell = tableView.dequeueReusableCellWithIdentifier("TickerInfoTableViewCell", forIndexPath: indexPath) as! TickerInfoTableViewCell
+            viewModel.configCellTickerInfoTableViewCell(cell, indexPath:indexPath)
             cell.selectionStyle = .None
             return cell
         }

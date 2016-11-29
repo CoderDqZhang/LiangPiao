@@ -12,7 +12,7 @@ enum AddressType {
     case editType
 }
 
-typealias AddressInfoClouse = (name:String, address:String) -> Void
+typealias AddressInfoClouse = (model:AddressModel) -> Void
 
 class AddressViewController: UIViewController {
 
@@ -75,7 +75,7 @@ class AddressViewController: UIViewController {
         
         viewModel.addressTableViewSelect = { indexPath in
             if self.addressInfoClouse != nil {
-                self.addressInfoClouse(name: "ddddd",address:"dsdfsdfsdf")
+                self.addressInfoClouse(model: AddressModel.init(fromDictionary: self.viewModel.addressModels[indexPath.row] as! NSDictionary))
             }
             self.navigationController?.popViewControllerAnimated(true)
         }

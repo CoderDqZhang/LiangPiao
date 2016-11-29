@@ -23,13 +23,14 @@ class NumberTickView: UIView {
         self.layer.borderColor = UIColor.init(hexString: Home_Ticker_DescripNumber_bordColor).CGColor
         self.layer.borderWidth = 0.5
         downButton = UIButton(type: .Custom)
-        downButton.setImage(UIImage.init(named: "Icon_Reduce_Normal"), forState: .Normal)
+        downButton.setImage(UIImage.init(named: "Icon_Reduce_Disable"), forState: .Normal)
         downButton.frame = CGRectMake(0, 0, NumberTickButtonWidth, NumberTickButtonHeight)
         downButton.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (object) in
             if self.number > 1 {
                 self.number = self.number - 1
                 self.numberLabel.text = "\(self.number)"
             }
+            self.setNumberDownColor()
         }
         self.addSubview(downButton)
         
@@ -38,6 +39,7 @@ class NumberTickView: UIView {
         upButton.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (object) in
             self.number = self.number + 1
             self.numberLabel.text = "\(self.number)"
+            self.setNumberDownColor()
         }
         upButton.frame = CGRectMake(self.frame.size.width - NumberTickButtonWidth, 0, NumberTickButtonWidth, NumberTickButtonHeight)
         self.addSubview(upButton)
@@ -50,6 +52,17 @@ class NumberTickView: UIView {
         numberLabel.frame = CGRectMake(NumberTickButtonWidth, 0, self.frame.size.width - 2 * NumberTickButtonWidth, NumberTickButtonHeight)
         numberLabel.textAlignment = .Center
         self.addSubview(numberLabel)
+        
+        
+    }
+    
+    func setNumberDownColor(){
+        if self.number == 1 {
+            self.downButton.setImage(UIImage.init(named: "Icon_Reduce_Disable"), forState: .Normal)
+        }else{
+            self.downButton.setImage(UIImage.init(named: "Icon_Reduce_Normal"), forState: .Normal)
+        }
+        
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -82,10 +95,9 @@ class TicketNumberTableViewCell: UITableViewCell {
         
         numberTickView = NumberTickView(frame: CGRectMake(SCREENWIDTH - 140 - 15, 22.5, 140, 34))
         numberTickView.backgroundColor = UIColor.whiteColor()
+        
         self.addSubview(numberTickView)
-        
-        
-        
+    
         self.updateConstraintsIfNeeded()
     }
     

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MessageUI
 
 class SettingViewModel: NSObject {
 
@@ -53,7 +54,11 @@ class SettingViewModel: NSObject {
                 let controllers = storyBoard.instantiateViewControllerWithIdentifier("AboutUsViewController") as! AboutUsViewController
                 controllers.hidesBottomBarWhenPushed = true
                 controller.navigationController?.pushViewController(controllers, animated: true)
+            case 1:
+                self.presentEmailViewController(controller)
+                break;
             default:
+//                UIApplication.sharedApplication().openURL(NSURL.init(string: "itms// itunes.apple.com/gb/app/yi-dong-cai-bian/id1170039060?mt=8")!)
                 break
             }
         default:
@@ -63,4 +68,24 @@ class SettingViewModel: NSObject {
             }
         }
     }
+    
+    func presentEmailViewController(controller:SettingViewController){
+        guard MFMailComposeViewController.canSendMail() else {
+            MainThreadAlertShow("不能发送邮箱，请设置邮箱账号", view: controller.view)
+            return
+        }
+        let mailVC = MFMailComposeViewController()
+        mailVC.mailComposeDelegate = self // 代理
+        mailVC.setSubject("意见反馈") // 主题
+        mailVC.setToRecipients(["feedback@liangpiao.me"]) // 收件人
+//        mailVC.setCcRecipients(["CcRecipients@qq.com"]) // 抄送
+//        mailVC.setBccRecipients(["bccRecipients@qq.com"]) // 密送
+        mailVC.setMessageBody("相关内容", isHTML: false) // 内容，允许使用html内容
+        
+        controller.presentViewController(mailVC, animated: true, completion: nil)
+    }
+}
+
+extension SettingViewModel : MFMailComposeViewControllerDelegate {
+    
 }

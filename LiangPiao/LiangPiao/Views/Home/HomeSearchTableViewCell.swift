@@ -73,7 +73,7 @@ class HomeSearchTableViewCell: UITableViewCell {
         searchField = HomeBandSearchField()
         searchField.layer.cornerRadius = 4.0
         searchField.drawPlaceholderInRect(CGRectMake(20, 0, searchField.frame.size.width, searchField.frame.size.height))
-        searchField.attributedPlaceholder = NSAttributedString.init(string: "搜索演出名称、演员、场馆...", attributes: [NSFontAttributeName:HomeSearch_Font!,NSForegroundColorAttributeName:UIColor.init(hexString: HomePage_Search_Color)])
+        searchField.attributedPlaceholder = NSAttributedString.init(string: "搜索演出名称、演员...", attributes: [NSFontAttributeName:HomeSearch_Font!,NSForegroundColorAttributeName:UIColor.init(hexString: HomePage_Search_Color)])
         searchField.layer.borderColor = UIColor.init(hexString: App_Theme_Shaddown_Color).CGColor
         searchField.layer.borderWidth = 0.5
         searchField.layer.masksToBounds = true

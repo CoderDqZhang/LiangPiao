@@ -77,12 +77,16 @@ class Tools: NSObject {
     func showErrorMessage(errorDic:AnyObject) ->MBProgressHUD {
         let errorModel = ErrorModel.init(fromDictionary: errorDic as! NSDictionary)
         var errorMsg:String = ""
-        for i in 0...errorModel.errors.count - 1 {
-            let error = errorModel.errors[i]
-            print("errorType = \(error.type)--->ErrorString=\(error.error[0])")
-            errorMsg =  error.error[0]
+        if errorModel.code != nil {
+            for i in 0...errorModel.errors.count - 1 {
+                let error = errorModel.errors[i]
+                print("errorType = \(error.type)--->ErrorString=\(error.error[0])")
+                errorMsg =  error.error[0]
+            }
+            return self.showMessage(KWINDOWDS!, msg:errorMsg , autoHidder: true)
+        }else{
+            return self.showMessage(KWINDOWDS!, msg:"未知错误" , autoHidder: true)
         }
-        return self.showMessage(KWINDOWDS!, msg:errorMsg , autoHidder: true)
     }
     
     func showNetWorkError(error:AnyObject) ->MBProgressHUD {

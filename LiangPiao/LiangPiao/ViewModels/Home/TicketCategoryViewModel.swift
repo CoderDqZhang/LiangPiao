@@ -55,9 +55,18 @@ class TicketCategoryViewModel: NSObject {
             }else if model.name == "体育赛事" {
                 categoryModels.replaceObjectAtIndex(4, withObject: model)
             }else if model.name == "舞蹈芭蕾" {
-                categoryModels.replaceObjectAtIndex(5, withObject: model)
+                if tempCategory.count == 5 {
+                    categoryModels.replaceObjectAtIndex(5, withObject: model)
+                }else{
+                    categoryModels.replaceObjectAtIndex(5, withObject: model)
+
+                }
             }else if model.name == "曲苑杂技" {
-                categoryModels.replaceObjectAtIndex(6, withObject: model)
+                if tempCategory.count == 5 {
+                    categoryModels.replaceObjectAtIndex(5, withObject: model)
+                }else{
+                    categoryModels.replaceObjectAtIndex(6, withObject: model)
+                }
             }
         }
         
@@ -84,7 +93,7 @@ class TicketCategoryViewModel: NSObject {
         if index == 1000 {
             model = categoryModels.objectAtIndex(selectIdex) as! TicketCategorys
             let recommentModel:RecommentTickes = reconmmendModels[selectIdex] as! RecommentTickes
-            url = "\(TickeCategotyList)?cat_id=\(recommentModel.nextStart)"
+            url = "\(TickeCategotyList)?cat_id=\(model.id)&start=\(recommentModel.nextStart)"
         }else{
             model = categoryModels.objectAtIndex(index) as! TicketCategorys
             url = "\(TickeCategotyList)?cat_id=\(model.id)"
@@ -93,11 +102,23 @@ class TicketCategoryViewModel: NSObject {
         BaseNetWorke.sharedInstance.getUrlWithString(url, parameters: nil).subscribeNext { (resultDic) in
             let resultModels =  RecommentTickes.init(fromDictionary: resultDic as! NSDictionary)
             if index == 1000 {
-                self.reconmmendModels.replaceObjectAtIndex(self.selectIdex, withObject: resultModels)
+                let recommentTickes = self.reconmmendModels.objectAtIndex(self.selectIdex) as! RecommentTickes
+                recommentTickes.hasNext = resultModels.hasNext
+                recommentTickes.nextStart = resultModels.nextStart
+                recommentTickes.showList.appendContentsOf(resultModels.showList)
+                self.reconmmendModels.replaceObjectAtIndex(self.selectIdex, withObject: recommentTickes)
+                if !resultModels.hasNext {
+                    controller.tableView.mj_footer.endRefreshingWithNoMoreData()
+                }else{
+                    controller.tableView.mj_footer.endRefreshing()
+                }
             }else{
                 self.reconmmendModels.replaceObjectAtIndex(index, withObject: resultModels)
             }
             controller.isLoadData = true
+            if controller.tableView.mj_footer == nil && (resultModels.hasNext != nil) && resultModels.hasNext == true {
+                controller.setUpLoadMoreData()
+            }
             controller.tableView.reloadData()
         }
     }
@@ -137,40 +158,32 @@ class TicketCategoryViewModel: NSObject {
     
     func numberOfRowsInSection() ->Int {
         let pageController = pageControllers.objectAtIndex(willAddViewController) as! BaseTicketsPageViewController
-        if pageController.isLoadData {
+        if pageController.isLoadData && (reconmmendModels[selectIdex] is RecommentTickes) {
             return (reconmmendModels[selectIdex] as! RecommentTickes).showList.count
         }else{
             return 0
         }
-//        if reconmmendModels[selectIdex] is RecommentTickes && willAddViewController == selectIdex {
-//            return (reconmmendModels[selectIdex] as! RecommentTickes).showList.count
-//        }
     }
     
     func tableViewCellForRowAtIndexPath(cell:RecommendTableViewCell, indexPath:NSIndexPath) {
         if reconmmendModels[selectIdex] is RecommentTickes {
             let recommentModel:RecommentTickes = reconmmendModels[selectIdex] as! RecommentTickes
-            cell.setData(recommentModel.showList[indexPath.row])
+            if recommentModel.showList.count > indexPath.row {
+                cell.setData(recommentModel.showList[indexPath.row])
+            }
         }
     }
     
     func tableViewDidSelectRowAtIndexPath(indexPath:NSIndexPath, controller:BaseTicketsPageViewController){
         let recommentModel:RecommentTickes = reconmmendModels[selectIdex] as! RecommentTickes
-        self .getTicketScent(recommentModel.showList[indexPath.row], controller: controller)
-    }
-    
-    func getTicketScent(model:HomeTicketModel,controller:BaseTicketsPageViewController){
-        let url = "\(TickeSession)\(model.id)/session"
-        BaseNetWorke.sharedInstance.getUrlWithString(url, parameters: nil).subscribeNext { (resultDic) in
-            let resultModels =  NSMutableArray.mj_objectArrayWithKeyValuesArray(resultDic)
-            if resultModels.count > 1{
-                let controllerVC = TicketSceneViewController()
-                controllerVC.viewModel.model = model
-                NavigationPushView(controller, toConroller: controllerVC)
-            }else{
-                let controllerVC = TicketDescriptionViewController()
-                NavigationPushView(controller, toConroller: controllerVC)
-            }
+        if recommentModel.showList[indexPath.row].sessionCount == 1 {
+            let controllerVC = TicketDescriptionViewController()
+            controllerVC.viewModel.ticketModel = recommentModel.showList[indexPath.row]
+            NavigationPushView(controller, toConroller: controllerVC)
+        }else{
+            let controllerVC = TicketSceneViewController()
+            controllerVC.viewModel.model = recommentModel.showList[indexPath.row]
+            NavigationPushView(controller, toConroller: controllerVC)
         }
     }
 }

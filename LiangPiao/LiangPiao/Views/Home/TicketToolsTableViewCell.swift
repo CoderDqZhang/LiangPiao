@@ -9,7 +9,7 @@
 import UIKit
 import ReactiveCocoa
 
-typealias ToolViewSelectIndexPathRow = (indexPath:NSIndexPath, str:String) -> Void
+typealias ToolViewSelectIndexPathRow = (indexPath:NSIndexPath, str:AnyObject) -> Void
 
 class ToolView:UIView {
     
@@ -20,22 +20,19 @@ class ToolView:UIView {
     
     init(frame: CGRect,data:NSArray) {
         super.init(frame: frame)
-        
-        
-        
         let image = UIImage.init(color: UIColor.init(hexString: Home_Recommend_Title_Color, andAlpha: 0.6), size: frame.size)
-//        let newImage = image.applyBlurWithRadius(0.1, tintColor: UIColor.init(hexString: Home_Recommend_Title_Color, andAlpha: 0.6), saturationDeltaFactor: 0.8, maskImage: nil) as UIImage
-//        let newImage = image.applyTintEffectWithColor(UIColor.init(hexString: Home_Recommend_Title_Color))
+
         let imageView = UIImageView(image: image)
         imageView.frame = CGRectMake(0, 0, frame.size.width, frame.size.height)
         self.addSubview(imageView)
         self.backgroundColor = UIColor.init(red: 56.0/255.0, green: 66.0/255.0, blue: 73.0/255.0, alpha: 0.9)
         
         dataArray = NSArray(array: data as [AnyObject], copyItems: true)
-        singnalTap = UITapGestureRecognizer(target: self, action: #selector(ToolView.viewSignalTap(_:)))
-        singnalTap.numberOfTapsRequired = 1
-        singnalTap.numberOfTouchesRequired = 1
-        self.addGestureRecognizer(singnalTap)
+        
+//        singnalTap = UITapGestureRecognizer(target: self, action: #selector(ToolView.viewSignalTap(_:)))
+//        singnalTap.numberOfTapsRequired = 1
+//        singnalTap.numberOfTouchesRequired = 1
+//        self.addGestureRecognizer(singnalTap)
         
         let effectView = UIVisualEffectView(effect: UIBlurEffect.init(style: .Light))
         effectView.frame = self.frame
@@ -49,7 +46,7 @@ class ToolView:UIView {
     
     func viewSignalTap(sender:UITapGestureRecognizer) {
         if toolViewSelectIndexPathRow != nil {
-            self.toolViewSelectIndexPathRow(indexPath:NSIndexPath(forRow: 0, inSection: 0), str: "")
+//            self.toolViewSelectIndexPathRow(indexPath:NSIndexPath(forRow: 0, inSection: 0), str: "")
         }
     }
     
@@ -58,7 +55,7 @@ class ToolView:UIView {
     }
     
     func setUpTableView(){
-        tableView = UITableView(frame: CGRectMake(0,0,SCREENWIDTH, (CGFloat(dataArray.count) + 1) * 50), style: .Plain)
+        tableView = UITableView(frame: CGRectMake(0,0,SCREENWIDTH, CGFloat(6 * 50)), style: .Plain)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .None
@@ -78,7 +75,7 @@ extension ToolView : UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.row != 0 {
             if toolViewSelectIndexPathRow != nil {
-                self.toolViewSelectIndexPathRow(indexPath: indexPath, str: dataArray[indexPath.row - 1] as! String)
+                self.toolViewSelectIndexPathRow(indexPath: indexPath, str: dataArray[indexPath.row - 1])
             }
         }
     }
@@ -101,7 +98,7 @@ extension ToolView : UITableViewDataSource {
             detailLabel.textColor = UIColor.init(hexString: Home_Ticker_Tools_Table_nColor)
         }else{
             detailLabel.textColor = UIColor.init(hexString: Home_Ticker_Tools_Table_sColor)
-            detailLabel.text = dataArray[indexPath.row - 1] as? String
+            detailLabel.text = "\(dataArray[indexPath.row - 1])"
         }
         detailLabel.font = Home_Ticker_Tools_Font
         cell?.contentView.addSubview(detailLabel)
@@ -122,34 +119,49 @@ enum TicketToolsViewType {
     case center
     case right
 }
+enum TicketSortType {
+    case downType
+    case upType
+    case noneType
+}
 
 typealias TicketToolsClouse = (tag:NSInteger) -> Void
+typealias TicketToolsSortClouse = (tag:NSInteger, type:TicketSortType) -> Void
 class TicketToolsView: UIView {
     var toolsLabel:UILabel!
     var imageView:UIImageView!
     dynamic var isShow:Bool = false
     var ticketToolsClouse:TicketToolsClouse!
+    var ticketToolsSortClouse:TicketToolsSortClouse!
     
     var racDisposable: RACDisposable!
+    var ticketSortType:TicketSortType = .noneType
     
     private var myContext = 0
 
-    init(frame:CGRect, title:String, image:UIImage, type:TicketToolsViewType) {
+    init(frame:CGRect, title:String, image:UIImage?, type:TicketToolsViewType) {
         super.init(frame: frame)
         self.setUpView(frame, title:title, image:image, type:type)
-        if type != .right {
-            let single = UITapGestureRecognizer(target: self, action: #selector(TicketToolsView.singlePress(_:)))
-            single.numberOfTapsRequired = 1
-            single.numberOfTouchesRequired = 1
-            self.addGestureRecognizer(single)
-           racDisposable = rac_observeKeyPath("isShow", options: .New, observer: self) { (object, objects, newValue, oldValue) in
-                self.startAnimation()
-            }
-        }else{
+        if type == .right {
             let single = UITapGestureRecognizer(target: self, action: #selector(TicketToolsView.pricePress(_:)))
             single.numberOfTapsRequired = 1
             single.numberOfTouchesRequired = 1
             self.addGestureRecognizer(single)
+        }else if  type == .left {
+            let single = UITapGestureRecognizer(target: self, action: #selector(TicketToolsView.singlePress(_:)))
+            single.numberOfTapsRequired = 1
+            single.numberOfTouchesRequired = 1
+            self.addGestureRecognizer(single)
+            racDisposable = rac_observeKeyPath("isShow", options: .New, observer: self) { (object, objects, newValue, oldValue) in
+                self.startAnimation()
+            }
+        }else{
+            let single = UITapGestureRecognizer(target: self, action: #selector(TicketToolsView.singlePress(_:)))
+            single.numberOfTapsRequired = 1
+            single.numberOfTouchesRequired = 1
+            self.addGestureRecognizer(single)
+            racDisposable = rac_observeKeyPath("isShow", options: .New, observer: self) { (object, objects, newValue, oldValue) in
+            }
         }
 
     }
@@ -164,13 +176,20 @@ class TicketToolsView: UIView {
     }
     
     func pricePress(sender:UITapGestureRecognizer) {
-        if (ticketToolsClouse != nil) {
-            self.ticketToolsClouse(tag: (sender.view?.tag)!)
+        if (ticketToolsSortClouse != nil) {
+            if self.ticketSortType == .noneType || self.ticketSortType == .upType {
+                self.imageView.image = UIImage.init(named: "Icon_Ranking_03")
+                self.ticketSortType = .downType
+            }else{
+                self.imageView.image = UIImage.init(named: "Icon_Ranking_02")
+                self.ticketSortType = .upType
+            }
+            self.ticketToolsSortClouse(tag: (sender.view?.tag)!, type: self.ticketSortType)
         }
     }
     
     
-    func setUpView(frame:CGRect, title:String, image:UIImage, type:TicketToolsViewType) {
+    func setUpView(frame:CGRect, title:String, image:UIImage?, type:TicketToolsViewType) {
         toolsLabel = UILabel()
         toolsLabel.text = title
         toolsLabel.userInteractionEnabled = true
@@ -178,11 +197,13 @@ class TicketToolsView: UIView {
         toolsLabel.font = Home_Ticker_Tools_Font
         self.addSubview(toolsLabel)
         
-        imageView = UIImageView()
-        imageView.image = image
-        imageView.userInteractionEnabled = true
-        self.addSubview(imageView)
-        
+        if image != nil {
+            imageView = UIImageView()
+            imageView.image = image
+            imageView.userInteractionEnabled = true
+            self.addSubview(imageView)
+        }
+    
         switch type {
         case .left:
             self.tag = 1
@@ -201,10 +222,6 @@ class TicketToolsView: UIView {
             toolsLabel.snp_makeConstraints(closure: { (make) in
                 make.centerY.equalTo(self.snp_centerY).offset(0)
                 make.centerX.equalTo(self.snp_centerX).offset(0)
-            })
-            imageView.snp_makeConstraints(closure: { (make) in
-                make.centerY.equalTo(self.snp_centerY).offset(0)
-                make.left.equalTo(self.toolsLabel.snp_right).offset(12)
             })
         default:
             self.tag = 3
@@ -248,6 +265,8 @@ class TicketToolsView: UIView {
 
 let TicketToolsViewWidth = (SCREENWIDTH - 30)/3
 typealias TicketCellClouse = (tag:NSInteger) ->Void
+typealias TicketCellSortClouse = (tag:NSInteger, type:TicketSortType) ->Void
+
 class TicketToolsTableViewCell: UITableViewCell {
 
     var nomalPriceTick:TicketToolsView!
@@ -261,6 +280,7 @@ class TicketToolsTableViewCell: UITableViewCell {
     var toplineLabel:GloabLineView!
     
     var ticketCellClouse:TicketCellClouse!
+    var ticketCellSortClouse:TicketCellSortClouse!
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -271,7 +291,7 @@ class TicketToolsTableViewCell: UITableViewCell {
         toolsView = UIView(frame: CGRectMake(0,0,SCREENWIDTH,42))
         self.contentView.addSubview(toolsView)
         
-        nomalPriceTick = TicketToolsView(frame: CGRectMake(15, 0, TicketToolsViewWidth, 42), title: "票面价格", image: UIImage.init(named: "Icon_Selected_Form_Normal")!, type: .left)
+        nomalPriceTick = TicketToolsView(frame: CGRectMake(15, 0, TicketToolsViewWidth, 42), title: "票面原价", image: UIImage.init(named: "Icon_Selected_Form_Normal")!, type: .left)
         nomalPriceTick.ticketToolsClouse = { tag in
             if self.nomalPriceTick.isShow {
                 self.nomalPriceTick.isShow = false
@@ -290,7 +310,7 @@ class TicketToolsTableViewCell: UITableViewCell {
         }
         toolsView.addSubview(nomalPriceTick)
         
-        rowTicket = TicketToolsView(frame: CGRectMake(TicketToolsViewWidth + 15, 0, TicketToolsViewWidth, 42), title: "座位", image: UIImage.init(named: "Icon_Selected_Form_Normal")!, type: .center)
+        rowTicket = TicketToolsView(frame: CGRectMake(TicketToolsViewWidth + 15, 0, TicketToolsViewWidth, 42), title: "座位", image: nil, type: .center)
         rowTicket.ticketToolsClouse = { tag in
             if self.rowTicket.isShow {
                 self.rowTicket.isShow = false
@@ -310,8 +330,8 @@ class TicketToolsTableViewCell: UITableViewCell {
         }
         toolsView.addSubview(rowTicket)
         
-        sortPriceTick = TicketToolsView(frame: CGRectMake(TicketToolsViewWidth * 2 + 15, 0, TicketToolsViewWidth, 42), title: "价格", image: UIImage.init(named: "Icon_Ranking")!, type: .right)
-        sortPriceTick.ticketToolsClouse = { tag in
+        sortPriceTick = TicketToolsView(frame: CGRectMake(TicketToolsViewWidth * 2 + 15, 0, TicketToolsViewWidth, 42), title: "售价", image: UIImage.init(named: "Icon_Ranking")!, type: .right)
+        sortPriceTick.ticketToolsSortClouse = { tag, type in
             if self.sortPriceTick.isShow {
                 self.sortPriceTick.isShow = false
             }else{
@@ -323,8 +343,8 @@ class TicketToolsTableViewCell: UITableViewCell {
             if self.sortPriceTick.isShow {
                 self.sortPriceTick.isShow = false
             }
-            if self.ticketCellClouse != nil {
-                self.ticketCellClouse(tag: tag)
+            if self.ticketCellSortClouse != nil {
+                self.ticketCellSortClouse(tag: tag, type: type)
             }
         }
         toolsView.addSubview(sortPriceTick)
@@ -396,7 +416,7 @@ class TicketToolsTableViewCell: UITableViewCell {
         toolsView.addSubview(rowTicket)
         
         
-        sortPriceTick.ticketToolsClouse = { tag in
+        sortPriceTick.ticketToolsSortClouse = { tag, type in
             if sortPriceTick.isShow {
                 sortPriceTick.isShow = false
             }else{
@@ -408,8 +428,8 @@ class TicketToolsTableViewCell: UITableViewCell {
             if sortPriceTick.isShow {
                 sortPriceTick.isShow = false
             }
-            if self.ticketCellClouse != nil {
-                self.ticketCellClouse(tag: tag)
+            if self.ticketCellSortClouse != nil {
+                self.ticketCellSortClouse(tag: tag, type: type)
             }
         }
         toolsView.addSubview(sortPriceTick)

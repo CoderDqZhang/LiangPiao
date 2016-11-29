@@ -12,14 +12,14 @@ class TicketSessionModel : NSObject, NSCoding{
     
     var endTime : String!
     var id : Int!
-    var maxPrice : Int!
+    var minDiscount : String!
     var minPrice : Int!
     var name : String!
     var openRegions : String!
     var otherRegions : String!
     var startTime : String!
+    var ticketCount : Int!
     var ticketStatus : Int!
-    
     
     /**
      * Instantiate the instance using the passed dictionary values to set the properties values
@@ -27,12 +27,13 @@ class TicketSessionModel : NSObject, NSCoding{
     init(fromDictionary dictionary: NSDictionary){
         endTime = dictionary["end_time"] as? String
         id = dictionary["id"] as? Int
-        maxPrice = dictionary["max_price"] as? Int
+        minDiscount = dictionary["min_discount"] as? String
         minPrice = dictionary["min_price"] as? Int
         name = dictionary["name"] as? String
         openRegions = dictionary["open_regions"] as? String
         otherRegions = dictionary["other_regions"] as? String
         startTime = dictionary["start_time"] as? String
+        ticketCount = dictionary["ticket_count"] as? Int
         ticketStatus = dictionary["ticket_status"] as? Int
     }
     
@@ -48,8 +49,8 @@ class TicketSessionModel : NSObject, NSCoding{
         if id != nil{
             dictionary["id"] = id
         }
-        if maxPrice != nil{
-            dictionary["max_price"] = maxPrice
+        if minDiscount != nil{
+            dictionary["min_discount"] = minDiscount
         }
         if minPrice != nil{
             dictionary["min_price"] = minPrice
@@ -66,6 +67,9 @@ class TicketSessionModel : NSObject, NSCoding{
         if startTime != nil{
             dictionary["start_time"] = startTime
         }
+        if ticketCount != nil{
+            dictionary["ticket_count"] = ticketCount
+        }
         if ticketStatus != nil{
             dictionary["ticket_status"] = ticketStatus
         }
@@ -80,12 +84,13 @@ class TicketSessionModel : NSObject, NSCoding{
     {
         endTime = aDecoder.decodeObjectForKey("end_time") as? String
         id = aDecoder.decodeObjectForKey("id") as? Int
-        maxPrice = aDecoder.decodeObjectForKey("max_price") as? Int
+        minDiscount = aDecoder.decodeObjectForKey("min_discount") as? String
         minPrice = aDecoder.decodeObjectForKey("min_price") as? Int
         name = aDecoder.decodeObjectForKey("name") as? String
         openRegions = aDecoder.decodeObjectForKey("open_regions") as? String
         otherRegions = aDecoder.decodeObjectForKey("other_regions") as? String
         startTime = aDecoder.decodeObjectForKey("start_time") as? String
+        ticketCount = aDecoder.decodeObjectForKey("ticket_count") as? Int
         ticketStatus = aDecoder.decodeObjectForKey("ticket_status") as? Int
         
     }
@@ -102,8 +107,8 @@ class TicketSessionModel : NSObject, NSCoding{
         if id != nil{
             aCoder.encodeObject(id, forKey: "id")
         }
-        if maxPrice != nil{
-            aCoder.encodeObject(maxPrice, forKey: "max_price")
+        if minDiscount != nil{
+            aCoder.encodeObject(minDiscount, forKey: "min_discount")
         }
         if minPrice != nil{
             aCoder.encodeObject(minPrice, forKey: "min_price")
@@ -119,6 +124,9 @@ class TicketSessionModel : NSObject, NSCoding{
         }
         if startTime != nil{
             aCoder.encodeObject(startTime, forKey: "start_time")
+        }
+        if ticketCount != nil{
+            aCoder.encodeObject(ticketCount, forKey: "ticket_count")
         }
         if ticketStatus != nil{
             aCoder.encodeObject(ticketStatus, forKey: "ticket_status")

@@ -52,14 +52,14 @@ class OrderListViewModel: NSObject {
     }
     
     func tableViewOrderCellIndexPath(indexPath:NSIndexPath, cell:OrderNumberTableViewCell) {
-        let model = OrderModel()
-        if indexPath.section == 0 {
-            model.orderStatue = ""
-            cell.setData(model)
-        }else{
-            model.orderStatue = "waitePay"
-            cell.setData(model)
-        }
+//        let model = OrderList()
+//        if indexPath.section == 0 {
+//            model.orderStatue = ""
+//            cell.setData(model)
+//        }else{
+//            model.orderStatue = "waitePay"
+//            cell.setData(model)
+//        }
     }
     
     func tableViewOrderTicketInfoCellIndexPath(indexPath:NSIndexPath, cell:OrderTicketInfoTableViewCell) {

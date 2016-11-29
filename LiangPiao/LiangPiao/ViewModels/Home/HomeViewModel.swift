@@ -92,26 +92,34 @@ class HomeViewModel: NSObject {
             case self.numberOfRowsInSection(indexPath.section) - 1:
                 self.navigationPushTicketPage(4, controller: controller)
             default:
-                self.getTicketScent(HomeTicketModel.init(fromDictionary: models.objectAtIndex(indexPath.row - 1) as! NSDictionary), controller:controller)
+                let model = HomeTicketModel.init(fromDictionary: models.objectAtIndex(indexPath.row - 1) as! NSDictionary)
+                if model.sessionCount == 1 {
+                    let controllerVC = TicketDescriptionViewController()
+                    controllerVC.viewModel.ticketModel = model
+                    NavigationPushView(controller, toConroller: controllerVC)
+                }else{
+                    let controllerVC = TicketSceneViewController()
+                    controllerVC.viewModel.model = model
+                    NavigationPushView(controller, toConroller: controllerVC)
+                }
             }
         }
-        
     }
     
-    func getTicketScent(model:HomeTicketModel,controller:HomeViewController){
-        let url = "\(TickeSession)\(model.id)/session"
-        BaseNetWorke.sharedInstance.getUrlWithString(url, parameters: nil).subscribeNext { (resultDic) in
-            let resultModels =  NSMutableArray.mj_objectArrayWithKeyValuesArray(resultDic)
-            if resultModels.count > 1{
-                let controllerVC = TicketSceneViewController()
-                controllerVC.viewModel.model = model
-                NavigationPushView(controller, toConroller: controllerVC)
-            }else{
-                let controllerVC = TicketDescriptionViewController()
-                NavigationPushView(controller, toConroller: controllerVC)
-            }
-        }
-    }
+//    func getTicketScent(model:HomeTicketModel,controller:HomeViewController){
+//        let url = "\(TickeSession)\(model.id)/session"
+//        BaseNetWorke.sharedInstance.getUrlWithString(url, parameters: nil).subscribeNext { (resultDic) in
+//            let resultModels =  NSMutableArray.mj_objectArrayWithKeyValuesArray(resultDic)
+//            if resultModels.count > 1{
+//                let controllerVC = TicketSceneViewController()
+//                controllerVC.viewModel.model = model
+//                NavigationPushView(controller, toConroller: controllerVC)
+//            }else{
+//                let controllerVC = TicketDescriptionViewController()
+//                NavigationPushView(controller, toConroller: controllerVC)
+//            }
+//        }
+//    }
     
     func cellData(cell:RecommendTableViewCell, indexPath:NSIndexPath) {
         let model = HomeTicketModel.init(fromDictionary: models.objectAtIndex(indexPath.row - 1) as! NSDictionary)

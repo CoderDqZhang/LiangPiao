@@ -9,6 +9,16 @@
 import UIKit
 import ReactiveCocoa
 
+enum OrderFormType {
+    case withNomal
+    case withAddress
+    case withOrderStatues
+}
+
+enum DelivityType {
+    case delivityNomal
+    case delivitySF
+}
 
 typealias  OrderConfirmViewModelClouse = (indexPath:NSIndexPath) ->Void
 
@@ -17,8 +27,17 @@ class OrderConfirmViewModel: NSObject {
     
     var tableSelectSingle:RACSignal!
     var orderConfirmViewModelClouse:OrderConfirmViewModelClouse!
+    var model:TicketDescriptionModel!
+    var ticketModel:TicketList!
+    var muchOfTicket:String = ""
+    dynamic var muchOfTicketWithOther:String = ""
+    let orderForme = OrderFormModel()
+    var addressModel:AddressModel!
+    var formType:OrderFormType = .withNomal
+    var formAddress:NSInteger = 0
+    var ticketCount:Int = 0
+    var delivityType:DelivityType = .delivityNomal
     override init() {
-        
     }
     
     func configCellLabel(indexPath:NSIndexPath) -> String {
@@ -55,7 +74,108 @@ class OrderConfirmViewModel: NSObject {
         }
     }
     
-    func tableViewDidSelect(tableView:UITableView, indexPath:NSIndexPath) {
+    func tableViewHeightForRowAtIndexPath(indexPath:NSIndexPath) -> CGFloat
+    {
+        switch indexPath.section {
+        case 0:
+            switch indexPath.row {
+            case 0:
+                return 86
+            case 1:
+                return 52
+            default:
+                return 52
+            }
+        case 1:
+            switch indexPath.row {
+            case 0:
+                return 150
+            case 4:
+                return 62
+            default:
+                return 48
+            }
+        default:
+            switch indexPath.row {
+            case 0:
+                return 48
+            default:
+                return 52
+            }
+        }
+    }
+    
+    func tableViewHeightForFooterInSection(section:Int) ->CGFloat {
+        if self.formType == .withAddress {
+            if section == 0 {
+                return 105
+            }else if section == 2 {
+                return 67
+            }else{
+                return 10
+            }
+        }else{
+            if section == 2 {
+                return 67
+            }else{
+                return 10
+            }
+        }
+    }
+    
+    func tableViewNumberOfRowsInSection(section:Int) -> Int {
+        switch section {
+        case 0:
+            return 3
+        case 1:
+            return 5
+        default:
+            return 2
+        }
+    }
+    
+    func tableViewCellReciveTableViewCell(cell:ReciveTableViewCell, controller:TicketConfirmViewController){
+        cell.setData(ticketModel)
+        cell.reciveViewClouse = { tag in
+            if tag == 1 {
+                self.orderForme.deliveryType = .expressage
+                self.formType = .withNomal
+            }else{
+                if tag == 2 {
+                    self.orderForme.deliveryType = .presentRecive
+                }else{
+                    self.orderForme.deliveryType = .visitRecive
+                }
+                self.formType = .withAddress
+            }
+            self.formAddress = tag
+            controller.upDataTableView()
+        }
+    }
+    
+    func tableViewCellCofimTicketTableViewCell(cell:CofimTicketTableViewCell, controller:TicketConfirmViewController){
+        cell.ticketPhoto.image = UIImage.init(named: "Feeds_Default_Cover_02")
+        cell.setData(model.show, ticketModel: ticketModel, sessionModel: model.session)
+    }
+    
+    func tableViewCellGloabTextFieldCell(cell:GloabTextFieldCell,indexPath:NSIndexPath, controller:TicketConfirmViewController)
+    {
+        
+    }
+    
+    func tableViewCellGloabTitleAndDetailCell(cell:GloabTitleAndDetailCell,indexPath:NSIndexPath, controller:TicketConfirmViewController)
+    {
+        switch indexPath.row {
+        case 1:
+            cell.setData(self.configCellLabel(indexPath), detail: "\(self.muchOfTicket) 元")
+        default:
+            let str = self.delivityType == .delivityNomal ? "8.00 元" : "12.00 元"
+            cell.setData(self.configCellLabel(indexPath), detail: str)
+        }
+        orderForme.deliveryType = .expressage
+    }
+    
+    func tableViewDidSelect(tableView:UITableView, indexPath:NSIndexPath, controller:TicketConfirmViewController) {
         if indexPath.section == 2 {
             let cell = tableView.cellForRowAtIndexPath(indexPath) as! GloabTitleAndImageCell
             cell.updateImageView(true)
@@ -66,11 +186,58 @@ class OrderConfirmViewModel: NSObject {
                 let cell = tableView.cellForRowAtIndexPath(NSIndexPath.init(forRow: 0, inSection: 2)) as! GloabTitleAndImageCell
                 cell.updateImageView(false)
             }
+            orderForme.payType = indexPath.row == 0 ? .weiChat : .aliPay
             
         }else{
             if (self.orderConfirmViewModelClouse == nil) != nil {
                 self.orderConfirmViewModelClouse(indexPath:indexPath)
             }
+        }
+    }
+    
+    func updateCellString(tableView:UITableView, string:String){
+        self.delivityType = string == "普通快递（8元）" ? .delivityNomal : .delivitySF
+        let cell = tableView.cellForRowAtIndexPath(NSIndexPath.init(forRow: 2, inSection: 0)) as! GloabTitleAndDetailImageCell
+        cell.detailLabel.text = string
+        
+        let cell1 = tableView.cellForRowAtIndexPath(NSIndexPath.init(forRow: 3, inSection: 1)) as! GloabTitleAndDetailCell
+        let str = self.delivityType == .delivityNomal ? "8.00 元" : "12.00 元"
+        cell1.detailLabel.text = str
+        self.updateMuchOfTicke()
+    }
+    
+    func updateMuchOfTicke(){
+        let much = self.delivityType == .delivityNomal ? 8.00 : 12.00
+        muchOfTicketWithOther = "\(Double(muchOfTicket)! + much)"
+        orderForme.deliveryPrice = muchOfTicketWithOther
+    }
+    
+    func createOrder(controller:TicketConfirmViewController){
+        if self.orderForme.addressId == nil {
+            MainThreadAlertShow("请填写配送地址", view: controller.view)
+            return
+        }
+        self.requestOrderPay(self.orderForme, controller: controller)
+    }
+    
+    func requestOrderPay(orderForm:OrderFormModel,controller:TicketConfirmViewController){
+        var parameters:NSDictionary = NSDictionary()
+
+        if orderForm.deliveryType == .expressage {
+            let pay_type = orderForm.payType == .weiChat ? "1" : "2"
+            let delivery_type = orderForme.deliveryType == .expressage ? "1" : "2"
+            let delivery_price = "8"
+            //,delivery_price_sf
+            parameters = ["ticket_id":orderForm.ticketID!
+                ,"ticket_count":orderForm.ticketCount!
+                ,"delivery_type":delivery_type
+                ,"delivery_price":delivery_price
+                ,"pay_type":pay_type
+                ,"address_id":orderForme.addressId!]
+        }
+        BaseNetWorke.sharedInstance.postUrlWithString(OrderCreate, parameters: parameters).subscribeNext { (resultDic) in
+            
+            print("")
         }
     }
 }

@@ -17,7 +17,7 @@ class RecommendTableViewCell: UITableViewCell {
     var ticketLocation:UILabel!
     var ticketMuch:UILabel!
     var ticketmMuch:UILabel!
-    var ticketStatus:GlobalTicketStatus!
+    var ticketStatusView:GlobalTicketStatus!
     
     var didMakeConstraints:Bool = false
     
@@ -69,10 +69,6 @@ class RecommendTableViewCell: UITableViewCell {
         ticketMuch.font = Home_Recommend_Much_Font
         self.contentView.addSubview(ticketMuch)
         
-        
-        ticketStatus = GlobalTicketStatus(frame: CGRectZero, titles: ["9.6折","最后5张","预售中"], types: [3])
-        self.addSubview(ticketStatus)
-        
         let lineLabel = GloabLineView(frame: CGRectMake(15, 139.5, SCREENWIDTH - 30, 0.5))
         self.contentView.addSubview(lineLabel)
         
@@ -85,8 +81,56 @@ class RecommendTableViewCell: UITableViewCell {
         }
         ticketTitle.text = model.title
         ticketLocation.text = model.venue.name
-        ticketMuch.text = "\(model.minPrice)"
+        if model.ticketStatus != 0 {
+            let mMuch = model.ticketCount == 0 ? "暂时缺票" : "元起"
+            ticketmMuch.text = mMuch
+            let much = mMuch == "暂时缺票" ? "" : "\(model.minPrice)"
+            ticketMuch.text = much
+        }else{
+            ticketMuch.text = "\(model.minPrice)"
+        }
         ticketTime.text = model.showDate
+        self.setUpTicketStatues(model)
+        
+        self.updateConstraintsIfNeeded()
+        
+    }
+    
+    func setUpTicketStatues(model:HomeTicketModel){
+        var statuesArray:[String] = []
+        if model.minDiscount != "" && Double(model.minDiscount) < 1{
+            statuesArray.append("\((Double(model.minDiscount)! * 10))折")
+        }
+        if model.ticketCount != 0 {
+            let str = model.ticketCount >= 20 ? "剩余\(model.ticketCount)张" : "最后\(model.ticketCount)张"
+            statuesArray.append(str)
+        }
+        if model.ticketStatus == 0 {
+            statuesArray.append("预售中")
+            self.setUpStatuesView(statuesArray, types: [statuesArray.count])
+        }else{
+            if statuesArray.count > 0 {
+                self.setUpStatuesView(statuesArray, types: nil)
+            }else{
+                self.setUpStatuesView([], types: nil)
+            }
+        }
+    }
+    
+    func setUpStatuesView(titles:[String], types:NSArray?){
+        if ticketStatusView == nil {
+            ticketStatusView = GlobalTicketStatus(frame: CGRectZero, titles: titles, types: types)
+            self.addSubview(ticketStatusView)
+            
+            ticketStatusView.snp_makeConstraints(closure: { (make) in
+                make.bottom.equalTo(self.contentView.snp_bottom).offset(-15)
+                make.left.equalTo(self.ticketPhoto.snp_right).offset(12)
+                make.height.equalTo(16)
+            })
+            self.updateConstraintsIfNeeded()
+        }else{
+            ticketStatusView.setUpView(titles, types: types)
+        }
     }
     
     override func updateConstraints() {
@@ -121,20 +165,15 @@ class RecommendTableViewCell: UITableViewCell {
             ticketmMuch.snp_makeConstraints(closure: { (make) in
                 make.right.equalTo(self.contentView.snp_right).offset(-24)
                 make.bottom.equalTo(self.contentView.snp_bottom).offset(-13)
-                make.size.equalTo(CGSizeMake(22, 14))
+                make.height.equalTo(14)
             })
 
             ticketMuch.snp_makeConstraints(closure: { (make) in
-                make.bottom.equalTo(self.contentView.snp_bottom).offset(-13  )
+                make.bottom.equalTo(self.contentView.snp_bottom).offset(-13)
                 make.right.equalTo(self.ticketmMuch.snp_left).offset(-4)
-                make.height.equalTo(21)
             })
             
-            ticketStatus.snp_makeConstraints(closure: { (make) in
-                make.bottom.equalTo(self.contentView.snp_bottom).offset(-15)
-                make.left.equalTo(self.ticketPhoto.snp_right).offset(12)
-                make.height.equalTo(16)
-            })
+            
             
             self.didMakeConstraints = true
         }

@@ -31,6 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         AppleThemeTool.setUpToolBarColor()
         AppleThemeTool.setUpKeyBoardManager()
         
+        TalkingData.setExceptionReportEnabled(true)
         TalkingData.sessionStarted(TalkingDataKey, withChannelId: "AppStore")
         
         self.logUser()
