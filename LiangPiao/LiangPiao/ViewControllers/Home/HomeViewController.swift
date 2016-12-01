@@ -17,7 +17,7 @@ class HomeViewController: BaseViewController {
     
     var cell:HomeSearchTableViewCell!
     var searchTableView:GlobalSearchTableView!
-    
+    var searchViewModel = SearchViewModel.shareInstance
     var homeRefreshView = LiangPiaoHomeRefreshHeader(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 88))
     
     var searchNavigationBar = HomeSearchNavigationBar(frame: CGRectMake(0,0,SCREENWIDTH, 64),font:Home_Navigation_Search_Font)
@@ -35,6 +35,10 @@ class HomeViewController: BaseViewController {
     override func viewWillAppear(animated: Bool) {
         self.navigationController?.fd_prefersNavigationBarHidden = true
         self.navigationController?.setNavigationBarHidden(true, animated: true)
+        
+        if (searchTableView != nil) && searchTableView.hidden == false {
+            self.tabBarController?.tabBar.hidden = true
+        }
     }
     
     func setUpTableView() {
@@ -80,13 +84,17 @@ class HomeViewController: BaseViewController {
     
     func bindViewModel(){
         viewModel.requestHotTicket(tableView, controller:self)
+        searchViewModel.controller = self
+        searchNavigationBar.searchField.rac_textSignal().subscribeNext { (str) in
+            if str as! String != "" {
+                self.searchViewModel.requestSearchTicket(str as! String, searchTable: self.searchTableView)
+            }
+        }
     }
     
     func navigationPushTicketPage(index:NSInteger) {
         viewModel.navigationPushTicketPage(index, controller:self)
     }
-    
-    
 }
 
 extension HomeViewController : UITableViewDelegate {

@@ -148,7 +148,7 @@ class TicketDescriptionViewController: UIViewController {
                     if indexPath.row != 0 {
                         Notification(ToolViewNotifacationName, value: "100")
                         self.isShowTicketNavigationBar(false)
-                        self.viewModel.sortTickeByOriginTicketPrice(str as? NSNumber, controller:self)
+                        self.viewModel.sortTickeByOriginTicketPrice(str as? String, controller:self)
                     }
                 }
                 self.view.addSubview(ticketPrice)

@@ -82,10 +82,10 @@ let Home_Ticker_DescripNumber_bordColor = "384249"
 let Home_Ticker_DescripNumber_bordFont = IPHONE_VERSION > 9 ? UIFont.init(name: ".SFUIText-Medium", size: 15.0):UIFont.init(name: ".HelveticaNeueInterface-Medium", size: 15.0)
 
 let Home_Ticker_NomalPrice_Color = "384249"
-let Home_Ticker_NomalPrice_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(14.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 14.0)
+let Home_Ticker_NomalPrice_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(13.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 13.0)
 
 let Home_Ticker_Row_Color = "384249"
-let Home_Ticker_Row_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(14.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 14.0)
+let Home_Ticker_Row_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(13.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 13.0)
 
 let Home_Ticker_Descrip_Color = "BBC1CB"
 let Home_Ticker_Descrip_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(10.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 10.0)

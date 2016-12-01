@@ -32,7 +32,7 @@ class ReciveTableViewCell: UITableViewCell {
     }
     
     func setUpView(){
-        express = self.crateLabel(CGRectMake(15, 26, ReciveLabelWidth, 50), tag: 1, titleString: "快递取票", type: .Disable)
+        express = self.crateLabel(CGRectMake(15, 26, ReciveLabelWidth, 50), tag: 1, titleString: "快递送票", type: .Disable)
         self.contentView.addSubview(express)
         
         arrival = self.crateLabel(CGRectMake(CGRectGetMaxX(express.frame) + 12, 26, ReciveLabelWidth, 50), tag: 2, titleString: "现场取票", type: .Disable)

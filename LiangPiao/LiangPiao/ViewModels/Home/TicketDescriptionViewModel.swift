@@ -27,7 +27,7 @@ class TicketDescriptionViewModel: NSObject {
     func getPriceArray(array:[TicketList]){
         let arrays = NSMutableArray()
         for array in array {
-            arrays.addObject(array.originalTicket.price)
+            arrays.addObject(array.originalTicket.name)
         }
         let set = NSSet(array: arrays as [AnyObject])
         let sortDec = NSSortDescriptor.init(key: nil, ascending: true)
@@ -198,10 +198,10 @@ class TicketDescriptionViewModel: NSObject {
         controller.tableView.reloadData()
     }
     
-    func sortTickeByOriginTicketPrice(price:NSNumber?, controller:TicketDescriptionViewController) {
+    func sortTickeByOriginTicketPrice(price:String?, controller:TicketDescriptionViewController) {
         var sortArrayList:[TicketList] = []
         for tickeModel in tempList {
-            if tickeModel.originalTicket.price == Int(price!) {
+            if tickeModel.originalTicket.name == price {
                 sortArrayList.append(tickeModel)
             }
         }

@@ -13,6 +13,8 @@ import MJExtension
 class HomeViewModel: NSObject {
     
     var models = NSMutableArray()
+    var searchModel:RecommentTickes!
+    
     override init() {
         
     }
@@ -106,21 +108,6 @@ class HomeViewModel: NSObject {
         }
     }
     
-//    func getTicketScent(model:HomeTicketModel,controller:HomeViewController){
-//        let url = "\(TickeSession)\(model.id)/session"
-//        BaseNetWorke.sharedInstance.getUrlWithString(url, parameters: nil).subscribeNext { (resultDic) in
-//            let resultModels =  NSMutableArray.mj_objectArrayWithKeyValuesArray(resultDic)
-//            if resultModels.count > 1{
-//                let controllerVC = TicketSceneViewController()
-//                controllerVC.viewModel.model = model
-//                NavigationPushView(controller, toConroller: controllerVC)
-//            }else{
-//                let controllerVC = TicketDescriptionViewController()
-//                NavigationPushView(controller, toConroller: controllerVC)
-//            }
-//        }
-//    }
-    
     func cellData(cell:RecommendTableViewCell, indexPath:NSIndexPath) {
         let model = HomeTicketModel.init(fromDictionary: models.objectAtIndex(indexPath.row - 1) as! NSDictionary)
         cell.setData(model)
@@ -137,4 +124,5 @@ class HomeViewModel: NSObject {
             }
         }
     }
+    
 }

@@ -12,7 +12,6 @@ typealias SearchDidSelectClouse = (indexPath:NSIndexPath) ->Void
 class GlobalSearchTableView: UIView {
 
     var tableView:UITableView!
-    var dataArray = []
     var searchDidSelectClouse:SearchDidSelectClouse!
     
     override init(frame: CGRect) {
@@ -35,6 +34,7 @@ class GlobalSearchTableView: UIView {
         tableView.snp_makeConstraints { (make) in
             make.edges.equalTo(UIEdgeInsetsMake(0, 0, 0, 0))
         }
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -43,25 +43,27 @@ class GlobalSearchTableView: UIView {
 }
 extension GlobalSearchTableView : UITableViewDelegate {
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
+        return SearchViewModel.shareInstance.searchTableNumberOfSectionsInTableView()
     }
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 140
+        return SearchViewModel.shareInstance.searchTableTableViewHeightForRowAtIndexPath(indexPath)
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if self.searchDidSelectClouse != nil {
-            self.searchDidSelectClouse(indexPath:indexPath)
-        }
+//        if self.searchDidSelectClouse != nil {
+//            self.searchDidSelectClouse(indexPath:indexPath)
+//        }
+        return SearchViewModel.shareInstance.searchTablaTableViewDidSelectRowAtIndexPath(indexPath)
     }
 }
 extension GlobalSearchTableView : UITableViewDataSource {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dataArray.count
+        return SearchViewModel.shareInstance.searchTableNumberOfRowsInSection(section)
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("RecommendTableViewCell", forIndexPath: indexPath) as! RecommendTableViewCell
+        SearchViewModel.shareInstance.searchTableCellData(cell, indexPath: indexPath)
         cell.selectionStyle = .None
         return cell
     }

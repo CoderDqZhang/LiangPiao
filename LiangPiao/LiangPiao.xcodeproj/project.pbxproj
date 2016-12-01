@@ -45,6 +45,7 @@
 		1F24DE971DD5BA0A00C6E8CA /* FavoriteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F24DE961DD5BA0A00C6E8CA /* FavoriteViewModel.swift */; };
 		1F3241931DF02614007BC078 /* FavoritesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3241921DF02614007BC078 /* FavoritesViewModel.swift */; };
 		1F3241951DF028E7007BC078 /* FavorityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3241941DF028E7007BC078 /* FavorityModel.swift */; };
+		1F36E1A71DF0509900565D1A /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F36E1A61DF0509900565D1A /* SearchViewModel.swift */; };
 		1F3983AB1DED2C4000A24541 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F3983AA1DED2C4000A24541 /* MessageUI.framework */; };
 		1F3983AD1DED68B700A24541 /* OrderFormModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3983AC1DED68B700A24541 /* OrderFormModel.swift */; };
 		1F45C3F61DD72043008C60CD /* LiangPiaoLoadMoreDataFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F45C3F51DD72043008C60CD /* LiangPiaoLoadMoreDataFooter.swift */; };
@@ -223,6 +224,7 @@
 		1F24DE961DD5BA0A00C6E8CA /* FavoriteViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteViewModel.swift; sourceTree = "<group>"; };
 		1F3241921DF02614007BC078 /* FavoritesViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesViewModel.swift; sourceTree = "<group>"; };
 		1F3241941DF028E7007BC078 /* FavorityModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavorityModel.swift; sourceTree = "<group>"; };
+		1F36E1A61DF0509900565D1A /* SearchViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		1F3983AA1DED2C4000A24541 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		1F3983AC1DED68B700A24541 /* OrderFormModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderFormModel.swift; path = ../Home/OrderFormModel.swift; sourceTree = "<group>"; };
 		1F45C3F51DD72043008C60CD /* LiangPiaoLoadMoreDataFooter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiangPiaoLoadMoreDataFooter.swift; sourceTree = "<group>"; };
@@ -873,6 +875,7 @@
 				1FB7B29D1DCC412500945B70 /* OrderConfirmViewModel.swift */,
 				1F0EAB5A1DD053EE00D25B64 /* OrderDetailViewModel.swift */,
 				1F24DE961DD5BA0A00C6E8CA /* FavoriteViewModel.swift */,
+				1F36E1A61DF0509900565D1A /* SearchViewModel.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -1255,6 +1258,7 @@
 				1F54C5341DDC4891009ADDA9 /* UserInfoModel.m in Sources */,
 				1FD881E91DC8546500B2B702 /* SDCollectionViewCell.m in Sources */,
 				1F24DE971DD5BA0A00C6E8CA /* FavoriteViewModel.swift in Sources */,
+				1F36E1A71DF0509900565D1A /* SearchViewModel.swift in Sources */,
 				1F54C52E1DDC3A61009ADDA9 /* JKDBHelper.m in Sources */,
 				1FD245021DC2FD9700AFD3BC /* NSString+Utils.m in Sources */,
 				1F0EAB7B1DD0AE2300D25B64 /* OrderPayTableViewCell.swift in Sources */,

@@ -16,7 +16,7 @@ class FavoritesViewModel: NSObject {
     }
     
     func numberOfSectionsInTableView() -> Int{
-        return 2
+        return 1
     }
     
     func numberOfRowsInSection(section:Int) ->Int {
