@@ -34,5 +34,14 @@ extension String{
         return (self as NSString).floatValue
     }
     
+    func addEncoding(st : String ) ->String? {
+        if #available(iOS 7.0, OSX 10.9, *) {
+            return st.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())
+        }
+        else {
+            return  st.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
+        }
+    }
+    
 }//extension end
 

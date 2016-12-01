@@ -33,7 +33,7 @@ let TickeDescription = "\(BaseURL)show/"
 let OrderCreate = "\(BaseURL)order/create/"
 let OrderListUrl = "\(BaseURL)order/list/"
 
-let TicketSearchUrl = "\(BaseURL)/show/search/"
+let TicketSearchUrl = "\(BaseURL)show/search/"
 //http://api.liangpiao.me?kw=%E7%BE%BD%E6%B3%89
 
-let TicketFavorite = "\(BaseURL)/user/favorite/"
+let TicketFavorite = "\(BaseURL)user/favorite/"

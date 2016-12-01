@@ -10,6 +10,7 @@ import UIKit
 import FDFullscreenPopGesture
 import SnapKit
 import MJRefresh
+import ReactiveCocoa
 
 class HomeViewController: BaseViewController {
 
@@ -85,10 +86,19 @@ class HomeViewController: BaseViewController {
     func bindViewModel(){
         viewModel.requestHotTicket(tableView, controller:self)
         searchViewModel.controller = self
-        searchNavigationBar.searchField.rac_textSignal().subscribeNext { (str) in
-            if str as! String != "" {
-                self.searchViewModel.requestSearchTicket(str as! String, searchTable: self.searchTableView)
-            }
+        RACSignal.interval(1, onScheduler: RACScheduler.currentScheduler()).subscribeNext { (str) in
+            
+        }
+        let single = searchNavigationBar.searchField
+            .rac_textSignal()
+            .ignore("")
+            .distinctUntilChanged()
+        single.throttle(0.5).subscribeNext { (str) in
+            self.searchViewModel.requestSearchTicket(str as! String, searchTable: self.searchTableView)
+        }
+        
+        searchViewModel.searchViewModelClouse = { _ in
+            self.cancelSearchTable()
         }
     }
     
@@ -249,8 +259,5 @@ extension HomeViewController : UITableViewDataSource {
                 return cell
             }
         }
-        
-        
     }
-    
 }

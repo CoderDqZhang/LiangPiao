@@ -8,10 +8,13 @@
 
 import UIKit
 
+typealias SearchViewModelClouse = () ->Void
+
 class SearchViewModel: NSObject {
 
     var searchModel:RecommentTickes!
     var controller:HomeViewController!
+    var searchViewModelClouse:SearchViewModelClouse!
     
     private override init() {
         
@@ -49,6 +52,9 @@ class SearchViewModel: NSObject {
             controllerVC.viewModel.model = searchTicke
             NavigationPushView(controller, toConroller: controllerVC)
         }
+        if searchViewModelClouse != nil {
+            searchViewModelClouse()
+        }
     }
     
     func searchTableCellData(cell:RecommendTableViewCell, indexPath:NSIndexPath) {
@@ -61,7 +67,8 @@ class SearchViewModel: NSObject {
     
     
     func requestSearchTicket(searchText:String, searchTable:GlobalSearchTableView) {
-        let url = "\(TicketSearchUrl)?kw=\(searchText)"
+        let str = searchText.addEncoding(searchText)
+        let url = "\(TicketSearchUrl)?kw=\((str)!)"
         BaseNetWorke.sharedInstance.getUrlWithString(url, parameters: nil).subscribeNext { (resultDic) in
             self.searchModel = RecommentTickes.init(fromDictionary: resultDic as! NSDictionary)
             searchTable.tableView.reloadData()
