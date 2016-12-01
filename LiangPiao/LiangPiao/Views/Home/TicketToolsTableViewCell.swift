@@ -73,8 +73,10 @@ extension ToolView : UITableViewDelegate {
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.row != 0 {
-            if toolViewSelectIndexPathRow != nil {
+        if toolViewSelectIndexPathRow != nil {
+            if indexPath.row == 0 {
+                self.toolViewSelectIndexPathRow(indexPath: indexPath, str: "")
+            }else{
                 self.toolViewSelectIndexPathRow(indexPath: indexPath, str: dataArray[indexPath.row - 1])
             }
         }

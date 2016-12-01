@@ -99,7 +99,7 @@ class RecommendTableViewCell: UITableViewCell {
     
     func setUpTicketStatues(model:HomeTicketModel){
         var statuesArray:[String] = []
-        if model.minDiscount != "" && Double(model.minDiscount) < 1{
+        if model.minDiscount != "" && Double(model.minDiscount) < 1 && Double(model.minDiscount) > 0{
             statuesArray.append("\((Double(model.minDiscount)! * 10))折   ")
         }
         if model.ticketCount != 0 {

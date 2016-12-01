@@ -234,7 +234,7 @@ class OrderConfirmViewModel: NSObject {
     
     func requestOrderPay(orderForm:OrderFormModel,controller:TicketConfirmViewController){
         var parameters:NSDictionary = NSDictionary()
-        let pay_type = orderForm.payType == .weiChat ? "1" : "2"
+        let pay_type = orderForm.payType == .weiChat ? "2" : "1"
         let delivery_type = orderForme.deliveryType == .expressage ? "1" : "2"
         let delivery_price = self.delivityType == .delivityNomal ? "8" : "12"
         if orderForm.deliveryType == .expressage {

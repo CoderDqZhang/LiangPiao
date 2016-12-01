@@ -138,6 +138,13 @@ extension OrderListViewController : UITableViewDataSource {
 }
 
 extension OrderListViewController : DZNEmptyDataSetDelegate {
+    
+    func emptyDataSetShouldAllowTouch(scrollView: UIScrollView!) -> Bool {
+        return true
+    }
+    func emptyDataSetDidTapView(scrollView: UIScrollView!) {
+        viewModel.requestOrderList(self, isNext: false)
+    }
 }
 
 extension OrderListViewController :DZNEmptyDataSetSource {
@@ -147,7 +154,7 @@ extension OrderListViewController :DZNEmptyDataSetSource {
     }
     
     func descriptionForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
-        let str = "还没有订单\n先去首页挑选喜欢的演出活动吧"
+        let str = "点击屏幕，重新加载"
         let attribute = NSMutableAttributedString(string: str)
         attribute.addAttributes([NSForegroundColorAttributeName:UIColor.init(hexString: APP_State_EmptyData_Color)], range: NSRange(location: 0, length: str.length))
         attribute.addAttributes([NSFontAttributeName:APP_State_EmptyData_Font!], range: NSRange.init(location: 0, length: str.length))

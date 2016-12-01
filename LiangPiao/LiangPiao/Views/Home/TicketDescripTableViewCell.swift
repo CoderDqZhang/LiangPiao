@@ -81,8 +81,8 @@ class TicketDescripTableViewCell: UITableViewCell {
     
     func setUpTicketStatues(model:TicketSessionModel){
         var statuesArray:[String] = []
-        if model.minDiscount != ""{
-            statuesArray.append("\(model.minDiscount)折   ")
+        if model.minDiscount != "" && model.minDiscount != "0.0"{
+            statuesArray.append("\(Double(model.minDiscount)! * 10)折   ")
         }
         if model.ticketCount != 0 {
             let str = model.ticketCount >= 20 ? "剩余\(model.ticketCount)张   " : "最后\(model.ticketCount)张   "

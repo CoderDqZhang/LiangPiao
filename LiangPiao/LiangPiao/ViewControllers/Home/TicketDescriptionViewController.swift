@@ -17,6 +17,8 @@ class TicketDescriptionViewController: UIViewController {
     var session:TicketSessionModel!
     let  viewModel = TicketDescriptionViewModel()
     
+    var likeButton:UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUpView()
@@ -55,23 +57,50 @@ class TicketDescriptionViewController: UIViewController {
     }
 
     func bindeViewModel(){
-        viewModel.requestTicketSession(tableView)
+        viewModel.requestTicketSession(self)
+    }
+    
+    func updataLikeImage(){
+        var image:UIImage!
+        if viewModel.model != nil && UserInfoModel.isLoggedIn() && viewModel.model.show.isFavorite == true {
+            image = UIImage.init(named: "Icon_Liked_Normal")?.imageWithRenderingMode(.AlwaysOriginal)
+        }else{
+            image = UIImage.init(named: "Icon_Like_Normal")?.imageWithRenderingMode(.AlwaysOriginal)
+        }
+        likeButton = UIButton(type: .Custom)
+        likeButton.frame = CGRect.init(x: 0, y: 0, width: image.size.width, height: image.size.height)
+        likeButton.setImage(image, forState: .Normal)
+        likeButton.setImage(UIImage.init(named: "Icon_Like_Press"), forState: .Selected)
+        likeButton.addTarget(self, action: #selector(TicketDescriptionViewController.likeItemPress(_:)), forControlEvents: .TouchUpInside)
+        
+        let likeItem = UIBarButtonItem.init(customView: likeButton)
+        self.navigationItem.rightBarButtonItem = likeItem
     }
     
     func setUpNavigationItems() {
         
         self.isShowTicketNavigationBar(false)
         self.setNavigationItemBack()
-        let likeItem = UIBarButtonItem(image: UIImage.init(named: "Icon_Like_Normal")?.imageWithRenderingMode(.AlwaysOriginal), style: .Plain, target: self, action: #selector(TicketDescriptionViewController.likeItemPress(_:) as (TicketDescriptionViewController) -> (UIBarButtonItem) -> ()))
-        likeItem.setBackgroundImage(UIImage.init(named: "Icon_Like_Press"), forState: .Selected, barMetrics: .Default)
+        
 //        let shareItem = UIBarButtonItem(image: UIImage.init(named: "Icon_Share_Normal")?.imageWithRenderingMode(.AlwaysOriginal), style: .Plain, target: self, action: #selector(TicketDescriptionViewController.shareItemPress(_:)))
 //        shareItem.setBackgroundImage(UIImage.init(named: "Icon_Share_Press"), forState: .Selected, barMetrics: .Default)
-        self.navigationItem.rightBarButtonItems = [likeItem]
 
     }
     
-    func likeItemPress(sender:UIBarButtonItem) {
-        
+    func likeItemPress(sender:UIButton) {
+        if UserInfoModel.isLoggedIn() {
+            if viewModel.model.show.isFavorite == true {
+                viewModel.requestDeleteCollectTicket()
+                viewModel.model.show.isFavorite = false
+                likeButton.setImage(UIImage.init(named: "Icon_Like_Normal")?.imageWithRenderingMode(.AlwaysOriginal), forState: .Normal)
+            }else{
+                viewModel.requestCollectTicket()
+                viewModel.model.show.isFavorite = true
+                likeButton.setImage(UIImage.init(named: "Icon_Liked_Normal")?.imageWithRenderingMode(.AlwaysOriginal), forState: .Normal)
+            }
+        }else{
+            NavigationPushView(self, toConroller: LoginViewController())
+        }
     }
     
     func shareItemPress(sender:UIBarButtonItem) {
@@ -115,10 +144,12 @@ class TicketDescriptionViewController: UIViewController {
                 let ticketPrice = ToolView(frame: CGRectMake(0, frame.origin.y + 42, SCREENWIDTH, SCREENHEIGHT), data: viewModel.ticketPriceArray)
                 ticketPrice.tag = 100
                 ticketPrice.toolViewSelectIndexPathRow = { indexPath, str in
-                    Notification(ToolViewNotifacationName, value: "100")
                     self.view.viewWithTag(100)?.removeFromSuperview()
-                    self.isShowTicketNavigationBar(false)
-                    self.viewModel.sortTickeByOriginTicketPrice(str as? NSNumber, controller:self)
+                    if indexPath.row != 0 {
+                        Notification(ToolViewNotifacationName, value: "100")
+                        self.isShowTicketNavigationBar(false)
+                        self.viewModel.sortTickeByOriginTicketPrice(str as? NSNumber, controller:self)
+                    }
                 }
                 self.view.addSubview(ticketPrice)
             }else{
@@ -130,10 +161,12 @@ class TicketDescriptionViewController: UIViewController {
                 let ticketRow = ToolView(frame: CGRectMake(0, frame.origin.y + 42, SCREENWIDTH, SCREENHEIGHT), data: viewModel.ticketRowArray)
                 ticketRow.tag = 200
                 ticketRow.toolViewSelectIndexPathRow = { indexPath, str in
-                    Notification(ToolViewNotifacationName, value: "200")
                     self.view.viewWithTag(200)?.removeFromSuperview()
-                    self.isShowTicketNavigationBar(false)
-                    self.viewModel.sortTickeByRowTicketPrice(str as? String, controller:self)
+                    if indexPath.row != 0 {
+                        Notification(ToolViewNotifacationName, value: "200")
+                        self.isShowTicketNavigationBar(false)
+                        self.viewModel.sortTickeByRowTicketPrice(str as? String, controller:self)
+                    }
                 }
                 self.view.addSubview(ticketRow)
             }else{

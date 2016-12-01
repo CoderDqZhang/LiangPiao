@@ -17,6 +17,7 @@ class AddressViewModel: NSObject {
     
     var addressModels = NSMutableArray()
     var curentModel:AddressModel!
+    var selectModel:AddressModel!
     
     override init() {
         
@@ -26,7 +27,13 @@ class AddressViewModel: NSObject {
         if addressModels.count > 0 {
             if self.addressType == .addType {
                 let model = AddressModel.init(fromDictionary: addressModels.objectAtIndex(indexPath.row) as! NSDictionary)
-                if indexPath.row != 0 {
+                if selectModel != nil {
+                    if model.id == selectModel.id {
+                        cell.updateSelectImage(true)
+                    }else{
+                        cell.updateSelectImage(false)
+                    }
+                }else if indexPath.row != 0 {
                     cell.updateSelectImage(false)
                 }
                 cell.setData(model)

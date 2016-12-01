@@ -7,7 +7,7 @@
 
 import Foundation
 
-let kEncodeObjectPath_User_Address = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true).last?.stringByAppendingString("UserAddress")
+let kEncodeObjectPath_User_Address = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true).last?.stringByAppendingString("/UserAddress")
 
 class AddressModel : NSObject, NSCoding{
     

@@ -38,6 +38,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Crashlytics.sharedInstance().debugMode = true
         Fabric.with([Crashlytics.self])
         
+        WXApi.registerApp(WeiXinAppID)
+        
         UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .None)
         self.window?.makeKeyAndVisible()
 //        self.addSplshView()
@@ -77,9 +79,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(app: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
-        if url.host == "asgepay" {
+        if url.host == "safepay" {
             AlipaySDK.defaultService().processOrderWithPaymentResult(url, standbyCallback: { (resultDic) in
-                print(resultDic)
+                if resultDic["resultStatus"] as! String == "9000" {
+                    Notification(OrderStatuesChange, value: "3")
+                }else{
+                    MainThreseanShowAliPayError(resultDic["resultStatus"] as! String)
+                }
             })
             return true
         }
@@ -87,7 +93,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
-        if url.host == "asgepay" {
+        if url.host == "safepay" {
             AlipaySDK.defaultService().processOrderWithPaymentResult(url, standbyCallback: { (resultDic) in
                 print(resultDic)
             })
@@ -108,14 +114,17 @@ extension AppDelegate : WXApiDelegate {
     }
     
     func onResp(resp: BaseResp!) {
-        if resp.isEqual(PayResp.self) {
+        if resp is PayResp {
             switch resp.errCode {
             case 0:
-                print("展示成功页面")
+                Notification(OrderStatuesChange, value: "3")
+//                print("展示成功页面")
             case -1:
-                print("可能的原因：签名错误、未注册APPID、项目设置APPID不正确、注册的APPID与设置的不匹配、其他异常等。")
+                MainThreadAlertShow("微信支付错误", view: KWINDOWDS!)
+//                print("可能的原因：签名错误、未注册APPID、项目设置APPID不正确、注册的APPID与设置的不匹配、其他异常等。")
             case -2:
-                print("无需处理。发生场景：用户不支付了，点击取消，返回APP。")
+                MainThreadAlertShow("取消支付", view: KWINDOWDS!)
+//                print("无需处理。发生场景：用户不支付了，点击取消，返回APP。")
             default:
                 break;
             }

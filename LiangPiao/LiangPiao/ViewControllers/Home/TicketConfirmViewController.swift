@@ -96,6 +96,9 @@ class TicketConfirmViewController: UIViewController {
                     if UserInfoModel.isLoggedIn() {
                         let controller = AddressViewController()
                         controller.addressType = .addType
+                        if self.viewModel.addressModel != nil {
+                            controller.viewModel.selectModel = self.viewModel.addressModel
+                        }
                         controller.viewModel.addressType = .addType
                         controller.addressInfoClouse = { model in
                             let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath.init(forRow: 1, inSection: 0)) as! OrderConfirmAddressTableViewCell
@@ -112,6 +115,10 @@ class TicketConfirmViewController: UIViewController {
                     self.showExpressagePickerView()
                 default:
                     break;
+                }
+            }else{
+                if indexPath.row == 2 {
+                    NavigationPushView(self, toConroller: DiscountViewController())
                 }
             }
         }
@@ -169,7 +176,6 @@ class TicketConfirmViewController: UIViewController {
     
     func upDataTableView() {
         self.tableView.reloadData()
-        print("")
     }
     
     func createLabel(frame:CGRect, text:String) -> UILabel {
@@ -253,6 +259,7 @@ extension TicketConfirmViewController : UITableViewDataSource {
                             let model = addressModels[0]
                             viewModel.orderForme.addressId = model.id
                             cell.setData(model, type: .withAddress)
+                            viewModel.addressModel = model
                         }
                         cell.selectionStyle = .None
                         return cell

@@ -12,12 +12,13 @@ import DZNEmptyDataSet
 class FavoriteViewController: UIViewController {
 
     var tableView:UITableView!
-    
+    let viewModel = FavoritesViewModel()
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUpView()
         self.setUpNavigationItem()
         self.talKingDataPageName = "想看的演出"
+        self.bindViewModel()
         // Do any additional setup after loading the view.
     }
     
@@ -49,8 +50,24 @@ class FavoriteViewController: UIViewController {
             make.right.equalTo(self.view.snp_right).offset(0)
             make.bottom.equalTo(self.view.snp_bottom).offset(0)
         }
+        self.setUpRefreshView()
     }
     
+    func bindViewModel(){
+        viewModel.requestFavoriteTicket(self,isNext:false)
+    }
+    
+    func setUpRefreshView(){
+        self.tableView.mj_header = LiangNomalRefreshHeader(refreshingBlock: {
+            self.viewModel.requestFavoriteTicket(self, isNext:false)
+        })
+    }
+    
+    func setUpLoadMoreData(){
+        self.tableView.mj_footer = LiangPiaoLoadMoreDataFooter(refreshingBlock: {
+            self.viewModel.requestFavoriteTicket(self, isNext:true)
+        })
+    }
     
     /*
      // MARK: - Navigation
@@ -66,22 +83,21 @@ class FavoriteViewController: UIViewController {
 }
 extension FavoriteViewController : UITableViewDelegate {
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 140
+        return viewModel.tableViewHeightForRowAtIndexPath(indexPath)
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        self.navigationController?.pushViewController(TicketSceneViewController(), animated: true)
+        return viewModel.tableViewDidSelectRowAtIndexPath(indexPath, controller: self)
     }
 }
 
 extension FavoriteViewController : UITableViewDataSource {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
-        
+        return viewModel.numberOfRowsInSection(section)
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
+        return viewModel.numberOfSectionsInTableView()
     }
     
     func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -95,12 +111,18 @@ extension FavoriteViewController : UITableViewDataSource {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCellWithIdentifier("RecommendTableViewCell", forIndexPath: indexPath) as! RecommendTableViewCell
+        viewModel.cellData(cell, indexPath: indexPath)
         cell.selectionStyle = .None
         return cell
     }
 }
 extension FavoriteViewController : DZNEmptyDataSetDelegate {
-
+    func emptyDataSetShouldAllowTouch(scrollView: UIScrollView!) -> Bool {
+        return true
+    }
+    func emptyDataSetDidTapView(scrollView: UIScrollView!) {
+        viewModel.requestFavoriteTicket(self, isNext: false)
+    }
 }
 
 extension FavoriteViewController :DZNEmptyDataSetSource {

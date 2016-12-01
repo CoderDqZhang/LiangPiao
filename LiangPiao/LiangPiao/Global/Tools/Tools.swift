@@ -85,7 +85,7 @@ class Tools: NSObject {
             }
             return self.showMessage(KWINDOWDS!, msg:errorMsg , autoHidder: true)
         }else{
-            return self.showMessage(KWINDOWDS!, msg:"未知错误" , autoHidder: true)
+            return self.showMessage(KWINDOWDS!, msg:"用户未登录" , autoHidder: true)
         }
     }
     
@@ -93,5 +93,9 @@ class Tools: NSObject {
         let netWorkError = (error as! NSError)
         print(netWorkError)
         return self.showMessage(KWINDOWDS!, msg:netWorkError.localizedDescription , autoHidder: true)
+    }
+    
+    func showAliPathError(error:String) ->MBProgressHUD {
+        return self.showMessage(KWINDOWDS!, msg: error, autoHidder: true)
     }
 }

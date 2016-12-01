@@ -24,8 +24,13 @@ let IPHONE6P = SCREENWIDTH == 344 ? true:false
 let WeiXinPayStatues = "WeiXinPayStatuesChange"
 let AliPayStatues = "AliPayStatuesChange"
 
+let WeiXinAppID = "wx6c6b940e660449a2"
+
 let ToolViewNotifacationName = "ToolsViewNotification"
 let LoginStatuesChange = "LoginStatuesChange"
+
+let OrderStatuesChange = "OrderStatusChange"
+
 
 let TalkingDataKey = "AC559E27399F4ECEA0D9880E0C6977FB"
 
@@ -82,6 +87,27 @@ func MainThreanShowNetWorkError(error:AnyObject){
     })
 }
 
+
+func MainThreseanShowAliPayError(error:String) {
+    var aliPayError = ""
+    switch error {
+    case "4000":
+        aliPayError = "订单支付失败"
+    case "5000":
+        aliPayError = "重复请求"
+    case "6001":
+        aliPayError = "用户中途取消"
+    case "6002":
+        aliPayError = "网络连接出错"
+    case "8000":
+        aliPayError = "正在处理中"
+    default:
+        break
+    }
+    dispatch_async(dispatch_get_main_queue(), {
+        Tools.shareInstance.showAliPathError(aliPayError)
+    })
+}
 
 
 

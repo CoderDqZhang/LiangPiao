@@ -97,7 +97,7 @@ class TicketDescriptionViewModel: NSObject {
         }
     }
     
-    func requestTicketSession(tableView:UITableView){
+    func requestTicketSession(controller:TicketDescriptionViewController){
         var url = ""
         if sesstionModel != nil {
             url = "\(TickeSession)\(ticketModel.id)/session/\(sesstionModel.id)"
@@ -109,7 +109,25 @@ class TicketDescriptionViewModel: NSObject {
             self.tempList = self.model.ticketList
             self.getPriceArray(self.tempList)
             self.getRowArray(self.tempList)
-            tableView.reloadData()
+            
+            controller.tableView.reloadData()
+            controller.updataLikeImage()
+        }
+    }
+    
+    func requestCollectTicket(){
+        let url = "\(TicketFavorite)"
+        let parameters = ["show_id":model.show.id]
+        BaseNetWorke.sharedInstance.postUrlWithString(url, parameters: parameters).subscribeNext { (resultDic) in
+//            MainThreadAlertShow("收藏成功", view: KWINDOWDS!)
+        }
+    }
+    
+    func requestDeleteCollectTicket(){
+        let url = "\(TicketFavorite)"
+        let parameters = ["show_id":model.show.id]
+        BaseNetWorke.sharedInstance.deleteUrlWithString(url, parameters: parameters).subscribeNext { (resultDic) in
+//            MainThreadAlertShow("取消收藏成功", view: KWINDOWDS!)
         }
     }
     

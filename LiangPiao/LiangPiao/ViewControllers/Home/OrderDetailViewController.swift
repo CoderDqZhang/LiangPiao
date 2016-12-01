@@ -17,13 +17,6 @@ class OrderPayView: UIView {
         super.init(frame: frame)
         self.backgroundColor = UIColor.init(hexString: App_Theme_BackGround_Color)
         self.setUpButton()
-        
-        let singleTap = UITapGestureRecognizer(target: self, action: #selector(AddAddressView.singTapPress(_:)))
-        singleTap.numberOfTapsRequired = 1
-        singleTap.numberOfTouchesRequired = 1
-        self.addGestureRecognizer(singleTap)
-        
-        
     }
     
     func setUpButton() {
@@ -31,17 +24,15 @@ class OrderPayView: UIView {
         payButton.setTitle("立即付款", forState: .Normal)
         payButton.titleLabel?.font = Mine_AddAddress_Name_Font
         payButton.setTitleColor(UIColor.init(hexString: Mine_AddAddress_Name_Color), forState: .Normal)
-        payButton.userInteractionEnabled = false
-        payButton.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0)
+        payButton.tag = 1
+        payButton.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0)
         self.addSubview(payButton)
         self.updateConstraintsIfNeeded()
     }
     
     override func updateConstraints() {
         payButton.snp_makeConstraints { (make) in
-            make.centerX.equalTo(self.snp_centerX).offset(-5)
-            make.centerY.equalTo(self.snp_centerY).offset(0)
-            make.width.equalTo(119)
+            make.edges.equalTo(UIEdgeInsetsMake(0, 0, 0, 0))
         }
         super.updateConstraints()
     }
@@ -73,21 +64,6 @@ class OrderDetailViewController: UIViewController {
         self.setNavigationItem()
         self.talKingDataPageName = "订单详情"
         viewModel.requestPayUrl(self)
-//        self.rac_observeKeyPath(AliPayStatues, options: .New, observer: self) { (object, objects, new, obj) in
-//            
-//        }
-//        
-//        self.rac_observeKeyPath(WeiXinPayStatues, options: .New, observer: self) { (object, objects, new, obj) in
-//            
-//        }
-        
-//        self.rac_observeKeyPath(WeiXinPayStatues, options: .New, observer: self) { (object, objects, new, obj) in
-//            
-//        }
-        
-//        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(WaitPayViewController.changePayStatues(_:)), name: WeiXinPayStatues, object: nil)
-//        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(WaitPayViewController.changePayStatues(_:)), name: AliPayStatues, object: nil)
-        // Do any additional setup after loading the view.
     }
     
     
@@ -115,43 +91,69 @@ class OrderDetailViewController: UIViewController {
         
         payView = OrderPayView(frame: CGRectMake(0, SCREENHEIGHT - 49 - 64, SCREENWIDTH, 49))
         payView.payButton.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (action) in
-            self.viewModel.requestPayUrl(self)
+            if self.payView.payButton == 1 {
+                self.viewModel.requestPayModel(self)
+            }else{
+                
+            }
         }
         self.view.addSubview(payView)
-        self.updateTableView(.orderWaitPay)
+        self.bindViewModel()
     }
     
     func setNavigationItem() {
         self.title = "订单详情"
         self.setNavigationItemBack()
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "联系商家", style: .Plain, target: self, action: #selector(OrderDetailViewController.rightBarItemPress(_:)))
-    }
-    
-    func rightBarItemPress(sender:UIBarButtonItem) {
+        if viewModel.model.deliveryType == 3 {
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "联系商家", style: .Plain, target: self, action: #selector(OrderDetailViewController.rightBarItemPress(_:)))
+        }
         
     }
     
-    func updateTableView(orderType:OrderType) {
-        if orderType == .orderDone {
-            if payView != nil {
-                payView.hidden = true
-                
-            }
-            tableView.snp_makeConstraints(closure: { (make) in
-                make.bottom.equalTo(self.view.snp_bottom).offset(0)
-            })
-        }else{
+    func rightBarItemPress(sender:UIBarButtonItem) {
+        AppCallViewShow(self.view, phone: "\(viewModel.model.show.venue.phone)")
+    }
+    
+    func bindViewModel(){
+        if viewModel.model.payUrl == nil && viewModel.model.status == 0 {
+            viewModel.requestPayUrl(self)
+        }        
+        self.updateTableView(viewModel.model.status)
+    }
+    
+    func updateTableView(status:Int) {
+        if status == 0 || status == 7{
             if payView != nil {
                 payView.hidden = false
             }else{
                 payView = OrderPayView(frame: CGRectMake(0, SCREENHEIGHT - 49, SCREENWIDTH, 49))
                 self.view.addSubview(payView)
             }
-            tableView.snp_makeConstraints(closure: { (make) in
+            if status == 7 {
+                payView.payButton.setTitle("确认收货", forState: .Normal)
+                payView.payButton.tag = 2
+            }
+            tableView.snp_remakeConstraints(closure: { (make) in
+                make.top.equalTo(self.view.snp_top).offset(0)
+                make.left.equalTo(self.view.snp_left).offset(0)
+                make.right.equalTo(self.view.snp_right).offset(0)
                 make.bottom.equalTo(self.payView.snp_top).offset(0)
             })
+        }else{
+            if payView != nil {
+                payView.hidden = true
+                
+            }
+            tableView.snp_remakeConstraints { (make) in
+                make.top.equalTo(self.view.snp_top).offset(0)
+                make.left.equalTo(self.view.snp_left).offset(0)
+                make.right.equalTo(self.view.snp_right).offset(0)
+                make.bottom.equalTo(self.view.snp_bottom).offset(0)
+            }
         }
     }
+    
+    
 
     
     //    func loadPayInfo(){
@@ -245,7 +247,6 @@ class OrderDetailViewController: UIViewController {
 
 extension OrderDetailViewController : UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        
     }
     
     func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -257,29 +258,7 @@ extension OrderDetailViewController : UITableViewDelegate {
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        switch indexPath.section {
-        case 0:
-            if self.orderType == .orderWaitPay {
-                return 170
-            }else{
-                return 140
-            }
-        case 1:
-            switch indexPath.row {
-            case 0:
-                return 150
-            default:
-                return 80
-            }
-        default:
-            switch indexPath.row {
-            case 0:
-                return 125
-            default:
-                return 48
-
-            }
-        }
+        return viewModel.tableViewHeightForRowAtIndexPath(indexPath)
     }
     
     func tableView(tableView: UITableView, estimatedHeightForFooterInSection section: Int) -> CGFloat {
@@ -318,6 +297,7 @@ extension OrderDetailViewController : UITableViewDataSource {
             }else{
                 let cell = tableView.dequeueReusableCellWithIdentifier("OrderDoneTableViewCell", forIndexPath: indexPath) as! OrderDoneTableViewCell
                 cell.selectionStyle = .None
+                viewModel.tableViewCellOrderDoneTableViewCell(cell)
                 return cell
             }
          case 1:

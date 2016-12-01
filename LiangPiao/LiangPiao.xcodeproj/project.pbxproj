@@ -39,9 +39,12 @@
 		1F0EABA11DD2C0A600D25B64 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0EABA01DD2C0A600D25B64 /* LoginViewController.swift */; };
 		1F1FE8C61DEDE84A0034268F /* OrderListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1FE8C51DEDE84A0034268F /* OrderListModel.swift */; };
 		1F1FE8CA1DEE830C0034268F /* NoneTicketTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1FE8C91DEE830C0034268F /* NoneTicketTableViewCell.swift */; };
+		1F1FE8CC1DF00DDE0034268F /* DiscountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F1FE8CB1DF00DDE0034268F /* DiscountViewController.swift */; };
 		1F24DE931DD5A35900C6E8CA /* GlobalSearchTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F24DE921DD5A35900C6E8CA /* GlobalSearchTableView.swift */; };
 		1F24DE951DD5B9E100C6E8CA /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F24DE941DD5B9E100C6E8CA /* FavoriteViewController.swift */; };
 		1F24DE971DD5BA0A00C6E8CA /* FavoriteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F24DE961DD5BA0A00C6E8CA /* FavoriteViewModel.swift */; };
+		1F3241931DF02614007BC078 /* FavoritesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3241921DF02614007BC078 /* FavoritesViewModel.swift */; };
+		1F3241951DF028E7007BC078 /* FavorityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3241941DF028E7007BC078 /* FavorityModel.swift */; };
 		1F3983AB1DED2C4000A24541 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F3983AA1DED2C4000A24541 /* MessageUI.framework */; };
 		1F3983AD1DED68B700A24541 /* OrderFormModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3983AC1DED68B700A24541 /* OrderFormModel.swift */; };
 		1F45C3F61DD72043008C60CD /* LiangPiaoLoadMoreDataFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F45C3F51DD72043008C60CD /* LiangPiaoLoadMoreDataFooter.swift */; };
@@ -214,9 +217,12 @@
 		1F0EABA01DD2C0A600D25B64 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginViewController.swift; path = ../../Views/Mine/LoginViewController.swift; sourceTree = "<group>"; };
 		1F1FE8C51DEDE84A0034268F /* OrderListModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderListModel.swift; sourceTree = "<group>"; };
 		1F1FE8C91DEE830C0034268F /* NoneTicketTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoneTicketTableViewCell.swift; sourceTree = "<group>"; };
+		1F1FE8CB1DF00DDE0034268F /* DiscountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscountViewController.swift; sourceTree = "<group>"; };
 		1F24DE921DD5A35900C6E8CA /* GlobalSearchTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalSearchTableView.swift; sourceTree = "<group>"; };
 		1F24DE941DD5B9E100C6E8CA /* FavoriteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
 		1F24DE961DD5BA0A00C6E8CA /* FavoriteViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteViewModel.swift; sourceTree = "<group>"; };
+		1F3241921DF02614007BC078 /* FavoritesViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesViewModel.swift; sourceTree = "<group>"; };
+		1F3241941DF028E7007BC078 /* FavorityModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavorityModel.swift; sourceTree = "<group>"; };
 		1F3983AA1DED2C4000A24541 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		1F3983AC1DED68B700A24541 /* OrderFormModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderFormModel.swift; path = ../Home/OrderFormModel.swift; sourceTree = "<group>"; };
 		1F45C3F51DD72043008C60CD /* LiangPiaoLoadMoreDataFooter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiangPiaoLoadMoreDataFooter.swift; sourceTree = "<group>"; };
@@ -848,6 +854,7 @@
 				1FD245A41DC3574800AFD3BC /* MineViewController.swift */,
 				1F67D10D1DCD816000378116 /* AddressViewController.swift */,
 				1F67D10F1DCD816E00378116 /* AddAddressViewController.swift */,
+				1F1FE8CB1DF00DDE0034268F /* DiscountViewController.swift */,
 				1F0EAB8A1DD1DBC400D25B64 /* MyProfileViewController.swift */,
 				1F24DE941DD5B9E100C6E8CA /* FavoriteViewController.swift */,
 				1F0EAB901DD1E8F200D25B64 /* SettingViewController.swift */,
@@ -877,6 +884,7 @@
 				1F67D1151DCDB56A00378116 /* DetailAddressTableViewCell.swift */,
 				1F67D1171DCDB57A00378116 /* SetNomalAddressTableViewCell.swift */,
 				1F0EAB841DD1C88C00D25B64 /* MineViewModel.swift */,
+				1F3241921DF02614007BC078 /* FavoritesViewModel.swift */,
 				1F0EAB8C1DD1DD3C00D25B64 /* MyProfileViewModel.swift */,
 				1F0EAB921DD1E93C00D25B64 /* SettingViewModel.swift */,
 				1FBFC7C41DDAAD2B008D9CEC /* LoginViewModel.swift */,
@@ -953,6 +961,7 @@
 				1F54C5321DDC4891009ADDA9 /* UserInfoModel.h */,
 				1F54C5331DDC4891009ADDA9 /* UserInfoModel.m */,
 				1FAA85161DE54CA600F77835 /* AddressModel.swift */,
+				1F3241941DF028E7007BC078 /* FavorityModel.swift */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -1285,10 +1294,12 @@
 				1F67D1141DCD867A00378116 /* AddressTableViewCell.swift in Sources */,
 				1FBFC7E81DDABD48008D9CEC /* FMDatabaseVariadic.swift in Sources */,
 				1F67D10E1DCD816000378116 /* AddressViewController.swift in Sources */,
+				1F3241951DF028E7007BC078 /* FavorityModel.swift in Sources */,
 				1FD244C61DC2F92E00AFD3BC /* AppDelegate.swift in Sources */,
 				1F62F25B1DC9C50300B591F1 /* HomeViewModel.swift in Sources */,
 				1FC4FEED1DC8A32E00EBFD18 /* TYTabTitleViewCell.m in Sources */,
 				1FAA85201DE5C3BC00F77835 /* Tools.swift in Sources */,
+				1F1FE8CC1DF00DDE0034268F /* DiscountViewController.swift in Sources */,
 				1FBFC7E41DDABD48008D9CEC /* FMDatabase+FTS3.m in Sources */,
 				1FD245011DC2FD9700AFD3BC /* NSString+StringSize.m in Sources */,
 				1F0EAB681DD091FA00D25B64 /* OrderListViewController.swift in Sources */,
@@ -1322,6 +1333,7 @@
 				1F67D1121DCD854800378116 /* AddressViewModel.swift in Sources */,
 				1F6629921DCC495F00336700 /* CofimTicketTableViewCell.swift in Sources */,
 				1F3983AD1DED68B700A24541 /* OrderFormModel.swift in Sources */,
+				1F3241931DF02614007BC078 /* FavoritesViewModel.swift in Sources */,
 				1F0EAB8F1DD1DF1E00D25B64 /* ProfileImageTableViewCell.swift in Sources */,
 				1FD2450E1DC2FE7300AFD3BC /* Define.swift in Sources */,
 				1FBFC7F31DDACC02008D9CEC /* ZDQFMDBModel.swift in Sources */,

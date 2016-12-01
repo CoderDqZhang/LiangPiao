@@ -45,7 +45,7 @@ class OrderNumberTableViewCell: UITableViewCell {
             orderStatus.text = "待付款"
             orderStatus.textColor = UIColor.init(hexString: App_Theme_BackGround_Color)
         }else{
-            orderStatus.text = "已完成"
+            orderStatus.text = model.statusDesc
             orderStatus.textColor = UIColor.init(hexString: Order_List_Done_Color)
         }
         orderNumber.text = "订单号：\(model.id)"

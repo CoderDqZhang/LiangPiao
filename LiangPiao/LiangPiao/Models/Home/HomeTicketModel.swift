@@ -170,7 +170,6 @@ class Category : NSObject, NSCoding{
         if name != nil{
             aCoder.encodeObject(name, forKey: "name")
         }
-        
     }
     
 }
@@ -187,6 +186,7 @@ class HomeTicketModel : NSObject, NSCoding{
     var showDate : String!
     var ticketCount : Int!
     var ticketStatus : Int!
+    var isFavorite : Bool!
     var title : String!
     var venue : Venue!
     
@@ -205,6 +205,7 @@ class HomeTicketModel : NSObject, NSCoding{
         minPrice = dictionary["min_price"] as? Int
         sessionCount = dictionary["session_count"] as? Int
         showDate = dictionary["show_date"] as? String
+        isFavorite = dictionary["is_favorite"] as? Bool
         ticketCount = dictionary["ticket_count"] as? Int
         ticketStatus = dictionary["ticket_status"] as? Int
         title = dictionary["title"] as? String
@@ -230,6 +231,9 @@ class HomeTicketModel : NSObject, NSCoding{
         }
         if id != nil{
             dictionary["id"] = id
+        }
+        if isFavorite != nil{
+            dictionary["is_favorite"] = isFavorite
         }
         if minDiscount != nil{
             dictionary["min_discount"] = minDiscount
@@ -268,6 +272,7 @@ class HomeTicketModel : NSObject, NSCoding{
         city = aDecoder.decodeObjectForKey("city") as? String
         cover = aDecoder.decodeObjectForKey("cover") as? String
         id = aDecoder.decodeObjectForKey("id") as? Int
+        isFavorite = aDecoder.decodeObjectForKey("is_favorite") as? Bool
         minDiscount = aDecoder.decodeObjectForKey("min_discount") as? String
         minPrice = aDecoder.decodeObjectForKey("min_price") as? Int
         sessionCount = aDecoder.decodeObjectForKey("session_count") as? Int
@@ -296,6 +301,9 @@ class HomeTicketModel : NSObject, NSCoding{
         }
         if id != nil{
             aCoder.encodeObject(id, forKey: "id")
+        }
+        if isFavorite != nil{
+            aCoder.encodeObject(isFavorite, forKey: "is_favorite")
         }
         if minDiscount != nil{
             aCoder.encodeObject(minDiscount, forKey: "min_discount")

@@ -8,6 +8,7 @@
 
 import UIKit
 import MessageUI
+import Alamofire
 
 class SettingViewModel: NSObject {
 
@@ -58,13 +59,14 @@ class SettingViewModel: NSObject {
                 self.presentEmailViewController(controller)
                 break;
             default:
-//                UIApplication.sharedApplication().openURL(NSURL.init(string: "itms// itunes.apple.com/gb/app/yi-dong-cai-bian/id1170039060?mt=8")!)
+                UIApplication.sharedApplication().openURL(NSURL.init(string: "itms// itunes.apple.com/gb/app/yi-dong-cai-bian/id1170039060?mt=8")!)
                 break
             }
         default:
             if UserInfoModel.shareInstance().deleteObject() {
                 Notification(LoginStatuesChange, value: nil)
                 controller.navigationController?.popViewControllerAnimated(true)
+//                Alamofire.Manager.sharedInstance.session = nil
             }
         }
     }

@@ -35,18 +35,26 @@ class OrderDoneTableViewCell: UITableViewCell {
         pickUpTime = self.createLabel(CGRectMake(15, 77, SCREENWIDTH - 15, 18), text: "取票时间：周一至周五 08:30 - 20:30")
         self.contentView.addSubview(pickUpTime)
         
-        packUpInfo = self.createLabel(CGRectMake(15, 96, SCREENWIDTH - 15, 18), text: "凭手机短信取票码取票，客服热线 400-636-2266")
-        self.contentView.addSubview(packUpInfo)
-        
         self.updateConstraintsIfNeeded()
     }
     
     func createLabel(frame:CGRect, text:String) -> UILabel {
         let label = UILabel(frame: frame)
-        label.font = GlobalCell_Title_Font
-        label.textColor = UIColor.init(hexString: GlobalCell_Title_Color)
+        label.font = OrderDetail_Address_Font
+        label.textColor = UIColor.init(hexString: OrderDetail_Address_Color)
         label.text = text
         return label
+    }
+    
+    func setData(model:OrderList){
+        orderStatusDone.text = model.statusDesc
+        if model.deliveryType == 1 {
+            pickUpLocation.text = "\(model.address.name) \(model.address.mobileNum)"
+            pickUpTime.text = "\(model.address.address)"
+        }else{
+            pickUpLocation.text = "取票地点：\(model.ticket.selfGetTicketAddress)"
+            pickUpTime.text = "取票时间：\(model.ticket.selfGetTicketDate)"
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -10,12 +10,26 @@ import UIKit
 
 class Wxpay : NSObject, NSCoding{
     
+    var appid : String!
+    var noncestr : String!
+    var packageField : String!
+    var partnerid : String!
+    var prepayid : String!
+    var sign : String!
+    var timestamp : String!
     
     
     /**
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: NSDictionary){
+        appid = dictionary["appid"] as? String
+        noncestr = dictionary["noncestr"] as? String
+        packageField = dictionary["package"] as? String
+        partnerid = dictionary["partnerid"] as? String
+        prepayid = dictionary["prepayid"] as? String
+        sign = dictionary["sign"] as? String
+        timestamp = dictionary["timestamp"] as? String
     }
     
     /**
@@ -24,6 +38,27 @@ class Wxpay : NSObject, NSCoding{
     func toDictionary() -> NSDictionary
     {
         let dictionary = NSMutableDictionary()
+        if appid != nil{
+            dictionary["appid"] = appid
+        }
+        if noncestr != nil{
+            dictionary["noncestr"] = noncestr
+        }
+        if packageField != nil{
+            dictionary["package"] = packageField
+        }
+        if partnerid != nil{
+            dictionary["partnerid"] = partnerid
+        }
+        if prepayid != nil{
+            dictionary["prepayid"] = prepayid
+        }
+        if sign != nil{
+            dictionary["sign"] = sign
+        }
+        if timestamp != nil{
+            dictionary["timestamp"] = timestamp
+        }
         return dictionary
     }
     
@@ -33,6 +68,13 @@ class Wxpay : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
+        appid = aDecoder.decodeObjectForKey("appid") as? String
+        noncestr = aDecoder.decodeObjectForKey("noncestr") as? String
+        packageField = aDecoder.decodeObjectForKey("package") as? String
+        partnerid = aDecoder.decodeObjectForKey("partnerid") as? String
+        prepayid = aDecoder.decodeObjectForKey("prepayid") as? String
+        sign = aDecoder.decodeObjectForKey("sign") as? String
+        timestamp = aDecoder.decodeObjectForKey("timestamp") as? String
         
     }
     
@@ -42,6 +84,27 @@ class Wxpay : NSObject, NSCoding{
      */
     @objc func encodeWithCoder(aCoder: NSCoder)
     {
+        if appid != nil{
+            aCoder.encodeObject(appid, forKey: "appid")
+        }
+        if noncestr != nil{
+            aCoder.encodeObject(noncestr, forKey: "noncestr")
+        }
+        if packageField != nil{
+            aCoder.encodeObject(packageField, forKey: "package")
+        }
+        if partnerid != nil{
+            aCoder.encodeObject(partnerid, forKey: "partnerid")
+        }
+        if prepayid != nil{
+            aCoder.encodeObject(prepayid, forKey: "prepayid")
+        }
+        if sign != nil{
+            aCoder.encodeObject(sign, forKey: "sign")
+        }
+        if timestamp != nil{
+            aCoder.encodeObject(timestamp, forKey: "timestamp")
+        }
         
     }
     

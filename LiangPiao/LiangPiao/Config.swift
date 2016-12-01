@@ -130,13 +130,13 @@ let Home_PayView_Label_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(14.0)
 let Home_PayView_Button_Title_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(15.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 15.0)
 let Home_PayView_MuchLabel_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(10.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 10.0)
 
-let Home_PayView_Much_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(17.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 17.0)
+let Home_PayView_Much_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(18.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 18.0)
 
 let Home_Ticket_Introuduct_Color = "BBC1CB"
 let Home_Ticket_Introuduct_Back_Color = "E9EBF2"
 let Home_Ticket_Introuduct_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(12.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 12.0)
 
-let Home_Ticket_Introuduct_Field_Color = "DDE0E5"
+let Home_Ticket_Introuduct_Field_Color = "BBC1CB"
 let Home_Ticket_Introuduct_Field_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(13.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 13.0)
 
 let Mine_Address_Name_Color = "384249"
@@ -149,6 +149,10 @@ let Mine_NomalAddress_Name_Font = IPHONE_VERSION > 9 ? UIFont.init(name: ".SFUIT
 
 let Mine_AddAddress_Name_Color = "FFFFFF"
 let Mine_AddAddress_Name_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(15.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 15.0)
+
+let OrderDetail_Address_Color = "556169"
+let OrderDetail_Address_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(12.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 12.0)
+
 
 let Order_Status_Wait_Done_Color = "4BD4C5"
 let Order_Status_Wait_Done_Font = IPHONE_VERSION > 9 ? UIFont.init(name: ".SFUIText-Medium", size: 16.0):UIFont.init(name: ".HelveticaNeueInterface-Medium", size: 16.0)
@@ -189,6 +193,9 @@ let LoginView_CodeSenderButton_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSi
 
 let Sell_View_Title_bColor = "DDE0E5"
 let Sell_View_Title_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(14.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 14.0)
+
+let DisCount_Title_Color = "DDE0E5"
+let DisCount_Title_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(16.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 16.0)
 
 let LoginView_LoginButton_Font = IPHONE_VERSION > 9 ? UIFont.init(name:".SFUIText-Medium", size: 15.0):UIFont.init(name: ".HelveticaNeueInterface-Medium", size: 15.0)
 

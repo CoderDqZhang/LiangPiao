@@ -10,9 +10,7 @@ import UIKit
 
 class LoginViewController: UIViewController {
 
-    var phoneLabel:UILabel!
     var phontTextField:UITextField!
-    var confimCodeLabel:UILabel!
     var confimCodeField:UITextField!
     
     var lineLabel:GloabLineView!
@@ -52,21 +50,15 @@ class LoginViewController: UIViewController {
     func setUpView() {
         timeDownLabel = CountDown()
         
-        phoneLabel = self.createLabel(CGRectZero, text: "手机号")
-        self.view.addSubview(phoneLabel)
-        
         lineLabel = GloabLineView(frame: CGRectMake(15,0,SCREENWIDTH - 30, 0.5))
         self.view.addSubview(lineLabel)
-        
-        confimCodeLabel = self.createLabel(CGRectZero, text: "验证码")
-        self.view.addSubview(confimCodeLabel)
         
         lineLabel1 = GloabLineView(frame: CGRectMake(15,0,SCREENWIDTH - 30, 0.5))
         self.view.addSubview(lineLabel1)
         
         confimCodeField = self.createTextFiled(CGRectZero)
         confimCodeField.delegate = self
-        confimCodeField.text = "1234"
+        confimCodeField.placeholder = "验证码"
         confimCodeField.textColor = UIColor.init(hexString: App_Theme_Text_Color)
         confimCodeField.font = Login_TextField_Font
         confimCodeField.rac_textSignal().subscribeNext { (action) in
@@ -78,9 +70,9 @@ class LoginViewController: UIViewController {
         phontTextField = self.createTextFiled(CGRectZero)
         phontTextField.delegate = self
         phontTextField.tag = 1
-        phontTextField.text = "18363899723"
         phontTextField.textColor = UIColor.init(hexString: App_Theme_Text_Color)
         phontTextField.keyboardType = .PhonePad
+        phontTextField.placeholder = "请输入手机号"
         phontTextField.font = Login_TextField_Font
         phontTextField.rac_textSignal().subscribeNext { (action) in
             self.loginForm.phone = action as! String
@@ -101,7 +93,6 @@ class LoginViewController: UIViewController {
         senderCode.setTitle("发验证码", forState: .Normal)
         senderCode.titleLabel?.font = LoginView_CodeSenderButton_Font
         senderCode.enabled = false
-        
         senderCode.layer.cornerRadius = 2.0
         senderCode.layer.masksToBounds = true
         senderCode.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (action) in
@@ -179,15 +170,10 @@ class LoginViewController: UIViewController {
     }
     
     func makeConstraints(){
-        phoneLabel.snp_makeConstraints { (make) in
-            make.top.equalTo(self.view.snp_top).offset(50)
-            make.left.equalTo(self.view.snp_left).offset(15)
-            make.width.equalTo(49)
-        }
-        
+    
         phontTextField.snp_makeConstraints { (make) in
             make.top.equalTo(self.view.snp_top).offset(49)
-            make.left.equalTo(self.phoneLabel.snp_right).offset(28)
+            make.left.equalTo(self.view.snp_left).offset(15)
             make.right.equalTo(self.senderCode.snp_left).offset(-10)
             make.height.equalTo(20)
         }
@@ -204,21 +190,15 @@ class LoginViewController: UIViewController {
             make.right.equalTo(self.view.snp_right).offset(-15)
         }
         
-        confimCodeLabel.snp_makeConstraints { (make) in
-            make.top.equalTo(self.lineLabel.snp_bottom).offset(20)
-            make.left.equalTo(self.view.snp_left).offset(15)
-            make.width.equalTo(49)
-        }
-        
         confimCodeField.snp_makeConstraints { (make) in
             make.top.equalTo(self.lineLabel.snp_bottom).offset(17)
-            make.left.equalTo(self.confimCodeLabel.snp_right).offset(28)
+            make.left.equalTo(self.view.snp_left).offset(15)
             make.right.equalTo(self.view.snp_right).offset(-15)
             make.height.equalTo(20)
         }
         
         lineLabel1.snp_makeConstraints { (make) in
-            make.top.equalTo(self.confimCodeLabel.snp_bottom).offset(20)
+            make.top.equalTo(self.confimCodeField.snp_bottom).offset(20)
             make.left.equalTo(self.view.snp_left).offset(15)
             make.right.equalTo(self.view.snp_right).offset(-15)
         }
