@@ -56,6 +56,7 @@ class TicketSessionViewModel: NSObject {
     func didSelectRowAtIndexPath(indexPath:NSIndexPath,controller:TicketSceneViewController) {
         let controllerVC = TicketDescriptionViewController()
         controllerVC.viewModel.ticketModel = model
+        controllerVC.viewModel.sesstionModel = TicketSessionModel.init(fromDictionary: self.models.objectAtIndex(indexPath.row) as! NSDictionary)
         NavigationPushView(controller, toConroller: controllerVC)
     }
     

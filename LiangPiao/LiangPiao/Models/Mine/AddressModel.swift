@@ -7,6 +7,7 @@
 
 import Foundation
 
+let kEncodeObjectPath_User_Address = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true).last?.stringByAppendingString("UserAddress")
 
 class AddressModel : NSObject, NSCoding{
     
@@ -35,7 +36,7 @@ class AddressModel : NSObject, NSCoding{
      */
     func toDictionary() -> NSDictionary
     {
-        var dictionary = NSMutableDictionary()
+        let dictionary = NSMutableDictionary()
         if address != nil{
             dictionary["address"] = address
         }
@@ -97,6 +98,28 @@ class AddressModel : NSObject, NSCoding{
             aCoder.encodeObject(name, forKey: "name")
         }
         
+    }
+    
+    class func removeAddress(){
+        let fileManager = NSFileManager.defaultManager()
+        do{
+            try fileManager.removeItemAtPath(kEncodeObjectPath_User_Address!)
+        }catch {
+            
+        }
+    }
+    
+    class func haveAddress() -> Bool {
+        let fileManager = NSFileManager.defaultManager()
+        return fileManager.fileExistsAtPath(kEncodeObjectPath_User_Address!)
+    }
+    
+    class func unarchiveObjectWithFile() -> [AddressModel] {
+        return NSKeyedUnarchiver.unarchiveObjectWithFile(kEncodeObjectPath_User_Address!)! as! [AddressModel]
+    }
+    
+    class func archiveRootObject(models:[AddressModel]){
+        NSKeyedArchiver.archiveRootObject(models, toFile: kEncodeObjectPath_User_Address!)
     }
     
 }

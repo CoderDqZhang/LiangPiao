@@ -38,6 +38,8 @@ class OrderListViewController: BaseViewController {
         tableView.snp_makeConstraints { (make) in
             make.edges.equalTo(UIEdgeInsetsMake(0, 0, 0, 0))
         }
+        self.setUpRefreshData()
+        self.bindViewModel()
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -54,6 +56,22 @@ class OrderListViewController: BaseViewController {
         
         return orderListView
     }
+    
+    func bindViewModel(){
+        viewModel.requestOrderList(self,isNext: false)
+    }
+    
+    func setUpLoadMoreData(){
+        self.tableView.mj_footer = LiangPiaoLoadMoreDataFooter(refreshingBlock: {
+            self.viewModel.requestOrderList(self, isNext:true)
+        })
+    }
+    
+    func setUpRefreshData(){
+        self.tableView.mj_header = LiangNomalRefreshHeader(refreshingBlock: {
+            self.viewModel.requestOrderList(self, isNext:false)
+        })
+    }
     /*
     // MARK: - Navigation
 
@@ -68,18 +86,13 @@ class OrderListViewController: BaseViewController {
 
 extension OrderListViewController : UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.row == 1 {
-            let controller = OrderDetailViewController()
-            controller.hidesBottomBarWhenPushed = true
-            self.navigationController?.pushViewController(controller, animated: true)
-
-        }
+        viewModel.tableViewDidSelectRowAtIndexPath(indexPath, controller:self)
     }
 }
 
 extension OrderListViewController : UITableViewDataSource {
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return viewModel.numberOfSection()
+        return viewModel.numberOfSectionsInTableView()
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

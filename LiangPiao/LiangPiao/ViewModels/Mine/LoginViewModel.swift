@@ -48,6 +48,7 @@ class LoginViewModel: NSObject {
             self.savePhotoImage()
             Notification(LoginStatuesChange, value: nil)
             controller.navigationController?.popViewControllerAnimated(true)
+            
         }
     }
     
@@ -60,6 +61,17 @@ class LoginViewModel: NSObject {
                     SaveImageTools.sharedInstance.saveImage("photoImage.png", image: image!, path: "headerImage")
                 }
             }
+        }
+    }
+    
+    func requestAddress(){
+        BaseNetWorke.sharedInstance.getUrlWithString(AddAddress, parameters: nil).subscribeNext { (resultDic) in
+            let resultModels =  NSMutableArray.mj_objectArrayWithKeyValuesArray(resultDic)
+            var addressModels:[AddressModel] = []
+            for model in resultModels {
+                addressModels.append(AddressModel.init(fromDictionary: model as! NSDictionary))
+            }
+            AddressModel.archiveRootObject(addressModels)
         }
     }
 }

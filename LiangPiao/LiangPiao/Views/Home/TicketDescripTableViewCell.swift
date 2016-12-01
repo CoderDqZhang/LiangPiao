@@ -60,9 +60,6 @@ class TicketDescripTableViewCell: UITableViewCell {
         UILabel.changeLineSpaceForLabel(appTicketState, withSpace: 3.0)
         self.contentView.addSubview(appTicketState)
         
-//        ticketStatus = GlobalTicketStatus(frame: CGRectZero, titles: ["9.6折","预售中","最后5张"], types: [3])
-//        self.addSubview(ticketStatus)
-        
         lineLabel = GloabLineView(frame: CGRectMake(15, 139.5, SCREENWIDTH - 30, 0.5))
         self.contentView.addSubview(lineLabel)
         
@@ -73,7 +70,7 @@ class TicketDescripTableViewCell: UITableViewCell {
         ticketPhoto.sd_setImageWithURL(NSURL.init(string: model.cover), placeholderImage: UIImage.init(named: "Feeds_Default_Cover")) { (image, error, cacheType, url) in
         }
         ticketTitle.text = model.title
-        ticketTime.text = "\(sessionModel.startTime)-\(sessionModel.endTime)"
+        ticketTime.text = "\(sessionModel.startTime)"
         ticketLocation.text = model.venue.name
 
         self.setUpTicketStatues(sessionModel)
@@ -85,14 +82,14 @@ class TicketDescripTableViewCell: UITableViewCell {
     func setUpTicketStatues(model:TicketSessionModel){
         var statuesArray:[String] = []
         if model.minDiscount != ""{
-            statuesArray.append("\(model.minDiscount)折")
+            statuesArray.append("\(model.minDiscount)折   ")
         }
         if model.ticketCount != 0 {
-            let str = model.ticketCount >= 20 ? "剩余\(model.ticketCount)张" : "最后\(model.ticketCount)张"
+            let str = model.ticketCount >= 20 ? "剩余\(model.ticketCount)张   " : "最后\(model.ticketCount)张   "
             statuesArray.append(str)
         }
         if model.ticketStatus == 0 {
-            statuesArray.append("预售中")
+            statuesArray.append("预售中   ")
             self.setUpStatuesView(statuesArray, types: [statuesArray.count])
         }else{
             if statuesArray.count > 0 {

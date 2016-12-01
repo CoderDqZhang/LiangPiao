@@ -42,7 +42,7 @@ class TicketSessionModel : NSObject, NSCoding{
      */
     func toDictionary() -> NSDictionary
     {
-        var dictionary = NSMutableDictionary()
+        let dictionary = NSMutableDictionary()
         if endTime != nil{
             dictionary["end_time"] = endTime
         }

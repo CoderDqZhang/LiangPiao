@@ -68,20 +68,20 @@ class CofimTicketTableViewCell: UITableViewCell {
         
     }
     
-    func setData(model:HomeTicketModel, ticketModel:TicketList, sessionModel:TicketSessionModel) {
+    func setData(model:HomeTicketModel, ticketModel:TicketList, sessionModel:TicketSessionModel, ticketCount:String) {
         ticketPhoto.sd_setImageWithURL(NSURL.init(string: model.cover), placeholderImage: UIImage.init(named: "Feeds_Default_Cover_02")) { (image, error, cacheType, url) in
         }
         ticketTitle.text = model.title
-        ticketTime.text = "时间：\(sessionModel.startTime)"
+        ticketTime.text = "时间：\(sessionModel.name)"
         ticketLocation.text = "场馆：\(model.venue.name)"
-        ticketMuch.text = "票面：\(ticketModel.originalTicket.price)"
+        ticketMuch.text = "票面：\(ticketModel.originalTicket.name)"
         var str = ""
-        if ticketModel.seatType == 1 {
-            str = "连座"
-        }else if ticketModel.seatType == 2 {
-            str = "散座"
+        if ticketModel.region == "" {
+            str = "优先择座"
+        }else if ticketModel.row == "" {
+            str = "\(ticketModel.region)"
         }else {
-            str = "连座"
+            str = "\(ticketModel.region) \(ticketModel.row) 排"
         }
         ticketRow.text = "座位：\(str)"
     }

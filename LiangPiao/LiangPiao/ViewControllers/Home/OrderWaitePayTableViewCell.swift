@@ -73,8 +73,10 @@ class OrderWaitePayTableViewCell: UITableViewCell {
         self.updateConstraintsIfNeeded()
     }
     
-    func setData(time:String, type:OrderType) {
-
+    func setData(model:OrderList) {
+        orderName.text = "\(model.address.name) \(model.address.mobileNum)"
+        orderAddress.text = model.address.address
+        orderCountDownView.setUpDate("\(model.created)")
     }
     
     required init?(coder aDecoder: NSCoder) {

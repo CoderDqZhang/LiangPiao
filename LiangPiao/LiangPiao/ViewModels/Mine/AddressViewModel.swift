@@ -68,6 +68,11 @@ class AddressViewModel: NSObject {
         BaseNetWorke.sharedInstance.getUrlWithString(AddAddress, parameters: nil).subscribeNext { (resultDic) in
             let resultModels =  NSMutableArray.mj_objectArrayWithKeyValuesArray(resultDic)
             self.addressModels = resultModels.mutableCopy() as! NSMutableArray
+            var addressModels:[AddressModel] = []
+            for model in resultModels {
+                addressModels.append(AddressModel.init(fromDictionary: model as! NSDictionary))
+            }
+            AddressModel.archiveRootObject(addressModels)
             tableView.reloadData()
         }
     }

@@ -29,6 +29,18 @@ class OrderMuchTableViewCell: UITableViewCell {
         
         muchLabel = UILabel()
         muchLabel.text = "688.00 元"
+        
+        self.contentView.addSubview(muchLabel)
+        
+        self.updateConstraintsIfNeeded()
+    }
+    
+    func setData(model:OrderList){
+        muchLabel.text = "\(model.total).00 元"
+        self.updataMuchTextAttribute()
+    }
+    
+    func updataMuchTextAttribute(){
         let attributeString = NSMutableAttributedString(string: muchLabel.text!)
         attributeString.addAttribute(NSFontAttributeName,
                                      value: Home_PayView_WaitPay_Much_Font!,
@@ -41,9 +53,6 @@ class OrderMuchTableViewCell: UITableViewCell {
         attributeString.addAttribute(NSForegroundColorAttributeName, value: UIColor.init(hexString: Home_Ticker_Descrip_Color),
                                      range: NSMakeRange(muchLabel.text!.length - 1,1))
         muchLabel.attributedText = attributeString
-        self.contentView.addSubview(muchLabel)
-        
-        self.updateConstraintsIfNeeded()
     }
     
     required init?(coder aDecoder: NSCoder) {

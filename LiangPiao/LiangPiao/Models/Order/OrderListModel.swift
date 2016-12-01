@@ -8,8 +8,107 @@
 
 import UIKit
 
+class Wxpay : NSObject, NSCoding{
+    
+    
+    
+    /**
+     * Instantiate the instance using the passed dictionary values to set the properties values
+     */
+    init(fromDictionary dictionary: NSDictionary){
+    }
+    
+    /**
+     * Returns all the available property values in the form of NSDictionary object where the key is the approperiate json key and the value is the value of the corresponding property
+     */
+    func toDictionary() -> NSDictionary
+    {
+        let dictionary = NSMutableDictionary()
+        return dictionary
+    }
+    
+    /**
+     * NSCoding required initializer.
+     * Fills the data from the passed decoder
+     */
+    @objc required init(coder aDecoder: NSCoder)
+    {
+        
+    }
+    
+    /**
+     * NSCoding required method.
+     * Encodes mode properties into the decoder
+     */
+    @objc func encodeWithCoder(aCoder: NSCoder)
+    {
+        
+    }
+    
+}
+
+class PayUrl : NSObject, NSCoding{
+    
+    var alipay : String!
+    var wxpay : Wxpay!
+    
+    
+    /**
+     * Instantiate the instance using the passed dictionary values to set the properties values
+     */
+    init(fromDictionary dictionary: NSDictionary){
+        alipay = dictionary["alipay"] as? String
+        if let wxpayData = dictionary["wxpay"] as? NSDictionary{
+            wxpay = Wxpay(fromDictionary: wxpayData)
+        }
+    }
+    
+    /**
+     * Returns all the available property values in the form of NSDictionary object where the key is the approperiate json key and the value is the value of the corresponding property
+     */
+    func toDictionary() -> NSDictionary
+    {
+        var dictionary = NSMutableDictionary()
+        if alipay != nil{
+            dictionary["alipay"] = alipay
+        }
+        if wxpay != nil{
+            dictionary["wxpay"] = wxpay.toDictionary()
+        }
+        return dictionary
+    }
+    
+    /**
+     * NSCoding required initializer.
+     * Fills the data from the passed decoder
+     */
+    @objc required init(coder aDecoder: NSCoder)
+    {
+        alipay = aDecoder.decodeObjectForKey("alipay") as? String
+        wxpay = aDecoder.decodeObjectForKey("wxpay") as? Wxpay
+        
+    }
+    
+    /**
+     * NSCoding required method.
+     * Encodes mode properties into the decoder
+     */
+    @objc func encodeWithCoder(aCoder: NSCoder)
+    {
+        if alipay != nil{
+            aCoder.encodeObject(alipay, forKey: "alipay")
+        }
+        if wxpay != nil{
+            aCoder.encodeObject(wxpay, forKey: "wxpay")
+        }
+        
+    }
+    
+}
+
 class OrderList : NSObject, NSCoding{
     
+    var address : AddressModel!
     var created : String!
     var deliveryPrice : Int!
     var deliveryType : Int!
@@ -19,6 +118,7 @@ class OrderList : NSObject, NSCoding{
     var orderId : String!
     var payDate : String!
     var payType : Int!
+    var payUrl : PayUrl!
     var phone : String!
     var price : Int!
     var reason : String!
@@ -35,6 +135,9 @@ class OrderList : NSObject, NSCoding{
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: NSDictionary){
+        if let addressData = dictionary["address"] as? NSDictionary{
+            address = AddressModel(fromDictionary: addressData)
+        }
         created = dictionary["created"] as? String
         deliveryPrice = dictionary["delivery_price"] as? Int
         deliveryType = dictionary["delivery_type"] as? Int
@@ -53,6 +156,9 @@ class OrderList : NSObject, NSCoding{
         if let showData = dictionary["show"] as? NSDictionary{
             show = HomeTicketModel(fromDictionary: showData)
         }
+        if let payUrlData = dictionary["pay_url"] as? NSDictionary{
+            payUrl = PayUrl(fromDictionary: payUrlData)
+        }
         status = dictionary["status"] as? Int
         statusDesc = dictionary["status_desc"] as? String
         if let ticketData = dictionary["ticket"] as? NSDictionary{
@@ -68,6 +174,9 @@ class OrderList : NSObject, NSCoding{
     func toDictionary() -> NSDictionary
     {
         let dictionary = NSMutableDictionary()
+        if address != nil{
+            dictionary["address"] = address.toDictionary()
+        }
         if created != nil{
             dictionary["created"] = created
         }
@@ -94,6 +203,9 @@ class OrderList : NSObject, NSCoding{
         }
         if payType != nil{
             dictionary["pay_type"] = payType
+        }
+        if payUrl != nil{
+            dictionary["pay_url"] = payUrl.toDictionary()
         }
         if phone != nil{
             dictionary["phone"] = phone
@@ -134,6 +246,7 @@ class OrderList : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
+        address = aDecoder.decodeObjectForKey("address") as? AddressModel
         created = aDecoder.decodeObjectForKey("created") as? String
         deliveryPrice = aDecoder.decodeObjectForKey("delivery_price") as? Int
         deliveryType = aDecoder.decodeObjectForKey("delivery_type") as? Int
@@ -143,6 +256,7 @@ class OrderList : NSObject, NSCoding{
         orderId = aDecoder.decodeObjectForKey("order_id") as? String
         payDate = aDecoder.decodeObjectForKey("pay_date") as? String
         payType = aDecoder.decodeObjectForKey("pay_type") as? Int
+        payUrl = aDecoder.decodeObjectForKey("pay_url") as? PayUrl
         phone = aDecoder.decodeObjectForKey("phone") as? String
         price = aDecoder.decodeObjectForKey("price") as? Int
         reason = aDecoder.decodeObjectForKey("reason") as? String
@@ -162,6 +276,9 @@ class OrderList : NSObject, NSCoding{
      */
     @objc func encodeWithCoder(aCoder: NSCoder)
     {
+        if address != nil{
+            aCoder.encodeObject(address, forKey: "address")
+        }
         if created != nil{
             aCoder.encodeObject(created, forKey: "created")
         }
@@ -188,6 +305,9 @@ class OrderList : NSObject, NSCoding{
         }
         if payType != nil{
             aCoder.encodeObject(payType, forKey: "pay_type")
+        }
+        if payUrl != nil{
+            aCoder.encodeObject(payUrl, forKey: "pay_url")
         }
         if phone != nil{
             aCoder.encodeObject(phone, forKey: "phone")

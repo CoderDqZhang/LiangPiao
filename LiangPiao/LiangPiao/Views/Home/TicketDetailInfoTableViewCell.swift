@@ -61,6 +61,23 @@ class TicketDetailInfoTableViewCell: UITableViewCell {
         
     }
     
+    func setData(model:HomeTicketModel, sessionModel:TicketSessionModel, ticketModel:TicketList){
+        ticketPhoto.sd_setImageWithURL(NSURL.init(string: model.cover), placeholderImage: UIImage.init(named: "Feeds_Default_Cover_02")) { (image, error, cacheType, url) in
+        }
+        ticketTitle.text = model.title
+        ticketTime.text = "时间：\(sessionModel.startTime)"
+        ticketMuch.text = "票面：\(ticketModel.price)"
+        var str = ""
+        if ticketModel.region == "" {
+            str = "优先择座"
+        }else if ticketModel.row == "" {
+            str = "\(ticketModel.region)"
+        }else {
+            str = "\(ticketModel.region) \(ticketModel.row) 排"
+        }
+        ticketRow.text = "座位：\(str)"
+    }
+    
     override func updateConstraints() {
         if !self.didMakeConstraints {
             ticketPhoto.snp_makeConstraints(closure: { (make) in

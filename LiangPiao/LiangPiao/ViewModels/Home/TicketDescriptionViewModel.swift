@@ -15,6 +15,7 @@ class TicketDescriptionViewModel: NSObject {
     var model:TicketDescriptionModel!
     var ticketNumber:NSInteger = 1
     var tempList:[TicketList]!
+    var sesstionModel:TicketSessionModel!
     
     var ticketPriceArray:NSArray = NSArray()
     var ticketRowArray:NSArray = NSArray()
@@ -57,6 +58,9 @@ class TicketDescriptionViewModel: NSObject {
         case 3:
             return 42
         default:
+            if self.model.ticketList.count == 0 {
+                return SCREENHEIGHT - 374
+            }
             return 60
         }
     }
@@ -67,6 +71,9 @@ class TicketDescriptionViewModel: NSObject {
     
     func tableViewnumberOfRowsInSection(section:Int) -> Int{
         if self.model != nil{
+            if self.model.ticketList.count == 0 {
+                return 5
+            }
             return self.model.ticketList.count + 4
         }
         return 0
@@ -91,7 +98,12 @@ class TicketDescriptionViewModel: NSObject {
     }
     
     func requestTicketSession(tableView:UITableView){
-        let url = "\(TickeSession)\(ticketModel.id)/session/\(ticketModel.id)"
+        var url = ""
+        if sesstionModel != nil {
+            url = "\(TickeSession)\(ticketModel.id)/session/\(sesstionModel.id)"
+        }else{
+            url = "\(TickeSession)\(ticketModel.id)/session/\(ticketModel.id)"
+        }
         BaseNetWorke.sharedInstance.getUrlWithString(url, parameters: nil).subscribeNext { (resultDic) in
             self.model = TicketDescriptionModel.init(fromDictionary: resultDic as! NSDictionary)
             self.tempList = self.model.ticketList
@@ -123,6 +135,14 @@ class TicketDescriptionViewModel: NSObject {
         let controllerVC = TicketConfirmViewController()
         controllerVC.viewModel.model = self.model
         controllerVC.viewModel.ticketModel = self.model.ticketList[indexPath.row - 4]
+        let typeArray = self.model.ticketList[indexPath.row - 4].deliveryType.componentsSeparatedByString(",")
+        for str in typeArray {
+            if str == "1" {
+                 controllerVC.viewModel.formType = .withNomal
+                 controllerVC.viewModel.orderForme.deliveryType = .expressage
+                 controllerVC.viewModel.formDelevityType = .expressage
+            }
+        }
         controllerVC.viewModel.ticketCount = self.getTicketNumber(indexPath)
         controllerVC.viewModel.muchOfTicket = self.getMuchOfTicket(indexPath)
         NavigationPushView(controller, toConroller: controllerVC)

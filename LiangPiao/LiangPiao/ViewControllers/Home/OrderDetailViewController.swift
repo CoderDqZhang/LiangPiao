@@ -124,6 +124,11 @@ class OrderDetailViewController: UIViewController {
     func setNavigationItem() {
         self.title = "订单详情"
         self.setNavigationItemBack()
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "联系商家", style: .Plain, target: self, action: #selector(OrderDetailViewController.rightBarItemPress(_:)))
+    }
+    
+    func rightBarItemPress(sender:UIBarButtonItem) {
+        
     }
     
     func updateTableView(orderType:OrderType) {
@@ -188,9 +193,9 @@ class OrderDetailViewController: UIViewController {
     func tableOrderFooterView() -> UIView {
         let orderConfirmView = UIView(frame: CGRectMake(0,0,SCREENWIDTH,12))
         orderConfirmView.backgroundColor = UIColor.init(hexString: Home_Ticket_Introuduct_Back_Color)
-        let imageView = UIImageView(frame:CGRectMake(0,0,SCREENWIDTH,4))
-        imageView.image = UIImage.init(named: "Pattern_Line")//Pattern_Line
-        orderConfirmView.addSubview(imageView)
+//        let imageView = UIImageView(frame:CGRectMake(0,0,SCREENWIDTH,4))
+//        imageView.image = UIImage.init(named: "Pattern_Line")//Pattern_Line
+//        orderConfirmView.addSubview(imageView)
         return orderConfirmView
     }
     
@@ -201,14 +206,14 @@ class OrderDetailViewController: UIViewController {
         let imageView = UIImageView(frame:CGRectMake(0,-0.5,SCREENWIDTH,4))
         imageView.image = UIImage.init(named: "Sawtooth")//Pattern_Line
         footView.addSubview(imageView)
-        let orderInfo = self.createLabel(CGRectMake(15,20,SCREENWIDTH - 30,14), text: "订单编号：18399939r7")
+        let orderInfo = self.createLabel(CGRectMake(15,20,SCREENWIDTH - 30,14), text: "订单编号：\(viewModel.model.id)")
         footView.addSubview(orderInfo)
         
-        let service = self.createLabel(CGRectMake(15,36,SCREENWIDTH - 30,14), text: "订单时间：2016.12.08   12:08:54")
+        let service = self.createLabel(CGRectMake(15,36,SCREENWIDTH - 30,14), text: "订单时间：\(viewModel.model.created)")
         footView.addSubview(service)
         
         
-        let servicePhone = self.createLabel(CGRectMake(15,52,SCREENWIDTH - 30,14), text: "客服电话：400-873-8011")
+        let servicePhone = self.createLabel(CGRectMake(15,52,SCREENWIDTH - 30,14), text: "客服电话：\(viewModel.model.phone)")
         footView.addSubview(servicePhone)
         
         
@@ -305,9 +310,10 @@ extension OrderDetailViewController : UITableViewDataSource {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         switch indexPath.section {
         case 0:
-            if self.orderType == .orderWaitPay {
+            if viewModel.model.status == 0 {
                 let cell = tableView.dequeueReusableCellWithIdentifier("OrderWaitePayTableViewCell", forIndexPath: indexPath) as! OrderWaitePayTableViewCell
                 cell.selectionStyle = .None
+                viewModel.tableViewCellOrderWaitePayTableViewCell(cell)
                 return cell
             }else{
                 let cell = tableView.dequeueReusableCellWithIdentifier("OrderDoneTableViewCell", forIndexPath: indexPath) as! OrderDoneTableViewCell
@@ -319,20 +325,24 @@ extension OrderDetailViewController : UITableViewDataSource {
             case 0:
                 let cell = tableView.dequeueReusableCellWithIdentifier("TicketDetailInfoTableViewCell", forIndexPath: indexPath) as! TicketDetailInfoTableViewCell
                 cell.ticketPhoto.image = UIImage.init(named: "Feeds_Default_Cover_02")
+                viewModel.tableViewCellTicketDetailInfoTableViewCell(cell)
                 cell.selectionStyle = .None
                 return cell
             default:
                 let cell = tableView.dequeueReusableCellWithIdentifier("TicketLocationTableViewCell", forIndexPath: indexPath) as! TicketLocationTableViewCell
+                viewModel.tableViewCellTicketLocationTableViewCell(cell, controller: self)
                 cell.selectionStyle = .None
                 return cell
             }
         default:
             if indexPath.row == 1 {
                 let cell = tableView.dequeueReusableCellWithIdentifier("OrderMuchTableViewCell", forIndexPath: indexPath) as! OrderMuchTableViewCell
+                viewModel.tableViewCellOrderMuchTableViewCell(cell)
                 cell.selectionStyle = .None
                 return cell
             }else{
                 let cell = tableView.dequeueReusableCellWithIdentifier("OrderPayTableViewCell", forIndexPath: indexPath) as! OrderPayTableViewCell
+                viewModel.tableViewCellOrderPayTableViewCell(cell)
                 cell.selectionStyle = .None
                 return cell
             }

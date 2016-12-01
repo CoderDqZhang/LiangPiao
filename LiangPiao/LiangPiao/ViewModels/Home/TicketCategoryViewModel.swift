@@ -108,6 +108,7 @@ class TicketCategoryViewModel: NSObject {
                 recommentTickes.showList.appendContentsOf(resultModels.showList)
                 self.reconmmendModels.replaceObjectAtIndex(self.selectIdex, withObject: recommentTickes)
                 if !resultModels.hasNext {
+                    MainThreadAlertShow("没有更多数据了", view: controller.view)
                     controller.tableView.mj_footer.endRefreshingWithNoMoreData()
                 }else{
                     controller.tableView.mj_footer.endRefreshing()
@@ -142,7 +143,9 @@ class TicketCategoryViewModel: NSObject {
     func pagerControllerDidScrollToTabPageIndex(index:Int) {
         selectIdex = index
         if pageControllers.count != 0 {
-            self.requestCategotyData(index, controller: pageControllers[index] as! BaseTicketsPageViewController)
+            if !(reconmmendModels[index] is RecommentTickes){
+                self.requestCategotyData(index, controller: pageControllers[index] as! BaseTicketsPageViewController)
+            }
         }
     }
     

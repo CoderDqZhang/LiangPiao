@@ -48,6 +48,11 @@ class TicketLocationTableViewCell: UITableViewCell {
         self.updateConstraintsIfNeeded()
     }
     
+    func setData(model:HomeTicketModel){
+        addressLabel.text = model.venue.name
+        detailAddress.text = model.venue.address
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

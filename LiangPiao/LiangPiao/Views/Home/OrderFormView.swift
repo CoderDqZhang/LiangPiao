@@ -36,9 +36,6 @@ class ConfirmView: UIView {
         payButton.setTitle("提交订单", forState: .Normal)
         payButton.backgroundColor = UIColor.init(hexString: Home_ReciveView_Label_Nomal_nColor)
         payButton.titleLabel?.font = Home_PayView_Button_Title_Font
-        payButton.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (action) in
-            
-        }
         payButton.frame = CGRectMake(SCREENWIDTH - 120, 0, 120, 49)
         self.addSubview(payButton)
         

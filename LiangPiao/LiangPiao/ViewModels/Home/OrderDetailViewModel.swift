@@ -10,8 +10,10 @@ import UIKit
 
 class OrderDetailViewModel: NSObject {
 
-    var orderType:OrderType = .orderWaitPay
     var aliPayurl:String = ""
+    var model:OrderList!
+    var ticketModel:HomeTicketModel!
+    var sesstionModel:TicketSessionModel!
     
     override init() {
         
@@ -34,28 +36,31 @@ class OrderDetailViewModel: NSObject {
 
     }
     
-    func cellTitleName(indexPathRow:Int) -> String {
-        return ""
+    func tableViewCellOrderWaitePayTableViewCell(cell:OrderWaitePayTableViewCell) {
+        cell.setData(model)
     }
     
-    func cellDetailLabel(indexPathRow:Int) -> String {
-        switch indexPathRow {
-        case 0:
-            return "360.00元"
-        case 1:
-            return "-30.00元"
-        case 2:
-            return "8.00元"
-        default:
-            return ""
-        }
+    func tableViewCellTicketDetailInfoTableViewCell(cell:TicketDetailInfoTableViewCell){
+        cell.setData(model.show, sessionModel: model.session, ticketModel: model.ticket)
+    }
+    
+    func tableViewCellTicketLocationTableViewCell(cell:TicketLocationTableViewCell, controller:OrderDetailViewController){
+        cell.setData(model.show)
+    }
+    
+    func tableViewCellOrderPayTableViewCell(cell:OrderPayTableViewCell) {
+        cell.setData(model.ticket)
+    }
+    
+    func tableViewCellOrderMuchTableViewCell(cell:OrderMuchTableViewCell){
+        cell.setData(model)
     }
     
     func requestPayUrl(cnotroller:OrderDetailViewController){
-        BaseNetWorke.sharedInstance.getUrlWithString("http://api.liangpiao.me/order/pay_info/0bf127c08c830c62608295feb04c0a3b/", parameters: nil).subscribeNext { (resultDic) in
-            self.aliPayurl = resultDic.objectForKey("alipay") as! String
-            AlipaySDK.defaultService().payOrder(self.aliPayurl, fromScheme: "LiangPiaoAlipay") { (resultDic) in
-            }
-        }
+//        BaseNetWorke.sharedInstance.getUrlWithString("http://api.liangpiao.me/order/pay_info/0bf127c08c830c62608295feb04c0a3b/", parameters: nil).subscribeNext { (resultDic) in
+//            self.aliPayurl = resultDic.objectForKey("alipay") as! String
+//            AlipaySDK.defaultService().payOrder(self.aliPayurl, fromScheme: "LiangPiaoAlipay") { (resultDic) in
+//            }
+//        }
     }
 }

@@ -451,7 +451,7 @@ class TicketToolsTableViewCell: UITableViewCell {
             }
         }
         
-        toplineLabel = GloabLineView(frame: CGRectMake(15, 0, SCREENWIDTH - 30, 0.5))
+        let toplineLabel = GloabLineView(frame: CGRectMake(15, 0, SCREENWIDTH - 30, 0.5))
         self.contentView.addSubview(toplineLabel)
         
         return toolsView

@@ -51,16 +51,12 @@ class TicketConfirmViewController: UIViewController {
         self.setNavigationItemBack()
         
         orderConfirm = ConfirmView(frame: CGRectMake(0, SCREENHEIGHT - 49 - 64, SCREENHEIGHT, 49))
-        orderConfirm.payButton.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (action) in
+        orderConfirm.payButton.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (action) in            
             self.viewModel.createOrder(self)
         }
         
         muchOfTicket = viewModel.rac_observeKeyPath("muchOfTicketWithOther", options: .New, observer: self) { (object, objects, new, old) in
             self.orderConfirm.setMuchLabelText(("\((object as? String)!) 元"))
-        }
-        
-        viewModel.rac_valuesAndChangesForKeyPath("muchOfTicketWithOther", options: .New, observer: self).subscribeNext { (newObject) in
-            print(newObject)
         }
         
         self.view.addSubview(orderConfirm)
@@ -105,8 +101,6 @@ class TicketConfirmViewController: UIViewController {
                             let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath.init(forRow: 1, inSection: 0)) as! OrderConfirmAddressTableViewCell
                             cell.setData(model, type: .withAddress)
                             self.viewModel.addressModel = model
-                            self.viewModel.orderForme.name = model.name
-                            self.viewModel.orderForme.phone = model.mobileNum
                             self.viewModel.orderForme.addressId = model.id
                         }
                         controller.hidesBottomBarWhenPushed = true
@@ -156,9 +150,9 @@ class TicketConfirmViewController: UIViewController {
     func orderConfirmView() -> UIView {
         let orderConfirmView = UIView(frame: CGRectMake(0,0,SCREENWIDTH,105))
         orderConfirmView.backgroundColor = UIColor.init(hexString: Home_Ticket_Introuduct_Back_Color)
-        let imageView = UIImageView(frame:CGRectMake(0,0,SCREENWIDTH,4))
-        imageView.image = UIImage.init(named: "Pattern_Line")//Pattern_Line
-        orderConfirmView.addSubview(imageView)
+//        let imageView = UIImageView(frame:CGRectMake(0,0,SCREENWIDTH,4))
+//        imageView.image = UIImage.init(named: "Pattern_Line")//Pattern_Line
+//        orderConfirmView.addSubview(imageView)
         
         if viewModel.formType != .withNomal {
             let address = self.createLabel(CGRectMake(15,20,SCREENWIDTH - 30,17), text: "取票地点：\(viewModel.ticketModel.sceneGetTicketAddress)")
@@ -175,6 +169,7 @@ class TicketConfirmViewController: UIViewController {
     
     func upDataTableView() {
         self.tableView.reloadData()
+        print("")
     }
     
     func createLabel(frame:CGRect, text:String) -> UILabel {
@@ -234,19 +229,31 @@ extension TicketConfirmViewController : UITableViewDataSource {
                 viewModel.tableViewCellReciveTableViewCell(cell, controller:self)
                 return cell
             default:
-                if viewModel.formAddress == 3 || viewModel.formAddress == 2 {
+                if viewModel.formType == .withAddress {
                     let cell = tableView.dequeueReusableCellWithIdentifier("GloabTextFieldCell", forIndexPath: indexPath) as! GloabTextFieldCell
                     cell.selectionStyle = .None
                     if indexPath.row == 1 {
                         cell.setData(viewModel.configCellLabel(indexPath), detail: "取票人姓名")
+                        cell.textField.rac_textSignal().subscribeNext({ (action) in
+                            self.viewModel.orderForme.name = action as? String
+                        })
                     }else{
                         cell.setData(viewModel.configCellLabel(indexPath), detail: "取票人手机号码")
+                        cell.textField.rac_textSignal().subscribeNext({ (action) in
+                            self.viewModel.orderForme.phone = action as? String
+                        })
                         cell.hideLineLabel()
                     }
                     return cell
                 }else{
                     if indexPath.row == 1 {
                         let cell = tableView.dequeueReusableCellWithIdentifier("OrderConfirmAddressTableViewCell", forIndexPath: indexPath) as! OrderConfirmAddressTableViewCell
+                        if UserInfoModel.isLoggedIn() && AddressModel.haveAddress() {
+                            let addressModels = AddressModel.unarchiveObjectWithFile()
+                            let model = addressModels[0]
+                            viewModel.orderForme.addressId = model.id
+                            cell.setData(model, type: .withAddress)
+                        }
                         cell.selectionStyle = .None
                         return cell
                     }else{
@@ -279,6 +286,9 @@ extension TicketConfirmViewController : UITableViewDataSource {
                 return cell
             default:
                 let cell = tableView.dequeueReusableCellWithIdentifier("DetailAddressTableViewCell", forIndexPath: indexPath) as! DetailAddressTableViewCell
+                cell.textView.rac_textSignal().subscribeNext({ (str) in
+                    self.viewModel.orderForme.message = str as? String
+                })
                 cell.selectionStyle = .None
                 cell.setPlaceholerText("备注关于本次交易的特别说明")
                 return cell

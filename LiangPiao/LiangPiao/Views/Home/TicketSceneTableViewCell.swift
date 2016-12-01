@@ -63,6 +63,7 @@ class TicketSceneTableViewCell: UITableViewCell {
             let much = mMuch == "暂时缺票" ? "" : "\(model.minPrice)"
             ticketMuch.text = much
         }else{
+            ticketmMuch.text = "元起"
             ticketMuch.text = "\(model.minPrice)"
         }
         timeTitle.text = model.name

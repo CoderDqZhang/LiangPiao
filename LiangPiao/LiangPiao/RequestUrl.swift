@@ -31,3 +31,4 @@ let TickeDescription = "\(BaseURL)show/"
 //http://api.liangpiao.me/show/3535216735/session/3535216726/
 
 let OrderCreate = "\(BaseURL)order/create/"
+let OrderListUrl = "\(BaseURL)order/list/"

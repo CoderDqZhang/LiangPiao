@@ -70,8 +70,8 @@ class OrderTicketInfoTableViewCell: UITableViewCell {
         
     }
     
-    func setData(type:OrderType){
-        if type == .orderWaitPay {
+    func setData(model:OrderList){
+        if model.status == 0 {
             ticketPhoto.snp_updateConstraints(closure: { (make) in
                 make.bottom.equalTo(self.contentView.snp_bottom).offset(-18)
             })
@@ -86,6 +86,14 @@ class OrderTicketInfoTableViewCell: UITableViewCell {
                 make.bottom.equalTo(self.contentView.snp_bottom).offset(-30)
             })
         }
+        ticketPhoto.sd_setImageWithURL(NSURL.init(string: model.show.cover), placeholderImage: UIImage.init(named: "Feeds_Default_Cover")) { (image, error, cacheType, url) in
+        }
+        ticketTitle.text = model.show.title
+        ticketTime.text = "时间：\(model.session.startTime)"
+        ticketMuch.text = "票面：\(model.ticket.price)"
+        let row = model.ticket.row == "" ? "择优选座":"\(model.ticket.row)排"
+        ticketRow.text = "区域：\(model.ticket.region)    座位：\(row)"
+        ticketAllMuch.text = "实付金额：\(model.total)"
     }
     
     override func updateConstraints() {

@@ -14,6 +14,7 @@ class TicketDescriptionViewController: UIViewController {
     var navigationBar:GlobalNavigationBarView!
     var ticketToolsView:UIView!
     var cell:TicketToolsTableViewCell!
+    var session:TicketSessionModel!
     let  viewModel = TicketDescriptionViewModel()
     
     override func viewDidLoad() {
@@ -38,6 +39,7 @@ class TicketDescriptionViewController: UIViewController {
         tableView.registerClass(TickerInfoTableViewCell.self, forCellReuseIdentifier: "TickerInfoTableViewCell")
         tableView.registerClass(TicketToolsTableViewCell.self, forCellReuseIdentifier: "TicketToolsTableViewCell")
         tableView.registerClass(TicketMapTableViewCell.self, forCellReuseIdentifier: "TicketMapTableViewCell")
+        tableView.registerClass(NoneTicketTableViewCell.self, forCellReuseIdentifier: "NoneTicketTableViewCell")
         self.view.addSubview(tableView)
         
         tableView.snp_makeConstraints { (make) in
@@ -62,9 +64,9 @@ class TicketDescriptionViewController: UIViewController {
         self.setNavigationItemBack()
         let likeItem = UIBarButtonItem(image: UIImage.init(named: "Icon_Like_Normal")?.imageWithRenderingMode(.AlwaysOriginal), style: .Plain, target: self, action: #selector(TicketDescriptionViewController.likeItemPress(_:) as (TicketDescriptionViewController) -> (UIBarButtonItem) -> ()))
         likeItem.setBackgroundImage(UIImage.init(named: "Icon_Like_Press"), forState: .Selected, barMetrics: .Default)
-        let shareItem = UIBarButtonItem(image: UIImage.init(named: "Icon_Share_Normal")?.imageWithRenderingMode(.AlwaysOriginal), style: .Plain, target: self, action: #selector(TicketDescriptionViewController.shareItemPress(_:)))
-        shareItem.setBackgroundImage(UIImage.init(named: "Icon_Share_Press"), forState: .Selected, barMetrics: .Default)
-        self.navigationItem.rightBarButtonItems = [shareItem,likeItem]
+//        let shareItem = UIBarButtonItem(image: UIImage.init(named: "Icon_Share_Normal")?.imageWithRenderingMode(.AlwaysOriginal), style: .Plain, target: self, action: #selector(TicketDescriptionViewController.shareItemPress(_:)))
+//        shareItem.setBackgroundImage(UIImage.init(named: "Icon_Share_Press"), forState: .Selected, barMetrics: .Default)
+        self.navigationItem.rightBarButtonItems = [likeItem]
 
     }
     
@@ -183,6 +185,9 @@ extension TicketDescriptionViewController : UITableViewDelegate {
                 let ticketView = cell.setUpDescriptionView()
                 ticketView.tag = 1000
                 ticketToolsView.addSubview(ticketView)
+                let lineLabel = GloabLineView(frame: CGRect.init(x: 15, y: 1, width: SCREENWIDTH - 30, height: 0.5))
+                ticketToolsView.addSubview(lineLabel)
+                
             }
         }else{
             ticketToolsView.hidden = true
@@ -240,10 +245,16 @@ extension TicketDescriptionViewController : UITableViewDataSource {
             }
             return cell
         default:
-            let cell = tableView.dequeueReusableCellWithIdentifier("TickerInfoTableViewCell", forIndexPath: indexPath) as! TickerInfoTableViewCell
-            viewModel.configCellTickerInfoTableViewCell(cell, indexPath:indexPath)
-            cell.selectionStyle = .None
-            return cell
+            if viewModel.model.ticketList.count == 0{
+                let cell = tableView.dequeueReusableCellWithIdentifier("NoneTicketTableViewCell", forIndexPath: indexPath) as! NoneTicketTableViewCell
+                cell.selectionStyle = .None
+                return cell
+            }else{
+                let cell = tableView.dequeueReusableCellWithIdentifier("TickerInfoTableViewCell", forIndexPath: indexPath) as! TickerInfoTableViewCell
+                viewModel.configCellTickerInfoTableViewCell(cell, indexPath:indexPath)
+                cell.selectionStyle = .None
+                return cell
+            }
         }
         
     }

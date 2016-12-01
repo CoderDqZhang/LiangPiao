@@ -51,8 +51,9 @@ class OrderPayTableViewCell: UITableViewCell {
         self.updateConstraintsIfNeeded()
     }
     
-    func setData(time:String, type:OrderType) {
-        
+    func setData(model:TicketList) {
+        receiptsLabel.text = "\(model.price).00 元"
+        packingFee.text = "\(model.deliveryPrice).00 元"
     }
     
     func createLabel(frame:CGRect,name:String) -> UILabel {

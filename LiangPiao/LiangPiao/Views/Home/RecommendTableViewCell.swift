@@ -87,6 +87,7 @@ class RecommendTableViewCell: UITableViewCell {
             let much = mMuch == "暂时缺票" ? "" : "\(model.minPrice)"
             ticketMuch.text = much
         }else{
+            ticketmMuch.text = "元起"
             ticketMuch.text = "\(model.minPrice)"
         }
         ticketTime.text = model.showDate
@@ -99,14 +100,14 @@ class RecommendTableViewCell: UITableViewCell {
     func setUpTicketStatues(model:HomeTicketModel){
         var statuesArray:[String] = []
         if model.minDiscount != "" && Double(model.minDiscount) < 1{
-            statuesArray.append("\((Double(model.minDiscount)! * 10))折")
+            statuesArray.append("\((Double(model.minDiscount)! * 10))折   ")
         }
         if model.ticketCount != 0 {
-            let str = model.ticketCount >= 20 ? "剩余\(model.ticketCount)张" : "最后\(model.ticketCount)张"
+            let str = model.ticketCount >= 20 ? "剩余\(model.ticketCount)张   " : "最后\(model.ticketCount)张   "
             statuesArray.append(str)
         }
         if model.ticketStatus == 0 {
-            statuesArray.append("预售中")
+            statuesArray.append("预售中   ")
             self.setUpStatuesView(statuesArray, types: [statuesArray.count])
         }else{
             if statuesArray.count > 0 {
@@ -164,12 +165,11 @@ class RecommendTableViewCell: UITableViewCell {
 
             ticketmMuch.snp_makeConstraints(closure: { (make) in
                 make.right.equalTo(self.contentView.snp_right).offset(-24)
-                make.bottom.equalTo(self.contentView.snp_bottom).offset(-13)
-                make.height.equalTo(14)
+                make.bottom.equalTo(self.contentView.snp_bottom).offset(-15)
             })
 
             ticketMuch.snp_makeConstraints(closure: { (make) in
-                make.bottom.equalTo(self.contentView.snp_bottom).offset(-13)
+                make.bottom.equalTo(self.contentView.snp_bottom).offset(-11)
                 make.right.equalTo(self.ticketmMuch.snp_left).offset(-4)
             })
             

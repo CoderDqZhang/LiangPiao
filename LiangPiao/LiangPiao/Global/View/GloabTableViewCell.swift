@@ -336,6 +336,7 @@ class GloabTextFieldCell: UITableViewCell {
         
         textField = UITextField()
         textField.font = GlobalCell_Title_Font
+        textField.tintColor = UIColor.init(hexString: App_Theme_BackGround_Color)
         textField.textColor = UIColor.init(hexString: GlobalCell_Title_Color)
         self.contentView.addSubview(textField)
         

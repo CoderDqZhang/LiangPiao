@@ -77,16 +77,15 @@ class TickerInfoTableViewCell: UITableViewCell {
     func setUpTickeDelivery(model:TicketList) -> String{
         var delivery:String = ""
         let typeArray = model.deliveryType.componentsSeparatedByString(",")
-        if model.seatType == 2 {
+        if model.sellType == 2 {
             delivery = delivery.stringByAppendingString("打包购买 ")
         }
         for str in typeArray {
             if str == "1" {
                delivery = delivery.stringByAppendingString("快递 ")
-            }else if str == "2" {
-                delivery = delivery.stringByAppendingString("现场 ")
-            }else if str == "3" {
-                delivery = delivery.stringByAppendingString("自取 ")
+            }else if str == "2" || str == "3" {
+                delivery = delivery.stringByAppendingString("自取")
+                break
             }
         }
         return delivery
@@ -95,10 +94,10 @@ class TickerInfoTableViewCell: UITableViewCell {
     func setUpTicketStatues(model:TicketList){
         var statuesArray:[String] = []
         if model.seatType == 1{
-            statuesArray.append("连")
+            statuesArray.append("连   ")
         }
         if model.remainCount != 0 {
-            let str = model.remainCount >= 20 ? "剩余\(model.remainCount)张" : "最后\(model.remainCount)张"
+            let str = model.remainCount >= 20 ? "剩余\(model.remainCount)张   " : "最后\(model.remainCount)张   "
             statuesArray.append(str)
         }
         if statuesArray.count > 0 {

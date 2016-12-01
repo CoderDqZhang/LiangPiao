@@ -196,6 +196,7 @@ class GlobalTicketStatus : UIView {
     init(frame:CGRect, titles:[String], types:NSArray?) {
         super.init(frame:frame)
         self.setUpView(titles, types: types)
+        self.backgroundColor = UIColor.redColor()
     }
     
     func setUpView(titles:[String], types:NSArray?){
@@ -205,7 +206,7 @@ class GlobalTicketStatus : UIView {
         var originX:CGFloat = 0
         var i = 1
         for str in titles {
-            let stringWidth = str.widthWithConstrainedHeight(str, font: Home_Ticket_Status_Font!, height: 16) + 6
+            let stringWidth = str.widthWithConstrainedHeight(str, font: Home_Ticket_Status_Font!, height: 16)
             let statusLabel = UILabel(frame: CGRectMake(originX, 0, stringWidth, 16))
             statusLabel.text = str
             statusLabel.tag = i
@@ -215,6 +216,8 @@ class GlobalTicketStatus : UIView {
             statusLabel.textAlignment = .Center
             statusLabel.backgroundColor = UIColor.init(hexString: Home_Ticket_Status_BackGround_NColor)
             statusLabel.layer.cornerRadius = 1.5
+            statusLabel.clipsToBounds = true
+            statusLabel.layer.borderColor = UIColor.init(hexString: App_Theme_BackGround_Color).CGColor
             statusLabel.layer.masksToBounds = true
             originX = CGRectGetMaxX(statusLabel.frame) + 4
             self.addSubview(statusLabel)

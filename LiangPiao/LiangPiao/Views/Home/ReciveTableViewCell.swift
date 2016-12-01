@@ -23,6 +23,7 @@ class ReciveTableViewCell: UITableViewCell {
     var arrival:UILabel!
     var visit:UILabel!
     var selectEnabel:NSMutableArray = NSMutableArray()
+    dynamic var selectTag:NSInteger = 1
     
     var didMakeConstraints:Bool = false
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
@@ -34,7 +35,7 @@ class ReciveTableViewCell: UITableViewCell {
         express = self.crateLabel(CGRectMake(15, 26, ReciveLabelWidth, 50), tag: 1, titleString: "快递", type: .Disable)
         self.contentView.addSubview(express)
         
-        arrival = self.crateLabel(CGRectMake(CGRectGetMaxX(express.frame) + 12, 26, ReciveLabelWidth, 50), tag: 2, titleString: "到场取票", type: .Disable)
+        arrival = self.crateLabel(CGRectMake(CGRectGetMaxX(express.frame) + 12, 26, ReciveLabelWidth, 50), tag: 2, titleString: "现场取票", type: .Disable)
         self.contentView.addSubview(arrival)
         
         visit = self.crateLabel(CGRectMake(CGRectGetMaxX(arrival.frame) + 12, 26, ReciveLabelWidth, 50), tag: 3, titleString: "上门自取", type: .Disable)
@@ -67,6 +68,7 @@ class ReciveTableViewCell: UITableViewCell {
                     selectEnabel.addObject("2")
                     if selectEnabel.count == 1 {
                         self.upDataLabelType(.Select, label: self.viewWithTag(2) as! UILabel)
+                        self.makeClouse(2)
                     }else{
                         self.upDataLabelType(.Nomal, label: self.viewWithTag(2) as! UILabel)
                     }
@@ -74,6 +76,7 @@ class ReciveTableViewCell: UITableViewCell {
                     selectEnabel.addObject("3")
                     if selectEnabel.count == 1 {
                         self.upDataLabelType(.Select, label: self.viewWithTag(3) as! UILabel)
+                        self.makeClouse(3)
                     }else{
                         self.upDataLabelType(.Nomal, label: self.viewWithTag(3) as! UILabel)
                     }
@@ -172,11 +175,16 @@ class ReciveTableViewCell: UITableViewCell {
         tagView.backgroundColor = UIColor.whiteColor()
     }
     
+    func makeClouse(tag:NSInteger){
+        selectTag = tag
+        if self.reciveViewClouse != nil {
+            self.reciveViewClouse(tag: tag)
+        }
+    }
+    
     func singleTapPress(sender:UITapGestureRecognizer) {
         self.selectView((sender.view?.tag)!)
-        if self.reciveViewClouse != nil {
-            self.reciveViewClouse(tag: (sender.view?.tag)!)
-        }
+        self.makeClouse((sender.view?.tag)!)
     }
 
 }

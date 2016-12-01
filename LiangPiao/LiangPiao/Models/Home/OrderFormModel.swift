@@ -8,7 +8,7 @@
 
 import UIKit
 
-enum DeliveryType {
+enum FormDelivityType {
     case expressage
     case presentRecive
     case visitRecive
@@ -22,10 +22,17 @@ enum PayType {
 class OrderFormModel: NSObject {
     var ticketID : Int?
     var ticketCount : Int?
-    var deliveryType : DeliveryType = .expressage
+    var deliveryType : FormDelivityType?
+    var message : String?
     var deliveryPrice : String?
     var payType : PayType = .weiChat
     var phone : String?
     var name : String?
     var addressId : Int?
+    
+    private override init() {
+        print("")
+    }
+    
+    static let shareInstance = OrderFormModel()
 }

@@ -20,12 +20,23 @@ class OrderCountDownView: UIView {
         super.init(frame: frame)
         self.setUpView()
         ///方法一倒计时测试
-//        let startLongLong:NSInteger = 1467713971000
-//        let finishLongLong:NSInteger = 1467714322000
         
-        let startLongLong:Int64 = self.countDownLabel.longLongFromDate(NSDate.init()) / 1000 * 1000
+    }
+    
+    func setUpDate(dateString:String){
+        let date = NSDate.init()
+        let zone = NSTimeZone.systemTimeZone()
+        let interval:Double = Double(zone.secondsFromGMTForDate(date))
+        let nowData = date.dateByAddingTimeInterval(interval)
+        let startLongLong:Int64 = self.countDownLabel.longLongFromDate(nowData) / 1000 * 1000
         let secondeLongLong = 15 * 60 + 59
-        let finishLongLong:Int64  = startLongLong + secondeLongLong * 1000
+        let secontrong = dateString
+        let dateFormatter = NSDateFormatter.init()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let newDate = dateFormatter.dateFromString(secontrong)
+        let finish:Int64 = self.countDownLabel.longLongFromDate(newDate) / 1000 * 1000
+        let finishLongLong =  secondeLongLong * 1000 + finish
+
         self.startLongLongStartStamp(startLongLong, longlongFinishStamp: finishLongLong)
     }
     
