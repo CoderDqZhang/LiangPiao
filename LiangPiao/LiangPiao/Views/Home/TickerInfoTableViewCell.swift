@@ -61,7 +61,7 @@ class TickerInfoTableViewCell: UITableViewCell {
     func setData(model:TicketList) {
         ticketNomalPrice.text = "\(model.originalTicket.name)"
         if model.region == "" {
-            ticketRow.text = "择优选座"
+            ticketRow.text = "择优分配"
         }else{
             let row = model.row != "" ? "\(model.row)排" : ""
             ticketRow.text = "\(model.region) \(row)"

@@ -131,6 +131,7 @@ extension OrderListViewController : UITableViewDataSource {
             return cell
         default:
             let cell = tableView.dequeueReusableCellWithIdentifier("OrderHandleTableViewCell", forIndexPath: indexPath) as! OrderHandleTableViewCell
+            viewModel.tableViewOrderHandleCellIndexPath(indexPath, cell:cell, controller:self)
             cell.selectionStyle = .None
             return cell
         }

@@ -61,19 +61,19 @@ class TicketDetailInfoTableViewCell: UITableViewCell {
         
     }
     
-    func setData(model:HomeTicketModel, sessionModel:TicketSessionModel, ticketModel:TicketList){
-        ticketPhoto.sd_setImageWithURL(NSURL.init(string: model.cover), placeholderImage: UIImage.init(named: "Feeds_Default_Cover_02")) { (image, error, cacheType, url) in
+    func setData(model:OrderList){
+        ticketPhoto.sd_setImageWithURL(NSURL.init(string: model.show.cover), placeholderImage: UIImage.init(named: "Feeds_Default_Cover_02")) { (image, error, cacheType, url) in
         }
-        ticketTitle.text = model.title
-        ticketTime.text = "时间：\(sessionModel.startTime)"
-        ticketMuch.text = "票面：\(ticketModel.price)"
+        ticketTitle.text = model.show.title
+        ticketTime.text = "时间：\(model.session.startTime)"
+        ticketMuch.text = "票面：\(model.ticket.originalTicket.name) 数量：\(model.ticketCount)"
         var str = ""
-        if ticketModel.region == "" {
+        if model.ticket.region == "" {
             str = "优先择座"
-        }else if ticketModel.row == "" {
-            str = "\(ticketModel.region)"
+        }else if model.ticket.row == "" {
+            str = "\(model.ticket.region)"
         }else {
-            str = "\(ticketModel.region) \(ticketModel.row) 排"
+            str = "\(model.ticket.region) \(model.ticket.row) 排"
         }
         ticketRow.text = "座位：\(str)"
     }

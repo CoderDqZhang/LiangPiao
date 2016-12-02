@@ -52,8 +52,8 @@ class OrderDoneTableViewCell: UITableViewCell {
             pickUpLocation.text = "\(model.address.name) \(model.address.mobileNum)"
             pickUpTime.text = "\(model.address.address)"
         }else{
-            pickUpLocation.text = "取票地点：\(model.ticket.selfGetTicketAddress)"
-            pickUpTime.text = "取票时间：\(model.ticket.selfGetTicketDate)"
+            pickUpLocation.text = "姓名：\(model.name)"
+            pickUpTime.text = "电话：\(model.phone)"
         }
     }
     

@@ -58,6 +58,8 @@
 		1F54C52E1DDC3A61009ADDA9 /* JKDBHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F54C52B1DDC3A61009ADDA9 /* JKDBHelper.m */; };
 		1F54C52F1DDC3A61009ADDA9 /* JKDBModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F54C52D1DDC3A61009ADDA9 /* JKDBModel.m */; };
 		1F54C5341DDC4891009ADDA9 /* UserInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F54C5331DDC4891009ADDA9 /* UserInfoModel.m */; };
+		1F5B1CA81DF115880073E770 /* UserProtocolViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5B1CA71DF115880073E770 /* UserProtocolViewController.swift */; };
+		1F5B1CAA1DF115BB0073E770 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F5B1CA91DF115BB0073E770 /* WebKit.framework */; };
 		1F5F059A1DE2CCCD00BF295B /* TicketMapTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5F05991DE2CCCD00BF295B /* TicketMapTableViewCell.swift */; };
 		1F5F059C1DE2CEC900BF295B /* TicketDescriptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5F059B1DE2CEC900BF295B /* TicketDescriptionViewModel.swift */; };
 		1F62F2571DC9BC1900B591F1 /* TicketSceneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F62F2561DC9BC1900B591F1 /* TicketSceneViewController.swift */; };
@@ -189,7 +191,7 @@
 		1F0360981DE9494D00594767 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		1F03609B1DE94A5100594767 /* UIViewController+TalkingData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+TalkingData.swift"; sourceTree = "<group>"; };
 		1F089DD41DCB05E800762C14 /* GlobalTools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalTools.swift; sourceTree = "<group>"; };
-		1F0EAB581DD052C700D25B64 /* OrderDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderDetailViewController.swift; sourceTree = "<group>"; };
+		1F0EAB581DD052C700D25B64 /* OrderDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderDetailViewController.swift; path = ../Home/OrderDetailViewController.swift; sourceTree = "<group>"; };
 		1F0EAB5A1DD053EE00D25B64 /* OrderDetailViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderDetailViewModel.swift; sourceTree = "<group>"; };
 		1F0EAB5E1DD05A9800D25B64 /* OrderTicketInfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderTicketInfoTableViewCell.swift; sourceTree = "<group>"; };
 		1F0EAB601DD05C2200D25B64 /* TicketLocationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketLocationTableViewCell.swift; sourceTree = "<group>"; };
@@ -240,6 +242,8 @@
 		1F54C52D1DDC3A61009ADDA9 /* JKDBModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKDBModel.m; sourceTree = "<group>"; };
 		1F54C5321DDC4891009ADDA9 /* UserInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoModel.h; sourceTree = "<group>"; };
 		1F54C5331DDC4891009ADDA9 /* UserInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoModel.m; sourceTree = "<group>"; };
+		1F5B1CA71DF115880073E770 /* UserProtocolViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserProtocolViewController.swift; path = ../../ViewModels/Mine/UserProtocolViewController.swift; sourceTree = "<group>"; };
+		1F5B1CA91DF115BB0073E770 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		1F5F05991DE2CCCD00BF295B /* TicketMapTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketMapTableViewCell.swift; sourceTree = "<group>"; };
 		1F5F059B1DE2CEC900BF295B /* TicketDescriptionViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketDescriptionViewModel.swift; sourceTree = "<group>"; };
 		1F62F2561DC9BC1900B591F1 /* TicketSceneViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketSceneViewController.swift; sourceTree = "<group>"; };
@@ -419,6 +423,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F5B1CAA1DF115BB0073E770 /* WebKit.framework in Frameworks */,
 				1F3983AB1DED2C4000A24541 /* MessageUI.framework in Frameworks */,
 				1F0360991DE9494D00594767 /* Security.framework in Frameworks */,
 				1F6BB98A1DD9554700893932 /* CoreMotion.framework in Frameworks */,
@@ -456,6 +461,7 @@
 		1F0EAB661DD091FA00D25B64 /* Order */ = {
 			isa = PBXGroup;
 			children = (
+				1F0EAB581DD052C700D25B64 /* OrderDetailViewController.swift */,
 				1F0EAB671DD091FA00D25B64 /* OrderListViewController.swift */,
 			);
 			path = Order;
@@ -844,7 +850,6 @@
 				1F62F2561DC9BC1900B591F1 /* TicketSceneViewController.swift */,
 				1F62F25C1DC9EE3400B591F1 /* TicketDescriptionViewController.swift */,
 				1FB7B2971DCC31CB00945B70 /* TicketConfirmViewController.swift */,
-				1F0EAB581DD052C700D25B64 /* OrderDetailViewController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -861,6 +866,7 @@
 				1F24DE941DD5B9E100C6E8CA /* FavoriteViewController.swift */,
 				1F0EAB901DD1E8F200D25B64 /* SettingViewController.swift */,
 				1F8AA0B51DD34B1700587C24 /* AboutUsViewController.swift */,
+				1F5B1CA71DF115880073E770 /* UserProtocolViewController.swift */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -1047,6 +1053,7 @@
 		A6EDDA7D546857A6EFCA593E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1F5B1CA91DF115BB0073E770 /* WebKit.framework */,
 				1F3983AA1DED2C4000A24541 /* MessageUI.framework */,
 				1F0360981DE9494D00594767 /* Security.framework */,
 				1F0360961DE9493A00594767 /* AdSupport.framework */,
@@ -1252,6 +1259,7 @@
 				1F0EAB8D1DD1DD3C00D25B64 /* MyProfileViewModel.swift in Sources */,
 				1F03609C1DE94A5100594767 /* UIViewController+TalkingData.swift in Sources */,
 				1FD881CF1DC7621400B2B702 /* HomeCenterModel.swift in Sources */,
+				1F5B1CA81DF115880073E770 /* UserProtocolViewController.swift in Sources */,
 				1F8AA0B61DD34B1700587C24 /* AboutUsViewController.swift in Sources */,
 				1FD881ED1DC854EE00B2B702 /* HomeScrollerTableViewCell.swift in Sources */,
 				1F67D1181DCDB57A00378116 /* SetNomalAddressTableViewCell.swift in Sources */,

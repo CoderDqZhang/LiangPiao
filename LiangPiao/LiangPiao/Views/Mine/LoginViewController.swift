@@ -127,7 +127,7 @@ class LoginViewController: UIViewController {
         proBtn.layer.cornerRadius = 2.0
         proBtn.layer.masksToBounds = true
         proBtn.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (action) in
-            
+            NavigationPushView(self, toConroller: UserProtocolViewController())
         }
         self.view.addSubview(proBtn)
         

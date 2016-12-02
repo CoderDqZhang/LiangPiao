@@ -168,8 +168,9 @@ class TicketConfirmViewController: UIViewController {
             let time = self.createLabel(CGRectMake(15,39,SCREENWIDTH - 30,17), text: "取票时间：\(viewModel.ticketModel.sceneGetTicketDate)")
             orderConfirmView.addSubview(time)
             
-            let instroduct = self.createLabel(CGRectMake(15,58,SCREENWIDTH - 30,17), text: "凭手机短信取票码取票，客服热线 \(viewModel.ticketModel.sceneGetTicketPhone)")
+            let instroduct = self.createLabel(CGRectMake(15,58,SCREENWIDTH - 30,17), text: "凭手机短信取票码取票，客服热线：400-873-8011)")
             orderConfirmView.addSubview(instroduct)
+            
         }
         return orderConfirmView
     }
@@ -238,16 +239,21 @@ extension TicketConfirmViewController : UITableViewDataSource {
                 if viewModel.formType == .withAddress {
                     let cell = tableView.dequeueReusableCellWithIdentifier("GloabTextFieldCell", forIndexPath: indexPath) as! GloabTextFieldCell
                     cell.selectionStyle = .None
+                    cell.textField.delegate = self
+                    cell.textField.tag = indexPath.row
                     if indexPath.row == 1 {
                         cell.setData(viewModel.configCellLabel(indexPath), detail: "取票人姓名")
                         cell.textField.rac_textSignal().subscribeNext({ (action) in
                             self.viewModel.orderForme.name = action as? String
                         })
+                        cell.textField.keyboardType = .NamePhonePad
+                        cell.textField.returnKeyType = .Next
                     }else{
                         cell.setData(viewModel.configCellLabel(indexPath), detail: "取票人手机号码")
                         cell.textField.rac_textSignal().subscribeNext({ (action) in
                             self.viewModel.orderForme.phone = action as? String
                         })
+                        cell.textField.keyboardType = .PhonePad
                         cell.hideLineLabel()
                     }
                     return cell
@@ -289,7 +295,7 @@ extension TicketConfirmViewController : UITableViewDataSource {
             case 2:
                 let cell = tableView.dequeueReusableCellWithIdentifier("GloabTitleAndDetailImageCell", forIndexPath: indexPath) as! GloabTitleAndDetailImageCell
                 cell.selectionStyle = .None
-                cell.setData(viewModel.configCellLabel(indexPath), detail: "未选择")
+                cell.setData(viewModel.configCellLabel(indexPath), detail: "无可用")
                 return cell
             default:
                 let cell = tableView.dequeueReusableCellWithIdentifier("DetailAddressTableViewCell", forIndexPath: indexPath) as! DetailAddressTableViewCell
@@ -320,5 +326,12 @@ extension TicketConfirmViewController : ZHPickViewDelegate {
         if resultString != nil {
             viewModel.updateCellString(tableView, string: resultString)
         }
+    }
+}
+
+extension TicketConfirmViewController : UITextFieldDelegate {
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+
+        return true
     }
 }

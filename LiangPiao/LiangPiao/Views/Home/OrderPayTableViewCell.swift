@@ -37,7 +37,7 @@ class OrderPayTableViewCell: UITableViewCell {
         receiptsLabel.textAlignment = .Right
         self.contentView.addSubview(receiptsLabel)
         
-        discountCoupon = self.createLabel(CGRectMake(SCREENWIDTH - 180, 57, 165, 17),name: "-30 元")
+        discountCoupon = self.createLabel(CGRectMake(SCREENWIDTH - 180, 57, 165, 17),name: "无可用")
         discountCoupon.textAlignment = .Right
         self.contentView.addSubview(discountCoupon)
         

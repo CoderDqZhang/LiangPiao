@@ -108,7 +108,7 @@ class TicketCategoryViewModel: NSObject {
                 recommentTickes.showList.appendContentsOf(resultModels.showList)
                 self.reconmmendModels.replaceObjectAtIndex(self.selectIdex, withObject: recommentTickes)
                 if !resultModels.hasNext {
-                    MainThreadAlertShow("没有更多数据了", view: controller.view)
+//                    MainThreadAlertShow("没有更多数据了", view: controller.view)
                     controller.tableView.mj_footer.endRefreshingWithNoMoreData()
                 }else{
                     controller.tableView.mj_footer.endRefreshing()

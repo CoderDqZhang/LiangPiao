@@ -144,7 +144,7 @@ class AddressTableViewCell: UITableViewCell {
     
     func setData(model:AddressModel) {
         nameAndePhone.text = "\(model.name) \(model.mobileNum)"
-        addressDetail.text = model.address
+        addressDetail.text = "\(model.location) \(model.address)"
         let attributedString = NSMutableAttributedString(string: addressDetail.text!)
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 1.5

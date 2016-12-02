@@ -27,7 +27,6 @@ class OrderDetailViewModel: NSObject {
     }
     
     func orderStatusChange(object:NSNotification){
-        print(object.object as! String)
         self.model.status = Int(object.object as! String)
         if self.model.status == 2 {
             self.model.statusDesc = "交易取消"
@@ -94,7 +93,7 @@ class OrderDetailViewModel: NSObject {
     }
     
     func tableViewCellTicketDetailInfoTableViewCell(cell:TicketDetailInfoTableViewCell){
-        cell.setData(model.show, sessionModel: model.session, ticketModel: model.ticket)
+        cell.setData(model)
     }
     
     func tableViewCellTicketLocationTableViewCell(cell:TicketLocationTableViewCell, controller:OrderDetailViewController){
@@ -140,10 +139,24 @@ class OrderDetailViewModel: NSObject {
     
     func requestPayUrl(controller:OrderDetailViewController) {
         self.controller = controller
-        let url = "http://api.liangpiao.me/order/pay_info/\(model.orderId)/"
+        let url = "\(OrderPayInfo)\(model.orderId)/"
         BaseNetWorke.sharedInstance.getUrlWithString(url, parameters: nil).subscribeNext { (resultDic) in
             let payUrl = PayUrl.init(fromDictionary: resultDic as! NSDictionary)
             self.model.payUrl = payUrl
+        }
+    }
+    
+    func requestOrderStatusChange(){
+        let url = "\(OrderChangeShatus)\(model.orderId)/"
+        let parameters = ["status":"8"]
+        BaseNetWorke.sharedInstance.postUrlWithString(url, parameters: parameters).subscribeNext { (resultDic) in
+            let tempModel = OrderList.init(fromDictionary: resultDic as! NSDictionary)
+            self.model.status = tempModel.status
+            self.model.statusDesc = tempModel.statusDesc
+            self.controller.tableView.reloadData()
+            if self.orderDetailViewMoedelClouse != nil {
+                self.orderDetailViewMoedelClouse(indexPath: self.indexPath, model: self.model)
+            }
         }
 
     }

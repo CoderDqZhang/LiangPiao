@@ -38,11 +38,24 @@ class OrderConfirmViewModel: NSObject {
     var formAddress:NSInteger = 0
     var ticketCount:Int = 0
     var orderModel:OrderList!
-    
+    var controller:TicketConfirmViewController!
     var delivityType:DelivityType = .delivityNomal
     
     override init() {
-       
+        super.init()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(OrderConfirmViewModel.paySuccess(_:)), name: OrderStatuesChange, object: nil)
+    }
+    
+    func paySuccess(object:NSNotification){
+        self.orderModel.status = Int(object.object as! String)
+        if self.orderModel.status == 2 {
+            self.orderModel.statusDesc = "交易取消"
+        }else if self.orderModel.status == 3 {
+            self.orderModel.statusDesc = "待发货"
+        }
+        let controllerVC = OrderDetailViewController()
+        controllerVC.viewModel.model = self.orderModel
+        NavigationPushView(controller, toConroller: controllerVC)
     }
     
     func configCellLabel(indexPath:NSIndexPath) -> String {
@@ -267,9 +280,33 @@ class OrderConfirmViewModel: NSObject {
             self.orderModel.session = self.model.session
             self.orderModel.show = self.model.show
             self.orderModel.ticket = self.ticketModel
-            let controllerVC = OrderDetailViewController()
-            controllerVC.viewModel.model = self.orderModel
-            NavigationPushView(controller, toConroller: controllerVC)
+            self.requestPay(self.orderModel, controller: controller)
+        }
+    }
+    
+    func requestPay(model:OrderList, controller:TicketConfirmViewController){
+        self.controller = controller
+        if model.payType == 1 {
+            if model.payUrl.alipay == "" {
+                MainThreadAlertShow("获取支付链接错误", view: controller.view)
+                return
+            }
+            AlipaySDK.defaultService().payOrder(model.payUrl.alipay, fromScheme: "LiangPiaoAlipay") { (resultDic) in
+                print("resultDic")
+            }
+        }else{
+            if model.payUrl.wxpay == nil {
+                MainThreadAlertShow("获取支付链接错误", view: controller.view)
+                return
+            }
+            let request = PayReq()
+            request.prepayId = model.payUrl.wxpay.prepayid
+            request.partnerId = model.payUrl.wxpay.partnerid
+            request.package = model.payUrl.wxpay.packageField
+            request.nonceStr = model.payUrl.wxpay.noncestr
+            request.timeStamp = UInt32(model.payUrl.wxpay.timestamp)!
+            request.sign = model.payUrl.wxpay.sign
+            WXApi.sendReq(request)
         }
     }
 }

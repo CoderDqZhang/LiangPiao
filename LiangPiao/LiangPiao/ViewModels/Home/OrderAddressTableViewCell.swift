@@ -77,7 +77,7 @@ class OrderConfirmAddressTableViewCell: UITableViewCell {
             orderAddress.hidden = false
             orderAddAddress.hidden = true
             orderName.text = "\(model.name) \(model.mobileNum)"
-            orderAddress.text = model.address
+            orderAddress.text = "\(model.location) \(model.address)"
         }
     }
     

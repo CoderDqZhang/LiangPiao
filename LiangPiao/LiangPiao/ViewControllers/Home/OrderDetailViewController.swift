@@ -64,6 +64,7 @@ class OrderDetailViewController: UIViewController {
         self.setNavigationItem()
         self.talKingDataPageName = "订单详情"
         viewModel.requestPayUrl(self)
+        
     }
     
     
@@ -94,7 +95,7 @@ class OrderDetailViewController: UIViewController {
             if self.payView.payButton == 1 {
                 self.viewModel.requestPayModel(self)
             }else{
-                
+                self.viewModel.requestOrderStatusChange()
             }
         }
         self.view.addSubview(payView)
@@ -108,6 +109,20 @@ class OrderDetailViewController: UIViewController {
             self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "联系商家", style: .Plain, target: self, action: #selector(OrderDetailViewController.rightBarItemPress(_:)))
         }
         
+    }
+    
+    override func backBtnPress(sender:UIButton){
+        self.view.endEditing(true)
+        if (self.navigationController?.viewControllers)!.count == 2 {
+            self.navigationController?.popViewControllerAnimated(true)
+        }else{
+            for controller in (self.navigationController?.viewControllers)! {
+                if controller is TicketDescriptionViewController {
+                    self.navigationController?.popToViewController(controller, animated: true)
+                    break
+                }
+            }
+        }
     }
     
     func rightBarItemPress(sender:UIBarButtonItem) {
@@ -154,39 +169,6 @@ class OrderDetailViewController: UIViewController {
     }
     
     
-
-    
-    //    func loadPayInfo(){
-    //        viewModel.payOrder(orderModel.order_id, successBlock: { (dic) in
-    //            let payDic = dic as NSDictionary
-    //            self.aliPayurl = payDic.objectForKey("alipay") as! String
-    //            let weChatDic = payDic["wxpay"] as! NSDictionary;
-    //            self.weChatPayreq.nonceStr = weChatDic.objectForKey("noncestr") as! String
-    //            self.weChatPayreq.package = weChatDic.objectForKey("package") as! String
-    //            self.weChatPayreq.partnerId = weChatDic.objectForKey("partnerid") as! String
-    //            self.weChatPayreq.prepayId = weChatDic.objectForKey("prepayid") as! String
-    //            self.weChatPayreq.sign = weChatDic.objectForKey("sign") as! String
-    //            let timeString = (weChatDic.objectForKey("timestamp") as! String)
-    //            let time:UInt32 = UInt32(timeString)!
-    //            self.weChatPayreq.timeStamp = time
-    //            }, failBlock: { (dic) in
-    //
-    //        })
-    //    }
-    
-    //    func changePayStatues(notification:NSNotification) {
-    ////        viewModel.switchOrderStatus(orderModel.order_id, status: "5", succeccBlock: { (dic) in
-    //        let payCompleteVC = Stroyboard("Order", viewControllerId: "PayCompleteViewController") as! PayCompleteViewController
-    //        payCompleteVC.orderModel = self.orderModel
-    //        self.navigationController?.pushViewController(payCompleteVC, animated: true)
-    ////        }) { (dic) in
-    ////
-    ////        }
-    //        NSNotificationCenter.defaultCenter().removeObserver(self, name: WeiXinPayStatues, object: nil)
-    //        NSNotificationCenter.defaultCenter().removeObserver(self, name: AliPayStatues, object: nil)
-    //    }
-    
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -195,9 +177,6 @@ class OrderDetailViewController: UIViewController {
     func tableOrderFooterView() -> UIView {
         let orderConfirmView = UIView(frame: CGRectMake(0,0,SCREENWIDTH,12))
         orderConfirmView.backgroundColor = UIColor.init(hexString: Home_Ticket_Introuduct_Back_Color)
-//        let imageView = UIImageView(frame:CGRectMake(0,0,SCREENWIDTH,4))
-//        imageView.image = UIImage.init(named: "Pattern_Line")//Pattern_Line
-//        orderConfirmView.addSubview(imageView)
         return orderConfirmView
     }
     
@@ -215,11 +194,11 @@ class OrderDetailViewController: UIViewController {
         footView.addSubview(service)
         
         
-        let servicePhone = self.createLabel(CGRectMake(15,52,SCREENWIDTH - 30,14), text: "客服电话：\(viewModel.model.phone)")
+        let servicePhone = self.createLabel(CGRectMake(15,52,SCREENWIDTH - 30,14), text: "客服电话：400-873-8011")
         footView.addSubview(servicePhone)
         
         
-        let serviceTime = self.createLabel(CGRectMake(15,68,SCREENWIDTH - 30,14), text: "客服工作时间：09:00-21:00")
+        let serviceTime = self.createLabel(CGRectMake(15,68,SCREENWIDTH - 30,14), text: "周一至周六 09:00-21:00")
         footView.addSubview(serviceTime)
         
         return footView

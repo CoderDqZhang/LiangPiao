@@ -8,13 +8,49 @@
 
 import UIKit
 
+enum OrderStatus : String {
+    case DEEFAUL = "0", //待支付
+     CANCELED = "1", //用户取消
+     EXPORED = "2",  //过时取消
+     PAID = "3", //已经支付
+     PAIDTICKETSHORTAGE = "4", //支付完成库存不足
+     PAIDCANCELED = "5", //支付完成取消交易
+     REFUNDED = "6",//已退款
+     SHIPPED = "7", //已发货
+     COMPLETED = "8", //已完成
+     PENDING = "9",//待结算
+     CLOSED = "10" //已结算
+    static let allValues = [DEEFAUL, CANCELED, EXPORED ,PAID, PAIDTICKETSHORTAGE,PAIDCANCELED,REFUNDED,SHIPPED,SHIPPED,COMPLETED,PENDING,CLOSED]
+}
+
+
 class OrderListViewModel: NSObject {
 
     var model:OrderListModel!
-    var orderTypeArrays:[OrderType] = [.orderDone,.orderWaitPay]
+    var selectOrder:OrderList!
+    var indexPath:NSIndexPath!
+    var controller:OrderListViewController!
     
     override init() {
+        super.init()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(OrderDetailViewModel.orderStatusChange(_:)), name: OrderStatuesChange, object: nil)
         
+    }
+    
+    func orderStatusChange(object:NSNotification){
+        if selectOrder != nil {
+            selectOrder.status = Int(object.object as! String)
+            if selectOrder.status == 2 {
+                selectOrder.statusDesc = "交易取消"
+            }else if selectOrder.status == 3 {
+                selectOrder.statusDesc = "待发货"
+            }
+            self.changeOrderStatusPay(selectOrder, indexPath: self.indexPath, controller: controller)
+        }
+    }
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     func listTitle() ->String {
@@ -76,11 +112,23 @@ class OrderListViewModel: NSObject {
         cell.setData(model.orderList[indexPath.section])
     }
     
-    func tableViewOrderHandleCellIndexPath(indexPath:NSIndexPath, cell:OrderHandleTableViewCell) {
+    func tableViewOrderHandleCellIndexPath(indexPath:NSIndexPath, cell:OrderHandleTableViewCell, controller:OrderListViewController) {
+        cell.cancelOrderBtn.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (action) in
+            self.changeOrderStatusCancel(self.model.orderList[indexPath.section], indexPath:indexPath, controller:controller)
+        }
         
+        cell.payOrderBtn.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (action) in
+            self.indexPath = indexPath
+            self.controller = controller
+            self.requestPayInfo(self.model.orderList[indexPath.section], controller: controller)
+        }
     }
     
     func requestOrderList(controller:OrderListViewController, isNext:Bool){
+        if !UserInfoModel.isLoggedIn() {
+            MainThreadAlertShow("请登录后查看", view: controller.view)
+            return;
+        }
         var url = ""
         if isNext {
             url = "\(OrderListUrl)?page=\(model.nextPage)"
@@ -114,4 +162,54 @@ class OrderListViewModel: NSObject {
         }
     }
     
+    func changeOrderStatusCancel(model:OrderList, indexPath:NSIndexPath, controller:OrderListViewController){
+        let url = "\(OrderChangeShatus)\(model.orderId)/"
+        let parameters = ["status":"1"]
+        BaseNetWorke.sharedInstance.postUrlWithString(url, parameters: parameters).subscribeNext { (resultDic) in
+            let orderList = OrderList.init(fromDictionary: resultDic as! NSDictionary)
+            self.model.orderList[indexPath.section] = orderList
+            controller.tableView.reloadSections(NSIndexSet.init(index: indexPath.section), withRowAnimation: .Automatic)
+        }
+    }
+    
+    func requestPayInfo(model:OrderList, controller:OrderListViewController){
+        self.selectOrder = model
+        let url = "\(OrderPayInfo)\(model.orderId)/"
+        BaseNetWorke.sharedInstance.getUrlWithString(url, parameters: nil).subscribeNext { (resultDic) in
+            let payUrl = PayUrl.init(fromDictionary: resultDic as! NSDictionary)
+            model.payUrl = payUrl
+            if model.payType == 1 {
+                if model.payUrl.alipay == "" {
+                    MainThreadAlertShow("获取支付链接错误", view: controller.view)
+                    return
+                }
+                AlipaySDK.defaultService().payOrder(model.payUrl.alipay, fromScheme: "LiangPiaoAlipay") { (resultDic) in
+                    print("resultDic")
+                }
+            }else{
+                if model.payUrl.wxpay == nil {
+                    MainThreadAlertShow("获取支付链接错误", view: controller.view)
+                    return
+                }
+                let request = PayReq()
+                request.prepayId = model.payUrl.wxpay.prepayid
+                request.partnerId = model.payUrl.wxpay.partnerid
+                request.package = model.payUrl.wxpay.packageField
+                request.nonceStr = model.payUrl.wxpay.noncestr
+                request.timeStamp = UInt32(model.payUrl.wxpay.timestamp)!
+                request.sign = model.payUrl.wxpay.sign
+                WXApi.sendReq(request)
+            }
+        }
+    }
+    
+    func changeOrderStatusPay(model:OrderList, indexPath:NSIndexPath, controller:OrderListViewController){
+        let url = "\(OrderChangeShatus)\(model.orderId)/"
+        let parameters = ["status":"3"]
+        BaseNetWorke.sharedInstance.postUrlWithString(url, parameters: parameters).subscribeNext { (resultDic) in
+            let orderList = OrderList.init(fromDictionary: resultDic as! NSDictionary)
+            self.model.orderList[indexPath.section] = orderList
+            controller.tableView.reloadSections(NSIndexSet.init(index: indexPath.section), withRowAnimation: .Automatic)
+        }
+    }
 }

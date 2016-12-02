@@ -24,12 +24,8 @@ class LoginViewModel: NSObject {
     func requestLoginCode(number:String, controller:LoginViewController){
         let dic = ["mobile_num":number]
         BaseNetWorke.sharedInstance.postUrlWithString(LoginCode, parameters: dic).subscribeNext { (resultDic) in
-            if (resultDic as! NSDictionary).objectForKey("fail") != nil {
-                print("请求失败")
-            }else{
-                let aMinutes:NSTimeInterval = 60
-                controller.startWithStartDate(NSDate(), finishDate: NSDate.init(timeIntervalSinceNow: aMinutes))
-            }
+            let aMinutes:NSTimeInterval = 60
+            controller.startWithStartDate(NSDate(), finishDate: NSDate.init(timeIntervalSinceNow: aMinutes))
         }
     }
     

@@ -30,10 +30,16 @@ let TickeSession = "\(BaseURL)show/"
 let TickeDescription = "\(BaseURL)show/"
 //http://api.liangpiao.me/show/3535216735/session/3535216726/
 
+let OrderPayInfo = "\(BaseURL)order/pay_info/"
+
 let OrderCreate = "\(BaseURL)order/create/"
 let OrderListUrl = "\(BaseURL)order/list/"
+
+let OrderChangeShatus = "\(BaseURL)order/"
 
 let TicketSearchUrl = "\(BaseURL)show/search/"
 //http://api.liangpiao.me?kw=%E7%BE%BD%E6%B3%89
 
 let TicketFavorite = "\(BaseURL)user/favorite/"
+
+

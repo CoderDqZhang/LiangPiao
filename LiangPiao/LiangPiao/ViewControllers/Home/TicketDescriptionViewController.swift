@@ -50,7 +50,7 @@ class TicketDescriptionViewController: UIViewController {
             make.right.equalTo(self.view.snp_right).offset(0)
             make.bottom.equalTo(self.view.snp_bottom).offset(0)
         }
-        ticketToolsView = UIView(frame: CGRectMake(0,0,SCREENWIDTH,42))
+        ticketToolsView = UIView(frame: CGRectMake(0,-1,SCREENWIDTH,42))
         ticketToolsView.hidden = true
         ticketToolsView.backgroundColor = UIColor.whiteColor()
         self.view.addSubview(ticketToolsView)
@@ -278,7 +278,7 @@ extension TicketDescriptionViewController : UITableViewDataSource {
             }
             return cell
         default:
-            if viewModel.model.ticketList.count == 0{
+            if viewModel.model.ticketList.count == 0 {
                 let cell = tableView.dequeueReusableCellWithIdentifier("NoneTicketTableViewCell", forIndexPath: indexPath) as! NoneTicketTableViewCell
                 cell.selectionStyle = .None
                 return cell

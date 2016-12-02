@@ -45,6 +45,9 @@ class AboutUsViewController: UIViewController {
         
         protoclBtn.layer.cornerRadius = 2
         protoclBtn.layer.masksToBounds = true
+        protoclBtn.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (action) in
+            NavigationPushView(self, toConroller: UserProtocolViewController())
+        }
         
         if IPHONE4 {
             logoImage.snp_updateConstraints(closure: { (make) in
