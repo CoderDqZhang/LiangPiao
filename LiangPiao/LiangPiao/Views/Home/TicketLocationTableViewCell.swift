@@ -39,7 +39,8 @@ class TicketLocationTableViewCell: UITableViewCell {
         self.contentView.addSubview(detailAddress)
         
         locationButton = UIButton(type: .Custom)
-        locationButton.setImage(UIImage.init(named: "Order_Address_Location"), forState: .Normal)
+        locationButton.setImage(UIImage.init(named: "Order_Address_Location"), forState: .Disabled)
+        locationButton.enabled = false
         self.contentView.addSubview(locationButton)
         
         linLabel = UILabel()
@@ -64,7 +65,7 @@ class TicketLocationTableViewCell: UITableViewCell {
         detailAddress.text = model.show.venue.address
 //        let str = "开发者使用这门语言进行 iOS 应用开发,在开发中 我们常常需要用到各种字符串、类、接口等等,今天小编和大家分享的就是 swift2.0 中 String 的类型转换..."
         if model.message != "" {
-            messageLabel.text = "备注信息：\(model.message)"
+            messageLabel.text = "备注：\(model.message)"
         }
         self.updateConstraintsIfNeeded()
 //        messageLabel.text = str

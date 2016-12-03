@@ -39,7 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Fabric.with([Crashlytics.self])
         
         WXApi.registerApp(WeiXinAppID)
-        
+        TalkingData.setExceptionReportEnabled(true)
         UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .None)
         self.window?.makeKeyAndVisible()
 //        self.addSplshView()

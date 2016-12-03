@@ -119,7 +119,7 @@ class TicketDescriptionViewModel: NSObject {
         let url = "\(TicketFavorite)"
         let parameters = ["show_id":model.show.id]
         BaseNetWorke.sharedInstance.postUrlWithString(url, parameters: parameters).subscribeNext { (resultDic) in
-            MainThreadAlertShow("收藏成功", view: KWINDOWDS!)
+            MainThreadAlertShow("已加入想看", view: KWINDOWDS!)
         }
     }
     
@@ -127,7 +127,7 @@ class TicketDescriptionViewModel: NSObject {
         let url = "\(TicketFavorite)"
         let parameters = ["show_id":model.show.id]
         BaseNetWorke.sharedInstance.deleteUrlWithString(url, parameters: parameters).subscribeNext { (resultDic) in
-            MainThreadAlertShow("取消收藏成功", view: KWINDOWDS!)
+            MainThreadAlertShow("已从想看移除", view: KWINDOWDS!)
         }
     }
     

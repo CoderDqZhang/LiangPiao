@@ -76,7 +76,9 @@ class OrderConfirmViewModel: NSObject {
 //                MainThreadAlertShow("订单失效，请重新生成", view: KWINDOWDS!)
             }
         }else{
-            self.requestPayUrl(self.orderModel, controller: controller)
+            if self.orderModel != nil {
+                self.requestPayUrl(self.orderModel, controller: controller)
+            }
         }
         
     }
@@ -128,9 +130,13 @@ class OrderConfirmViewModel: NSObject {
                 return 76
             case 1:
                 if UserInfoModel.isLoggedIn() && AddressModel.haveAddress() && self.formType == .withNomal {
-                    return 76
+                    let addressModels = AddressModel.unarchiveObjectWithFile()
+                    if addressModels.count > 0 {
+                        return 76
+                    }
+                    return 58
                 }
-                return 52
+                return 58
             default:
                 return 52
             }
@@ -217,10 +223,11 @@ class OrderConfirmViewModel: NSObject {
     {
         switch indexPath.row {
         case 1:
-            cell.setData(self.configCellLabel(indexPath), detail: "\(self.muchOfTicket).00 元")
+            let much = Double(Double(ticketModel.price) * Double(ticketCount))
+            cell.setData(self.configCellLabel(indexPath), detail: "\(much)0 元")
         default:
             if self.formDelevityType == .expressage {
-                let str = self.delivityType == .delivityNomal ? "\(self.ticketModel.deliveryPrice) 元" : "\(self.ticketModel.deliveryPriceSf) 元"
+                let str = self.delivityType == .delivityNomal ? "\(self.ticketModel.deliveryPrice).00 元" : "\(self.ticketModel.deliveryPriceSf).00 元"
                 cell.setData(self.configCellLabel(indexPath), detail: str)
             }else{
                 cell.setData(self.configCellLabel(indexPath), detail: "0.00 元")
@@ -256,7 +263,7 @@ class OrderConfirmViewModel: NSObject {
         cell.detailLabel.text = string
         
         let cell1 = tableView.cellForRowAtIndexPath(NSIndexPath.init(forRow: 3, inSection: 1)) as! GloabTitleAndDetailCell
-        let str = self.delivityType == .delivityNomal ? "\(self.ticketModel.deliveryPrice) 元" : "\(self.ticketModel.deliveryPriceSf) 元"
+        let str = self.delivityType == .delivityNomal ? "\(self.ticketModel.deliveryPrice).00 元" : "\(self.ticketModel.deliveryPriceSf).00 元"
         cell1.detailLabel.text = str
         self.updateMuchOfTicke()
     }
@@ -273,11 +280,11 @@ class OrderConfirmViewModel: NSObject {
     func createOrder(controller:TicketConfirmViewController){
         self.orderForme.deliveryType = self.formDelevityType
         if (self.orderForme.deliveryType == .expressage) && (self.orderForme.addressId == nil) {
-            MainThreadAlertShow("请填写配送地址", view: controller.view)
+            MainThreadAlertShow("请填写配送地址", view: KWINDOWDS!)
             return
         }
         if (self.orderForme.deliveryType != .expressage) && (self.orderForme.name == "" || self.orderForme.phone == "") {
-            MainThreadAlertShow("请填写配送信息", view: controller.view)
+            MainThreadAlertShow("请填写配送信息", view: KWINDOWDS!)
             return
         }
         self.requestOrderPay(self.orderForme, controller: controller)
@@ -327,7 +334,7 @@ class OrderConfirmViewModel: NSObject {
         self.controller = controller
         if model.payType == 1 {
             if model.payUrl.alipay == "" {
-                MainThreadAlertShow("获取支付链接错误", view: controller.view)
+                MainThreadAlertShow("获取支付链接错误", view: KWINDOWDS!)
                 return
             }
             AlipaySDK.defaultService().payOrder(model.payUrl.alipay, fromScheme: "LiangPiaoAlipay") { (resultDic) in
@@ -335,7 +342,7 @@ class OrderConfirmViewModel: NSObject {
             }
         }else{
             if model.payUrl.wxpay == nil {
-                MainThreadAlertShow("获取支付链接错误", view: controller.view)
+                MainThreadAlertShow("获取支付链接错误", view: KWINDOWDS!)
                 return
             }
             let request = PayReq()

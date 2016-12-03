@@ -8,8 +8,8 @@
 
 import Foundation
 
-let BaseURL = "http://api.liangpiao.me/"
-
+//let BaseURL = "http://api.liangpiao.me/"
+let BaseURL = "http://api.niceticket.cc/"
 let LoginUrl = "\(BaseURL)user/login/"
 let LoginCode = "\(BaseURL)user/login_code/"
 let UserAvatar = "\(BaseURL)user/avatar/"

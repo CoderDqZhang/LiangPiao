@@ -118,7 +118,7 @@ class OrderDetailViewModel: NSObject {
     }
     
     func tableViewCellOrderPayTableViewCell(cell:OrderPayTableViewCell) {
-        cell.setData(model.ticket)
+        cell.setData(model)
     }
     
     func tableViewCellOrderMuchTableViewCell(cell:OrderMuchTableViewCell){
@@ -132,7 +132,7 @@ class OrderDetailViewModel: NSObject {
     func requestPayModel(cnotroller:OrderDetailViewController){
         if model.payType == 1 {
             if self.model.payUrl.alipay == "" {
-                MainThreadAlertShow("获取支付链接错误", view: cnotroller.view)
+                MainThreadAlertShow("获取支付链接错误", view: KWINDOWDS!)
                 return
             }
             AlipaySDK.defaultService().payOrder(self.model.payUrl.alipay, fromScheme: "LiangPiaoAlipay") { (resultDic) in
@@ -140,7 +140,7 @@ class OrderDetailViewModel: NSObject {
             }
         }else{
             if self.model.payUrl.wxpay == nil {
-                MainThreadAlertShow("获取支付链接错误", view: cnotroller.view)
+                MainThreadAlertShow("获取支付链接错误", view: KWINDOWDS!)
                 return
             }
             let request = PayReq()

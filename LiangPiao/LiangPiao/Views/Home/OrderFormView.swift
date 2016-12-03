@@ -64,12 +64,12 @@ class ConfirmView: UIView {
             })
             muchLabel.snp_makeConstraints(closure: { (make) in
                 make.left.equalTo(self.muchInfoLabel.snp_right).offset(4)
-                make.top.equalTo(self.snp_top).offset(16)
+                make.top.equalTo(self.snp_top).offset(15)
             })
             
             muchmLabel.snp_makeConstraints(closure: { (make) in
                 make.left.equalTo(self.muchLabel.snp_right).offset(4)
-                make.top.equalTo(self.snp_top).offset(22)
+                make.top.equalTo(self.snp_top).offset(21)
                 //                make.centerY.equalTo(self.snp_centerY).offset(0)
             })
             

@@ -37,7 +37,7 @@ class OrderPayTableViewCell: UITableViewCell {
         receiptsLabel.textAlignment = .Right
         self.contentView.addSubview(receiptsLabel)
         
-        discountCoupon = self.createLabel(CGRectMake(SCREENWIDTH - 180, 57, 165, 17),name: "0.00元")
+        discountCoupon = self.createLabel(CGRectMake(SCREENWIDTH - 180, 57, 165, 17),name: "0.00 元")
         discountCoupon.textAlignment = .Right
         self.contentView.addSubview(discountCoupon)
         
@@ -51,8 +51,9 @@ class OrderPayTableViewCell: UITableViewCell {
         self.updateConstraintsIfNeeded()
     }
     
-    func setData(model:TicketList) {
-        receiptsLabel.text = "\(model.price).00 元"
+    func setData(model:OrderList) {
+        let much = Double(Double(model.ticketCount) * Double(model.ticket.price))
+        receiptsLabel.text = "\(much)0 元"
         packingFee.text = "\(model.deliveryPrice).00 元"
     }
     

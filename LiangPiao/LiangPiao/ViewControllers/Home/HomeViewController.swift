@@ -95,6 +95,7 @@ class HomeViewController: BaseViewController {
         }
         
         searchViewModel.searchViewModelClouse = { _ in
+            
             self.cancelSearchTable()
         }
     }
@@ -152,7 +153,8 @@ extension HomeViewController : UITableViewDelegate {
     }
     
     func cancelSearchTable() {
-        
+        self.searchNavigationBar.searchField.frame = CGRectMake(20, 27,SCREENWIDTH - 40, 30)
+        self.searchNavigationBar.cancelButton.hidden = true
         if #available(iOS 10.0, *) {
             searchNavigationBar.backgroundColor = UIColor.init(displayP3Red: 75.0/255.0, green: 212.0/255.0, blue: 197.0/255.0, alpha: tableView.contentOffset.y/165)
         } else {
@@ -197,7 +199,7 @@ extension HomeViewController : UITableViewDataSource {
                     self.searchViewController()
                 }
                 cell.location.rac_signalForControlEvents(.TouchUpInside).subscribeNext({ (action) in
-                    MainThreadAlertShow("更多城市正在开拓中...", view: self.view)
+                    MainThreadAlertShow("更多城市正在开拓中...", view: KWINDOWDS!)
                 })
                 cell.selectionStyle = .None
                 return cell

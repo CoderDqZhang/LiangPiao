@@ -73,7 +73,7 @@ class SettingViewModel: NSObject {
     
     func presentEmailViewController(controller:SettingViewController){
         guard MFMailComposeViewController.canSendMail() else {
-            MainThreadAlertShow("不能发送邮箱，请设置邮箱账号", view: controller.view)
+            MainThreadAlertShow("不能发送邮箱，请设置邮箱账号", view: KWINDOWDS!)
             return
         }
         let mailVC = MFMailComposeViewController()

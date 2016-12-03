@@ -49,7 +49,7 @@ let Home_Recommend_Title_Color = "384249"
 let Home_Recommend_Title_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(15.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 15.0)
 
 let Home_Recommend_RecommentTitle_Color = "384249"
-let Home_Recommend_RecommentTitle_Font = IPHONE_VERSION > 9 ? UIFont.init(name:".SFUIText-Medium", size: 14.0):UIFont.init(name: ".HelveticaNeueInterface-Medium", size: 14.0)
+let Home_Recommend_RecommentTitle_Font = IPHONE_VERSION > 9 ? UIFont.init(name:".SFUIText-Medium", size: 14.0):UIFont.init(name: ".HelveticaNeueInterface-Bold", size: 14.0)
 
 let Home_Recommend_Time_Color = "A2ABB5"
 let Home_Recommend_Time_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(12.0) :UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 12.0)
@@ -79,7 +79,7 @@ let Home_Ticker_DescripNumber_Color = "384249"
 let Home_Ticker_DescripNumber_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(13.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 13.0)
 
 let Home_Ticker_DescripNumber_bordColor = "384249"
-let Home_Ticker_DescripNumber_bordFont = IPHONE_VERSION > 9 ? UIFont.init(name: ".SFUIText-Medium", size: 15.0):UIFont.init(name: ".HelveticaNeueInterface-Medium", size: 15.0)
+let Home_Ticker_DescripNumber_bordFont = IPHONE_VERSION > 9 ? UIFont.init(name: ".SFUIText-Medium", size: 15.0):UIFont.init(name: ".HelveticaNeueInterface-Bold", size: 15.0)
 
 let Home_Ticker_NomalPrice_Color = "384249"
 let Home_Ticker_NomalPrice_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(13.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 13.0)
@@ -159,7 +159,7 @@ let OrderDetail_Message_Color = "384249"
 let OrderDetail_Message_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(12.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 12.0)
 
 let Order_Status_Wait_Done_Color = "4BD4C5"
-let Order_Status_Wait_Done_Font = IPHONE_VERSION > 9 ? UIFont.init(name: ".SFUIText-Medium", size: 16.0):UIFont.init(name: ".HelveticaNeueInterface-Medium", size: 16.0)
+let Order_Status_Wait_Done_Font = IPHONE_VERSION > 9 ? UIFont.init(name: ".SFUIText-Medium", size: 16.0):UIFont.init(name: ".HelveticaNeueInterface-Bold", size: 16.0)
 
 let Order_Status_Time_Color = "4BD4C5"
 let Order_Status_Time_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(11.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 11.0)
@@ -201,7 +201,7 @@ let Sell_View_Title_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(14.0):UI
 let DisCount_Title_Color = "DDE0E5"
 let DisCount_Title_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(16.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 16.0)
 
-let LoginView_LoginButton_Font = IPHONE_VERSION > 9 ? UIFont.init(name:".SFUIText-Medium", size: 15.0):UIFont.init(name: ".HelveticaNeueInterface-Medium", size: 15.0)
+let LoginView_LoginButton_Font = IPHONE_VERSION > 9 ? UIFont.init(name:".SFUIText-Medium", size: 15.0):UIFont.init(name: ".HelveticaNeueInterface-Bold", size: 15.0)
 
 
 let Search_TextField_Font = IPHONE_VERSION > 9 ? UIFont.init(name:".SFUIText-Light", size: 17.0):UIFont.init(name: ".HelveticaNeueInterface-Light", size: 17.0)

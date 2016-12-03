@@ -83,9 +83,9 @@ class TickerInfoTableViewCell: UITableViewCell {
         for str in typeArray {
             if str == "1" {
                delivery = delivery.stringByAppendingString("快递 ")
-            }else if str == "2"  {
+            }else if str == "3"  {
                 delivery = delivery.stringByAppendingString("上门自取")
-            }else if str == "3" {
+            }else if str == "2" {
                 delivery = delivery.stringByAppendingString("自取")
             }
         }

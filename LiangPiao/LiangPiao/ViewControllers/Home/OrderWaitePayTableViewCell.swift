@@ -74,8 +74,14 @@ class OrderWaitePayTableViewCell: UITableViewCell {
     }
     
     func setData(model:OrderList) {
-        orderName.text = "\(model.address.name) \(model.address.mobileNum)"
-        orderAddress.text = model.address.address
+        if model.deliveryType == 1 {
+            orderName.text = "\(model.address.name) \(model.address.mobileNum)"
+            let str = "\(model.address.location)\(model.address.address)".stringByReplacingOccurrencesOfString(" ", withString: "")
+            orderAddress.text = str
+        }else{
+            orderName.text = "姓名：\(model.name)"
+            orderAddress.text = "电话：\(model.phone)"
+        }
         orderCountDownView.setUpDate("\(model.created)")
     }
     

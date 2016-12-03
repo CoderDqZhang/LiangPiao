@@ -93,23 +93,23 @@ class OrderConfirmAddressTableViewCell: UITableViewCell {
         
             orderAddAddress.snp_makeConstraints(closure: { (make) in
                 make.left.equalTo(self.contentView.snp_left).offset(15.5)
-                make.centerY.equalTo(self.contentView.snp_centerY).offset(0)
+                make.bottom.equalTo(self.contentView.snp_bottom).offset(-15)
             })
             
             detailImage.snp_makeConstraints(closure: { (make) in
                 make.right.equalTo(self.contentView.snp_right).offset(-15)
-                make.centerY.equalTo(self.contentView.snp_centerY).offset(0)
+                make.centerY.equalTo(self.contentView.snp_centerY).offset(6)
             })
             
             orderName.snp_makeConstraints(closure: { (make) in
-                make.top.equalTo(self.contentView.snp_top).offset(26)
+                make.top.equalTo(self.contentView.snp_top).offset(25)
                 make.left.equalTo(self.contentView.snp_left).offset(15)
             })
             
             orderAddress.snp_makeConstraints(closure: { (make) in
                 make.top.equalTo(self.orderName.snp_bottom).offset(1)
                 make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.bottom.equalTo(self.contentView.snp_bottom).offset(-14)
+                make.bottom.equalTo(self.contentView.snp_bottom).offset(-15)
             })
             
             lineLabel.snp_makeConstraints(closure: { (make) in

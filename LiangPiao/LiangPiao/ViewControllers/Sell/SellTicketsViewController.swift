@@ -22,7 +22,7 @@ class SellTicketsViewController: BaseViewController {
     }
     
     func setUpView() {
-        let str = "暂时可联系客服 400-837-8011 售票"
+        let str = "暂时可联系客服 400-873-8011 售票"
         let attribute = NSMutableAttributedString(string: str)
         attribute.addAttributes([NSForegroundColorAttributeName:UIColor.init(hexString: Sell_View_Title_bColor)], range: NSRange(location: 0, length: 8))
         attribute.addAttributes([NSFontAttributeName:Sell_View_Title_Font!], range: NSRange.init(location: 0, length: 8))
@@ -40,7 +40,7 @@ class SellTicketsViewController: BaseViewController {
     }
 
     func sigleTapPress(sender:UITapGestureRecognizer){
-        AppCallViewShow(self.view, phone: "400-837-8011")
+        AppCallViewShow(self.view, phone: "400-873-8011")
     }
     
     override func didReceiveMemoryWarning() {

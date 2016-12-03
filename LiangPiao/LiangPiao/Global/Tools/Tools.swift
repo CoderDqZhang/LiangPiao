@@ -11,7 +11,7 @@ import MBProgressHUD
 
 let HUDBackGroudColor = "556169"
 let CustomViewWidth:CGFloat = 190
-let CustomViewFont = IPHONE_VERSION > 9 ? UIFont.init(name: ".SFUIText-Medium", size: 14.0):UIFont.init(name: ".HelveticaNeueInterface-Medium", size: 14.0)
+let CustomViewFont = IPHONE_VERSION > 9 ? UIFont.init(name: ".SFUIText-Medium", size: 14.0):UIFont.init(name: ".HelveticaNeueInterface-Bold", size: 14.0)
 let TextLabelMarger:CGFloat = 20
 
 class HUDCustomView: UIView {
@@ -39,6 +39,7 @@ class HUDCustomView: UIView {
         textLabel.text = text
         textLabel.textAlignment = .Center
         return textLabel;
+        
     }
     
     class func getHudMinSize(msg:String) ->CGSize {

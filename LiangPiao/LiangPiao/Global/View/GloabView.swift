@@ -82,8 +82,7 @@ extension HomeSearchNavigationBar : UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(textField: UITextField) {
-        textField.frame = CGRectMake(20, 27,SCREENWIDTH - 40, 30)
-        cancelButton.hidden = true
+        
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {

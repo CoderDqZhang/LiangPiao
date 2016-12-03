@@ -152,9 +152,13 @@ class OrderDetailViewController: UIViewController {
                 payView = OrderPayView(frame: CGRectMake(0, SCREENHEIGHT - 49, SCREENWIDTH, 49))
                 self.view.addSubview(payView)
             }
-            if status == 7 || status == 100 {
+            if status == 7 {
                 payView.payButton.setTitle("确认收货", forState: .Normal)
                 payView.payButton.tag = 2
+            }
+            if status == 100 || status == 0 {
+                payView.payButton.tag = 1
+                payView.payButton.setTitle("立即付款", forState: .Normal)
             }
             tableView.snp_remakeConstraints(closure: { (make) in
                 make.top.equalTo(self.view.snp_top).offset(0)
