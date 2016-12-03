@@ -142,6 +142,8 @@ let Home_Ticket_Introuduct_Field_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOf
 let Mine_Address_Name_Color = "384249"
 let Mine_Address_Name_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(14.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 14.0)
 
+let Confim_Address_Name_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(13.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 13.0)
+
 let Ticket_Detail_Name_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(13.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 13.0)
 
 let Mine_NomalAddress_Name_Color = "FFFFFF"
@@ -153,6 +155,8 @@ let Mine_AddAddress_Name_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(15.
 let OrderDetail_Address_Color = "556169"
 let OrderDetail_Address_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(12.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 12.0)
 
+let OrderDetail_Message_Color = "384249"
+let OrderDetail_Message_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(12.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 12.0)
 
 let Order_Status_Wait_Done_Color = "4BD4C5"
 let Order_Status_Wait_Done_Font = IPHONE_VERSION > 9 ? UIFont.init(name: ".SFUIText-Medium", size: 16.0):UIFont.init(name: ".HelveticaNeueInterface-Medium", size: 16.0)

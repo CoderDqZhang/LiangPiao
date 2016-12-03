@@ -39,7 +39,7 @@ class RecommendTableViewCell: UITableViewCell {
         
         ticketTitle = UILabel()
         ticketTitle.text = "万有音乐系 陈粒《小梦大半》2016巡回演唱会"
-        UILabel.changeLineSpaceForLabel(ticketTitle, withSpace: 3.0)
+        UILabel.changeLineSpaceForLabel(ticketTitle, withSpace: 4.0)
         ticketTitle.numberOfLines = 0
         ticketTitle.textColor = UIColor.init(hexString: Home_Recommend_Title_Color)
         ticketTitle.font = Home_Recommend_Title_Font
@@ -81,8 +81,8 @@ class RecommendTableViewCell: UITableViewCell {
         }
         ticketTitle.text = model.title
         ticketLocation.text = model.venue.name
-        if model.ticketStatus != 0 {
-            let mMuch = model.ticketCount == 0 ? "暂时缺票" : "元起"
+        if model.ticketStatus != 0 || model.minPrice == 0 {
+            let mMuch = model.ticketCount == 0 || model.minPrice == 0 ? "暂时缺票" : "元起"
             ticketmMuch.text = mMuch
             let much = mMuch == "暂时缺票" ? "" : "\(model.minPrice)"
             ticketMuch.text = much

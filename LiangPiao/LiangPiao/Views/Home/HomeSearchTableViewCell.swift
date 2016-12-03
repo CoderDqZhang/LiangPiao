@@ -112,13 +112,13 @@ class HomeSearchTableViewCell: UITableViewCell {
     override func updateConstraints() {
         if !self.didMakeConstraints {
             logoImage.snp_makeConstraints(closure: { (make) in
-                make.top.equalTo(self.contentView.snp_top).offset(88)
+                make.top.equalTo(self.contentView.snp_top).offset(92)
                 make.centerX.equalTo(self.contentView.snp_centerX).offset(0)
-                make.size.equalTo(CGSizeMake(54, 50))
+                make.size.equalTo(CGSizeMake(52, 48))
             })
             
             location.snp_makeConstraints(closure: { (make) in
-                make.top.equalTo(self.contentView.snp_top).offset(119)
+                make.top.equalTo(self.contentView.snp_top).offset(121)
                 make.left.equalTo(self.logoImage.snp_right).offset(15)
                 make.height.equalTo(17)
             })

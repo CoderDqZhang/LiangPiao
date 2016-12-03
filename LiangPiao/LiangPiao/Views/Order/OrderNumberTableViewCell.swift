@@ -41,11 +41,11 @@ class OrderNumberTableViewCell: UITableViewCell {
     }
     
     func setData(model:OrderList) {
-        if model.status == 0 {
-            orderStatus.text = "待付款"
+        orderStatus.text = model.statusDesc
+
+        if model.status == 0 || model.status == 7 || model.status == 3{
             orderStatus.textColor = UIColor.init(hexString: App_Theme_BackGround_Color)
         }else{
-            orderStatus.text = model.statusDesc
             orderStatus.textColor = UIColor.init(hexString: Order_List_Done_Color)
         }
         orderNumber.text = "订单号：\(model.id)"

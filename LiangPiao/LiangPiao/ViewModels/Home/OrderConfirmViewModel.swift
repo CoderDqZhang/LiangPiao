@@ -40,6 +40,7 @@ class OrderConfirmViewModel: NSObject {
     var orderModel:OrderList!
     var controller:TicketConfirmViewController!
     var delivityType:DelivityType = .delivityNomal
+    var isHaveModel:Bool = false
     
     override init() {
         super.init()
@@ -47,15 +48,41 @@ class OrderConfirmViewModel: NSObject {
     }
     
     func paySuccess(object:NSNotification){
-        self.orderModel.status = Int(object.object as! String)
-        if self.orderModel.status == 2 {
-            self.orderModel.statusDesc = "交易取消"
-        }else if self.orderModel.status == 3 {
-            self.orderModel.statusDesc = "待发货"
+        if Int(object.object as! String) != 100 {
+            if self.orderModel != nil {
+                self.orderModel.status = Int(object.object as! String)
+                if self.orderModel.status == 2 {
+                    self.orderModel.statusDesc = "交易取消"
+                }else if self.orderModel.status == 3 {
+                    self.orderModel.statusDesc = "待发货"
+                }
+                var isOrderDetail:Bool = false
+                if self.controller.navigationController?.viewControllers != nil {
+                    for controller in (self.controller.navigationController?.viewControllers)! {
+                        if controller is OrderDetailViewController {
+                            isOrderDetail = true
+                            break
+                        }
+                    }
+                }
+                
+                if !isOrderDetail {
+                    let controllerVC = OrderDetailViewController()
+                    controllerVC.viewModel.model = self.orderModel
+                    controllerVC.viewModel.isOrderConfim = true
+                    NavigationPushView(self.controller, toConroller: controllerVC)
+                }
+            }else{
+//                MainThreadAlertShow("订单失效，请重新生成", view: KWINDOWDS!)
+            }
+        }else{
+            self.requestPayUrl(self.orderModel, controller: controller)
         }
-        let controllerVC = OrderDetailViewController()
-        controllerVC.viewModel.model = self.orderModel
-        NavigationPushView(controller, toConroller: controllerVC)
+        
+    }
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     func configCellLabel(indexPath:NSIndexPath) -> String {
@@ -92,14 +119,17 @@ class OrderConfirmViewModel: NSObject {
         }
     }
     
-    func tableViewHeightForRowAtIndexPath(indexPath:NSIndexPath) -> CGFloat
+    func tableViewHeightForRowAtIndexPath(tableView:UITableView, indexPath:NSIndexPath) -> CGFloat
     {
         switch indexPath.section {
         case 0:
             switch indexPath.row {
             case 0:
-                return 86
+                return 76
             case 1:
+                if UserInfoModel.isLoggedIn() && AddressModel.haveAddress() && self.formType == .withNomal {
+                    return 76
+                }
                 return 52
             default:
                 return 52
@@ -167,7 +197,9 @@ class OrderConfirmViewModel: NSObject {
                 self.formType = .withAddress
             }
             self.formAddress = tag
+            self.updateMuchOfTicke()
             controller.upDataTableView()
+            
         }
     }
     
@@ -187,10 +219,13 @@ class OrderConfirmViewModel: NSObject {
         case 1:
             cell.setData(self.configCellLabel(indexPath), detail: "\(self.muchOfTicket).00 元")
         default:
-            let str = self.delivityType == .delivityNomal ? "8.00 元" : "12.00 元"
-            cell.setData(self.configCellLabel(indexPath), detail: str)
+            if self.formDelevityType == .expressage {
+                let str = self.delivityType == .delivityNomal ? "\(self.ticketModel.deliveryPrice) 元" : "\(self.ticketModel.deliveryPriceSf) 元"
+                cell.setData(self.configCellLabel(indexPath), detail: str)
+            }else{
+                cell.setData(self.configCellLabel(indexPath), detail: "0.00 元")
+            }
         }
-        orderForme.deliveryType = .expressage
     }
     
     func tableViewDidSelect(tableView:UITableView, indexPath:NSIndexPath, controller:TicketConfirmViewController) {
@@ -216,19 +251,22 @@ class OrderConfirmViewModel: NSObject {
     }
     
     func updateCellString(tableView:UITableView, string:String){
-        self.delivityType = string == "普通快递（8元）" ? .delivityNomal : .delivitySF
+        self.delivityType = string == "普通快递（\(self.ticketModel.deliveryPrice)元）" ? .delivityNomal : .delivitySF
         let cell = tableView.cellForRowAtIndexPath(NSIndexPath.init(forRow: 2, inSection: 0)) as! GloabTitleAndDetailImageCell
         cell.detailLabel.text = string
         
         let cell1 = tableView.cellForRowAtIndexPath(NSIndexPath.init(forRow: 3, inSection: 1)) as! GloabTitleAndDetailCell
-        let str = self.delivityType == .delivityNomal ? "8.00 元" : "12.00 元"
+        let str = self.delivityType == .delivityNomal ? "\(self.ticketModel.deliveryPrice) 元" : "\(self.ticketModel.deliveryPriceSf) 元"
         cell1.detailLabel.text = str
         self.updateMuchOfTicke()
     }
     
     func updateMuchOfTicke(){
-        let much = self.delivityType == .delivityNomal ? 8.00 : 12.00
-        muchOfTicketWithOther = "\(Double(muchOfTicket)! + much)0"
+        var much = 0
+        if self.formDelevityType == .expressage {
+            much = self.delivityType == .delivityNomal ? self.ticketModel.deliveryPrice : self.ticketModel.deliveryPriceSf
+        }
+        muchOfTicketWithOther = "\(Double(muchOfTicket)! + Double(much))0"
         orderForme.deliveryPrice = muchOfTicketWithOther
     }
     
@@ -256,7 +294,7 @@ class OrderConfirmViewModel: NSObject {
         }else {
             delivery_type = "3"
         }
-        let delivery_price = self.delivityType == .delivityNomal ? "8" : "12"
+        let delivery_price = self.delivityType == .delivityNomal ? "\(self.ticketModel.deliveryPrice)" : "\(self.ticketModel.deliveryPriceSf)"
         if orderForm.deliveryType == .expressage {
             parameters = ["ticket_id":orderForm.ticketID!
                 ,"ticket_count":orderForm.ticketCount!
@@ -264,15 +302,16 @@ class OrderConfirmViewModel: NSObject {
                 ,"delivery_price":delivery_price
                 ,"pay_type":pay_type
                 ,"address_id":orderForme.addressId!
-                ,"mesaage":orderForme.message!]
+                ,"message":orderForme.message!]
         }else{
             parameters = ["ticket_id":orderForm.ticketID!
                 ,"ticket_count":orderForm.ticketCount!
                 ,"delivery_type":delivery_type
                 ,"pay_type":pay_type
+                ,"delivery_price":"0"
                 ,"name":orderForme.name!
                 ,"phone":orderForme.phone!
-                ,"mesaage":orderForme.message!]
+                ,"message":orderForme.message!]
         }
         
         BaseNetWorke.sharedInstance.postUrlWithString(OrderCreate, parameters: parameters).subscribeNext { (resultDic) in
@@ -307,6 +346,18 @@ class OrderConfirmViewModel: NSObject {
             request.timeStamp = UInt32(model.payUrl.wxpay.timestamp)!
             request.sign = model.payUrl.wxpay.sign
             WXApi.sendReq(request)
+        }
+    }
+    
+    func requestPayUrl(model:OrderList, controller:TicketConfirmViewController){
+        let url = "\(OrderPayInfo)\(model.orderId)/"
+        BaseNetWorke.sharedInstance.getUrlWithString(url, parameters: nil).subscribeNext { (resultDic) in
+            let payUrl = PayUrl.init(fromDictionary: resultDic as! NSDictionary)
+            self.orderModel.payUrl = payUrl
+            let controllerVC = OrderDetailViewController()
+            controllerVC.viewModel.model = self.orderModel
+            controllerVC.viewModel.isOrderConfim = true
+            NavigationPushView(controller, toConroller: controllerVC)
         }
     }
 }

@@ -34,8 +34,12 @@ class LiangPiaoLoadMoreDataFooter: MJRefreshBackFooter {
         
         let loadImageView = UIImageView()
         self.addSubview(loadImageView)
-        imageView.image = UIImage.init(named: "加载动画圆点")
+//        imageView.image = UIImage.init(named: "加载动画圆点")
         self.loadImageView = loadImageView
+    }
+    
+    deinit {
+        timer.invalidate()
     }
     
     func prepareImage(backImage:UIImage, loadImage:UIImage) {
@@ -49,7 +53,7 @@ class LiangPiaoLoadMoreDataFooter: MJRefreshBackFooter {
         self.imageView.frame = CGRect.init(x: self.center.x - 14, y: 30, width: 28, height: 28)
         self.loadImageView.frame = CGRect.init(x: self.center.x - 14, y: 30, width: 28, height: 28)
         loadImageView.image = UIImage.init(named: "加载动画圆点")
-        imageView.image = UIImage.init(named: "加载动画背景")
+//        imageView.image = UIImage.init(named: "加载动画背景")
     }
     
     override func scrollViewPanStateDidChange(change: [NSObject : AnyObject]!) {
@@ -77,10 +81,7 @@ class LiangPiaoLoadMoreDataFooter: MJRefreshBackFooter {
             self.stopAnimation()
             break
         case .Pulling:
-            timer = NSTimer.YQ_scheduledTimerWithTimeInterval(1, closure: {
-                self.startAnimation()
-                }, repeats: true)
-            NSRunLoop.currentRunLoop().addTimer(timer, forMode: NSRunLoopCommonModes)
+            self.startAnimation()
             break
         case .Refreshing:
             self.startAnimation()
@@ -94,13 +95,17 @@ class LiangPiaoLoadMoreDataFooter: MJRefreshBackFooter {
     }
     
     func startAnimation() {
-        let ani = CAKeyframeAnimation(keyPath: "transform.rotation.z")
-        ani.keyTimes = [0,0.48,1]
-        ani.timingFunctions = [CAMediaTimingFunction(controlPoints: 0.014,-0.003,0.726,0.306), CAMediaTimingFunction(controlPoints: 0.233,0.824,0.326,0.97)]
-        ani.values = [0,3.543,6.283]
-        ani.duration = 1
-        
-        self.loadImageView.layer.addAnimation(ani, forKey: nil)
+        if self.loadImageView.layer.animationForKey("done") == nil {
+            let ani = CAKeyframeAnimation(keyPath: "transform.rotation.z")
+            ani.keyTimes = [0,0.48,1]
+            ani.timingFunctions = [CAMediaTimingFunction(controlPoints: 0.014,-0.003,0.726,0.306), CAMediaTimingFunction(controlPoints: 0.233,0.824,0.326,0.97)]
+            ani.values = [0,3.543,6.283]
+            ani.duration = 1
+            timer = NSTimer.YQ_scheduledTimerWithTimeInterval(1, closure: {
+                self.loadImageView.layer.addAnimation(ani, forKey: "done")
+                }, repeats: true)
+            NSRunLoop.currentRunLoop().addTimer(self.timer, forMode: NSRunLoopCommonModes)
+        }
     }
     
     func stopAnimation(){

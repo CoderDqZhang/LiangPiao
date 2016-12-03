@@ -18,7 +18,7 @@ typealias ReloadAddressViewClouse = () ->Void
 class AddAddressViewController: UIViewController {
 
     var tableView:UITableView!
-    var viewModel = AddressViewModel()
+    var viewModel = AddressViewModel.shareInstance
     var deleteView:DeleteAddressView!
     var cityPickerView:ZHPickView!
     var models:AddressModel?
@@ -80,7 +80,11 @@ class AddAddressViewController: UIViewController {
             
             deleteView = DeleteAddressView()
             deleteView.rac_signalForSelector( #selector(AddAddressView.singTapPress(_:))).subscribeNext { (action) in
-                self.viewModel.deleteAddress(self, model: self.models!)
+                UIAlertController.shwoAlertControl(self, title: "确定删除地址吗？", message: nil, cancel: "取消", doneTitle: "确定", cancelAction: {
+                    
+                    }, doneAction: { 
+                        self.viewModel.deleteAddress(self, model: self.models!)
+                })
             }
             self.view.addSubview(deleteView)
             
@@ -247,7 +251,12 @@ extension AddAddressViewController : UITableViewDataSource {
                     cell.switchBar.setOn(false, animated: true)
                 }
             }else{
-                cell.switchBar.setOn(false, animated: true)
+                if viewModel.addressModels.count == 0 {
+                    self.models?.defaultField = true
+                    cell.switchBar.setOn(true, animated: true)
+                }else{
+                    cell.switchBar.setOn(false, animated: true)
+                }
             }
             cell.switchBar.rac_signalForControlEvents(.ValueChanged).subscribeNext({ (value) in
                 self.models?.defaultField = (value as! UISwitch).on

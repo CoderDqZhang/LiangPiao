@@ -139,7 +139,7 @@ extension FavoriteViewController :DZNEmptyDataSetSource {
     }
     
     func verticalOffsetForEmptyDataSet(scrollView: UIScrollView!) -> CGFloat {
-        return -70
+        return -60
     }
     
     func spaceHeightForEmptyDataSet(scrollView: UIScrollView!) -> CGFloat {

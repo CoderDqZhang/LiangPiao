@@ -9,24 +9,30 @@
 import UIKit
 
 typealias AddressTableViewSelect = (indexPath:NSIndexPath) -> Void
+typealias ReloadConfimAddress = (model:AddressModel) ->Void
 
 class AddressViewModel: NSObject {
     
     var addressType:AddressType = .editType
     var addressTableViewSelect:AddressTableViewSelect!
+    var reloadConfimAddress:ReloadConfimAddress!
     
     var addressModels = NSMutableArray()
     var curentModel:AddressModel!
     var selectModel:AddressModel!
-    
+    var addOrEditModel:AddressModel!
     override init() {
         
     }
+    static let shareInstance = AddressViewModel()
     
     func configCell(cell:AddressTableViewCell,indexPath:NSIndexPath) {
         if addressModels.count > 0 {
             if self.addressType == .addType {
                 let model = AddressModel.init(fromDictionary: addressModels.objectAtIndex(indexPath.row) as! NSDictionary)
+                if self.addOrEditModel != nil {
+                    selectModel = self.addOrEditModel
+                }
                 if selectModel != nil {
                     if model.id == selectModel.id {
                         cell.updateSelectImage(true)
@@ -62,6 +68,7 @@ class AddressViewModel: NSObject {
                     cell.updateSelectImage(false)
                 }
             }
+            
             if self.addressTableViewSelect != nil {
                 self.addressTableViewSelect(indexPath:indexPath)
             }
@@ -91,7 +98,7 @@ class AddressViewModel: NSObject {
     func tableViewConfigCell(indexPath:NSIndexPath)-> String{
         switch indexPath.row{
         case 0:
-            return "收货人姓名"
+            return "收货人"
         case 1:
             return "联系电话"
         default:
@@ -113,12 +120,20 @@ class AddressViewModel: NSObject {
             let parameters = model.toDictionary()
             let url = "\(EditAddress)\(model.id)/"
             BaseNetWorke.sharedInstance.postUrlWithString(url, parameters: parameters).subscribeNext({ (resultDic) in
+                self.addOrEditModel = AddressModel.init(fromDictionary: resultDic as! NSDictionary)
+                if self.reloadConfimAddress != nil {
+                    self.reloadConfimAddress(model: self.addOrEditModel)
+                }
                 controller.reloadAddressView()
                 controller.navigationController?.popViewControllerAnimated(true)
             })
         }else{
             let parameters = model.toDictionary()
             BaseNetWorke.sharedInstance.postUrlWithString(AddAddress, parameters: parameters).subscribeNext({ (resultDic) in
+                self.addOrEditModel = AddressModel.init(fromDictionary: resultDic as! NSDictionary)
+                if self.reloadConfimAddress != nil {
+                    self.reloadConfimAddress(model: self.addOrEditModel)
+                }
                 controller.reloadAddressView()
                 controller.navigationController?.popViewControllerAnimated(true)
             })

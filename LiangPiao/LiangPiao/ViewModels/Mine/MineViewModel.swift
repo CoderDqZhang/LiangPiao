@@ -103,7 +103,9 @@ class MineViewModel: NSObject {
                 }
             case 1:
                 if UserInfoModel.isLoggedIn() {
-                    NavigationPushView(controller, toConroller: AddressViewController())
+                    let controllerVC = AddressViewController()
+                    controllerVC.viewModel.addressType = .editType
+                    NavigationPushView(controller, toConroller: controllerVC)
                 }else{
                     NavigationPushView(controller, toConroller: LoginViewController())
                 }

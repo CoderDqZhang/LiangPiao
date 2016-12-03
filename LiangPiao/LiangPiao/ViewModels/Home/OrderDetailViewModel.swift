@@ -18,6 +18,7 @@ class OrderDetailViewModel: NSObject {
     var sesstionModel:TicketSessionModel!
     var controller:OrderDetailViewController!
     var indexPath:NSIndexPath!
+    var isOrderConfim:Bool = false
     var orderDetailViewMoedelClouse:OrderDetailViewMoedelClouse!
     
     override init() {
@@ -67,6 +68,13 @@ class OrderDetailViewModel: NSObject {
             case 0:
                 return 150
             default:
+                if self.model.message != "" {
+                    let str = "备注详情：\(self.model.message)"
+//                    let str = "开发者使用这门语言进行 iOS 应用开发,在开发中 我们常常需要用到各种字符串、类、接口等等,今天小编和大家分享的就是 swift2.0 中 String 的类型转换..."
+                    let height = str.heightWithConstrainedWidth(str, font: OrderDetail_Message_Font!, width: SCREENWIDTH - 30)
+                    let returnHeight = height + 125 > 145 ? height + 125 : 145
+                    return returnHeight
+                }
                 return 80
             }
         default:
@@ -77,6 +85,15 @@ class OrderDetailViewModel: NSObject {
                 return 48
                 
             }
+        }
+    }
+    
+    func tableViewDidSelectRowAtIndexPath(indexPath: NSIndexPath, controller:OrderDetailViewController){
+        if indexPath.section == 1 && indexPath.row == 0 {
+            let controllerVC = TicketDescriptionViewController()
+            controllerVC.viewModel.ticketModel = model.show
+            controllerVC.viewModel.sesstionModel = model.session
+            NavigationPushView(controller, toConroller: controllerVC)
         }
     }
     
@@ -97,7 +114,7 @@ class OrderDetailViewModel: NSObject {
     }
     
     func tableViewCellTicketLocationTableViewCell(cell:TicketLocationTableViewCell, controller:OrderDetailViewController){
-        cell.setData(model.show)
+        cell.setData(model)
     }
     
     func tableViewCellOrderPayTableViewCell(cell:OrderPayTableViewCell) {
@@ -146,18 +163,22 @@ class OrderDetailViewModel: NSObject {
         }
     }
     
-    func requestOrderStatusChange(){
-        let url = "\(OrderChangeShatus)\(model.orderId)/"
-        let parameters = ["status":"8"]
-        BaseNetWorke.sharedInstance.postUrlWithString(url, parameters: parameters).subscribeNext { (resultDic) in
-            let tempModel = OrderList.init(fromDictionary: resultDic as! NSDictionary)
-            self.model.status = tempModel.status
-            self.model.statusDesc = tempModel.statusDesc
-            self.controller.tableView.reloadData()
-            if self.orderDetailViewMoedelClouse != nil {
-                self.orderDetailViewMoedelClouse(indexPath: self.indexPath, model: self.model)
-            }
-        }
-
+    func requestOrderStatusChange(controller:OrderDetailViewController){
+        UIAlertController.shwoAlertControl(controller, title: "是否已经收到演出票", message: nil, cancel: "取消", doneTitle: "确认收货", cancelAction: { 
+            
+            }, doneAction: {
+                let url = "\(OrderChangeShatus)\(self.model.orderId)/"
+                let parameters = ["status":"8"]
+                BaseNetWorke.sharedInstance.postUrlWithString(url, parameters: parameters).subscribeNext { (resultDic) in
+                    let tempModel = OrderList.init(fromDictionary: resultDic as! NSDictionary)
+                    self.model.status = tempModel.status
+                    self.model.statusDesc = tempModel.statusDesc
+                    controller.updateTableView(self.model.status)
+                    self.controller.tableView.reloadData()
+                    if self.orderDetailViewMoedelClouse != nil {
+                        self.orderDetailViewMoedelClouse(indexPath: self.indexPath, model: self.model)
+                    }
+                }
+        })
     }
 }

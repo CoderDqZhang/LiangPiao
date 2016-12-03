@@ -18,7 +18,7 @@ class AddressViewController: UIViewController {
 
     var tableView:UITableView!
     var addAddressView:AddAddressView!
-    var viewModel = AddressViewModel()
+    var viewModel = AddressViewModel.shareInstance
     var addressType:AddressType!
     
     var addressInfoClouse:AddressInfoClouse!
@@ -80,6 +80,12 @@ class AddressViewController: UIViewController {
             self.navigationController?.popViewControllerAnimated(true)
         }
         viewModel.requestAddress(tableView)
+        
+        viewModel.reloadConfimAddress = { model in
+            if self.addressInfoClouse != nil {
+                self.addressInfoClouse(model: model)
+            }
+        }
     }
     
     func pushEditAddressViewController(model:AddressModel) {

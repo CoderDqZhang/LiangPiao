@@ -74,14 +74,14 @@ class CofimTicketTableViewCell: UITableViewCell {
         ticketTitle.text = model.title
         ticketTime.text = "时间：\(sessionModel.name)"
         ticketLocation.text = "场馆：\(model.venue.name)"
-        ticketMuch.text = "票面：\(ticketModel.originalTicket.name)"
+        ticketMuch.text = "票面：\(ticketModel.originalTicket.name) x \(ticketCount)"
         var str = ""
         if ticketModel.region == "" {
             str = "优先择座"
         }else if ticketModel.row == "" {
             str = "\(ticketModel.region)"
         }else {
-            str = "\(ticketModel.region) \(ticketModel.row) 排"
+            str = "\(ticketModel.region) \(ticketModel.row)排"
         }
         ticketRow.text = "座位：\(str)"
     }

@@ -90,9 +90,13 @@ class OrderTicketInfoTableViewCell: UITableViewCell {
         }
         ticketTitle.text = model.show.title
         ticketTime.text = "时间：\(model.session.startTime)"
-        ticketMuch.text = "票面：\(model.ticket.originalTicket.name) 数量：\(model.ticketCount)"
-        let row = model.ticket.row == "" ? "择优分配":"\(model.ticket.row)排"
-        ticketRow.text = "区域：\(model.ticket.region)    座位：\(row)"
+        ticketMuch.text = "票面：\(model.ticket.originalTicket.name) x \(model.ticketCount)"
+        if model.ticket.region == "" {
+            ticketRow.text = "座位：择优分配"
+        }else{
+            let row = model.ticket.row == "" ? "择优分配":"\(model.ticket.row)排"
+            ticketRow.text = "座位：\(model.ticket.region) \(row)"
+        }
         ticketAllMuch.text = "实付金额：\(model.total)"
     }
     

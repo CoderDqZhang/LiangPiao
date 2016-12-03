@@ -101,8 +101,8 @@ class TicketDescriptionViewModel: NSObject {
         var url = ""
         if sesstionModel != nil {
             url = "\(TickeSession)\(ticketModel.id)/session/\(sesstionModel.id)"
-        }else{
-            url = "\(TickeSession)\(ticketModel.id)/session/\(ticketModel.id)"
+        }else if ticketModel.session != nil {
+            url = "\(TickeSession)\(ticketModel.id)/session/\(ticketModel.session.id)"
         }
         BaseNetWorke.sharedInstance.getUrlWithString(url, parameters: nil).subscribeNext { (resultDic) in
             self.model = TicketDescriptionModel.init(fromDictionary: resultDic as! NSDictionary)
@@ -132,7 +132,7 @@ class TicketDescriptionViewModel: NSObject {
     }
     
     func tableViewDidSelectRowAtIndexPath(controller:TicketDescriptionViewController, indexPath:NSIndexPath) {
-        if indexPath.row > 3 {
+        if indexPath.row > 3{
             let ticketModel = self.model.ticketList[indexPath.row - 4]
             if ticketModel.sellType == 2 && ticketModel.remainCount > self.ticketNumber {
                 UIAlertController.shwoAlertControl(controller, title: nil, message: "该票种须打包\(ticketModel.remainCount)张一起购买哦", cancel: "取消", doneTitle: "继续购买", cancelAction: {
@@ -199,28 +199,36 @@ class TicketDescriptionViewModel: NSObject {
     }
     
     func sortTickeByOriginTicketPrice(price:String?, controller:TicketDescriptionViewController) {
-        var sortArrayList:[TicketList] = []
-        for tickeModel in tempList {
-            if tickeModel.originalTicket.name == price {
-                sortArrayList.append(tickeModel)
+        if price == "0" {
+            self.model.ticketList = tempList
+        }else{
+            var sortArrayList:[TicketList] = []
+            for tickeModel in tempList {
+                if tickeModel.originalTicket.name == price {
+                    sortArrayList.append(tickeModel)
+                }
             }
+            self.model.ticketList = sortArrayList
         }
-        self.model.ticketList = sortArrayList
         controller.tableView.reloadData()
     }
     
     func sortTickeByRowTicketPrice(ticketRow:String?, controller:TicketDescriptionViewController) {
-        var sortArrayList:[TicketList] = []
-        for tickeModel in tempList {
-            var rowStr = ""
-            if tickeModel.region != "" {
-                rowStr = "\(tickeModel.region) \(tickeModel.row)排"
+        if ticketRow == "0" {
+            self.model.ticketList = tempList
+        }else{
+            var sortArrayList:[TicketList] = []
+            for tickeModel in tempList {
+                var rowStr = ""
+                if tickeModel.region != "" {
+                    rowStr = "\(tickeModel.region) \(tickeModel.row)排"
+                }
+                if rowStr == ticketRow {
+                    sortArrayList.append(tickeModel)
+                }
             }
-            if rowStr == ticketRow {
-                sortArrayList.append(tickeModel)
-            }
+            self.model.ticketList = sortArrayList
+            controller.tableView.reloadData()
         }
-        self.model.ticketList = sortArrayList
-        controller.tableView.reloadData()
     }
 }

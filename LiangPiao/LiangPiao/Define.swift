@@ -38,12 +38,11 @@ let KWINDOWDS = UIApplication.sharedApplication().keyWindow
 
 
 func AppCallViewShow(view:UIView, phone:String) {
-    dispatch_async(dispatch_get_main_queue()) { 
-        let str = "tel:\(phone)"
-        let callWebView = UIWebView()
-        callWebView.loadRequest(NSURLRequest(URL: NSURL.init(string: str)!))
-        view.addSubview(callWebView)
-    }
+    UIAlertController.shwoAlertControl(view.findViewController()!, title: nil, message: phone, cancel: "取消", doneTitle: "确定", cancelAction: {
+        
+        }, doneAction: {
+           UIApplication.sharedApplication().openURL(NSURL.init(string: "tel:\(phone)")!)
+    })
 }
 
 func UserDefaultsSetSynchronize(value:AnyObject,key:String) {

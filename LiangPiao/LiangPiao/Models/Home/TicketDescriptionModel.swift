@@ -88,6 +88,72 @@ class TicketDescriptionModel : NSObject, NSCoding{
     
 }
 
+class Supplier : NSObject, NSCoding{
+    
+    var id : Int!
+    var mobileNum : String!
+    var username : String!
+    
+    
+    /**
+     * Instantiate the instance using the passed dictionary values to set the properties values
+     */
+    init(fromDictionary dictionary: NSDictionary){
+        id = dictionary["id"] as? Int
+        mobileNum = dictionary["mobile_num"] as? String
+        username = dictionary["username"] as? String
+    }
+    
+    /**
+     * Returns all the available property values in the form of NSDictionary object where the key is the approperiate json key and the value is the value of the corresponding property
+     */
+    func toDictionary() -> NSDictionary
+    {
+        let dictionary = NSMutableDictionary()
+        if id != nil{
+            dictionary["id"] = id
+        }
+        if mobileNum != nil{
+            dictionary["mobile_num"] = mobileNum
+        }
+        if username != nil{
+            dictionary["username"] = username
+        }
+        return dictionary
+    }
+    
+    /**
+     * NSCoding required initializer.
+     * Fills the data from the passed decoder
+     */
+    @objc required init(coder aDecoder: NSCoder)
+    {
+        id = aDecoder.decodeObjectForKey("id") as? Int
+        mobileNum = aDecoder.decodeObjectForKey("mobile_num") as? String
+        username = aDecoder.decodeObjectForKey("username") as? String
+        
+    }
+    
+    /**
+     * NSCoding required method.
+     * Encodes mode properties into the decoder
+     */
+    @objc func encodeWithCoder(aCoder: NSCoder)
+    {
+        if id != nil{
+            aCoder.encodeObject(id, forKey: "id")
+        }
+        if mobileNum != nil{
+            aCoder.encodeObject(mobileNum, forKey: "mobile_num")
+        }
+        if username != nil{
+            aCoder.encodeObject(username, forKey: "username")
+        }
+        
+    }
+    
+}
+
 class TicketList : NSObject, NSCoding{
     
     var deliveryPrice : Int!
@@ -108,6 +174,7 @@ class TicketList : NSObject, NSCoding{
     var selfGetTicketDate : String!
     var selfGetTicketPhone : String!
     var sellType : Int!
+    var supplier : Supplier!
     
     
     /**
@@ -134,6 +201,9 @@ class TicketList : NSObject, NSCoding{
         selfGetTicketDate = dictionary["self_get_ticket_date"] as? String
         selfGetTicketPhone = dictionary["self_get_ticket_phone"] as? String
         sellType = dictionary["sell_type"] as? Int
+        if let supplierData = dictionary["supplier"] as? NSDictionary{
+            supplier = Supplier(fromDictionary: supplierData)
+        }
     }
     
     /**
@@ -196,6 +266,9 @@ class TicketList : NSObject, NSCoding{
         if sellType != nil{
             dictionary["sell_type"] = sellType
         }
+        if supplier != nil{
+            dictionary["supplier"] = supplier.toDictionary()
+        }
         return dictionary
     }
     
@@ -223,6 +296,7 @@ class TicketList : NSObject, NSCoding{
         selfGetTicketDate = aDecoder.decodeObjectForKey("self_get_ticket_date") as? String
         selfGetTicketPhone = aDecoder.decodeObjectForKey("self_get_ticket_phone") as? String
         sellType = aDecoder.decodeObjectForKey("sell_type") as? Int
+        supplier = aDecoder.decodeObjectForKey("supplier") as? Supplier
         
     }
     
@@ -285,6 +359,9 @@ class TicketList : NSObject, NSCoding{
         }
         if sellType != nil{
             aCoder.encodeObject(sellType, forKey: "sell_type")
+        }
+        if supplier != nil{
+            aCoder.encodeObject(supplier, forKey: "supplier")
         }
         
     }

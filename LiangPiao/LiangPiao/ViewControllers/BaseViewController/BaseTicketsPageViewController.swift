@@ -52,13 +52,13 @@ class BaseTicketsPageViewController: UIViewController {
     }
     
     func setUpRefreshView(){
-        self.tableView.mj_header = LiangNomalRefreshHeader(refreshingBlock: { 
+        self.tableView.mj_header = LiangNomalRefreshHeaderWhite(refreshingBlock: {
             TicketCategoryViewModel.sharedInstance.refreshDataView(self)
         })
     }
     
     func setUpLoadMoreData(){
-        self.tableView.mj_footer = LiangPiaoLoadMoreDataFooter(refreshingBlock: {
+        self.tableView.mj_footer = LiangPiaoLoadMoreDataFooterWhite(refreshingBlock: {
             TicketCategoryViewModel.sharedInstance.requestCategotyData(1000, controller: self)
         })
     }

@@ -131,7 +131,7 @@ class PayUrl : NSObject, NSCoding{
      */
     func toDictionary() -> NSDictionary
     {
-        var dictionary = NSMutableDictionary()
+        let dictionary = NSMutableDictionary()
         if alipay != nil{
             dictionary["alipay"] = alipay
         }

@@ -43,5 +43,17 @@ extension String{
         }
     }
     
+    func phoneType(st: String) -> String {
+        let temp = NSMutableString.init(string: st)
+        if temp.length == 11 {
+            temp.insertString("-", atIndex: 3)
+            temp.insertString("-", atIndex: 8)
+        }else{
+            temp.insertString("-", atIndex: 3)
+            temp.insertString("-", atIndex: 7)
+        }
+        return temp as String
+    }
+    
 }//extension end
 

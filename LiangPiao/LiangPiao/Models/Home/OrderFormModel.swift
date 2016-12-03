@@ -23,7 +23,7 @@ class OrderFormModel: NSObject {
     var ticketID : Int?
     var ticketCount : Int?
     var deliveryType : FormDelivityType?
-    var message : String?
+    var message : String? = ""
     var deliveryPrice : String?
     var payType : PayType = .weiChat
     var phone : String?

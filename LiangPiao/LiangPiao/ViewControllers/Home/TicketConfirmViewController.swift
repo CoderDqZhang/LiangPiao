@@ -25,6 +25,7 @@ class TicketConfirmViewController: UIViewController {
         self.setUpView()
         self.bindViewModel()
         self.talKingDataPageName = "确认订单"
+        self.setupForDismissKeyboard()
         // Do any additional setup after loading the view.
     }
 
@@ -34,7 +35,7 @@ class TicketConfirmViewController: UIViewController {
     
     func showExpressagePickerView(){
         if expressage == nil {
-            expressage = ZHPickView(pickviewWithArray: ["普通快递（8元）","顺丰快递（12元）"], isHaveNavControler: false)
+            expressage = ZHPickView(pickviewWithArray: ["普通快递（\(viewModel.ticketModel.deliveryPrice)元）","顺丰快递（\(viewModel.ticketModel.deliveryPriceSf)元）"], isHaveNavControler: false)
             expressage.setPickViewColer(UIColor.whiteColor())
             expressage.setPickViewColer(UIColor.whiteColor())
             expressage.setTintColor(UIColor.whiteColor())
@@ -56,7 +57,7 @@ class TicketConfirmViewController: UIViewController {
         }
         
         muchOfTicket = viewModel.rac_observeKeyPath("muchOfTicketWithOther", options: .New, observer: self) { (object, objects, new, old) in
-            self.orderConfirm.setMuchLabelText(("\((object as? String)!) 元"))
+            self.orderConfirm.setMuchLabelText(("\((object as? String)!)"))
         }
         
         self.view.addSubview(orderConfirm)
@@ -101,10 +102,12 @@ class TicketConfirmViewController: UIViewController {
                         }
                         controller.viewModel.addressType = .addType
                         controller.addressInfoClouse = { model in
-                            let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath.init(forRow: 1, inSection: 0)) as! OrderConfirmAddressTableViewCell
-                            cell.setData(model, type: .withAddress)
                             self.viewModel.addressModel = model
                             self.viewModel.orderForme.addressId = model.id
+                            self.tableView.reloadRowsAtIndexPaths([NSIndexPath.init(forRow: 1, inSection: 0)], withRowAnimation: .Automatic)
+                            let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath.init(forRow: 1, inSection: 0)) as! OrderConfirmAddressTableViewCell
+                            cell.setData(model, type: .withAddress)
+                            
                         }
                         controller.hidesBottomBarWhenPushed = true
                         NavigationPushView(self, toConroller: controller)
@@ -168,7 +171,7 @@ class TicketConfirmViewController: UIViewController {
             let time = self.createLabel(CGRectMake(15,39,SCREENWIDTH - 30,17), text: "取票时间：\(viewModel.ticketModel.sceneGetTicketDate)")
             orderConfirmView.addSubview(time)
             
-            let instroduct = self.createLabel(CGRectMake(15,58,SCREENWIDTH - 30,17), text: "凭手机短信取票码取票，客服热线：400-873-8011)")
+            let instroduct = self.createLabel(CGRectMake(15,58,SCREENWIDTH - 30,17), text: "客服热线：400-873-8011")
             orderConfirmView.addSubview(instroduct)
             
         }
@@ -202,7 +205,7 @@ extension TicketConfirmViewController : UITableViewDelegate {
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return viewModel.tableViewHeightForRowAtIndexPath(indexPath)
+        return viewModel.tableViewHeightForRowAtIndexPath(tableView,indexPath:indexPath)
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -262,10 +265,13 @@ extension TicketConfirmViewController : UITableViewDataSource {
                         let cell = tableView.dequeueReusableCellWithIdentifier("OrderConfirmAddressTableViewCell", forIndexPath: indexPath) as! OrderConfirmAddressTableViewCell
                         if UserInfoModel.isLoggedIn() && AddressModel.haveAddress() {
                             let addressModels = AddressModel.unarchiveObjectWithFile()
-                            let model = addressModels[0]
-                            viewModel.orderForme.addressId = model.id
-                            cell.setData(model, type: .withAddress)
-                            viewModel.addressModel = model
+                            if addressModels.count > 0 && !viewModel.isHaveModel {
+                                let model = addressModels[0]
+                                viewModel.orderForme.addressId = model.id
+                                cell.setData(model, type: .withAddress)
+                                viewModel.addressModel = model
+                                viewModel.isHaveModel = true
+                            }
                         }
                         cell.selectionStyle = .None
                         return cell
@@ -299,9 +305,7 @@ extension TicketConfirmViewController : UITableViewDataSource {
                 return cell
             default:
                 let cell = tableView.dequeueReusableCellWithIdentifier("DetailAddressTableViewCell", forIndexPath: indexPath) as! DetailAddressTableViewCell
-                cell.textView.rac_textSignal().subscribeNext({ (str) in
-                    self.viewModel.orderForme.message = str as? String
-                })
+                cell.textView.delegate = self
                 cell.selectionStyle = .None
                 cell.setPlaceholerText("备注关于本次交易的特别说明")
                 return cell
@@ -311,9 +315,18 @@ extension TicketConfirmViewController : UITableViewDataSource {
             let cell = tableView.dequeueReusableCellWithIdentifier("GloabTitleAndImageCell", forIndexPath: indexPath) as! GloabTitleAndImageCell
             if indexPath.row == 1 {
                 cell.hideLineLabel()
-                cell.setData(viewModel.configCellLabel(indexPath), isSelect: false)
+                if viewModel.orderForme.payType == .aliPay {
+                    cell.setData(viewModel.configCellLabel(indexPath), isSelect: true)
+                }else{
+                    cell.setData(viewModel.configCellLabel(indexPath), isSelect: false)
+                }
+
             }else{
-                cell.setData(viewModel.configCellLabel(indexPath), isSelect: true)
+                if viewModel.orderForme.payType == .weiChat {
+                    cell.setData(viewModel.configCellLabel(indexPath), isSelect: true)
+                }else{
+                    cell.setData(viewModel.configCellLabel(indexPath), isSelect: false)
+                }
             }
             cell.selectionStyle = .None
             
@@ -332,6 +345,16 @@ extension TicketConfirmViewController : ZHPickViewDelegate {
 extension TicketConfirmViewController : UITextFieldDelegate {
     func textFieldShouldReturn(textField: UITextField) -> Bool {
 
+        return true
+    }
+}
+
+extension TicketConfirmViewController : UITextViewDelegate {
+    func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+        if text == "\n" {
+            textView.resignFirstResponder()
+        }
+        self.viewModel.orderForme.message = "\(textView.text)\(text)"
         return true
     }
 }

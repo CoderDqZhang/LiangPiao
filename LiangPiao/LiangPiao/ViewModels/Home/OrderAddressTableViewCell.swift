@@ -54,13 +54,14 @@ class OrderConfirmAddressTableViewCell: UITableViewCell {
         orderName = UILabel()
         orderName.text = ""
         orderName.textColor = UIColor.init(hexString: Mine_Address_Name_Color)
-        orderName.font = Mine_Address_Name_Font
+        orderName.font = Confim_Address_Name_Font
         self.contentView.addSubview(orderName)
         
         orderAddress = UILabel()
         orderAddress.text = ""
         orderAddress.textColor = UIColor.init(hexString: Mine_Address_Name_Color)
-        orderAddress.font = Mine_Address_Name_Font
+        orderAddress.font = Confim_Address_Name_Font
+        orderAddress.numberOfLines = 0
         self.contentView.addSubview(orderAddress)
         
         self.updateConstraintsIfNeeded()
@@ -77,8 +78,10 @@ class OrderConfirmAddressTableViewCell: UITableViewCell {
             orderAddress.hidden = false
             orderAddAddress.hidden = true
             orderName.text = "\(model.name) \(model.mobileNum)"
-            orderAddress.text = "\(model.location) \(model.address)"
+            let str = "\(model.location)\(model.address)".stringByReplacingOccurrencesOfString(" ", withString: "")
+            orderAddress.text = str
         }
+        self.updateConstraintsIfNeeded()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -99,8 +102,8 @@ class OrderConfirmAddressTableViewCell: UITableViewCell {
             })
             
             orderName.snp_makeConstraints(closure: { (make) in
+                make.top.equalTo(self.contentView.snp_top).offset(26)
                 make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.bottom.equalTo(self.orderAddress.snp_top).offset(-1)
             })
             
             orderAddress.snp_makeConstraints(closure: { (make) in

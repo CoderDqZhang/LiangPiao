@@ -23,6 +23,10 @@ class LiangPiaoHomeRefreshHeader: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    deinit {
+        timer.invalidate()
+    }
+    
     func setUpView(){
         self.backgroundColor = UIColor.clearColor()
         imageView = UIImageView()
@@ -37,16 +41,12 @@ class LiangPiaoHomeRefreshHeader: UIView {
     }
     
     func startAnimation() {
-        timer = NSTimer.YQ_scheduledTimerWithTimeInterval(1, closure: {
-            let ani = CAKeyframeAnimation(keyPath: "transform.rotation.z")
-            ani.keyTimes = [0,0.48,1]
-            ani.timingFunctions = [CAMediaTimingFunction(controlPoints: 0.014,-0.003,0.726,0.306), CAMediaTimingFunction(controlPoints: 0.233,0.824,0.326,0.97)]
-            ani.values = [0,3.543,6.283]
-            ani.duration = 1
-            self.loadImageView.layer.addAnimation(ani, forKey: nil)
-        }, repeats: true)
-        NSRunLoop.currentRunLoop().addTimer(timer, forMode: NSRunLoopCommonModes)
-        
+        let ani = CAKeyframeAnimation(keyPath: "transform.rotation.z")
+        ani.keyTimes = [0,0.48,1]
+        ani.timingFunctions = [CAMediaTimingFunction(controlPoints: 0.014,-0.003,0.726,0.306), CAMediaTimingFunction(controlPoints: 0.233,0.824,0.326,0.97)]
+        ani.values = [0,3.543,6.283]
+        ani.duration = 1
+        self.loadImageView.layer.addAnimation(ani, forKey: nil)
     }
     
     func stopAnimation(){

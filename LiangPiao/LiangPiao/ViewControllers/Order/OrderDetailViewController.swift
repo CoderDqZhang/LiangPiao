@@ -67,7 +67,12 @@ class OrderDetailViewController: UIViewController {
         
     }
     
-    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        if viewModel.isOrderConfim {
+            self.navigationController?.fd_fullscreenPopGestureRecognizer.enabled = false
+        }
+    }
     
     
     func setUpView() {
@@ -92,10 +97,10 @@ class OrderDetailViewController: UIViewController {
         
         payView = OrderPayView(frame: CGRectMake(0, SCREENHEIGHT - 49 - 64, SCREENWIDTH, 49))
         payView.payButton.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (action) in
-            if self.payView.payButton == 1 {
+            if self.viewModel.model.status == 0 {
                 self.viewModel.requestPayModel(self)
-            }else{
-                self.viewModel.requestOrderStatusChange()
+            }else if self.viewModel.model.status == 7 {
+                self.viewModel.requestOrderStatusChange(self)
             }
         }
         self.view.addSubview(payView)
@@ -105,7 +110,7 @@ class OrderDetailViewController: UIViewController {
     func setNavigationItem() {
         self.title = "订单详情"
         self.setNavigationItemBack()
-        if viewModel.model.deliveryType == 3 {
+        if viewModel.model.deliveryType != 1 {
             self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "联系商家", style: .Plain, target: self, action: #selector(OrderDetailViewController.rightBarItemPress(_:)))
         }
         
@@ -126,7 +131,10 @@ class OrderDetailViewController: UIViewController {
     }
     
     func rightBarItemPress(sender:UIBarButtonItem) {
-        AppCallViewShow(self.view, phone: "\(viewModel.model.show.venue.phone)")
+        if viewModel.model.ticket.supplier != nil
+        {
+            AppCallViewShow(self.view, phone: viewModel.model.ticket.supplier.mobileNum.phoneType(viewModel.model.ticket.supplier.mobileNum))
+        }
     }
     
     func bindViewModel(){
@@ -137,14 +145,14 @@ class OrderDetailViewController: UIViewController {
     }
     
     func updateTableView(status:Int) {
-        if status == 0 || status == 7{
+        if status == 0 || status == 7 || status == 100 {
             if payView != nil {
                 payView.hidden = false
             }else{
                 payView = OrderPayView(frame: CGRectMake(0, SCREENHEIGHT - 49, SCREENWIDTH, 49))
                 self.view.addSubview(payView)
             }
-            if status == 7 {
+            if status == 7 || status == 100 {
                 payView.payButton.setTitle("确认收货", forState: .Normal)
                 payView.payButton.tag = 2
             }
@@ -198,7 +206,7 @@ class OrderDetailViewController: UIViewController {
         footView.addSubview(servicePhone)
         
         
-        let serviceTime = self.createLabel(CGRectMake(15,68,SCREENWIDTH - 30,14), text: "周一至周六 09:00-21:00")
+        let serviceTime = self.createLabel(CGRectMake(15,68,SCREENWIDTH - 30,14), text: "客服工作时间：周一至周六 09:00-21:00")
         footView.addSubview(serviceTime)
         
         return footView
@@ -226,6 +234,7 @@ class OrderDetailViewController: UIViewController {
 
 extension OrderDetailViewController : UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        viewModel.tableViewDidSelectRowAtIndexPath(indexPath, controller:self)
     }
     
     func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {

@@ -50,7 +50,7 @@ class DiscountViewController: UIViewController {
         
         discountView.snp_makeConstraints { (make) in
             make.centerX.equalTo(self.view.snp_centerX).offset(0)
-            make.centerY.equalTo(self.view.snp_centerY).offset(-74)
+            make.centerY.equalTo(self.view.snp_centerY).offset(-94)
         }
         
         

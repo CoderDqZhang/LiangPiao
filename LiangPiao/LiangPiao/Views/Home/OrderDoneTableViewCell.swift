@@ -40,8 +40,8 @@ class OrderDoneTableViewCell: UITableViewCell {
     
     func createLabel(frame:CGRect, text:String) -> UILabel {
         let label = UILabel(frame: frame)
-        label.font = OrderDetail_Address_Font
-        label.textColor = UIColor.init(hexString: OrderDetail_Address_Color)
+        label.font = Ticket_Detail_Name_Font
+        label.textColor = UIColor.init(hexString: Mine_Address_Name_Color)
         label.text = text
         return label
     }
@@ -50,7 +50,8 @@ class OrderDoneTableViewCell: UITableViewCell {
         orderStatusDone.text = model.statusDesc
         if model.deliveryType == 1 {
             pickUpLocation.text = "\(model.address.name) \(model.address.mobileNum)"
-            pickUpTime.text = "\(model.address.address)"
+            let str = "\(model.address.location)\(model.address.address)".stringByReplacingOccurrencesOfString(" ", withString: "")
+            pickUpTime.text = str
         }else{
             pickUpLocation.text = "姓名：\(model.name)"
             pickUpTime.text = "电话：\(model.phone)"

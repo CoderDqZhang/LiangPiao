@@ -37,9 +37,6 @@ class HomeViewController: BaseViewController {
         self.navigationController?.fd_prefersNavigationBarHidden = true
         self.navigationController?.setNavigationBarHidden(true, animated: true)
         
-        if (searchTableView != nil) && searchTableView.hidden == false {
-            self.tabBarController?.tabBar.hidden = true
-        }
     }
     
     func setUpTableView() {

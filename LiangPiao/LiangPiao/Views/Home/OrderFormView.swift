@@ -11,6 +11,7 @@ import UIKit
 class ConfirmView: UIView {
     var muchInfoLabel:UILabel!
     var muchLabel:UILabel!
+    var muchmLabel:UILabel!
     var payButton:UIButton!
     var didMakeConstraints:Bool = false
     
@@ -28,7 +29,15 @@ class ConfirmView: UIView {
         self.addSubview(muchInfoLabel)
         
         muchLabel = UILabel()
-        muchLabel.text = "688.00 元"
+        muchLabel.font = Home_PayView_Much_Font
+        muchLabel.textColor = UIColor.init(hexString: Home_ReciveView_Label_Nomal_nColor)
+        muchLabel.text = "688.00"
+        
+        muchmLabel = UILabel()
+        muchmLabel.font = Home_PayView_MuchLabel_Font
+        muchmLabel.textColor = UIColor.init(hexString: Home_Ticker_Descrip_Color)
+        muchmLabel.text = "元"
+        self.addSubview(muchmLabel)
         
         self.addSubview(muchLabel)
         
@@ -44,31 +53,24 @@ class ConfirmView: UIView {
     
     func setMuchLabelText(text:String){
         muchLabel.text = text
-        let attributeString = NSMutableAttributedString(string: muchLabel.text!)
-        attributeString.addAttribute(NSFontAttributeName,
-                                     value: Home_PayView_Much_Font!,
-                                     range: NSMakeRange(0,muchLabel.text!.length - 1))
-        attributeString.addAttribute(NSForegroundColorAttributeName, value: UIColor.init(hexString: Home_ReciveView_Label_Nomal_nColor),
-                                     range: NSMakeRange(0, muchLabel.text!.length - 1))
-        attributeString.addAttribute(NSFontAttributeName,
-                                     value: Home_PayView_MuchLabel_Font!,
-                                     range: NSMakeRange(muchLabel.text!.length - 1,1))
-        attributeString.addAttribute(NSForegroundColorAttributeName, value: UIColor.init(hexString: Home_Ticker_Descrip_Color),
-                                     range: NSMakeRange(muchLabel.text!.length - 1,1))
-        muchLabel.attributedText = attributeString
+        self.updateConstraintsIfNeeded()
     }
     
     override func updateConstraints() {
         if !self.didMakeConstraints {
             muchInfoLabel.snp_makeConstraints(closure: { (make) in
                 make.left.equalTo(self.snp_left).offset(15)
-                make.top.equalTo(self.snp_top).offset(16)
-//                make.centerY.equalTo(self.snp_centerY).offset(0)
+                make.top.equalTo(self.snp_top).offset(18)
             })
             muchLabel.snp_makeConstraints(closure: { (make) in
                 make.left.equalTo(self.muchInfoLabel.snp_right).offset(4)
-                make.top.equalTo(self.snp_top).offset(15)
-//                make.centerY.equalTo(self.snp_centerY).offset(0)
+                make.top.equalTo(self.snp_top).offset(16)
+            })
+            
+            muchmLabel.snp_makeConstraints(closure: { (make) in
+                make.left.equalTo(self.muchLabel.snp_right).offset(4)
+                make.top.equalTo(self.snp_top).offset(22)
+                //                make.centerY.equalTo(self.snp_centerY).offset(0)
             })
             
             self.didMakeConstraints = true

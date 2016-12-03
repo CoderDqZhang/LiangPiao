@@ -84,6 +84,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 if resultDic["resultStatus"] as! String == "9000" {
                     Notification(OrderStatuesChange, value: "3")
                 }else{
+                    Notification(OrderStatuesChange, value: "100")
                     MainThreseanShowAliPayError(resultDic["resultStatus"] as! String)
                 }
             })
@@ -120,9 +121,11 @@ extension AppDelegate : WXApiDelegate {
                 Notification(OrderStatuesChange, value: "3")
 //                print("展示成功页面")
             case -1:
+                Notification(OrderStatuesChange, value: "100")
                 MainThreadAlertShow("微信支付错误", view: KWINDOWDS!)
 //                print("可能的原因：签名错误、未注册APPID、项目设置APPID不正确、注册的APPID与设置的不匹配、其他异常等。")
             case -2:
+                Notification(OrderStatuesChange, value: "100")
                 MainThreadAlertShow("取消支付", view: KWINDOWDS!)
 //                print("无需处理。发生场景：用户不支付了，点击取消，返回APP。")
             default:

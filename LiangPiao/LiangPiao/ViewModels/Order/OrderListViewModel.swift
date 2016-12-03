@@ -39,13 +39,19 @@ class OrderListViewModel: NSObject {
     
     func orderStatusChange(object:NSNotification){
         if selectOrder != nil {
-            selectOrder.status = Int(object.object as! String)
-            if selectOrder.status == 2 {
-                selectOrder.statusDesc = "交易取消"
-            }else if selectOrder.status == 3 {
-                selectOrder.statusDesc = "待发货"
+            if Int(object.object as! String) != 100 {
+                selectOrder.status = Int(object.object as! String)
+                if selectOrder.status == 2 {
+                    selectOrder.statusDesc = "交易取消"
+                }else if selectOrder.status == 3 {
+                    selectOrder.statusDesc = "待发货"
+                }
+                self.changeOrderStatusPay(selectOrder, indexPath: self.indexPath, controller: controller)
+            }else{
+                let controller = OrderDetailViewController()
+                controller.viewModel.model = selectOrder
+                NavigationPushView(controller, toConroller: controller)
             }
-            self.changeOrderStatusPay(selectOrder, indexPath: self.indexPath, controller: controller)
         }
     }
     
@@ -100,7 +106,6 @@ class OrderListViewModel: NSObject {
                 controller.tableView.reloadSections(NSIndexSet.init(index: indexPath.section), withRowAnimation: .Automatic)
             }
             NavigationPushView(controller, toConroller: controllerVC)
-            
         }
     }
     
@@ -114,9 +119,14 @@ class OrderListViewModel: NSObject {
     
     func tableViewOrderHandleCellIndexPath(indexPath:NSIndexPath, cell:OrderHandleTableViewCell, controller:OrderListViewController) {
         cell.cancelOrderBtn.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (action) in
-            self.changeOrderStatusCancel(self.model.orderList[indexPath.section], indexPath:indexPath, controller:controller)
+            UIAlertController.shwoAlertControl(controller, title: nil, message: "是否要放弃本次交易", cancel: "稍等一会", doneTitle: "确认取消", cancelAction: {
+                
+                }, doneAction: {
+                    let model = self.model.orderList[indexPath.section]
+                    self.changeOrderStatusCancel(model, indexPath:indexPath, controller:controller)
+            })
+            
         }
-        
         cell.payOrderBtn.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (action) in
             self.indexPath = indexPath
             self.controller = controller
@@ -167,6 +177,10 @@ class OrderListViewModel: NSObject {
         let parameters = ["status":"1"]
         BaseNetWorke.sharedInstance.postUrlWithString(url, parameters: parameters).subscribeNext { (resultDic) in
             let orderList = OrderList.init(fromDictionary: resultDic as! NSDictionary)
+            let tempOrder = self.model.orderList[indexPath.section]
+            orderList.show = tempOrder.show
+            orderList.session = tempOrder.session
+            orderList.ticket = tempOrder.ticket
             self.model.orderList[indexPath.section] = orderList
             controller.tableView.reloadSections(NSIndexSet.init(index: indexPath.section), withRowAnimation: .Automatic)
         }
@@ -208,6 +222,10 @@ class OrderListViewModel: NSObject {
         let parameters = ["status":"3"]
         BaseNetWorke.sharedInstance.postUrlWithString(url, parameters: parameters).subscribeNext { (resultDic) in
             let orderList = OrderList.init(fromDictionary: resultDic as! NSDictionary)
+            let tempOrder = self.model.orderList[indexPath.section]
+            orderList.show = tempOrder.show
+            orderList.session = tempOrder.session
+            orderList.ticket = tempOrder.ticket
             self.model.orderList[indexPath.section] = orderList
             controller.tableView.reloadSections(NSIndexSet.init(index: indexPath.section), withRowAnimation: .Automatic)
         }

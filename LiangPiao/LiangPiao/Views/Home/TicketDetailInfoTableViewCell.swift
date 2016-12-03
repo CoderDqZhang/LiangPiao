@@ -66,14 +66,14 @@ class TicketDetailInfoTableViewCell: UITableViewCell {
         }
         ticketTitle.text = model.show.title
         ticketTime.text = "时间：\(model.session.startTime)"
-        ticketMuch.text = "票面：\(model.ticket.originalTicket.name) 数量：\(model.ticketCount)"
+        ticketMuch.text = "票面：\(model.ticket.originalTicket.name) x \(model.ticketCount)"
         var str = ""
         if model.ticket.region == "" {
             str = "优先择座"
         }else if model.ticket.row == "" {
             str = "\(model.ticket.region)"
         }else {
-            str = "\(model.ticket.region) \(model.ticket.row) 排"
+            str = "\(model.ticket.region) \(model.ticket.row)排"
         }
         ticketRow.text = "座位：\(str)"
     }

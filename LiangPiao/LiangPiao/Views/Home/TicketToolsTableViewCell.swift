@@ -34,10 +34,10 @@ class ToolView:UIView {
 //        singnalTap.numberOfTouchesRequired = 1
 //        self.addGestureRecognizer(singnalTap)
         
-        let effectView = UIVisualEffectView(effect: UIBlurEffect.init(style: .Light))
-        effectView.frame = self.frame
-        effectView.contentView.addSubview(imageView)
-        self.addSubview(effectView)
+//        let effectView = UIVisualEffectView(effect: UIBlurEffect.init(style: .Light))
+//        effectView.frame = self.frame
+//        effectView.contentView.addSubview(imageView)
+//        self.addSubview(effectView)
         
         
         self.setUpTableView()
@@ -96,7 +96,7 @@ extension ToolView : UITableViewDataSource {
         }
         let detailLabel = UILabel()
         if indexPath.row == 0 {
-            detailLabel.text = "全部原价"
+            detailLabel.text = "全部"
             detailLabel.textColor = UIColor.init(hexString: Home_Ticker_Tools_Table_nColor)
         }else{
             detailLabel.textColor = UIColor.init(hexString: Home_Ticker_Tools_Table_sColor)

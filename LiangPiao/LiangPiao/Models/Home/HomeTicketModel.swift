@@ -182,6 +182,7 @@ class HomeTicketModel : NSObject, NSCoding{
     var id : Int!
     var minDiscount : String!
     var minPrice : Int!
+    var session : TicketSessionModel!
     var sessionCount : Int!
     var showDate : String!
     var ticketCount : Int!
@@ -203,6 +204,9 @@ class HomeTicketModel : NSObject, NSCoding{
         id = dictionary["id"] as? Int
         minDiscount = dictionary["min_discount"] as? String
         minPrice = dictionary["min_price"] as? Int
+        if let sessionData = dictionary["session"] as? NSDictionary{
+            session = TicketSessionModel(fromDictionary: sessionData)
+        }
         sessionCount = dictionary["session_count"] as? Int
         showDate = dictionary["show_date"] as? String
         isFavorite = dictionary["is_favorite"] as? Bool
@@ -241,6 +245,9 @@ class HomeTicketModel : NSObject, NSCoding{
         if minPrice != nil{
             dictionary["min_price"] = minPrice
         }
+        if session != nil{
+            dictionary["session"] = session.toDictionary()
+        }
         if sessionCount != nil{
             dictionary["session_count"] = sessionCount
         }
@@ -275,6 +282,7 @@ class HomeTicketModel : NSObject, NSCoding{
         isFavorite = aDecoder.decodeObjectForKey("is_favorite") as? Bool
         minDiscount = aDecoder.decodeObjectForKey("min_discount") as? String
         minPrice = aDecoder.decodeObjectForKey("min_price") as? Int
+        session = aDecoder.decodeObjectForKey("session") as? TicketSessionModel
         sessionCount = aDecoder.decodeObjectForKey("session_count") as? Int
         showDate = aDecoder.decodeObjectForKey("show_date") as? String
         ticketCount = aDecoder.decodeObjectForKey("ticket_count") as? Int
@@ -310,6 +318,9 @@ class HomeTicketModel : NSObject, NSCoding{
         }
         if minPrice != nil{
             aCoder.encodeObject(minPrice, forKey: "min_price")
+        }
+        if session != nil{
+            aCoder.encodeObject(session, forKey: "session")
         }
         if sessionCount != nil{
             aCoder.encodeObject(sessionCount, forKey: "session_count")

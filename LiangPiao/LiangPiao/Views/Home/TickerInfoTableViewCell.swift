@@ -83,9 +83,10 @@ class TickerInfoTableViewCell: UITableViewCell {
         for str in typeArray {
             if str == "1" {
                delivery = delivery.stringByAppendingString("快递 ")
-            }else if str == "2" || str == "3" {
+            }else if str == "2"  {
+                delivery = delivery.stringByAppendingString("上门自取")
+            }else if str == "3" {
                 delivery = delivery.stringByAppendingString("自取")
-                break
             }
         }
         return delivery
@@ -130,16 +131,16 @@ class TickerInfoTableViewCell: UITableViewCell {
         if !self.didMakeConstraints {
             ticketNomalPrice.snp_makeConstraints(closure: { (make) in
                 make.left.equalTo(self.contentView.snp_left).offset(25)
-                make.top.equalTo(self.contentView.snp_top).offset(14)
+                make.top.equalTo(self.contentView.snp_top).offset(15)
             })
             
             ticketRow.snp_makeConstraints(closure: { (make) in
-                make.top.equalTo(self.contentView.snp_top).offset(14)
+                make.top.equalTo(self.contentView.snp_top).offset(15)
                 make.centerX.equalTo(self.contentView.snp_centerX).offset(0)
             })
             
             ticketDescirp.snp_makeConstraints(closure: { (make) in
-                make.top.equalTo(self.ticketRow.snp_bottom).offset(7)
+                make.top.equalTo(self.ticketRow.snp_bottom).offset(5)
                 make.centerX.equalTo(self.contentView.snp_centerX).offset(0)
             })
             

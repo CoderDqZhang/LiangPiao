@@ -59,7 +59,7 @@ class SettingViewModel: NSObject {
                 self.presentEmailViewController(controller)
                 break;
             default:
-                UIApplication.sharedApplication().openURL(NSURL.init(string: "itms// itunes.apple.com/gb/app/yi-dong-cai-bian/id1170039060?mt=8")!)
+                UIApplication.sharedApplication().openURL(NSURL.init(string: "itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=1170039060")!)
                 break
             }
         default:
@@ -80,8 +80,6 @@ class SettingViewModel: NSObject {
         mailVC.mailComposeDelegate = self // 代理
         mailVC.setSubject("意见反馈") // 主题
         mailVC.setToRecipients(["feedback@liangpiao.me"]) // 收件人
-//        mailVC.setCcRecipients(["CcRecipients@qq.com"]) // 抄送
-//        mailVC.setBccRecipients(["bccRecipients@qq.com"]) // 密送
         mailVC.setMessageBody("相关内容", isHTML: false) // 内容，允许使用html内容
         
         controller.presentViewController(mailVC, animated: true, completion: nil)
@@ -89,5 +87,9 @@ class SettingViewModel: NSObject {
 }
 
 extension SettingViewModel : MFMailComposeViewControllerDelegate {
-    
+    func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?){
+        controller.dismissViewControllerAnimated(true) { 
+            
+        }
+    }
 }

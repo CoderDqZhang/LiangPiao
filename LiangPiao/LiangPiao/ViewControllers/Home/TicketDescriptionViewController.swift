@@ -28,6 +28,11 @@ class TicketDescriptionViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.fd_fullscreenPopGestureRecognizer.enabled = true
+    }
+    
     func setUpView() {
         
         tableView = UITableView(frame: CGRectZero, style: .Plain)
@@ -50,7 +55,7 @@ class TicketDescriptionViewController: UIViewController {
             make.right.equalTo(self.view.snp_right).offset(0)
             make.bottom.equalTo(self.view.snp_bottom).offset(0)
         }
-        ticketToolsView = UIView(frame: CGRectMake(0,-1,SCREENWIDTH,42))
+        ticketToolsView = UIView(frame: CGRectMake(0,-2,SCREENWIDTH,42))
         ticketToolsView.hidden = true
         ticketToolsView.backgroundColor = UIColor.whiteColor()
         self.view.addSubview(ticketToolsView)
@@ -149,6 +154,10 @@ class TicketDescriptionViewController: UIViewController {
                         Notification(ToolViewNotifacationName, value: "100")
                         self.isShowTicketNavigationBar(false)
                         self.viewModel.sortTickeByOriginTicketPrice(str as? String, controller:self)
+                    }else{
+                        Notification(ToolViewNotifacationName, value: "100")
+                        self.isShowTicketNavigationBar(false)
+                        self.viewModel.sortTickeByOriginTicketPrice("0", controller:self)
                     }
                 }
                 self.view.addSubview(ticketPrice)
@@ -166,6 +175,10 @@ class TicketDescriptionViewController: UIViewController {
                         Notification(ToolViewNotifacationName, value: "200")
                         self.isShowTicketNavigationBar(false)
                         self.viewModel.sortTickeByRowTicketPrice(str as? String, controller:self)
+                    }else{
+                        Notification(ToolViewNotifacationName, value: "200")
+                        self.isShowTicketNavigationBar(false)
+                        self.viewModel.sortTickeByOriginTicketPrice("0", controller:self)
                     }
                 }
                 self.view.addSubview(ticketRow)
