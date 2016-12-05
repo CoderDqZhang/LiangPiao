@@ -46,6 +46,12 @@
 		1F36E1A71DF0509900565D1A /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F36E1A61DF0509900565D1A /* SearchViewModel.swift */; };
 		1F3983AB1DED2C4000A24541 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F3983AA1DED2C4000A24541 /* MessageUI.framework */; };
 		1F3983AD1DED68B700A24541 /* OrderFormModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3983AC1DED68B700A24541 /* OrderFormModel.swift */; };
+		1F451F031DF5092E00441044 /* MyWalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F451F021DF5092E00441044 /* MyWalletViewController.swift */; };
+		1F451F051DF5094000441044 /* MySellOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F451F041DF5094000441044 /* MySellOrderViewController.swift */; };
+		1F451F081DF50C8F00441044 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F451F071DF50C8F00441044 /* TabBarViewController.swift */; };
+		1F451F0A1DF50CED00441044 /* MySellPagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F451F091DF50CED00441044 /* MySellPagerViewController.swift */; };
+		1F451F0C1DF50D0B00441044 /* MySellManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F451F0B1DF50D0B00441044 /* MySellManagerViewController.swift */; };
+		1F451F0E1DF50DAD00441044 /* MySellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F451F0D1DF50DAD00441044 /* MySellViewModel.swift */; };
 		1F45C3F61DD72043008C60CD /* LiangPiaoLoadMoreDataFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F45C3F51DD72043008C60CD /* LiangPiaoLoadMoreDataFooter.swift */; };
 		1F45C3FE1DD73027008C60CD /* NSTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F45C3FD1DD73027008C60CD /* NSTimer.swift */; };
 		1F45C4001DD7361C008C60CD /* LiangPiaoHomeRefreshHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F45C3FF1DD7361C008C60CD /* LiangPiaoHomeRefreshHeader.swift */; };
@@ -136,6 +142,7 @@
 		1FC4FEEB1DC8A32E00EBFD18 /* TYTabButtonPagerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FC4FEE41DC8A32E00EBFD18 /* TYTabButtonPagerController.m */; };
 		1FC4FEEC1DC8A32E00EBFD18 /* TYTabPagerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FC4FEE61DC8A32E00EBFD18 /* TYTabPagerController.m */; };
 		1FC4FEED1DC8A32E00EBFD18 /* TYTabTitleViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FC4FEE91DC8A32E00EBFD18 /* TYTabTitleViewCell.m */; };
+		1FCE979E1DF3443E00207878 /* Default-568.png in Resources */ = {isa = PBXBuildFile; fileRef = 1FCE979D1DF3443E00207878 /* Default-568.png */; };
 		1FD244C61DC2F92E00AFD3BC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD244C51DC2F92E00AFD3BC /* AppDelegate.swift */; };
 		1FD244C81DC2F92E00AFD3BC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD244C71DC2F92E00AFD3BC /* ViewController.swift */; };
 		1FD244CB1DC2F92E00AFD3BC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1FD244C91DC2F92E00AFD3BC /* Main.storyboard */; };
@@ -169,7 +176,6 @@
 		1FD881BD1DC7255500B2B702 /* UIViewController+DismissKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FD881BC1DC7255500B2B702 /* UIViewController+DismissKeyboard.m */; };
 		1FD881BF1DC736D300B2B702 /* HomeSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD881BE1DC736D300B2B702 /* HomeSearchTableViewCell.swift */; };
 		1FD881C11DC7410D00B2B702 /* AppThemeTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD881C01DC7410D00B2B702 /* AppThemeTool.swift */; };
-		1FD881C41DC745DF00B2B702 /* TalbViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD881C31DC745DF00B2B702 /* TalbViewController.swift */; };
 		1FD881C71DC748A300B2B702 /* UITextView+Placeholder.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FD881C61DC748A300B2B702 /* UITextView+Placeholder.m */; };
 		1FD881CB1DC75FE600B2B702 /* HomeToolsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD881CA1DC75FE600B2B702 /* HomeToolsTableViewCell.swift */; };
 		1FD881CF1DC7621400B2B702 /* HomeCenterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD881CE1DC7621400B2B702 /* HomeCenterModel.swift */; };
@@ -230,6 +236,12 @@
 		1F36E1A61DF0509900565D1A /* SearchViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		1F3983AA1DED2C4000A24541 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		1F3983AC1DED68B700A24541 /* OrderFormModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderFormModel.swift; path = ../Home/OrderFormModel.swift; sourceTree = "<group>"; };
+		1F451F021DF5092E00441044 /* MyWalletViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyWalletViewController.swift; sourceTree = "<group>"; };
+		1F451F041DF5094000441044 /* MySellOrderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MySellOrderViewController.swift; sourceTree = "<group>"; };
+		1F451F071DF50C8F00441044 /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		1F451F091DF50CED00441044 /* MySellPagerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MySellPagerViewController.swift; sourceTree = "<group>"; };
+		1F451F0B1DF50D0B00441044 /* MySellManagerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MySellManagerViewController.swift; sourceTree = "<group>"; };
+		1F451F0D1DF50DAD00441044 /* MySellViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MySellViewModel.swift; sourceTree = "<group>"; };
 		1F45C3F51DD72043008C60CD /* LiangPiaoLoadMoreDataFooter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiangPiaoLoadMoreDataFooter.swift; sourceTree = "<group>"; };
 		1F45C3FD1DD73027008C60CD /* NSTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSTimer.swift; sourceTree = "<group>"; };
 		1F45C3FF1DD7361C008C60CD /* LiangPiaoHomeRefreshHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiangPiaoHomeRefreshHeader.swift; sourceTree = "<group>"; };
@@ -344,6 +356,7 @@
 		1FC4FEE71DC8A32E00EBFD18 /* TYTabTitleCellProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TYTabTitleCellProtocol.h; sourceTree = "<group>"; };
 		1FC4FEE81DC8A32E00EBFD18 /* TYTabTitleViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TYTabTitleViewCell.h; sourceTree = "<group>"; };
 		1FC4FEE91DC8A32E00EBFD18 /* TYTabTitleViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TYTabTitleViewCell.m; sourceTree = "<group>"; };
+		1FCE979D1DF3443E00207878 /* Default-568.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568.png"; sourceTree = "<group>"; };
 		1FD244C21DC2F92E00AFD3BC /* LiangPiao.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LiangPiao.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FD244C51DC2F92E00AFD3BC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1FD244C71DC2F92E00AFD3BC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -395,7 +408,6 @@
 		1FD881BC1DC7255500B2B702 /* UIViewController+DismissKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+DismissKeyboard.m"; sourceTree = "<group>"; };
 		1FD881BE1DC736D300B2B702 /* HomeSearchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeSearchTableViewCell.swift; sourceTree = "<group>"; };
 		1FD881C01DC7410D00B2B702 /* AppThemeTool.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppThemeTool.swift; sourceTree = "<group>"; };
-		1FD881C31DC745DF00B2B702 /* TalbViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TalbViewController.swift; sourceTree = "<group>"; };
 		1FD881C51DC748A300B2B702 /* UITextView+Placeholder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextView+Placeholder.h"; sourceTree = "<group>"; };
 		1FD881C61DC748A300B2B702 /* UITextView+Placeholder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextView+Placeholder.m"; sourceTree = "<group>"; };
 		1FD881CA1DC75FE600B2B702 /* HomeToolsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeToolsTableViewCell.swift; sourceTree = "<group>"; };
@@ -537,6 +549,14 @@
 				1F0EAB961DD1EBAA00D25B64 /* ZHPickView.m */,
 			);
 			path = ZHPickView;
+			sourceTree = "<group>";
+		};
+		1F451F061DF50C8F00441044 /* TabBarController */ = {
+			isa = PBXGroup;
+			children = (
+				1F451F071DF50C8F00441044 /* TabBarViewController.swift */,
+			);
+			path = TabBarController;
 			sourceTree = "<group>";
 		};
 		1F54C5291DDC3A61009ADDA9 /* DBModel */ = {
@@ -696,6 +716,7 @@
 				1FD244CC1DC2F92E00AFD3BC /* Assets.xcassets */,
 				1FD244CE1DC2F92E00AFD3BC /* LaunchScreen.storyboard */,
 				1FD244D11DC2F92E00AFD3BC /* Info.plist */,
+				1FCE979D1DF3443E00207878 /* Default-568.png */,
 			);
 			path = LiangPiao;
 			sourceTree = "<group>";
@@ -763,7 +784,7 @@
 		1FD244DC1DC2FC8A00AFD3BC /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				1FD881C21DC745B900B2B702 /* TableBarController */,
+				1F451F061DF50C8F00441044 /* TabBarController */,
 				1FD2459B1DC356AA00AFD3BC /* BaseViewController */,
 				1F0EAB6C1DD0931A00D25B64 /* Sell */,
 				1FD2458B1DC3553E00AFD3BC /* Home */,
@@ -884,6 +905,10 @@
 				1F0EAB901DD1E8F200D25B64 /* SettingViewController.swift */,
 				1F8AA0B51DD34B1700587C24 /* AboutUsViewController.swift */,
 				1F5B1CA71DF115880073E770 /* UserProtocolViewController.swift */,
+				1F451F021DF5092E00441044 /* MyWalletViewController.swift */,
+				1F451F041DF5094000441044 /* MySellOrderViewController.swift */,
+				1F451F0B1DF50D0B00441044 /* MySellManagerViewController.swift */,
+				1F451F091DF50CED00441044 /* MySellPagerViewController.swift */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -913,6 +938,7 @@
 				1F0EAB8C1DD1DD3C00D25B64 /* MyProfileViewModel.swift */,
 				1F0EAB921DD1E93C00D25B64 /* SettingViewModel.swift */,
 				1FBFC7C41DDAAD2B008D9CEC /* LoginViewModel.swift */,
+				1F451F0D1DF50DAD00441044 /* MySellViewModel.swift */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -1004,14 +1030,6 @@
 				1FD881B61DC7252800B2B702 /* UITableView+FDTemplateLayoutCellDebug.m */,
 			);
 			path = "UITableView-FDTempleateLayoutCell";
-			sourceTree = "<group>";
-		};
-		1FD881C21DC745B900B2B702 /* TableBarController */ = {
-			isa = PBXGroup;
-			children = (
-				1FD881C31DC745DF00B2B702 /* TalbViewController.swift */,
-			);
-			path = TableBarController;
 			sourceTree = "<group>";
 		};
 		1FD881D21DC84FAE00B2B702 /* View */ = {
@@ -1167,6 +1185,7 @@
 				1F6BB9921DD960E200893932 /* README.txt in Resources */,
 				1FD244CB1DC2F92E00AFD3BC /* Main.storyboard in Resources */,
 				1FBFC7EE1DDABD48008D9CEC /* Info.plist in Resources */,
+				1FCE979E1DF3443E00207878 /* Default-568.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1251,6 +1270,7 @@
 				1FD881B91DC7252800B2B702 /* UITableView+FDTemplateLayoutCell.m in Sources */,
 				1F0EAB811DD1B4BE00D25B64 /* CountDown.m in Sources */,
 				1FBFC7E61DDABD48008D9CEC /* FMDatabase+InMemoryOnDiskIO.m in Sources */,
+				1F451F031DF5092E00441044 /* MyWalletViewController.swift in Sources */,
 				1FD244C81DC2F92E00AFD3BC /* ViewController.swift in Sources */,
 				1FD244E81DC2FD3D00AFD3BC /* String+Size.swift in Sources */,
 				1FD881C71DC748A300B2B702 /* UITextView+Placeholder.m in Sources */,
@@ -1259,6 +1279,7 @@
 				1FD881E61DC8546500B2B702 /* TAAnimatedDotView.m in Sources */,
 				1F62F2611DC9F1E600B591F1 /* TicketNumberTableViewCell.swift in Sources */,
 				1FB7B2961DCC2B5200945B70 /* UIImage+ImageEffects.m in Sources */,
+				1F451F0E1DF50DAD00441044 /* MySellViewModel.swift in Sources */,
 				1F24DE951DD5B9E100C6E8CA /* FavoriteViewController.swift in Sources */,
 				1FC3DDED1DE46DD700420A05 /* TicketSessionViewModel.swift in Sources */,
 				1FBFC7C51DDAAD2B008D9CEC /* LoginViewModel.swift in Sources */,
@@ -1281,6 +1302,7 @@
 				1FB7B29C1DCC392900945B70 /* GloabTableViewCell.swift in Sources */,
 				1FC4FEEC1DC8A32E00EBFD18 /* TYTabPagerController.m in Sources */,
 				1FD2459F1DC3570E00AFD3BC /* HomeViewController.swift in Sources */,
+				1F451F0A1DF50CED00441044 /* MySellPagerViewController.swift in Sources */,
 				1F62F2651DC9F21800B591F1 /* TickerInfoTableViewCell.swift in Sources */,
 				1F0EAB8B1DD1DBC400D25B64 /* MyProfileViewController.swift in Sources */,
 				1FBFC7F11DDAC45B008D9CEC /* ZDQFMDBHelp.swift in Sources */,
@@ -1289,6 +1311,7 @@
 				1F0EAB911DD1E8F200D25B64 /* SettingViewController.swift in Sources */,
 				1FD881E81DC8546500B2B702 /* TAPageControl.m in Sources */,
 				1F67D1101DCD816E00378116 /* AddAddressViewController.swift in Sources */,
+				1F451F0C1DF50D0B00441044 /* MySellManagerViewController.swift in Sources */,
 				1F8AA0B81DD475C000587C24 /* ReciveTableViewCell.swift in Sources */,
 				1FD2450A1DC2FD9700AFD3BC /* UIImage+QiNiuTools.m in Sources */,
 				1FB7B29E1DCC412500945B70 /* OrderConfirmViewModel.swift in Sources */,
@@ -1310,7 +1333,6 @@
 				1F62F25D1DC9EE3400B591F1 /* TicketDescriptionViewController.swift in Sources */,
 				1F089DD51DCB05E800762C14 /* GlobalTools.swift in Sources */,
 				1FBFC7E51DDABD48008D9CEC /* FMTokenizers.m in Sources */,
-				1FD881C41DC745DF00B2B702 /* TalbViewController.swift in Sources */,
 				1FD245061DC2FD9700AFD3BC /* NSFileManager+Paths.m in Sources */,
 				1F67D1141DCD867A00378116 /* AddressTableViewCell.swift in Sources */,
 				1FBFC7E81DDABD48008D9CEC /* FMDatabaseVariadic.swift in Sources */,
@@ -1363,6 +1385,7 @@
 				1FD881CB1DC75FE600B2B702 /* HomeToolsTableViewCell.swift in Sources */,
 				1F45C4041DD73BC9008C60CD /* AllTicketTableViewCell.swift in Sources */,
 				1F0EAB931DD1E93C00D25B64 /* SettingViewModel.swift in Sources */,
+				1F451F081DF50C8F00441044 /* TabBarViewController.swift in Sources */,
 				1FC4FEEB1DC8A32E00EBFD18 /* TYTabButtonPagerController.m in Sources */,
 				1FBF86C31DDD47EF0057BB11 /* UILabel+ChangeLineSpaceAndWordSpace.m in Sources */,
 				1F0EAB5B1DD053EE00D25B64 /* OrderDetailViewModel.swift in Sources */,
@@ -1373,6 +1396,7 @@
 				1F62F2631DC9F1F200B591F1 /* TicketToolsTableViewCell.swift in Sources */,
 				1FC4FEEA1DC8A32E00EBFD18 /* TYPagerController.m in Sources */,
 				1FD881B81DC7252800B2B702 /* UITableView+FDKeyedHeightCache.m in Sources */,
+				1F451F051DF5094000441044 /* MySellOrderViewController.swift in Sources */,
 				1FBFC7EB1DDABD48008D9CEC /* FMDatabasePool.m in Sources */,
 				1FD881EB1DC8546500B2B702 /* UIView+SDExtension.m in Sources */,
 				1F24DE931DD5A35900C6E8CA /* GlobalSearchTableView.swift in Sources */,

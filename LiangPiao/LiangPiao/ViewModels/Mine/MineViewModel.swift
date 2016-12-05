@@ -41,7 +41,7 @@ class MineViewModel: NSObject {
         if section == 0 {
             return 1
         }
-        return 4
+        return 6
     }
     
     func tableViewHeightForRow(indexPath:NSIndexPath) ->CGFloat {
@@ -50,8 +50,8 @@ class MineViewModel: NSObject {
             return 255
         default:
             switch indexPath.row {
-            case 3:
-                return SCREENHEIGHT - 282 - 164 > 130 ? SCREENHEIGHT - 282 - 164 : 130
+            case 5:
+                return SCREENHEIGHT - 282 - 260 > 108 ? SCREENHEIGHT - 282 - 260 : 108
             default:
                 return 48
             }
@@ -61,10 +61,14 @@ class MineViewModel: NSObject {
     func cellTitle(indexPathRow:Int) -> String {
         switch indexPathRow {
         case 0:
-            return "想看的演出"
+            return "我的钱包"
         case 1:
-            return "地址管理"
+            return "我的卖票"
         case 2:
+            return "想看"
+        case 3:
+            return "地址管理"
+        case 4:
             return "设置"
         default:
             return ""
@@ -74,17 +78,21 @@ class MineViewModel: NSObject {
     func cellImage(indexPathRow:Int) -> UIImage {
         switch indexPathRow {
         case 0:
-            return UIImage.init(named: "Icon_Favorite")!
+            return UIImage.init(named: "Icon_Wallet")!
         case 1:
-            return UIImage.init(named: "Icon_Address")!
+            return UIImage.init(named: "Icon_Sell")!
         case 2:
-            return UIImage.init(named: "Icon_Settings")!
+            return UIImage.init(named: "Icon_Favorite")!
+        case 3:
+            return UIImage.init(named: "Icon_Address")!
+        case 4:
+            return UIImage.init(named: "Icon_Address")!
         default:
             return UIImage.init(named: "Icon_Settings")!
         }
     }
     
-    func tableViewDidSelect(indexPath:NSIndexPath, controller:UIViewController) {
+    func tableViewDidSelect(indexPath:NSIndexPath, controller:MineViewController) {
         switch indexPath.section {
         case 0:
             if UserInfoModel.isLoggedIn() {
@@ -94,27 +102,42 @@ class MineViewModel: NSObject {
             }
         
         default:
-            switch indexPath.row {
-            case 0:
+            if indexPath.row == 4 {
+                
+            }else{
                 if UserInfoModel.isLoggedIn() {
                     NavigationPushView(controller, toConroller: FavoriteViewController())
-                }else{
-                    NavigationPushView(controller, toConroller: LoginViewController())
                 }
+            }
+            switch indexPath.row {
+            case 0:
+                NavigationPushView(controller, toConroller: MyWalletViewController())
             case 1:
-                if UserInfoModel.isLoggedIn() {
-                    let controllerVC = AddressViewController()
-                    controllerVC.viewModel.addressType = .editType
-                    NavigationPushView(controller, toConroller: controllerVC)
-                }else{
-                    NavigationPushView(controller, toConroller: LoginViewController())
-                }
+                self.navigationPushMysellPage(0, controller: controller)
             case 2:
-                NavigationPushView(controller, toConroller: SettingViewController())
+                NavigationPushView(controller, toConroller: FavoriteViewController())
+            case 3:
+                NavigationPushView(controller, toConroller: AddressViewController())
             default:
                 break;
             }
         }
+    }
+    
+    
+    func navigationPushMysellPage(index:Int, controller:MineViewController) {
+        let mySellPager = MySellPagerViewController()
+        mySellPager.progressHeight = 0
+        mySellPager.progressWidth = 0
+        mySellPager.adjustStatusBarHeight = true
+        mySellPager.progressColor = UIColor.init(hexString: TablaBarItemTitleSelectColor)
+        mySellPager.hidesBottomBarWhenPushed = true
+        if index == 4 {
+            mySellPager.pageViewControllerDidSelectIndexPath(0)
+        }else{
+            mySellPager.pageViewControllerDidSelectIndexPath(index + 1)
+        }
+        NavigationPushView(controller, toConroller: mySellPager)
     }
     
     func tableViewPhotoCell(cell:MineHeadTableViewCell){

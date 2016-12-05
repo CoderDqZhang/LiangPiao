@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TalbViewController: UITabBarController {
+class TabBarViewController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +37,7 @@ class TalbViewController: UITabBarController {
 
 }
 
-extension TalbViewController : UITabBarControllerDelegate {
+extension TabBarViewController : UITabBarControllerDelegate {
     func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
         
     }

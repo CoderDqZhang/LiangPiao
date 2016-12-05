@@ -4,14 +4,15 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Talb View Controller-->
+        <!--Tab Bar View Controller-->
         <scene sceneID="aHH-Qg-8r4">
             <objects>
-                <tabBarController id="mr5-8f-SoT" customClass="TalbViewController" customModule="LiangPiao" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController id="mr5-8f-SoT" customClass="TabBarViewController" customModule="LiangPiao" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" id="glC-zG-ALq">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>

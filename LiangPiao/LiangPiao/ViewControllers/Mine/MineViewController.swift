@@ -122,7 +122,7 @@ extension MineViewController : UITableViewDataSource {
             return cell
         default:
             switch indexPath.row {
-            case 3:
+            case 5:
                 let cell = tableView.dequeueReusableCellWithIdentifier("ServiceTableViewCell", forIndexPath: indexPath) as! ServiceTableViewCell
                 cell.selectionStyle = .None
                 return cell
