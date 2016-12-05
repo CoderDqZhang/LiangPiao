@@ -100,6 +100,8 @@ class OrderTicketInfoTableViewCell: UITableViewCell {
         ticketAllMuch.text = "实付金额：\(model.total)"
     }
     
+//    func setSellData(mode)
+    
     override func updateConstraints() {
         if !self.didMakeConstraints {
             ticketPhoto.snp_makeConstraints(closure: { (make) in

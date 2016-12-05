@@ -1,29 +1,27 @@
 //
-//  TicketDescriptionViewController.swift
+//  MyTicketPutUpViewController.swift
 //  LiangPiao
 //
-//  Created by Zhang on 02/11/2016.
+//  Created by Zhang on 05/12/2016.
 //  Copyright © 2016 Zhang. All rights reserved.
 //
 
 import UIKit
 
-class TicketDescriptionViewController: UIViewController {
+
+
+class MyTicketPutUpViewController: UIViewController {
 
     var tableView:UITableView!
-    var navigationBar:GlobalNavigationBarView!
     var ticketToolsView:UIView!
     var cell:TicketToolsTableViewCell!
-    var session:TicketSessionModel!
-    let  viewModel = TicketDescriptionViewModel()
-    
-    var likeButton:UIButton!
-    
+    var viewModel = MyTicketPutUpViewModel()
+    var bottomView:GloableBottomButtonView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.setUpView()
         self.setUpNavigationItems()
-        self.talKingDataPageName = "演出详情"
+        self.talKingDataPageName = "我的挂票"
+        self.setUpView()
         self.bindeViewModel()
         // Do any additional setup after loading the view.
     }
@@ -41,45 +39,51 @@ class TicketDescriptionViewController: UIViewController {
         tableView.dataSource = self
         tableView.separatorStyle = .None
         tableView.keyboardDismissMode = .OnDrag
-        tableView.registerClass(TicketDescripTableViewCell.self, forCellReuseIdentifier: "TicketDescripTableViewCell")
-        tableView.registerClass(TicketNumberTableViewCell.self, forCellReuseIdentifier: "TicketNumberTableViewCell")
-        tableView.registerClass(TickerInfoTableViewCell.self, forCellReuseIdentifier: "TickerInfoTableViewCell")
+        tableView.registerClass(PickUpTickeTableViewCell.self, forCellReuseIdentifier: "PickUpTickeTableViewCell")
+        tableView.registerClass(PicketUpSessionTableViewCell.self, forCellReuseIdentifier: "PicketUpSessionTableViewCell")
+        tableView.registerClass(TiketPickeUpInfoTableViewCell.self, forCellReuseIdentifier: "TiketPickeUpInfoTableViewCell")
         tableView.registerClass(TicketToolsTableViewCell.self, forCellReuseIdentifier: "TicketToolsTableViewCell")
         tableView.registerClass(TicketMapTableViewCell.self, forCellReuseIdentifier: "TicketMapTableViewCell")
         tableView.registerClass(NoneTicketTableViewCell.self, forCellReuseIdentifier: "NoneTicketTableViewCell")
         self.view.addSubview(tableView)
         
-        tableView.snp_makeConstraints { (make) in
-            make.top.equalTo(self.view.snp_top).offset(0)
-            make.left.equalTo(self.view.snp_left).offset(0)
-            make.right.equalTo(self.view.snp_right).offset(0)
-            make.bottom.equalTo(self.view.snp_bottom).offset(0)
-        }
         ticketToolsView = UIView(frame: CGRectMake(0,-2,SCREENWIDTH,42))
         ticketToolsView.hidden = true
         ticketToolsView.backgroundColor = UIColor.whiteColor()
         self.view.addSubview(ticketToolsView)
+        
+        bottomView = GloableBottomButtonView(frame: nil, title: "继续挂票", tag: 1) { (tag) in
+            print("点击方法")
+        }
+        self.view.addSubview(bottomView)
+        
+        tableView.snp_makeConstraints { (make) in
+            make.top.equalTo(self.view.snp_top).offset(0)
+            make.left.equalTo(self.view.snp_left).offset(0)
+            make.right.equalTo(self.view.snp_right).offset(0)
+            make.bottom.equalTo(self.view.snp_bottom).offset(-bottomView.frame.size.height)
+        }
     }
-
+    
     func bindeViewModel(){
-        viewModel.requestTicketSession(self)
+//        viewModel.requestTicketSession(self)
     }
     
     func updataLikeImage(){
-        var image:UIImage!
-        if viewModel.model != nil && UserInfoModel.isLoggedIn() && viewModel.model.show.isFavorite == true {
-            image = UIImage.init(named: "Icon_Liked_Normal")?.imageWithRenderingMode(.AlwaysOriginal)
-        }else{
-            image = UIImage.init(named: "Icon_Like_Normal")?.imageWithRenderingMode(.AlwaysOriginal)
-        }
-        likeButton = UIButton(type: .Custom)
-        likeButton.frame = CGRect.init(x: 0, y: 0, width: image.size.width, height: image.size.height)
-        likeButton.setImage(image, forState: .Normal)
-        likeButton.setImage(UIImage.init(named: "Icon_Like_Press"), forState: .Selected)
-        likeButton.addTarget(self, action: #selector(TicketDescriptionViewController.likeItemPress(_:)), forControlEvents: .TouchUpInside)
-        
-        let likeItem = UIBarButtonItem.init(customView: likeButton)
-        self.navigationItem.rightBarButtonItem = likeItem
+//        var image:UIImage!
+//        if viewModel.model != nil && UserInfoModel.isLoggedIn() && viewModel.model.show.isFavorite == true {
+//            image = UIImage.init(named: "Icon_Liked_Normal")?.imageWithRenderingMode(.AlwaysOriginal)
+//        }else{
+//            image = UIImage.init(named: "Icon_Like_Normal")?.imageWithRenderingMode(.AlwaysOriginal)
+//        }
+//        likeButton = UIButton(type: .Custom)
+//        likeButton.frame = CGRect.init(x: 0, y: 0, width: image.size.width, height: image.size.height)
+//        likeButton.setImage(image, forState: .Normal)
+//        likeButton.setImage(UIImage.init(named: "Icon_Like_Press"), forState: .Selected)
+//        likeButton.addTarget(self, action: #selector(TicketDescriptionViewController.likeItemPress(_:)), forControlEvents: .TouchUpInside)
+//        
+//        let likeItem = UIBarButtonItem.init(customView: likeButton)
+//        self.navigationItem.rightBarButtonItem = likeItem
     }
     
     func setUpNavigationItems() {
@@ -87,25 +91,25 @@ class TicketDescriptionViewController: UIViewController {
         self.isShowTicketNavigationBar(false)
         self.setNavigationItemBack()
         
-//        let shareItem = UIBarButtonItem(image: UIImage.init(named: "Icon_Share_Normal")?.imageWithRenderingMode(.AlwaysOriginal), style: .Plain, target: self, action: #selector(TicketDescriptionViewController.shareItemPress(_:)))
-//        shareItem.setBackgroundImage(UIImage.init(named: "Icon_Share_Press"), forState: .Selected, barMetrics: .Default)
-
+        //        let shareItem = UIBarButtonItem(image: UIImage.init(named: "Icon_Share_Normal")?.imageWithRenderingMode(.AlwaysOriginal), style: .Plain, target: self, action: #selector(TicketDescriptionViewController.shareItemPress(_:)))
+        //        shareItem.setBackgroundImage(UIImage.init(named: "Icon_Share_Press"), forState: .Selected, barMetrics: .Default)
+        
     }
     
     func likeItemPress(sender:UIButton) {
-        if UserInfoModel.isLoggedIn() {
-            if viewModel.model.show.isFavorite == true {
-                viewModel.requestDeleteCollectTicket()
-                viewModel.model.show.isFavorite = false
-                likeButton.setImage(UIImage.init(named: "Icon_Like_Normal")?.imageWithRenderingMode(.AlwaysOriginal), forState: .Normal)
-            }else{
-                viewModel.requestCollectTicket()
-                viewModel.model.show.isFavorite = true
-                likeButton.setImage(UIImage.init(named: "Icon_Liked_Normal")?.imageWithRenderingMode(.AlwaysOriginal), forState: .Normal)
-            }
-        }else{
-            NavigationPushView(self, toConroller: LoginViewController())
-        }
+//        if UserInfoModel.isLoggedIn() {
+//            if viewModel.model.show.isFavorite == true {
+//                viewModel.requestDeleteCollectTicket()
+//                viewModel.model.show.isFavorite = false
+//                likeButton.setImage(UIImage.init(named: "Icon_Like_Normal")?.imageWithRenderingMode(.AlwaysOriginal), forState: .Normal)
+//            }else{
+//                viewModel.requestCollectTicket()
+//                viewModel.model.show.isFavorite = true
+//                likeButton.setImage(UIImage.init(named: "Icon_Liked_Normal")?.imageWithRenderingMode(.AlwaysOriginal), forState: .Normal)
+//            }
+//        }else{
+//            NavigationPushView(self, toConroller: LoginViewController())
+//        }
     }
     
     func shareItemPress(sender:UIBarButtonItem) {
@@ -118,28 +122,28 @@ class TicketDescriptionViewController: UIViewController {
     }
     
     func isShowTicketNavigationBar(isShowTicket:Bool) {
-//        if !isShowTicket {
-//            navigationBar = GlobalNavigationBarView(frame: CGRectMake(0, 0, SCREENWIDTH - 150, 42), title: "万有音乐系 陈粒《小梦大半》2016巡.", detail: "2016.11.12 20:00")
-//            self.navigationItem.titleView = navigationBar
-//        }else{
-//            if navigationBar != nil {
-//                navigationBar.hidden  = true
-//                navigationBar.removeFromSuperview()
-//            }
-//            self.navigationItem.titleView =  GlobalNavigationBarView(frame: CGRectMake(0, 0, SCREENWIDTH - 150, 42), title: "《小梦大半》2016巡.", detail: "2016.11.12 20:00")
-//        }
-        self.navigationItem.title = "立即购票"
+        //        if !isShowTicket {
+        //            navigationBar = GlobalNavigationBarView(frame: CGRectMake(0, 0, SCREENWIDTH - 150, 42), title: "万有音乐系 陈粒《小梦大半》2016巡.", detail: "2016.11.12 20:00")
+        //            self.navigationItem.titleView = navigationBar
+        //        }else{
+        //            if navigationBar != nil {
+        //                navigationBar.hidden  = true
+        //                navigationBar.removeFromSuperview()
+        //            }
+        //            self.navigationItem.titleView =  GlobalNavigationBarView(frame: CGRectMake(0, 0, SCREENWIDTH - 150, 42), title: "《小梦大半》2016巡.", detail: "2016.11.12 20:00")
+        //        }
+        self.navigationItem.title = "我的挂票"
     }
-
+    
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
     func ticketToolsViewShow(tag:NSInteger, frame:CGRect) {
         self.isShowTicketNavigationBar(true)
         switch tag {
@@ -206,16 +210,16 @@ class TicketDescriptionViewController: UIViewController {
         }
         
     }
-
+    
 }
 
-extension TicketDescriptionViewController : UITableViewDelegate {
+extension MyTicketPutUpViewController : UITableViewDelegate {
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return viewModel.tableViewHeight(indexPath.row)
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-       viewModel.tableViewDidSelectRowAtIndexPath(self, indexPath: indexPath)
+        viewModel.tableViewDidSelectRowAtIndexPath(self, indexPath: indexPath)
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
@@ -225,7 +229,7 @@ extension TicketDescriptionViewController : UITableViewDelegate {
             self.updateTicketViewFrame(200)
         }
         
-        if scrollView.contentOffset.y > viewModel.tableViewHeight(0) + viewModel.tableViewHeight(1) + viewModel.tableViewHeight(2) {
+        if scrollView.contentOffset.y > viewModel.tableViewHeight(0) + viewModel.tableViewHeight(1) {
             ticketToolsView.hidden = false
             if ticketToolsView.viewWithTag(1000) == nil {
                 let ticketView = cell.setUpDescriptionView()
@@ -241,7 +245,7 @@ extension TicketDescriptionViewController : UITableViewDelegate {
     }
 }
 
-extension TicketDescriptionViewController : UITableViewDataSource {
+extension MyTicketPutUpViewController : UITableViewDataSource {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.tableViewnumberOfRowsInSection(section)
     }
@@ -261,20 +265,16 @@ extension TicketDescriptionViewController : UITableViewDataSource {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         switch indexPath.row {
         case 0:
-            let cell = tableView.dequeueReusableCellWithIdentifier("TicketDescripTableViewCell", forIndexPath: indexPath) as! TicketDescripTableViewCell
-            viewModel.configCellTicketDescripTableViewCell(cell)
+            let cell = tableView.dequeueReusableCellWithIdentifier("PickUpTickeTableViewCell", forIndexPath: indexPath) as! PickUpTickeTableViewCell
+//            viewModel.configCellTicketDescripTableViewCell(cell)
             cell.selectionStyle = .None
             return cell
         case 1:
-            let cell = tableView.dequeueReusableCellWithIdentifier("TicketNumberTableViewCell", forIndexPath: indexPath) as! TicketNumberTableViewCell
-            viewModel.configCellTicketNumberTableViewCell(cell)
+            let cell = tableView.dequeueReusableCellWithIdentifier("PicketUpSessionTableViewCell", forIndexPath: indexPath) as! PicketUpSessionTableViewCell
+//            viewModel.configCellTicketNumberTableViewCell(cell)
             cell.selectionStyle = .None
             return cell
         case 2:
-            let cell = tableView.dequeueReusableCellWithIdentifier("TicketMapTableViewCell", forIndexPath: indexPath) as! TicketMapTableViewCell
-            cell.selectionStyle = .None
-            return cell
-        case 3:
             cell = tableView.dequeueReusableCellWithIdentifier("TicketToolsTableViewCell", forIndexPath: indexPath) as! TicketToolsTableViewCell
             cell.selectionStyle = .None
             cell.ticketCellClouse = { tag in
@@ -291,16 +291,20 @@ extension TicketDescriptionViewController : UITableViewDataSource {
             }
             return cell
         default:
-            if viewModel.model.ticketList.count == 0 {
-                let cell = tableView.dequeueReusableCellWithIdentifier("NoneTicketTableViewCell", forIndexPath: indexPath) as! NoneTicketTableViewCell
-                cell.selectionStyle = .None
-                return cell
-            }else{
-                let cell = tableView.dequeueReusableCellWithIdentifier("TickerInfoTableViewCell", forIndexPath: indexPath) as! TickerInfoTableViewCell
-                viewModel.configCellTickerInfoTableViewCell(cell, indexPath:indexPath)
-                cell.selectionStyle = .None
-                return cell
-            }
+            let cell = tableView.dequeueReusableCellWithIdentifier("TiketPickeUpInfoTableViewCell", forIndexPath: indexPath) as! TiketPickeUpInfoTableViewCell
+            //                viewModel.configCellTickerInfoTableViewCell(cell, indexPath:indexPath)
+            cell.selectionStyle = .None
+            return cell
+//            if viewModel.model.ticketList.count == 0 {
+//                let cell = tableView.dequeueReusableCellWithIdentifier("NoneTicketTableViewCell", forIndexPath: indexPath) as! NoneTicketTableViewCell
+//                cell.selectionStyle = .None
+//                return cell
+//            }else{
+//                let cell = tableView.dequeueReusableCellWithIdentifier("TiketPickeUpInfoTableViewCell", forIndexPath: indexPath) as! TiketPickeUpInfoTableViewCell
+////                viewModel.configCellTickerInfoTableViewCell(cell, indexPath:indexPath)
+//                cell.selectionStyle = .None
+//                return cell
+//            }
         }
         
     }

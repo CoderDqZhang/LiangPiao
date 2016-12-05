@@ -9,43 +9,6 @@
 
 import UIKit
 
-class OrderPayView: UIView {
-    
-    var payButton:UIButton!
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.backgroundColor = UIColor.init(hexString: App_Theme_BackGround_Color)
-        self.setUpButton()
-    }
-    
-    func setUpButton() {
-        payButton = UIButton(type: .Custom)
-        payButton.setTitle("立即付款", forState: .Normal)
-        payButton.titleLabel?.font = Mine_AddAddress_Name_Font
-        payButton.setTitleColor(UIColor.init(hexString: Mine_AddAddress_Name_Color), forState: .Normal)
-        payButton.tag = 1
-        payButton.titleEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0)
-        self.addSubview(payButton)
-        self.updateConstraintsIfNeeded()
-    }
-    
-    override func updateConstraints() {
-        payButton.snp_makeConstraints { (make) in
-            make.edges.equalTo(UIEdgeInsetsMake(0, 0, 0, 0))
-        }
-        super.updateConstraints()
-    }
-    
-    func singTapPress(sender:UITapGestureRecognizer) {
-        
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
-
 enum OrderType {
     case orderWaitPay
     case orderDone
@@ -55,7 +18,7 @@ class OrderDetailViewController: UIViewController {
 
     var tableView:UITableView!
     var orderType:OrderType = .orderWaitPay
-    var payView:OrderPayView!
+    var payView:GloableBottomButtonView!
     
     var viewModel:OrderDetailViewModel = OrderDetailViewModel()
     override func viewDidLoad() {
@@ -95,14 +58,14 @@ class OrderDetailViewController: UIViewController {
             make.right.equalTo(self.view.snp_right).offset(0)
         }
         
-        payView = OrderPayView(frame: CGRectMake(0, SCREENHEIGHT - 49 - 64, SCREENWIDTH, 49))
-        payView.payButton.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (action) in
+        payView = GloableBottomButtonView.init(frame: nil, title: "立即付款", tag: 1, action: { (tag) in
             if self.viewModel.model.status == 0 {
                 self.viewModel.requestPayModel(self)
             }else if self.viewModel.model.status == 7 {
                 self.viewModel.requestOrderStatusChange(self)
             }
-        }
+        })
+    
         self.view.addSubview(payView)
         self.bindViewModel()
     }
@@ -149,22 +112,26 @@ class OrderDetailViewController: UIViewController {
             if payView != nil {
                 payView.hidden = false
             }else{
-                payView = OrderPayView(frame: CGRectMake(0, SCREENHEIGHT - 49, SCREENWIDTH, 49))
+                payView = GloableBottomButtonView.init(frame: nil, title: "立即付款", tag: 1, action: { (tag) in
+                    if self.viewModel.model.status == 0 {
+                        self.viewModel.requestPayModel(self)
+                    }else if self.viewModel.model.status == 7 {
+                        self.viewModel.requestOrderStatusChange(self)
+                    }
+                })
                 self.view.addSubview(payView)
             }
             if status == 7 {
-                payView.payButton.setTitle("确认收货", forState: .Normal)
-                payView.payButton.tag = 2
+                payView.updateButtonTitle("确认收货")
             }
             if status == 100 || status == 0 {
-                payView.payButton.tag = 1
-                payView.payButton.setTitle("立即付款", forState: .Normal)
+                payView.updateButtonTitle("立即付款")
             }
             tableView.snp_remakeConstraints(closure: { (make) in
                 make.top.equalTo(self.view.snp_top).offset(0)
                 make.left.equalTo(self.view.snp_left).offset(0)
                 make.right.equalTo(self.view.snp_right).offset(0)
-                make.bottom.equalTo(self.payView.snp_top).offset(0)
+                make.bottom.equalTo(self.view.snp_top).offset(-payView.frame.size.height)
             })
         }else{
             if payView != nil {

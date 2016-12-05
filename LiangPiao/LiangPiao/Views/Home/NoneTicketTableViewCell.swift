@@ -28,7 +28,7 @@ class NoneTicketTableViewCell: UITableViewCell {
     func setUpView() {
         noneImageView = UIImageView()
         noneImageView.image = UIImage.init(named: "Icon_Default")
-        self.addSubview(noneImageView)
+        self.contentView.addSubview(noneImageView)
         
         noneTitle = UILabel()
         noneTitle.text = "还没有符合条件的门票"

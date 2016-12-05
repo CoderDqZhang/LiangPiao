@@ -188,6 +188,10 @@ class GlobalNavigationBarWithLabelView : UIView {
     }
 }
 
+enum GlobalTicketStatusTypeBgColor {
+    
+}
+
 class GlobalTicketStatus : UIView {
     
     var globalNavigationClouse:GlobalNavigationClouse!
@@ -195,7 +199,7 @@ class GlobalTicketStatus : UIView {
     init(frame:CGRect, titles:[String], types:NSArray?) {
         super.init(frame:frame)
         self.setUpView(titles, types: types)
-        self.backgroundColor = UIColor.redColor()
+        self.backgroundColor = UIColor.clearColor()
     }
     
     func setUpView(titles:[String], types:NSArray?){
@@ -231,10 +235,61 @@ class GlobalTicketStatus : UIView {
         }
     }
     
+    func updateStatuesBgColor(types:NSArray?, bgColors:NSArray?){
+        for i in types! {
+            let label = self.viewWithTag(NSInteger(i as! NSNumber))
+            let bgStr = ((bgColors! as NSArray).objectAtIndex(Int(i as! NSNumber))  as! String)
+            label?.backgroundColor = UIColor.init(hexString: bgStr)
+        }
+    }
+    
     func getMaxWidth() ->CGFloat {
         return viewWidth
     }
 
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+typealias GloableBottomButtonViewClouse = (tag:NSInteger?) -> Void
+
+class GloableBottomButtonView: UIView {
+   
+    var button:UIButton!
+    init(frame:CGRect?, title:String, tag:NSInteger?, action:GloableBottomButtonViewClouse?) {
+        if frame == nil {
+            super.init(frame: CGRect.init(x: 0, y: SCREENHEIGHT - 49 - 64, width: SCREENWIDTH, height: 49))
+        }else{
+            super.init(frame: frame!)
+        }
+        self.backgroundColor = UIColor.init(hexString: App_Theme_BackGround_Color)
+        self.setUpButton(title)
+        button.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (btnTouchUp) in
+            if action != nil {
+                action!(tag:self.button.tag)
+            }
+        }
+        button.snp_makeConstraints { (make) in
+            make.edges.equalTo(UIEdgeInsetsMake(0, 0, 0, 0))
+        }
+    }
+    
+    func setUpButton(title:String) {
+        button = UIButton(type: .Custom)
+        button.setTitle(title, forState: .Normal)
+        button.titleLabel?.font = Mine_AddAddress_Name_Font
+        button.setTitleColor(UIColor.init(hexString: Mine_AddAddress_Name_Color), forState: .Normal)
+        button.titleLabel?.textAlignment = .Center
+        button.tag = 1
+        self.addSubview(button)
+        self.updateConstraintsIfNeeded()
+    }
+    
+    func updateButtonTitle(title:String) {
+        button.setTitle("title", forState: .Normal)
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

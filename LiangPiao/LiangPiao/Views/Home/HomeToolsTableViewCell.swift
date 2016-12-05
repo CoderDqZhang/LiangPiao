@@ -88,7 +88,7 @@ class HomeToolsTableViewCell: UITableViewCell {
                 self.homeToolsClouse(index:index)
             }
         }
-        self.addSubview(centerView)
+        self.contentView.addSubview(centerView)
     }
     
     required init?(coder aDecoder: NSCoder) {

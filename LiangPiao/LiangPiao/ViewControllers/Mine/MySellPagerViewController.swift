@@ -15,7 +15,7 @@ class MySellPagerViewController: TYTabButtonPagerController {
     var index:Int = 0
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.view.backgroundColor = UIColor.init(hexString: App_Theme_TableViewBackGround_Color)
         self.navigationItem.title = "我的卖票"
         self.setUpNavigationItem()
         self.setUpPageViewControllerStyle()
@@ -25,9 +25,11 @@ class MySellPagerViewController: TYTabButtonPagerController {
     }
 
     func setUpPageViewControllerStyle(){
-        self.collectionLayoutEdging = kCollectionLayoutEdging
+        let str = "订单交易"
+        let width = str.widthWithConstrainedHeight(str, font: Home_Page_Ticket_NomalFont!, height: 20)
+        self.collectionLayoutEdging = SCREENWIDTH / 2 - width * 2 - 10
         self.pagerBarColor = UIColor.init(hexString: TablaBarItemTitleSelectColor)
-        self.cellSpacing = kCellSpacing
+        self.cellSpacing = 67
         self.cellEdging = 10
         self.progressHeight = 2
         self.progressEdging = 0
@@ -45,6 +47,7 @@ class MySellPagerViewController: TYTabButtonPagerController {
     }
     
     func bindViewModel(){
+        viewModel.controller = self
 //        viewModel.requestCategotyDic(self,index:index)
     }
     

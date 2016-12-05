@@ -96,7 +96,7 @@ class TicketNumberTableViewCell: UITableViewCell {
         numberTickView = NumberTickView(frame: CGRectMake(SCREENWIDTH - 140 - 15, 22.5, 140, 34))
         numberTickView.backgroundColor = UIColor.whiteColor()
         
-        self.addSubview(numberTickView)
+        self.contentView.addSubview(numberTickView)
     
         self.updateConstraintsIfNeeded()
     }

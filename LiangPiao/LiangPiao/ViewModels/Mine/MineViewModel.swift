@@ -65,7 +65,7 @@ class MineViewModel: NSObject {
         case 1:
             return "我的卖票"
         case 2:
-            return "想看"
+            return "想看的演出"
         case 3:
             return "地址管理"
         case 4:
@@ -103,10 +103,11 @@ class MineViewModel: NSObject {
         
         default:
             if indexPath.row == 4 {
-                
+                NavigationPushView(controller, toConroller: SettingViewController())
             }else{
-                if UserInfoModel.isLoggedIn() {
-                    NavigationPushView(controller, toConroller: FavoriteViewController())
+                if !UserInfoModel.isLoggedIn() {
+                    NavigationPushView(controller, toConroller: LoginViewController())
+                    return
                 }
             }
             switch indexPath.row {

@@ -209,6 +209,19 @@ let Search_TextField_Font = IPHONE_VERSION > 9 ? UIFont.init(name:".SFUIText-Lig
 
 let LoginView_Service_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(12.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 12.0)
 
+let MyOrder_Much_Title_Color = "384249"
+let MyOrder_Much_Title_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(12.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 12.0)
+
+let MyOrder_Session_Disble_Color = "DDE0E5"
+let MyOrder_Session_Enable_Color = "556169"
+let MyOrder_Session_Select_Color = "FFFFFF"
+
+let MyOrder_Much_mMuch_Button_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(13.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 13.0)
+let MyOrder_Much_mMuch_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(12.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 12.0)
+
+let MyOrder_Picket_Button_Color = "A2ABB5"
+let MyOrder_Picket_Button_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(10.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 10.0)
+
 let Home_Ticket_Status_BackGround_NColor = "4BD4C5"
 let Home_Ticket_Status_BackGround_SColor = "FF7A5E"
 

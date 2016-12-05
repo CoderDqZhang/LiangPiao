@@ -189,6 +189,15 @@
 		1FD881EA1DC8546500B2B702 /* SDCycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FD881E21DC8546500B2B702 /* SDCycleScrollView.m */; };
 		1FD881EB1DC8546500B2B702 /* UIView+SDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FD881E41DC8546500B2B702 /* UIView+SDExtension.m */; };
 		1FD881ED1DC854EE00B2B702 /* HomeScrollerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD881EC1DC854EE00B2B702 /* HomeScrollerTableViewCell.swift */; };
+		1FEE7E991DF51A1300479648 /* MySellOrderMuchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEE7E981DF51A1300479648 /* MySellOrderMuchTableViewCell.swift */; };
+		1FEE7E9B1DF53ADC00479648 /* OrderManagerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEE7E9A1DF53ADC00479648 /* OrderManagerTableViewCell.swift */; };
+		1FEE7E9D1DF53FAB00479648 /* MySellManagerMuchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEE7E9C1DF53FAB00479648 /* MySellManagerMuchTableViewCell.swift */; };
+		1FEE7E9F1DF540B400479648 /* MySellAttentionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEE7E9E1DF540B400479648 /* MySellAttentionTableViewCell.swift */; };
+		1FEE7EA11DF5534A00479648 /* MyTicketPutUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEE7EA01DF5534A00479648 /* MyTicketPutUpViewController.swift */; };
+		1FEE7EA31DF5537200479648 /* MyTicketPutUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEE7EA21DF5537200479648 /* MyTicketPutUpViewModel.swift */; };
+		1FEE7EA51DF5568300479648 /* PickUpTickeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEE7EA41DF5568300479648 /* PickUpTickeTableViewCell.swift */; };
+		1FEE7EA71DF55A6300479648 /* TiketPickeUpInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEE7EA61DF55A6300479648 /* TiketPickeUpInfoTableViewCell.swift */; };
+		1FEE7EA91DF567F700479648 /* PicketUpSessionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEE7EA81DF567F700479648 /* PicketUpSessionTableViewCell.swift */; };
 		1FF2A5F61DE96C0700FC3909 /* UIViewController+TalKingData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF2A5F51DE96C0700FC3909 /* UIViewController+TalKingData.m */; };
 		FF939C055E3696DD0A65FE1D /* Pods_LiangPiao.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9F98174D1FB502062618746 /* Pods_LiangPiao.framework */; };
 /* End PBXBuildFile section */
@@ -201,7 +210,7 @@
 		1F03609B1DE94A5100594767 /* UIViewController+TalkingData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+TalkingData.swift"; sourceTree = "<group>"; };
 		1F089DD41DCB05E800762C14 /* GlobalTools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalTools.swift; sourceTree = "<group>"; };
 		1F0EAB5A1DD053EE00D25B64 /* OrderDetailViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderDetailViewModel.swift; path = ../Home/OrderDetailViewModel.swift; sourceTree = "<group>"; };
-		1F0EAB5E1DD05A9800D25B64 /* OrderTicketInfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderTicketInfoTableViewCell.swift; sourceTree = "<group>"; };
+		1F0EAB5E1DD05A9800D25B64 /* OrderTicketInfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderTicketInfoTableViewCell.swift; path = ../Home/OrderTicketInfoTableViewCell.swift; sourceTree = "<group>"; };
 		1F0EAB601DD05C2200D25B64 /* TicketLocationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketLocationTableViewCell.swift; sourceTree = "<group>"; };
 		1F0EAB621DD0616F00D25B64 /* OrderMuchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderMuchTableViewCell.swift; sourceTree = "<group>"; };
 		1F0EAB641DD073B900D25B64 /* OrderWaitePayTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderWaitePayTableViewCell.swift; path = ../../ViewControllers/Home/OrderWaitePayTableViewCell.swift; sourceTree = "<group>"; };
@@ -429,6 +438,15 @@
 		1FD881E31DC8546500B2B702 /* UIView+SDExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+SDExtension.h"; sourceTree = "<group>"; };
 		1FD881E41DC8546500B2B702 /* UIView+SDExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SDExtension.m"; sourceTree = "<group>"; };
 		1FD881EC1DC854EE00B2B702 /* HomeScrollerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeScrollerTableViewCell.swift; sourceTree = "<group>"; };
+		1FEE7E981DF51A1300479648 /* MySellOrderMuchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MySellOrderMuchTableViewCell.swift; sourceTree = "<group>"; };
+		1FEE7E9A1DF53ADC00479648 /* OrderManagerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderManagerTableViewCell.swift; sourceTree = "<group>"; };
+		1FEE7E9C1DF53FAB00479648 /* MySellManagerMuchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MySellManagerMuchTableViewCell.swift; sourceTree = "<group>"; };
+		1FEE7E9E1DF540B400479648 /* MySellAttentionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MySellAttentionTableViewCell.swift; sourceTree = "<group>"; };
+		1FEE7EA01DF5534A00479648 /* MyTicketPutUpViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyTicketPutUpViewController.swift; sourceTree = "<group>"; };
+		1FEE7EA21DF5537200479648 /* MyTicketPutUpViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyTicketPutUpViewModel.swift; sourceTree = "<group>"; };
+		1FEE7EA41DF5568300479648 /* PickUpTickeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickUpTickeTableViewCell.swift; sourceTree = "<group>"; };
+		1FEE7EA61DF55A6300479648 /* TiketPickeUpInfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TiketPickeUpInfoTableViewCell.swift; sourceTree = "<group>"; };
+		1FEE7EA81DF567F700479648 /* PicketUpSessionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PicketUpSessionTableViewCell.swift; sourceTree = "<group>"; };
 		1FF2A5F41DE96C0700FC3909 /* UIViewController+TalKingData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+TalKingData.h"; sourceTree = "<group>"; };
 		1FF2A5F51DE96C0700FC3909 /* UIViewController+TalKingData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+TalKingData.m"; sourceTree = "<group>"; };
 		8A6A0D77355C7ECF380D7770 /* Pods-LiangPiao.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiangPiao.release.xcconfig"; path = "Pods/Target Support Files/Pods-LiangPiao/Pods-LiangPiao.release.xcconfig"; sourceTree = "<group>"; };
@@ -491,6 +509,14 @@
 				1F0EAB741DD095E900D25B64 /* OrderNumberTableViewCell.swift */,
 				1F0EAB761DD0961D00D25B64 /* OrderHandleTableViewCell.swift */,
 				1F0EAB821DD1B53200D25B64 /* OrderCountDownView.swift */,
+				1F0EAB5E1DD05A9800D25B64 /* OrderTicketInfoTableViewCell.swift */,
+				1FEE7E981DF51A1300479648 /* MySellOrderMuchTableViewCell.swift */,
+				1FEE7E9A1DF53ADC00479648 /* OrderManagerTableViewCell.swift */,
+				1FEE7E9C1DF53FAB00479648 /* MySellManagerMuchTableViewCell.swift */,
+				1FEE7E9E1DF540B400479648 /* MySellAttentionTableViewCell.swift */,
+				1FEE7EA41DF5568300479648 /* PickUpTickeTableViewCell.swift */,
+				1FEE7EA81DF567F700479648 /* PicketUpSessionTableViewCell.swift */,
+				1FEE7EA61DF55A6300479648 /* TiketPickeUpInfoTableViewCell.swift */,
 			);
 			path = Order;
 			sourceTree = "<group>";
@@ -909,6 +935,7 @@
 				1F451F041DF5094000441044 /* MySellOrderViewController.swift */,
 				1F451F0B1DF50D0B00441044 /* MySellManagerViewController.swift */,
 				1F451F091DF50CED00441044 /* MySellPagerViewController.swift */,
+				1FEE7EA01DF5534A00479648 /* MyTicketPutUpViewController.swift */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -939,6 +966,7 @@
 				1F0EAB921DD1E93C00D25B64 /* SettingViewModel.swift */,
 				1FBFC7C41DDAAD2B008D9CEC /* LoginViewModel.swift */,
 				1F451F0D1DF50DAD00441044 /* MySellViewModel.swift */,
+				1FEE7EA21DF5537200479648 /* MyTicketPutUpViewModel.swift */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -963,7 +991,6 @@
 				1F8AA0B71DD475C000587C24 /* ReciveTableViewCell.swift */,
 				1FB7B2991DCC320200945B70 /* OrderFormView.swift */,
 				1F6BB9B71DD9974300893932 /* OrderAddressTableViewCell.swift */,
-				1F0EAB5E1DD05A9800D25B64 /* OrderTicketInfoTableViewCell.swift */,
 				1F0EAB601DD05C2200D25B64 /* TicketLocationTableViewCell.swift */,
 				1F0EAB621DD0616F00D25B64 /* OrderMuchTableViewCell.swift */,
 				1F0EAB641DD073B900D25B64 /* OrderWaitePayTableViewCell.swift */,
@@ -1283,12 +1310,16 @@
 				1F24DE951DD5B9E100C6E8CA /* FavoriteViewController.swift in Sources */,
 				1FC3DDED1DE46DD700420A05 /* TicketSessionViewModel.swift in Sources */,
 				1FBFC7C51DDAAD2B008D9CEC /* LoginViewModel.swift in Sources */,
+				1FEE7EA91DF567F700479648 /* PicketUpSessionTableViewCell.swift in Sources */,
+				1FEE7EA11DF5534A00479648 /* MyTicketPutUpViewController.swift in Sources */,
 				1F0EAB611DD05C2200D25B64 /* TicketLocationTableViewCell.swift in Sources */,
 				1F0EAB8D1DD1DD3C00D25B64 /* MyProfileViewModel.swift in Sources */,
+				1FEE7E9F1DF540B400479648 /* MySellAttentionTableViewCell.swift in Sources */,
 				1F03609C1DE94A5100594767 /* UIViewController+TalkingData.swift in Sources */,
 				1FD881CF1DC7621400B2B702 /* HomeCenterModel.swift in Sources */,
 				1F5B1CA81DF115880073E770 /* UserProtocolViewController.swift in Sources */,
 				1F8AA0B61DD34B1700587C24 /* AboutUsViewController.swift in Sources */,
+				1FEE7EA51DF5568300479648 /* PickUpTickeTableViewCell.swift in Sources */,
 				1FD881ED1DC854EE00B2B702 /* HomeScrollerTableViewCell.swift in Sources */,
 				1F67D1181DCDB57A00378116 /* SetNomalAddressTableViewCell.swift in Sources */,
 				1F54C5341DDC4891009ADDA9 /* UserInfoModel.m in Sources */,
@@ -1312,6 +1343,7 @@
 				1FD881E81DC8546500B2B702 /* TAPageControl.m in Sources */,
 				1F67D1101DCD816E00378116 /* AddAddressViewController.swift in Sources */,
 				1F451F0C1DF50D0B00441044 /* MySellManagerViewController.swift in Sources */,
+				1FEE7EA31DF5537200479648 /* MyTicketPutUpViewModel.swift in Sources */,
 				1F8AA0B81DD475C000587C24 /* ReciveTableViewCell.swift in Sources */,
 				1FD2450A1DC2FD9700AFD3BC /* UIImage+QiNiuTools.m in Sources */,
 				1FB7B29E1DCC412500945B70 /* OrderConfirmViewModel.swift in Sources */,
@@ -1340,6 +1372,7 @@
 				1F3241951DF028E7007BC078 /* FavorityModel.swift in Sources */,
 				1F5B1CB11DF175F40073E770 /* OrderDetailViewController.swift in Sources */,
 				1FD244C61DC2F92E00AFD3BC /* AppDelegate.swift in Sources */,
+				1FEE7E991DF51A1300479648 /* MySellOrderMuchTableViewCell.swift in Sources */,
 				1F62F25B1DC9C50300B591F1 /* HomeViewModel.swift in Sources */,
 				1FC4FEED1DC8A32E00EBFD18 /* TYTabTitleViewCell.m in Sources */,
 				1FAA85201DE5C3BC00F77835 /* Tools.swift in Sources */,
@@ -1363,6 +1396,7 @@
 				1FD245091DC2FD9700AFD3BC /* NSString+StringType.m in Sources */,
 				1FD881BA1DC7252800B2B702 /* UITableView+FDTemplateLayoutCellDebug.m in Sources */,
 				1FD245051DC2FD9700AFD3BC /* UIImage+PureColor.m in Sources */,
+				1FEE7EA71DF55A6300479648 /* TiketPickeUpInfoTableViewCell.swift in Sources */,
 				1FD244E71DC2FD3D00AFD3BC /* AlertControl+Tools.swift in Sources */,
 				1FD245A51DC3574800AFD3BC /* MineViewController.swift in Sources */,
 				1FD245101DC2FE8900AFD3BC /* Config.swift in Sources */,
@@ -1380,6 +1414,7 @@
 				1F3241931DF02614007BC078 /* FavoritesViewModel.swift in Sources */,
 				1F0EAB8F1DD1DF1E00D25B64 /* ProfileImageTableViewCell.swift in Sources */,
 				1FD2450E1DC2FE7300AFD3BC /* Define.swift in Sources */,
+				1FEE7E9D1DF53FAB00479648 /* MySellManagerMuchTableViewCell.swift in Sources */,
 				1FBFC7F31DDACC02008D9CEC /* ZDQFMDBModel.swift in Sources */,
 				1F45C4021DD73AA4008C60CD /* LiangNomalRefreshHeader.swift in Sources */,
 				1FD881CB1DC75FE600B2B702 /* HomeToolsTableViewCell.swift in Sources */,
@@ -1412,6 +1447,7 @@
 				1F0EAB5F1DD05A9800D25B64 /* OrderTicketInfoTableViewCell.swift in Sources */,
 				1FBFC7E91DDABD48008D9CEC /* FMDatabase.m in Sources */,
 				1FD881C11DC7410D00B2B702 /* AppThemeTool.swift in Sources */,
+				1FEE7E9B1DF53ADC00479648 /* OrderManagerTableViewCell.swift in Sources */,
 				1F1FE8CA1DEE830C0034268F /* NoneTicketTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

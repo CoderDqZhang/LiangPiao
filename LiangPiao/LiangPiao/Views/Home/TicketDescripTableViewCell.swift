@@ -103,7 +103,7 @@ class TicketDescripTableViewCell: UITableViewCell {
     func setUpStatuesView(titles:[String], types:NSArray?){
         if ticketStatusView == nil {
             ticketStatusView = GlobalTicketStatus(frame: CGRectZero, titles: titles, types: types)
-            self.addSubview(ticketStatusView)
+            self.contentView.addSubview(ticketStatusView)
             
             ticketStatusView.snp_makeConstraints(closure: { (make) in
                 make.bottom.equalTo(self.appTicketState.snp_top).offset(-7)

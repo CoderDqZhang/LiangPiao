@@ -10,12 +10,20 @@ import UIKit
 
 class MySellViewModel: NSObject {
 
-    let pageViewControllers = [MySellOrderViewController(),MySellManagerViewController()]
+    var pageViewControllers:NSMutableArray!
     let pageTitle = ["订单交易","票品管理"]
+    var controller:MySellPagerViewController!
     override init() {
-        
+        super.init()
+        let mySellOrder = MySellOrderViewController()
+        mySellOrder.viewModel = self
+        let mySellManager = MySellManagerViewController()
+        mySellManager.viewModel = self
+        pageViewControllers = NSMutableArray.init(array: [mySellOrder,mySellManager])
+
     }
     
+    // MARK :TaPageViewController
     func numberOfControllersInPagerController() -> Int{
         return self.pageTitle.count
     }
@@ -25,6 +33,54 @@ class MySellViewModel: NSObject {
     }
     
     func pagerControllerControllerForIndex(index:Int) -> UIViewController {
-        return pageViewControllers[index] 
+        return pageViewControllers[index] as! UIViewController 
+    }
+    
+    //MARK: MySellViewController
+    func mySellOrderTableViewDidSelect(indexPath:NSIndexPath, controller:MySellPagerViewController){
+        NavigationPushView(self.controller, toConroller: MyTicketPutUpViewController())
+    }
+    
+    func mySellOrderNumberOfSection() -> Int{
+        return 10
+    }
+    
+    func mySellOrderNumbrOfRowInSection(section:Int) ->Int{
+        return 3
+    }
+    
+    func mySellTableViewHeightForRow(indexPath:NSIndexPath) ->CGFloat {
+        switch indexPath.row {
+        case 0:
+            return 49
+        case 1:
+            return 149
+        default:
+            return 59
+        }
+    }
+    
+    //MARK: MySellOrderMangerViewController
+    func mySellOrderManagerTableViewDidSelect(indexPath:NSIndexPath, controller:MySellPagerViewController){
+        NavigationPushView(self.controller, toConroller: MyTicketPutUpViewController())
+    }
+    
+    func mySellOrderManagerNumberOfSection() -> Int{
+        return 10
+    }
+    
+    func mySellOrderManagerNumbrOfRowInSection(section:Int) ->Int{
+        return 3
+    }
+    
+    func mySellOrderManagerTableViewHeightForRow(indexPath:NSIndexPath) ->CGFloat {
+        switch indexPath.row {
+        case 0:
+            return 193
+        case 1:
+            return 59
+        default:
+            return 49
+        }
     }
 }

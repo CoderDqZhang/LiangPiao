@@ -19,7 +19,7 @@ class AddAddressViewController: UIViewController {
 
     var tableView:UITableView!
     var viewModel = AddressViewModel.shareInstance
-    var deleteView:DeleteAddressView!
+    var deleteView:GloableBottomButtonView!
     var cityPickerView:ZHPickView!
     var models:AddressModel?
     var type:AddAddressViewControllerType = .AddType
@@ -74,26 +74,18 @@ class AddAddressViewController: UIViewController {
         tableView.registerClass(SetNomalAddressTableViewCell.self, forCellReuseIdentifier: "SetNomalAddressTableViewCell")
         self.view.addSubview(tableView)
         if type == .EditType {
-            tableView.snp_makeConstraints { (make) in
-                make.edges.equalTo(UIEdgeInsetsMake(0, 0, -49, 0))
-            }
-            
-            deleteView = DeleteAddressView()
-            deleteView.rac_signalForSelector( #selector(AddAddressView.singTapPress(_:))).subscribeNext { (action) in
+            deleteView = GloableBottomButtonView.init(frame: nil, title: "删除收货地址", tag: 1, action: { (tag) in
                 UIAlertController.shwoAlertControl(self, title: "确定删除地址吗？", message: nil, cancel: "取消", doneTitle: "确定", cancelAction: {
                     
-                    }, doneAction: { 
+                    }, doneAction: {
                         self.viewModel.deleteAddress(self, model: self.models!)
                 })
-            }
+            })
             self.view.addSubview(deleteView)
-            
-            deleteView.snp_makeConstraints { (make) in
-                make.bottom.equalTo(self.view.snp_bottom).offset(0)
-                make.left.equalTo(self.view.snp_left).offset(0)
-                make.right.equalTo(self.view.snp_right).offset(0)
-                make.height.equalTo(49)
+            tableView.snp_makeConstraints { (make) in
+                make.edges.equalTo(UIEdgeInsetsMake(0, 0, -deleteView.frame.size.height, 0))
             }
+            
         }else{
             tableView.snp_makeConstraints { (make) in
                 make.edges.equalTo(UIEdgeInsetsMake(0, 0, 0, 0))

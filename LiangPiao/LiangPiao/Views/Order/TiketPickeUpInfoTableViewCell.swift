@@ -1,20 +1,21 @@
 //
-//  TickerInfoTableViewCell.swift
+//  TiketPickeUpInfoTableViewCell.swift
 //  LiangPiao
 //
-//  Created by Zhang on 02/11/2016.
+//  Created by Zhang on 05/12/2016.
 //  Copyright © 2016 Zhang. All rights reserved.
 //
 
 import UIKit
 
-class TickerInfoTableViewCell: UITableViewCell {
+class TiketPickeUpInfoTableViewCell: UITableViewCell {
 
     var ticketNomalPrice:UILabel!
     var ticketRow:UILabel!
     var ticketDescirp:UILabel!
     var ticketNowPrice:UILabel!
     var ticketStatusView:GlobalTicketStatus!
+    var editBtn:UIButton!
     var lineLabel:GloabLineView!
     var didMakeConstraints:Bool = false
     
@@ -52,6 +53,16 @@ class TickerInfoTableViewCell: UITableViewCell {
         ticketNowPrice.textColor = UIColor.init(hexString: Home_Ticker_NowPrice_Color)
         self.contentView.addSubview(ticketNowPrice)
         
+        ticketStatusView = GlobalTicketStatus(frame: CGRectZero, titles: ["连   ","剩余2张   "], types: nil)
+        self.contentView.addSubview(ticketStatusView)
+        
+        
+        editBtn = UIButton(type: .Custom)
+        editBtn.setTitle("编辑", forState: .Normal)
+        editBtn.setTitleColor(UIColor.init(hexString: MyOrder_Picket_Button_Color), forState: .Normal)
+        editBtn.titleLabel?.font = MyOrder_Picket_Button_Font
+        self.contentView.addSubview(editBtn)
+        
         lineLabel = GloabLineView(frame: CGRectMake(15, 59.5, SCREENWIDTH - 30, 0.5))
         self.contentView.addSubview(lineLabel)
         self.updateConstraintsIfNeeded()
@@ -82,7 +93,7 @@ class TickerInfoTableViewCell: UITableViewCell {
         }
         for str in typeArray {
             if str == "1" {
-               delivery = delivery.stringByAppendingString("快递 ")
+                delivery = delivery.stringByAppendingString("快递 ")
             }else if str == "3"  {
                 delivery = delivery.stringByAppendingString("上门自取")
             }else if str == "2" {
@@ -145,8 +156,18 @@ class TickerInfoTableViewCell: UITableViewCell {
             })
             
             ticketNowPrice.snp_makeConstraints(closure: { (make) in
-                make.right.equalTo(self.contentView.snp_right).offset(-25)
+                make.right.equalTo(self.editBtn.snp_left).offset(-10)
                 make.top.equalTo(self.contentView.snp_top).offset(14)
+            })
+            
+            ticketStatusView.snp_remakeConstraints(closure: { (make) in
+                make.right.equalTo(self.editBtn.snp_left).offset(-(ticketStatusView.getMaxWidth()) - 10)
+                make.top.equalTo(self.ticketNowPrice.snp_bottom).offset(3)
+            })
+            
+            editBtn.snp_makeConstraints(closure: { (make) in
+                make.right.equalTo(self.contentView.snp_right).offset(-15)
+                make.top.equalTo(self.contentView.snp_top).offset(10)
             })
             
             lineLabel.snp_makeConstraints(closure: { (make) in
@@ -154,11 +175,12 @@ class TickerInfoTableViewCell: UITableViewCell {
                 make.right.equalTo(self.contentView.snp_right).offset(-15)
                 make.bottom.equalTo(self.contentView.snp_bottom).offset(-0.5)
             })
-
+            
             self.didMakeConstraints = true
         }
         super.updateConstraints()
     }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
