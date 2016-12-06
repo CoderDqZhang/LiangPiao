@@ -20,7 +20,7 @@ class NumberTickView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.layer.cornerRadius = 3.0
-        self.layer.borderColor = UIColor.init(hexString: Home_Ticker_DescripNumber_bordColor).CGColor
+        self.layer.borderColor = UIColor.init(hexString: App_Theme_384249_Color).CGColor
         self.layer.borderWidth = 0.5
         downButton = UIButton(type: .Custom)
         downButton.setImage(UIImage.init(named: "Icon_Reduce_Disable"), forState: .Normal)
@@ -45,10 +45,10 @@ class NumberTickView: UIView {
         self.addSubview(upButton)
         numberLabel = UILabel()
         numberLabel.text = "\(self.number)"
-        numberLabel.textColor = UIColor.init(hexString: Home_Ticker_DescripNumber_bordColor)
-        numberLabel.layer.borderColor = UIColor.init(hexString: Home_Ticker_DescripNumber_bordColor).CGColor
+        numberLabel.textColor = UIColor.init(hexString: App_Theme_384249_Color)
+        numberLabel.layer.borderColor = UIColor.init(hexString: App_Theme_384249_Color).CGColor
         numberLabel.layer.borderWidth = 0.5
-        numberLabel.font = Home_Ticker_DescripNumber_bordFont
+        numberLabel.font = App_Theme_PinFan_M_15_Font
         numberLabel.frame = CGRectMake(NumberTickButtonWidth, 0, self.frame.size.width - 2 * NumberTickButtonWidth, NumberTickButtonHeight)
         numberLabel.textAlignment = .Center
         self.addSubview(numberLabel)
@@ -89,8 +89,8 @@ class TicketNumberTableViewCell: UITableViewCell {
     func setUpView() {
         ticketNumber = UILabel()
         ticketNumber.text = "购买数量"
-        ticketNumber.textColor = UIColor.init(hexString: Home_Ticker_DescripNumber_Color)
-        ticketNumber.font = Home_Ticker_DescripNumber_Font!
+        ticketNumber.textColor = UIColor.init(hexString: App_Theme_384249_Color)
+        ticketNumber.font = App_Theme_PinFan_R_13_Font!
         self.contentView.addSubview(ticketNumber)
         
         numberTickView = NumberTickView(frame: CGRectMake(SCREENWIDTH - 140 - 15, 22.5, 140, 34))

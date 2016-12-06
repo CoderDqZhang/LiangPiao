@@ -32,8 +32,8 @@ class NoneTicketTableViewCell: UITableViewCell {
         
         noneTitle = UILabel()
         noneTitle.text = "还没有符合条件的门票"
-        noneTitle.textColor = UIColor.init(hexString: Home_Ticket_None_Color)
-        noneTitle.font = Home_Ticket_None_Font
+        noneTitle.textColor = UIColor.init(hexString: App_Theme_DDE0E5_Color)
+        noneTitle.font = App_Theme_PinFan_R_15_Font
         self.contentView.addSubview(noneTitle)
         
         self.updateConstraintsIfNeeded()

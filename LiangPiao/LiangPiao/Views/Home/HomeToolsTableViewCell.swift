@@ -34,8 +34,8 @@ class HomePageCenter: UIView {
             let titleLabel = UILabel(frame: CGRectMake(originX, CGRectGetMaxY(imageView.frame) + 7, 50, 17))
             titleLabel.text = titleArray[i].title
             titleLabel.textAlignment = .Center
-            titleLabel.font = Home_Ticket_Tools_Font
-            titleLabel.textColor = UIColor.init(hexString: Home_Ticket_Tools_Color)
+            titleLabel.font = App_Theme_PinFan_R_12_Font
+            titleLabel.textColor = UIColor.init(hexString: App_Theme_556169_Color)
             self.addSubview(titleLabel)
             
             

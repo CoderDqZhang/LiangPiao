@@ -23,11 +23,11 @@ class OrderHandleTableViewCell: UITableViewCell {
     
     func setUpView() {
         
-        cancelOrderBtn = self.createButton("取消订单", backGround: UIColor.whiteColor(), titleColor: UIColor.init(hexString: App_Theme_BackGround_Color))
+        cancelOrderBtn = self.createButton("取消订单", backGround: UIColor.whiteColor(), titleColor: UIColor.init(hexString: App_Theme_4BD4C5_Color))
         self.contentView.addSubview(cancelOrderBtn)
         
-        payOrderBtn = self.createButton("立即支付", backGround: UIColor.init(hexString: App_Theme_BackGround_Color), titleColor: UIColor.whiteColor())
-        payOrderBtn.layer.borderColor = UIColor.init(hexString: App_Theme_BackGround_Color).CGColor
+        payOrderBtn = self.createButton("立即支付", backGround: UIColor.init(hexString: App_Theme_4BD4C5_Color), titleColor: UIColor.whiteColor())
+        payOrderBtn.layer.borderColor = UIColor.init(hexString: App_Theme_4BD4C5_Color).CGColor
         self.contentView.addSubview(payOrderBtn)
         
         linLabel = GloabLineView(frame: CGRectMake(15, 0, SCREENWIDTH - 30, 0.5))
@@ -42,7 +42,7 @@ class OrderHandleTableViewCell: UITableViewCell {
         button.backgroundColor = UIColor.whiteColor()
         button.layer.cornerRadius = 2.0
         button.clipsToBounds = true
-        button.titleLabel?.font = Home_ReciveView_Label_Font
+        button.titleLabel?.font = App_Theme_PinFan_R_13_Font
         button.layer.backgroundColor = backGround.CGColor
         button.layer.borderColor = titleColor.CGColor
         button.layer.borderWidth = 1.0

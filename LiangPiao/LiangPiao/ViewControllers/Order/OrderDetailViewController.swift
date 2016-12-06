@@ -40,7 +40,7 @@ class OrderDetailViewController: UIViewController {
     
     func setUpView() {
         tableView = UITableView(frame: CGRectZero, style: .Grouped)
-        tableView.backgroundColor = UIColor.init(hexString: App_Theme_TableViewBackGround_Color)
+        tableView.backgroundColor = UIColor.init(hexString: App_Theme_E9EBF2_Color)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.keyboardDismissMode = .OnDrag
@@ -155,14 +155,14 @@ class OrderDetailViewController: UIViewController {
     
     func tableOrderFooterView() -> UIView {
         let orderConfirmView = UIView(frame: CGRectMake(0,0,SCREENWIDTH,12))
-        orderConfirmView.backgroundColor = UIColor.init(hexString: Home_Ticket_Introuduct_Back_Color)
+        orderConfirmView.backgroundColor = UIColor.init(hexString: App_Theme_E9EBF2_Color)
         return orderConfirmView
     }
     
     
     func tableforFootView() -> UIView {
         let footView = UIView(frame: CGRectMake(0,0,SCREENWIDTH,118))
-        footView.backgroundColor = UIColor.init(hexString: Home_Ticket_Introuduct_Back_Color)
+        footView.backgroundColor = UIColor.init(hexString: App_Theme_E9EBF2_Color)
         let imageView = UIImageView(frame:CGRectMake(0,-0.5,SCREENWIDTH,4))
         imageView.image = UIImage.init(named: "Sawtooth")//Pattern_Line
         footView.addSubview(imageView)
@@ -187,8 +187,8 @@ class OrderDetailViewController: UIViewController {
     func createLabel(frame:CGRect, text:String) -> UILabel {
         let label = UILabel(frame: frame)
         label.text = text
-        label.font = Home_Ticket_Introuduct_Font
-        label.textColor = UIColor.init(hexString: Home_Ticket_Introuduct_Color)
+        label.font = App_Theme_PinFan_R_12_Font
+        label.textColor = UIColor.init(hexString: App_Theme_BBC1CB_Color)
         return label
     }
     /*

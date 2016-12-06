@@ -25,15 +25,15 @@ class ProfileImageTableViewCell: UITableViewCell {
     func setUpView() {
         nameAndePhone = UILabel()
         nameAndePhone.text = "修改头像"
-        nameAndePhone.font = Mine_Address_Name_Font
-        nameAndePhone.textColor = UIColor.init(hexString: Mine_Address_Name_Color)
+        nameAndePhone.font = App_Theme_PinFan_R_14_Font
+        nameAndePhone.textColor = UIColor.init(hexString: App_Theme_384249_Color)
         self.contentView.addSubview(nameAndePhone)
         
         photoImageView = UIButton(type: .Custom)
         photoImageView.layer.cornerRadius = 28
         photoImageView.userInteractionEnabled = false
         photoImageView.layer.masksToBounds = true
-        photoImageView.backgroundColor = UIColor.init(hexString: Home_Ticket_Introuduct_Back_Color)
+        photoImageView.backgroundColor = UIColor.init(hexString: App_Theme_E9EBF2_Color)
         photoImageView.setImage(UIImage.init(named: "Icon_Camera"), forState: .Normal)
         self.contentView.addSubview(photoImageView)
         

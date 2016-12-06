@@ -22,18 +22,18 @@ class MineHeadTableViewCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.setUpView()
-        self.backgroundColor = UIColor.init(hexString: App_Theme_BackGround_Color)
+        self.backgroundColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
     }
     
     func setUpView() {
         
         cellBackView = UIImageView()
-        cellBackView.image = UIImage.init(color: UIColor.init(hexString: App_Theme_BackGround_Color), size: CGSizeMake(SCREENWIDTH, 255))
+        cellBackView.image = UIImage.init(color: UIColor.init(hexString: App_Theme_4BD4C5_Color), size: CGSizeMake(SCREENWIDTH, 255))
         self.contentView.addSubview(cellBackView)
         
         nameAndePhone = UILabel()
-        nameAndePhone.font = Mine_Header_Name_Font
-        nameAndePhone.textColor = UIColor.init(hexString: Mine_Header_Name_Color)
+        nameAndePhone.font = App_Theme_PinFan_R_16_Font
+        nameAndePhone.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
         self.contentView.addSubview(nameAndePhone)
         
         defaultImage = UIImageView()

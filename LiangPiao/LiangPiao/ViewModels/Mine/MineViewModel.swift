@@ -131,7 +131,7 @@ class MineViewModel: NSObject {
         mySellPager.progressHeight = 0
         mySellPager.progressWidth = 0
         mySellPager.adjustStatusBarHeight = true
-        mySellPager.progressColor = UIColor.init(hexString: TablaBarItemTitleSelectColor)
+        mySellPager.progressColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
         mySellPager.hidesBottomBarWhenPushed = true
         if index == 4 {
             mySellPager.pageViewControllerDidSelectIndexPath(0)

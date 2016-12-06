@@ -45,7 +45,7 @@ class MyProfileViewController: UIViewController {
     
     func setUpView() {
         tableView = UITableView(frame: CGRectZero, style: .Grouped)
-        tableView.backgroundColor = UIColor.init(hexString: App_Theme_TableViewBackGround_Color)
+        tableView.backgroundColor = UIColor.init(hexString: App_Theme_E9EBF2_Color)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.keyboardDismissMode = .OnDrag
@@ -88,7 +88,7 @@ class MyProfileViewController: UIViewController {
             sexPickerView.setTintColor(UIColor.whiteColor())
             sexPickerView.tag = 1
             sexPickerView.setToolbarTintColor(UIColor.whiteColor())
-            sexPickerView.setTintFont(Mine_Service_Font, color: UIColor.init(hexString: App_Theme_Text_Color))
+            sexPickerView.setTintFont(App_Theme_PinFan_R_13_Font, color: UIColor.init(hexString: App_Theme_384249_Color))
             sexPickerView.delegate = self
         }
         
@@ -192,7 +192,7 @@ extension MyProfileViewController : UITableViewDataSource {
             case 0,2:
                 let cell = tableView.dequeueReusableCellWithIdentifier("GloabTitleAndFieldCell", forIndexPath: indexPath) as! GloabTitleAndFieldCell
                 viewModel.tableViewGloabTitleAndFieldCellData(cell, indexPath: indexPath)
-                cell.textField.textColor = UIColor.init(hexString: GlobalCell_Detail_Color)
+                cell.textField.textColor = UIColor.init(hexString: App_Theme_8A96A2_Color)
                 cell.textField.returnKeyType = .Done
                 cell.textField.textAlignment = .Right
                 cell.textField.tag = indexPath.row

@@ -59,8 +59,8 @@ class OrderPayTableViewCell: UITableViewCell {
     
     func createLabel(frame:CGRect,name:String) -> UILabel {
         let label = UILabel(frame:frame)
-        label.font = Order_PayTable_Font
-        label.textColor = UIColor.init(hexString: Order_PayTable_Color)
+        label.font = App_Theme_PinFan_R_12_Font
+        label.textColor = UIColor.init(hexString: App_Theme_384249_Color)
         label.text = name
         return label
     }

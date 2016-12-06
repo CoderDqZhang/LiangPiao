@@ -18,7 +18,7 @@ class SpalshView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = UIColor.init(hexString: App_Theme_BackGround_Color)
+        self.backgroundColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
         self.setUpView()
     }
     

@@ -59,8 +59,8 @@ class LoginViewController: UIViewController {
         confimCodeField = self.createTextFiled(CGRectZero)
         confimCodeField.delegate = self
         confimCodeField.placeholder = "验证码"
-        confimCodeField.textColor = UIColor.init(hexString: App_Theme_Text_Color)
-        confimCodeField.font = Login_TextField_Font
+        confimCodeField.textColor = UIColor.init(hexString: App_Theme_384249_Color)
+        confimCodeField.font = App_Theme_PinFan_R_14_Font
         confimCodeField.rac_textSignal().subscribeNext { (action) in
             self.loginForm.code = action as! String
         }
@@ -70,28 +70,28 @@ class LoginViewController: UIViewController {
         phontTextField = self.createTextFiled(CGRectZero)
         phontTextField.delegate = self
         phontTextField.tag = 1
-        phontTextField.textColor = UIColor.init(hexString: App_Theme_Text_Color)
+        phontTextField.textColor = UIColor.init(hexString: App_Theme_384249_Color)
         phontTextField.keyboardType = .PhonePad
         phontTextField.placeholder = "请输入手机号"
-        phontTextField.font = Login_TextField_Font
+        phontTextField.font = App_Theme_PinFan_R_14_Font
         phontTextField.rac_textSignal().subscribeNext { (action) in
             self.loginForm.phone = action as! String
             if self.senderCode != nil {
                 if action.length == 11 {
                     self.senderCode.enabled = true
-                    self.senderCode.backgroundColor = UIColor.init(hexString: App_Theme_BackGround_Color)
+                    self.senderCode.backgroundColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
                 }else{
                     self.senderCode.enabled = false
-                    self.senderCode.backgroundColor = UIColor.init(hexString: LoginView_CodeSenderButton_bColor)
+                    self.senderCode.backgroundColor = UIColor.init(hexString: App_Theme_DDE0E5_Color)
                 }
             }
         }
         self.view.addSubview(phontTextField)
         
         senderCode = UIButton(type: .Custom)
-        senderCode.backgroundColor = UIColor.init(hexString: LoginView_CodeSenderButton_bColor)
+        senderCode.backgroundColor = UIColor.init(hexString: App_Theme_DDE0E5_Color)
         senderCode.setTitle("发验证码", forState: .Normal)
-        senderCode.titleLabel?.font = LoginView_CodeSenderButton_Font
+        senderCode.titleLabel?.font = App_Theme_PinFan_R_12_Font
         senderCode.enabled = false
         senderCode.layer.cornerRadius = 2.0
         senderCode.layer.masksToBounds = true
@@ -101,13 +101,13 @@ class LoginViewController: UIViewController {
         self.view.addSubview(senderCode)
         
         loginButton = UIButton(type: .Custom)
-        loginButton.backgroundColor = UIColor.init(hexString: App_Theme_BackGround_Color)
+        loginButton.backgroundColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
         loginButton.setTitle("立即登录", forState: .Normal)
-        loginButton.titleLabel?.font = LoginView_LoginButton_Font
+        loginButton.titleLabel?.font = App_Theme_PinFan_M_15_Font
         loginButton.enabled = true
         loginButton.layer.cornerRadius = 2.0
         loginButton.layer.masksToBounds = true
-        loginButton.setTitleColor(UIColor.init(hexString: NavigationBar_Title_Color), forState: .Normal)
+        loginButton.setTitleColor(UIColor.init(hexString: App_Theme_FFFFFF_Color), forState: .Normal)
         loginButton.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (action) in
             self.viewModel.requestLogin(self.loginForm, controller: self)
         }
@@ -116,14 +116,14 @@ class LoginViewController: UIViewController {
         
         comfigLabel = UILabel()
         comfigLabel.text = "登录即代表您同意"
-        comfigLabel.textColor = UIColor.init(hexString: LoginView_Label_Color)
-        comfigLabel.font = LoginView_Service_Font
+        comfigLabel.textColor = UIColor.init(hexString: App_Theme_8A96A2_Color)
+        comfigLabel.font = App_Theme_PinFan_R_12_Font
         self.view.addSubview(comfigLabel)
         
         proBtn = UIButton(type: .Custom)
         proBtn.setTitle("《良票用户协议》", forState: .Normal)
-        proBtn.setTitleColor(UIColor.init(hexString: App_Theme_BackGround_Color),forState: .Normal)
-        proBtn.titleLabel?.font = LoginView_Service_Font
+        proBtn.setTitleColor(UIColor.init(hexString: App_Theme_4BD4C5_Color),forState: .Normal)
+        proBtn.titleLabel?.font = App_Theme_PinFan_R_12_Font
         proBtn.layer.cornerRadius = 2.0
         proBtn.layer.masksToBounds = true
         proBtn.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (action) in
@@ -143,7 +143,7 @@ class LoginViewController: UIViewController {
                 self.senderCode.setTitle("发验证码", forState: .Normal)
             }else{
                 self.senderCode.enabled = false
-                self.senderCode.backgroundColor = UIColor.init(hexString: App_Theme_BackGround_Color)
+                self.senderCode.backgroundColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
                 self.senderCode.setTitle("\(totoalSecod)s", forState: .Normal)
             }
         }
@@ -156,16 +156,16 @@ class LoginViewController: UIViewController {
 
     func createLabel(frame:CGRect, text:String) ->UILabel {
         let label = UILabel(frame: frame)
-        label.textColor = UIColor.init(hexString: LoginView_Label_Color)
-        label.font = LoginView_Label_Font
+        label.textColor = UIColor.init(hexString: App_Theme_8A96A2_Color)
+        label.font = App_Theme_PinFan_R_14_Font
         label.text = text
         return label
     }
     
     func createTextFiled(frame:CGRect) -> UITextField {
         let textField = UITextField(frame: frame)
-        textField.font = LoginView_Label_Font
-        textField.tintColor = UIColor.init(hexString: App_Theme_BackGround_Color)
+        textField.font = App_Theme_PinFan_R_14_Font
+        textField.tintColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
         return textField
     }
     

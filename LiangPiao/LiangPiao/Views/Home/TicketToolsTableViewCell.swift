@@ -20,7 +20,7 @@ class ToolView:UIView {
     
     init(frame: CGRect,data:NSArray) {
         super.init(frame: frame)
-        let image = UIImage.init(color: UIColor.init(hexString: Home_Recommend_Title_Color, andAlpha: 0.6), size: frame.size)
+        let image = UIImage.init(color: UIColor.init(hexString: App_Theme_384249_Color, andAlpha: 0.6), size: frame.size)
 
         let imageView = UIImageView(image: image)
         imageView.frame = CGRectMake(0, 0, frame.size.width, frame.size.height)
@@ -97,12 +97,12 @@ extension ToolView : UITableViewDataSource {
         let detailLabel = UILabel()
         if indexPath.row == 0 {
             detailLabel.text = "全部"
-            detailLabel.textColor = UIColor.init(hexString: Home_Ticker_Tools_Table_nColor)
+            detailLabel.textColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
         }else{
-            detailLabel.textColor = UIColor.init(hexString: Home_Ticker_Tools_Table_sColor)
+            detailLabel.textColor = UIColor.init(hexString: App_Theme_384249_Color)
             detailLabel.text = "\(dataArray[indexPath.row - 1])"
         }
-        detailLabel.font = Home_Ticker_Tools_Font
+        detailLabel.font = App_Theme_PinFan_R_12_Font
         cell?.contentView.addSubview(detailLabel)
         detailLabel.snp_makeConstraints(closure: { (make) in
             make.centerY.equalTo((cell?.contentView.snp_centerY)!).offset(0)
@@ -195,8 +195,8 @@ class TicketToolsView: UIView {
         toolsLabel = UILabel()
         toolsLabel.text = title
         toolsLabel.userInteractionEnabled = true
-        toolsLabel.textColor = UIColor.init(hexString: Home_Ticker_Tools_Color)
-        toolsLabel.font = Home_Ticker_Tools_Font
+        toolsLabel.textColor = UIColor.init(hexString: App_Theme_8A96A2_Color)
+        toolsLabel.font = App_Theme_PinFan_R_12_Font
         self.addSubview(toolsLabel)
         
         if image != nil {
@@ -219,7 +219,7 @@ class TicketToolsView: UIView {
             })
         case .center:
             self.tag = 2
-            self.layer.borderColor = UIColor.init(hexString: Line_BackGround_Color).CGColor
+            self.layer.borderColor = UIColor.init(hexString: App_Theme_E9EBF2_Color).CGColor
             self.layer.borderWidth = 0.5
             toolsLabel.snp_makeConstraints(closure: { (make) in
                 make.centerY.equalTo(self.snp_centerY).offset(0)

@@ -24,14 +24,14 @@ class OrderNumberTableViewCell: UITableViewCell {
         
         orderNumber = UILabel()
         orderNumber.text = "订单编号：2877800028"
-        orderNumber.textColor = UIColor.init(hexString: Order_List_Number_Color)
-        orderNumber.font = Order_List_Number_Font
+        orderNumber.textColor = UIColor.init(hexString: App_Theme_8A96A2_Color)
+        orderNumber.font = App_Theme_PinFan_R_12_Font
         self.contentView.addSubview(orderNumber)
         
         orderStatus = UILabel()
         orderStatus.text = "已完成"
-        orderStatus.textColor = UIColor.init(hexString: Order_List_Done_Color)
-        orderStatus.font = Order_List_Done_Font
+        orderStatus.textColor = UIColor.init(hexString: App_Theme_A2ABB5_Color)
+        orderStatus.font = App_Theme_PinFan_R_14_Font
         self.contentView.addSubview(orderStatus)
         
         lineLabel = GloabLineView(frame: CGRectMake(15, self.contentView.bounds.size.height - 0.5, SCREENWIDTH - 30, 0.5))
@@ -44,9 +44,9 @@ class OrderNumberTableViewCell: UITableViewCell {
         orderStatus.text = model.statusDesc
 
         if model.status == 0 || model.status == 7 || model.status == 3{
-            orderStatus.textColor = UIColor.init(hexString: App_Theme_BackGround_Color)
+            orderStatus.textColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
         }else{
-            orderStatus.textColor = UIColor.init(hexString: Order_List_Done_Color)
+            orderStatus.textColor = UIColor.init(hexString: App_Theme_A2ABB5_Color)
         }
         orderNumber.text = "订单号：\(model.id)"
     }

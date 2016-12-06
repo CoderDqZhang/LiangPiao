@@ -71,7 +71,7 @@ class OrderDetailViewModel: NSObject {
                 if self.model.message != "" {
                     let str = "备注详情：\(self.model.message)"
 //                    let str = "开发者使用这门语言进行 iOS 应用开发,在开发中 我们常常需要用到各种字符串、类、接口等等,今天小编和大家分享的就是 swift2.0 中 String 的类型转换..."
-                    let height = str.heightWithConstrainedWidth(str, font: OrderDetail_Message_Font!, width: SCREENWIDTH - 30)
+                    let height = str.heightWithConstrainedWidth(str, font: App_Theme_PinFan_R_12_Font!, width: SCREENWIDTH - 30)
                     let returnHeight = height + 125 > 145 ? height + 125 : 145
                     return returnHeight
                 }

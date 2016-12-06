@@ -104,7 +104,7 @@ class ReciveTableViewCell: UITableViewCell {
         label.textAlignment = .Center
         label.layer.cornerRadius = 2.0
         label.layer.masksToBounds = true
-        label.font = Home_ReciveView_Label_Font!
+        label.font = App_Theme_PinFan_R_13_Font!
         let singleTap = UITapGestureRecognizer(target: self, action: #selector(ReciveTableViewCell.singleTapPress(_:)))
         singleTap.numberOfTapsRequired = 1
         singleTap.numberOfTouchesRequired = 1
@@ -116,20 +116,20 @@ class ReciveTableViewCell: UITableViewCell {
     func upDataLabelType(type:ReciveViewLabelType, label:UILabel){
         switch type {
         case .Select:
-            label.textColor = UIColor.init(hexString: Home_ReciveView_Label_Select_nColor)
-            label.backgroundColor = UIColor.init(hexString: Home_ReciveView_Label_Nomal_nColor)
+            label.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
+            label.backgroundColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
             label.userInteractionEnabled = true
-            label.layer.borderColor = UIColor.init(hexString: Home_ReciveView_Label_Nomal_nColor).CGColor
+            label.layer.borderColor = UIColor.init(hexString: App_Theme_4BD4C5_Color).CGColor
             break
         case .Nomal:
-            label.textColor = UIColor.init(hexString: Home_ReciveView_Label_Nomal_nColor)
-            label.layer.borderColor = UIColor.init(hexString: Home_ReciveView_Label_Nomal_nColor).CGColor
+            label.textColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
+            label.layer.borderColor = UIColor.init(hexString: App_Theme_4BD4C5_Color).CGColor
             label.userInteractionEnabled = true
             label.layer.borderWidth = 1
             break
         default:
-            label.textColor = UIColor.init(hexString: Home_ReciveView_Label_Disable_nColor)
-            label.layer.borderColor = UIColor.init(hexString: Home_ReciveView_Label_Disable_nColor).CGColor
+            label.textColor = UIColor.init(hexString: App_Theme_DDE0E5_Color)
+            label.layer.borderColor = UIColor.init(hexString: App_Theme_DDE0E5_Color).CGColor
             label.userInteractionEnabled = false
             label.layer.borderWidth = 1
             break
@@ -138,8 +138,8 @@ class ReciveTableViewCell: UITableViewCell {
     
     func selectView(tag:NSInteger){
         let tagView = self.viewWithTag(tag) as! UILabel
-        tagView.backgroundColor = UIColor.init(hexString: Home_ReciveView_Label_Nomal_nColor)
-        tagView.textColor = UIColor.init(hexString: Home_ReciveView_Label_Select_nColor)
+        tagView.backgroundColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
+        tagView.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
         if tag == 1 {
             for str in self.selectEnabel {
                 if str as! String == "2" {
@@ -169,8 +169,8 @@ class ReciveTableViewCell: UITableViewCell {
     
     func nomalView(tag:NSInteger) {
         let tagView = self.viewWithTag(tag) as! UILabel
-        tagView.textColor = UIColor.init(hexString: Home_ReciveView_Label_Nomal_nColor)
-        tagView.layer.borderColor = UIColor.init(hexString: Home_ReciveView_Label_Nomal_nColor).CGColor
+        tagView.textColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
+        tagView.layer.borderColor = UIColor.init(hexString: App_Theme_4BD4C5_Color).CGColor
         tagView.layer.borderWidth = 1.0
         tagView.backgroundColor = UIColor.whiteColor()
     }

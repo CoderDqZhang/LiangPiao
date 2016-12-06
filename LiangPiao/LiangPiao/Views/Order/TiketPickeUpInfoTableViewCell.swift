@@ -31,26 +31,26 @@ class TiketPickeUpInfoTableViewCell: UITableViewCell {
     func setUpView() {
         ticketNomalPrice = UILabel()
         ticketNomalPrice.text = "880"
-        ticketNomalPrice.font = Home_Ticker_NomalPrice_Font
-        ticketNomalPrice.textColor = UIColor.init(hexString: Home_Ticker_NomalPrice_Color)
+        ticketNomalPrice.font = App_Theme_PinFan_R_13_Font
+        ticketNomalPrice.textColor = UIColor.init(hexString: App_Theme_384249_Color)
         self.contentView.addSubview(ticketNomalPrice)
         
         ticketRow = UILabel()
         ticketRow.text = "502 22排"
-        ticketRow.textColor = UIColor.init(hexString: Home_Ticker_Row_Color)
-        ticketRow.font = Home_Ticker_Row_Font
+        ticketRow.textColor = UIColor.init(hexString: App_Theme_384249_Color)
+        ticketRow.font = App_Theme_PinFan_R_13_Font
         self.contentView.addSubview(ticketRow)
         
         ticketDescirp = UILabel()
         ticketDescirp.text = "连座 现场取票 快递取票"
-        ticketDescirp.font = Home_Ticker_Descrip_Font
-        ticketDescirp.textColor = UIColor.init(hexString: Home_Ticker_Descrip_Color)
+        ticketDescirp.font = App_Theme_PinFan_R_10_Font
+        ticketDescirp.textColor = UIColor.init(hexString: App_Theme_BBC1CB_Color)
         self.contentView.addSubview(ticketDescirp)
         
         ticketNowPrice = UILabel()
         ticketNowPrice.text = "2280"
-        ticketNowPrice.font = Home_Ticker_NowPrice_Font
-        ticketNowPrice.textColor = UIColor.init(hexString: Home_Ticker_NowPrice_Color)
+        ticketNowPrice.font = App_Theme_PinFan_R_14_Font
+        ticketNowPrice.textColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
         self.contentView.addSubview(ticketNowPrice)
         
         ticketStatusView = GlobalTicketStatus(frame: CGRectZero, titles: ["连   ","剩余2张   "], types: nil)
@@ -59,8 +59,8 @@ class TiketPickeUpInfoTableViewCell: UITableViewCell {
         
         editBtn = UIButton(type: .Custom)
         editBtn.setTitle("编辑", forState: .Normal)
-        editBtn.setTitleColor(UIColor.init(hexString: MyOrder_Picket_Button_Color), forState: .Normal)
-        editBtn.titleLabel?.font = MyOrder_Picket_Button_Font
+        editBtn.setTitleColor(UIColor.init(hexString: App_Theme_A2ABB5_Color), forState: .Normal)
+        editBtn.titleLabel?.font = App_Theme_PinFan_R_10_Font
         self.contentView.addSubview(editBtn)
         
         lineLabel = GloabLineView(frame: CGRectMake(15, 59.5, SCREENWIDTH - 30, 0.5))

@@ -23,14 +23,14 @@ class SetNomalAddressTableViewCell: UITableViewCell {
     func setUpView(){
         titleLabel = UILabel()
         titleLabel.text = "设为默认"
-        titleLabel.font = GlobalCell_Title_Font
-        titleLabel.textColor = UIColor.init(hexString: GlobalCell_Title_Color)
+        titleLabel.font = App_Theme_PinFan_R_13_Font
+        titleLabel.textColor = UIColor.init(hexString: App_Theme_384249_Color)
         self.contentView.addSubview(titleLabel)
         
         switchBar = UISwitch()
-        switchBar.onTintColor = UIColor.init(hexString: App_Theme_BackGround_Color)
+        switchBar.onTintColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
         switchBar.setOn(true, animated: true)
-//        switchBar.tintColor = UIColor.init(hexString: App_Theme_BackGround_Color)
+//        switchBar.tintColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
         
         self.contentView.addSubview(switchBar)
         

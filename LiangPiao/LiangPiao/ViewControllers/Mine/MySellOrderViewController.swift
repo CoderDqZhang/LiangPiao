@@ -15,7 +15,7 @@ class MySellOrderViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.init(hexString: App_Theme_TableViewBackGround_Color)
+        self.view.backgroundColor = UIColor.init(hexString: App_Theme_E9EBF2_Color)
         self.setUpNavigationItem()
         self.setUpView()
         // Do any additional setup after loading the view.
@@ -57,7 +57,7 @@ class MySellOrderViewController: UIViewController {
     
     func mySellOrderListView() -> UIView {
         let orderListView = UIView(frame: CGRectMake(0,0,SCREENWIDTH,10))
-        orderListView.backgroundColor = UIColor.init(hexString: Home_Ticket_Introuduct_Back_Color)
+        orderListView.backgroundColor = UIColor.init(hexString: App_Theme_E9EBF2_Color)
         let imageView = UIImageView(frame:CGRectMake(0,0,SCREENWIDTH,4))
         imageView.image = UIImage.init(named: "Sawtooth")//Pattern_Line
         orderListView.addSubview(imageView)

@@ -25,8 +25,8 @@ class OrderDoneTableViewCell: UITableViewCell {
     func setUpView() {
         orderStatusDone = UILabel()
         orderStatusDone.text = "已完成"
-        orderStatusDone.font = Order_Status_Wait_Done_Font
-        orderStatusDone.textColor = UIColor.init(hexString: Order_Status_Wait_Done_Color)
+        orderStatusDone.font = App_Theme_PinFan_M_16_Font
+        orderStatusDone.textColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
         self.contentView.addSubview(orderStatusDone)
         
         pickUpLocation = self.createLabel(CGRectMake(15, 58, SCREENWIDTH - 15, 18), text: "取票地点：朝阳区香河园小区西坝河中里35号楼二层207")
@@ -40,8 +40,8 @@ class OrderDoneTableViewCell: UITableViewCell {
     
     func createLabel(frame:CGRect, text:String) -> UILabel {
         let label = UILabel(frame: frame)
-        label.font = Ticket_Detail_Name_Font
-        label.textColor = UIColor.init(hexString: Mine_Address_Name_Color)
+        label.font = App_Theme_PinFan_R_13_Font
+        label.textColor = UIColor.init(hexString: App_Theme_384249_Color)
         label.text = text
         return label
     }

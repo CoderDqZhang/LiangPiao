@@ -73,7 +73,7 @@ class HomeViewModel: NSObject {
         ticketPage.progressHeight = 0
         ticketPage.progressWidth = 0
         ticketPage.adjustStatusBarHeight = true
-        ticketPage.progressColor = UIColor.init(hexString: TablaBarItemTitleSelectColor)
+        ticketPage.progressColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
         ticketPage.hidesBottomBarWhenPushed = true
         if index == 4 {
             ticketPage.pageViewControllerDidSelectIndexPath(0)

@@ -100,8 +100,8 @@ class OrderManagerTableViewCell: UITableViewCell {
         ticketTitle = UILabel()
         ticketTitle.text = "刘若英“Renext”世界巡回演唱会北京站预售"
         UILabel.changeLineSpaceForLabel(ticketTitle, withSpace: 3.0)
-        ticketTitle.textColor = UIColor.init(hexString: App_Theme_Text_Color)
-        ticketTitle.font = Home_OrderListCell_Title_Font
+        ticketTitle.textColor = UIColor.init(hexString: App_Theme_384249_Color)
+        ticketTitle.font = App_Theme_PinFan_R_15_Font
         ticketTitle.numberOfLines = 0
         self.contentView.addSubview(ticketTitle)
         
@@ -110,26 +110,26 @@ class OrderManagerTableViewCell: UITableViewCell {
         
         ticketTime = UILabel()
         ticketTime.text = "场次：2016.12.18-2016.12.20"
-        ticketTime.textColor = UIColor.init(hexString: Home_Ticket_Info_Color)
-        ticketTime.font = Home_OrderConfirmCell_Info_Font
+        ticketTime.textColor = UIColor.init(hexString: App_Theme_8A96A2_Color)
+        ticketTime.font = App_Theme_PinFan_R_12_Font
         self.contentView.addSubview(ticketTime)
         
         ticketMuch = UILabel()
         ticketMuch.text = "票面：380、580（290x2上下本联票）、68…"
-        ticketMuch.textColor = UIColor.init(hexString: Home_Ticket_Info_Color)
-        ticketMuch.font = Home_OrderConfirmCell_Info_Font
+        ticketMuch.textColor = UIColor.init(hexString: App_Theme_8A96A2_Color)
+        ticketMuch.font = App_Theme_PinFan_R_12_Font
         self.contentView.addSubview(ticketMuch)
         
         ticketRow = UILabel()
         ticketRow.text = "区域：看台一区、北门贵宾席、上层看台、内…"
-        ticketRow.textColor = UIColor.init(hexString: Home_Ticket_Info_Color)
-        ticketRow.font = Home_OrderConfirmCell_Info_Font
+        ticketRow.textColor = UIColor.init(hexString: App_Theme_8A96A2_Color)
+        ticketRow.font = App_Theme_PinFan_R_12_Font
         self.contentView.addSubview(ticketRow)
         
         ticketSelledNumber = UILabel()
         ticketSelledNumber.text = "已售：0"
-        ticketSelledNumber.textColor = UIColor.init(hexString: Home_Ticket_Info_Color)
-        ticketSelledNumber.font = Home_OrderConfirmCell_Info_Font
+        ticketSelledNumber.textColor = UIColor.init(hexString: App_Theme_8A96A2_Color)
+        ticketSelledNumber.font = App_Theme_PinFan_R_12_Font
         self.contentView.addSubview(ticketSelledNumber)
         
         self.updateConstraintsIfNeeded()

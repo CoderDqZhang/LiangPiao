@@ -30,20 +30,20 @@ class TicketSceneTableViewCell: UITableViewCell {
         
         ticketmMuch = UILabel()
         ticketmMuch.text = "元起"
-        ticketmMuch.textColor = UIColor.init(hexString: Home_Recommend_mMuch_Color)
-        ticketmMuch.font = Home_Recommend_mMuch_Font
+        ticketmMuch.textColor = UIColor.init(hexString: App_Theme_BBC1CB_Color)
+        ticketmMuch.font = App_Theme_PinFan_R_10_Font
         self.contentView.addSubview(ticketmMuch)
         
         ticketMuch = UILabel()
         ticketMuch.text = "暂时缺票"
-        ticketMuch.textColor = UIColor.init(hexString: Home_Recommend_Much_Color)
-        ticketMuch.font = Home_Recommend_Much_Font
+        ticketMuch.textColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
+        ticketMuch.font = App_Theme_PinFan_R_21_Font
         self.contentView.addSubview(ticketMuch)
         
         timeTitle = UILabel()
         timeTitle.text = "2016.10.14 周五 20:00"
-        timeTitle.textColor = UIColor.init(hexString: Home_Ticket_Scene_Title_Color)
-        timeTitle.font = Home_Ticket_Scene_Font
+        timeTitle.textColor = UIColor.init(hexString: App_Theme_556169_Color)
+        timeTitle.font = App_Theme_PinFan_R_15_Font
         self.contentView.addSubview(timeTitle)
 
         lineLabel = GloabLineView(frame: CGRectMake(15, self.contentView.bounds.size.height - 0.5, SCREENWIDTH - 30, 0.5))

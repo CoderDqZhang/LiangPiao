@@ -24,10 +24,10 @@ class SellTicketsViewController: BaseViewController {
     func setUpView() {
         let str = "暂时可联系客服 400-873-8011 售票"
         let attribute = NSMutableAttributedString(string: str)
-        attribute.addAttributes([NSForegroundColorAttributeName:UIColor.init(hexString: Sell_View_Title_bColor)], range: NSRange(location: 0, length: 8))
-        attribute.addAttributes([NSFontAttributeName:Sell_View_Title_Font!], range: NSRange.init(location: 0, length: 8))
-        attribute.addAttributes([NSForegroundColorAttributeName:UIColor.init(hexString: App_Theme_BackGround_Color)], range: NSRange(location: 8, length: 12))
-        attribute.addAttributes([NSFontAttributeName:Sell_View_Title_Font!], range: NSRange.init(location: 8, length: 12))
+        attribute.addAttributes([NSForegroundColorAttributeName:UIColor.init(hexString: App_Theme_DDE0E5_Color)], range: NSRange(location: 0, length: 8))
+        attribute.addAttributes([NSFontAttributeName:App_Theme_PinFan_R_14_Font!], range: NSRange.init(location: 0, length: 8))
+        attribute.addAttributes([NSForegroundColorAttributeName:UIColor.init(hexString: App_Theme_4BD4C5_Color)], range: NSRange(location: 8, length: 12))
+        attribute.addAttributes([NSFontAttributeName:App_Theme_PinFan_R_14_Font!], range: NSRange.init(location: 8, length: 12))
         serviceLabel.attributedText = attribute
         serviceLabel.userInteractionEnabled = true
         logoImage.snp_updateConstraints{ (make) in

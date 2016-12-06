@@ -31,17 +31,17 @@ class ServiceTableViewCell: UITableViewCell {
         nameAndePhone = UILabel()
         nameAndePhone.numberOfLines = 0
         nameAndePhone.userInteractionEnabled = true
-        nameAndePhone.font = Mine_Address_Name_Font
+        nameAndePhone.font = App_Theme_PinFan_R_14_Font
         nameAndePhone.addGestureRecognizer(sigleTap)
-        nameAndePhone.textColor = UIColor.init(hexString: Mine_Address_Name_Color)
+        nameAndePhone.textColor = UIColor.init(hexString: App_Theme_384249_Color)
         let str = "客服电话：400-873-8011\n工作时间：周一至周六 09:00-21:00"
         let attribute = NSMutableAttributedString(string: str)
-        attribute.addAttributes([NSForegroundColorAttributeName:UIColor.init(hexString: Mine_Service_Color)], range: NSRange(location: 0, length: 5))
-        attribute.addAttributes([NSFontAttributeName:Mine_Service_Font!], range: NSRange.init(location: 0, length: 5))
-        attribute.addAttributes([NSForegroundColorAttributeName:UIColor.init(hexString: Mine_Service_Color)], range: NSRange(location: 18, length: 22))
-        attribute.addAttributes([NSFontAttributeName:Mine_Service_Font!], range: NSRange.init(location: 18, length: 22))
-        attribute.addAttributes([NSForegroundColorAttributeName:UIColor.init(hexString: Mine_Service_mColor)], range: NSRange(location: 5, length: 12))
-        attribute.addAttributes([NSFontAttributeName:Mine_Service_Font!], range: NSRange.init(location: 5, length: 12))
+        attribute.addAttributes([NSForegroundColorAttributeName:UIColor.init(hexString: App_Theme_DDE0E5_Color)], range: NSRange(location: 0, length: 5))
+        attribute.addAttributes([NSFontAttributeName:App_Theme_PinFan_R_13_Font!], range: NSRange.init(location: 0, length: 5))
+        attribute.addAttributes([NSForegroundColorAttributeName:UIColor.init(hexString: App_Theme_DDE0E5_Color)], range: NSRange(location: 18, length: 22))
+        attribute.addAttributes([NSFontAttributeName:App_Theme_PinFan_R_13_Font!], range: NSRange.init(location: 18, length: 22))
+        attribute.addAttributes([NSForegroundColorAttributeName:UIColor.init(hexString: App_Theme_57DAD0_Color)], range: NSRange(location: 5, length: 12))
+        attribute.addAttributes([NSFontAttributeName:App_Theme_PinFan_R_13_Font!], range: NSRange.init(location: 5, length: 12))
         let paragraph = NSMutableParagraphStyle()
         paragraph.lineSpacing = 5
         attribute.addAttributes([NSParagraphStyleAttributeName:paragraph], range: NSRange.init(location: 0, length: str.length))

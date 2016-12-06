@@ -68,7 +68,7 @@ class AddAddressViewController: UIViewController {
         tableView.keyboardDismissMode = .OnDrag
         tableView.separatorStyle = .None
         tableView.registerClass(GloabTitleAndFieldCell.self, forCellReuseIdentifier: "GloabTitleAndFieldCell")
-        tableView.backgroundColor = UIColor.init(hexString: App_Theme_TableViewBackGround_Color)
+        tableView.backgroundColor = UIColor.init(hexString: App_Theme_E9EBF2_Color)
         tableView.registerClass(GloabTitleAndDetailImageCell.self, forCellReuseIdentifier: "GloabTitleAndDetailImageCell")
         tableView.registerClass(DetailAddressTableViewCell.self, forCellReuseIdentifier: "DetailAddressTableViewCell")
         tableView.registerClass(SetNomalAddressTableViewCell.self, forCellReuseIdentifier: "SetNomalAddressTableViewCell")
@@ -122,7 +122,7 @@ class AddAddressViewController: UIViewController {
             cityPickerView.setTintColor(UIColor.whiteColor())
             cityPickerView.tag = 2
             cityPickerView.setToolbarTintColor(UIColor.whiteColor())
-            cityPickerView.setTintFont(Mine_Service_Font, color: UIColor.init(hexString: App_Theme_Text_Color))
+            cityPickerView.setTintFont(App_Theme_PinFan_R_13_Font, color: UIColor.init(hexString: App_Theme_384249_Color))
             cityPickerView.delegate = self
         }
         cityPickerView.show()

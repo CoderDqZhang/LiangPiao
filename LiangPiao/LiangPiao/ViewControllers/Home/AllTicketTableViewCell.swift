@@ -23,8 +23,8 @@ class AllTicketTableViewCell: UITableViewCell {
     func setUpView() {
         titleLabel = UILabel()
         self.titleLabel.text = "查看全部"
-        titleLabel.font = Home_Ticker_NomalPrice_Font
-        titleLabel.textColor = UIColor.init(hexString: TablaBarItemTitleNomalColor)
+        titleLabel.font = App_Theme_PinFan_R_13_Font
+        titleLabel.textColor = UIColor.init(hexString: App_Theme_8A96A2_Color)
         self.contentView.addSubview(titleLabel)
         
         lineLable = GloabLineView(frame: CGRectMake(15,0,SCREENWIDTH - 30, 0.5))

@@ -41,32 +41,32 @@ class RecommendTableViewCell: UITableViewCell {
         ticketTitle.text = "万有音乐系 陈粒《小梦大半》2016巡回演唱会"
         UILabel.changeLineSpaceForLabel(ticketTitle, withSpace: 4.0)
         ticketTitle.numberOfLines = 0
-        ticketTitle.textColor = UIColor.init(hexString: Home_Recommend_Title_Color)
-        ticketTitle.font = Home_Recommend_Title_Font
+        ticketTitle.textColor = UIColor.init(hexString: App_Theme_384249_Color)
+        ticketTitle.font = App_Theme_PinFan_R_15_Font
         self.contentView.addSubview(ticketTitle)
 
         ticketTime = UILabel()
         ticketTime.text = "2016.10.14 - 2016.11.28"
-        ticketTime.textColor = UIColor.init(hexString: Home_Recommend_Time_Color)
-        ticketTime.font = Home_Recommend_Time_Font
+        ticketTime.textColor = UIColor.init(hexString: App_Theme_A2ABB5_Color)
+        ticketTime.font = App_Theme_PinFan_R_12_Font
         self.contentView.addSubview(ticketTime)
         
         ticketLocation = UILabel()
         ticketLocation.text = "展览馆剧场"
-        ticketLocation.textColor = UIColor.init(hexString: Home_Recommend_Time_Color)
-        ticketLocation.font = Home_Recommend_Time_Font
+        ticketLocation.textColor = UIColor.init(hexString: App_Theme_A2ABB5_Color)
+        ticketLocation.font = App_Theme_PinFan_R_12_Font
         self.contentView.addSubview(ticketLocation)
         
         ticketmMuch = UILabel()
         ticketmMuch.text = "元起"
-        ticketmMuch.textColor = UIColor.init(hexString: Home_Recommend_mMuch_Color)
-        ticketmMuch.font = Home_Recommend_mMuch_Font
+        ticketmMuch.textColor = UIColor.init(hexString: App_Theme_BBC1CB_Color)
+        ticketmMuch.font = App_Theme_PinFan_R_10_Font
         self.contentView.addSubview(ticketmMuch)
         
         ticketMuch = UILabel()
         ticketMuch.text = "280"
-        ticketMuch.textColor = UIColor.init(hexString: Home_Recommend_Much_Color)
-        ticketMuch.font = Home_Recommend_Much_Font
+        ticketMuch.textColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
+        ticketMuch.font = App_Theme_PinFan_R_21_Font
         self.contentView.addSubview(ticketMuch)
         
         let lineLabel = GloabLineView(frame: CGRectMake(15, 139.5, SCREENWIDTH - 30, 0.5))

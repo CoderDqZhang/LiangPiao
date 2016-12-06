@@ -35,15 +35,15 @@ class OrderWaitePayTableViewCell: UITableViewCell {
     func setUpView() {
         
         orderStatusWait = UILabel()
-        orderStatusWait.font = Order_Status_Wait_Done_Font
-        orderStatusWait.textColor = UIColor.init(hexString: Order_Status_Wait_Done_Color)
+        orderStatusWait.font = App_Theme_PinFan_M_16_Font
+        orderStatusWait.textColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
         orderStatusWait.text = "待付款"
         self.contentView.addSubview(orderStatusWait)
         
         orderTime = UILabel()
         orderTime.text = "剩余支付时间:"
-        orderTime.textColor = UIColor.init(hexString: Home_Ticker_Descrip_Color)
-        orderTime.font = Order_Status_Time_Font
+        orderTime.textColor = UIColor.init(hexString: App_Theme_BBC1CB_Color)
+        orderTime.font = App_Theme_PinFan_R_11_Font
         self.contentView.addSubview(orderTime)
         
         orderImage = UIImageView()
@@ -57,14 +57,14 @@ class OrderWaitePayTableViewCell: UITableViewCell {
         
         orderName = UILabel()
         orderName.text = "冉灿    18602035508"
-        orderName.textColor = UIColor.init(hexString: Mine_Address_Name_Color)
-        orderName.font = Ticket_Detail_Name_Font
+        orderName.textColor = UIColor.init(hexString: App_Theme_384249_Color)
+        orderName.font = App_Theme_PinFan_R_13_Font
         self.contentView.addSubview(orderName)
         
         orderAddress = UILabel()
         orderAddress.text = "朝阳区香河园小区西坝河中里35号楼二层207"
-        orderAddress.textColor = UIColor.init(hexString: Mine_Address_Name_Color)
-        orderAddress.font = Ticket_Detail_Name_Font
+        orderAddress.textColor = UIColor.init(hexString: App_Theme_384249_Color)
+        orderAddress.font = App_Theme_PinFan_R_13_Font
         self.contentView.addSubview(orderAddress)
         
         orderCountDownView = OrderCountDownView(frame: CGRectMake(91, 55, 68, 15))

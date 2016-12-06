@@ -38,8 +38,8 @@ class PickUpTickeTableViewCell: UITableViewCell {
         ticketTitle.text = "万有音乐系 陈粒《小梦大半》2016巡回演唱会"
         UILabel.changeLineSpaceForLabel(ticketTitle, withSpace: 3.0)
         ticketTitle.numberOfLines = 0
-        ticketTitle.textColor = UIColor.init(hexString: Home_Recommend_Title_Color)
-        ticketTitle.font = Home_Recommend_Title_Font
+        ticketTitle.textColor = UIColor.init(hexString: App_Theme_384249_Color)
+        ticketTitle.font = App_Theme_PinFan_R_15_Font
         self.contentView.addSubview(ticketTitle)
         
         ticketStatusView = GlobalTicketStatus(frame: CGRectZero, titles: ["售卖中   ","在售2张   "], types: nil)
@@ -47,37 +47,37 @@ class PickUpTickeTableViewCell: UITableViewCell {
         
         ticketTime = UILabel()
         ticketTime.text = "2016.10.14 - 2016.11.28"
-        ticketTime.textColor = UIColor.init(hexString: Home_Recommend_Time_Color)
-        ticketTime.font = Home_Recommend_Time_Font
+        ticketTime.textColor = UIColor.init(hexString: App_Theme_A2ABB5_Color)
+        ticketTime.font = App_Theme_PinFan_R_12_Font
         ticketTime.numberOfLines = 0
         self.contentView.addSubview(ticketTime)
         
         ticketLocation = UILabel()
         ticketLocation.text = "展览馆剧场"
-        ticketLocation.textColor = UIColor.init(hexString: Home_Recommend_Time_Color)
-        ticketLocation.font = Home_Recommend_Time_Font
+        ticketLocation.textColor = UIColor.init(hexString: App_Theme_A2ABB5_Color)
+        ticketLocation.font = App_Theme_PinFan_R_12_Font
         self.contentView.addSubview(ticketLocation)
         
         ticketNumber = UILabel()
         ticketNumber.text = "已售：0"
-        ticketNumber.textColor = UIColor.init(hexString: Home_Recommend_Time_Color)
-        ticketNumber.font = Home_Recommend_Time_Font!
+        ticketNumber.textColor = UIColor.init(hexString: App_Theme_A2ABB5_Color)
+        ticketNumber.font = App_Theme_PinFan_R_12_Font!
         ticketNumber.numberOfLines = 0
         UILabel.changeLineSpaceForLabel(ticketNumber, withSpace: 3.0)
         self.contentView.addSubview(ticketNumber)
         
         ticketMuch = UILabel()
         ticketMuch.text = "280-1288"
-        ticketMuch.textColor = UIColor.init(hexString: App_Theme_BackGround_Color)
-        ticketMuch.font = Home_PayView_WaitPay_Much_Font!
+        ticketMuch.textColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
+        ticketMuch.font = App_Theme_PinFan_R_18_Font!
         ticketMuch.numberOfLines = 0
         UILabel.changeLineSpaceForLabel(ticketMuch, withSpace: 3.0)
         self.contentView.addSubview(ticketMuch)
         
         ticketmMuch = UILabel()
         ticketmMuch.text = "元"
-        ticketmMuch.textColor = UIColor.init(hexString: Home_Recommend_mMuch_Color)
-        ticketmMuch.font = Home_Recommend_mMuch_Font!
+        ticketmMuch.textColor = UIColor.init(hexString: App_Theme_BBC1CB_Color)
+        ticketmMuch.font = App_Theme_PinFan_R_10_Font!
         ticketmMuch.numberOfLines = 0
         UILabel.changeLineSpaceForLabel(ticketmMuch, withSpace: 3.0)
         self.contentView.addSubview(ticketmMuch)

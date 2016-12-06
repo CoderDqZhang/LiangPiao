@@ -14,7 +14,7 @@ class AddAddressView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = UIColor.init(hexString: App_Theme_BackGround_Color)
+        self.backgroundColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
         self.setUpButton()
         
         let singleTap = UITapGestureRecognizer(target: self, action: #selector(AddAddressView.singTapPress(_:)))
@@ -26,8 +26,8 @@ class AddAddressView: UIView {
     func setUpButton() {
         addButton = UIButton(type: .Custom)
         addButton.setTitle("新增收货地址", forState: .Normal)
-        addButton.titleLabel?.font = Mine_AddAddress_Name_Font
-        addButton.setTitleColor(UIColor.init(hexString: Mine_AddAddress_Name_Color), forState: .Normal)
+        addButton.titleLabel?.font = App_Theme_PinFan_R_15_Font
+        addButton.setTitleColor(UIColor.init(hexString: App_Theme_FFFFFF_Color), forState: .Normal)
         addButton.userInteractionEnabled = false
         addButton.titleEdgeInsets = UIEdgeInsetsMake(0, 20, 0, 0)
         addButton.setImage(UIImage.init(named: "Icon_Add"), forState: .Normal)
@@ -69,13 +69,13 @@ class AddressTableViewCell: UITableViewCell {
     
     func setUpView() {
         nameAndePhone = UILabel()
-        nameAndePhone.font = Mine_Address_Name_Font
-        nameAndePhone.textColor = UIColor.init(hexString: Mine_Address_Name_Color)
+        nameAndePhone.font = App_Theme_PinFan_R_14_Font
+        nameAndePhone.textColor = UIColor.init(hexString: App_Theme_384249_Color)
         self.contentView.addSubview(nameAndePhone)
         
         addressDetail = UILabel()
-        addressDetail.font = Mine_Address_Name_Font
-        addressDetail.textColor = UIColor.init(hexString: Mine_Address_Name_Color)
+        addressDetail.font = App_Theme_PinFan_R_14_Font
+        addressDetail.textColor = UIColor.init(hexString: App_Theme_384249_Color)
         addressDetail.numberOfLines = 0
         self.contentView.addSubview(addressDetail)
         
@@ -88,9 +88,9 @@ class AddressTableViewCell: UITableViewCell {
         isNomalLabel.layer.cornerRadius = 1.0
         isNomalLabel.layer.masksToBounds = true
         isNomalLabel.textAlignment = .Center
-        isNomalLabel.backgroundColor = UIColor.init(hexString: Home_ReciveView_Label_Nomal_nColor)
-        isNomalLabel.font = Mine_NomalAddress_Name_Font
-        isNomalLabel.textColor = UIColor.init(hexString: Mine_NomalAddress_Name_Color)
+        isNomalLabel.backgroundColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
+        isNomalLabel.font = App_Theme_PinFan_L_11_Font
+        isNomalLabel.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
         self.contentView.addSubview(isNomalLabel)
         
         lineLabel = GloabLineView(frame: CGRectMake(15,0,SCREENWIDTH - 30, 0.5))

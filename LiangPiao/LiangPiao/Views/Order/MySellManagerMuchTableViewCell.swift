@@ -30,18 +30,18 @@ class MySellManagerMuchTableViewCell: UITableViewCell {
     func setUpView() {
         muchInfoLabel = UILabel()
         muchInfoLabel.text = "售卖价格："
-        muchInfoLabel.font = MyOrder_Much_Title_Font
-        muchInfoLabel.textColor = UIColor.init(hexString: MyOrder_Much_Title_Color)
+        muchInfoLabel.font = App_Theme_PinFan_R_12_Font
+        muchInfoLabel.textColor = UIColor.init(hexString: App_Theme_384249_Color)
         self.contentView.addSubview(muchInfoLabel)
         
         muchLabel = UILabel()
-        muchLabel.font = Home_PayView_Much_Font
-        muchLabel.textColor = UIColor.init(hexString: App_Theme_BackGround_Color)
+        muchLabel.font = App_Theme_PinFan_R_18_Font
+        muchLabel.textColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
         muchLabel.text = "360-826"
         
         muchmLabel = UILabel()
-        muchmLabel.font = MyOrder_Much_mMuch_Font
-        muchmLabel.textColor = UIColor.init(hexString: MyOrder_Much_Title_Color)
+        muchmLabel.font = App_Theme_PinFan_R_12_Font
+        muchmLabel.textColor = UIColor.init(hexString: App_Theme_384249_Color)
         muchmLabel.text = "元"
         self.contentView.addSubview(muchmLabel)
         
@@ -52,7 +52,7 @@ class MySellManagerMuchTableViewCell: UITableViewCell {
         handerButton.layer.cornerRadius = 2.0
         handerButton.setImage(UIImage.init(named: "Btn_More_Normal"), forState: .Normal)
         handerButton.setImage(UIImage.init(named: "Btn_More_Press"), forState: .Selected)
-        handerButton.titleLabel?.font = MyOrder_Much_mMuch_Button_Font
+        handerButton.titleLabel?.font = App_Theme_PinFan_R_13_Font
         self.contentView.addSubview(handerButton)
         
         linLabel = GloabLineView(frame: CGRectMake(15, 0, SCREENWIDTH - 30, 0.5))

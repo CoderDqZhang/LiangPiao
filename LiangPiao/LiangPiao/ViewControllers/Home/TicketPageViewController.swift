@@ -28,17 +28,17 @@ class TicketPageViewController: TYTabButtonPagerController {
     
     func setUpPageViewControllerStyle(){
         self.collectionLayoutEdging = kCollectionLayoutEdging
-        self.pagerBarColor = UIColor.init(hexString: TablaBarItemTitleSelectColor)
+        self.pagerBarColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
         self.cellSpacing = kCellSpacing
         self.cellEdging = 10
         self.progressHeight = 2
         self.progressEdging = 0
         self.contentTopEdging = 40
-        self.normalTextFont = Home_Page_Ticket_NomalFont
-        self.selectedTextFont = Home_Page_Ticket_Font
-        self.normalTextColor = UIColor.init(hexString: Home_Page_Ticket_NomalColor)
-        self.selectedTextColor = UIColor.init(hexString: Home_Page_Ticket_Color)
-        self.selectedTextFont = Home_Page_Ticket_Font
+        self.normalTextFont = App_Theme_PinFan_R_13_Font
+        self.selectedTextFont = App_Theme_PinFan_R_13_Font
+        self.normalTextColor = UIColor.init(hexString: App_Theme_8A96A2_Color)
+        self.selectedTextColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
+        self.selectedTextFont = App_Theme_PinFan_R_13_Font
     }
     
     func setUpView(){

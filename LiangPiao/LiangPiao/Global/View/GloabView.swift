@@ -8,8 +8,6 @@
 
 import UIKit
 
-let Line_BackGround_Color = "E9EBF2"
-
 typealias SearchNavigationBarCancelClouse = () ->Void
 typealias SearchTextFieldBecomFirstRespoder = () ->Void
 
@@ -21,7 +19,7 @@ class HomeSearchNavigationBar: UIView {
     var searchTextFieldBecomFirstRespoder:SearchTextFieldBecomFirstRespoder!
     init(frame: CGRect, font:UIFont?) {
         super.init(frame: frame)
-        self.backgroundColor = UIColor.init(hexString: TablaBarItemTitleSelectColor)
+        self.backgroundColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
         self.setUpView(font)
     }
     
@@ -33,7 +31,7 @@ class HomeSearchNavigationBar: UIView {
         cancelButton = UIButton(type: .Custom)
         cancelButton.frame = CGRectMake(SCREENWIDTH - 64, 27,64, 30)
         cancelButton.setTitle("取消", forState: .Normal)
-        cancelButton.titleLabel?.font = Search_TextField_Font
+        cancelButton.titleLabel?.font = App_Theme_PinFan_L_17_Font
         cancelButton.hidden = true
         cancelButton.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (action) in
             if self.searchNavigationBarCancelClouse != nil{
@@ -47,20 +45,20 @@ class HomeSearchNavigationBar: UIView {
         searchField.layer.cornerRadius = 4.0
         searchField.drawPlaceholderInRect(CGRectMake(20, 0, searchField.frame.size.width, searchField.frame.size.height))
         if font == nil {
-            searchField.attributedPlaceholder = NSAttributedString.init(string: "搜索演出名称、演员...", attributes: [NSFontAttributeName:HomeSearch_Font!,NSForegroundColorAttributeName:UIColor.init(hexString: HomePage_Search_Color)])
+            searchField.attributedPlaceholder = NSAttributedString.init(string: "搜索演出名称、演员...", attributes: [NSFontAttributeName:App_Theme_PinFan_L_14_Font!,NSForegroundColorAttributeName:UIColor.init(hexString: App_Theme_BBC1CB_Color)])
         }else{
-            searchField.attributedPlaceholder = NSAttributedString.init(string: "搜索演出名称、演员...", attributes: [NSFontAttributeName:font!,NSForegroundColorAttributeName:UIColor.init(hexString: HomePage_Search_Color)])
+            searchField.attributedPlaceholder = NSAttributedString.init(string: "搜索演出名称、演员...", attributes: [NSFontAttributeName:font!,NSForegroundColorAttributeName:UIColor.init(hexString: App_Theme_BBC1CB_Color)])
         }
         searchField.delegate = self
         searchField.contentVerticalAlignment = UIControlContentVerticalAlignment.Center
         searchField.leftView = leftImage
-        searchField.tintColor = UIColor.init(hexString: App_Theme_BackGround_Color)
+        searchField.tintColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
         searchField.backgroundColor = UIColor.whiteColor()
         searchField.leftViewMode = .Always
         searchField.returnKeyType = .Search
-        searchField.font = HomeSearch_Default_Font
-        searchField.attributedPlaceholder = NSAttributedString.init(string: "搜索演出名称、演员...", attributes: [NSFontAttributeName:HomeSearch_Font!,NSForegroundColorAttributeName:UIColor.init(hexString: HomePage_Search_Color)])
-        searchField.textColor = UIColor.init(hexString: App_Theme_Text_Color)
+        searchField.font = App_Theme_PinFan_R_14_Font
+        searchField.attributedPlaceholder = NSAttributedString.init(string: "搜索演出名称、演员...", attributes: [NSFontAttributeName:App_Theme_PinFan_L_14_Font!,NSForegroundColorAttributeName:UIColor.init(hexString: App_Theme_BBC1CB_Color)])
+        searchField.textColor = UIColor.init(hexString: App_Theme_384249_Color)
         searchField.clearButtonMode = .Always
         self.addSubview(searchField)
         self.updateConstraintsIfNeeded()
@@ -102,7 +100,7 @@ class GloabLineView: UIView {
     override init(frame: CGRect) {
         super.init(frame:frame)
         lineLabel.frame = CGRectMake(0, 0, frame.size.width, frame.size.height)
-        lineLabel.backgroundColor = UIColor.init(hexString: Line_BackGround_Color)
+        lineLabel.backgroundColor = UIColor.init(hexString: App_Theme_E9EBF2_Color)
         self.addSubview(lineLabel)
     }
     
@@ -125,8 +123,8 @@ class GlobalNavigationBarView : UIView {
         super.init(frame:frame)
         let titleLabel:UILabel! = UILabel()
         titleLabel.frame = CGRectMake(0, 5, frame.size.width, 18)
-        titleLabel.font = NavigationBar_TitleView_TitleLabel_Font
-        titleLabel.textColor = UIColor.init(hexString: NavigationBar_TitleView_TitleLabel_Color)
+        titleLabel.font = App_Theme_PinFan_R_13_Font
+        titleLabel.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
         titleLabel.textAlignment = .Center
         titleLabel.text = title
         self.addSubview(titleLabel)
@@ -134,8 +132,8 @@ class GlobalNavigationBarView : UIView {
         let detailLabel:UILabel! = UILabel()
         detailLabel.frame = CGRectMake(0, CGRectGetMaxY(titleLabel.frame) + 1, frame.size.width, 13)
         detailLabel.text = detail
-        detailLabel.font = NavigationBar_TitleView_DetailLabel_Font
-        detailLabel.textColor = UIColor.init(hexString: NavigationBar_TitleView_DetailLabel_Color)
+        detailLabel.font = App_Theme_PinFan_R_11_Font
+        detailLabel.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
         detailLabel.textAlignment = .Center
         self.addSubview(detailLabel)
         
@@ -165,8 +163,8 @@ class GlobalNavigationBarWithLabelView : UIView {
         super.init(frame:frame)
         let titleLabel:UILabel! = UILabel()
         titleLabel.frame = CGRectMake(0, 0, frame.size.width, frame.size.height)
-        titleLabel.font = NavigationBar_Title_Font
-        titleLabel.textColor = UIColor.init(hexString: NavigationBar_TitleView_TitleLabel_Color)
+        titleLabel.font = App_Theme_PinFan_L_17_Font
+        titleLabel.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
         titleLabel.textAlignment = .Center
         titleLabel.text = title
         self.addSubview(titleLabel)
@@ -209,18 +207,18 @@ class GlobalTicketStatus : UIView {
         var originX:CGFloat = 0
         var i = 1
         for str in titles {
-            let stringWidth = str.widthWithConstrainedHeight(str, font: Home_Ticket_Status_Font!, height: 16)
+            let stringWidth = str.widthWithConstrainedHeight(str, font: App_Theme_PinFan_R_10_Font!, height: 16)
             let statusLabel = UILabel(frame: CGRectMake(originX, 0, stringWidth, 16))
             statusLabel.text = str
             statusLabel.tag = i
             i = i + 1
-            statusLabel.font = Home_Ticket_Status_Font
-            statusLabel.textColor = UIColor.init(hexString: Home_Ticket_Status_Title_Color)
+            statusLabel.font = App_Theme_PinFan_R_10_Font
+            statusLabel.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
             statusLabel.textAlignment = .Center
-            statusLabel.backgroundColor = UIColor.init(hexString: Home_Ticket_Status_BackGround_NColor)
+            statusLabel.backgroundColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
             statusLabel.layer.cornerRadius = 1.5
             statusLabel.clipsToBounds = true
-            statusLabel.layer.borderColor = UIColor.init(hexString: App_Theme_BackGround_Color).CGColor
+            statusLabel.layer.borderColor = UIColor.init(hexString: App_Theme_4BD4C5_Color).CGColor
             statusLabel.layer.masksToBounds = true
             originX = CGRectGetMaxX(statusLabel.frame) + 4
             self.addSubview(statusLabel)
@@ -230,7 +228,7 @@ class GlobalTicketStatus : UIView {
         if types != nil {
             for i in types! {
                 let label = self.viewWithTag(NSInteger(i as! NSNumber))
-                label?.backgroundColor = UIColor.init(hexString: Home_Ticket_Status_BackGround_SColor)
+                label?.backgroundColor = UIColor.init(hexString: App_Theme_FF7A5E_Color)
             }
         }
     }
@@ -263,7 +261,7 @@ class GloableBottomButtonView: UIView {
         }else{
             super.init(frame: frame!)
         }
-        self.backgroundColor = UIColor.init(hexString: App_Theme_BackGround_Color)
+        self.backgroundColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
         self.setUpButton(title)
         button.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (btnTouchUp) in
             if action != nil {
@@ -278,8 +276,8 @@ class GloableBottomButtonView: UIView {
     func setUpButton(title:String) {
         button = UIButton(type: .Custom)
         button.setTitle(title, forState: .Normal)
-        button.titleLabel?.font = Mine_AddAddress_Name_Font
-        button.setTitleColor(UIColor.init(hexString: Mine_AddAddress_Name_Color), forState: .Normal)
+        button.titleLabel?.font = App_Theme_PinFan_R_15_Font
+        button.setTitleColor(UIColor.init(hexString: App_Theme_FFFFFF_Color), forState: .Normal)
         button.titleLabel?.textAlignment = .Center
         button.tag = 1
         self.addSubview(button)

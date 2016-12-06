@@ -23,8 +23,8 @@ class OrderMuchTableViewCell: UITableViewCell {
     func setUpView() {
         muchInfoLabel = UILabel()
         muchInfoLabel.text = "实付金额："
-        muchInfoLabel.font = Home_Ticker_Tools_Table_Font
-        muchInfoLabel.textColor = UIColor.init(hexString: Home_Ticker_Tools_Table_sColor)
+        muchInfoLabel.font = App_Theme_PinFan_R_12_Font
+        muchInfoLabel.textColor = UIColor.init(hexString: App_Theme_384249_Color)
         self.contentView.addSubview(muchInfoLabel)
         
         muchLabel = UILabel()
@@ -43,14 +43,14 @@ class OrderMuchTableViewCell: UITableViewCell {
     func updataMuchTextAttribute(){
         let attributeString = NSMutableAttributedString(string: muchLabel.text!)
         attributeString.addAttribute(NSFontAttributeName,
-                                     value: Home_PayView_WaitPay_Much_Font!,
+                                     value: App_Theme_PinFan_R_18_Font!,
                                      range: NSMakeRange(0,muchLabel.text!.length - 1))
-        attributeString.addAttribute(NSForegroundColorAttributeName, value: UIColor.init(hexString: Home_ReciveView_Label_Nomal_nColor),
+        attributeString.addAttribute(NSForegroundColorAttributeName, value: UIColor.init(hexString: App_Theme_4BD4C5_Color),
                                      range: NSMakeRange(0, muchLabel.text!.length - 1))
         attributeString.addAttribute(NSFontAttributeName,
-                                     value: Home_PayView_MuchLabel_Font!,
+                                     value: App_Theme_PinFan_R_10_Font!,
                                      range: NSMakeRange(muchLabel.text!.length - 1,1))
-        attributeString.addAttribute(NSForegroundColorAttributeName, value: UIColor.init(hexString: Home_Ticker_Descrip_Color),
+        attributeString.addAttribute(NSForegroundColorAttributeName, value: UIColor.init(hexString: App_Theme_BBC1CB_Color),
                                      range: NSMakeRange(muchLabel.text!.length - 1,1))
         muchLabel.attributedText = attributeString
     }

@@ -26,15 +26,15 @@ class TicketLocationTableViewCell: UITableViewCell {
     func setUpView() {
         addressLabel = UILabel()
         addressLabel.text = "大隐剧院"
-        addressLabel.font = GlobalCell_Title_Font
-        addressLabel.textColor = UIColor.init(hexString: GlobalCell_Title_Color)
+        addressLabel.font = App_Theme_PinFan_R_13_Font
+        addressLabel.textColor = UIColor.init(hexString: App_Theme_384249_Color)
         addressLabel.numberOfLines = 0
         self.contentView.addSubview(addressLabel)
         
         detailAddress = UILabel()
         detailAddress.text = "光华路9号世贸天阶 C 座时尚大厦5楼"
-        detailAddress.font = Home_OrderConfirmCell_Info_Font
-        detailAddress.textColor = UIColor.init(hexString: Home_OrderConfirmCell_Info_Color)
+        detailAddress.font = App_Theme_PinFan_R_12_Font
+        detailAddress.textColor = UIColor.init(hexString: App_Theme_A2ABB5_Color)
         detailAddress.numberOfLines = 0
         self.contentView.addSubview(detailAddress)
         
@@ -44,16 +44,16 @@ class TicketLocationTableViewCell: UITableViewCell {
         self.contentView.addSubview(locationButton)
         
         linLabel = UILabel()
-        linLabel.backgroundColor = UIColor.init(hexString: Line_BackGround_Color)
+        linLabel.backgroundColor = UIColor.init(hexString: App_Theme_E9EBF2_Color)
         self.contentView.addSubview(linLabel)
         
         linLabel1 = UILabel()
-        linLabel1.backgroundColor = UIColor.init(hexString: Line_BackGround_Color)
+        linLabel1.backgroundColor = UIColor.init(hexString: App_Theme_E9EBF2_Color)
         self.contentView.addSubview(linLabel1)
         
         messageLabel = UILabel()
-        messageLabel.font = OrderDetail_Message_Font
-        messageLabel.textColor = UIColor.init(hexString: OrderDetail_Message_Color)
+        messageLabel.font = App_Theme_PinFan_R_12_Font
+        messageLabel.textColor = UIColor.init(hexString: App_Theme_384249_Color)
         messageLabel.numberOfLines = 0
         self.contentView.addSubview(messageLabel)
         

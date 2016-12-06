@@ -22,13 +22,13 @@ class DetailAddressTableViewCell: UITableViewCell {
     func setUpView(){
         textView = UITextView()
         textView.placeholder = "请填写详细地址"
-        textView.tintColor = UIColor.init(hexString: App_Theme_BackGround_Color)
-        textView.placeholderLabel.font = NavigationBar_TitleView_TitleLabel_Font
-        textView.placeholderLabel.textColor = UIColor.init(hexString: HomePage_Search_Color)
+        textView.tintColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
+        textView.placeholderLabel.font = App_Theme_PinFan_R_13_Font
+        textView.placeholderLabel.textColor = UIColor.init(hexString: App_Theme_BBC1CB_Color)
         textView.scrollEnabled = false
         textView.returnKeyType = .Done
-        textView.font = NavigationBar_TitleView_TitleLabel_Font
-        textView.textColor = UIColor.init(hexString: App_Theme_Text_Color)
+        textView.font = App_Theme_PinFan_R_13_Font
+        textView.textColor = UIColor.init(hexString: App_Theme_384249_Color)
         self.contentView.addSubview(textView)
         
         self.updateConstraintsIfNeeded()

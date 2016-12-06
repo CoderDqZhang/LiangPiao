@@ -21,7 +21,7 @@ class GlobalSearchTableView: UIView {
     
     func setUpView(){
         tableView = UITableView(frame: CGRectZero, style: .Plain)
-        tableView.backgroundColor = UIColor.init(hexString: App_Theme_TableViewBackGround_Color)
+        tableView.backgroundColor = UIColor.init(hexString: App_Theme_E9EBF2_Color)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.emptyDataSetSource = self
@@ -76,14 +76,14 @@ extension GlobalSearchTableView : DZNEmptyDataSetDelegate {
 extension GlobalSearchTableView :DZNEmptyDataSetSource {
     
     func backgroundColorForEmptyDataSet(scrollView: UIScrollView!) -> UIColor {
-        return UIColor.init(hexString: App_Theme_Empty_BackGround_Color)
+        return UIColor.init(hexString: App_Theme_F6F7FA_Color)
     }
     
     func descriptionForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
         let str = "搜索你关注的演出"
         let attribute = NSMutableAttributedString(string: str)
-        attribute.addAttributes([NSForegroundColorAttributeName:UIColor.init(hexString: APP_State_EmptyData_Color)], range: NSRange(location: 0, length: str.length))
-        attribute.addAttributes([NSFontAttributeName:APP_State_EmptyData_Font!], range: NSRange.init(location: 0, length: str.length))
+        attribute.addAttributes([NSForegroundColorAttributeName:UIColor.init(hexString: App_Theme_DDE0E5_Color)], range: NSRange(location: 0, length: str.length))
+        attribute.addAttributes([NSFontAttributeName:App_Theme_PinFan_R_16_Font!], range: NSRange.init(location: 0, length: str.length))
         return attribute
     }
     

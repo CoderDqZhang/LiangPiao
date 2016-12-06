@@ -25,7 +25,7 @@ class LiangNomalRefreshHeader: MJRefreshHeader {
 
     override func prepare() {
         super.prepare()
-        self.backgroundColor = UIColor.init(hexString: App_Theme_TableViewBackGround_Color)
+        self.backgroundColor = UIColor.init(hexString: App_Theme_E9EBF2_Color)
         self.mj_h = 88
         let imageView = UIImageView()
         self.addSubview(imageView)

@@ -30,8 +30,8 @@ class DiscountViewController: UIViewController {
         
         let label = UILabel()
         label.text = "暂无优惠劵，敬请期待"
-        label.textColor = UIColor.init(hexString: DisCount_Title_Color)
-        label.font = DisCount_Title_Font
+        label.textColor = UIColor.init(hexString: App_Theme_DDE0E5_Color)
+        label.font = App_Theme_PinFan_R_16_Font
         label.textAlignment = .Center
         discountView.addSubview(label)
         

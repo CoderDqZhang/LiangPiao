@@ -39,8 +39,8 @@ class OrderConfirmAddressTableViewCell: UITableViewCell {
         
         orderAddAddress = UILabel()
         orderAddAddress.text = "新增收货地址"
-        orderAddAddress.textColor = UIColor.init(hexString: App_Theme_BackGround_Color)
-        orderAddAddress.font = Mine_Address_Name_Font
+        orderAddAddress.textColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
+        orderAddAddress.font = App_Theme_PinFan_R_14_Font
         self.contentView.addSubview(orderAddAddress)
         
         
@@ -53,14 +53,14 @@ class OrderConfirmAddressTableViewCell: UITableViewCell {
         
         orderName = UILabel()
         orderName.text = ""
-        orderName.textColor = UIColor.init(hexString: Mine_Address_Name_Color)
-        orderName.font = Confim_Address_Name_Font
+        orderName.textColor = UIColor.init(hexString: App_Theme_384249_Color)
+        orderName.font = App_Theme_PinFan_R_13_Font
         self.contentView.addSubview(orderName)
         
         orderAddress = UILabel()
         orderAddress.text = ""
-        orderAddress.textColor = UIColor.init(hexString: Mine_Address_Name_Color)
-        orderAddress.font = Confim_Address_Name_Font
+        orderAddress.textColor = UIColor.init(hexString: App_Theme_384249_Color)
+        orderAddress.font = App_Theme_PinFan_R_13_Font
         orderAddress.numberOfLines = 0
         self.contentView.addSubview(orderAddress)
         

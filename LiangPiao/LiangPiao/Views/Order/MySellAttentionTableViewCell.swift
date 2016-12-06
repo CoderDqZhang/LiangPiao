@@ -28,13 +28,13 @@ class MySellAttentionTableViewCell: UITableViewCell {
     func setUpView() {
         attentionDec = UILabel()
         attentionDec.text = "售卖价格：售价过高，当前区域平均售价 680 元"
-        attentionDec.textColor = UIColor.init(hexString: Home_Ticket_Introuduct_Field_Color)
+        attentionDec.textColor = UIColor.init(hexString: App_Theme_BBC1CB_Color)
         let strArray = attentionDec.text?.componentsSeparatedByString(" ")
         let strAttribute = NSMutableAttributedString.init(string: attentionDec.text!)
-        strAttribute.addAttributes([NSForegroundColorAttributeName:UIColor.init(hexString: App_Theme_BackGround_Color)], range: NSRange.init(location: strArray![0].length + 1, length: strArray![1].length))
+        strAttribute.addAttributes([NSForegroundColorAttributeName:UIColor.init(hexString: App_Theme_4BD4C5_Color)], range: NSRange.init(location: strArray![0].length + 1, length: strArray![1].length))
 
         attentionDec.attributedText = strAttribute
-        attentionDec.font = MyOrder_Much_Title_Font
+        attentionDec.font = App_Theme_PinFan_R_12_Font
         self.contentView.addSubview(attentionDec)
         
         attentionImageView = UIImageView()

@@ -41,22 +41,22 @@ class OrderCountDownView: UIView {
     }
     
     func setUpView() {
-        minuteLabel = self.createLabel(CGRectMake(0, 0, 13, 15), backGroundColor: UIColor.init(hexString: Count_Done_BackGround_Color), textColor: UIColor.init(hexString: Count_Done_Text_Color))
+        minuteLabel = self.createLabel(CGRectMake(0, 0, 13, 15), backGroundColor: UIColor.init(hexString: App_Theme_8A96A2_Color), textColor: UIColor.init(hexString: App_Theme_FFFFFF_Color))
         self.addSubview(minuteLabel)
         
-        minutesLabel = self.createLabel(CGRectMake(CGRectGetMaxX(minuteLabel.frame) + 5, 0, 13, 15), backGroundColor: UIColor.init(hexString: Count_Done_BackGround_Color), textColor: UIColor.init(hexString: Count_Done_Text_Color))
+        minutesLabel = self.createLabel(CGRectMake(CGRectGetMaxX(minuteLabel.frame) + 5, 0, 13, 15), backGroundColor: UIColor.init(hexString: App_Theme_8A96A2_Color), textColor: UIColor.init(hexString: App_Theme_FFFFFF_Color))
         self.addSubview(minutesLabel)
         
-        timeLabel = self.createLabel(CGRectMake(CGRectGetMaxX(minutesLabel.frame) + 5, -1, 2, 15), backGroundColor: UIColor.init(hexString: Count_Done_BackGround_Color), textColor: UIColor.init(hexString: Count_Done_Text_Color))
+        timeLabel = self.createLabel(CGRectMake(CGRectGetMaxX(minutesLabel.frame) + 5, -1, 2, 15), backGroundColor: UIColor.init(hexString: App_Theme_8A96A2_Color), textColor: UIColor.init(hexString: App_Theme_FFFFFF_Color))
         timeLabel.text = ":"
-        timeLabel.textColor = UIColor.init(hexString: Count_Done_BackGround_Color)
+        timeLabel.textColor = UIColor.init(hexString: App_Theme_8A96A2_Color)
         timeLabel.backgroundColor = UIColor.clearColor()
         self.addSubview(timeLabel)
         
-        secondeLabel = self.createLabel(CGRectMake(CGRectGetMaxX(timeLabel.frame) + 5, 0, 13, 15), backGroundColor: UIColor.init(hexString: Count_Done_BackGround_Color), textColor: UIColor.init(hexString: Count_Done_Text_Color))
+        secondeLabel = self.createLabel(CGRectMake(CGRectGetMaxX(timeLabel.frame) + 5, 0, 13, 15), backGroundColor: UIColor.init(hexString: App_Theme_8A96A2_Color), textColor: UIColor.init(hexString: App_Theme_FFFFFF_Color))
         self.addSubview(secondeLabel)
         
-        secondesLabel = self.createLabel(CGRectMake(CGRectGetMaxX(secondeLabel.frame) + 5, 0, 13, 15), backGroundColor: UIColor.init(hexString: Count_Done_BackGround_Color), textColor: UIColor.init(hexString: Count_Done_Text_Color))
+        secondesLabel = self.createLabel(CGRectMake(CGRectGetMaxX(secondeLabel.frame) + 5, 0, 13, 15), backGroundColor: UIColor.init(hexString: App_Theme_8A96A2_Color), textColor: UIColor.init(hexString: App_Theme_FFFFFF_Color))
         self.addSubview(secondesLabel)
         
         self.updateConstraintsIfNeeded()
@@ -68,7 +68,7 @@ class OrderCountDownView: UIView {
         label.layer.cornerRadius = 2.0
         label.layer.masksToBounds = true
         label.textColor = textColor
-        label.font = Count_Done_Text_Font
+        label.font = App_Theme_PinFan_R_11_Font
         label.textAlignment = .Center
         return label
     }

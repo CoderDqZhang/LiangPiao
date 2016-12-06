@@ -8,16 +8,6 @@
 
 import UIKit
 
-let GlobalCell_Title_Color = "384249"
-let GlobalCell_mTitle_Color = "4BD4C5"
-let GlobalCell_Title_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(13.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 13.0)
-
-let GlobalCell_ImageTitle_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(13.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 13.0)
-
-let GlobalCell_Detail_Color = "8A96A2"
-let GlobalCell_Detail_NoSelect_Color = "BBC1CB"
-let GlobalCell_Detail_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(13.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 13.0)
-
 class GloabTableViewCell: NSObject {
 
 }
@@ -35,13 +25,13 @@ class GloabTitleAndDetailCell: UITableViewCell {
     
     func setUpView() {
         titleLabel = UILabel()
-        titleLabel.font = GlobalCell_Title_Font
-        titleLabel.textColor = UIColor.init(hexString: GlobalCell_Title_Color)
+        titleLabel.font = App_Theme_PinFan_R_13_Font
+        titleLabel.textColor = UIColor.init(hexString: App_Theme_384249_Color)
         self.contentView.addSubview(titleLabel)
         
         detailLabel = UILabel()
-        detailLabel.font = GlobalCell_Title_Font
-        detailLabel.textColor = UIColor.init(hexString: GlobalCell_Title_Color)
+        detailLabel.font = App_Theme_PinFan_R_13_Font
+        detailLabel.textColor = UIColor.init(hexString: App_Theme_384249_Color)
         self.contentView.addSubview(detailLabel)
         
         lineLable = GloabLineView(frame: CGRectMake(15,0,SCREENWIDTH - 30, 0.5))
@@ -100,14 +90,14 @@ class GloabTitleAndFieldCell: UITableViewCell {
     
     func setUpView() {
         titleLabel = UILabel()
-        titleLabel.font = GlobalCell_Title_Font
-        titleLabel.textColor = UIColor.init(hexString: GlobalCell_Title_Color)
+        titleLabel.font = App_Theme_PinFan_R_13_Font
+        titleLabel.textColor = UIColor.init(hexString: App_Theme_384249_Color)
         self.contentView.addSubview(titleLabel)
         
         textField = UITextField()
-        textField.font = GlobalCell_Title_Font
-        textField.tintColor = UIColor.init(hexString: App_Theme_BackGround_Color)
-        textField.textColor = UIColor.init(hexString: GlobalCell_Title_Color)
+        textField.font = App_Theme_PinFan_R_13_Font
+        textField.tintColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
+        textField.textColor = UIColor.init(hexString: App_Theme_384249_Color)
         self.contentView.addSubview(textField)
         
         lineLable = GloabLineView(frame: CGRectMake(15,0,SCREENWIDTH - 30, 0.5))
@@ -118,7 +108,7 @@ class GloabTitleAndFieldCell: UITableViewCell {
     
     func setTextFieldText(text:String) {
         textField.text = text
-        textField.textColor = UIColor.init(hexString: GlobalCell_Title_Color)
+        textField.textColor = UIColor.init(hexString: App_Theme_384249_Color)
     }
     
     
@@ -126,7 +116,7 @@ class GloabTitleAndFieldCell: UITableViewCell {
     func setData(title:String, detail:String) {
         titleLabel.text = title
         textField.placeholder = detail
-        textField.attributedPlaceholder = NSAttributedString.init(string: detail, attributes: [NSFontAttributeName:Home_Ticket_Introuduct_Field_Font!,NSForegroundColorAttributeName:UIColor.init(hexString: Home_Ticket_Introuduct_Field_Color)])
+        textField.attributedPlaceholder = NSAttributedString.init(string: detail, attributes: [NSFontAttributeName:App_Theme_PinFan_R_13_Font!,NSForegroundColorAttributeName:UIColor.init(hexString: App_Theme_DDE0E5_Color)])
     }
     
     func hideLineLabel() {
@@ -178,13 +168,13 @@ class GloabTitleAndDetailImageCell: UITableViewCell {
     
     func setUpView() {
         titleLabel = UILabel()
-        titleLabel.font = GlobalCell_Title_Font
-        titleLabel.textColor = UIColor.init(hexString: GlobalCell_Title_Color)
+        titleLabel.font = App_Theme_PinFan_R_13_Font
+        titleLabel.textColor = UIColor.init(hexString: App_Theme_384249_Color)
         self.contentView.addSubview(titleLabel)
         
         detailLabel = UILabel()
-        detailLabel.font = GlobalCell_Detail_Font
-        detailLabel.textColor = UIColor.init(hexString: GlobalCell_Detail_Color)
+        detailLabel.font = App_Theme_PinFan_R_13_Font
+        detailLabel.textColor = UIColor.init(hexString: App_Theme_8A96A2_Color)
         self.contentView.addSubview(detailLabel)
         
         detailImage = UIImageView()
@@ -201,9 +191,9 @@ class GloabTitleAndDetailImageCell: UITableViewCell {
         self.titleLabel.text = title
         detailLabel.text = detail
         if detailLabel.text == "未选择" {
-            detailLabel.textColor = UIColor.init(hexString: GlobalCell_Detail_NoSelect_Color)
+            detailLabel.textColor = UIColor.init(hexString: App_Theme_BBC1CB_Color)
         }else{
-            detailLabel.textColor = UIColor.init(hexString: GlobalCell_Detail_Color)
+            detailLabel.textColor = UIColor.init(hexString: App_Theme_8A96A2_Color)
         }
     }
     
@@ -258,8 +248,8 @@ class GloabTitleAndImageCell: UITableViewCell {
     
     func setUpView() {
         titleLabel = UILabel()
-        titleLabel.font = GlobalCell_Title_Font
-        titleLabel.textColor = UIColor.init(hexString: GlobalCell_Title_Color)
+        titleLabel.font = App_Theme_PinFan_R_13_Font
+        titleLabel.textColor = UIColor.init(hexString: App_Theme_384249_Color)
         self.contentView.addSubview(titleLabel)
         
         detailImage = UIImageView()
@@ -335,9 +325,9 @@ class GloabTextFieldCell: UITableViewCell {
     func setUpView() {
         
         textField = UITextField()
-        textField.font = GlobalCell_Title_Font
-        textField.tintColor = UIColor.init(hexString: App_Theme_BackGround_Color)
-        textField.textColor = UIColor.init(hexString: GlobalCell_Title_Color)
+        textField.font = App_Theme_PinFan_R_13_Font
+        textField.tintColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
+        textField.textColor = UIColor.init(hexString: App_Theme_384249_Color)
         self.contentView.addSubview(textField)
         
         lineLable = GloabLineView(frame: CGRectMake(15,0,SCREENWIDTH - 30, 0.5))
@@ -348,7 +338,7 @@ class GloabTextFieldCell: UITableViewCell {
     
     func setData(title:String, detail:String) {
         textField.placeholder = detail
-        textField.attributedPlaceholder = NSAttributedString.init(string: detail, attributes: [NSFontAttributeName:Home_Ticket_Introuduct_Field_Font!,NSForegroundColorAttributeName:UIColor.init(hexString: Home_Ticket_Introuduct_Field_Color)])
+        textField.attributedPlaceholder = NSAttributedString.init(string: detail, attributes: [NSFontAttributeName:App_Theme_PinFan_R_13_Font!,NSForegroundColorAttributeName:UIColor.init(hexString: App_Theme_DDE0E5_Color)])
     }
     
     func hideLineLabel() {
@@ -395,8 +385,8 @@ class GloabImageTitleAndImageCell: UITableViewCell {
     
     func setUpView() {
         titleLabel = UILabel()
-        titleLabel.font = GlobalCell_ImageTitle_Font
-        titleLabel.textColor = UIColor.init(hexString: GlobalCell_Title_Color)
+        titleLabel.font = App_Theme_PinFan_R_13_Font
+        titleLabel.textColor = UIColor.init(hexString: App_Theme_384249_Color)
         self.contentView.addSubview(titleLabel)
         
         infoImageView = UIImageView()

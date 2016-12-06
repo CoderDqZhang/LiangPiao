@@ -35,27 +35,27 @@ class TicketDescripTableViewCell: UITableViewCell {
         ticketTitle.text = "万有音乐系 陈粒《小梦大半》2016巡回演唱会"
         UILabel.changeLineSpaceForLabel(ticketTitle, withSpace: 3.0)
         ticketTitle.numberOfLines = 0
-        ticketTitle.textColor = UIColor.init(hexString: Home_Recommend_Title_Color)
-        ticketTitle.font = Home_Recommend_Title_Font
+        ticketTitle.textColor = UIColor.init(hexString: App_Theme_384249_Color)
+        ticketTitle.font = App_Theme_PinFan_R_15_Font
         self.contentView.addSubview(ticketTitle)
         
         ticketTime = UILabel()
         ticketTime.text = "2016.10.14 - 2016.11.28"
-        ticketTime.textColor = UIColor.init(hexString: Home_Recommend_Time_Color)
-        ticketTime.font = Home_Recommend_Time_Font
+        ticketTime.textColor = UIColor.init(hexString: App_Theme_A2ABB5_Color)
+        ticketTime.font = App_Theme_PinFan_R_12_Font
         ticketTime.numberOfLines = 0
         self.contentView.addSubview(ticketTime)
         
         ticketLocation = UILabel()
         ticketLocation.text = "展览馆剧场"
-        ticketLocation.textColor = UIColor.init(hexString: Home_Recommend_Time_Color)
-        ticketLocation.font = Home_Recommend_Time_Font
+        ticketLocation.textColor = UIColor.init(hexString: App_Theme_A2ABB5_Color)
+        ticketLocation.font = App_Theme_PinFan_R_12_Font
         self.contentView.addSubview(ticketLocation)
         
         appTicketState = UILabel()
         appTicketState.text = "全部在售门票，100%保真，安全交易，无票赔付"
-        appTicketState.textColor = UIColor.init(hexString: APP_State_Ticket_Color)
-        appTicketState.font = APP_State_Ticket_Font!
+        appTicketState.textColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
+        appTicketState.font = App_Theme_PinFan_R_12_Font!
         appTicketState.numberOfLines = 0
         UILabel.changeLineSpaceForLabel(appTicketState, withSpace: 3.0)
         self.contentView.addSubview(appTicketState)

@@ -21,7 +21,7 @@ class CofimTicketTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.backgroundColor = UIColor.init(hexString: Home_OrderConfirmCell_Color)
+        self.backgroundColor = UIColor.init(hexString: App_Theme_F6F7FA_Color)
         self.setUpView()
     }
     
@@ -34,34 +34,34 @@ class CofimTicketTableViewCell: UITableViewCell {
         
         ticketTitle = UILabel()
         ticketTitle.text = "万有音乐系 陈粒《小梦大半》2016巡回演唱会"
-        ticketTitle.textColor = UIColor.init(hexString: Home_OrderConfirmCell_Title_Color)
-        ticketTitle.font = Home_OrderConfirmCell_Title_Font
+        ticketTitle.textColor = UIColor.init(hexString: App_Theme_556169_Color)
+        ticketTitle.font = App_Theme_PinFan_R_14_Font
         self.contentView.addSubview(ticketTitle)
         
         ticketTime = UILabel()
         ticketTime.text = "时间：2016.12.18 20:25"
-        ticketTime.textColor = UIColor.init(hexString: Home_OrderConfirmCell_Info_Color)
-        ticketTime.font = Home_OrderConfirmCell_Info_Font
+        ticketTime.textColor = UIColor.init(hexString: App_Theme_A2ABB5_Color)
+        ticketTime.font = App_Theme_PinFan_R_12_Font
         self.contentView.addSubview(ticketTime)
         
         ticketLocation = UILabel()
         ticketLocation.text = "场馆：大隐剧院 朝阳区光华路9号世贸天阶 C 座时尚大厦5楼"
         UILabel.changeLineSpaceForLabel(ticketLocation, withSpace: 3.0)
         ticketLocation.numberOfLines = 0
-        ticketLocation.textColor = UIColor.init(hexString: Home_OrderConfirmCell_Info_Color)
-        ticketLocation.font = Home_OrderConfirmCell_Info_Font
+        ticketLocation.textColor = UIColor.init(hexString: App_Theme_A2ABB5_Color)
+        ticketLocation.font = App_Theme_PinFan_R_12_Font
         self.contentView.addSubview(ticketLocation)
         
         ticketMuch = UILabel()
         ticketMuch.text = "票面：960（480x2上下本联票）x2"
-        ticketMuch.textColor = UIColor.init(hexString: Home_OrderConfirmCell_Info_Color)
-        ticketMuch.font = Home_OrderConfirmCell_Info_Font
+        ticketMuch.textColor = UIColor.init(hexString: App_Theme_A2ABB5_Color)
+        ticketMuch.font = App_Theme_PinFan_R_12_Font
         self.contentView.addSubview(ticketMuch)
         
         ticketRow = UILabel()
         ticketRow.text = "座位：优先择座"
-        ticketRow.textColor = UIColor.init(hexString: Home_OrderConfirmCell_Info_Color)
-        ticketRow.font = Home_OrderConfirmCell_Info_Font
+        ticketRow.textColor = UIColor.init(hexString: App_Theme_A2ABB5_Color)
+        ticketRow.font = App_Theme_PinFan_R_12_Font
         self.contentView.addSubview(ticketRow)
         
         self.updateConstraintsIfNeeded()

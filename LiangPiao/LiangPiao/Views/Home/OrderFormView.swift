@@ -24,18 +24,18 @@ class ConfirmView: UIView {
     func setUpView() {
         muchInfoLabel = UILabel()
         muchInfoLabel.text = "实付金额："
-        muchInfoLabel.font = Home_PayView_Label_Font
-        muchInfoLabel.textColor = UIColor.init(hexString: Home_Ticker_Tools_Table_sColor)
+        muchInfoLabel.font = App_Theme_PinFan_R_14_Font
+        muchInfoLabel.textColor = UIColor.init(hexString: App_Theme_384249_Color)
         self.addSubview(muchInfoLabel)
         
         muchLabel = UILabel()
-        muchLabel.font = Home_PayView_Much_Font
-        muchLabel.textColor = UIColor.init(hexString: Home_ReciveView_Label_Nomal_nColor)
+        muchLabel.font = App_Theme_PinFan_R_18_Font
+        muchLabel.textColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
         muchLabel.text = "688.00"
         
         muchmLabel = UILabel()
-        muchmLabel.font = Home_PayView_MuchLabel_Font
-        muchmLabel.textColor = UIColor.init(hexString: Home_Ticker_Descrip_Color)
+        muchmLabel.font = App_Theme_PinFan_R_10_Font
+        muchmLabel.textColor = UIColor.init(hexString: App_Theme_BBC1CB_Color)
         muchmLabel.text = "元"
         self.addSubview(muchmLabel)
         
@@ -43,8 +43,8 @@ class ConfirmView: UIView {
         
         payButton = UIButton(type: .Custom)
         payButton.setTitle("提交订单", forState: .Normal)
-        payButton.backgroundColor = UIColor.init(hexString: Home_ReciveView_Label_Nomal_nColor)
-        payButton.titleLabel?.font = Home_PayView_Button_Title_Font
+        payButton.backgroundColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
+        payButton.titleLabel?.font = App_Theme_PinFan_R_15_Font
         payButton.frame = CGRectMake(SCREENWIDTH - 120, 0, 120, 49)
         self.addSubview(payButton)
         

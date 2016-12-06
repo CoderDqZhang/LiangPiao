@@ -28,7 +28,7 @@ class SettingViewController: UIViewController {
     
     func setUpView() {
         tableView = UITableView(frame: CGRectZero, style: .Grouped)
-        tableView.backgroundColor = UIColor.init(hexString: App_Theme_TableViewBackGround_Color)
+        tableView.backgroundColor = UIColor.init(hexString: App_Theme_E9EBF2_Color)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.keyboardDismissMode = .OnDrag
@@ -99,7 +99,7 @@ extension SettingViewController : UITableViewDataSource {
         default:
             let cell = tableView.dequeueReusableCellWithIdentifier("GloabTitleAndDetailCell", forIndexPath: indexPath) as! GloabTitleAndDetailCell
             cell.setData(viewModel.cellTitle(indexPath), detail: "")
-            cell.detailLabel.textColor = UIColor.init(hexString: GlobalCell_Detail_Color)
+            cell.detailLabel.textColor = UIColor.init(hexString: App_Theme_8A96A2_Color)
             cell.selectionStyle = .None
             cell.hideLineLabel()
             return cell

@@ -15,7 +15,7 @@ class MySellPagerViewController: TYTabButtonPagerController {
     var index:Int = 0
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.init(hexString: App_Theme_TableViewBackGround_Color)
+        self.view.backgroundColor = UIColor.init(hexString: App_Theme_E9EBF2_Color)
         self.navigationItem.title = "我的卖票"
         self.setUpNavigationItem()
         self.setUpPageViewControllerStyle()
@@ -26,19 +26,19 @@ class MySellPagerViewController: TYTabButtonPagerController {
 
     func setUpPageViewControllerStyle(){
         let str = "订单交易"
-        let width = str.widthWithConstrainedHeight(str, font: Home_Page_Ticket_NomalFont!, height: 20)
+        let width = str.widthWithConstrainedHeight(str, font: App_Theme_PinFan_R_13_Font!, height: 20)
         self.collectionLayoutEdging = SCREENWIDTH / 2 - width * 2 - 10
-        self.pagerBarColor = UIColor.init(hexString: TablaBarItemTitleSelectColor)
+        self.pagerBarColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
         self.cellSpacing = 67
         self.cellEdging = 10
         self.progressHeight = 2
         self.progressEdging = 0
         self.contentTopEdging = 40
-        self.normalTextFont = Home_Page_Ticket_NomalFont
-        self.selectedTextFont = Home_Page_Ticket_Font
-        self.normalTextColor = UIColor.init(hexString: Home_Page_Ticket_NomalColor)
-        self.selectedTextColor = UIColor.init(hexString: Home_Page_Ticket_Color)
-        self.selectedTextFont = Home_Page_Ticket_Font
+        self.normalTextFont = App_Theme_PinFan_R_13_Font
+        self.selectedTextFont = App_Theme_PinFan_R_13_Font
+        self.normalTextColor = UIColor.init(hexString: App_Theme_8A96A2_Color)
+        self.selectedTextColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
+        self.selectedTextFont = App_Theme_PinFan_R_13_Font
     }
     
     func setUpView(){

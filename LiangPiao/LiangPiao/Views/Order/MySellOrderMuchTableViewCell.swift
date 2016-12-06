@@ -26,18 +26,18 @@ class MySellOrderMuchTableViewCell: UITableViewCell {
     func setUpView() {
         muchInfoLabel = UILabel()
         muchInfoLabel.text = "实付金额："
-        muchInfoLabel.font = MyOrder_Much_Title_Font
-        muchInfoLabel.textColor = UIColor.init(hexString: MyOrder_Much_Title_Color)
+        muchInfoLabel.font = App_Theme_PinFan_R_12_Font
+        muchInfoLabel.textColor = UIColor.init(hexString: App_Theme_384249_Color)
         self.contentView.addSubview(muchInfoLabel)
         
         muchLabel = UILabel()
-        muchLabel.font = Home_PayView_Much_Font
-        muchLabel.textColor = UIColor.init(hexString: App_Theme_BackGround_Color)
+        muchLabel.font = App_Theme_PinFan_R_18_Font
+        muchLabel.textColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
         muchLabel.text = "688.00"
         
         muchmLabel = UILabel()
-        muchmLabel.font = MyOrder_Much_mMuch_Font
-        muchmLabel.textColor = UIColor.init(hexString: MyOrder_Much_Title_Color)
+        muchmLabel.font = App_Theme_PinFan_R_12_Font
+        muchmLabel.textColor = UIColor.init(hexString: App_Theme_384249_Color)
         muchmLabel.text = "元"
         self.contentView.addSubview(muchmLabel)
         
@@ -47,8 +47,8 @@ class MySellOrderMuchTableViewCell: UITableViewCell {
         handerButton.setTitle("立即发货", forState: .Normal)
         handerButton.layer.masksToBounds = true
         handerButton.layer.cornerRadius = 2.0
-        handerButton.backgroundColor = UIColor.init(hexString: App_Theme_BackGround_Color)
-        handerButton.titleLabel?.font = MyOrder_Much_mMuch_Button_Font
+        handerButton.backgroundColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
+        handerButton.titleLabel?.font = App_Theme_PinFan_R_13_Font
         self.contentView.addSubview(handerButton)
         
         linLabel = GloabLineView(frame: CGRectMake(15, 0, SCREENWIDTH - 30, 0.5))

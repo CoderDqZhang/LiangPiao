@@ -41,7 +41,7 @@ class FavoriteViewController: UIViewController {
         tableView.emptyDataSetDelegate = self
         tableView.separatorStyle = .None
         tableView.registerClass(RecommendTableViewCell.self, forCellReuseIdentifier: "RecommendTableViewCell")
-        tableView.backgroundColor = UIColor.init(hexString: App_Theme_TableViewBackGround_Color)
+        tableView.backgroundColor = UIColor.init(hexString: App_Theme_E9EBF2_Color)
         self.view.addSubview(tableView)
         
         tableView.snp_makeConstraints { (make) in
@@ -127,14 +127,14 @@ extension FavoriteViewController : DZNEmptyDataSetDelegate {
 
 extension FavoriteViewController :DZNEmptyDataSetSource {
     func backgroundColorForEmptyDataSet(scrollView: UIScrollView!) -> UIColor {
-        return UIColor.init(hexString: App_Theme_Empty_BackGround_Color)
+        return UIColor.init(hexString: App_Theme_F6F7FA_Color)
     }
     
     func descriptionForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
         let str = "还没有想看的演出\n先去首页看看吧"
         let attribute = NSMutableAttributedString(string: str)
-        attribute.addAttributes([NSForegroundColorAttributeName:UIColor.init(hexString: APP_State_EmptyData_Color)], range: NSRange(location: 0, length: str.length))
-        attribute.addAttributes([NSFontAttributeName:APP_State_EmptyData_Font!], range: NSRange.init(location: 0, length: str.length))
+        attribute.addAttributes([NSForegroundColorAttributeName:UIColor.init(hexString: App_Theme_DDE0E5_Color)], range: NSRange(location: 0, length: str.length))
+        attribute.addAttributes([NSFontAttributeName:App_Theme_PinFan_R_16_Font!], range: NSRange.init(location: 0, length: str.length))
         return attribute
     }
     

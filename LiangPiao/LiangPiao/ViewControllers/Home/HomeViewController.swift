@@ -21,7 +21,7 @@ class HomeViewController: BaseViewController {
     var searchViewModel = SearchViewModel.shareInstance
     var homeRefreshView = LiangPiaoHomeRefreshHeader(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 88))
     
-    var searchNavigationBar = HomeSearchNavigationBar(frame: CGRectMake(0,0,SCREENWIDTH, 64),font:Home_Navigation_Search_Font)
+    var searchNavigationBar = HomeSearchNavigationBar(frame: CGRectMake(0,0,SCREENWIDTH, 64),font:App_Theme_PinFan_L_12_Font)
     let viewModel = HomeViewModel()
     
     override func viewDidLoad() {
@@ -44,7 +44,7 @@ class HomeViewController: BaseViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.keyboardDismissMode = .OnDrag
-        tableView.backgroundColor = UIColor.init(hexString: App_Theme_TableViewBackGround_Color)
+        tableView.backgroundColor = UIColor.init(hexString: App_Theme_E9EBF2_Color)
         tableView.registerClass(HomeSearchTableViewCell.self, forCellReuseIdentifier: "HomeSearchTableViewCell")
         tableView.registerClass(HomeToolsTableViewCell.self, forCellReuseIdentifier: "HomeToolsTableViewCell")
         tableView.registerClass(HomeScrollerTableViewCell.self, forCellReuseIdentifier: "HomeScrollerTableViewCell")
@@ -118,7 +118,7 @@ extension HomeViewController : UITableViewDelegate {
         if scrollView.contentOffset.y > 165 {
             searchNavigationBar.searchField.hidden = false
             searchNavigationBar.hidden = false
-            searchNavigationBar.backgroundColor = UIColor.init(hexString: App_Theme_BackGround_Color)
+            searchNavigationBar.backgroundColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
         }else{
             searchNavigationBar.searchField.hidden = true
             searchNavigationBar.hidden = true
@@ -234,16 +234,16 @@ extension HomeViewController : UITableViewDataSource {
                     recommentTitle.frame = CGRectMake((SCREENWIDTH - 69) / 2, 30, 69, 20)
                 }
                
-                recommentTitle.textColor = UIColor.init(hexString: Home_Recommend_RecommentTitle_Color)
-                recommentTitle.font = Home_Recommend_RecommentTitle_Font
+                recommentTitle.textColor = UIColor.init(hexString: App_Theme_384249_Color)
+                recommentTitle.font = App_Theme_PinFan_M_14_Font
                 recommentTitle.text = "近期尾票"
                 cell?.contentView.addSubview(recommentTitle)
                 
                 let lineLabel = GloabLineView(frame: CGRectMake(CGRectGetMinX(recommentTitle.frame) - 50, 40, 30, 0.5))
-                lineLabel.setLineColor(UIColor.init(hexString: Custom_Line_Color))
+                lineLabel.setLineColor(UIColor.init(hexString: App_Theme_384249_Color))
                 cell?.contentView.addSubview(lineLabel)
                 let lineLabel1 = GloabLineView(frame: CGRectMake(CGRectGetMaxX(recommentTitle.frame) + 20, 40, 30, 0.5))
-                lineLabel1.setLineColor(UIColor.init(hexString: Custom_Line_Color))
+                lineLabel1.setLineColor(UIColor.init(hexString: App_Theme_384249_Color))
                 cell?.contentView.addSubview(lineLabel1)
                 cell!.selectionStyle = .None
                 return cell!

@@ -34,7 +34,7 @@ class TicketSession: UIView {
         
         label.text = title
         label.tag = tag
-        label.font = MyOrder_Much_Title_Font
+        label.font = App_Theme_PinFan_R_12_Font
         label.numberOfLines = 0
         label.frame = CGRect.init(x: 8, y: 0, width: frame.size.width - 16, height: frame.size.height)
         label.textAlignment = .Left
@@ -46,17 +46,17 @@ class TicketSession: UIView {
     func upDataType(type:NSInteger){
         switch type {
         case 1:
-            let color = UIColor.init(hexString: App_Theme_BackGround_Color)
+            let color = UIColor.init(hexString: App_Theme_4BD4C5_Color)
             label.textColor = UIColor.whiteColor()
             self.backgroundColor = color
             self.layer.borderColor = color.CGColor
         case 2:
-            let color = UIColor.init(hexString: MyOrder_Session_Enable_Color)
+            let color = UIColor.init(hexString: App_Theme_556169_Color)
             label.textColor = color
             self.backgroundColor = UIColor.whiteColor()
             self.layer.borderColor = color.CGColor
         default:
-            let color = UIColor.init(hexString: MyOrder_Session_Disble_Color)
+            let color = UIColor.init(hexString: App_Theme_DDE0E5_Color)
             label.textColor = color
             self.backgroundColor = UIColor.whiteColor()
             self.layer.borderColor = color.CGColor

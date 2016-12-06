@@ -25,7 +25,7 @@ class TicketMapTableViewCell: UITableViewCell {
     func setUpView() {
     
         ticketMap = UIView()
-        ticketMap.backgroundColor = UIColor.init(hexString: GlobalCell_Detail_Color)
+        ticketMap.backgroundColor = UIColor.init(hexString: App_Theme_8A96A2_Color)
         self.contentView.addSubview(ticketMap)
         
         self.updateConstraintsIfNeeded()
