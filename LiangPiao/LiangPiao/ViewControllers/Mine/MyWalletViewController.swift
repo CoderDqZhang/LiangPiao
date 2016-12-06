@@ -42,15 +42,24 @@ class MyWalletViewController: UIViewController {
         self.bindViewModel()
         
         let topUpButton = self.createButton(CGRect.init(x: SpaceTopUpAndWidth, y: SCREENHEIGHT - 79 - 64, width: TopUpAndWithdrawWidth, height: 49), title: "充值", backGroundColor: UIColor.whiteColor(), titleColor: UIColor.init(hexString: App_Theme_4BD4C5_Color))
+        topUpButton.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (action) in
+            NavigationPushView(self, toConroller: TopUpViewController())
+        }
         self.view.addSubview(topUpButton)
         
         let withdraw = self.createButton(CGRect.init(x: SpaceTopUpAndWidth + CGRectGetMaxX(topUpButton.frame), y: SCREENHEIGHT - 79 - 64, width: TopUpAndWithdrawWidth, height: 49), title: "提现", backGroundColor: UIColor.init(hexString: App_Theme_4BD4C5_Color), titleColor: UIColor.whiteColor())
+        withdraw.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (action) in
+            NavigationPushView(self, toConroller: WithDrawViewController())
+        }
         self.view.addSubview(withdraw)
         
         let ruleButton = UIButton(type: .Custom)
         ruleButton.setTitleColor(UIColor.init(hexString: App_Theme_4BD4C5_Color), forState: .Normal)
         ruleButton.titleLabel?.font = App_Theme_PinFan_R_13_Font
         ruleButton.setTitle("查看规则说明", forState: .Normal)
+        ruleButton.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (action) in
+            NavigationPushView(self, toConroller: MyWallRuleViewController())
+        }
         self.view.addSubview(ruleButton)
         
         ruleButton.snp_makeConstraints { (make) in
@@ -142,6 +151,9 @@ extension MyWalletViewController : UITableViewDataSource {
         switch indexPath.row {
         case 0:
             let cell = tableView.dequeueReusableCellWithIdentifier("MyWallHeaderTableViewCell", forIndexPath: indexPath) as! MyWallHeaderTableViewCell
+            cell.detailBtn.rac_signalForControlEvents(.TouchUpInside).subscribeNext({ (action) in
+                NavigationPushView(self, toConroller: DetailAccountViewController())
+            })
             cell.selectionStyle = .None
             return cell
         default:

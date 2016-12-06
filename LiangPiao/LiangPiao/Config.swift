@@ -43,4 +43,5 @@ let App_Theme_PinFan_R_16_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(16
 let App_Theme_PinFan_R_17_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(17.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 17.0)
 let App_Theme_PinFan_R_18_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(18.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 18.0)
 let App_Theme_PinFan_R_21_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(21.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 21.0)
+let App_Theme_PinFan_R_28_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(28.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 28.0)
 let App_Theme_PinFan_R_50_Font = IPHONE_VERSION > 9 ? UIFont.systemFontOfSize(50.0):UIFont.init(name: ".HelveticaNeueInterface-Regular", size: 50.0)

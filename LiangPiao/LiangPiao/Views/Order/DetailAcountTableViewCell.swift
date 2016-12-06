@@ -33,6 +33,7 @@ class DetailAcountTableViewCell: UITableViewCell {
         muchLabel.font = App_Theme_PinFan_R_15_Font
         muchLabel.textColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
         muchLabel.text = "+688.00"
+        self.contentView.addSubview(muchLabel)
         
         timeLabel = UILabel()
         timeLabel.font = App_Theme_PinFan_R_12_Font
@@ -40,7 +41,7 @@ class DetailAcountTableViewCell: UITableViewCell {
         timeLabel.text = "2016.12.18 20:25"
         self.contentView.addSubview(timeLabel)
         
-        linLabel = GloabLineView(frame: CGRectMake(15, 0, SCREENWIDTH - 30, 0.5))
+        linLabel = GloabLineView(frame: CGRectMake(15, 64.5, SCREENWIDTH - 30, 0.5))
         self.contentView.addSubview(linLabel)
         
         self.updateConstraintsIfNeeded()
@@ -54,7 +55,7 @@ class DetailAcountTableViewCell: UITableViewCell {
             })
             
             timeLabel.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.muchLabel.snp_right).offset(15)
+                make.left.equalTo(self.contentView.snp_left).offset(15)
                 make.top.equalTo(self.muchInfoLabel.snp_bottom).offset(2)
             })
             
@@ -62,6 +63,12 @@ class DetailAcountTableViewCell: UITableViewCell {
                 make.right.equalTo(self.contentView.snp_right).offset(-15)
                 make.centerY.equalTo(self.contentView.snp_centerY).offset(-4)
             })
+            
+//            linLabel.snp_makeConstraints(closure: { (make) in
+//                make.left.equalTo(self.contentView.snp_left).offset(15)
+//                make.right.equalTo(self.contentView.snp_right).offset(-15)
+//                make.bottom.equalTo(self.contentView.snp_bottom).offset(0)
+//            })
             
             self.didMakeConstraints = true
         }

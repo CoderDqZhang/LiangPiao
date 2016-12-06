@@ -112,12 +112,16 @@ class OrderConfirmViewModel: NSObject {
                 return "配送方式"
             }
         default:
-            switch indexPath.row {
-            case 0:
-                return "微信支付"
-            default:
-                return "支付宝"
+            if WXApi.isWXAppInstalled() {
+                switch indexPath.row {
+                case 0:
+                    return "微信支付"
+                default:
+                    return "支付宝"
+                }
             }
+            return "支付宝"
+            
         }
     }
     
@@ -184,7 +188,10 @@ class OrderConfirmViewModel: NSObject {
         case 1:
             return 5
         default:
-            return 2
+            if WXApi.isWXAppInstalled() {
+                return 2
+            }
+            return 1
         }
     }
     

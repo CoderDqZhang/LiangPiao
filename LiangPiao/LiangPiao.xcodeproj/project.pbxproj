@@ -104,6 +104,10 @@
 		1F6BB9961DD964F900893932 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F6BB9951DD964F900893932 /* libsqlite3.0.tbd */; };
 		1F6BB9B81DD9974300893932 /* OrderAddressTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6BB9B71DD9974300893932 /* OrderAddressTableViewCell.swift */; };
 		1F80A65C1DE6905400DA51AB /* ErrorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F80A65B1DE6905400DA51AB /* ErrorModel.swift */; };
+		1F889EE71DF6A469009717DB /* MyWallRuleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F889EE61DF6A469009717DB /* MyWallRuleViewController.swift */; };
+		1F889EE91DF6ABFA009717DB /* WithDrawTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F889EE81DF6ABFA009717DB /* WithDrawTableViewCell.swift */; };
+		1F889EEB1DF6BC71009717DB /* TopUpTypeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F889EEA1DF6BC71009717DB /* TopUpTypeTableViewCell.swift */; };
+		1F889EED1DF6BC7F009717DB /* TopUpMuchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F889EEC1DF6BC7F009717DB /* TopUpMuchTableViewCell.swift */; };
 		1F8AA0B61DD34B1700587C24 /* AboutUsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8AA0B51DD34B1700587C24 /* AboutUsViewController.swift */; };
 		1F8AA0B81DD475C000587C24 /* ReciveTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8AA0B71DD475C000587C24 /* ReciveTableViewCell.swift */; };
 		1FA708831DEBCD7400FCCAEB /* TicketDescriptionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA708821DEBCD7400FCCAEB /* TicketDescriptionModel.swift */; };
@@ -320,6 +324,10 @@
 		1F6BB9951DD964F900893932 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		1F6BB9B71DD9974300893932 /* OrderAddressTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderAddressTableViewCell.swift; path = ../../ViewModels/Home/OrderAddressTableViewCell.swift; sourceTree = "<group>"; };
 		1F80A65B1DE6905400DA51AB /* ErrorModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorModel.swift; sourceTree = "<group>"; };
+		1F889EE61DF6A469009717DB /* MyWallRuleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyWallRuleViewController.swift; sourceTree = "<group>"; };
+		1F889EE81DF6ABFA009717DB /* WithDrawTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WithDrawTableViewCell.swift; sourceTree = "<group>"; };
+		1F889EEA1DF6BC71009717DB /* TopUpTypeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopUpTypeTableViewCell.swift; sourceTree = "<group>"; };
+		1F889EEC1DF6BC7F009717DB /* TopUpMuchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopUpMuchTableViewCell.swift; sourceTree = "<group>"; };
 		1F8AA0B51DD34B1700587C24 /* AboutUsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutUsViewController.swift; sourceTree = "<group>"; };
 		1F8AA0B71DD475C000587C24 /* ReciveTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReciveTableViewCell.swift; sourceTree = "<group>"; };
 		1FA708821DEBCD7400FCCAEB /* TicketDescriptionModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketDescriptionModel.swift; sourceTree = "<group>"; };
@@ -540,6 +548,9 @@
 				1FEE7EAA1DF65A9B00479648 /* MyWallHeaderTableViewCell.swift */,
 				1FEE7EAC1DF65AAF00479648 /* MyWallToolsTableViewCell.swift */,
 				1FEE7EBC1DF6907C00479648 /* DetailAcountTableViewCell.swift */,
+				1F889EE81DF6ABFA009717DB /* WithDrawTableViewCell.swift */,
+				1F889EEA1DF6BC71009717DB /* TopUpTypeTableViewCell.swift */,
+				1F889EEC1DF6BC7F009717DB /* TopUpMuchTableViewCell.swift */,
 			);
 			path = Order;
 			sourceTree = "<group>";
@@ -960,11 +971,12 @@
 				1F0EAB901DD1E8F200D25B64 /* SettingViewController.swift */,
 				1F8AA0B51DD34B1700587C24 /* AboutUsViewController.swift */,
 				1F5B1CA71DF115880073E770 /* UserProtocolViewController.swift */,
-				1F451F021DF5092E00441044 /* MyWalletViewController.swift */,
 				1F451F041DF5094000441044 /* MySellOrderViewController.swift */,
 				1F451F0B1DF50D0B00441044 /* MySellManagerViewController.swift */,
 				1F451F091DF50CED00441044 /* MySellPagerViewController.swift */,
 				1FEE7EA01DF5534A00479648 /* MyTicketPutUpViewController.swift */,
+				1F451F021DF5092E00441044 /* MyWalletViewController.swift */,
+				1F889EE61DF6A469009717DB /* MyWallRuleViewController.swift */,
 				1FEE7EB41DF68CF500479648 /* DetailAccountViewController.swift */,
 				1FEE7EB01DF68C4A00479648 /* TopUpViewController.swift */,
 				1FEE7EB21DF68CAA00479648 /* WithDrawViewController.swift */,
@@ -1358,6 +1370,7 @@
 				1FEE7EAB1DF65A9B00479648 /* MyWallHeaderTableViewCell.swift in Sources */,
 				1F24DE971DD5BA0A00C6E8CA /* FavoriteViewModel.swift in Sources */,
 				1F36E1A71DF0509900565D1A /* SearchViewModel.swift in Sources */,
+				1F889EEB1DF6BC71009717DB /* TopUpTypeTableViewCell.swift in Sources */,
 				1F54C52E1DDC3A61009ADDA9 /* JKDBHelper.m in Sources */,
 				1FD245021DC2FD9700AFD3BC /* NSString+Utils.m in Sources */,
 				1F0EAB7B1DD0AE2300D25B64 /* OrderPayTableViewCell.swift in Sources */,
@@ -1399,6 +1412,7 @@
 				1FBFC7E51DDABD48008D9CEC /* FMTokenizers.m in Sources */,
 				1FD245061DC2FD9700AFD3BC /* NSFileManager+Paths.m in Sources */,
 				1F67D1141DCD867A00378116 /* AddressTableViewCell.swift in Sources */,
+				1F889EED1DF6BC7F009717DB /* TopUpMuchTableViewCell.swift in Sources */,
 				1FBFC7E81DDABD48008D9CEC /* FMDatabaseVariadic.swift in Sources */,
 				1F67D10E1DCD816000378116 /* AddressViewController.swift in Sources */,
 				1F3241951DF028E7007BC078 /* FavorityModel.swift in Sources */,
@@ -1407,6 +1421,7 @@
 				1FEE7E991DF51A1300479648 /* MySellOrderMuchTableViewCell.swift in Sources */,
 				1F62F25B1DC9C50300B591F1 /* HomeViewModel.swift in Sources */,
 				1FC4FEED1DC8A32E00EBFD18 /* TYTabTitleViewCell.m in Sources */,
+				1F889EE91DF6ABFA009717DB /* WithDrawTableViewCell.swift in Sources */,
 				1FAA85201DE5C3BC00F77835 /* Tools.swift in Sources */,
 				1F1FE8CC1DF00DDE0034268F /* DiscountViewController.swift in Sources */,
 				1FBFC7E41DDABD48008D9CEC /* FMDatabase+FTS3.m in Sources */,
@@ -1432,6 +1447,7 @@
 				1FEE7EA71DF55A6300479648 /* TiketPickeUpInfoTableViewCell.swift in Sources */,
 				1FD244E71DC2FD3D00AFD3BC /* AlertControl+Tools.swift in Sources */,
 				1FEE7EB11DF68C4A00479648 /* TopUpViewController.swift in Sources */,
+				1F889EE71DF6A469009717DB /* MyWallRuleViewController.swift in Sources */,
 				1FD245A51DC3574800AFD3BC /* MineViewController.swift in Sources */,
 				1FEE7EBB1DF68EEE00479648 /* WithDrawViewModel.swift in Sources */,
 				1FD245101DC2FE8900AFD3BC /* Config.swift in Sources */,

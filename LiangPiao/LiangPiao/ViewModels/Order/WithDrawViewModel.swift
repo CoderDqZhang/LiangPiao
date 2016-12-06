@@ -10,6 +10,7 @@ import UIKit
 
 class WithDrawViewModel: NSObject {
 
+    let cellTitleStrs = ["支付宝账户","支付宝姓名"]
     override init() {
         
     }
@@ -27,7 +28,11 @@ class WithDrawViewModel: NSObject {
         }
     }
     
+    func cellTitle(indexPath:NSIndexPath) -> String {
+        return cellTitleStrs[indexPath.row]
+    }
+    
     func tableViewHeightForRow(indexPath:NSIndexPath) ->CGFloat {
-        return 51
+        return 49
     }
 }

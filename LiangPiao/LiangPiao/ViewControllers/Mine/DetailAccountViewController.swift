@@ -16,12 +16,14 @@ class DetailAccountViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "明细"
+        self.talKingDataPageName = "明细"
         self.setUpNavigationItem()
+        self.setUpView()
         // Do any additional setup after loading the view.
     }
 
     func setUpView() {
-        tableView = UITableView(frame: CGRectZero, style: .Grouped)
+        tableView = UITableView(frame: CGRectZero, style: .Plain)
         tableView.backgroundColor = UIColor.whiteColor()
         tableView.delegate = self
         tableView.dataSource = self

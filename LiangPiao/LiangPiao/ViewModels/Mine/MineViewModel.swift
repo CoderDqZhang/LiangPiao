@@ -86,7 +86,7 @@ class MineViewModel: NSObject {
         case 3:
             return UIImage.init(named: "Icon_Address")!
         case 4:
-            return UIImage.init(named: "Icon_Address")!
+            return UIImage.init(named: "Icon_Settings")!
         default:
             return UIImage.init(named: "Icon_Settings")!
         }
@@ -104,6 +104,7 @@ class MineViewModel: NSObject {
         default:
             if indexPath.row == 4 {
                 NavigationPushView(controller, toConroller: SettingViewController())
+                return
             }else{
                 if !UserInfoModel.isLoggedIn() {
                     NavigationPushView(controller, toConroller: LoginViewController())

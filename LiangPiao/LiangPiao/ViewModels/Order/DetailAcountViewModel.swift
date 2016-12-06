@@ -19,7 +19,7 @@ class DetailAcountViewModel: NSObject {
     }
     
     func numbrOfRowInSection(section:Int) ->Int {
-        return 10
+        return 5
     }
     
     func tableViewHeightForRow(indexPath:NSIndexPath) ->CGFloat {

@@ -313,21 +313,28 @@ extension TicketConfirmViewController : UITableViewDataSource {
             
         default:
             let cell = tableView.dequeueReusableCellWithIdentifier("GloabTitleAndImageCell", forIndexPath: indexPath) as! GloabTitleAndImageCell
-            if indexPath.row == 1 {
-                cell.hideLineLabel()
-                if viewModel.orderForme.payType == .aliPay {
-                    cell.setData(viewModel.configCellLabel(indexPath), isSelect: true)
+            if WXApi.isWXAppInstalled() {
+                if indexPath.row == 1 {
+                    cell.hideLineLabel()
+                    if viewModel.orderForme.payType == .aliPay {
+                        cell.setData(viewModel.configCellLabel(indexPath), isSelect: true)
+                    }else{
+                        cell.setData(viewModel.configCellLabel(indexPath), isSelect: false)
+                    }
+                    
                 }else{
-                    cell.setData(viewModel.configCellLabel(indexPath), isSelect: false)
+                    if viewModel.orderForme.payType == .weiChat {
+                        cell.setData(viewModel.configCellLabel(indexPath), isSelect: true)
+                    }else{
+                        cell.setData(viewModel.configCellLabel(indexPath), isSelect: false)
+                    }
                 }
-
             }else{
-                if viewModel.orderForme.payType == .weiChat {
-                    cell.setData(viewModel.configCellLabel(indexPath), isSelect: true)
-                }else{
-                    cell.setData(viewModel.configCellLabel(indexPath), isSelect: false)
-                }
+                viewModel.orderForme.payType = .aliPay
+                cell.setData(viewModel.configCellLabel(indexPath), isSelect: true)
+                cell.hideLineLabel()
             }
+            
             cell.selectionStyle = .None
             
             return cell
