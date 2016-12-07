@@ -24,7 +24,7 @@ class AddAddressViewController: UIViewController {
     var models:AddressModel?
     var type:AddAddressViewControllerType = .AddType
     
-    var cell:SetNomalAddressTableViewCell!
+    var cell:GloabTitleAndSwitchBarTableViewCell!
     
     var reloadAddressViewClouse:ReloadAddressViewClouse!
     
@@ -71,7 +71,7 @@ class AddAddressViewController: UIViewController {
         tableView.backgroundColor = UIColor.init(hexString: App_Theme_E9EBF2_Color)
         tableView.registerClass(GloabTitleAndDetailImageCell.self, forCellReuseIdentifier: "GloabTitleAndDetailImageCell")
         tableView.registerClass(DetailAddressTableViewCell.self, forCellReuseIdentifier: "DetailAddressTableViewCell")
-        tableView.registerClass(SetNomalAddressTableViewCell.self, forCellReuseIdentifier: "SetNomalAddressTableViewCell")
+        tableView.registerClass(GloabTitleAndSwitchBarTableViewCell.self, forCellReuseIdentifier: "GloabTitleAndSwitchBarTableViewCell")
         self.view.addSubview(tableView)
         if type == .EditType {
             deleteView = GloableBottomButtonView.init(frame: nil, title: "删除收货地址", tag: 1, action: { (tag) in
@@ -235,7 +235,8 @@ extension AddAddressViewController : UITableViewDataSource {
                 return cell
             }
         default:
-            cell = tableView.dequeueReusableCellWithIdentifier("SetNomalAddressTableViewCell", forIndexPath: indexPath) as! SetNomalAddressTableViewCell
+            cell = tableView.dequeueReusableCellWithIdentifier("GloabTitleAndSwitchBarTableViewCell", forIndexPath: indexPath) as! GloabTitleAndSwitchBarTableViewCell
+            cell.hidderLineLabel()
             if type == .EditType {
                 if models != nil {
                     cell.switchBar.setOn((models?.defaultField)!, animated: true)

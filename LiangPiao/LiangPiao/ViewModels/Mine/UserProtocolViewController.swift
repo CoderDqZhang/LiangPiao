@@ -16,7 +16,7 @@ class UserProtocolViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "用户协议"
+        self.navigationItem.title =  "用户协议"
         self.setNavigationItemBack()
         self.view.backgroundColor = UIColor.whiteColor()
         webView = WKWebView(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: SCREENHEIGHT - 64))

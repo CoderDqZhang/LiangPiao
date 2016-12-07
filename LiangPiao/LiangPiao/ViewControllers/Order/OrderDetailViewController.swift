@@ -71,7 +71,7 @@ class OrderDetailViewController: UIViewController {
     }
     
     func setNavigationItem() {
-        self.title = "订单详情"
+        self.navigationItem.title =  "订单详情"
         self.setNavigationItemBack()
         if viewModel.model.deliveryType != 1 {
             self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "联系商家", style: .Plain, target: self, action: #selector(OrderDetailViewController.rightBarItemPress(_:)))

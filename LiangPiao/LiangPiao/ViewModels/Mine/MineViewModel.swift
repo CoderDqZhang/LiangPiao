@@ -103,7 +103,8 @@ class MineViewModel: NSObject {
         
         default:
             if indexPath.row == 4 {
-                NavigationPushView(controller, toConroller: SettingViewController())
+                NavigationPushView(controller, toConroller: OrderDeliveryTypeViewController())
+//                NavigationPushView(controller, toConroller: SettingViewController())
                 return
             }else{
                 if !UserInfoModel.isLoggedIn() {

@@ -17,7 +17,7 @@ class DiscountViewController: UIViewController {
         self.setUpView()
         self.view.backgroundColor = UIColor.init(hexString: "F6F7FA")
         self.setNavigationItemBack()
-        self.title = "优惠券"
+        self.navigationItem.title =  "优惠券"
         self.talKingDataPageName = "优惠券"
         // Do any additional setup after loading the view.
     }

@@ -20,7 +20,7 @@ class MyWalletViewController: UIViewController {
         super.viewDidLoad()
         self.setUpNavigationItem()
         self.setUpView()
-        self.title = "账户钱包"
+        self.navigationItem.title =  "账户钱包"
         self.talKingDataPageName = "账户钱包"
         // Do any additional setup after loading the view.
     }

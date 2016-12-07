@@ -20,6 +20,7 @@ class TicketSession: UIView {
     var label = UILabel()
     var singTapPress:UITapGestureRecognizer!
     var clouse:TicketSessionClouse?
+    var type:NSInteger = 0
     init(frame:CGRect, title:String, tag:NSInteger, clouse:TicketSessionClouse?, type:NSInteger) {
         super.init(frame: frame)
         self.layer.borderWidth = 1.0
@@ -31,9 +32,9 @@ class TicketSession: UIView {
             singTapPress.numberOfTouchesRequired = 1
             self.addGestureRecognizer(singTapPress)
         }
-        
+        self.type = type
         label.text = title
-        label.tag = tag
+        self.tag = tag
         label.font = App_Theme_PinFan_R_12_Font
         label.numberOfLines = 0
         label.frame = CGRect.init(x: 8, y: 0, width: frame.size.width - 16, height: frame.size.height)
@@ -80,7 +81,7 @@ let SESSIONHEIGHT:CGFloat = 50
 class PicketUpSessionTableViewCell: UITableViewCell {
 
     var scrollerView:UIScrollView!
-    
+    let sessionTitle = ["2016.12.22 14:00 星期六 上本 0张在售", "2016.12.22 14:00 星期六 上本 0张在售", "2016.12.22 14:00 星期六 上本 0张在售"]
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.setUpView()
@@ -88,12 +89,12 @@ class PicketUpSessionTableViewCell: UITableViewCell {
     
     func setUpView(){
         scrollerView = UIScrollView.init(frame: CGRect.init(x: 15, y: 0, width: SCREENWIDTH - 30, height: 90))
-        let sessionTitle = ["2016.12.22 14:00 星期六 上本 0张在售", "2016.12.22 14:00 星期六 上本 0张在售", "2016.12.22 14:00 星期六 上本 0张在售"]
+        
         let sessionTitleStyle = [0, 2, 1]
         var OriginX:CGFloat = 0
         for index in 0...sessionTitle.count - 1 {
-            let sessionView = TicketSession.init(frame: CGRect.init(x: OriginX, y: 20, width: SESSIONWIDTH, height: SESSIONHEIGHT), title: sessionTitle[index], tag: index, clouse: { (tag) in
-                
+            let sessionView = TicketSession.init(frame: CGRect.init(x: OriginX, y: 20, width: SESSIONWIDTH, height: SESSIONHEIGHT), title: sessionTitle[index], tag: index + 10, clouse: { (tag) in
+                    self.updateSession(tag)
                 }, type: sessionTitleStyle[index])
             OriginX = CGRectGetMaxX(sessionView.frame) + 10
             scrollerView.addSubview(sessionView)
@@ -103,6 +104,22 @@ class PicketUpSessionTableViewCell: UITableViewCell {
         self.contentView.addSubview(scrollerView)
         
     }
+    
+    func updateSession(tag:Int){
+        for index in 0...sessionTitle.count - 1 {
+            let sesstion = scrollerView.viewWithTag(index + 10) as! TicketSession
+            if index + 10 == tag {
+                sesstion.upDataType(1)
+            }else{
+                if sesstion.type != 0 {
+                    sesstion.upDataType(2)
+                }
+            }
+        }
+        self.updateConstraintsIfNeeded()
+    }
+    
+    
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
