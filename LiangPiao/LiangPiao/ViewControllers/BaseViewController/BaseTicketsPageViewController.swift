@@ -43,10 +43,7 @@ class BaseTicketsPageViewController: UIViewController {
         self.view.addSubview(tableView)
         
         tableView.snp_makeConstraints { (make) in
-            make.top.equalTo(self.view.snp_top).offset(0)
-            make.left.equalTo(self.view.snp_left).offset(0)
-            make.right.equalTo(self.view.snp_right).offset(0)
-            make.bottom.equalTo(self.view.snp_bottom).offset(0)
+            make.edges.equalTo(UIEdgeInsetsMake(0, 0, 0, 0))
         }
         self.setUpRefreshView()
     }

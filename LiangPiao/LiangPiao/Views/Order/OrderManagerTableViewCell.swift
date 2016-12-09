@@ -19,7 +19,7 @@ class TicketImageViews: UIView {
     
     init(imageUrl:String, frame:CGRect, type:TicketImageViewsType?) {
         super.init(frame: frame)
-        imageView.frame = CGRect.init(x: 0, y: 8, width: frame.size.width, height: frame.size.height)
+        imageView.frame = CGRect.init(x: 0, y: 8, width: frame.size.width, height: frame.size.height - 8)
         imageViewSplash1.frame = CGRect.init(x: 8, y: 0, width: frame.size.width - 16, height: (frame.size.width - 16) * frame.size.height / frame.size.width)
         imageViewSplash2.frame = CGRect.init(x: 4, y: 4, width: frame.size.width - 8, height: (frame.size.width - 8) * frame.size.height / frame.size.width)
         self.addSubview(imageViewSplash1)
@@ -77,10 +77,9 @@ class OrderManagerTableViewCell: UITableViewCell {
 
     var ticketPhoto:TicketImageViews!
     var ticketTitle:UILabel!
-    var ticketStatusView:GlobalTicketStatus!
+    var ticketRow:UILabel!
     var ticketTime:UILabel!
     var ticketMuch:UILabel!
-    var ticketRow:UILabel!
     var ticketSelledNumber:UILabel!
     
     var tickType:OrderType = .orderWaitPay
@@ -105,9 +104,6 @@ class OrderManagerTableViewCell: UITableViewCell {
         ticketTitle.numberOfLines = 0
         self.contentView.addSubview(ticketTitle)
         
-        ticketStatusView = GlobalTicketStatus(frame: CGRectZero, titles: ["售卖中   ","在售2张   "], types: nil)
-        self.contentView.addSubview(ticketStatusView)
-        
         ticketTime = UILabel()
         ticketTime.text = "场次：2016.12.18-2016.12.20"
         ticketTime.textColor = UIColor.init(hexString: App_Theme_8A96A2_Color)
@@ -121,7 +117,7 @@ class OrderManagerTableViewCell: UITableViewCell {
         self.contentView.addSubview(ticketMuch)
         
         ticketRow = UILabel()
-        ticketRow.text = "区域：看台一区、北门贵宾席、上层看台、内…"
+        ticketRow.text = "座位：2016.12.18-2016.12.20"
         ticketRow.textColor = UIColor.init(hexString: App_Theme_8A96A2_Color)
         ticketRow.font = App_Theme_PinFan_R_12_Font
         self.contentView.addSubview(ticketRow)
@@ -136,36 +132,29 @@ class OrderManagerTableViewCell: UITableViewCell {
         
     }
     
-    func setData(model:OrderList){
-        if model.status == 0 {
-            ticketPhoto.snp_updateConstraints(closure: { (make) in
-                make.bottom.equalTo(self.contentView.snp_bottom).offset(-18)
-            })
-            ticketSelledNumber.snp_updateConstraints(closure: { (make) in
-                make.bottom.equalTo(self.contentView.snp_bottom).offset(-18)
-            })
-        }else{
-            ticketPhoto.snp_updateConstraints(closure: { (make) in
-                make.bottom.equalTo(self.contentView.snp_bottom).offset(-30)
-            })
-            ticketSelledNumber.snp_updateConstraints(closure: { (make) in
-                make.bottom.equalTo(self.contentView.snp_bottom).offset(-30)
-            })
-        }
+    func setData(title:String, cover:String, session:String, much:String, ticketCount:String, soldCount:String, isMoreTicket:Bool){
         
-        ticketTitle.text = model.show.title
-        ticketTime.text = "时间：\(model.session.startTime)"
-        ticketMuch.text = "票面：\(model.ticket.originalTicket.name) x \(model.ticketCount)"
-        if model.ticket.region == "" {
-            ticketRow.text = "座位：择优分配"
+        ticketTitle.text = title
+        ticketTime.text = "场次：\(session)"
+        ticketMuch.text = "票面：\(much)"
+        ticketSelledNumber.text = "在售：\(ticketCount)   已售：\(soldCount)"
+        if isMoreTicket {
+            ticketRow.hidden = true
+            ticketMuch.snp_remakeConstraints(closure: { (make) in
+                make.bottom.equalTo(self.ticketSelledNumber.snp_top).offset(-2)
+                make.left.equalTo(self.ticketPhoto.snp_right).offset(12)
+            })
+            ticketPhoto.setImageType(cover, type: .TwoOrMore)
         }else{
-            let row = model.ticket.row == "" ? "择优分配":"\(model.ticket.row)排"
-            ticketRow.text = "座位：\(model.ticket.region) \(row)"
+            ticketRow.hidden = false
+            ticketMuch.snp_remakeConstraints(closure: { (make) in
+                make.bottom.equalTo(self.ticketRow.snp_top).offset(-2)
+                make.left.equalTo(self.ticketPhoto.snp_right).offset(12)
+            })
+            ticketPhoto.setImageType(cover, type: .OneImage)
         }
-        ticketSelledNumber.text = "实付金额：\(model.total)"
+        self.updateConstraintsIfNeeded()
     }
-    
-    //    func setSellData(mode)
     
     override func updateConstraints() {
         if !self.didMakeConstraints {
@@ -180,13 +169,7 @@ class OrderManagerTableViewCell: UITableViewCell {
                 make.left.equalTo(self.ticketPhoto.snp_right).offset(12)
                 make.right.equalTo(self.contentView.snp_right).offset(-15)
             })
-            
-            ticketStatusView.snp_makeConstraints(closure: { (make) in
-                make.top.equalTo(self.ticketTitle.snp_bottom).offset(6)
-                make.left.equalTo(self.ticketPhoto.snp_right).offset(12)
-                make.height.equalTo(16)
-            })
-            
+                        
             ticketTime.snp_makeConstraints(closure: { (make) in
                 make.bottom.equalTo(self.ticketMuch.snp_top).offset(-2)
                 make.left.equalTo(self.ticketPhoto.snp_right).offset(12)
@@ -196,6 +179,7 @@ class OrderManagerTableViewCell: UITableViewCell {
             ticketMuch.snp_makeConstraints(closure: { (make) in
                 make.bottom.equalTo(self.ticketRow.snp_top).offset(-2)
                 make.left.equalTo(self.ticketPhoto.snp_right).offset(12)
+                make.right.equalTo(self.contentView.snp_right).offset(-15)
             })
             
             ticketRow.snp_makeConstraints(closure: { (make) in

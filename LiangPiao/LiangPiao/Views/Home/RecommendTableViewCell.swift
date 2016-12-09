@@ -100,14 +100,14 @@ class RecommendTableViewCell: UITableViewCell {
     func setUpTicketStatues(model:HomeTicketModel){
         var statuesArray:[String] = []
         if model.minDiscount != "" && Double(model.minDiscount) < 1 && Double(model.minDiscount) > 0{
-            statuesArray.append("\((Double(model.minDiscount)! * 10))折   ")
+            statuesArray.append("\((Double(model.minDiscount)! * 10))折")
         }
         if model.ticketCount != 0 {
-            let str = model.ticketCount >= 20 ? "剩余\(model.ticketCount)张   " : "最后\(model.ticketCount)张   "
+            let str = model.ticketCount >= 20 ? "剩余\(model.ticketCount)张" : "最后\(model.ticketCount)张"
             statuesArray.append(str)
         }
         if model.ticketStatus == 0 {
-            statuesArray.append("预售中   ")
+            statuesArray.append("预售中")
             self.setUpStatuesView(statuesArray, types: [statuesArray.count])
         }else{
             if statuesArray.count > 0 {

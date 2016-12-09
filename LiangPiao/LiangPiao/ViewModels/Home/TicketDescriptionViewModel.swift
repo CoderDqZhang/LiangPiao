@@ -17,7 +17,7 @@ class TicketDescriptionViewModel: NSObject {
     var tempList:[TicketList]!
     var sesstionModel:TicketSessionModel!
     
-    var ticketPriceArray:NSArray = NSArray()
+    var ticketPriceArray:NSMutableArray = NSMutableArray()
     var ticketRowArray:NSArray = NSArray()
     
     override init() {
@@ -25,13 +25,16 @@ class TicketDescriptionViewModel: NSObject {
     }
     
     func getPriceArray(array:[TicketList]){
-        let arrays = NSMutableArray()
-        for array in array {
-            arrays.addObject(array.originalTicket.name)
+        let sortArray = array.sort { (oldList, newList) -> Bool in
+            return oldList.originalTicket.price < newList.originalTicket.price
         }
-        let set = NSSet(array: arrays as [AnyObject])
-        let sortDec = NSSortDescriptor.init(key: nil, ascending: true)
-        ticketPriceArray = set.sortedArrayUsingDescriptors([sortDec])
+        var minPrice = 0
+        for list in sortArray {
+            if minPrice < list.originalTicket.price {
+               ticketPriceArray.addObject(list.originalTicket.name)
+               minPrice = list.originalTicket.price
+            }
+        }
     }
     
     func getRowArray(array:[TicketList]){
@@ -92,7 +95,7 @@ class TicketDescriptionViewModel: NSObject {
     }
     
     func configCellTicketNumberTableViewCell(cell:TicketNumberTableViewCell){
-        cell.numberTickView.numberLabel.rac_observeKeyPath("text", options: .New, observer: nil) { (object, objects,isNew, isOld) in
+        cell.numberTickView.numberTextField.rac_observeKeyPath("text", options: .New, observer: nil) { (object, objects,isNew, isOld) in
             self.ticketNumber = NSInteger(object as! String)!
         }
     }

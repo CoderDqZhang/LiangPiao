@@ -151,43 +151,10 @@
                     <view key="view" contentMode="scaleToFill" id="5GK-Hb-YZB">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Icon" translatesAutoresizingMaskIntoConstraints="NO" id="vgI-ca-vMS">
-                                <rect key="frame" x="102" y="132" width="116" height="106"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="106" id="Fvm-Yc-4NW"/>
-                                    <constraint firstAttribute="width" constant="116" id="Pa9-M4-f1K"/>
-                                </constraints>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="暂时可联系客服 400-873-8011 售票" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9To-gZ-xdm">
-                                <rect key="frame" x="44.5" y="337.5" width="231" height="17"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" red="0.86619329450000004" green="0.87816351650000002" blue="0.89886033539999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="即将推出" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iP6-TC-0vY">
-                                <rect key="frame" x="103" y="300" width="114" height="34"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="28"/>
-                                <color key="textColor" red="0.86619329452514648" green="0.87816351652145386" blue="0.89886033535003662" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
                         <color key="backgroundColor" red="0.96445959806442261" green="0.96848315000534058" blue="0.9808010458946228" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="vgI-ca-vMS" firstAttribute="top" secondItem="wJF-we-EH0" secondAttribute="bottom" constant="68" id="6RU-G7-tDf"/>
-                            <constraint firstItem="iP6-TC-0vY" firstAttribute="top" secondItem="vgI-ca-vMS" secondAttribute="bottom" constant="62" id="FVH-Ns-cJ8"/>
-                            <constraint firstItem="9To-gZ-xdm" firstAttribute="top" secondItem="iP6-TC-0vY" secondAttribute="bottom" constant="4" id="GtY-RT-LiJ"/>
-                            <constraint firstItem="9To-gZ-xdm" firstAttribute="centerX" secondItem="5GK-Hb-YZB" secondAttribute="centerX" id="g5c-5R-jLl"/>
-                            <constraint firstItem="iP6-TC-0vY" firstAttribute="centerX" secondItem="5GK-Hb-YZB" secondAttribute="centerX" id="qrA-O4-NiR"/>
-                            <constraint firstItem="vgI-ca-vMS" firstAttribute="centerX" secondItem="5GK-Hb-YZB" secondAttribute="centerX" id="rlB-Xb-MQw"/>
-                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="卖票" id="lJt-yi-Jdo"/>
                     <navigationItem key="navigationItem" title="卖票" id="mXO-DG-b49"/>
-                    <connections>
-                        <outlet property="logoImage" destination="vgI-ca-vMS" id="SJO-gt-xVU"/>
-                        <outlet property="serviceLabel" destination="9To-gZ-xdm" id="DBU-ZI-GGU"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1BM-D4-kLX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -302,7 +269,6 @@ marketing - zhaoming</string>
     </scenes>
     <resources>
         <image name="Homepage_Brand_Logo" width="70" height="67"/>
-        <image name="Icon" width="116" height="101"/>
         <image name="Icon_Homepage_ Selected" width="24" height="24"/>
         <image name="Icon_Homepage_Normal" width="24" height="24"/>
         <image name="Icon_Orders_Normal" width="24" height="24"/>

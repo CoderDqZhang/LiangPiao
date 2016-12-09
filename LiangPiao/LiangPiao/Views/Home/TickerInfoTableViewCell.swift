@@ -95,10 +95,10 @@ class TickerInfoTableViewCell: UITableViewCell {
     func setUpTicketStatues(model:TicketList){
         var statuesArray:[String] = []
         if model.seatType == 1{
-            statuesArray.append("连   ")
+            statuesArray.append("连")
         }
         if model.remainCount != 0 {
-            let str = model.remainCount >= 20 ? "剩余\(model.remainCount)张   " : "最后\(model.remainCount)张   "
+            let str = model.remainCount >= 20 ? "剩余\(model.remainCount)张" : "最后\(model.remainCount)张"
             statuesArray.append(str)
         }
         if statuesArray.count > 0 {

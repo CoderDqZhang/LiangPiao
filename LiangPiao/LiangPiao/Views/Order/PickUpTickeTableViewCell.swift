@@ -42,7 +42,7 @@ class PickUpTickeTableViewCell: UITableViewCell {
         ticketTitle.font = App_Theme_PinFan_R_15_Font
         self.contentView.addSubview(ticketTitle)
         
-        ticketStatusView = GlobalTicketStatus(frame: CGRectZero, titles: ["售卖中   ","在售2张   "], types: nil)
+        ticketStatusView = GlobalTicketStatus(frame: CGRectZero, titles: ["售卖中","在售2张"], types: nil)
         self.contentView.addSubview(ticketStatusView)
         
         ticketTime = UILabel()
@@ -108,14 +108,14 @@ class PickUpTickeTableViewCell: UITableViewCell {
     func setUpTicketStatues(model:TicketSessionModel){
         var statuesArray:[String] = []
         if model.minDiscount != "" && model.minDiscount != "0.0" && Double(model.minDiscount) < 1{
-            statuesArray.append("\(Double(model.minDiscount)! * 10)折   ")
+            statuesArray.append("\(Double(model.minDiscount)! * 10)折")
         }
         if model.ticketCount != 0 {
-            let str = model.ticketCount >= 20 ? "剩余\(model.ticketCount)张   " : "最后\(model.ticketCount)张   "
+            let str = model.ticketCount >= 20 ? "剩余\(model.ticketCount)张" : "最后\(model.ticketCount)张"
             statuesArray.append(str)
         }
         if model.ticketStatus == 0 {
-            statuesArray.append("预售中   ")
+            statuesArray.append("预售中")
             self.setUpStatuesView(statuesArray, types: [statuesArray.count])
         }else{
             if statuesArray.count > 0 {

@@ -59,7 +59,6 @@ class TicketCategoryViewModel: NSObject {
                     categoryModels.replaceObjectAtIndex(5, withObject: model)
                 }else{
                     categoryModels.replaceObjectAtIndex(5, withObject: model)
-
                 }
             }else if model.name == "曲苑杂技" {
                 if tempCategory.count == 5 {
@@ -107,12 +106,7 @@ class TicketCategoryViewModel: NSObject {
                 recommentTickes.nextStart = resultModels.nextStart
                 recommentTickes.showList.appendContentsOf(resultModels.showList)
                 self.reconmmendModels.replaceObjectAtIndex(self.selectIdex, withObject: recommentTickes)
-                if !resultModels.hasNext {
-//                    MainThreadAlertShow("没有更多数据了", view: controller.view)
-                    controller.tableView.mj_footer.endRefreshingWithNoMoreData()
-                }else{
-                    controller.tableView.mj_footer.endRefreshing()
-                }
+                controller.tableView.mj_footer.endRefreshing()
             }else{
                 self.reconmmendModels.replaceObjectAtIndex(index, withObject: resultModels)
             }

@@ -91,7 +91,7 @@ class MyTicketPutUpViewModel: NSObject {
     }
     
     func configCellTicketNumberTableViewCell(cell:TicketNumberTableViewCell){
-        cell.numberTickView.numberLabel.rac_observeKeyPath("text", options: .New, observer: nil) { (object, objects,isNew, isOld) in
+        cell.numberTickView.numberTextField.rac_observeKeyPath("text", options: .New, observer: nil) { (object, objects,isNew, isOld) in
             self.ticketNumber = NSInteger(object as! String)!
         }
     }

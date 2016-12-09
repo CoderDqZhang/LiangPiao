@@ -34,10 +34,7 @@ class TicketSceneViewController: UIViewController {
         self.view.addSubview(tableView)
         
         tableView.snp_makeConstraints { (make) in
-            make.top.equalTo(self.view.snp_top).offset(0)
-            make.left.equalTo(self.view.snp_left).offset(0)
-            make.right.equalTo(self.view.snp_right).offset(0)
-            make.bottom.equalTo(self.view.snp_bottom).offset(0)
+            make.edges.equalTo(UIEdgeInsetsMake(0, 0, 0, 0))
         }
         
         let navigationBar = GlobalNavigationBarView(frame: CGRectMake(0, 0, SCREENWIDTH - 150, 42), title: viewModel.model.title, detail: viewModel.model.showDate)

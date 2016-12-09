@@ -68,7 +68,7 @@ class MySellAttentionTableViewCell: UITableViewCell {
             })
             
             attentionLineView.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.contentView.snp_left).offset(-15)
+                make.left.equalTo(self.contentView.snp_left).offset(15)
                 make.height.equalTo(4)
                 make.top.equalTo(self.contentView.snp_top).offset(0)
                 make.right.equalTo(self.contentView.snp_right).offset(-15)

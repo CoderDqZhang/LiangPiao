@@ -13,7 +13,7 @@ class GlobalSearchTableView: UIView {
 
     var tableView:UITableView!
     var searchDidSelectClouse:SearchDidSelectClouse!
-    
+    var viewModel = SearchViewModel.shareInstance
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.setUpView()
@@ -29,6 +29,7 @@ class GlobalSearchTableView: UIView {
         tableView.separatorStyle = .None
         tableView.keyboardDismissMode = .OnDrag
         tableView.registerClass(RecommendTableViewCell.self, forCellReuseIdentifier: "RecommendTableViewCell")
+        tableView.registerClass(SellRecommondTableViewCell.self, forCellReuseIdentifier: "SellRecommondTableViewCell")
         self.addSubview(tableView)
         
         tableView.snp_makeConstraints { (make) in
@@ -43,29 +44,36 @@ class GlobalSearchTableView: UIView {
 }
 extension GlobalSearchTableView : UITableViewDelegate {
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return SearchViewModel.shareInstance.searchTableNumberOfSectionsInTableView()
+        return viewModel.searchTableNumberOfSectionsInTableView()
     }
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return SearchViewModel.shareInstance.searchTableTableViewHeightForRowAtIndexPath(indexPath)
+        return viewModel.searchTableTableViewHeightForRowAtIndexPath(indexPath)
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 //        if self.searchDidSelectClouse != nil {
 //            self.searchDidSelectClouse(indexPath:indexPath)
 //        }
-        return SearchViewModel.shareInstance.searchTablaTableViewDidSelectRowAtIndexPath(indexPath)
+        return viewModel.searchTablaTableViewDidSelectRowAtIndexPath(indexPath)
     }
 }
 extension GlobalSearchTableView : UITableViewDataSource {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return SearchViewModel.shareInstance.searchTableNumberOfRowsInSection(section)
+        return viewModel.searchTableNumberOfRowsInSection(section)
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("RecommendTableViewCell", forIndexPath: indexPath) as! RecommendTableViewCell
-        SearchViewModel.shareInstance.searchTableCellData(cell, indexPath: indexPath)
-        cell.selectionStyle = .None
-        return cell
+        if viewModel.searchType == .TicketShow {
+            let cell = tableView.dequeueReusableCellWithIdentifier("RecommendTableViewCell", forIndexPath: indexPath) as! RecommendTableViewCell
+            viewModel.searchTableCellData(cell, indexPath: indexPath)
+            cell.selectionStyle = .None
+            return cell
+        }else{
+            let cell = tableView.dequeueReusableCellWithIdentifier("SellRecommondTableViewCell", forIndexPath: indexPath) as! SellRecommondTableViewCell
+            viewModel.searchTableCellDatas(cell, indexPath: indexPath)
+            cell.selectionStyle = .None
+            return cell
+        }
     }
 }
 

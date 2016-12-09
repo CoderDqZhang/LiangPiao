@@ -58,7 +58,7 @@ class MyWalletViewController: UIViewController {
         ruleButton.titleLabel?.font = App_Theme_PinFan_R_13_Font
         ruleButton.setTitle("查看规则说明", forState: .Normal)
         ruleButton.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (action) in
-            NavigationPushView(self, toConroller: MyWallRuleViewController())
+            KWINDOWDS!.addSubview(GloableServiceView.init(title: "佣金说明", message: self.viewModel.messageTitle()))
         }
         self.view.addSubview(ruleButton)
         

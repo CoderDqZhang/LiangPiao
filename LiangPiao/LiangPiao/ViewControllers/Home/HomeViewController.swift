@@ -54,10 +54,7 @@ class HomeViewController: BaseViewController {
         self.view.addSubview(tableView)
         
         tableView.snp_makeConstraints { (make) in
-            make.top.equalTo(self.view.snp_top).offset(-20)
-            make.left.equalTo(self.view.snp_left).offset(0)
-            make.right.equalTo(self.view.snp_right).offset(0)
-            make.bottom.equalTo(self.view.snp_bottom).offset(0)
+            make.edges.equalTo(UIEdgeInsetsMake(-20, 0, 0, 0))
         }
     }
     
@@ -66,7 +63,7 @@ class HomeViewController: BaseViewController {
         self.view.addSubview(homeRefreshView)
         self.tableView.mj_header = MJRefreshNormalHeader(refreshingBlock: {
             self.refreshHomeData()
-            self.viewModel.requestHotTicket(self.tableView, controller: self)
+            self.viewModel.requestHotTicket(self.tableView)
         })
     }
     
@@ -81,7 +78,8 @@ class HomeViewController: BaseViewController {
     }
     
     func bindViewModel(){
-        viewModel.requestHotTicket(tableView, controller:self)
+        viewModel.requestHotTicket(tableView)
+        viewModel.controller = self
         searchViewModel.controller = self
         RACSignal.interval(1, onScheduler: RACScheduler.currentScheduler()).subscribeNext { (str) in
             
@@ -100,38 +98,28 @@ class HomeViewController: BaseViewController {
         }
     }
     
-    func navigationPushTicketPage(index:NSInteger) {
-        viewModel.navigationPushTicketPage(index, controller:self)
-    }
-}
-
-extension HomeViewController : UITableViewDelegate {
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return viewModel.tableViewHeightForRowAtIndexPath(indexPath)
-    }
-    
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        viewModel.tableViewDidSelectRowAtIndexPath(indexPath, controller:self)
-    }
-    
-    func scrollViewDidScroll(scrollView: UIScrollView) {
-        if scrollView.contentOffset.y > 165 {
+    func cancelSearchTable() {
+        self.searchNavigationBar.searchField.frame = CGRectMake(20, 27,SCREENWIDTH - 40, 30)
+        self.searchNavigationBar.cancelButton.hidden = true
+        if #available(iOS 10.0, *) {
+            searchNavigationBar.backgroundColor = UIColor.init(displayP3Red: 75.0/255.0, green: 212.0/255.0, blue: 197.0/255.0, alpha: tableView.contentOffset.y/165)
+        } else {
+            searchNavigationBar.backgroundColor = UIColor.init(red: 75.0/255.0, green: 212.0/255.0, blue: 197.0/255.0, alpha: tableView.contentOffset.y/165)
+            // Fallback on earlier versions
+        }
+        if tableView.contentOffset.y > 165 {
             searchNavigationBar.searchField.hidden = false
-            searchNavigationBar.hidden = false
-            searchNavigationBar.backgroundColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
         }else{
             searchNavigationBar.searchField.hidden = true
-            searchNavigationBar.hidden = true
         }
-        if cell != nil {
-            if scrollView.contentOffset.y < 0 {
-                cell.cellBackView.frame = CGRectMake(0, scrollView.contentOffset.y, SCREENWIDTH, 255 - scrollView.contentOffset.y)
-            }
-        }
+        searchNavigationBar.searchField.resignFirstResponder()
+        searchTableView.hidden = true
+        self.tabBarController?.tabBar.hidden = false
     }
     
     func setSearchNavigatioBarClouse(){
         searchNavigationBar.searchTextFieldBecomFirstRespoder = { _ in
+            self.searchViewModel.searchType = .TicketShow
             if self.searchTableView == nil {
                 self.searchTableView = GlobalSearchTableView(frame: CGRectMake(0, CGRectGetMaxY(self.searchNavigationBar.frame), SCREENWIDTH, SCREENHEIGHT - CGRectGetMaxY(self.searchNavigationBar.frame)))
                 self.view.addSubview(self.searchTableView)
@@ -152,23 +140,34 @@ extension HomeViewController : UITableViewDelegate {
         searchNavigationBar.searchField.becomeFirstResponder()
     }
     
-    func cancelSearchTable() {
-        self.searchNavigationBar.searchField.frame = CGRectMake(20, 27,SCREENWIDTH - 40, 30)
-        self.searchNavigationBar.cancelButton.hidden = true
-        if #available(iOS 10.0, *) {
-            searchNavigationBar.backgroundColor = UIColor.init(displayP3Red: 75.0/255.0, green: 212.0/255.0, blue: 197.0/255.0, alpha: tableView.contentOffset.y/165)
-        } else {
-            searchNavigationBar.backgroundColor = UIColor.init(red: 75.0/255.0, green: 212.0/255.0, blue: 197.0/255.0, alpha: tableView.contentOffset.y/165)
-            // Fallback on earlier versions
-        }
-        if tableView.contentOffset.y > 165 {
+    func navigationPushTicketPage(index:NSInteger) {
+        viewModel.navigationPushTicketPage(index)
+    }
+}
+
+extension HomeViewController : UITableViewDelegate {
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return viewModel.tableViewHeightForRowAtIndexPath(indexPath)
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        viewModel.tableViewDidSelectRowAtIndexPath(indexPath)
+    }
+    
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        if scrollView.contentOffset.y > 165 {
             searchNavigationBar.searchField.hidden = false
+            searchNavigationBar.hidden = false
+            searchNavigationBar.backgroundColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
         }else{
             searchNavigationBar.searchField.hidden = true
+            searchNavigationBar.hidden = true
         }
-        searchNavigationBar.searchField.resignFirstResponder()
-        searchTableView.hidden = true
-        self.tabBarController?.tabBar.hidden = false
+        if cell != nil {
+            if scrollView.contentOffset.y < 0 {
+                cell.cellBackView.frame = CGRectMake(0, scrollView.contentOffset.y, SCREENWIDTH, 255 - scrollView.contentOffset.y)
+            }
+        }
     }
 }
 

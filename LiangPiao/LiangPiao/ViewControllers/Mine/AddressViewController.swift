@@ -13,6 +13,7 @@ enum AddressType {
 }
 
 typealias AddressInfoClouse = (model:AddressModel) -> Void
+typealias ReloadConfigTableView = () ->Void
 
 class AddressViewController: UIViewController {
 
@@ -22,6 +23,7 @@ class AddressViewController: UIViewController {
     var addressType:AddressType!
     
     var addressInfoClouse:AddressInfoClouse!
+    var reloadConfigTableView:ReloadConfigTableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,6 +69,13 @@ class AddressViewController: UIViewController {
         }
         
         self.bindViewModle()
+    }
+    
+    override func backBtnPress(sender: UIButton) {
+        if reloadConfigTableView != nil {
+            reloadConfigTableView()
+        }
+        self.navigationController?.popViewControllerAnimated(true)
     }
 
     func bindViewModle(){

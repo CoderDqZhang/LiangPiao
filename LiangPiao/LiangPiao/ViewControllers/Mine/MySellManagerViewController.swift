@@ -38,21 +38,22 @@ class MySellManagerViewController: UIViewController {
         tableView.registerClass(MySellAttentionTableViewCell.self, forCellReuseIdentifier: "MySellAttentionTableViewCell")
         self.view.addSubview(tableView)
         tableView.snp_makeConstraints { (make) in
-            make.top.equalTo(self.view.snp_top).offset(0)
-            make.left.equalTo(self.view.snp_left).offset(0)
-            make.right.equalTo(self.view.snp_right).offset(0)
-            make.bottom.equalTo(self.view.snp_bottom).offset(0)
+            make.edges.equalTo(UIEdgeInsetsMake(0, 0, 0, 0))
         }
         
         self.bindViewModel()
+        self.setUpRefreshData()
         
     }
     
     func bindViewModel(){
-        //        viewModel.reloadTableView = { _ in
-        //            self.tableView.reloadRowsAtIndexPaths([NSIndexPath.init(forRow: 0, inSection: 0)], withRowAnimation: .Automatic)
-        //        }
-        
+        self.viewModel.requestOrderManager()
+    }
+    
+    func setUpRefreshData(){
+        self.tableView.mj_header = LiangNomalRefreshHeader(refreshingBlock: {
+            self.viewModel.requestOrderManager()
+        })
     }
     
     func mySellOrderManagerListView() -> UIView {
@@ -115,15 +116,18 @@ extension MySellManagerViewController : UITableViewDataSource {
         switch indexPath.row {
         case 0:
             let cell = tableView.dequeueReusableCellWithIdentifier("OrderManagerTableViewCell", forIndexPath: indexPath) as! OrderManagerTableViewCell
+            viewModel.tableViewCellOrderManagerTableViewCell(cell, indexPath: indexPath)
             cell.selectionStyle = .None
             return cell
         case 1:
             let cell = tableView.dequeueReusableCellWithIdentifier("MySellManagerMuchTableViewCell", forIndexPath: indexPath) as! MySellManagerMuchTableViewCell
+            viewModel.tableViewCellMySellManagerMuchTableViewCell(cell, indexPath: indexPath)
             cell.selectionStyle = .None
             cell.backgroundColor = UIColor.whiteColor()
             return cell
         default:
             let cell = tableView.dequeueReusableCellWithIdentifier("MySellAttentionTableViewCell", forIndexPath: indexPath) as! MySellAttentionTableViewCell
+            viewModel.tableViewCellMySellAttentionTableViewCell(cell, indexPath: indexPath)
             cell.selectionStyle = .None
             return cell
         }

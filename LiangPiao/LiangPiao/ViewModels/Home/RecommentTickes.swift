@@ -11,7 +11,11 @@ import Foundation
 class RecommentTickes : NSObject, NSCoding{
     
     var hasNext : Bool!
+    //用户读取数据管理
     var nextStart : Int!
+    //商家票品管理
+    var nextPage : Int!
+    
     var showList : [HomeTicketModel]!
     
     
@@ -21,6 +25,7 @@ class RecommentTickes : NSObject, NSCoding{
     init(fromDictionary dictionary: NSDictionary){
         hasNext = dictionary["has_next"] as? Bool
         nextStart = dictionary["next_start"] as? Int
+        nextPage = dictionary["next_page"] as? Int
         showList = [HomeTicketModel]()
         if let showListArray = dictionary["show_list"] as? [NSDictionary]{
             for dic in showListArray{
@@ -42,6 +47,9 @@ class RecommentTickes : NSObject, NSCoding{
         if nextStart != nil{
             dictionary["next_start"] = nextStart
         }
+        if nextPage != nil{
+            dictionary["next_page"] = nextPage
+        }
         if showList != nil{
             var dictionaryElements = [NSDictionary]()
             for showListElement in showList {
@@ -60,6 +68,7 @@ class RecommentTickes : NSObject, NSCoding{
     {
         hasNext = aDecoder.decodeObjectForKey("has_next") as? Bool
         nextStart = aDecoder.decodeObjectForKey("next_start") as? Int
+        nextPage = aDecoder.decodeObjectForKey("next_page") as? Int
         showList = aDecoder.decodeObjectForKey("show_list") as? [HomeTicketModel]
         
     }

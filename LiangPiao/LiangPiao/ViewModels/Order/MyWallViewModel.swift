@@ -14,6 +14,10 @@ class MyWallViewModel: NSObject {
         super.init()
     }
     
+    func messageTitle() -> String{
+        return "良票根据您的交易情况收取佣金\n每日前 10 张成交订单，佣金免费\n超过 10 单，每张收取订单金额 5% 作为佣金"
+    }
+    
     func tableViewHeightForRow(indexPath:NSIndexPath) ->CGFloat {
         switch indexPath.row {
         case 0:

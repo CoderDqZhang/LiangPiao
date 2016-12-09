@@ -186,6 +186,7 @@ extension AddAddressViewController : UITableViewDataSource {
             case 0,1:
                 let cell =  tableView.dequeueReusableCellWithIdentifier("GloabTitleAndFieldCell", forIndexPath: indexPath) as! GloabTitleAndFieldCell
                 cell.selectionStyle = .None
+                
                 cell.textField.delegate = self
                 cell.textField.tag = indexPath.row
                 cell.setData(viewModel.tableViewConfigCell(indexPath), detail: "")
@@ -200,10 +201,12 @@ extension AddAddressViewController : UITableViewDataSource {
                     }
                 }
                 if indexPath.row == 0 {
+                    cell.textField.keyboardType = .NamePhonePad
                     cell.textField.rac_textSignal().subscribeNext({ (str) in
                         self.models?.name = str as! String
                     })
                 }else{
+                    cell.textField.keyboardType = .PhonePad
                     cell.textField.rac_textSignal().subscribeNext({ (str) in
                         self.models?.mobileNum = str as! String
                     })

@@ -44,4 +44,10 @@ let TicketSearchUrl = "\(BaseURL)show/search/"
 
 let TicketFavorite = "\(BaseURL)user/favorite/"
 
+let SupplierOrderList = "\(BaseURL)supplier/order/"
+
+let SupplierTicketList = "\(BaseURL)supplier/ticket/"
+
+let SupplierTicketDetail = "\(BaseURL)supplier/show/3535216718/session/3535216917/ticket/"
+
 

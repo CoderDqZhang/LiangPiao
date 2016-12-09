@@ -103,8 +103,8 @@ class MineViewModel: NSObject {
         
         default:
             if indexPath.row == 4 {
-                NavigationPushView(controller, toConroller: OrderDeliveryTypeViewController())
-//                NavigationPushView(controller, toConroller: SettingViewController())
+//                NavigationPushView(controller, toConroller: OrderDeliveryTypeViewController())
+                NavigationPushView(controller, toConroller: SettingViewController())
                 return
             }else{
                 if !UserInfoModel.isLoggedIn() {
@@ -120,7 +120,9 @@ class MineViewModel: NSObject {
             case 2:
                 NavigationPushView(controller, toConroller: FavoriteViewController())
             case 3:
-                NavigationPushView(controller, toConroller: AddressViewController())
+                let controllerVC = AddressViewController()
+                controllerVC.viewModel.addressType = .editType
+                NavigationPushView(controller, toConroller: controllerVC)
             default:
                 break;
             }

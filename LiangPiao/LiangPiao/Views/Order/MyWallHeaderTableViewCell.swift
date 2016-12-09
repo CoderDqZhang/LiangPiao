@@ -38,7 +38,7 @@ class MyWallHeaderTableViewCell: UITableViewCell {
         muchmLable.textColor = UIColor.whiteColor()
         self.contentView.addSubview(muchmLable)
         
-        let image = UIImage.init(named: "Btn_More")
+        let image = UIImage.init(named: "Btn_W_More")
         detailBtn = UIButton(type: .Custom)
         detailBtn.titleLabel?.font = App_Theme_PinFan_R_12_Font
         detailBtn.setTitle("明细", forState: .Normal)

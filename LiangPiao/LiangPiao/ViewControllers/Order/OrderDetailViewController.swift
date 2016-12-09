@@ -166,7 +166,7 @@ class OrderDetailViewController: UIViewController {
         let imageView = UIImageView(frame:CGRectMake(0,-0.5,SCREENWIDTH,4))
         imageView.image = UIImage.init(named: "Sawtooth")//Pattern_Line
         footView.addSubview(imageView)
-        let orderInfo = self.createLabel(CGRectMake(15,20,SCREENWIDTH - 30,14), text: "订单编号：\(viewModel.model.id)")
+        let orderInfo = self.createLabel(CGRectMake(15,20,SCREENWIDTH - 30,14), text: "订单号：\(viewModel.model.id)")
         footView.addSubview(orderInfo)
         
         let service = self.createLabel(CGRectMake(15,36,SCREENWIDTH - 30,14), text: "订单时间：\(viewModel.model.created)")

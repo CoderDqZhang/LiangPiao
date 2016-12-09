@@ -57,8 +57,12 @@ class MySellOrderMuchTableViewCell: UITableViewCell {
         self.updateConstraintsIfNeeded()
     }
     
-    func setMuchLabelText(text:String){
-        muchLabel.text = text
+    func setSellData(model:OrderList){
+        muchLabel.text = "\(model.total)"
+        handerButton.hidden = true
+        if model.status == 3 {
+            handerButton.hidden = false
+        }
         self.updateConstraintsIfNeeded()
     }
     
@@ -75,8 +79,7 @@ class MySellOrderMuchTableViewCell: UITableViewCell {
             
             muchmLabel.snp_makeConstraints(closure: { (make) in
                 make.left.equalTo(self.muchLabel.snp_right).offset(4)
-                make.top.equalTo(self.snp_top).offset(21)
-                make.centerY.equalTo(self.contentView.snp_centerY).offset(2)
+                make.centerY.equalTo(self.contentView.snp_centerY).offset(1)
             })
             
             handerButton.snp_makeConstraints(closure: { (make) in

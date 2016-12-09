@@ -50,10 +50,7 @@ class TicketDescriptionViewController: UIViewController {
         self.view.addSubview(tableView)
         
         tableView.snp_makeConstraints { (make) in
-            make.top.equalTo(self.view.snp_top).offset(0)
-            make.left.equalTo(self.view.snp_left).offset(0)
-            make.right.equalTo(self.view.snp_right).offset(0)
-            make.bottom.equalTo(self.view.snp_bottom).offset(0)
+            make.edges.equalTo(UIEdgeInsetsMake(0, 0, 0, 0))
         }
         ticketToolsView = UIView(frame: CGRectMake(0,-2,SCREENWIDTH,42))
         ticketToolsView.hidden = true
@@ -94,6 +91,9 @@ class TicketDescriptionViewController: UIViewController {
     
     func likeItemPress(sender:UIButton) {
         if UserInfoModel.isLoggedIn() {
+            if viewModel.model.show.isFavorite == nil {
+                viewModel.model.show.isFavorite = false
+            }
             if viewModel.model.show.isFavorite == true {
                 viewModel.requestDeleteCollectTicket()
                 viewModel.model.show.isFavorite = false

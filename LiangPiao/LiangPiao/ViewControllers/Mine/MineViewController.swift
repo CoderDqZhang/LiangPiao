@@ -32,10 +32,7 @@ class MineViewController: BaseViewController {
         tableView.registerClass(ServiceTableViewCell.self, forCellReuseIdentifier: "ServiceTableViewCell")
         self.view.addSubview(tableView)
         tableView.snp_makeConstraints { (make) in
-            make.top.equalTo(self.view.snp_top).offset(-20)
-            make.left.equalTo(self.view.snp_left).offset(0)
-            make.right.equalTo(self.view.snp_right).offset(0)
-            make.bottom.equalTo(self.view.snp_bottom).offset(0)
+            make.edges.equalTo(UIEdgeInsetsMake(-20, 0, 0, 0))
         }
         
         self.bindViewModel()

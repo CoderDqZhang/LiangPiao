@@ -27,9 +27,9 @@ class MySellPagerViewController: TYTabButtonPagerController {
     func setUpPageViewControllerStyle(){
         let str = "订单交易"
         let width = str.widthWithConstrainedHeight(str, font: App_Theme_PinFan_R_13_Font!, height: 20)
-        self.collectionLayoutEdging = SCREENWIDTH / 2 - width * 2 - 10
+        self.collectionLayoutEdging = SCREENWIDTH / 2 - width * 2 + 3
         self.pagerBarColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
-        self.cellSpacing = 67
+        self.cellSpacing = 57
         self.cellEdging = 10
         self.progressHeight = 2
         self.progressEdging = 0

@@ -14,6 +14,7 @@ class HomeViewModel: NSObject {
     
     var models = NSMutableArray()
     var searchModel:RecommentTickes!
+    var controller:HomeViewController!
     
     override init() {
         
@@ -68,7 +69,7 @@ class HomeViewModel: NSObject {
         }
     }
     
-    func navigationPushTicketPage(index:Int, controller:HomeViewController) {
+    func navigationPushTicketPage(index:Int) {
         let ticketPage = TicketPageViewController()
         ticketPage.progressHeight = 0
         ticketPage.progressWidth = 0
@@ -83,7 +84,7 @@ class HomeViewModel: NSObject {
         NavigationPushView(controller, toConroller: ticketPage)
     }
     
-    func tableViewDidSelectRowAtIndexPath(indexPath:NSIndexPath, controller:HomeViewController) {
+    func tableViewDidSelectRowAtIndexPath(indexPath:NSIndexPath) {
         switch indexPath.section {
         case 0:
             break;
@@ -92,7 +93,7 @@ class HomeViewModel: NSObject {
             case 0:
                 break;
             case self.numberOfRowsInSection(indexPath.section) - 1:
-                self.navigationPushTicketPage(4, controller: controller)
+                self.navigationPushTicketPage(4)
             default:
                 let model = HomeTicketModel.init(fromDictionary: models.objectAtIndex(indexPath.row - 1) as! NSDictionary)
                 if model.sessionCount == 1 {
@@ -113,14 +114,14 @@ class HomeViewModel: NSObject {
         cell.setData(model)
     }
     
-    func requestHotTicket(tableView:UITableView, controller:HomeViewController){
+    func requestHotTicket(tableView:UITableView){
         BaseNetWorke.sharedInstance.getUrlWithString(TickeHot, parameters: nil).subscribeNext { (resultDic) in
             let resultModels =  NSMutableArray.mj_objectArrayWithKeyValuesArray(resultDic)
             self.models = resultModels.mutableCopy() as! NSMutableArray
             tableView.reloadSections(NSIndexSet.init(index: 1), withRowAnimation: .Automatic)
             if tableView.mj_header != nil {
                 tableView.mj_header.endRefreshing()
-                controller.endRefreshView()
+                self.controller.endRefreshView()
             }
         }
     }

@@ -8,13 +8,19 @@
 
 import UIKit
 
+enum SearchType {
+    case TicketShow
+    case TicketSell
+}
 typealias SearchViewModelClouse = () ->Void
 
 class SearchViewModel: NSObject {
 
     var searchModel:RecommentTickes!
     var controller:HomeViewController!
+    var controllerS:SellTicketsViewController!
     var searchViewModelClouse:SearchViewModelClouse!
+    var searchType:SearchType = .TicketShow
     
     private override init() {
         
@@ -26,9 +32,16 @@ class SearchViewModel: NSObject {
     }
     
     func searchTableNumberOfRowsInSection(section:Int) ->Int {
-        if searchModel != nil {
-            return searchModel.showList.count
+        if searchType == .TicketShow {
+            if searchModel != nil {
+                return searchModel.showList.count
+            }
+        }else {
+            if searchModel != nil {
+                return searchModel.showList.count
+            }
         }
+        
         return 0
     }
     
@@ -42,16 +55,30 @@ class SearchViewModel: NSObject {
     }
     
     func searchTablaTableViewDidSelectRowAtIndexPath(indexPath:NSIndexPath ) {
-        let searchTicke = searchModel.showList[indexPath.row]
-        if searchTicke.sessionCount == 1 {
-            let controllerVC = TicketDescriptionViewController()
-            controllerVC.viewModel.ticketModel = searchTicke
-            NavigationPushView(controller, toConroller: controllerVC)
-        }else{
-            let controllerVC = TicketSceneViewController()
-            controllerVC.viewModel.model = searchTicke
-            NavigationPushView(controller, toConroller: controllerVC)
+        if searchType == .TicketShow {
+            let searchTicke = searchModel.showList[indexPath.row]
+            if searchTicke.sessionCount == 1 {
+                let controllerVC = TicketDescriptionViewController()
+                controllerVC.viewModel.ticketModel = searchTicke
+                NavigationPushView(controller, toConroller: controllerVC)
+            }else{
+                let controllerVC = TicketSceneViewController()
+                controllerVC.viewModel.model = searchTicke
+                NavigationPushView(controller, toConroller: controllerVC)
+            }
+        }else {
+            let searchTicke = searchModel.showList[indexPath.row]
+            if searchTicke.sessionCount == 1 {
+                let controllerVC = TicketDescriptionViewController()
+                controllerVC.viewModel.ticketModel = searchTicke
+                NavigationPushView(controllerS, toConroller: controllerVC)
+            }else{
+                let controllerVC = TicketSceneViewController()
+                controllerVC.viewModel.model = searchTicke
+                NavigationPushView(controllerS, toConroller: controllerVC)
+            }
         }
+        
         if searchViewModelClouse != nil {
             searchViewModelClouse()
         }
@@ -64,6 +91,12 @@ class SearchViewModel: NSObject {
         }
     }
     
+    func searchTableCellDatas(cell:SellRecommondTableViewCell, indexPath:NSIndexPath) {
+//        if searchModel != nil {
+//            let searchTicke = searchModel.showList[indexPath.row]
+//            cell.setData(searchTicke)
+//        }
+    }
     
     
     func requestSearchTicket(searchText:String, searchTable:GlobalSearchTableView) {

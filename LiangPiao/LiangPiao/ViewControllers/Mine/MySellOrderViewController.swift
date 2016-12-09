@@ -38,21 +38,15 @@ class MySellOrderViewController: UIViewController {
         tableView.registerClass(MySellOrderMuchTableViewCell.self, forCellReuseIdentifier: "MySellOrderMuchTableViewCell")
         self.view.addSubview(tableView)
         tableView.snp_makeConstraints { (make) in
-            make.top.equalTo(self.view.snp_top).offset(0)
-            make.left.equalTo(self.view.snp_left).offset(0)
-            make.right.equalTo(self.view.snp_right).offset(0)
-            make.bottom.equalTo(self.view.snp_bottom).offset(0)
+            make.edges.equalTo(UIEdgeInsetsMake(0, 0, 0, 0))
         }
-        
+        self.setUpRefreshData()
         self.bindViewModel()
         
     }
     
     func bindViewModel(){
-//        viewModel.reloadTableView = { _ in
-//            self.tableView.reloadRowsAtIndexPaths([NSIndexPath.init(forRow: 0, inSection: 0)], withRowAnimation: .Automatic)
-//        }
-        
+        self.viewModel.requesrSellOrder(false)
     }
     
     func mySellOrderListView() -> UIView {
@@ -63,6 +57,18 @@ class MySellOrderViewController: UIViewController {
         orderListView.addSubview(imageView)
         
         return orderListView
+    }
+    
+    func setUpLoadMoreData(){
+        self.tableView.mj_footer = LiangPiaoLoadMoreDataFooter(refreshingBlock: {
+            self.viewModel.requesrSellOrder(true)
+        })
+    }
+    
+    func setUpRefreshData(){
+        self.tableView.mj_header = LiangNomalRefreshHeader(refreshingBlock: {
+            self.viewModel.requesrSellOrder(false)
+        })
     }
     
     override func didReceiveMemoryWarning() {
@@ -115,16 +121,19 @@ extension MySellOrderViewController : UITableViewDataSource {
         switch indexPath.row {
         case 0:
             let cell = tableView.dequeueReusableCellWithIdentifier("OrderNumberTableViewCell", forIndexPath: indexPath) as! OrderNumberTableViewCell
+            viewModel.tableViewCellOrderNumberTableViewCell(cell, indexPath:indexPath)
             cell.selectionStyle = .None
             return cell
         case 1:
             let cell = tableView.dequeueReusableCellWithIdentifier("OrderTicketInfoTableViewCell", forIndexPath: indexPath) as! OrderTicketInfoTableViewCell
             cell.selectionStyle = .None
+            viewModel.tableViewCellOrderTicketInfoTableViewCell(cell, indexPath:indexPath)
             cell.backgroundColor = UIColor.whiteColor()
             return cell
         default:
             let cell = tableView.dequeueReusableCellWithIdentifier("MySellOrderMuchTableViewCell", forIndexPath: indexPath) as! MySellOrderMuchTableViewCell
             cell.selectionStyle = .None
+            viewModel.tableViewCellMySellOrderMuchTableViewCell(cell, indexPath:indexPath)
             return cell
         }
     }

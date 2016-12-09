@@ -208,7 +208,7 @@ class GlobalTicketStatus : UIView {
         var i = 1
         for str in titles {
             let stringWidth = str.widthWithConstrainedHeight(str, font: App_Theme_PinFan_R_10_Font!, height: 16)
-            let statusLabel = UILabel(frame: CGRectMake(originX, 0, stringWidth, 16))
+            let statusLabel = UILabel(frame: CGRectMake(originX, 0, CGFloat(Int(stringWidth)) + 6, 16))
             statusLabel.text = str
             statusLabel.tag = i
             i = i + 1
@@ -292,4 +292,180 @@ class GloableBottomButtonView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 }
+
+//let NumberTickButtonWidth:CGFloat = 44
+let NumberTickButtonHeight:CGFloat = 34
+
+class NumberTickView: UIView {
+    var downButton:UIButton!
+    var upButton:UIButton!
+    var numberTextField:UITextField!
+    var number:NSInteger = 1
+    init(frame:CGRect, buttonWidth:CGFloat) {
+        super.init(frame: frame)
+        self.layer.cornerRadius = 3.0
+        self.layer.borderColor = UIColor.init(hexString: App_Theme_384249_Color).CGColor
+        self.layer.borderWidth = 0.5
+        downButton = UIButton(type: .Custom)
+        downButton.setImage(UIImage.init(named: "Icon_Reduce_Disable"), forState: .Normal)
+        downButton.frame = CGRectMake(0, 0, buttonWidth, NumberTickButtonHeight)
+        downButton.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (object) in
+            if self.number > 1 {
+                self.number = self.number - 1
+                self.numberTextField.text = "\(self.number)"
+            }
+            self.setNumberDownColor()
+        }
+        self.addSubview(downButton)
+        
+        upButton = UIButton(type: .Custom)
+        upButton.setImage(UIImage.init(named: "Icon_Add_Normal"), forState: .Normal)
+        upButton.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (object) in
+            self.number = self.number + 1
+            self.numberTextField.text = "\(self.number)"
+            self.setNumberDownColor()
+        }
+        upButton.frame = CGRectMake(self.frame.size.width - buttonWidth, 0, buttonWidth, NumberTickButtonHeight)
+        self.addSubview(upButton)
+        numberTextField = UITextField()
+        numberTextField.text = "\(self.number)"
+        numberTextField.tintColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
+        numberTextField.textColor = UIColor.init(hexString: App_Theme_384249_Color)
+        numberTextField.layer.borderColor = UIColor.init(hexString: App_Theme_384249_Color).CGColor
+        numberTextField.layer.borderWidth = 0.5
+        numberTextField.font = App_Theme_PinFan_M_15_Font
+        numberTextField.frame = CGRectMake(buttonWidth, 0, self.frame.size.width - 2 * buttonWidth, NumberTickButtonHeight)
+        numberTextField.textAlignment = .Center
+        self.addSubview(numberTextField)
+    }
+    
+    func setNumberDownColor(){
+        if self.number == 1 {
+            self.downButton.setImage(UIImage.init(named: "Icon_Reduce_Disable"), forState: .Normal)
+        }else{
+            self.downButton.setImage(UIImage.init(named: "Icon_Reduce_Normal"), forState: .Normal)
+        }
+        
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+class GloableServiceView: UIView, UIGestureRecognizerDelegate {
+    
+    var detailView:UIView!
+    var titleLabel:UILabel!
+    var detailLabel:UILabel!
+    var cancelButton:UIButton!
+    var height:CGFloat = 0
+    
+    init(title:String?, message:String?) {
+        super.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: SCREENHEIGHT))
+        self.backgroundColor = UIColor.init(hexString: App_Theme_384249_Color, andAlpha: 0.5)
+        detailView = UIView()
+        detailView.backgroundColor = UIColor.whiteColor()
+        self.setUpTitleView(title!)
+        let height = self.setUpDetailView(message!)
+        
+        detailView.frame = CGRectMake(0, SCREENHEIGHT, SCREENWIDTH, height + 160)
+
+        self.setUpCancelButton()
+        self.addSubview(detailView)
+        let singleTap = UITapGestureRecognizer(target: self, action: #selector(GloableServiceView.singleTapPress(_:)))
+        singleTap.numberOfTapsRequired = 1
+        singleTap.numberOfTouchesRequired = 1
+        singleTap.delegate = self
+        self.addGestureRecognizer(singleTap)
+        UIView.animateWithDuration(1, animations: {
+            self.detailView.frame = CGRectMake(0, SCREENHEIGHT - height - 160, SCREENWIDTH, height + 160)
+            }, completion: { completion in
+                
+        })
+    }
+    
+    func singleTapPress(sender:UITapGestureRecognizer){
+        self.removwSelf()
+    }
+    
+    func removwSelf(){
+        UIView.animateWithDuration(1, animations: {
+            self.detailView.frame = CGRectMake(0, SCREENHEIGHT, SCREENWIDTH, self.height + 160)
+            }, completion: { completion in
+                self.removeFromSuperview()
+        })
+    }
+    
+    func setUpDetailView(message:String) -> CGFloat {
+        let height = message.heightWithConstrainedWidth(message, font: App_Theme_PinFan_R_17_Font!, width: SCREENWIDTH - 30)
+        detailLabel = UILabel()
+        detailLabel.text = message
+        detailLabel.numberOfLines = 0
+        detailLabel.textColor = UIColor.init(hexString: App_Theme_556169_Color)
+        detailLabel.font = App_Theme_PinFan_R_13_Font
+        UILabel.changeLineSpaceForLabel(detailLabel, withSpace: 5.0)
+        detailLabel.textAlignment = .Center
+        detailLabel.sizeToFit()
+        detailLabel.frame = CGRectMake(15, 96, SCREENWIDTH - 30, height)
+        detailView.addSubview(detailLabel)
+        self.height = height
+        return height
+    }
+    
+    func setUpCancelButton(){
+        cancelButton =  UIButton(type: .Custom)
+        cancelButton.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (action) in
+            self.removwSelf()
+        }
+        cancelButton.frame = CGRect.init(x: SCREENWIDTH - 50, y: 10, width: 40, height: 40)
+        cancelButton.setImage(UIImage.init(named: "Btn_Close"), forState: .Normal)
+        detailView.addSubview(cancelButton)
+    }
+    
+    func setUpTitleView(title:String){
+        let recommentTitle = UILabel()
+        let width = title.widthWithConstrainedHeight(title, font: App_Theme_PinFan_M_14_Font!, height: 20)
+        if IPHONE_VERSION >= 9 {
+            recommentTitle.frame = CGRectMake((SCREENWIDTH - width) / 2, 48, 56, 20)
+        }else{
+            recommentTitle.frame = CGRectMake((SCREENWIDTH - (width + 3)) / 2, 48, 69, 20)
+        }
+        
+        recommentTitle.textColor = UIColor.init(hexString: App_Theme_384249_Color)
+        recommentTitle.font = App_Theme_PinFan_M_14_Font
+        recommentTitle.text = title
+        detailView.addSubview(recommentTitle)
+        
+        let lineLabel = GloabLineView(frame: CGRectMake(CGRectGetMinX(recommentTitle.frame) - 50, 58, 30, 0.5))
+        lineLabel.setLineColor(UIColor.init(hexString: App_Theme_384249_Color))
+        detailView.addSubview(lineLabel)
+        let lineLabel1 = GloabLineView(frame: CGRectMake(CGRectGetMaxX(recommentTitle.frame) + 20, 58, 30, 0.5))
+        lineLabel1.setLineColor(UIColor.init(hexString: App_Theme_384249_Color))
+        detailView.addSubview(lineLabel1)
+        
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool{
+        let touchPoint = touch.locationInView(self)
+        return touchPoint.y < SCREENHEIGHT - (self.height + 160) ? true : false
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 

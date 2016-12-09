@@ -532,3 +532,62 @@ class GloabTitleAndSwitchBarTableViewCell: UITableViewCell {
     
 }
 
+class GloabTitleNumberCountTableViewCell: UITableViewCell {
+    
+    var titleLabel:UILabel!
+    var numberTickView:NumberTickView!
+    var didMakeConstraints:Bool = false
+    
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.setUpView()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setUpView() {
+        titleLabel = UILabel()
+        titleLabel.text = "售卖数量"
+        titleLabel.textColor = UIColor.init(hexString: App_Theme_384249_Color)
+        titleLabel.font = App_Theme_PinFan_R_13_Font!
+        self.contentView.addSubview(titleLabel)
+        
+        numberTickView = NumberTickView.init(frame: CGRectMake(15, 56, SCREENWIDTH - 30, 34), buttonWidth: 70)
+        
+        self.contentView.addSubview(numberTickView)
+        
+        self.updateConstraintsIfNeeded()
+    }
+    
+    override func updateConstraints() {
+        if !self.didMakeConstraints {
+            titleLabel.snp_makeConstraints(closure: { (make) in
+                make.left.equalTo(self.contentView.snp_left).offset(15)
+                make.top.equalTo(self.contentView.snp_top).offset(22)
+            })
+                    
+            self.didMakeConstraints = true
+        }
+        super.updateConstraints()
+    }
+    
+    func setText(title:String, textFieldText:String){
+        titleLabel.text = title
+        numberTickView.numberTextField.text = textFieldText
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        // Initialization code
+    }
+    
+    override func setSelected(selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+        
+        // Configure the view for the selected state
+    }
+    
+}
+

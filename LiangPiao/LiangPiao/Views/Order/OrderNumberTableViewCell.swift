@@ -23,7 +23,7 @@ class OrderNumberTableViewCell: UITableViewCell {
     func setUpView() {
         
         orderNumber = UILabel()
-        orderNumber.text = "订单编号：2877800028"
+        orderNumber.text = "订单号：2877800028"
         orderNumber.textColor = UIColor.init(hexString: App_Theme_8A96A2_Color)
         orderNumber.font = App_Theme_PinFan_R_12_Font
         self.contentView.addSubview(orderNumber)

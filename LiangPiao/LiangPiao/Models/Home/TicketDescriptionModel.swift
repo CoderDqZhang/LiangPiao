@@ -173,8 +173,10 @@ class TicketList : NSObject, NSCoding{
     var selfGetTicketAddress : String!
     var selfGetTicketDate : String!
     var selfGetTicketPhone : String!
+    var soldCount : Int!
     var sellType : Int!
     var supplier : Supplier!
+    var ticketCount : Int!
     
     
     /**
@@ -201,9 +203,11 @@ class TicketList : NSObject, NSCoding{
         selfGetTicketDate = dictionary["self_get_ticket_date"] as? String
         selfGetTicketPhone = dictionary["self_get_ticket_phone"] as? String
         sellType = dictionary["sell_type"] as? Int
+        soldCount = dictionary["sold_count"] as? Int
         if let supplierData = dictionary["supplier"] as? NSDictionary{
             supplier = Supplier(fromDictionary: supplierData)
         }
+        ticketCount = dictionary["ticket_count"] as? Int
     }
     
     /**
@@ -229,6 +233,9 @@ class TicketList : NSObject, NSCoding{
         }
         if originalTicket != nil{
             dictionary["original_ticket"] = originalTicket.toDictionary()
+        }
+        if soldCount != nil{
+            dictionary["sold_count"] = soldCount
         }
         if price != nil{
             dictionary["price"] = price
@@ -269,6 +276,9 @@ class TicketList : NSObject, NSCoding{
         if supplier != nil{
             dictionary["supplier"] = supplier.toDictionary()
         }
+        if ticketCount != nil{
+            dictionary["ticket_count"] = ticketCount
+        }
         return dictionary
     }
     
@@ -294,9 +304,11 @@ class TicketList : NSObject, NSCoding{
         seatType = aDecoder.decodeObjectForKey("seat_type") as? Int
         selfGetTicketAddress = aDecoder.decodeObjectForKey("self_get_ticket_address") as? String
         selfGetTicketDate = aDecoder.decodeObjectForKey("self_get_ticket_date") as? String
+        soldCount = aDecoder.decodeObjectForKey("sold_count") as? Int
         selfGetTicketPhone = aDecoder.decodeObjectForKey("self_get_ticket_phone") as? String
         sellType = aDecoder.decodeObjectForKey("sell_type") as? Int
         supplier = aDecoder.decodeObjectForKey("supplier") as? Supplier
+        ticketCount = aDecoder.decodeObjectForKey("ticket_count") as? Int
         
     }
     
@@ -323,6 +335,9 @@ class TicketList : NSObject, NSCoding{
         }
         if originalTicket != nil{
             aCoder.encodeObject(originalTicket, forKey: "original_ticket")
+        }
+        if soldCount != nil{
+            aCoder.encodeObject(soldCount, forKey: "sold_count")
         }
         if price != nil{
             aCoder.encodeObject(price, forKey: "price")
@@ -363,7 +378,9 @@ class TicketList : NSObject, NSCoding{
         if supplier != nil{
             aCoder.encodeObject(supplier, forKey: "supplier")
         }
-        
+        if ticketCount != nil{
+            aCoder.encodeObject(ticketCount, forKey: "ticket_count")
+        }
     }
     
 }

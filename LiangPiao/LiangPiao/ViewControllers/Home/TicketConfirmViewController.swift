@@ -109,6 +109,11 @@ class TicketConfirmViewController: UIViewController {
                             cell.setData(model, type: .withAddress)
                             
                         }
+                        
+                        controller.reloadConfigTableView = { _ in
+                            self.tableView.reloadRowsAtIndexPaths([NSIndexPath.init(forRow: 1, inSection: 0)], withRowAnimation: .Automatic)
+                        }
+                        
                         controller.hidesBottomBarWhenPushed = true
                         NavigationPushView(self, toConroller: controller)
                     }else{
