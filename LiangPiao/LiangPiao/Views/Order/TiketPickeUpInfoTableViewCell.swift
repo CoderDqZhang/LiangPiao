@@ -53,10 +53,6 @@ class TiketPickeUpInfoTableViewCell: UITableViewCell {
         ticketNowPrice.textColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
         self.contentView.addSubview(ticketNowPrice)
         
-        ticketStatusView = GlobalTicketStatus(frame: CGRectZero, titles: ["连","剩余2张"], types: nil)
-        self.contentView.addSubview(ticketStatusView)
-        
-        
         editBtn = UIButton(type: .Custom)
         editBtn.setTitle("编辑", forState: .Normal)
         editBtn.setTitleColor(UIColor.init(hexString: App_Theme_A2ABB5_Color), forState: .Normal)
@@ -125,13 +121,13 @@ class TiketPickeUpInfoTableViewCell: UITableViewCell {
             self.contentView.addSubview(ticketStatusView)
             
             ticketStatusView.snp_remakeConstraints(closure: { (make) in
-                make.right.equalTo(self.contentView.snp_right).offset(-(ticketStatusView.getMaxWidth() + 25))
+                make.right.equalTo(self.contentView.snp_right).offset(-(ticketStatusView.getMaxWidth() + 55))
                 make.top.equalTo(self.ticketNowPrice.snp_bottom).offset(3)
             })
         }else{
             ticketStatusView.setUpView(titles, types: types)
             ticketStatusView.snp_remakeConstraints(closure: { (make) in
-                make.right.equalTo(self.contentView.snp_right).offset(-(ticketStatusView.getMaxWidth() + 25))
+                make.right.equalTo(self.contentView.snp_right).offset(-(ticketStatusView.getMaxWidth() + 55))
                 make.top.equalTo(self.ticketNowPrice.snp_bottom).offset(3)
             })
         }
@@ -158,11 +154,6 @@ class TiketPickeUpInfoTableViewCell: UITableViewCell {
             ticketNowPrice.snp_makeConstraints(closure: { (make) in
                 make.right.equalTo(self.editBtn.snp_left).offset(-10)
                 make.top.equalTo(self.contentView.snp_top).offset(14)
-            })
-            
-            ticketStatusView.snp_remakeConstraints(closure: { (make) in
-                make.right.equalTo(self.editBtn.snp_left).offset(-(ticketStatusView.getMaxWidth()) - 10)
-                make.top.equalTo(self.ticketNowPrice.snp_bottom).offset(3)
             })
             
             editBtn.snp_makeConstraints(closure: { (make) in

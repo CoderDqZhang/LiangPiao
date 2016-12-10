@@ -78,31 +78,15 @@ class TicketSession: UIView {
 let SESSIONWIDTH:CGFloat = 139
 let SESSIONHEIGHT:CGFloat = 50
 
+typealias PicketUpSessionClouse = (tag:NSInteger) -> Void
+
 class PicketUpSessionTableViewCell: UITableViewCell {
 
     var scrollerView:UIScrollView!
-    let sessionTitle = ["2016.12.22 14:00 星期六 上本 0张在售", "2016.12.22 14:00 星期六 上本 0张在售", "2016.12.22 14:00 星期六 上本 0张在售"]
+    var sessionTitle:NSArray!
+    var picketUpSessionClouse:PicketUpSessionClouse!
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.setUpView()
-    }
-    
-    func setUpView(){
-        scrollerView = UIScrollView.init(frame: CGRect.init(x: 15, y: 0, width: SCREENWIDTH - 30, height: 90))
-        
-        let sessionTitleStyle = [0, 2, 1]
-        var OriginX:CGFloat = 0
-        for index in 0...sessionTitle.count - 1 {
-            let sessionView = TicketSession.init(frame: CGRect.init(x: OriginX, y: 20, width: SESSIONWIDTH, height: SESSIONHEIGHT), title: sessionTitle[index], tag: index + 10, clouse: { (tag) in
-                    self.updateSession(tag)
-                }, type: sessionTitleStyle[index])
-            OriginX = CGRectGetMaxX(sessionView.frame) + 10
-            scrollerView.addSubview(sessionView)
-        }
-        scrollerView.showsHorizontalScrollIndicator = false
-        scrollerView.contentSize = CGSizeMake(OriginX, 90)
-        self.contentView.addSubview(scrollerView)
-        
     }
     
     func updateSession(tag:Int){
@@ -119,6 +103,26 @@ class PicketUpSessionTableViewCell: UITableViewCell {
         self.updateConstraintsIfNeeded()
     }
     
+    func setUpDataAarray(title:NSArray, selectArray:NSArray) {
+        if scrollerView == nil {
+            sessionTitle = title
+            scrollerView = UIScrollView.init(frame: CGRect.init(x: 15, y: 0, width: SCREENWIDTH - 30, height: 90))
+            var OriginX:CGFloat = 0
+            for index in 0...sessionTitle.count - 1 {
+                let sessionView = TicketSession.init(frame: CGRect.init(x: OriginX, y: 20, width: SESSIONWIDTH, height: SESSIONHEIGHT), title: sessionTitle[index] as! String, tag: index + 10, clouse: { (tag) in
+                    self.updateSession(tag)
+                    if self.picketUpSessionClouse != nil {
+                        self.picketUpSessionClouse(tag: tag - 10)
+                    }
+                    }, type: selectArray.objectAtIndex(index) as! Int)
+                OriginX = CGRectGetMaxX(sessionView.frame) + 10
+                scrollerView.addSubview(sessionView)
+            }
+            scrollerView.showsHorizontalScrollIndicator = false
+            scrollerView.contentSize = CGSizeMake(OriginX, 90)
+            self.contentView.addSubview(scrollerView)
+        }
+    }
     
     
     required init?(coder aDecoder: NSCoder) {

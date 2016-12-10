@@ -92,38 +92,27 @@ class PickUpTickeTableViewCell: UITableViewCell {
         self.updateConstraintsIfNeeded()
     }
     
-    func setData(model:HomeTicketModel, sessionModel:TicketSessionModel){
+    func setData(model:SellManagerModel, session:String, sellCount:String, soldCount:String, soldMuch:String){
         ticketPhoto.sd_setImageWithURL(NSURL.init(string: model.cover), placeholderImage: UIImage.init(named: "Feeds_Default_Cover")) { (image, error, cacheType, url) in
         }
         ticketTitle.text = model.title
-        ticketTime.text = "\(sessionModel.startTime)"
+        ticketTime.text = session
         ticketLocation.text = model.venue.name
-        
-        self.setUpTicketStatues(sessionModel)
+        ticketMuch.text = soldMuch
+        ticketNumber.text = "已售：\(soldCount)"
+        self.setUpTicketStatues(sellCount)
         
         self.updateConstraintsIfNeeded()
         
     }
     
-    func setUpTicketStatues(model:TicketSessionModel){
-        var statuesArray:[String] = []
-        if model.minDiscount != "" && model.minDiscount != "0.0" && Double(model.minDiscount) < 1{
-            statuesArray.append("\(Double(model.minDiscount)! * 10)折")
-        }
-        if model.ticketCount != 0 {
-            let str = model.ticketCount >= 20 ? "剩余\(model.ticketCount)张" : "最后\(model.ticketCount)张"
-            statuesArray.append(str)
-        }
-        if model.ticketStatus == 0 {
-            statuesArray.append("预售中")
-            self.setUpStatuesView(statuesArray, types: [statuesArray.count])
-        }else{
-            if statuesArray.count > 0 {
-                self.setUpStatuesView(statuesArray, types: nil)
-            }else{
-                self.setUpStatuesView([], types: nil)
-            }
-        }
+    func hiddenLindeLabel(){
+        lineLabel.hidden = true
+    }
+    
+    func setUpTicketStatues(sellCount:String){
+        let statuesArray:[String] = ["在售\(sellCount)张"]
+        self.setUpStatuesView(statuesArray, types: nil)
     }
     
     func setUpStatuesView(titles:[String], types:NSArray?){

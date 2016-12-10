@@ -66,24 +66,12 @@ class MyTicketPutUpViewController: UIViewController {
     }
     
     func bindeViewModel(){
-//        viewModel.requestTicketSession(self)
-    }
-    
-    func updataLikeImage(){
-//        var image:UIImage!
-//        if viewModel.model != nil && UserInfoModel.isLoggedIn() && viewModel.model.show.isFavorite == true {
-//            image = UIImage.init(named: "Icon_Liked_Normal")?.imageWithRenderingMode(.AlwaysOriginal)
-//        }else{
-//            image = UIImage.init(named: "Icon_Like_Normal")?.imageWithRenderingMode(.AlwaysOriginal)
-//        }
-//        likeButton = UIButton(type: .Custom)
-//        likeButton.frame = CGRect.init(x: 0, y: 0, width: image.size.width, height: image.size.height)
-//        likeButton.setImage(image, forState: .Normal)
-//        likeButton.setImage(UIImage.init(named: "Icon_Like_Press"), forState: .Selected)
-//        likeButton.addTarget(self, action: #selector(TicketDescriptionViewController.likeItemPress(_:)), forControlEvents: .TouchUpInside)
-//        
-//        let likeItem = UIBarButtonItem.init(customView: likeButton)
-//        self.navigationItem.rightBarButtonItem = likeItem
+        viewModel.controller = self
+        if viewModel.sellManagerModel.sessionCount != 1 {
+            viewModel.requestTicketSession()
+        }else{
+            self.tableView.reloadData()
+        }
     }
     
     func setUpNavigationItems() {
@@ -91,25 +79,6 @@ class MyTicketPutUpViewController: UIViewController {
         self.isShowTicketNavigationBar(false)
         self.setNavigationItemBack()
         
-        //        let shareItem = UIBarButtonItem(image: UIImage.init(named: "Icon_Share_Normal")?.imageWithRenderingMode(.AlwaysOriginal), style: .Plain, target: self, action: #selector(TicketDescriptionViewController.shareItemPress(_:)))
-        //        shareItem.setBackgroundImage(UIImage.init(named: "Icon_Share_Press"), forState: .Selected, barMetrics: .Default)
-        
-    }
-    
-    func likeItemPress(sender:UIButton) {
-//        if UserInfoModel.isLoggedIn() {
-//            if viewModel.model.show.isFavorite == true {
-//                viewModel.requestDeleteCollectTicket()
-//                viewModel.model.show.isFavorite = false
-//                likeButton.setImage(UIImage.init(named: "Icon_Like_Normal")?.imageWithRenderingMode(.AlwaysOriginal), forState: .Normal)
-//            }else{
-//                viewModel.requestCollectTicket()
-//                viewModel.model.show.isFavorite = true
-//                likeButton.setImage(UIImage.init(named: "Icon_Liked_Normal")?.imageWithRenderingMode(.AlwaysOriginal), forState: .Normal)
-//            }
-//        }else{
-//            NavigationPushView(self, toConroller: LoginViewController())
-//        }
     }
     
     func shareItemPress(sender:UIBarButtonItem) {
@@ -122,16 +91,6 @@ class MyTicketPutUpViewController: UIViewController {
     }
     
     func isShowTicketNavigationBar(isShowTicket:Bool) {
-        //        if !isShowTicket {
-        //            navigationBar = GlobalNavigationBarView(frame: CGRectMake(0, 0, SCREENWIDTH - 150, 42), title: "万有音乐系 陈粒《小梦大半》2016巡.", detail: "2016.11.12 20:00")
-        //            self.navigationItem.titleView = navigationBar
-        //        }else{
-        //            if navigationBar != nil {
-        //                navigationBar.hidden  = true
-        //                navigationBar.removeFromSuperview()
-        //            }
-        //            self.navigationItem.titleView =  GlobalNavigationBarView(frame: CGRectMake(0, 0, SCREENWIDTH - 150, 42), title: "《小梦大半》2016巡.", detail: "2016.11.12 20:00")
-        //        }
         self.navigationItem.title = "我的挂票"
     }
     
@@ -157,11 +116,11 @@ class MyTicketPutUpViewController: UIViewController {
                     if indexPath.row != 0 {
                         Notification(ToolViewNotifacationName, value: "100")
                         self.isShowTicketNavigationBar(false)
-                        self.viewModel.sortTickeByOriginTicketPrice(str as? String, controller:self)
+                        self.viewModel.sortTickeByOriginTicketPrice(str as? String)
                     }else{
                         Notification(ToolViewNotifacationName, value: "100")
                         self.isShowTicketNavigationBar(false)
-                        self.viewModel.sortTickeByOriginTicketPrice("0", controller:self)
+                        self.viewModel.sortTickeByOriginTicketPrice("0")
                     }
                 }
                 self.view.addSubview(ticketPrice)
@@ -178,11 +137,11 @@ class MyTicketPutUpViewController: UIViewController {
                     if indexPath.row != 0 {
                         Notification(ToolViewNotifacationName, value: "200")
                         self.isShowTicketNavigationBar(false)
-                        self.viewModel.sortTickeByRowTicketPrice(str as? String, controller:self)
+                        self.viewModel.sortTickeByRowTicketPrice(str as? String)
                     }else{
                         Notification(ToolViewNotifacationName, value: "200")
                         self.isShowTicketNavigationBar(false)
-                        self.viewModel.sortTickeByOriginTicketPrice("0", controller:self)
+                        self.viewModel.sortTickeByOriginTicketPrice("0")
                     }
                 }
                 self.view.addSubview(ticketRow)
@@ -197,7 +156,12 @@ class MyTicketPutUpViewController: UIViewController {
     func ticketToolsViewSortPrice(type:TicketSortType){
         if self.view.viewWithTag(100) != nil { self.view.viewWithTag(100)?.removeFromSuperview()}
         if self.view.viewWithTag(200) != nil { self.view.viewWithTag(200)?.removeFromSuperview()}
-        viewModel.sortTicket(self, type:type)
+        viewModel.sortTicket(type)
+    }
+    
+    func hiderTicketToolsView(){
+        if self.view.viewWithTag(100) != nil { self.view.viewWithTag(100)?.removeFromSuperview()}
+        if self.view.viewWithTag(200) != nil { self.view.viewWithTag(200)?.removeFromSuperview()}
     }
     
     func updateTicketViewFrame(tag:NSInteger){
@@ -219,7 +183,7 @@ extension MyTicketPutUpViewController : UITableViewDelegate {
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        viewModel.tableViewDidSelectRowAtIndexPath(self, indexPath: indexPath)
+        viewModel.tableViewDidSelectRowAtIndexPath(indexPath)
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
@@ -237,7 +201,6 @@ extension MyTicketPutUpViewController : UITableViewDelegate {
                 ticketToolsView.addSubview(ticketView)
                 let lineLabel = GloabLineView(frame: CGRect.init(x: 15, y: 1, width: SCREENWIDTH - 30, height: 0.5))
                 ticketToolsView.addSubview(lineLabel)
-                
             }
         }else{
             ticketToolsView.hidden = true
@@ -266,12 +229,12 @@ extension MyTicketPutUpViewController : UITableViewDataSource {
         switch indexPath.row {
         case 0:
             let cell = tableView.dequeueReusableCellWithIdentifier("PickUpTickeTableViewCell", forIndexPath: indexPath) as! PickUpTickeTableViewCell
-//            viewModel.configCellTicketDescripTableViewCell(cell)
+            viewModel.tableViewCellPickUpTickeTableViewCell(cell)
             cell.selectionStyle = .None
             return cell
         case 1:
             let cell = tableView.dequeueReusableCellWithIdentifier("PicketUpSessionTableViewCell", forIndexPath: indexPath) as! PicketUpSessionTableViewCell
-//            viewModel.configCellTicketNumberTableViewCell(cell)
+            viewModel.tableViewCellPicketUpSessionTableViewCell(cell)
             cell.selectionStyle = .None
             return cell
         case 2:
@@ -292,19 +255,9 @@ extension MyTicketPutUpViewController : UITableViewDataSource {
             return cell
         default:
             let cell = tableView.dequeueReusableCellWithIdentifier("TiketPickeUpInfoTableViewCell", forIndexPath: indexPath) as! TiketPickeUpInfoTableViewCell
-            //                viewModel.configCellTickerInfoTableViewCell(cell, indexPath:indexPath)
+            viewModel.tableViewCellTickerInfoTableViewCell(cell, indexPath: indexPath)
             cell.selectionStyle = .None
             return cell
-//            if viewModel.model.ticketList.count == 0 {
-//                let cell = tableView.dequeueReusableCellWithIdentifier("NoneTicketTableViewCell", forIndexPath: indexPath) as! NoneTicketTableViewCell
-//                cell.selectionStyle = .None
-//                return cell
-//            }else{
-//                let cell = tableView.dequeueReusableCellWithIdentifier("TiketPickeUpInfoTableViewCell", forIndexPath: indexPath) as! TiketPickeUpInfoTableViewCell
-////                viewModel.configCellTickerInfoTableViewCell(cell, indexPath:indexPath)
-//                cell.selectionStyle = .None
-//                return cell
-//            }
         }
         
     }

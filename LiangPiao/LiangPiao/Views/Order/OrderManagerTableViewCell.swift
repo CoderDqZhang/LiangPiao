@@ -169,7 +169,7 @@ class OrderManagerTableViewCell: UITableViewCell {
                 make.left.equalTo(self.ticketPhoto.snp_right).offset(12)
                 make.right.equalTo(self.contentView.snp_right).offset(-15)
             })
-                        
+            
             ticketTime.snp_makeConstraints(closure: { (make) in
                 make.bottom.equalTo(self.ticketMuch.snp_top).offset(-2)
                 make.left.equalTo(self.ticketPhoto.snp_right).offset(12)

@@ -119,7 +119,21 @@ class MySellViewModel: NSObject {
     
     //MARK: MySellOrderMangerViewController
     func mySellOrderManagerTableViewDidSelect(indexPath:NSIndexPath, controller:MySellPagerViewController){
-        NavigationPushView(self.controller, toConroller: MyTicketPutUpViewController())
+        let model = SellManagerModel.init(fromDictionary: self.sellManagerModel[indexPath.section] as! NSDictionary)
+        let controllerVC = MyTicketPutUpViewController()
+        controllerVC.viewModel.sellManagerModel = model
+        controllerVC.viewModel.ticketSellCount = self.sellManagerModelSellCount(model)
+        controllerVC.viewModel.ticketSoldCount = self.sellManagerModelSoldCount(model)
+        let priceModel = self.sellManagerMinMaxPrice(model)
+        var ticketMuch = ""
+        if priceModel.minPrice != priceModel.maxPrice {
+            ticketMuch = "\(priceModel.minPrice)-\(priceModel.maxPrice)"
+        }else{
+            ticketMuch = "\(priceModel.minPrice)"
+        }
+        controllerVC.viewModel.ticketSoldMuch = ticketMuch
+        controllerVC.viewModel.ticketSession = self.sellManagerModelSession(model)
+        NavigationPushView(self.controller, toConroller: controllerVC)
     }
     
     func mySellOrderManagerNumberOfSection() -> Int{
