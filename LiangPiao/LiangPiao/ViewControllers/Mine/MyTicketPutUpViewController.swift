@@ -53,7 +53,7 @@ class MyTicketPutUpViewController: UIViewController {
         self.view.addSubview(ticketToolsView)
         
         bottomView = GloableBottomButtonView(frame: nil, title: "继续挂票", tag: 1) { (tag) in
-            print("点击方法")
+            self.viewModel.connectService()
         }
         self.view.addSubview(bottomView)
         
@@ -67,9 +67,10 @@ class MyTicketPutUpViewController: UIViewController {
     
     func bindeViewModel(){
         viewModel.controller = self
-        if viewModel.sellManagerModel.sessionCount != 1 {
+        if viewModel.ticketShowModel.sessionCount != 1 {
             viewModel.requestTicketSession()
         }else{
+            viewModel.oneSession()
             self.tableView.reloadData()
         }
     }

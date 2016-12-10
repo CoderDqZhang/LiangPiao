@@ -56,7 +56,7 @@ class TicketSceneTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setData(model:TicketSessionModel) {
+    func setData(model:ShowSessionModel) {
         if model.ticketStatus != 0 {
             let mMuch = model.ticketCount == 0 ? "暂时缺票" : "元起"
             ticketmMuch.text = mMuch

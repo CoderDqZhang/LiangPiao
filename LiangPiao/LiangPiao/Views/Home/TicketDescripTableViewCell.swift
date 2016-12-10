@@ -66,7 +66,7 @@ class TicketDescripTableViewCell: UITableViewCell {
         self.updateConstraintsIfNeeded()
     }
     
-    func setData(model:HomeTicketModel, sessionModel:TicketSessionModel){
+    func setData(model:TicketShowModel, sessionModel:ShowSessionModel){
         ticketPhoto.sd_setImageWithURL(NSURL.init(string: model.cover), placeholderImage: UIImage.init(named: "Feeds_Default_Cover")) { (image, error, cacheType, url) in
         }
         ticketTitle.text = model.title
@@ -79,7 +79,7 @@ class TicketDescripTableViewCell: UITableViewCell {
         
     }
     
-    func setUpTicketStatues(model:TicketSessionModel){
+    func setUpTicketStatues(model:ShowSessionModel){
         var statuesArray:[String] = []
         if model.minDiscount != "" && model.minDiscount != "0.0" && Double(model.minDiscount) < 1{
             statuesArray.append("\(Double(model.minDiscount)! * 10)折")

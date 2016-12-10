@@ -14,7 +14,7 @@ class TicketDescriptionViewController: UIViewController {
     var navigationBar:GlobalNavigationBarView!
     var ticketToolsView:UIView!
     var cell:TicketToolsTableViewCell!
-    var session:TicketSessionModel!
+    var session:ShowSessionModel!
     let  viewModel = TicketDescriptionViewModel()
     
     var likeButton:UIButton!

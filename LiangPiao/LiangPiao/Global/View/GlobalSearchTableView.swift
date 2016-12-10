@@ -63,7 +63,7 @@ extension GlobalSearchTableView : UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if viewModel.searchType == .TicketShow {
+        if viewModel.searchType == .TicketShowModel {
             let cell = tableView.dequeueReusableCellWithIdentifier("RecommendTableViewCell", forIndexPath: indexPath) as! RecommendTableViewCell
             viewModel.searchTableCellData(cell, indexPath: indexPath)
             cell.selectionStyle = .None

@@ -92,7 +92,7 @@ class PickUpTickeTableViewCell: UITableViewCell {
         self.updateConstraintsIfNeeded()
     }
     
-    func setData(model:SellManagerModel, session:String, sellCount:String, soldCount:String, soldMuch:String){
+    func setData(model:TicketShowModel, session:String, sellCount:String, soldCount:String, soldMuch:String){
         ticketPhoto.sd_setImageWithURL(NSURL.init(string: model.cover), placeholderImage: UIImage.init(named: "Feeds_Default_Cover")) { (image, error, cacheType, url) in
         }
         ticketTitle.text = model.title

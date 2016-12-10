@@ -14,8 +14,8 @@ class OrderDetailViewModel: NSObject {
 
     var aliPayurl:String = ""
     var model:OrderList!
-    var ticketModel:HomeTicketModel!
-    var sesstionModel:TicketSessionModel!
+    var ticketModel:TicketShowModel!
+    var sesstionModel:ShowSessionModel!
     var controller:OrderDetailViewController!
     var indexPath:NSIndexPath!
     var isOrderConfim:Bool = false

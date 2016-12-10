@@ -1,5 +1,5 @@
 //
-//	TicketSessionModel.swift
+//	ShowSessionModel.swift
 //
 //	Create by Zhang on 22/11/2016
 //	Copyright © 2016. All rights reserved.
@@ -8,7 +8,7 @@
 import Foundation
 
 
-class TicketSessionModel : NSObject, NSCoding{
+class ShowSessionModel : NSObject, NSCoding{
     
     var endTime : String!
     var id : Int!
@@ -19,7 +19,9 @@ class TicketSessionModel : NSObject, NSCoding{
     var otherRegions : String!
     var startTime : String!
     var ticketCount : Int!
+    var ticketList : [TicketList]!
     var ticketStatus : Int!
+    
     
     /**
      * Instantiate the instance using the passed dictionary values to set the properties values
@@ -34,6 +36,13 @@ class TicketSessionModel : NSObject, NSCoding{
         otherRegions = dictionary["other_regions"] as? String
         startTime = dictionary["start_time"] as? String
         ticketCount = dictionary["ticket_count"] as? Int
+        ticketList = [TicketList]()
+        if let ticketListArray = dictionary["ticket_list"] as? [NSDictionary]{
+            for dic in ticketListArray{
+                let value = TicketList(fromDictionary: dic)
+                ticketList.append(value)
+            }
+        }
         ticketStatus = dictionary["ticket_status"] as? Int
     }
     
@@ -42,7 +51,7 @@ class TicketSessionModel : NSObject, NSCoding{
      */
     func toDictionary() -> NSDictionary
     {
-        let dictionary = NSMutableDictionary()
+        var dictionary = NSMutableDictionary()
         if endTime != nil{
             dictionary["end_time"] = endTime
         }
@@ -70,6 +79,13 @@ class TicketSessionModel : NSObject, NSCoding{
         if ticketCount != nil{
             dictionary["ticket_count"] = ticketCount
         }
+        if ticketList != nil{
+            var dictionaryElements = [NSDictionary]()
+            for ticketListElement in ticketList {
+                dictionaryElements.append(ticketListElement.toDictionary())
+            }
+            dictionary["ticket_list"] = dictionaryElements
+        }
         if ticketStatus != nil{
             dictionary["ticket_status"] = ticketStatus
         }
@@ -91,6 +107,7 @@ class TicketSessionModel : NSObject, NSCoding{
         otherRegions = aDecoder.decodeObjectForKey("other_regions") as? String
         startTime = aDecoder.decodeObjectForKey("start_time") as? String
         ticketCount = aDecoder.decodeObjectForKey("ticket_count") as? Int
+        ticketList = aDecoder.decodeObjectForKey("ticket_list") as? [TicketList]
         ticketStatus = aDecoder.decodeObjectForKey("ticket_status") as? Int
         
     }
@@ -127,6 +144,9 @@ class TicketSessionModel : NSObject, NSCoding{
         }
         if ticketCount != nil{
             aCoder.encodeObject(ticketCount, forKey: "ticket_count")
+        }
+        if ticketList != nil{
+            aCoder.encodeObject(ticketList, forKey: "ticket_list")
         }
         if ticketStatus != nil{
             aCoder.encodeObject(ticketStatus, forKey: "ticket_status")

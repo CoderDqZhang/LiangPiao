@@ -16,7 +16,7 @@ class RecommentTickes : NSObject, NSCoding{
     //商家票品管理
     var nextPage : Int!
     
-    var showList : [HomeTicketModel]!
+    var showList : [TicketShowModel]!
     
     
     /**
@@ -26,10 +26,10 @@ class RecommentTickes : NSObject, NSCoding{
         hasNext = dictionary["has_next"] as? Bool
         nextStart = dictionary["next_start"] as? Int
         nextPage = dictionary["next_page"] as? Int
-        showList = [HomeTicketModel]()
+        showList = [TicketShowModel]()
         if let showListArray = dictionary["show_list"] as? [NSDictionary]{
             for dic in showListArray{
-                let value = HomeTicketModel(fromDictionary: dic)
+                let value = TicketShowModel(fromDictionary: dic)
                 showList.append(value)
             }
         }
@@ -69,7 +69,7 @@ class RecommentTickes : NSObject, NSCoding{
         hasNext = aDecoder.decodeObjectForKey("has_next") as? Bool
         nextStart = aDecoder.decodeObjectForKey("next_start") as? Int
         nextPage = aDecoder.decodeObjectForKey("next_page") as? Int
-        showList = aDecoder.decodeObjectForKey("show_list") as? [HomeTicketModel]
+        showList = aDecoder.decodeObjectForKey("show_list") as? [TicketShowModel]
         
     }
     

@@ -1,5 +1,5 @@
 //
-//  HomeTicketModel.swift
+//  TicketShowModel.swift
 //  LiangPiao
 //
 //  Created by Zhang on 22/11/2016.
@@ -174,7 +174,7 @@ class Category : NSObject, NSCoding{
     
 }
 
-class HomeTicketModel : NSObject, NSCoding{
+class TicketShowModel : NSObject, NSCoding{
     
     var category : Category!
     var city : String!
@@ -182,7 +182,8 @@ class HomeTicketModel : NSObject, NSCoding{
     var id : Int!
     var minDiscount : String!
     var minPrice : Int!
-    var session : TicketSessionModel!
+    var session : ShowSessionModel!
+    var sessionList : [ShowSessionModel]!
     var sessionCount : Int!
     var showDate : String!
     var ticketCount : Int!
@@ -205,7 +206,14 @@ class HomeTicketModel : NSObject, NSCoding{
         minDiscount = dictionary["min_discount"] as? String
         minPrice = dictionary["min_price"] as? Int
         if let sessionData = dictionary["session"] as? NSDictionary{
-            session = TicketSessionModel(fromDictionary: sessionData)
+            session = ShowSessionModel(fromDictionary: sessionData)
+        }
+        sessionList = [ShowSessionModel]()
+        if let sessionListArray = dictionary["session_list"] as? [NSDictionary]{
+            for dic in sessionListArray{
+                let value = ShowSessionModel(fromDictionary: dic)
+                sessionList.append(value)
+            }
         }
         sessionCount = dictionary["session_count"] as? Int
         showDate = dictionary["show_date"] as? String
@@ -248,6 +256,13 @@ class HomeTicketModel : NSObject, NSCoding{
         if session != nil{
             dictionary["session"] = session.toDictionary()
         }
+        if sessionList != nil{
+            var dictionaryElements = [NSDictionary]()
+            for sessionListElement in sessionList {
+                dictionaryElements.append(sessionListElement.toDictionary())
+            }
+            dictionary["session_list"] = dictionaryElements
+        }
         if sessionCount != nil{
             dictionary["session_count"] = sessionCount
         }
@@ -282,7 +297,8 @@ class HomeTicketModel : NSObject, NSCoding{
         isFavorite = aDecoder.decodeObjectForKey("is_favorite") as? Bool
         minDiscount = aDecoder.decodeObjectForKey("min_discount") as? String
         minPrice = aDecoder.decodeObjectForKey("min_price") as? Int
-        session = aDecoder.decodeObjectForKey("session") as? TicketSessionModel
+        session = aDecoder.decodeObjectForKey("session") as? ShowSessionModel
+        sessionList = aDecoder.decodeObjectForKey("session_list") as? [ShowSessionModel]
         sessionCount = aDecoder.decodeObjectForKey("session_count") as? Int
         showDate = aDecoder.decodeObjectForKey("show_date") as? String
         ticketCount = aDecoder.decodeObjectForKey("ticket_count") as? Int
@@ -321,6 +337,9 @@ class HomeTicketModel : NSObject, NSCoding{
         }
         if session != nil{
             aCoder.encodeObject(session, forKey: "session")
+        }
+        if sessionList != nil{
+            aCoder.encodeObject(sessionList, forKey: "session_list")
         }
         if sessionCount != nil{
             aCoder.encodeObject(sessionCount, forKey: "session_count")

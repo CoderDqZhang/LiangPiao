@@ -11,11 +11,11 @@ import ReactiveCocoa
 
 class TicketDescriptionViewModel: NSObject {
 
-    var ticketModel:HomeTicketModel!
+    var ticketModel:TicketShowModel!
     var model:TicketDescriptionModel!
     var ticketNumber:NSInteger = 1
     var tempList:[TicketList]!
-    var sesstionModel:TicketSessionModel!
+    var sesstionModel:ShowSessionModel!
     
     var ticketPriceArray:NSMutableArray = NSMutableArray()
     var ticketRowArray:NSArray = NSArray()

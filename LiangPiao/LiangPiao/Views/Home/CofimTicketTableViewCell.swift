@@ -68,7 +68,7 @@ class CofimTicketTableViewCell: UITableViewCell {
         
     }
     
-    func setData(model:HomeTicketModel, ticketModel:TicketList, sessionModel:TicketSessionModel, ticketCount:String) {
+    func setData(model:TicketShowModel, ticketModel:TicketList, sessionModel:ShowSessionModel, ticketCount:String) {
         ticketPhoto.sd_setImageWithURL(NSURL.init(string: model.cover), placeholderImage: UIImage.init(named: "Feeds_Default_Cover_02")) { (image, error, cacheType, url) in
         }
         ticketTitle.text = model.title

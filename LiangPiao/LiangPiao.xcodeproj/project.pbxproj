@@ -58,7 +58,7 @@
 		1F45C4021DD73AA4008C60CD /* LiangNomalRefreshHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F45C4011DD73AA4008C60CD /* LiangNomalRefreshHeader.swift */; };
 		1F45C4041DD73BC9008C60CD /* AllTicketTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F45C4031DD73BC9008C60CD /* AllTicketTableViewCell.swift */; };
 		1F52ED721DE31E2300916C91 /* TicketDetailInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F52ED711DE31E2300916C91 /* TicketDetailInfoTableViewCell.swift */; };
-		1F52ED741DE3FBC800916C91 /* HomeTicketModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F52ED731DE3FBC800916C91 /* HomeTicketModel.swift */; };
+		1F52ED741DE3FBC800916C91 /* TicketShowModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F52ED731DE3FBC800916C91 /* TicketShowModel.swift */; };
 		1F54C52E1DDC3A61009ADDA9 /* JKDBHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F54C52B1DDC3A61009ADDA9 /* JKDBHelper.m */; };
 		1F54C52F1DDC3A61009ADDA9 /* JKDBModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F54C52D1DDC3A61009ADDA9 /* JKDBModel.m */; };
 		1F54C5341DDC4891009ADDA9 /* UserInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F54C5331DDC4891009ADDA9 /* UserInfoModel.m */; };
@@ -103,7 +103,6 @@
 		1F6BB9961DD964F900893932 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F6BB9951DD964F900893932 /* libsqlite3.0.tbd */; };
 		1F6BB9B81DD9974300893932 /* OrderAddressTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6BB9B71DD9974300893932 /* OrderAddressTableViewCell.swift */; };
 		1F80A65C1DE6905400DA51AB /* ErrorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F80A65B1DE6905400DA51AB /* ErrorModel.swift */; };
-		1F8741C41DFA93CE00469589 /* SellManagerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8741C31DFA93CE00469589 /* SellManagerModel.swift */; };
 		1F889EE91DF6ABFA009717DB /* WithDrawTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F889EE81DF6ABFA009717DB /* WithDrawTableViewCell.swift */; };
 		1F889EEB1DF6BC71009717DB /* TopUpTypeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F889EEA1DF6BC71009717DB /* TopUpTypeTableViewCell.swift */; };
 		1F889EED1DF6BC7F009717DB /* TopUpMuchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F889EEC1DF6BC7F009717DB /* TopUpMuchTableViewCell.swift */; };
@@ -152,7 +151,7 @@
 		1FC3DDE91DE4520C00420A05 /* TicketCategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC3DDE81DE4520C00420A05 /* TicketCategoryViewModel.swift */; };
 		1FC3DDEB1DE45B1A00420A05 /* RecommentTickes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC3DDEA1DE45B1A00420A05 /* RecommentTickes.swift */; };
 		1FC3DDED1DE46DD700420A05 /* TicketSessionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC3DDEC1DE46DD700420A05 /* TicketSessionViewModel.swift */; };
-		1FC3DDEF1DE46F1600420A05 /* TicketSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC3DDEE1DE46F1600420A05 /* TicketSession.swift */; };
+		1FC3DDEF1DE46F1600420A05 /* ShowSessionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC3DDEE1DE46F1600420A05 /* ShowSessionModel.swift */; };
 		1FC4FED31DC8729A00EBFD18 /* TicketPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC4FED21DC8729A00EBFD18 /* TicketPageViewController.swift */; };
 		1FC4FED51DC8734200EBFD18 /* BaseTicketsPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC4FED41DC8734200EBFD18 /* BaseTicketsPageViewController.swift */; };
 		1FC4FEEA1DC8A32E00EBFD18 /* TYPagerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FC4FEE21DC8A32E00EBFD18 /* TYPagerController.m */; };
@@ -284,7 +283,7 @@
 		1F45C4011DD73AA4008C60CD /* LiangNomalRefreshHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiangNomalRefreshHeader.swift; sourceTree = "<group>"; };
 		1F45C4031DD73BC9008C60CD /* AllTicketTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AllTicketTableViewCell.swift; path = ../../ViewControllers/Home/AllTicketTableViewCell.swift; sourceTree = "<group>"; };
 		1F52ED711DE31E2300916C91 /* TicketDetailInfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketDetailInfoTableViewCell.swift; sourceTree = "<group>"; };
-		1F52ED731DE3FBC800916C91 /* HomeTicketModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTicketModel.swift; sourceTree = "<group>"; };
+		1F52ED731DE3FBC800916C91 /* TicketShowModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketShowModel.swift; sourceTree = "<group>"; };
 		1F54C52A1DDC3A61009ADDA9 /* JKDBHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKDBHelper.h; sourceTree = "<group>"; };
 		1F54C52B1DDC3A61009ADDA9 /* JKDBHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKDBHelper.m; sourceTree = "<group>"; };
 		1F54C52C1DDC3A61009ADDA9 /* JKDBModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKDBModel.h; sourceTree = "<group>"; };
@@ -336,7 +335,6 @@
 		1F6BB9951DD964F900893932 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		1F6BB9B71DD9974300893932 /* OrderAddressTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderAddressTableViewCell.swift; path = ../../ViewModels/Home/OrderAddressTableViewCell.swift; sourceTree = "<group>"; };
 		1F80A65B1DE6905400DA51AB /* ErrorModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorModel.swift; sourceTree = "<group>"; };
-		1F8741C31DFA93CE00469589 /* SellManagerModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SellManagerModel.swift; sourceTree = "<group>"; };
 		1F889EE81DF6ABFA009717DB /* WithDrawTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WithDrawTableViewCell.swift; sourceTree = "<group>"; };
 		1F889EEA1DF6BC71009717DB /* TopUpTypeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopUpTypeTableViewCell.swift; sourceTree = "<group>"; };
 		1F889EEC1DF6BC7F009717DB /* TopUpMuchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopUpMuchTableViewCell.swift; sourceTree = "<group>"; };
@@ -397,7 +395,7 @@
 		1FC3DDE81DE4520C00420A05 /* TicketCategoryViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketCategoryViewModel.swift; sourceTree = "<group>"; };
 		1FC3DDEA1DE45B1A00420A05 /* RecommentTickes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RecommentTickes.swift; path = ../../ViewModels/Home/RecommentTickes.swift; sourceTree = "<group>"; };
 		1FC3DDEC1DE46DD700420A05 /* TicketSessionViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketSessionViewModel.swift; sourceTree = "<group>"; };
-		1FC3DDEE1DE46F1600420A05 /* TicketSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketSession.swift; sourceTree = "<group>"; };
+		1FC3DDEE1DE46F1600420A05 /* ShowSessionModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowSessionModel.swift; sourceTree = "<group>"; };
 		1FC4FED21DC8729A00EBFD18 /* TicketPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketPageViewController.swift; sourceTree = "<group>"; };
 		1FC4FED41DC8734200EBFD18 /* BaseTicketsPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseTicketsPageViewController.swift; sourceTree = "<group>"; };
 		1FC4FEE11DC8A32E00EBFD18 /* TYPagerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TYPagerController.h; sourceTree = "<group>"; };
@@ -597,7 +595,6 @@
 			children = (
 				1F1FE8C51DEDE84A0034268F /* OrderListModel.swift */,
 				1F3983AC1DED68B700A24541 /* OrderFormModel.swift */,
-				1F8741C31DFA93CE00469589 /* SellManagerModel.swift */,
 			);
 			path = Order;
 			sourceTree = "<group>";
@@ -1096,11 +1093,11 @@
 			isa = PBXGroup;
 			children = (
 				1FD881CE1DC7621400B2B702 /* HomeCenterModel.swift */,
-				1F52ED731DE3FBC800916C91 /* HomeTicketModel.swift */,
+				1F52ED731DE3FBC800916C91 /* TicketShowModel.swift */,
 				1FC3DDE61DE4510700420A05 /* TicketCategorys.swift */,
 				1FA708821DEBCD7400FCCAEB /* TicketDescriptionModel.swift */,
 				1FC3DDEA1DE45B1A00420A05 /* RecommentTickes.swift */,
-				1FC3DDEE1DE46F1600420A05 /* TicketSession.swift */,
+				1FC3DDEE1DE46F1600420A05 /* ShowSessionModel.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -1423,7 +1420,7 @@
 				1F0EAB8B1DD1DBC400D25B64 /* MyProfileViewController.swift in Sources */,
 				1FBFC7F11DDAC45B008D9CEC /* ZDQFMDBHelp.swift in Sources */,
 				1F0EABA11DD2C0A600D25B64 /* LoginViewController.swift in Sources */,
-				1FC3DDEF1DE46F1600420A05 /* TicketSession.swift in Sources */,
+				1FC3DDEF1DE46F1600420A05 /* ShowSessionModel.swift in Sources */,
 				1F0EAB911DD1E8F200D25B64 /* SettingViewController.swift in Sources */,
 				1FD881E81DC8546500B2B702 /* TAPageControl.m in Sources */,
 				1F67D1101DCD816E00378116 /* AddAddressViewController.swift in Sources */,
@@ -1474,7 +1471,6 @@
 				1F0EAB681DD091FA00D25B64 /* OrderListViewController.swift in Sources */,
 				1FAADB3F1DF7ABDC00D08BB9 /* OrderDeliveryTypeViewController.swift in Sources */,
 				1F9A0CA21DF93A7F002F4C19 /* MySellServiceTableViewCell.swift in Sources */,
-				1F8741C41DFA93CE00469589 /* SellManagerModel.swift in Sources */,
 				1F45C4001DD7361C008C60CD /* LiangPiaoHomeRefreshHeader.swift in Sources */,
 				1F0EAB851DD1C88C00D25B64 /* MineViewModel.swift in Sources */,
 				1F62F2591DC9BDBF00B591F1 /* TicketSceneTableViewCell.swift in Sources */,
@@ -1541,7 +1537,7 @@
 				1FD881EB1DC8546500B2B702 /* UIView+SDExtension.m in Sources */,
 				1F24DE931DD5A35900C6E8CA /* GlobalSearchTableView.swift in Sources */,
 				1FEE7EB91DF68ECB00479648 /* TopUpViewModel.swift in Sources */,
-				1F52ED741DE3FBC800916C91 /* HomeTicketModel.swift in Sources */,
+				1F52ED741DE3FBC800916C91 /* TicketShowModel.swift in Sources */,
 				1FD881BF1DC736D300B2B702 /* HomeSearchTableViewCell.swift in Sources */,
 				1FD881D41DC84FDA00B2B702 /* GloabView.swift in Sources */,
 				1FEE7EAD1DF65AAF00479648 /* MyWallToolsTableViewCell.swift in Sources */,

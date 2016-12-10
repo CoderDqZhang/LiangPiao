@@ -95,7 +95,7 @@ class HomeViewModel: NSObject {
             case self.numberOfRowsInSection(indexPath.section) - 1:
                 self.navigationPushTicketPage(4)
             default:
-                let model = HomeTicketModel.init(fromDictionary: models.objectAtIndex(indexPath.row - 1) as! NSDictionary)
+                let model = TicketShowModel.init(fromDictionary: models.objectAtIndex(indexPath.row - 1) as! NSDictionary)
                 if model.sessionCount == 1 {
                     let controllerVC = TicketDescriptionViewController()
                     controllerVC.viewModel.ticketModel = model
@@ -110,7 +110,7 @@ class HomeViewModel: NSObject {
     }
     
     func cellData(cell:RecommendTableViewCell, indexPath:NSIndexPath) {
-        let model = HomeTicketModel.init(fromDictionary: models.objectAtIndex(indexPath.row - 1) as! NSDictionary)
+        let model = TicketShowModel.init(fromDictionary: models.objectAtIndex(indexPath.row - 1) as! NSDictionary)
         cell.setData(model)
     }
     

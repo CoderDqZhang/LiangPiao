@@ -76,7 +76,7 @@ class RecommendTableViewCell: UITableViewCell {
         
     }
     
-    func setData(model:HomeTicketModel) {
+    func setData(model:TicketShowModel) {
         ticketPhoto.sd_setImageWithURL(NSURL.init(string: model.cover), placeholderImage: UIImage.init(named: "Feeds_Default_Cover")) { (image, error, cacheType, url) in
         }
         ticketTitle.text = model.title
@@ -97,7 +97,7 @@ class RecommendTableViewCell: UITableViewCell {
         
     }
     
-    func setUpTicketStatues(model:HomeTicketModel){
+    func setUpTicketStatues(model:TicketShowModel){
         var statuesArray:[String] = []
         if model.minDiscount != "" && Double(model.minDiscount) < 1 && Double(model.minDiscount) > 0{
             statuesArray.append("\((Double(model.minDiscount)! * 10))折")

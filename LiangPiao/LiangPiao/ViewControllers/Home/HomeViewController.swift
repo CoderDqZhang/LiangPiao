@@ -119,7 +119,7 @@ class HomeViewController: BaseViewController {
     
     func setSearchNavigatioBarClouse(){
         searchNavigationBar.searchTextFieldBecomFirstRespoder = { _ in
-            self.searchViewModel.searchType = .TicketShow
+            self.searchViewModel.searchType = .TicketShowModel
             if self.searchTableView == nil {
                 self.searchTableView = GlobalSearchTableView(frame: CGRectMake(0, CGRectGetMaxY(self.searchNavigationBar.frame), SCREENWIDTH, SCREENHEIGHT - CGRectGetMaxY(self.searchNavigationBar.frame)))
                 self.view.addSubview(self.searchTableView)

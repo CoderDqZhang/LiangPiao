@@ -9,7 +9,7 @@
 import UIKit
 
 enum SearchType {
-    case TicketShow
+    case TicketShowModel
     case TicketSell
 }
 typealias SearchViewModelClouse = () ->Void
@@ -20,7 +20,7 @@ class SearchViewModel: NSObject {
     var controller:HomeViewController!
     var controllerS:SellTicketsViewController!
     var searchViewModelClouse:SearchViewModelClouse!
-    var searchType:SearchType = .TicketShow
+    var searchType:SearchType = .TicketShowModel
     
     private override init() {
         
@@ -32,7 +32,7 @@ class SearchViewModel: NSObject {
     }
     
     func searchTableNumberOfRowsInSection(section:Int) ->Int {
-        if searchType == .TicketShow {
+        if searchType == .TicketShowModel {
             if searchModel != nil {
                 return searchModel.showList.count
             }
@@ -55,7 +55,7 @@ class SearchViewModel: NSObject {
     }
     
     func searchTablaTableViewDidSelectRowAtIndexPath(indexPath:NSIndexPath ) {
-        if searchType == .TicketShow {
+        if searchType == .TicketShowModel {
             let searchTicke = searchModel.showList[indexPath.row]
             if searchTicke.sessionCount == 1 {
                 let controllerVC = TicketDescriptionViewController()

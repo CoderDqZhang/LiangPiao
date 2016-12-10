@@ -97,7 +97,7 @@ class Item : NSObject, NSCoding{
     
     var created : String!
     var id : Int!
-    var show : HomeTicketModel!
+    var show : TicketShowModel!
     
     
     /**
@@ -107,7 +107,7 @@ class Item : NSObject, NSCoding{
         created = dictionary["created"] as? String
         id = dictionary["id"] as? Int
         if let showData = dictionary["show"] as? NSDictionary{
-            show = HomeTicketModel(fromDictionary: showData)
+            show = TicketShowModel(fromDictionary: showData)
         }
     }
     
@@ -137,7 +137,7 @@ class Item : NSObject, NSCoding{
     {
         created = aDecoder.decodeObjectForKey("created") as? String
         id = aDecoder.decodeObjectForKey("id") as? Int
-        show = aDecoder.decodeObjectForKey("show") as? HomeTicketModel
+        show = aDecoder.decodeObjectForKey("show") as? TicketShowModel
         
     }
     

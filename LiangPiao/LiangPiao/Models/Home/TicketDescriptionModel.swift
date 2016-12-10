@@ -10,8 +10,8 @@ import UIKit
 
 class TicketDescriptionModel : NSObject, NSCoding{
     
-    var session : TicketSessionModel!
-    var show : HomeTicketModel!
+    var session : ShowSessionModel!
+    var show : TicketShowModel!
     var ticketList : [TicketList]!
     
     
@@ -20,10 +20,10 @@ class TicketDescriptionModel : NSObject, NSCoding{
      */
     init(fromDictionary dictionary: NSDictionary){
         if let sessionData = dictionary["session"] as? NSDictionary{
-            session = TicketSessionModel(fromDictionary: sessionData)
+            session = ShowSessionModel(fromDictionary: sessionData)
         }
         if let showData = dictionary["show"] as? NSDictionary{
-            show = HomeTicketModel(fromDictionary: showData)
+            show = TicketShowModel(fromDictionary: showData)
         }
         ticketList = [TicketList]()
         if let ticketListArray = dictionary["ticket_list"] as? [NSDictionary]{
@@ -62,8 +62,8 @@ class TicketDescriptionModel : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        session = aDecoder.decodeObjectForKey("session") as? TicketSessionModel
-        show = aDecoder.decodeObjectForKey("show") as? HomeTicketModel
+        session = aDecoder.decodeObjectForKey("session") as? ShowSessionModel
+        show = aDecoder.decodeObjectForKey("show") as? TicketShowModel
         ticketList = aDecoder.decodeObjectForKey("ticket_list") as? [TicketList]
         
     }

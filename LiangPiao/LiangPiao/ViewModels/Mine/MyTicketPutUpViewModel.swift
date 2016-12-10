@@ -11,7 +11,7 @@ import UIKit
 class MyTicketPutUpViewModel: NSObject {
 
     var ticketNumber:NSInteger = 0
-    var sellManagerModel:SellManagerModel!
+    var ticketShowModel:TicketShowModel!
     var selectSession:NSInteger = 100
     var tempList:[TicketList]!
     var sesstionModels = NSMutableArray()
@@ -64,7 +64,7 @@ class MyTicketPutUpViewModel: NSObject {
         case 0:
             return 188
         case 1:
-            if sellManagerModel.sessionCount == 1 {
+            if ticketShowModel.sessionCount == 1 {
                 return 0.00000001
             }
             return 90
@@ -80,36 +80,36 @@ class MyTicketPutUpViewModel: NSObject {
     }
     
     func tableViewnumberOfRowsInSection(section:Int) -> Int{
-        if sesstionModels.count != 0 || sellManagerModel.sessionCount == 1{
-            if sellManagerModel.sessionCount == 1 {
-                return self.sellManagerModel.sessionList[0].ticketList.count + 3
+        if sesstionModels.count != 0 || ticketShowModel.sessionCount == 1{
+            if ticketShowModel.sessionCount == 1 {
+                return self.ticketShowModel.sessionList[0].ticketList.count + 3
             }
-            return self.sellManagerModel.sessionList[Int(ticketDic.objectForKey("\(self.selectSession)") as! NSInteger)].ticketList.count + 3
+            return self.ticketShowModel.sessionList[Int(ticketDic.objectForKey("\(self.selectSession)") as! NSInteger)].ticketList.count + 3
         }
         return 0
     }
     
     func tableViewCellTickerInfoTableViewCell(cell:TiketPickeUpInfoTableViewCell, indexPath:NSIndexPath) {
-        if sellManagerModel.sessionCount != 1 {
-            let ticketList = self.sellManagerModel.sessionList[Int(ticketDic.objectForKey("\(self.selectSession)") as! NSInteger)].ticketList
+        if ticketShowModel.sessionCount != 1 {
+            let ticketList = self.ticketShowModel.sessionList[Int(ticketDic.objectForKey("\(self.selectSession)") as! NSInteger)].ticketList
             cell.setData(ticketList[indexPath.row - 3])
             if temListArray[self.selectSession] as! NSObject == 0 {
                 temListArray.replaceObjectAtIndex(self.selectSession, withObject: ticketList)
             }
         }else{
-            cell.setData(sellManagerModel.sessionList[0].ticketList[indexPath.row - 3])
+            cell.setData(ticketShowModel.sessionList[0].ticketList[indexPath.row - 3])
         }
     }
     
     func tableViewCellPickUpTickeTableViewCell(cell:PickUpTickeTableViewCell) {
-        if sellManagerModel.sessionCount == 1 {
+        if ticketShowModel.sessionCount == 1 {
             cell.hiddenLindeLabel()
         }
-        cell.setData(sellManagerModel, session: ticketSession, sellCount: self.ticketSellCount, soldCount: self.ticketSoldCount, soldMuch: ticketSoldMuch)
+        cell.setData(ticketShowModel, session: ticketSession, sellCount: self.ticketSellCount, soldCount: self.ticketSoldCount, soldMuch: ticketSoldMuch)
     }
     
     func tableViewCellPicketUpSessionTableViewCell(cell:PicketUpSessionTableViewCell) {
-        if sellManagerModel.sessionCount != 1 {
+        if ticketShowModel.sessionCount != 1 {
             cell.setUpDataAarray(self.getSessionTitle(sesstionModels), selectArray: self.getSessionType(sesstionModels))
             cell.picketUpSessionClouse = { tag in
                 self.controller.hiderTicketToolsView()
@@ -117,7 +117,7 @@ class MyTicketPutUpViewModel: NSObject {
                 if self.temListArray[self.selectSession] is [TicketList] {
                     self.tempList = self.temListArray[self.selectSession] as! [TicketList]
                 }else{
-                    self.tempList = self.getTicketList(SessionList.init(fromDictionary: self.sesstionModels.objectAtIndex(self.selectSession) as! NSDictionary))
+                    self.tempList = self.getTicketList(ShowSessionModel.init(fromDictionary: self.sesstionModels.objectAtIndex(self.selectSession) as! NSDictionary))
                 }
                 self.getPriceArray(self.tempList)
                 self.getRowArray(self.tempList)
@@ -128,7 +128,7 @@ class MyTicketPutUpViewModel: NSObject {
 
     
     func requestTicketSession(){
-        BaseNetWorke.sharedInstance.getUrlWithString("\(TickeSession)\(sellManagerModel.id)/session/", parameters: nil).subscribeNext { (resultDic) in
+        BaseNetWorke.sharedInstance.getUrlWithString("\(TickeSession)\(ticketShowModel.id)/session/", parameters: nil).subscribeNext { (resultDic) in
             self.sesstionModels = NSMutableArray.mj_objectArrayWithKeyValuesArray(resultDic)
             self.setSelectSession()
             self.controller.tableView.reloadData()
@@ -136,12 +136,36 @@ class MyTicketPutUpViewModel: NSObject {
     }
 
     func tableViewDidSelectRowAtIndexPath(indexPath:NSIndexPath) {
-        
+        if indexPath.row == 0 {
+            if ticketShowModel.sessionCount == 1 {
+                let controllerVC = TicketDescriptionViewController()
+//                controllerVC.viewModel.ticketModel = model
+                NavigationPushView(controller, toConroller: controllerVC)
+            }else{
+                let controllerVC = TicketSceneViewController()
+//                controllerVC.viewModel.model = model
+                NavigationPushView(controller, toConroller: controllerVC)
+            }
+        }else if indexPath.row > 2 {
+            self.connectService()
+        }
     }
     
+    func connectService(){
+        UIAlertController.shwoAlertControl(self.controller, title: "暂时请联系客服帮忙操作", message: nil, cancel: "稍等一会", doneTitle: "联系客服", cancelAction:{
+            
+            }, doneAction: {
+                AppCallViewShow(self.controller.view, phone: "400-873-8011")
+        })
+    }
     
-    func pushTicketDescription(indexPath:NSIndexPath){
-        
+    func oneSession(){
+        self.selectSession = 0
+        ticketDic = NSMutableDictionary()
+        ticketDic.setValue(0, forKey: "0")
+        self.tempList = self.ticketShowModel.sessionList[0].ticketList
+        self.getRowArray(self.tempList)
+        self.getPriceArray(self.tempList)
     }
     
     func setSelectSession(){
@@ -150,9 +174,9 @@ class MyTicketPutUpViewModel: NSObject {
             temListArray.addObject(0)
         }
         var ticketListIndex:NSInteger = 0
-        for ticketSession in sellManagerModel.sessionList {
+        for ticketSession in ticketShowModel.sessionList {
             for index in 0...self.sesstionModels.count - 1 {
-                let session = TicketSessionModel.init(fromDictionary: self.sesstionModels[index] as! NSDictionary)
+                let session = ShowSessionModel.init(fromDictionary: self.sesstionModels[index] as! NSDictionary)
                 if session.id ==  ticketSession.id {
                     ticketDic.setValue(ticketListIndex, forKey: "\(index)")
                     ticketListIndex = ticketListIndex + 1
@@ -161,7 +185,7 @@ class MyTicketPutUpViewModel: NSObject {
                         if self.temListArray[self.selectSession] is [TicketList] {
                             self.tempList = self.temListArray[self.selectSession] as! [TicketList]
                         }else{
-                            self.tempList = self.getTicketList(SessionList.init(fromDictionary: self.sesstionModels.objectAtIndex(self.selectSession) as! NSDictionary))
+                            self.tempList = self.getTicketList(ShowSessionModel.init(fromDictionary: self.sesstionModels.objectAtIndex(self.selectSession) as! NSDictionary))
                         }
                         self.getPriceArray(self.tempList)
                         self.getRowArray(self.tempList)
@@ -174,7 +198,7 @@ class MyTicketPutUpViewModel: NSObject {
     func getSessionTitle(showSessions:NSMutableArray) -> NSMutableArray{
         let sessionTitle = NSMutableArray()
         for session in showSessions {
-            let session = TicketSessionModel.init(fromDictionary: session as! NSDictionary)
+            let session = ShowSessionModel.init(fromDictionary: session as! NSDictionary)
             sessionTitle.addObject(session.name)
         }
         return sessionTitle
@@ -186,9 +210,9 @@ class MyTicketPutUpViewModel: NSObject {
             sessionTypes.addObject(0)
         }
         var isSelect = false
-        for ticketSession in sellManagerModel.sessionList {
+        for ticketSession in ticketShowModel.sessionList {
             for index in 0...showSessions.count - 1 {
-                let session = TicketSessionModel.init(fromDictionary: showSessions[index] as! NSDictionary)
+                let session = ShowSessionModel.init(fromDictionary: showSessions[index] as! NSDictionary)
                 if session.id ==  ticketSession.id {
                     if !isSelect {
                         sessionTypes.replaceObjectAtIndex(index, withObject: 1)
@@ -204,7 +228,7 @@ class MyTicketPutUpViewModel: NSObject {
     }
     
     func getTicketNumber(indexPath:NSIndexPath) -> Int {
-        let ticketModel = sellManagerModel.sessionList[Int(ticketDic.objectForKey("\(self.selectSession)") as! NSInteger)].ticketList[indexPath.row - 4]
+        let ticketModel = ticketShowModel.sessionList[Int(ticketDic.objectForKey("\(self.selectSession)") as! NSInteger)].ticketList[indexPath.row - 4]
         if self.ticketNumber > ticketModel.remainCount {
             return ticketModel.remainCount
         }else{
@@ -213,14 +237,14 @@ class MyTicketPutUpViewModel: NSObject {
     }
     
     func getMuchOfTicket(indexPath:NSIndexPath) -> String {
-        let ticketModel = sellManagerModel.sessionList[Int(ticketDic.objectForKey("\(self.selectSession)") as! NSInteger)].ticketList[indexPath.row - 4]
+        let ticketModel = ticketShowModel.sessionList[Int(ticketDic.objectForKey("\(self.selectSession)") as! NSInteger)].ticketList[indexPath.row - 4]
         let str = "\(self.getTicketNumber(indexPath) * ticketModel.price)"
         return str
     }
     
-    func getTicketList(model:SessionList) -> [TicketList] {
+    func getTicketList(model:ShowSessionModel) -> [TicketList] {
         var ticketList:[TicketList] = []
-        for session in sellManagerModel.sessionList {
+        for session in ticketShowModel.sessionList {
             if session.id == model.id {
                 ticketList.appendContentsOf(session.ticketList)
             }
@@ -231,13 +255,13 @@ class MyTicketPutUpViewModel: NSObject {
     func sortTicket(type:TicketSortType){
         switch type {
         case .noneType,.upType:
-            let tickesList = sellManagerModel.sessionList[Int(ticketDic.objectForKey("\(self.selectSession)") as! NSInteger)].ticketList
-            sellManagerModel.sessionList[Int(ticketDic.objectForKey("\(self.selectSession)") as! NSInteger)].ticketList = tickesList.sort({ (downList, upList) -> Bool in
+            let tickesList = ticketShowModel.sessionList[Int(ticketDic.objectForKey("\(self.selectSession)") as! NSInteger)].ticketList
+            self.ticketShowModel.sessionList[Int(ticketDic.objectForKey("\(self.selectSession)") as! NSInteger)].ticketList = tickesList.sort({ (downList, upList) -> Bool in
                 return downList.price < upList.price
             })
         default:
-            let tickesList = sellManagerModel.sessionList[Int(ticketDic.objectForKey("\(self.selectSession)") as! NSInteger)].ticketList
-            sellManagerModel.sessionList[Int(ticketDic.objectForKey("\(self.selectSession)") as! NSInteger)].ticketList = tickesList.sort({ (downList, upList) -> Bool in
+            let tickesList = ticketShowModel.sessionList[Int(ticketDic.objectForKey("\(self.selectSession)") as! NSInteger)].ticketList
+            self.ticketShowModel.sessionList[Int(ticketDic.objectForKey("\(self.selectSession)") as! NSInteger)].ticketList = tickesList.sort({ (downList, upList) -> Bool in
                 return downList.price > upList.price
             })
         }
@@ -246,7 +270,7 @@ class MyTicketPutUpViewModel: NSObject {
     
     func sortTickeByOriginTicketPrice(price:String?) {
         if price == "0" {
-            sellManagerModel.sessionList[Int(ticketDic.objectForKey("\(self.selectSession)") as! NSInteger)].ticketList = tempList
+            ticketShowModel.sessionList[Int(ticketDic.objectForKey("\(self.selectSession)") as! NSInteger)].ticketList = tempList
         }else{
             var sortArrayList:[TicketList] = []
             for tickeModel in tempList {
@@ -254,14 +278,14 @@ class MyTicketPutUpViewModel: NSObject {
                     sortArrayList.append(tickeModel)
                 }
             }
-            sellManagerModel.sessionList[Int(ticketDic.objectForKey("\(self.selectSession)") as! NSInteger)].ticketList = sortArrayList
+            ticketShowModel.sessionList[Int(ticketDic.objectForKey("\(self.selectSession)") as! NSInteger)].ticketList = sortArrayList
         }
         self.controller.tableView.reloadData()
     }
     
     func sortTickeByRowTicketPrice(ticketRow:String?) {
         if ticketRow == "0" {
-            sellManagerModel.sessionList[Int(ticketDic.objectForKey("\(self.selectSession)") as! NSInteger)].ticketList = tempList
+            ticketShowModel.sessionList[Int(ticketDic.objectForKey("\(self.selectSession)") as! NSInteger)].ticketList = tempList
         }else{
             var sortArrayList:[TicketList] = []
             for tickeModel in tempList {
@@ -273,7 +297,7 @@ class MyTicketPutUpViewModel: NSObject {
                     sortArrayList.append(tickeModel)
                 }
             }
-            sellManagerModel.sessionList[Int(ticketDic.objectForKey("\(self.selectSession)") as! NSInteger)].ticketList = sortArrayList
+            ticketShowModel.sessionList[Int(ticketDic.objectForKey("\(self.selectSession)") as! NSInteger)].ticketList = sortArrayList
             self.controller.tableView.reloadData()
         }
     }

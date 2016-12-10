@@ -11,7 +11,7 @@ import UIKit
 class TicketSessionViewModel: NSObject {
 
     var models = NSMutableArray()
-    var model:HomeTicketModel!
+    var model:TicketShowModel!
     
     override init() {
         
@@ -56,12 +56,12 @@ class TicketSessionViewModel: NSObject {
     func didSelectRowAtIndexPath(indexPath:NSIndexPath,controller:TicketSceneViewController) {
         let controllerVC = TicketDescriptionViewController()
         controllerVC.viewModel.ticketModel = model
-        controllerVC.viewModel.sesstionModel = TicketSessionModel.init(fromDictionary: self.models.objectAtIndex(indexPath.row) as! NSDictionary)
+        controllerVC.viewModel.sesstionModel = ShowSessionModel.init(fromDictionary: self.models.objectAtIndex(indexPath.row) as! NSDictionary)
         NavigationPushView(controller, toConroller: controllerVC)
     }
     
     func cellForRowAtIndexPath(indexPath:NSIndexPath,cell:TicketSceneTableViewCell){
-        let model = TicketSessionModel.init(fromDictionary: models.objectAtIndex(indexPath.row) as! NSDictionary)
+        let model = ShowSessionModel.init(fromDictionary: models.objectAtIndex(indexPath.row) as! NSDictionary)
         cell.setData(model)
     }
 }

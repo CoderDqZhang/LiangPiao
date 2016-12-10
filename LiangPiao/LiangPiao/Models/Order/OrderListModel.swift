@@ -185,8 +185,8 @@ class OrderList : NSObject, NSCoding{
     var phone : String!
     var price : Int!
     var reason : String!
-    var session : TicketSessionModel!
-    var show : HomeTicketModel!
+    var session : ShowSessionModel!
+    var show : TicketShowModel!
     var status : Int!
     var statusDesc : String!
     var ticket : TicketList!
@@ -214,10 +214,10 @@ class OrderList : NSObject, NSCoding{
         price = dictionary["price"] as? Int
         reason = dictionary["reason"] as? String
         if let sessionData = dictionary["session"] as? NSDictionary{
-            session = TicketSessionModel(fromDictionary: sessionData)
+            session = ShowSessionModel(fromDictionary: sessionData)
         }
         if let showData = dictionary["show"] as? NSDictionary{
-            show = HomeTicketModel(fromDictionary: showData)
+            show = TicketShowModel(fromDictionary: showData)
         }
         if let payUrlData = dictionary["pay_url"] as? NSDictionary{
             payUrl = PayUrl(fromDictionary: payUrlData)
@@ -323,8 +323,8 @@ class OrderList : NSObject, NSCoding{
         phone = aDecoder.decodeObjectForKey("phone") as? String
         price = aDecoder.decodeObjectForKey("price") as? Int
         reason = aDecoder.decodeObjectForKey("reason") as? String
-        session = aDecoder.decodeObjectForKey("session") as? TicketSessionModel
-        show = aDecoder.decodeObjectForKey("show") as? HomeTicketModel
+        session = aDecoder.decodeObjectForKey("session") as? ShowSessionModel
+        show = aDecoder.decodeObjectForKey("show") as? TicketShowModel
         status = aDecoder.decodeObjectForKey("status") as? Int
         statusDesc = aDecoder.decodeObjectForKey("status_desc") as? String
         ticket = aDecoder.decodeObjectForKey("ticket") as? TicketList
