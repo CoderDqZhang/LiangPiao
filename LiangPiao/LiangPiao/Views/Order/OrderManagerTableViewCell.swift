@@ -185,6 +185,7 @@ class OrderManagerTableViewCell: UITableViewCell {
             ticketRow.snp_makeConstraints(closure: { (make) in
                 make.bottom.equalTo(self.ticketSelledNumber.snp_top).offset(-2)
                 make.left.equalTo(self.ticketPhoto.snp_right).offset(12)
+                make.right.equalTo(self.contentView.snp_right).offset(-15)
             })
             
             ticketSelledNumber.snp_makeConstraints(closure: { (make) in

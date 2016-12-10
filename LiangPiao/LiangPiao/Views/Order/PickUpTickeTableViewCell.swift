@@ -164,7 +164,8 @@ class PickUpTickeTableViewCell: UITableViewCell {
             ticketTime.snp_makeConstraints(closure: { (make) in
                 make.bottom.equalTo(self.ticketLocation.snp_top).offset(-1)
                 make.left.equalTo(self.ticketPhoto.snp_right).offset(12)
-                make.right.equalTo(self.contentView.snp_right).offset(-15)
+                make.height.lessThanOrEqualTo(30)
+                make.right.equalTo(self.contentView.snp_right).offset(-25)
             })
             
             ticketLocation.snp_makeConstraints(closure: { (make) in
