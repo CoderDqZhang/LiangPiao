@@ -38,12 +38,12 @@ class MyWallHeaderTableViewCell: UITableViewCell {
         muchmLable.textColor = UIColor.whiteColor()
         self.contentView.addSubview(muchmLable)
         
-        let image = UIImage.init(named: "Btn_W_More")
+        let image = UIImage.init(named: "Btn_W_More")?.imageWithRenderingMode(.AlwaysOriginal)
         detailBtn = UIButton(type: .Custom)
         detailBtn.titleLabel?.font = App_Theme_PinFan_R_12_Font
         detailBtn.setTitle("明细", forState: .Normal)
         let stringWidth = detailBtn.titleLabel?.text?.widthWithConstrainedHeight((detailBtn.titleLabel?.text)!, font: App_Theme_PinFan_R_12_Font!, height: 20)
-        detailBtn.setImage(UIImage.init(named: "Btn_More"), forState: .Normal)
+        detailBtn.setImage(image, forState: .Normal)
         detailBtn.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         detailBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -(image?.size.width)!, 0, (image?.size.width)!)
         detailBtn.imageEdgeInsets = UIEdgeInsetsMake(0, stringWidth! + 5, -2, -stringWidth!)

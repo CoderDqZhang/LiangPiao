@@ -25,6 +25,7 @@ class MineViewController: BaseViewController {
         tableView.backgroundColor = UIColor.whiteColor()
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.showsVerticalScrollIndicator = false
         tableView.keyboardDismissMode = .OnDrag
         tableView.separatorStyle = .None
         tableView.registerClass(MineHeadTableViewCell.self, forCellReuseIdentifier: "MineHeadTableViewCell")

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import DZNEmptyDataSet
 
 class DetailAccountViewController: UIViewController {
 
@@ -27,6 +28,9 @@ class DetailAccountViewController: UIViewController {
         tableView.backgroundColor = UIColor.whiteColor()
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.emptyDataSetDelegate = self
+        tableView.emptyDataSetSource = self
+        tableView.showsVerticalScrollIndicator = false
         tableView.keyboardDismissMode = .OnDrag
         tableView.separatorStyle = .None
         tableView.registerClass(DetailAcountTableViewCell.self, forCellReuseIdentifier: "DetailAcountTableViewCell")
@@ -95,6 +99,40 @@ extension DetailAccountViewController : UITableViewDataSource {
         let cell = tableView.dequeueReusableCellWithIdentifier("DetailAcountTableViewCell", forIndexPath: indexPath) as! DetailAcountTableViewCell
         cell.selectionStyle = .None
         return cell
+    }
+}
+
+extension DetailAccountViewController : DZNEmptyDataSetDelegate {
+    
+    func emptyDataSetShouldAllowTouch(scrollView: UIScrollView!) -> Bool {
+        return true
+    }
+}
+
+extension DetailAccountViewController :DZNEmptyDataSetSource {
+    
+    func backgroundColorForEmptyDataSet(scrollView: UIScrollView!) -> UIColor {
+        return UIColor.init(hexString: App_Theme_F6F7FA_Color)
+    }
+    
+    func descriptionForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
+        let str = "没有交易明细"
+        let attribute = NSMutableAttributedString(string: str)
+        attribute.addAttributes([NSForegroundColorAttributeName:UIColor.init(hexString: App_Theme_DDE0E5_Color)], range: NSRange(location: 0, length: str.length))
+        attribute.addAttributes([NSFontAttributeName:App_Theme_PinFan_R_16_Font!], range: NSRange.init(location: 0, length: str.length))
+        return attribute
+    }
+    
+    func verticalOffsetForEmptyDataSet(scrollView: UIScrollView!) -> CGFloat {
+        return -70
+    }
+    
+    func spaceHeightForEmptyDataSet(scrollView: UIScrollView!) -> CGFloat {
+        return 27
+    }
+    
+    func imageForEmptyDataSet(scrollView: UIScrollView!) -> UIImage! {
+        return UIImage.init(named: "Icon_Detail")?.imageWithRenderingMode(.AlwaysOriginal)
     }
 }
 

@@ -15,12 +15,7 @@ class SellViewModel: NSObject {
     }
     
     func tableViewHeightForRowAtIndexPath(indexPath:NSIndexPath) -> CGFloat{
-        switch indexPath.row {
-        case 0:
-            return 57
-        default:
-            return 140
-        }
+        return 140
     }
     
     func tableViewDidSelectRowAtIndexPath(indexPath:NSIndexPath, controller:SellTicketsViewController) {

@@ -39,6 +39,7 @@ class FavoriteViewController: UIViewController {
         tableView.dataSource = self
         tableView.emptyDataSetSource = self
         tableView.emptyDataSetDelegate = self
+        tableView.showsVerticalScrollIndicator = false
         tableView.separatorStyle = .None
         tableView.registerClass(RecommendTableViewCell.self, forCellReuseIdentifier: "RecommendTableViewCell")
         tableView.backgroundColor = UIColor.init(hexString: App_Theme_E9EBF2_Color)

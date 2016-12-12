@@ -35,6 +35,7 @@ class MySellConfimViewController: UIViewController {
         tableView.backgroundColor = UIColor.init(hexString: App_Theme_E9EBF2_Color)
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.showsVerticalScrollIndicator = false
         tableView.keyboardDismissMode = .OnDrag
         tableView.registerClass(MySellPriceTableViewCell.self, forCellReuseIdentifier: "MySellPriceTableViewCell")
         tableView.registerClass(GloabTitleNumberCountTableViewCell.self, forCellReuseIdentifier: "GloabTitleNumberCountTableViewCell")

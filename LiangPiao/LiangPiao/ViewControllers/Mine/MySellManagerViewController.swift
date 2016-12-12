@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import DZNEmptyDataSet
 
 class MySellManagerViewController: UIViewController {
 
@@ -18,6 +19,7 @@ class MySellManagerViewController: UIViewController {
         self.view.backgroundColor = UIColor.init(hexString: App_Theme_E9EBF2_Color)
         self.setUpNavigationItem()
         self.setUpView()
+        self.talKingDataPageName = "品类管理"
         // Do any additional setup after loading the view.
     }
     
@@ -31,6 +33,9 @@ class MySellManagerViewController: UIViewController {
         tableView.backgroundColor = UIColor.whiteColor()
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.emptyDataSetSource = self
+        tableView.emptyDataSetDelegate = self
+        tableView.showsVerticalScrollIndicator = false
         tableView.keyboardDismissMode = .OnDrag
         tableView.separatorStyle = .None
         tableView.registerClass(OrderManagerTableViewCell.self, forCellReuseIdentifier: "OrderManagerTableViewCell")
@@ -133,4 +138,39 @@ extension MySellManagerViewController : UITableViewDataSource {
         }
     }
     
+}
+
+extension MySellManagerViewController : DZNEmptyDataSetDelegate {
+    
+    func emptyDataSetShouldAllowTouch(scrollView: UIScrollView!) -> Bool {
+        return true
+    }
+    
+}
+
+extension MySellManagerViewController :DZNEmptyDataSetSource {
+    
+    func backgroundColorForEmptyDataSet(scrollView: UIScrollView!) -> UIColor {
+        return UIColor.init(hexString: App_Theme_F6F7FA_Color)
+    }
+    
+    func descriptionForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
+        let str = "暂无出售的票\n返回首页开始卖票吧"
+        let attribute = NSMutableAttributedString(string: str)
+        attribute.addAttributes([NSForegroundColorAttributeName:UIColor.init(hexString: App_Theme_DDE0E5_Color)], range: NSRange(location: 0, length: str.length))
+        attribute.addAttributes([NSFontAttributeName:App_Theme_PinFan_R_16_Font!], range: NSRange.init(location: 0, length: str.length))
+        return attribute
+    }
+    
+    func verticalOffsetForEmptyDataSet(scrollView: UIScrollView!) -> CGFloat {
+        return -70
+    }
+    
+    func spaceHeightForEmptyDataSet(scrollView: UIScrollView!) -> CGFloat {
+        return 27
+    }
+    
+    func imageForEmptyDataSet(scrollView: UIScrollView!) -> UIImage! {
+        return UIImage.init(named: "empty_order")?.imageWithRenderingMode(.AlwaysOriginal)
+    }
 }

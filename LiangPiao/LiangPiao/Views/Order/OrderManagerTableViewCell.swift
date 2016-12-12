@@ -143,6 +143,7 @@ class OrderManagerTableViewCell: UITableViewCell {
             ticketMuch.snp_remakeConstraints(closure: { (make) in
                 make.bottom.equalTo(self.ticketSelledNumber.snp_top).offset(-2)
                 make.left.equalTo(self.ticketPhoto.snp_right).offset(12)
+                make.right.equalTo(self.contentView.snp_right).offset(-15)
             })
             ticketPhoto.setImageType(cover, type: .TwoOrMore)
         }else{
@@ -150,6 +151,7 @@ class OrderManagerTableViewCell: UITableViewCell {
             ticketMuch.snp_remakeConstraints(closure: { (make) in
                 make.bottom.equalTo(self.ticketRow.snp_top).offset(-2)
                 make.left.equalTo(self.ticketPhoto.snp_right).offset(12)
+                make.right.equalTo(self.contentView.snp_right).offset(-15)
             })
             ticketPhoto.setImageType(cover, type: .OneImage)
         }

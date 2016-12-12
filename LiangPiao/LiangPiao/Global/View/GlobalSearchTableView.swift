@@ -26,6 +26,7 @@ class GlobalSearchTableView: UIView {
         tableView.dataSource = self
         tableView.emptyDataSetSource = self
         tableView.emptyDataSetDelegate = self
+        tableView.showsVerticalScrollIndicator = false
         tableView.separatorStyle = .None
         tableView.keyboardDismissMode = .OnDrag
         tableView.registerClass(RecommendTableViewCell.self, forCellReuseIdentifier: "RecommendTableViewCell")

@@ -101,7 +101,7 @@ class LoginViewController: UIViewController {
         self.view.addSubview(senderCode)
         
         loginButton = UIButton(type: .Custom)
-        loginButton.backgroundColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
+        loginButton.buttonSetThemColor(App_Theme_4BD4C5_Color, selectColor: App_Theme_40C6B7_Color, size:CGSize.init(width: SCREENWIDTH - 30, height: 49))
         loginButton.setTitle("立即登录", forState: .Normal)
         loginButton.titleLabel?.font = App_Theme_PinFan_M_15_Font
         loginButton.enabled = true
@@ -122,7 +122,7 @@ class LoginViewController: UIViewController {
         
         proBtn = UIButton(type: .Custom)
         proBtn.setTitle("《良票用户协议》", forState: .Normal)
-        proBtn.setTitleColor(UIColor.init(hexString: App_Theme_4BD4C5_Color),forState: .Normal)
+        proBtn.buttonSetTitleColor(App_Theme_4BD4C5_Color, sTitleColor: nil)
         proBtn.titleLabel?.font = App_Theme_PinFan_R_12_Font
         proBtn.layer.cornerRadius = 2.0
         proBtn.layer.masksToBounds = true

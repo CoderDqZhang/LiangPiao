@@ -59,6 +59,7 @@
 		1F45C4041DD73BC9008C60CD /* AllTicketTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F45C4031DD73BC9008C60CD /* AllTicketTableViewCell.swift */; };
 		1F52ED721DE31E2300916C91 /* TicketDetailInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F52ED711DE31E2300916C91 /* TicketDetailInfoTableViewCell.swift */; };
 		1F52ED741DE3FBC800916C91 /* TicketShowModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F52ED731DE3FBC800916C91 /* TicketShowModel.swift */; };
+		1F538C091DFE5A120020AE31 /* UIButton+Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F538C081DFE5A120020AE31 /* UIButton+Extentions.swift */; };
 		1F54C52E1DDC3A61009ADDA9 /* JKDBHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F54C52B1DDC3A61009ADDA9 /* JKDBHelper.m */; };
 		1F54C52F1DDC3A61009ADDA9 /* JKDBModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F54C52D1DDC3A61009ADDA9 /* JKDBModel.m */; };
 		1F54C5341DDC4891009ADDA9 /* UserInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F54C5331DDC4891009ADDA9 /* UserInfoModel.m */; };
@@ -284,6 +285,7 @@
 		1F45C4031DD73BC9008C60CD /* AllTicketTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AllTicketTableViewCell.swift; path = ../../ViewControllers/Home/AllTicketTableViewCell.swift; sourceTree = "<group>"; };
 		1F52ED711DE31E2300916C91 /* TicketDetailInfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketDetailInfoTableViewCell.swift; sourceTree = "<group>"; };
 		1F52ED731DE3FBC800916C91 /* TicketShowModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketShowModel.swift; sourceTree = "<group>"; };
+		1F538C081DFE5A120020AE31 /* UIButton+Extentions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+Extentions.swift"; sourceTree = "<group>"; };
 		1F54C52A1DDC3A61009ADDA9 /* JKDBHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKDBHelper.h; sourceTree = "<group>"; };
 		1F54C52B1DDC3A61009ADDA9 /* JKDBHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKDBHelper.m; sourceTree = "<group>"; };
 		1F54C52C1DDC3A61009ADDA9 /* JKDBModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKDBModel.h; sourceTree = "<group>"; };
@@ -954,6 +956,7 @@
 				1FD244E61DC2FD3D00AFD3BC /* UIImage+Crop.swift */,
 				1F03609B1DE94A5100594767 /* UIViewController+TalkingData.swift */,
 				1F45C3FD1DD73027008C60CD /* NSTimer.swift */,
+				1F538C081DFE5A120020AE31 /* UIButton+Extentions.swift */,
 			);
 			path = Extentions;
 			sourceTree = "<group>";
@@ -1468,6 +1471,7 @@
 				1FBFC7E41DDABD48008D9CEC /* FMDatabase+FTS3.m in Sources */,
 				1F9A0CA01DF93A62002F4C19 /* MySellIntrouductTableViewCell.swift in Sources */,
 				1FD245011DC2FD9700AFD3BC /* NSString+StringSize.m in Sources */,
+				1F538C091DFE5A120020AE31 /* UIButton+Extentions.swift in Sources */,
 				1F0EAB681DD091FA00D25B64 /* OrderListViewController.swift in Sources */,
 				1FAADB3F1DF7ABDC00D08BB9 /* OrderDeliveryTypeViewController.swift in Sources */,
 				1F9A0CA21DF93A7F002F4C19 /* MySellServiceTableViewCell.swift in Sources */,

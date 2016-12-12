@@ -15,7 +15,9 @@ class SellTicketsViewController: BaseViewController {
     var searchTableView:GlobalSearchTableView!
     var searchViewModel = SearchViewModel.shareInstance
     var viewModel = SellViewModel()
-    var searchNavigationBar = HomeSearchNavigationBar(frame: CGRectMake(0,0,SCREENWIDTH, 64),font:App_Theme_PinFan_L_12_Font)
+    var searchNavigationBar = HomeSearchNavigationBar(frame: CGRectMake(0,-64,SCREENWIDTH, 64),font:App_Theme_PinFan_L_12_Font)
+    var searchBarView:GloableSearchNavigationBarView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setSearchNavigatioBarClouse()
@@ -33,9 +35,15 @@ class SellTicketsViewController: BaseViewController {
     }
     
     func setUpView() {
+        searchBarView = GloableSearchNavigationBarView(frame: CGRectMake(0,0,SCREENWIDTH, 64), title:"挂票", searchClouse:{ _ in
+            self.searchButtonPress()
+        })
+        self.view.addSubview(searchBarView)
+        
         tableView = UITableView(frame: CGRect.zero, style: .Plain)
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.showsVerticalScrollIndicator = false
         tableView.keyboardDismissMode = .OnDrag
         tableView.backgroundColor = UIColor.init(hexString: App_Theme_E9EBF2_Color)
         tableView.registerClass(SellRecommondTableViewCell.self, forCellReuseIdentifier: "SellRecommondTableViewCell")
@@ -43,13 +51,31 @@ class SellTicketsViewController: BaseViewController {
         self.view.addSubview(tableView)
         
         tableView.snp_makeConstraints { (make) in
-            make.edges.equalTo(UIEdgeInsetsMake(44, 0, 0, 0))
+            make.edges.equalTo(UIEdgeInsetsMake(64, 0, -44, 0))
         }
         
     }
     
     func setUpNavigationItem(){
         self.view.addSubview(searchNavigationBar)
+    }
+    
+    func searchButtonPress(){
+        UIView.animateWithDuration(1, animations: { 
+            self.searchBarView.frame = CGRect.init(x: 0, y: -64, width: SCREENWIDTH, height: 64)
+            self.searchNavigationBar.frame = CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 64)
+            }, completion: { completion in
+                self.searchNavigationBar.searchField.becomeFirstResponder()
+        })
+    }
+    
+    func cancelButtonPress(){
+        UIView.animateWithDuration(1, animations: {
+            self.searchBarView.frame = CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 64)
+            self.searchNavigationBar.frame = CGRect.init(x: 0, y: -64, width: SCREENWIDTH, height: 64)
+            }, completion: { completion in
+                self.searchNavigationBar.searchField.resignFirstResponder()
+        })
     }
     
     func bindViewModel(){
@@ -71,6 +97,7 @@ class SellTicketsViewController: BaseViewController {
     }
     
     func cancelSearchTable() {
+        self.cancelButtonPress()
         self.searchNavigationBar.searchField.frame = CGRectMake(20, 27,SCREENWIDTH - 40, 30)
         self.searchNavigationBar.cancelButton.hidden = true
         searchNavigationBar.searchField.hidden = false
@@ -150,42 +177,10 @@ extension SellTicketsViewController : UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if indexPath.row == 0 {
-            let cellIdentifier = "RecommentDetailCell"
-            var cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier)
-            if cell == nil {
-                cell = UITableViewCell(style: .Default, reuseIdentifier: cellIdentifier)
-            }else{
-                for subView in (cell?.contentView.subviews)! {
-                    subView.removeFromSuperview()
-                }
-            }
-            let recommentTitle = UILabel()
-            if IPHONE_VERSION >= 9 {
-                recommentTitle.frame = CGRectMake((SCREENWIDTH - 56) / 2, 30, 56, 20)
-            }else{
-                recommentTitle.frame = CGRectMake((SCREENWIDTH - 69) / 2, 30, 69, 20)
-            }
-            
-            recommentTitle.textColor = UIColor.init(hexString: App_Theme_384249_Color)
-            recommentTitle.font = App_Theme_PinFan_M_14_Font
-            recommentTitle.text = "近期热卖"
-            cell?.contentView.addSubview(recommentTitle)
-            
-            let lineLabel = GloabLineView(frame: CGRectMake(CGRectGetMinX(recommentTitle.frame) - 50, 40, 30, 0.5))
-            lineLabel.setLineColor(UIColor.init(hexString: App_Theme_384249_Color))
-            cell?.contentView.addSubview(lineLabel)
-            let lineLabel1 = GloabLineView(frame: CGRectMake(CGRectGetMaxX(recommentTitle.frame) + 20, 40, 30, 0.5))
-            lineLabel1.setLineColor(UIColor.init(hexString: App_Theme_384249_Color))
-            cell?.contentView.addSubview(lineLabel1)
-            cell!.selectionStyle = .None
-            return cell!
-        }else{
-            let cell = tableView.dequeueReusableCellWithIdentifier("SellRecommondTableViewCell", forIndexPath: indexPath) as! SellRecommondTableViewCell
-            cell.selectionStyle = .None
-//            viewModel.cellData(cell, indexPath:indexPath)
-            return cell
-        }
+        let cell = tableView.dequeueReusableCellWithIdentifier("SellRecommondTableViewCell", forIndexPath: indexPath) as! SellRecommondTableViewCell
+        cell.selectionStyle = .None
+        //            viewModel.cellData(cell, indexPath:indexPath)
+        return cell
     }
 }
 

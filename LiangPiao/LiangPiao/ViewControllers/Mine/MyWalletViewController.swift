@@ -30,6 +30,7 @@ class MyWalletViewController: UIViewController {
         tableView.backgroundColor = UIColor.whiteColor()
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.showsVerticalScrollIndicator = false
         tableView.keyboardDismissMode = .OnDrag
         tableView.separatorStyle = .None
         tableView.registerClass(MyWallHeaderTableViewCell.self, forCellReuseIdentifier: "MyWallHeaderTableViewCell")
@@ -41,20 +42,20 @@ class MyWalletViewController: UIViewController {
         
         self.bindViewModel()
         
-        let topUpButton = self.createButton(CGRect.init(x: SpaceTopUpAndWidth, y: SCREENHEIGHT - 79 - 64, width: TopUpAndWithdrawWidth, height: 49), title: "充值", backGroundColor: UIColor.whiteColor(), titleColor: UIColor.init(hexString: App_Theme_4BD4C5_Color))
-        topUpButton.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (action) in
-            NavigationPushView(self, toConroller: TopUpViewController())
-        }
-        self.view.addSubview(topUpButton)
+//        let topUpButton = self.createButton(CGRect.init(x: SpaceTopUpAndWidth, y: SCREENHEIGHT - 79 - 64, width: TopUpAndWithdrawWidth, height: 49), title: "充值", backGroundColor: UIColor.whiteColor(), titleColor: UIColor.init(hexString: App_Theme_4BD4C5_Color))
+//        topUpButton.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (action) in
+//            NavigationPushView(self, toConroller: TopUpViewController())
+//        }
+//        self.view.addSubview(topUpButton)
         
-        let withdraw = self.createButton(CGRect.init(x: SpaceTopUpAndWidth + CGRectGetMaxX(topUpButton.frame), y: SCREENHEIGHT - 79 - 64, width: TopUpAndWithdrawWidth, height: 49), title: "提现", backGroundColor: UIColor.init(hexString: App_Theme_4BD4C5_Color), titleColor: UIColor.whiteColor())
+        let withdraw = self.createButton(CGRect.init(x: SpaceTopUpAndWidth , y: SCREENHEIGHT - 79 - 64, width: SCREENWIDTH - SpaceTopUpAndWidth * 2, height: 49), title: "提现", backGroundColor: UIColor.init(hexString: App_Theme_4BD4C5_Color), titleColor: UIColor.whiteColor())
         withdraw.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (action) in
             NavigationPushView(self, toConroller: WithDrawViewController())
         }
         self.view.addSubview(withdraw)
         
         let ruleButton = UIButton(type: .Custom)
-        ruleButton.setTitleColor(UIColor.init(hexString: App_Theme_4BD4C5_Color), forState: .Normal)
+        ruleButton.buttonSetTitleColor(App_Theme_4BD4C5_Color, sTitleColor: nil)
         ruleButton.titleLabel?.font = App_Theme_PinFan_R_13_Font
         ruleButton.setTitle("查看规则说明", forState: .Normal)
         ruleButton.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (action) in
@@ -73,11 +74,13 @@ class MyWalletViewController: UIViewController {
         let button = UIButton(type: .Custom)
         button.frame = frame
         button.setTitle(title, forState: .Normal)
-        button.layer.cornerRadius = 2.0
-        button.layer.borderColor = UIColor.init(hexString: App_Theme_4BD4C5_Color).CGColor
-        button.layer.borderWidth = 1.0
+        if backGroundColor != UIColor.init(hexString: App_Theme_4BD4C5_Color) {
+            button.layer.cornerRadius = 2.0
+            button.layer.borderColor = UIColor.init(hexString: App_Theme_4BD4C5_Color).CGColor
+            button.layer.borderWidth = 1.0
+        }
         button.setTitleColor(titleColor, forState: .Normal)
-        button.backgroundColor = backGroundColor
+        button.buttonSetThemColor(App_Theme_4BD4C5_Color, selectColor: App_Theme_40C6B7_Color, size: CGSize.init(width: frame.size.width, height: frame.size.height))
         return button
     }
     
@@ -164,4 +167,6 @@ extension MyWalletViewController : UITableViewDataSource {
     }
     
 }
+
+
 

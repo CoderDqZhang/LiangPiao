@@ -42,6 +42,7 @@ class AddressViewController: UIViewController {
         tableView = UITableView(frame: CGRectZero, style: .Plain)
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.showsVerticalScrollIndicator = false
         tableView.keyboardDismissMode = .OnDrag
         tableView.separatorStyle = .None
         tableView.backgroundColor = UIColor.whiteColor()
@@ -52,7 +53,7 @@ class AddressViewController: UIViewController {
         }
         
         addAddressView = AddAddressView()
-        addAddressView.rac_signalForSelector( #selector(AddAddressView.singTapPress(_:))).subscribeNext { (action) in
+        addAddressView.addButton.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (action) in
             let editAddress = AddAddressViewController()
             editAddress.reloadAddressViewClouse = { _ in
                 self.reloadData()

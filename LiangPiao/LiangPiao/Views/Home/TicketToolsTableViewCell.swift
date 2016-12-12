@@ -58,6 +58,7 @@ class ToolView:UIView {
         tableView = UITableView(frame: CGRectMake(0,0,SCREENWIDTH, CGFloat(6 * 50)), style: .Plain)
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.showsVerticalScrollIndicator = false
         tableView.separatorStyle = .None
         self.addSubview(tableView)
     }

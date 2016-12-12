@@ -29,6 +29,7 @@ class OrderListViewController: BaseViewController {
         tableView.dataSource = self
         tableView.emptyDataSetSource = self
         tableView.emptyDataSetDelegate = self
+        tableView.showsVerticalScrollIndicator = false
         tableView.separatorStyle = .None
         tableView.registerClass(OrderNumberTableViewCell.self, forCellReuseIdentifier: "OrderNumberTableViewCell")
         tableView.registerClass(OrderTicketInfoTableViewCell.self, forCellReuseIdentifier: "OrderTicketInfoTableViewCell")

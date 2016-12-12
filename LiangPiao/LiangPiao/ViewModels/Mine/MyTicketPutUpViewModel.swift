@@ -137,13 +137,15 @@ class MyTicketPutUpViewModel: NSObject {
 
     func tableViewDidSelectRowAtIndexPath(indexPath:NSIndexPath) {
         if indexPath.row == 0 {
+            let tempShowModel = self.ticketShowModel
+            tempShowModel.session = self.ticketShowModel.sessionList[0]
             if ticketShowModel.sessionCount == 1 {
                 let controllerVC = TicketDescriptionViewController()
-//                controllerVC.viewModel.ticketModel = model
+                controllerVC.viewModel.ticketModel = tempShowModel
                 NavigationPushView(controller, toConroller: controllerVC)
             }else{
                 let controllerVC = TicketSceneViewController()
-//                controllerVC.viewModel.model = model
+                controllerVC.viewModel.model = tempShowModel
                 NavigationPushView(controller, toConroller: controllerVC)
             }
         }else if indexPath.row > 2 {

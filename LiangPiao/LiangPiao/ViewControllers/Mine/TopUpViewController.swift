@@ -28,6 +28,7 @@ class TopUpViewController: UIViewController {
         tableView.backgroundColor = UIColor.init(hexString: App_Theme_E9EBF2_Color)
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.showsVerticalScrollIndicator = false
         tableView.keyboardDismissMode = .OnDrag
         tableView.separatorStyle = .None
         tableView.registerClass(TopUpMuchTableViewCell.self, forCellReuseIdentifier: "TopUpMuchTableViewCell")

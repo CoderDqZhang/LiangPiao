@@ -8,51 +8,6 @@
 
 import UIKit
 
-class AddAddressView: UIView {
-    
-    var addButton:UIButton!
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.backgroundColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
-        self.setUpButton()
-        
-        let singleTap = UITapGestureRecognizer(target: self, action: #selector(AddAddressView.singTapPress(_:)))
-        singleTap.numberOfTapsRequired = 1
-        singleTap.numberOfTouchesRequired = 1
-        self.addGestureRecognizer(singleTap)
-    }
-    
-    func setUpButton() {
-        addButton = UIButton(type: .Custom)
-        addButton.setTitle("新增收货地址", forState: .Normal)
-        addButton.titleLabel?.font = App_Theme_PinFan_R_15_Font
-        addButton.setTitleColor(UIColor.init(hexString: App_Theme_FFFFFF_Color), forState: .Normal)
-        addButton.userInteractionEnabled = false
-        addButton.titleEdgeInsets = UIEdgeInsetsMake(0, 20, 0, 0)
-        addButton.setImage(UIImage.init(named: "Icon_Add"), forState: .Normal)
-        self.addSubview(addButton)
-        self.updateConstraintsIfNeeded()
-    }
-    
-    override func updateConstraints() {
-        addButton.snp_makeConstraints { (make) in
-            make.centerX.equalTo(self.snp_centerX).offset(-1)
-            make.centerY.equalTo(self.snp_centerY).offset(0)
-            make.width.equalTo(139)
-        }
-        super.updateConstraints()
-    }
-    
-    func singTapPress(sender:UITapGestureRecognizer) {
-        
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
-
 class AddressTableViewCell: UITableViewCell {
 
     var nameAndePhone:UILabel!

@@ -43,6 +43,7 @@ class HomeViewController: BaseViewController {
         tableView = UITableView(frame: CGRect.zero, style: .Grouped)
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.showsVerticalScrollIndicator = false
         tableView.keyboardDismissMode = .OnDrag
         tableView.backgroundColor = UIColor.init(hexString: App_Theme_E9EBF2_Color)
         tableView.registerClass(HomeSearchTableViewCell.self, forCellReuseIdentifier: "HomeSearchTableViewCell")

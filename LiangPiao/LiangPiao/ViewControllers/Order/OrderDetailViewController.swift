@@ -42,6 +42,7 @@ class OrderDetailViewController: UIViewController {
         tableView = UITableView(frame: CGRectZero, style: .Grouped)
         tableView.backgroundColor = UIColor.init(hexString: App_Theme_E9EBF2_Color)
         tableView.delegate = self
+        tableView.showsVerticalScrollIndicator = false
         tableView.dataSource = self
         tableView.keyboardDismissMode = .OnDrag
         tableView.registerClass(TicketDetailInfoTableViewCell.self, forCellReuseIdentifier: "TicketDetailInfoTableViewCell")
@@ -131,7 +132,7 @@ class OrderDetailViewController: UIViewController {
                 make.top.equalTo(self.view.snp_top).offset(0)
                 make.left.equalTo(self.view.snp_left).offset(0)
                 make.right.equalTo(self.view.snp_right).offset(0)
-                make.bottom.equalTo(self.view.snp_top).offset(-payView.frame.size.height)
+                make.bottom.equalTo(self.view.snp_bottom).offset(-49)
             })
         }else{
             if payView != nil {

@@ -131,7 +131,7 @@ class OrderDetailViewModel: NSObject {
     
     func requestPayModel(cnotroller:OrderDetailViewController){
         if model.payType == 1 {
-            if self.model.payUrl.alipay == "" {
+            if self.model.payUrl == nil || self.model.payUrl.alipay == "" {
                 MainThreadAlertShow("获取支付链接错误", view: KWINDOWDS!)
                 return
             }
@@ -139,7 +139,7 @@ class OrderDetailViewModel: NSObject {
                 print("resultDic")
             }
         }else{
-            if self.model.payUrl.wxpay == nil {
+            if self.model.payUrl == nil || self.model.payUrl.wxpay == nil {
                 MainThreadAlertShow("获取支付链接错误", view: KWINDOWDS!)
                 return
             }

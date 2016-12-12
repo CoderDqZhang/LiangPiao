@@ -60,7 +60,7 @@ class HomeSearchTableViewCell: UITableViewCell {
         location.setTitle(title, forState: .Normal)
         let stringWidth = title.widthWithConstrainedHeight(title, font: App_Theme_PinFan_R_12_Font!, height: 17) + 6
         let image = UIImage.init(named: "Icon_Selected_Location")
-        location.setTitleColor(UIColor.init(hexString: App_Theme_FFFFFF_Color), forState: .Normal)
+        location.buttonSetTitleColor(App_Theme_FFFFFF_Color, sTitleColor: nil)
         location.titleLabel?.font = App_Theme_PinFan_R_12_Font!
         location.titleEdgeInsets = UIEdgeInsetsMake(0, -(image?.size.width)!, 0, (image?.size.width)!)
         location.imageEdgeInsets = UIEdgeInsetsMake(0, stringWidth, -3, -stringWidth)

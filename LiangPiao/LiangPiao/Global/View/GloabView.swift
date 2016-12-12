@@ -70,6 +70,36 @@ class HomeSearchNavigationBar: UIView {
     
 }
 
+typealias GloableSearchBarClouse = () -> Void
+class GloableSearchNavigationBarView : UIView {
+    var searchButton:UIButton!
+    var titleLabel:UILabel!
+    init(frame:CGRect, title:String, searchClouse:GloableSearchBarClouse) {
+        super.init(frame: frame)
+        self.backgroundColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
+        
+        titleLabel = UILabel(frame: CGRect.init(x: 50, y: 22, width: frame.size.width - 100, height: 40))
+        titleLabel.text = title
+        titleLabel.textAlignment = .Center
+        titleLabel.font = App_Theme_PinFan_L_17_Font
+        titleLabel.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
+        self.addSubview(titleLabel)
+        
+        searchButton = UIButton(type: .Custom)
+        searchButton.setImage(UIImage.init(named: "Icon_Search_W")?.imageWithRenderingMode(.AlwaysOriginal), forState: .Normal)
+        searchButton.frame = CGRect.init(x: frame.size.width - 50, y: 22, width: 40, height: 40)
+        searchButton.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (action) in
+            searchClouse()
+        }
+        self.addSubview(searchButton)
+        
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
 extension HomeSearchNavigationBar : UITextFieldDelegate {
     func textFieldDidBeginEditing(textField: UITextField) {
         if self.searchTextFieldBecomFirstRespoder != nil {
@@ -250,6 +280,43 @@ class GlobalTicketStatus : UIView {
     }
 }
 
+class AddAddressView: UIView {
+    
+    var addButton:UIButton!
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.setUpButton()
+    }
+    
+    func setUpButton() {
+        addButton = UIButton(type: .Custom)
+        addButton.setTitle("新增收货地址", forState: .Normal)
+        addButton.titleLabel?.font = App_Theme_PinFan_R_15_Font
+        addButton.setTitleColor(UIColor.init(hexString: App_Theme_FFFFFF_Color), forState: .Normal)
+        addButton.titleEdgeInsets = UIEdgeInsetsMake(0, 20, 0, 0)
+        addButton.setImage(UIImage.init(named: "Icon_Add"), forState: .Normal)
+        addButton.buttonSetThemColor(App_Theme_4BD4C5_Color, selectColor: App_Theme_40C6B7_Color, size:CGSize.init(width: SCREENWIDTH, height: 49))
+        self.addSubview(addButton)
+        self.updateConstraintsIfNeeded()
+    }
+    
+    override func updateConstraints() {
+        addButton.snp_makeConstraints { (make) in
+            make.centerX.equalTo(self.snp_centerX).offset(-1)
+            make.centerY.equalTo(self.snp_centerY).offset(0)
+            make.left.equalTo(self.snp_left).offset(0)
+            make.right.equalTo(self.snp_right).offset(0)
+        }
+        super.updateConstraints()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+
 typealias GloableBottomButtonViewClouse = (tag:NSInteger?) -> Void
 
 class GloableBottomButtonView: UIView {
@@ -261,7 +328,7 @@ class GloableBottomButtonView: UIView {
         }else{
             super.init(frame: frame!)
         }
-        self.backgroundColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
+        self.userInteractionEnabled = true
         self.setUpButton(title)
         button.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (btnTouchUp) in
             if action != nil {
@@ -276,6 +343,7 @@ class GloableBottomButtonView: UIView {
     func setUpButton(title:String) {
         button = UIButton(type: .Custom)
         button.setTitle(title, forState: .Normal)
+        button.buttonSetThemColor(App_Theme_4BD4C5_Color, selectColor: App_Theme_40C6B7_Color, size: CGSize.init(width: SCREENWIDTH, height: 49))
         button.titleLabel?.font = App_Theme_PinFan_R_15_Font
         button.setTitleColor(UIColor.init(hexString: App_Theme_FFFFFF_Color), forState: .Normal)
         button.titleLabel?.textAlignment = .Center
@@ -285,7 +353,7 @@ class GloableBottomButtonView: UIView {
     }
     
     func updateButtonTitle(title:String) {
-        button.setTitle("title", forState: .Normal)
+        button.setTitle(title, forState: .Normal)
     }
     
     required init?(coder aDecoder: NSCoder) {

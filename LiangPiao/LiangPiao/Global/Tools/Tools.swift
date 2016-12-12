@@ -86,7 +86,7 @@ class Tools: NSObject {
             }
             return self.showMessage(KWINDOWDS!, msg:errorMsg , autoHidder: true)
         }else{
-            return self.showMessage(KWINDOWDS!, msg:"未知错误" , autoHidder: true)
+            return self.showMessage(KWINDOWDS!, msg:"数据错误" , autoHidder: true)
         }
     }
     
