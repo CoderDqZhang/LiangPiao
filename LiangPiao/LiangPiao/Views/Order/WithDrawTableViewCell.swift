@@ -54,7 +54,7 @@ class WithDrawTableViewCell: UITableViewCell {
             })
             
             muchTextField.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.muchLabel.snp_right).offset(7)
+                make.left.equalTo(self.muchLabel.snp_right).offset(24)
                 make.right.equalTo(self.topUpButton.snp_left).offset(-7)
                 make.centerY.equalTo(self.contentView.snp_centerY).offset(0)
             })

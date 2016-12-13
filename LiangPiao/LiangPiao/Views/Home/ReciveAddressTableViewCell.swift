@@ -41,7 +41,6 @@ class ReciveAddressTableViewCell: UITableViewCell {
         
         deliveryAddress = UILabel()
         deliveryAddress.font = App_Theme_PinFan_R_13_Font
-        deliveryAddress.adjustsFontSizeToFitWidth = true
         deliveryAddress.textColor = UIColor.init(hexString: App_Theme_384249_Color)
         self.contentView.addSubview(deliveryAddress)
         
@@ -85,7 +84,7 @@ class ReciveAddressTableViewCell: UITableViewCell {
             
             deliveryType.snp_makeConstraints(closure: { (make) in
                 make.left.equalTo(self.location.snp_right).offset(17)
-                make.top.equalTo(self.contentView.snp_top).offset(21)
+                make.top.equalTo(self.contentView.snp_top).offset(20)
             })
             
             deliveryName.snp_makeConstraints(closure: { (make) in
@@ -97,6 +96,7 @@ class ReciveAddressTableViewCell: UITableViewCell {
                 make.left.equalTo(self.location.snp_right).offset(17)
                 make.right.equalTo(self.contentView.snp_right).offset(-15)
                 make.top.equalTo(self.deliveryName.snp_bottom).offset(6)
+                make.bottom.equalTo(self.contentView.snp_bottom).offset(-20)
             })
             
             self.didMakeContraints = true

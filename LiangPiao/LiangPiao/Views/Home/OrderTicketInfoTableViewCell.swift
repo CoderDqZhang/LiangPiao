@@ -112,6 +112,7 @@ class OrderTicketInfoTableViewCell: UITableViewCell {
         ticketPhoto.sd_setImageWithURL(NSURL.init(string: model.show.cover), placeholderImage: UIImage.init(named: "Feeds_Default_Cover")) { (image, error, cacheType, url) in
         }
         ticketTitle.text = model.show.title
+        UILabel.changeLineSpaceForLabel(ticketTitle, withSpace: TitleLineSpace)
         ticketTime.text = "时间：\(model.session.startTime)"
         ticketMuch.text = "票面：\(model.ticket.originalTicket.name) x \(model.ticketCount)"
         if model.ticket.region == "" {

@@ -23,7 +23,7 @@ class TicketSession: UIView {
     var type:NSInteger = 0
     init(frame:CGRect, title:String, tag:NSInteger, clouse:TicketSessionClouse?, type:NSInteger) {
         super.init(frame: frame)
-        self.layer.borderWidth = 1.5
+        self.layer.borderWidth = 0.5
         self.layer.cornerRadius = 2.0
         self.clouse = clouse!
         if type != 0 {

@@ -16,6 +16,7 @@ class MyWallHeaderTableViewCell: UITableViewCell {
     var detailBtn:UIButton!
     var muchmLable:UILabel!
     var myWallHeaderTableViewCellClouse:MyWallHeaderTableViewCellClouse!
+    var cellBackView:UIImageView!
     var didMakeConstraints:Bool = false
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
@@ -26,6 +27,10 @@ class MyWallHeaderTableViewCell: UITableViewCell {
     
     func setUpView() {
         
+        cellBackView = UIImageView()
+        cellBackView.image = UIImage.init(color: UIColor.init(hexString: App_Theme_4BD4C5_Color), size: CGSizeMake(SCREENWIDTH, 190))
+        self.contentView.addSubview(cellBackView)
+        
         muchLabel = UILabel()
         muchLabel.text = "0.00"
         muchLabel.font = App_Theme_PinFan_R_50_Font
@@ -35,7 +40,7 @@ class MyWallHeaderTableViewCell: UITableViewCell {
         
         muchmLable = UILabel()
         muchmLable.text = "账户余额 (元) "
-        muchmLable.font = App_Theme_PinFan_R_14_Font
+        muchmLable.font = App_Theme_PinFan_M_14_Font
         muchmLable.textAlignment = .Center
         muchmLable.textColor = UIColor.whiteColor()
         self.contentView.addSubview(muchmLable)

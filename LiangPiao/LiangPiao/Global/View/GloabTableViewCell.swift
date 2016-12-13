@@ -132,7 +132,7 @@ class GloabTitleAndFieldCell: UITableViewCell {
             })
             
             textField.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.titleLabel.snp_right).offset(6)
+                make.left.equalTo(self.titleLabel.snp_right).offset(24)
                 make.centerY.equalTo(self.contentView.snp_centerY).offset(0)
                 make.right.equalTo(self.contentView.snp_right).offset(-15)
             })

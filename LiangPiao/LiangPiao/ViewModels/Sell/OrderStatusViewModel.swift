@@ -52,9 +52,36 @@ class OrderStatusViewModel: NSObject {
     
     func tableViewHeightForRow(indexPath:NSIndexPath) ->CGFloat {
         if !isCancel() {
-            return CGFloat(cellHeight[indexPath.section][indexPath.row])
+            switch indexPath.section {
+            case 0:
+                switch indexPath.row {
+                case 0:
+                    return 112
+                default:
+                    return controller.tableView.fd_heightForCellWithIdentifier("ReciveAddressTableViewCell", configuration: { (cell) in
+                        self.configCell(cell as! ReciveAddressTableViewCell, indexPath: indexPath)
+                    })
+                }
+            default:
+                switch indexPath.row {
+                case 0:
+                    return 49
+                case 1:
+                    return 149
+                case 2:
+                    return 119
+                case 3:
+                    return 52
+                default:
+                    return 52
+                }
+            }
         }
         return CGFloat(cellCancelHeight[indexPath.row])
+    }
+    
+    func configCell(cell:ReciveAddressTableViewCell, indexPath:NSIndexPath) {
+        cell.setUpData(model)
     }
     
     func isCancel() ->Bool {
@@ -71,7 +98,7 @@ class OrderStatusViewModel: NSObject {
     
     
     func tableViewCellReciveAddressTableViewCell(cell:ReciveAddressTableViewCell, indexPath:NSIndexPath) {
-        cell.setUpData(model)
+        self.configCell(cell, indexPath: indexPath)
     }
     
     func tableViewCellOrderTicketInfoTableViewCell(cell:OrderTicketInfoTableViewCell, indexPath:NSIndexPath){
@@ -86,7 +113,7 @@ class OrderStatusViewModel: NSObject {
         cell.setData(model)
     }
     
-    func tableViewCellOrderMuchTableViewCell(cell:OrderMuchTableViewCell, indexPath:NSIndexPath) {
+    func tableViewCellOrderMuchTableViewCell(cell:OrderStatusMuchTableViewCell, indexPath:NSIndexPath) {
         cell.setData(model)
     }
     

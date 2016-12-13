@@ -174,7 +174,7 @@ class PickUpTickeTableViewCell: UITableViewCell {
             
             detailImage.snp_makeConstraints(closure: { (make) in
                 make.right.equalTo(self.contentView.snp_right).offset(-15)
-                make.centerY.equalTo(self.contentView.snp_centerY).offset(0)
+                make.centerY.equalTo(self.contentView.snp_centerY).offset(10)
             })
             
             ticketNumber.snp_makeConstraints(closure: { (make) in
@@ -190,7 +190,7 @@ class PickUpTickeTableViewCell: UITableViewCell {
             
             ticketmMuch.snp_makeConstraints(closure: { (make) in
                 make.bottom.equalTo(self.contentView.snp_bottom).offset(-20)
-                make.left.equalTo(self.ticketMuch.snp_right).offset(1)
+                make.left.equalTo(self.ticketMuch.snp_right).offset(3)
             })
             
             lineLabel.snp_makeConstraints(closure: { (make) in

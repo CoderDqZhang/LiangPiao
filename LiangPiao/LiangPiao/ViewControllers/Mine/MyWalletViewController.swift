@@ -118,6 +118,13 @@ extension MyWalletViewController : UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         viewModel.tableViewDidSelect(indexPath, controller: self)
     }
+    
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        let cell = tableView.cellForRowAtIndexPath(NSIndexPath.init(forRow: 0, inSection: 0)) as! MyWallHeaderTableViewCell
+        if scrollView.contentOffset.y < 0 {
+            cell.cellBackView.frame = CGRectMake(0, scrollView.contentOffset.y, SCREENWIDTH, 190 - scrollView.contentOffset.y)
+        }
+    }
 }
 
 extension MyWalletViewController : UITableViewDataSource {

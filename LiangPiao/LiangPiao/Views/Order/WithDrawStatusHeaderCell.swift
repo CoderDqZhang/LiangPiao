@@ -89,22 +89,22 @@ class WithDrawStatusHeaderCell: UITableViewCell {
             
             withDrawmName.snp_makeConstraints(closure: { (make) in
                 make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.bottom.equalTo(self.withDrawmMuch.snp_top).offset(15)
+                make.bottom.equalTo(self.withDrawmMuch.snp_top).offset(-15)
             })
             
             withDrawName.snp_makeConstraints(closure: { (make) in
                 make.right.equalTo(self.contentView.snp_right).offset(-15)
-                make.bottom.equalTo(self.withDrawMuch.snp_top).offset(15)
+                make.bottom.equalTo(self.withDrawmMuch.snp_top).offset(-15)
             })
             
             withDrawmMuch.snp_makeConstraints(closure: { (make) in
                 make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.bottom.equalTo(self.contentView.snp_top).offset(-28)
+                make.bottom.equalTo(self.contentView.snp_bottom).offset(-28)
             })
             
             withDrawMuch.snp_makeConstraints(closure: { (make) in
                 make.right.equalTo(self.contentView.snp_right).offset(-15)
-                make.bottom.equalTo(self.contentView.snp_top).offset(-28)
+                make.bottom.equalTo(self.contentView.snp_bottom).offset(-28)
             })
             
             self.didMakeConstraints = true

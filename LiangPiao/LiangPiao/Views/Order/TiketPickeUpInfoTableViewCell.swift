@@ -49,6 +49,7 @@ class TiketPickeUpInfoTableViewCell: UITableViewCell {
         
         ticketNowPrice = UILabel()
         ticketNowPrice.text = "2280"
+        
         ticketNowPrice.font = App_Theme_PinFan_R_14_Font
         ticketNowPrice.textColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
         self.contentView.addSubview(ticketNowPrice)
@@ -91,7 +92,7 @@ class TiketPickeUpInfoTableViewCell: UITableViewCell {
             if str == "1" {
                 delivery = delivery.stringByAppendingString("快递 ")
             }else if str == "3"  {
-                delivery = delivery.stringByAppendingString("上门自取")
+                delivery = delivery.stringByAppendingString("上门自取 ")
             }else if str == "2" {
                 delivery = delivery.stringByAppendingString("自取")
             }
@@ -121,13 +122,13 @@ class TiketPickeUpInfoTableViewCell: UITableViewCell {
             self.contentView.addSubview(ticketStatusView)
             
             ticketStatusView.snp_remakeConstraints(closure: { (make) in
-                make.right.equalTo(self.contentView.snp_right).offset(-(ticketStatusView.getMaxWidth() + 55))
+                make.right.equalTo(self.contentView.snp_right).offset(-(ticketStatusView.getMaxWidth() + 45))
                 make.top.equalTo(self.ticketNowPrice.snp_bottom).offset(3)
             })
         }else{
             ticketStatusView.setUpView(titles, types: types)
             ticketStatusView.snp_remakeConstraints(closure: { (make) in
-                make.right.equalTo(self.contentView.snp_right).offset(-(ticketStatusView.getMaxWidth() + 55))
+                make.right.equalTo(self.contentView.snp_right).offset(-(ticketStatusView.getMaxWidth() + 45))
                 make.top.equalTo(self.ticketNowPrice.snp_bottom).offset(3)
             })
         }
@@ -152,12 +153,12 @@ class TiketPickeUpInfoTableViewCell: UITableViewCell {
             })
             
             ticketNowPrice.snp_makeConstraints(closure: { (make) in
-                make.right.equalTo(self.editBtn.snp_left).offset(-10)
+                make.right.equalTo(self.editBtn.snp_left).offset(-5)
                 make.top.equalTo(self.contentView.snp_top).offset(14)
             })
             
             editBtn.snp_makeConstraints(closure: { (make) in
-                make.right.equalTo(self.contentView.snp_right).offset(-15)
+                make.right.equalTo(self.contentView.snp_right).offset(-10)
                 make.top.equalTo(self.contentView.snp_top).offset(10)
             })
             

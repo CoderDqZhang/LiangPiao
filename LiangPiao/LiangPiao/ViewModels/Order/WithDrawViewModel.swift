@@ -49,9 +49,12 @@ class WithDrawViewModel: NSObject {
     func requestWithDraw(form:WithDrawForm){
         let parameters = ["alipay_account":form.aliPayCount,"alipay_name":form.aliPayName,"amount":form.amount]
 //        let parameters = ["alipay_account":"18363899723","alipay_name":"张德全","amount":0.01]
+        
         BaseNetWorke.sharedInstance.postUrlWithString(WallWithDraw, parameters: parameters).subscribeNext { (resultDic) in
-            print(resultDic)
-            NavigationPushView(self.controller, toConroller: WithDrawStatusViewController())
+            let controllerVC = WithDrawStatusViewController()
+            controllerVC.name = form.aliPayName
+            controllerVC.amount = form.amount
+            NavigationPushView(self.controller, toConroller: controllerVC)
         }
     }
 }

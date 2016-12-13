@@ -66,6 +66,7 @@
 		1F45C4001DD7361C008C60CD /* LiangPiaoHomeRefreshHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F45C3FF1DD7361C008C60CD /* LiangPiaoHomeRefreshHeader.swift */; };
 		1F45C4021DD73AA4008C60CD /* LiangNomalRefreshHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F45C4011DD73AA4008C60CD /* LiangNomalRefreshHeader.swift */; };
 		1F45C4041DD73BC9008C60CD /* AllTicketTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F45C4031DD73BC9008C60CD /* AllTicketTableViewCell.swift */; };
+		1F4C80251E0005A200155E25 /* OrderStatusMuchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F4C80241E0005A200155E25 /* OrderStatusMuchTableViewCell.swift */; };
 		1F52ED721DE31E2300916C91 /* TicketDetailInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F52ED711DE31E2300916C91 /* TicketDetailInfoTableViewCell.swift */; };
 		1F52ED741DE3FBC800916C91 /* TicketShowModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F52ED731DE3FBC800916C91 /* TicketShowModel.swift */; };
 		1F538C091DFE5A120020AE31 /* UIButton+Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F538C081DFE5A120020AE31 /* UIButton+Extentions.swift */; };
@@ -303,6 +304,7 @@
 		1F45C3FF1DD7361C008C60CD /* LiangPiaoHomeRefreshHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiangPiaoHomeRefreshHeader.swift; sourceTree = "<group>"; };
 		1F45C4011DD73AA4008C60CD /* LiangNomalRefreshHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LiangNomalRefreshHeader.swift; sourceTree = "<group>"; };
 		1F45C4031DD73BC9008C60CD /* AllTicketTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AllTicketTableViewCell.swift; path = ../../ViewControllers/Home/AllTicketTableViewCell.swift; sourceTree = "<group>"; };
+		1F4C80241E0005A200155E25 /* OrderStatusMuchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderStatusMuchTableViewCell.swift; sourceTree = "<group>"; };
 		1F52ED711DE31E2300916C91 /* TicketDetailInfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketDetailInfoTableViewCell.swift; sourceTree = "<group>"; };
 		1F52ED731DE3FBC800916C91 /* TicketShowModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketShowModel.swift; sourceTree = "<group>"; };
 		1F538C081DFE5A120020AE31 /* UIButton+Extentions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+Extentions.swift"; sourceTree = "<group>"; };
@@ -657,6 +659,7 @@
 				1F9A0CA51DF93A9F002F4C19 /* MySellRowTypeTableViewCell.swift */,
 				1F9A0CA71DF93AC6002F4C19 /* MySellPriceTableViewCell.swift */,
 				1F9A0CAB1DFA52DF002F4C19 /* MySellHeaderTableViewCell.swift */,
+				1F4C80241E0005A200155E25 /* OrderStatusMuchTableViewCell.swift */,
 			);
 			path = Sell;
 			sourceTree = "<group>";
@@ -1479,6 +1482,7 @@
 				1F54C52F1DDC3A61009ADDA9 /* JKDBModel.m in Sources */,
 				1F9A0CA41DF93A8E002F4C19 /* MySellRowTableViewCell.swift in Sources */,
 				1FC3DDE91DE4520C00420A05 /* TicketCategoryViewModel.swift in Sources */,
+				1F4C80251E0005A200155E25 /* OrderStatusMuchTableViewCell.swift in Sources */,
 				1F9A0CA61DF93A9F002F4C19 /* MySellRowTypeTableViewCell.swift in Sources */,
 				1F52ED721DE31E2300916C91 /* TicketDetailInfoTableViewCell.swift in Sources */,
 				1FD2458A1DC336B300AFD3BC /* BaseNetWorke.swift in Sources */,

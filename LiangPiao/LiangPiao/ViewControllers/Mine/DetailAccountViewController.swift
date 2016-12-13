@@ -55,7 +55,7 @@ class DetailAccountViewController: UIViewController {
     }
     
     func setUpRefreshData(){
-        self.tableView.mj_header = LiangNomalRefreshHeader(refreshingBlock: {
+        self.tableView.mj_header = LiangNomalRefreshHeaderWhite(refreshingBlock: {
             self.viewModel.requestDetailAcount(false)
         })
     }

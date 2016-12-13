@@ -12,6 +12,8 @@ class WithDrawStatusViewController: UIViewController {
 
     var tableView:UITableView!
     var viewModel = WithDreaViewModel()
+    var name:String!
+    var amount:String!
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUpNavigationItem()
@@ -22,7 +24,8 @@ class WithDrawStatusViewController: UIViewController {
     func setUpNavigationItem(){
         self.navigationItem.title = "提现详情"
         self.talKingDataPageName = "提现详情"
-        self.setNavigationItemCleanButton()
+        self.navigationItem.hidesBackButton = true
+//        self.setNavigationItemCleanButton()
     }
 
     func setUpView(){
@@ -117,6 +120,7 @@ extension WithDrawStatusViewController : UITableViewDataSource {
         switch indexPath.section {
         case 0:
             let cell = tableView.dequeueReusableCellWithIdentifier("WithDrawStatusHeaderCell", forIndexPath: indexPath) as! WithDrawStatusHeaderCell
+            cell.setData(name, much: amount)
             cell.selectionStyle = .None
             return cell
         default:

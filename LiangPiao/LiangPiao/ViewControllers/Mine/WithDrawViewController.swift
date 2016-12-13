@@ -43,9 +43,7 @@ class WithDrawViewController: UIViewController {
     }
     
     func bindViewModel(){
-        //        viewModel.reloadTableView = { _ in
-        //            self.tableView.reloadRowsAtIndexPaths([NSIndexPath.init(forRow: 0, inSection: 0)], withRowAnimation: .Automatic)
-        //        }
+        viewModel.controller = self
         
     }
     
@@ -164,8 +162,7 @@ extension WithDrawViewController : UITableViewDataSource {
                     })
                 }
                 cell.textField.tag = indexPath.row
-                cell.textField.textAlignment = .Right
-                cell.textField.tag = indexPath.row
+                cell.textField.textAlignment = .Left
                 cell.textField.delegate = self
                 cell.selectionStyle = .None
                 return cell

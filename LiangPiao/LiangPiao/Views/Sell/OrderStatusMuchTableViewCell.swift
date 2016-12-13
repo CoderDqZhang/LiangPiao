@@ -1,19 +1,18 @@
 //
-//  OrderMuchTableViewCell.swift
+//  OrderStatusMuchTableViewCell.swift
 //  LiangPiao
 //
-//  Created by Zhang on 07/11/2016.
+//  Created by Zhang on 13/12/2016.
 //  Copyright © 2016 Zhang. All rights reserved.
 //
 
 import UIKit
 
-class OrderMuchTableViewCell: UITableViewCell {
+class OrderStatusMuchTableViewCell: UITableViewCell {
 
     var muchLabel:UILabel!
-    var muchmLabel:UILabel!
     var muchInfoLabel:UILabel!
-    
+    var muchmLabel:UILabel!
     var didMakeConstraints:Bool = false
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
@@ -23,7 +22,7 @@ class OrderMuchTableViewCell: UITableViewCell {
     
     func setUpView() {
         muchInfoLabel = UILabel()
-        muchInfoLabel.text = "实付金额："
+        muchInfoLabel.text = "实付金额"
         muchInfoLabel.font = App_Theme_PinFan_R_12_Font
         muchInfoLabel.textColor = UIColor.init(hexString: App_Theme_384249_Color)
         self.contentView.addSubview(muchInfoLabel)
@@ -36,13 +35,11 @@ class OrderMuchTableViewCell: UITableViewCell {
         self.contentView.addSubview(muchLabel)
         
         muchmLabel = UILabel()
-        muchmLabel.font = App_Theme_PinFan_R_10_Font
-        muchmLabel.textColor = UIColor.init(hexString: App_Theme_BBC1CB_Color)
+        muchmLabel.font = App_Theme_PinFan_R_12_Font
+        muchmLabel.textColor = UIColor.init(hexString: App_Theme_384249_Color)
         muchmLabel.text = "元"
         
         self.contentView.addSubview(muchmLabel)
-        
-        self.contentView.addSubview(muchLabel)
         
         self.updateConstraintsIfNeeded()
     }
@@ -58,20 +55,19 @@ class OrderMuchTableViewCell: UITableViewCell {
     override func updateConstraints() {
         if !self.didMakeConstraints {
             muchLabel.snp_makeConstraints(closure: { (make) in
-                make.right.equalTo(self.muchmLabel.snp_left).offset(-3)
-                make.centerY.equalTo(self.contentView.snp_centerY).offset(0)
+                make.right.equalTo(self.muchmLabel.snp_left).offset(-6)
+                make.centerY.equalTo(self.contentView.snp_centerY).offset(3)
             })
             
             muchInfoLabel.snp_makeConstraints(closure: { (make) in
-                make.right.equalTo(self.muchLabel.snp_left).offset(-2)
-                make.centerY.equalTo(self.contentView.snp_centerY).offset(0)
+                make.left.equalTo(self.contentView.snp_left).offset(15)
+                make.centerY.equalTo(self.contentView.snp_centerY).offset(3)
             })
             
             muchmLabel.snp_makeConstraints(closure: { (make) in
                 make.right.equalTo(self.contentView.snp_right).offset(-15)
-                make.centerY.equalTo(self.contentView.snp_centerY).offset(2)
+                make.centerY.equalTo(self.contentView.snp_centerY).offset(3.5)
             })
-            
             self.didMakeConstraints = true
         }
         super.updateConstraints()

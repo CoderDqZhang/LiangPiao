@@ -73,12 +73,12 @@ class MySellOrderMuchTableViewCell: UITableViewCell {
                 make.centerY.equalTo(self.contentView.snp_centerY).offset(1)
             })
             muchLabel.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.muchInfoLabel.snp_right).offset(4)
+                make.left.equalTo(self.muchInfoLabel.snp_right).offset(6)
                 make.centerY.equalTo(self.contentView.snp_centerY).offset(0)
             })
             
             muchmLabel.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.muchLabel.snp_right).offset(4)
+                make.left.equalTo(self.muchLabel.snp_right).offset(6)
                 make.centerY.equalTo(self.contentView.snp_centerY).offset(1)
             })
             

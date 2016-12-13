@@ -51,7 +51,7 @@ class MySellManagerMuchTableViewCell: UITableViewCell {
         handerButton.layer.masksToBounds = true
         handerButton.layer.cornerRadius = 2.0
         handerButton.setImage(UIImage.init(named: "Btn_More_Normal"), forState: .Normal)
-        handerButton.setImage(UIImage.init(named: "Btn_More_Press"), forState: .Selected)
+        handerButton.setImage(UIImage.init(named: "Btn_More_Press"), forState: .Highlighted)
         handerButton.titleLabel?.font = App_Theme_PinFan_R_13_Font
         self.contentView.addSubview(handerButton)
         
@@ -79,7 +79,7 @@ class MySellManagerMuchTableViewCell: UITableViewCell {
             
             muchmLabel.snp_makeConstraints(closure: { (make) in
                 make.left.equalTo(self.muchLabel.snp_right).offset(4)
-                make.top.equalTo(self.snp_top).offset(24)
+                make.centerY.equalTo(self.contentView.snp_centerY).offset(0.5)
             })
             
             handerButton.snp_makeConstraints(closure: { (make) in

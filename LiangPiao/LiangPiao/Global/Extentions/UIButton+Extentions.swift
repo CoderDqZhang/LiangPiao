@@ -25,4 +25,9 @@ extension UIButton {
             self.setTitleColor(UIColor.init(hexString: sTitleColor), forState: .Highlighted)
         }
     }
+    
+    func buttonSetImage(nImage:UIImage, sImage:UIImage) {
+        self.setImage(nImage, forState: .Normal)
+        self.setImage(sImage, forState: .Normal)
+    }
 }

@@ -16,6 +16,7 @@ class OrderStatusViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.bindViewModel()
         self.setUpView()
         self.setUpNavigationItem()
         // Do any additional setup after loading the view.
@@ -39,7 +40,7 @@ class OrderStatusViewController: UIViewController {
         tableView.registerClass(OrderTicketInfoTableViewCell.self, forCellReuseIdentifier: "OrderTicketInfoTableViewCell")
         tableView.registerClass(OrderNumberTableViewCell.self, forCellReuseIdentifier: "OrderNumberTableViewCell")
         tableView.registerClass(OrderStatusTableViewCell.self, forCellReuseIdentifier: "OrderStatusTableViewCell")
-        tableView.registerClass(OrderMuchTableViewCell.self, forCellReuseIdentifier: "OrderMuchTableViewCell")
+        tableView.registerClass(OrderStatusMuchTableViewCell.self, forCellReuseIdentifier: "OrderStatusMuchTableViewCell")
         tableView.registerClass(OrderPayTableViewCell.self, forCellReuseIdentifier: "OrderPayTableViewCell")
         self.view.addSubview(tableView)
         tableView.snp_makeConstraints { (make) in
@@ -55,11 +56,11 @@ class OrderStatusViewController: UIViewController {
         })
         self.view.addSubview(payView)
         self.updateTableView(self.viewModel.model.status)
-        self.bindViewModel()
+        
     }
     
     func bindViewModel(){
-        
+        viewModel.controller = self
     }
     func updateTableView(status:Int) {
         if status == 3 || status == 9 {
@@ -227,7 +228,7 @@ extension OrderStatusViewController : UITableViewDataSource {
                     cell.selectionStyle = .None
                     return cell
                 default:
-                    let cell = tableView.dequeueReusableCellWithIdentifier("OrderMuchTableViewCell", forIndexPath: indexPath) as! OrderMuchTableViewCell
+                    let cell = tableView.dequeueReusableCellWithIdentifier("OrderStatusMuchTableViewCell", forIndexPath: indexPath) as! OrderStatusMuchTableViewCell
                         viewModel.tableViewCellOrderMuchTableViewCell(cell, indexPath:indexPath)
                     cell.selectionStyle = .None
                     return cell
@@ -244,6 +245,14 @@ extension OrderStatusViewController : UITableViewDataSource {
                 let cell = tableView.dequeueReusableCellWithIdentifier("OrderTicketInfoTableViewCell", forIndexPath: indexPath) as! OrderTicketInfoTableViewCell
                 cell.selectionStyle = .None
                 viewModel.tableViewCellOrderTicketInfoTableViewCell(cell, indexPath:indexPath)
+                let lineLabel = GloabLineView.init(frame: CGRect.init(x: 15, y: 0, width: SCREENWIDTH - 30, height: 0.5))
+                cell.contentView.addSubview(lineLabel)
+                lineLabel.snp_makeConstraints { (make) in
+                    make.left.equalTo(cell.contentView.snp_left).offset(15)
+                    make.right.equalTo(cell.contentView.snp_right).offset(-15)
+                    make.bottom.equalTo(cell.contentView.snp_bottom).offset(0)
+                    make.height.equalTo(0.5)
+                }
                 cell.backgroundColor = UIColor.whiteColor()
                 return cell
             case 2:
@@ -252,7 +261,7 @@ extension OrderStatusViewController : UITableViewDataSource {
                 cell.selectionStyle = .None
                 return cell
             default:
-                let cell = tableView.dequeueReusableCellWithIdentifier("OrderMuchTableViewCell", forIndexPath: indexPath) as! OrderMuchTableViewCell
+                let cell = tableView.dequeueReusableCellWithIdentifier("OrderStatusMuchTableViewCell", forIndexPath: indexPath) as! OrderStatusMuchTableViewCell
                 viewModel.tableViewCellOrderMuchTableViewCell(cell, indexPath:indexPath)
                 cell.selectionStyle = .None
                 return cell

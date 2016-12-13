@@ -30,7 +30,7 @@ class MySellManagerViewController: UIViewController {
     
     func setUpView() {
         tableView = UITableView(frame: CGRectZero, style: .Grouped)
-        tableView.backgroundColor = UIColor.whiteColor()
+        tableView.backgroundColor = UIColor.init(hexString: App_Theme_E9EBF2_Color)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.emptyDataSetSource = self
