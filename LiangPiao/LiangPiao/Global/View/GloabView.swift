@@ -446,7 +446,7 @@ class GloableServiceView: UIView, UIGestureRecognizerDelegate {
         singleTap.numberOfTouchesRequired = 1
         singleTap.delegate = self
         self.addGestureRecognizer(singleTap)
-        UIView.animateWithDuration(1, animations: {
+        UIView.animateWithDuration(AnimationTime, animations: {
             self.detailView.frame = CGRectMake(0, SCREENHEIGHT - height - 160, SCREENWIDTH, height + 160)
             }, completion: { completion in
                 
@@ -458,7 +458,7 @@ class GloableServiceView: UIView, UIGestureRecognizerDelegate {
     }
     
     func removwSelf(){
-        UIView.animateWithDuration(1, animations: {
+        UIView.animateWithDuration(AnimationTime, animations: {
             self.detailView.frame = CGRectMake(0, SCREENHEIGHT, SCREENWIDTH, self.height + 160)
             }, completion: { completion in
                 self.removeFromSuperview()
@@ -472,7 +472,7 @@ class GloableServiceView: UIView, UIGestureRecognizerDelegate {
         detailLabel.numberOfLines = 0
         detailLabel.textColor = UIColor.init(hexString: App_Theme_556169_Color)
         detailLabel.font = App_Theme_PinFan_R_13_Font
-        UILabel.changeLineSpaceForLabel(detailLabel, withSpace: 5.0)
+        UILabel.changeLineSpaceForLabel(detailLabel, withSpace: TitleLineSpace)
         detailLabel.textAlignment = .Center
         detailLabel.sizeToFit()
         detailLabel.frame = CGRectMake(15, 96, SCREENWIDTH - 30, height)
@@ -521,6 +521,62 @@ class GloableServiceView: UIView, UIGestureRecognizerDelegate {
     func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool{
         let touchPoint = touch.locationInView(self)
         return touchPoint.y < SCREENHEIGHT - (self.height + 160) ? true : false
+    }
+}
+
+enum CustomButtonType {
+    case withNoBoarder
+    case withBoarder
+    case withBackBoarder
+    
+}
+typealias CustomButtonClouse = (tag:NSInteger) -> Void
+class CustomButton: UIButton {
+    
+    init(frame:CGRect, title:String, tag:NSInteger?, titleFont:UIFont, type:CustomButtonType, pressClouse:CustomButtonClouse) {
+        super.init(frame: frame)
+        self.setTitle(title, forState: .Normal)
+        self.titleLabel?.font = titleFont
+        self.layer.masksToBounds = true
+        self.frame = frame
+        if tag != nil {
+            self.tag = tag!
+        }
+        switch type {
+        case .withNoBoarder:
+            self.setWithNoBoarderButton()
+        case .withBoarder:
+            self.layer.cornerRadius = 2.0
+            self.setWithBoarderButton()
+        default:
+            self.layer.cornerRadius = 2.0
+            self.setwithonBoarderButton()
+        }
+        self.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (action) in
+            if tag != nil {
+                self.tag = 1000
+            }
+            pressClouse(tag:self.tag)
+        }
+    }
+    
+    func setWithNoBoarderButton(){
+        self.buttonSetTitleColor(App_Theme_4BD4C5_Color, sTitleColor: App_Theme_40C6B7_Color)
+    }
+    
+    func setWithBoarderButton(){
+        self.layer.borderColor = UIColor.init(hexString: App_Theme_4BD4C5_Color).CGColor
+        self.layer.borderWidth = 1.0
+        self.buttonSetTitleColor(App_Theme_4BD4C5_Color, sTitleColor: App_Theme_40C6B7_Color)
+    }
+    
+    func setwithonBoarderButton(){
+        self.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        self.buttonSetThemColor(App_Theme_4BD4C5_Color, selectColor: App_Theme_40C6B7_Color, size: CGSize.init(width: self.frame.size.width, height: self.frame.size.height))
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }
 

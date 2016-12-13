@@ -22,7 +22,7 @@ class MyWallToolsTableViewCell: UITableViewCell {
     
     func setUpView() {
         let titles = ["可用余额 (元)","冻结余额 (元)","即将到账 (元)"]
-        let details = ["600.00","50.20","00.00"]
+        let details = ["0.00","0.00","0.00"]
 
         var originX:CGFloat = 0
         
@@ -30,7 +30,7 @@ class MyWallToolsTableViewCell: UITableViewCell {
             let toolsView = self.createToolsView(CGRect.init(x: originX, y: 0, width: ToolsViewWidth, height: ToolsViewHeight), title: titles[index], detail: details[index], tag: index)
             originX = CGRectGetMaxX(toolsView.frame)
             if index != 2 {
-                let lineLabel = GloabLineView.init(frame: CGRect.init(x: originX, y: 12, width: 0.5, height: ToolsViewHeight - 24))
+                let lineLabel = GloabLineView.init(frame: CGRect.init(x: originX, y: 16, width: 0.5, height: ToolsViewHeight - 32))
                 self.contentView.addSubview(lineLabel)
             }
             self.contentView.addSubview(toolsView)
@@ -39,6 +39,17 @@ class MyWallToolsTableViewCell: UITableViewCell {
         self.contentView.addSubview(lineLabel)
         self.updateConstraintsIfNeeded()
         
+    }
+    
+    func setData(blance:String, freeze:String, preString:String) {
+        let blanceLabel = self.contentView.viewWithTag(0)?.viewWithTag(10) as! UILabel
+        blanceLabel.text = blance
+        
+        let freezeLabel = self.contentView.viewWithTag(1)?.viewWithTag(11) as! UILabel
+        freezeLabel.text = freeze
+        
+        let preLabel = self.contentView.viewWithTag(2)?.viewWithTag(12) as! UILabel
+        preLabel.text = preString
     }
     
     override func updateConstraints() {
@@ -59,11 +70,12 @@ class MyWallToolsTableViewCell: UITableViewCell {
         detailLabel.text = detail
         detailLabel.textColor = UIColor.init(hexString: App_Theme_A2ABB5_Color)
         detailLabel.font = App_Theme_PinFan_R_14_Font
+        detailLabel.tag = tag + 10
         view.addSubview(detailLabel)
         
         titleLabel.snp_makeConstraints { (make) in
             make.left.equalTo(view.snp_left).offset(20)
-            make.top.equalTo(view.snp_top).offset(20)
+            make.top.equalTo(view.snp_top).offset(23)
         }
         
         detailLabel.snp_makeConstraints { (make) in

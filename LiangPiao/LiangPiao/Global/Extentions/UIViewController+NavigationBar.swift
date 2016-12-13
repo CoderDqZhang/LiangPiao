@@ -22,4 +22,8 @@ extension UIViewController {
         self.navigationController?.popViewControllerAnimated(true)
     }
     
+    func setNavigationItemCleanButton(){
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem.init(title: nil, style: .Plain, target: nil, action: nil)
+    }
+    
 }

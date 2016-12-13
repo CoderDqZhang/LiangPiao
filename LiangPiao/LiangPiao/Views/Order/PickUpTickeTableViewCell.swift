@@ -36,7 +36,7 @@ class PickUpTickeTableViewCell: UITableViewCell {
         
         ticketTitle = UILabel()
         ticketTitle.text = "万有音乐系 陈粒《小梦大半》2016巡回演唱会"
-        UILabel.changeLineSpaceForLabel(ticketTitle, withSpace: 3.0)
+        UILabel.changeLineSpaceForLabel(ticketTitle, withSpace: TitleLineSpace)
         ticketTitle.numberOfLines = 0
         ticketTitle.textColor = UIColor.init(hexString: App_Theme_384249_Color)
         ticketTitle.font = App_Theme_PinFan_R_15_Font
@@ -63,7 +63,6 @@ class PickUpTickeTableViewCell: UITableViewCell {
         ticketNumber.textColor = UIColor.init(hexString: App_Theme_A2ABB5_Color)
         ticketNumber.font = App_Theme_PinFan_R_12_Font!
         ticketNumber.numberOfLines = 0
-        UILabel.changeLineSpaceForLabel(ticketNumber, withSpace: 3.0)
         self.contentView.addSubview(ticketNumber)
         
         ticketMuch = UILabel()
@@ -71,7 +70,6 @@ class PickUpTickeTableViewCell: UITableViewCell {
         ticketMuch.textColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
         ticketMuch.font = App_Theme_PinFan_R_18_Font!
         ticketMuch.numberOfLines = 0
-        UILabel.changeLineSpaceForLabel(ticketMuch, withSpace: 3.0)
         self.contentView.addSubview(ticketMuch)
         
         ticketmMuch = UILabel()
@@ -79,7 +77,6 @@ class PickUpTickeTableViewCell: UITableViewCell {
         ticketmMuch.textColor = UIColor.init(hexString: App_Theme_BBC1CB_Color)
         ticketmMuch.font = App_Theme_PinFan_R_10_Font!
         ticketmMuch.numberOfLines = 0
-        UILabel.changeLineSpaceForLabel(ticketmMuch, withSpace: 3.0)
         self.contentView.addSubview(ticketmMuch)
         
         detailImage = UIImageView()
@@ -96,6 +93,7 @@ class PickUpTickeTableViewCell: UITableViewCell {
         ticketPhoto.sd_setImageWithURL(NSURL.init(string: model.cover), placeholderImage: UIImage.init(named: "Feeds_Default_Cover")) { (image, error, cacheType, url) in
         }
         ticketTitle.text = model.title
+        UILabel.changeLineSpaceForLabel(ticketTitle, withSpace: TitleLineSpace)
         ticketTime.text = session
         ticketLocation.text = model.venue.name
         ticketMuch.text = soldMuch
@@ -191,7 +189,7 @@ class PickUpTickeTableViewCell: UITableViewCell {
             })
             
             ticketmMuch.snp_makeConstraints(closure: { (make) in
-                make.bottom.equalTo(self.contentView.snp_bottom).offset(-17)
+                make.bottom.equalTo(self.contentView.snp_bottom).offset(-20)
                 make.left.equalTo(self.ticketMuch.snp_right).offset(1)
             })
             

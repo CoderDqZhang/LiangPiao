@@ -79,8 +79,7 @@ class MySellManagerMuchTableViewCell: UITableViewCell {
             
             muchmLabel.snp_makeConstraints(closure: { (make) in
                 make.left.equalTo(self.muchLabel.snp_right).offset(4)
-                make.top.equalTo(self.snp_top).offset(21)
-                make.centerY.equalTo(self.contentView.snp_centerY).offset(2)
+                make.top.equalTo(self.snp_top).offset(24)
             })
             
             handerButton.snp_makeConstraints(closure: { (make) in

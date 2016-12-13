@@ -63,7 +63,7 @@ class TicketImageViews: UIView {
     }
     
     func setImage(image:UIImageView){
-        image.layer.cornerRadius = 2.0
+        image.layer.cornerRadius = 3.0
         image.layer.masksToBounds = true
     }
     
@@ -98,7 +98,7 @@ class OrderManagerTableViewCell: UITableViewCell {
         
         ticketTitle = UILabel()
         ticketTitle.text = "刘若英“Renext”世界巡回演唱会北京站预售"
-        UILabel.changeLineSpaceForLabel(ticketTitle, withSpace: 3.0)
+        UILabel.changeLineSpaceForLabel(ticketTitle, withSpace: TitleLineSpace)
         ticketTitle.textColor = UIColor.init(hexString: App_Theme_384249_Color)
         ticketTitle.font = App_Theme_PinFan_R_15_Font
         ticketTitle.numberOfLines = 0
@@ -135,6 +135,7 @@ class OrderManagerTableViewCell: UITableViewCell {
     func setData(title:String, cover:String, session:String, much:String, ticketCount:String, soldCount:String, isMoreTicket:Bool){
         
         ticketTitle.text = title
+        UILabel.changeLineSpaceForLabel(ticketTitle, withSpace: TitleLineSpace)
         ticketTime.text = "场次：\(session)"
         ticketMuch.text = "票面：\(much)"
         ticketSelledNumber.text = "在售：\(ticketCount)   已售：\(soldCount)"

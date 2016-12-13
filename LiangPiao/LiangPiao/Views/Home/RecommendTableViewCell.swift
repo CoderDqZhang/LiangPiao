@@ -39,7 +39,7 @@ class RecommendTableViewCell: UITableViewCell {
         
         ticketTitle = UILabel()
         ticketTitle.text = "万有音乐系 陈粒《小梦大半》2016巡回演唱会"
-        UILabel.changeLineSpaceForLabel(ticketTitle, withSpace: 4.0)
+        UILabel.changeLineSpaceForLabel(ticketTitle, withSpace: TitleLineSpace)
         ticketTitle.numberOfLines = 0
         ticketTitle.textColor = UIColor.init(hexString: App_Theme_384249_Color)
         ticketTitle.font = App_Theme_PinFan_R_15_Font
@@ -80,6 +80,8 @@ class RecommendTableViewCell: UITableViewCell {
         ticketPhoto.sd_setImageWithURL(NSURL.init(string: model.cover), placeholderImage: UIImage.init(named: "Feeds_Default_Cover")) { (image, error, cacheType, url) in
         }
         ticketTitle.text = model.title
+        UILabel.changeLineSpaceForLabel(ticketTitle, withSpace: TitleLineSpace)
+        UILabel.changeLineSpaceForLabel(ticketTitle, withSpace: TitleLineSpace)
         ticketLocation.text = model.venue.name
         if model.ticketStatus != 0 || model.minPrice == 0 {
             let mMuch = model.ticketCount == 0 || model.minPrice == 0 ? "暂时缺票" : "元起"

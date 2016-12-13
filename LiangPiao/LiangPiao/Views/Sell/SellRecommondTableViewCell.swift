@@ -38,7 +38,7 @@ class SellRecommondTableViewCell: UITableViewCell {
         
         ticketTitle = UILabel()
         ticketTitle.text = "万有音乐系 陈粒《小梦大半》2016巡回演唱会"
-        UILabel.changeLineSpaceForLabel(ticketTitle, withSpace: 4.0)
+        UILabel.changeLineSpaceForLabel(ticketTitle, withSpace: TitleLineSpace)
         ticketTitle.numberOfLines = 0
         ticketTitle.textColor = UIColor.init(hexString: App_Theme_384249_Color)
         ticketTitle.font = App_Theme_PinFan_R_15_Font

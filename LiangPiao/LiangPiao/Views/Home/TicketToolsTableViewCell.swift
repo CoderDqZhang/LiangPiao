@@ -255,7 +255,7 @@ class TicketToolsView: UIView {
         //取消动画
         imageView.layer.removeAllAnimations()
         //这个是旋转方向的动画
-        UIView.animateWithDuration(0.2) { () -> Void in
+        UIView.animateWithDuration(AnimationTime) { () -> Void in
             //指定旋转角度是180°
             self.imageView.transform = CGAffineTransformRotate(self.imageView.transform, CGFloat(M_PI))
         }

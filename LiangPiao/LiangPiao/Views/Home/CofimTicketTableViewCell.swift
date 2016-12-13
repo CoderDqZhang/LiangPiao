@@ -34,6 +34,7 @@ class CofimTicketTableViewCell: UITableViewCell {
         
         ticketTitle = UILabel()
         ticketTitle.text = "万有音乐系 陈粒《小梦大半》2016巡回演唱会"
+        UILabel.changeLineSpaceForLabel(ticketTitle, withSpace: TitleLineSpace)
         ticketTitle.textColor = UIColor.init(hexString: App_Theme_556169_Color)
         ticketTitle.font = App_Theme_PinFan_R_14_Font
         self.contentView.addSubview(ticketTitle)
@@ -72,6 +73,7 @@ class CofimTicketTableViewCell: UITableViewCell {
         ticketPhoto.sd_setImageWithURL(NSURL.init(string: model.cover), placeholderImage: UIImage.init(named: "Feeds_Default_Cover_02")) { (image, error, cacheType, url) in
         }
         ticketTitle.text = model.title
+        UILabel.changeLineSpaceForLabel(ticketTitle, withSpace: TitleLineSpace)
         ticketTime.text = "时间：\(sessionModel.name)"
         ticketLocation.text = "场馆：\(model.venue.name)"
         ticketMuch.text = "票面：\(ticketModel.originalTicket.name) x \(ticketCount)"

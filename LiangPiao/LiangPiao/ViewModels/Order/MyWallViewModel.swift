@@ -10,6 +10,8 @@ import UIKit
 
 class MyWallViewModel: NSObject {
 
+    var model:MyWallModel!
+    var controller:MyWalletViewController!
     override init() {
         super.init()
     }
@@ -37,5 +39,40 @@ class MyWallViewModel: NSObject {
     
     func tableViewDidSelect(indexPath:NSIndexPath, controller:MyWalletViewController) {
         
+    }
+    
+    func tableViewCellMyWallHeaderTableViewCell(cell:MyWallHeaderTableViewCell){
+        if self.model != nil {
+            if self.model.balance == 0 {
+                cell.setBlance("0.00")
+            }else{
+            
+                let blance = Double("\(self.model.balance).00")! / 100.00
+                
+                cell.setBlance("\(blance)")
+            }
+        }
+        
+    }
+    
+    func tableViewCellMyWallToolsTableViewCell(cell:MyWallToolsTableViewCell){
+        if self.model != nil {
+            var blance:String = "0.00"
+            var pendingBalance = "0.00"
+            if self.model.balance != 0 {
+                blance = String(Double(Double("\(self.model.balance).00")! / 100.00))
+            }
+            if self.model.pendingBalance != 0 {
+                pendingBalance = String(Double(Double("\(self.model.pendingBalance).00")! / 100.00))
+            }
+            cell.setData(blance, freeze: "0.00", preString: pendingBalance)
+        }
+    }
+    
+    func requestMyWall(){
+        BaseNetWorke.sharedInstance.getUrlWithString(WallBlance, parameters: nil).subscribeNext { (resultDic) in
+            self.model = MyWallModel.init(fromDictionary: resultDic as! NSDictionary)
+            self.controller.tableView.reloadData()
+        }
     }
 }

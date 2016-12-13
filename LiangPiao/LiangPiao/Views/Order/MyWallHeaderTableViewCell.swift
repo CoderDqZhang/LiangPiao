@@ -9,11 +9,13 @@
 
 import UIKit
 
+typealias MyWallHeaderTableViewCellClouse = () -> Void
 class MyWallHeaderTableViewCell: UITableViewCell {
 
     var muchLabel:UILabel!
     var detailBtn:UIButton!
     var muchmLable:UILabel!
+    var myWallHeaderTableViewCellClouse:MyWallHeaderTableViewCellClouse!
     var didMakeConstraints:Bool = false
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
@@ -25,14 +27,14 @@ class MyWallHeaderTableViewCell: UITableViewCell {
     func setUpView() {
         
         muchLabel = UILabel()
-        muchLabel.text = "650.20"
+        muchLabel.text = "0.00"
         muchLabel.font = App_Theme_PinFan_R_50_Font
         muchLabel.textAlignment = .Center
         muchLabel.textColor = UIColor.whiteColor()
         self.contentView.addSubview(muchLabel)
         
         muchmLable = UILabel()
-        muchmLable.text = "账户余额（元）"
+        muchmLable.text = "账户余额 (元) "
         muchmLable.font = App_Theme_PinFan_R_14_Font
         muchmLable.textAlignment = .Center
         muchmLable.textColor = UIColor.whiteColor()
@@ -43,6 +45,11 @@ class MyWallHeaderTableViewCell: UITableViewCell {
         detailBtn.titleLabel?.font = App_Theme_PinFan_R_12_Font
         detailBtn.setTitle("明细", forState: .Normal)
         let stringWidth = detailBtn.titleLabel?.text?.widthWithConstrainedHeight((detailBtn.titleLabel?.text)!, font: App_Theme_PinFan_R_12_Font!, height: 20)
+        detailBtn.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (action) in
+            if self.myWallHeaderTableViewCellClouse != nil {
+                self.myWallHeaderTableViewCellClouse()
+            }
+        }
         detailBtn.setImage(image, forState: .Normal)
         detailBtn.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         detailBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -(image?.size.width)!, 0, (image?.size.width)!)
@@ -73,6 +80,10 @@ class MyWallHeaderTableViewCell: UITableViewCell {
             self.didMakeConstraints = true
         }
         super.updateConstraints()
+    }
+    
+    func setBlance(text:String) {
+        muchLabel.text = text
     }
     
     required init?(coder aDecoder: NSCoder) {

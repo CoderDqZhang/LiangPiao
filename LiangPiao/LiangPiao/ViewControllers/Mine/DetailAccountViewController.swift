@@ -38,16 +38,26 @@ class DetailAccountViewController: UIViewController {
         tableView.snp_makeConstraints { (make) in
             make.edges.equalTo(UIEdgeInsetsMake(0, 0, 0, 0))
         }
-        
+        self.setUpRefreshData()
         self.bindViewModel()
         
     }
     
     func bindViewModel(){
-        //        viewModel.reloadTableView = { _ in
-        //            self.tableView.reloadRowsAtIndexPaths([NSIndexPath.init(forRow: 0, inSection: 0)], withRowAnimation: .Automatic)
-        //        }
-        
+        viewModel.controller = self
+        viewModel.requestDetailAcount(false)
+    }
+    
+    func setUpLoadMoreData(){
+        self.tableView.mj_footer = LiangPiaoLoadMoreDataFooter(refreshingBlock: {
+            self.viewModel.requestDetailAcount(true)
+        })
+    }
+    
+    func setUpRefreshData(){
+        self.tableView.mj_header = LiangNomalRefreshHeader(refreshingBlock: {
+            self.viewModel.requestDetailAcount(false)
+        })
     }
     
     func setUpNavigationItem(){
@@ -97,6 +107,7 @@ extension DetailAccountViewController : UITableViewDataSource {
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("DetailAcountTableViewCell", forIndexPath: indexPath) as! DetailAcountTableViewCell
+        viewModel.tableViewDetailAcountTableViewCell(cell, indexPath: indexPath)
         cell.selectionStyle = .None
         return cell
     }

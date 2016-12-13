@@ -48,17 +48,14 @@ class MyWalletViewController: UIViewController {
 //        }
 //        self.view.addSubview(topUpButton)
         
-        let withdraw = self.createButton(CGRect.init(x: SpaceTopUpAndWidth , y: SCREENHEIGHT - 79 - 64, width: SCREENWIDTH - SpaceTopUpAndWidth * 2, height: 49), title: "提现", backGroundColor: UIColor.init(hexString: App_Theme_4BD4C5_Color), titleColor: UIColor.whiteColor())
-        withdraw.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (action) in
+        let withdraw = CustomButton.init(frame: CGRect.init(x: SpaceTopUpAndWidth , y: SCREENHEIGHT - 79 - 64, width: SCREENWIDTH - SpaceTopUpAndWidth * 2, height: 49), title: "提现", tag: nil, titleFont: App_Theme_PinFan_M_15_Font!, type: .withBackBoarder) { (tag) in
             NavigationPushView(self, toConroller: WithDrawViewController())
         }
         self.view.addSubview(withdraw)
         
-        let ruleButton = UIButton(type: .Custom)
-        ruleButton.buttonSetTitleColor(App_Theme_4BD4C5_Color, sTitleColor: nil)
-        ruleButton.titleLabel?.font = App_Theme_PinFan_R_13_Font
-        ruleButton.setTitle("查看规则说明", forState: .Normal)
-        ruleButton.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (action) in
+        
+        
+        let ruleButton = CustomButton.init(frame: CGRectZero, title: "查看规则说明", tag: nil, titleFont: App_Theme_PinFan_R_13_Font!, type: .withNoBoarder) { (tag) in
             KWINDOWDS!.addSubview(GloableServiceView.init(title: "佣金说明", message: self.viewModel.messageTitle()))
         }
         self.view.addSubview(ruleButton)
@@ -96,7 +93,8 @@ class MyWalletViewController: UIViewController {
     
     
     func bindViewModel(){
-        
+        viewModel.controller = self
+        viewModel.requestMyWall()
     }
     
     func setUpNavigationItem(){
@@ -154,13 +152,15 @@ extension MyWalletViewController : UITableViewDataSource {
         switch indexPath.row {
         case 0:
             let cell = tableView.dequeueReusableCellWithIdentifier("MyWallHeaderTableViewCell", forIndexPath: indexPath) as! MyWallHeaderTableViewCell
-            cell.detailBtn.rac_signalForControlEvents(.TouchUpInside).subscribeNext({ (action) in
+            viewModel.tableViewCellMyWallHeaderTableViewCell(cell)
+            cell.myWallHeaderTableViewCellClouse = { _ in
                 NavigationPushView(self, toConroller: DetailAccountViewController())
-            })
+            }
             cell.selectionStyle = .None
             return cell
         default:
             let cell = tableView.dequeueReusableCellWithIdentifier("MyWallToolsTableViewCell", forIndexPath: indexPath) as! MyWallToolsTableViewCell
+            viewModel.tableViewCellMyWallToolsTableViewCell(cell)
             cell.selectionStyle = .None
             return cell
         }

@@ -45,7 +45,9 @@ class MySellViewModel: NSObject {
     
     //MARK: MySellViewController
     func mySellOrderTableViewDidSelect(indexPath:NSIndexPath, controller:MySellPagerViewController){
-        NavigationPushView(self.controller, toConroller: MyTicketPutUpViewController())
+        let controllerVC = OrderStatusViewController()
+        controllerVC.viewModel.model = self.orderListModel.orderList[indexPath.section]
+        NavigationPushView(self.controller, toConroller: controllerVC)
     }
     
     func mySellOrderNumberOfSection() -> Int{
@@ -80,6 +82,19 @@ class MySellViewModel: NSObject {
     
     func tableViewCellMySellOrderMuchTableViewCell(cell:MySellOrderMuchTableViewCell, indexPath:NSIndexPath) {
         cell.setSellData(orderListModel.orderList[indexPath.section])
+        cell.handerButton.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (action) in
+            let model = self.orderListModel.orderList[indexPath.section]
+            let url = "\(OrderChangeShatus)\(model.orderId)/"
+            let parameters = ["status":"7"]
+            BaseNetWorke.sharedInstance.postUrlWithString(url, parameters: parameters).subscribeNext { (resultDic) in
+                let tempModel = OrderList.init(fromDictionary: resultDic as! NSDictionary)
+                let controllerVC = OrderStatusViewController()
+                model.status = tempModel.status
+                model.statusDesc = tempModel.statusDesc
+                controllerVC.viewModel.model = model
+                NavigationPushView(self.controller, toConroller: controllerVC)
+            }
+        }
     }
     
     func requesrSellOrder(isNext:Bool){
@@ -141,7 +156,7 @@ class MySellViewModel: NSObject {
     }
     
     func mySellOrderManagerNumbrOfRowInSection(section:Int) ->Int{
-        return 3
+        return 2
     }
     
     func mySellOrderManagerTableViewHeightForRow(indexPath:NSIndexPath) ->CGFloat {

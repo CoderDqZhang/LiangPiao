@@ -24,7 +24,7 @@ class LoginViewController: UIViewController {
     var smsCodeStr:String = ""
     
     var comfigLabel:UILabel!
-    var proBtn:UIButton!
+    var proBtn:CustomButton!
     
     let loginForm = LoginForm()
     
@@ -120,15 +120,11 @@ class LoginViewController: UIViewController {
         comfigLabel.font = App_Theme_PinFan_R_12_Font
         self.view.addSubview(comfigLabel)
         
-        proBtn = UIButton(type: .Custom)
-        proBtn.setTitle("《良票用户协议》", forState: .Normal)
-        proBtn.buttonSetTitleColor(App_Theme_4BD4C5_Color, sTitleColor: nil)
-        proBtn.titleLabel?.font = App_Theme_PinFan_R_12_Font
-        proBtn.layer.cornerRadius = 2.0
-        proBtn.layer.masksToBounds = true
-        proBtn.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (action) in
+        
+        
+        proBtn = CustomButton.init(frame: CGRect.zero, title: "《良票用户协议》", tag: nil, titleFont: App_Theme_PinFan_R_12_Font!, type: .withNoBoarder, pressClouse: { (tag) in
             NavigationPushView(self, toConroller: UserProtocolViewController())
-        }
+        })
         self.view.addSubview(proBtn)
         
         self.makeConstraints()

@@ -20,6 +20,10 @@ let IPHONE5 = SCREENHEIGHT == 568 ? true:false
 let IPHONE6 = SCREENWIDTH == 344 ? true:false
 let IPHONE6P = SCREENWIDTH == 344 ? true:false
 
+let AnimationTime = 0.3
+
+let TitleLineSpace:Float = 3.0
+
 
 let WeiXinPayStatues = "WeiXinPayStatuesChange"
 let AliPayStatues = "AliPayStatuesChange"

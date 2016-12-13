@@ -47,6 +47,12 @@ class DetailAcountTableViewCell: UITableViewCell {
         self.updateConstraintsIfNeeded()
     }
 
+    func setData(model:HisList){
+        muchInfoLabel.text = model.desc
+        timeLabel.text = model.created
+        muchLabel.text = "+\(model.amount)"
+    }
+    
     override func updateConstraints() {
         if !self.didMakeConstraints {
             muchInfoLabel.snp_makeConstraints(closure: { (make) in

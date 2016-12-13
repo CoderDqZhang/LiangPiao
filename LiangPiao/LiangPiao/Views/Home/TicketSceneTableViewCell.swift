@@ -57,7 +57,7 @@ class TicketSceneTableViewCell: UITableViewCell {
     }
     
     func setData(model:ShowSessionModel) {
-        if model.ticketStatus != 0 {
+        if model.ticketStatus != 0 || model.minPrice == 0 {
             let mMuch = model.ticketCount == 0 ? "暂时缺票" : "元起"
             ticketmMuch.text = mMuch
             let much = mMuch == "暂时缺票" ? "" : "\(model.minPrice)"

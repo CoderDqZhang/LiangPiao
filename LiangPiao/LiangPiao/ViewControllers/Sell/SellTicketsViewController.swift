@@ -61,7 +61,7 @@ class SellTicketsViewController: BaseViewController {
     }
     
     func searchButtonPress(){
-        UIView.animateWithDuration(1, animations: { 
+        UIView.animateWithDuration(AnimationTime, animations: {
             self.searchBarView.frame = CGRect.init(x: 0, y: -64, width: SCREENWIDTH, height: 64)
             self.searchNavigationBar.frame = CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 64)
             }, completion: { completion in
@@ -70,7 +70,7 @@ class SellTicketsViewController: BaseViewController {
     }
     
     func cancelButtonPress(){
-        UIView.animateWithDuration(1, animations: {
+        UIView.animateWithDuration(AnimationTime, animations: {
             self.searchBarView.frame = CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 64)
             self.searchNavigationBar.frame = CGRect.init(x: 0, y: -64, width: SCREENWIDTH, height: 64)
             }, completion: { completion in

@@ -8,9 +8,19 @@
 
 import UIKit
 
+class WithDrawForm: NSObject {
+    var aliPayName:String = ""
+    var aliPayCount:String = ""
+    var amount:String = ""
+}
+
+
+
 class WithDrawViewModel: NSObject {
 
     let cellTitleStrs = ["支付宝账户","支付宝姓名"]
+    var form:WithDrawForm = WithDrawForm.init()
+    var controller:WithDrawViewController!
     override init() {
         
     }
@@ -34,5 +44,14 @@ class WithDrawViewModel: NSObject {
     
     func tableViewHeightForRow(indexPath:NSIndexPath) ->CGFloat {
         return 49
+    }
+    
+    func requestWithDraw(form:WithDrawForm){
+        let parameters = ["alipay_account":form.aliPayCount,"alipay_name":form.aliPayName,"amount":form.amount]
+//        let parameters = ["alipay_account":"18363899723","alipay_name":"张德全","amount":0.01]
+        BaseNetWorke.sharedInstance.postUrlWithString(WallWithDraw, parameters: parameters).subscribeNext { (resultDic) in
+            print(resultDic)
+            NavigationPushView(self.controller, toConroller: WithDrawStatusViewController())
+        }
     }
 }

@@ -33,7 +33,7 @@ class TicketDescripTableViewCell: UITableViewCell {
         
         ticketTitle = UILabel()
         ticketTitle.text = "万有音乐系 陈粒《小梦大半》2016巡回演唱会"
-        UILabel.changeLineSpaceForLabel(ticketTitle, withSpace: 3.0)
+        UILabel.changeLineSpaceForLabel(ticketTitle, withSpace: TitleLineSpace)
         ticketTitle.numberOfLines = 0
         ticketTitle.textColor = UIColor.init(hexString: App_Theme_384249_Color)
         ticketTitle.font = App_Theme_PinFan_R_15_Font
@@ -70,6 +70,7 @@ class TicketDescripTableViewCell: UITableViewCell {
         ticketPhoto.sd_setImageWithURL(NSURL.init(string: model.cover), placeholderImage: UIImage.init(named: "Feeds_Default_Cover")) { (image, error, cacheType, url) in
         }
         ticketTitle.text = model.title
+        UILabel.changeLineSpaceForLabel(ticketTitle, withSpace: TitleLineSpace)
         ticketTime.text = "\(sessionModel.startTime)"
         ticketLocation.text = model.venue.name
 

@@ -140,6 +140,9 @@ extension WithDrawViewController : UITableViewDataSource {
                 let cell = tableView.dequeueReusableCellWithIdentifier("WithDrawTableViewCell", forIndexPath: indexPath) as! WithDrawTableViewCell
                 cell.muchTextField.tag = indexPath.row
                 cell.muchTextField.delegate = self
+                cell.muchTextField.rac_textSignal().subscribeNext({ (str) in
+                    self.viewModel.form.amount = str as! String
+                })
                 cell.selectionStyle = .None
                 return cell
             default:
@@ -150,6 +153,15 @@ extension WithDrawViewController : UITableViewDataSource {
                 cell.textField.keyboardType = .EmailAddress
                 if indexPath.row == 1 {
                     cell.textField.keyboardType = .NamePhonePad
+                }
+                if indexPath.row == 0 {
+                    cell.textField.rac_textSignal().subscribeNext({ (str) in
+                        self.viewModel.form.aliPayCount = str as! String
+                    })
+                }else{
+                    cell.textField.rac_textSignal().subscribeNext({ (str) in
+                        self.viewModel.form.aliPayName = str as! String
+                    })
                 }
                 cell.textField.tag = indexPath.row
                 cell.textField.textAlignment = .Right
@@ -163,17 +175,10 @@ extension WithDrawViewController : UITableViewDataSource {
             var cell = tableView.dequeueReusableCellWithIdentifier(cellIndef)
             if cell == nil {
                 cell = UITableViewCell.init(style: .Default, reuseIdentifier: cellIndef)
-                let topUpButton = UIButton(type: .Custom)
-                topUpButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-                topUpButton.setTitle("提现", forState: .Normal)
-                topUpButton.backgroundColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
-                topUpButton.layer.cornerRadius = 2.0
-                topUpButton.layer.masksToBounds = true
-                topUpButton.titleLabel?.font = App_Theme_PinFan_M_15_Font
+                let topUpButton = CustomButton.init(frame: CGRect.init(x: 15 , y: 0, width: SCREENWIDTH - 30, height: 49), title: "提现", tag: nil, titleFont: App_Theme_PinFan_M_15_Font!, type: .withBackBoarder) { (tag) in
+                    self.viewModel.requestWithDraw(self.viewModel.form)
+                }
                 cell?.contentView.addSubview(topUpButton)
-                topUpButton.snp_makeConstraints(closure: { (make) in
-                    make.edges.equalTo(UIEdgeInsetsMake(0, 15, 0, -15))
-                })
             }
             cell?.backgroundColor = UIColor.clearColor()
             cell?.contentView.backgroundColor = UIColor.clearColor()

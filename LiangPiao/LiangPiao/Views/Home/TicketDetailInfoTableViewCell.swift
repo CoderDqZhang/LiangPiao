@@ -36,7 +36,7 @@ class TicketDetailInfoTableViewCell: UITableViewCell {
         ticketTitle.textColor = UIColor.init(hexString: App_Theme_556169_Color)
         ticketTitle.font = App_Theme_PinFan_R_14_Font
         ticketTitle.numberOfLines = 0
-        UILabel.changeLineSpaceForLabel(ticketTitle, withSpace: 3.0)
+        UILabel.changeLineSpaceForLabel(ticketTitle, withSpace: TitleLineSpace)
         self.contentView.addSubview(ticketTitle)
         
         ticketTime = UILabel()
@@ -65,6 +65,7 @@ class TicketDetailInfoTableViewCell: UITableViewCell {
         ticketPhoto.sd_setImageWithURL(NSURL.init(string: model.show.cover), placeholderImage: UIImage.init(named: "Feeds_Default_Cover_02")) { (image, error, cacheType, url) in
         }
         ticketTitle.text = model.show.title
+        UILabel.changeLineSpaceForLabel(ticketTitle, withSpace: TitleLineSpace)
         ticketTime.text = "时间：\(model.session.startTime)"
         ticketMuch.text = "票面：\(model.ticket.originalTicket.name) x \(model.ticketCount)"
         var str = ""

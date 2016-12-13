@@ -36,9 +36,10 @@ class OrderTicketInfoTableViewCell: UITableViewCell {
         
         ticketTitle = UILabel()
         ticketTitle.text = "万有音乐系 陈粒《小梦大半》2016巡回演唱会"
-        UILabel.changeLineSpaceForLabel(ticketTitle, withSpace: 3.0)
+        UILabel.changeLineSpaceForLabel(ticketTitle, withSpace: TitleLineSpace)
         ticketTitle.textColor = UIColor.init(hexString: App_Theme_384249_Color)
         ticketTitle.font = App_Theme_PinFan_R_15_Font
+        UILabel.changeLineSpaceForLabel(ticketTitle, withSpace: TitleLineSpace)
         ticketTitle.numberOfLines = 0
         self.contentView.addSubview(ticketTitle)
         
@@ -89,6 +90,7 @@ class OrderTicketInfoTableViewCell: UITableViewCell {
         ticketPhoto.sd_setImageWithURL(NSURL.init(string: model.show.cover), placeholderImage: UIImage.init(named: "Feeds_Default_Cover")) { (image, error, cacheType, url) in
         }
         ticketTitle.text = model.show.title
+        UILabel.changeLineSpaceForLabel(ticketTitle, withSpace: TitleLineSpace)
         ticketTime.text = "时间：\(model.session.startTime)"
         ticketMuch.text = "票面：\(model.ticket.originalTicket.name) x \(model.ticketCount)"
         if model.ticket.region == "" {
@@ -101,21 +103,12 @@ class OrderTicketInfoTableViewCell: UITableViewCell {
     }
     
     func setSellData(model:OrderList){
-        if model.status == 0 {
-            ticketPhoto.snp_updateConstraints(closure: { (make) in
-                make.bottom.equalTo(self.contentView.snp_bottom).offset(-18)
-            })
-            ticketAllMuch.snp_updateConstraints(closure: { (make) in
-                make.bottom.equalTo(self.contentView.snp_bottom).offset(-18)
-            })
-        }else{
-            ticketPhoto.snp_updateConstraints(closure: { (make) in
-                make.bottom.equalTo(self.contentView.snp_bottom).offset(-30)
-            })
-            ticketAllMuch.snp_updateConstraints(closure: { (make) in
-                make.bottom.equalTo(self.contentView.snp_bottom).offset(-30)
-            })
-        }
+        ticketPhoto.snp_updateConstraints(closure: { (make) in
+            make.bottom.equalTo(self.contentView.snp_bottom).offset(-19)
+        })
+        ticketAllMuch.snp_updateConstraints(closure: { (make) in
+            make.bottom.equalTo(self.contentView.snp_bottom).offset(-19)
+        })
         ticketPhoto.sd_setImageWithURL(NSURL.init(string: model.show.cover), placeholderImage: UIImage.init(named: "Feeds_Default_Cover")) { (image, error, cacheType, url) in
         }
         ticketTitle.text = model.show.title
@@ -128,7 +121,8 @@ class OrderTicketInfoTableViewCell: UITableViewCell {
             ticketAllMuch.text = "座位：\(model.ticket.region) \(row)"
         }
         ticketRow.text = "数量：\(model.ticketCount)"
-
+        
+        self.updateConstraintsIfNeeded()
     }
     
     override func updateConstraints() {

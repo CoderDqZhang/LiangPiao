@@ -12,7 +12,7 @@ class WithDrawTableViewCell: UITableViewCell {
 
     var muchLabel:UILabel!
     var muchTextField:UITextField!
-    var topUpButton:UIButton!
+    var topUpButton:CustomButton!
     
     var didMakeConstraints:Bool = false
     
@@ -37,10 +37,9 @@ class WithDrawTableViewCell: UITableViewCell {
         muchTextField.attributedPlaceholder = NSAttributedString.init(string: text, attributes: [NSFontAttributeName:App_Theme_PinFan_R_13_Font!,NSForegroundColorAttributeName:UIColor.init(hexString: App_Theme_DDE0E5_Color)])
         self.contentView.addSubview(muchTextField)
         
-        topUpButton = UIButton(type: .Custom)
-        topUpButton.setTitle("全部提现", forState: .Normal)
-        topUpButton.setTitleColor(UIColor.init(hexString: App_Theme_4BD4C5_Color), forState: .Normal)
-        topUpButton.titleLabel?.font = App_Theme_PinFan_R_12_Font
+        topUpButton = CustomButton.init(frame: CGRectZero, title: "全部提现", tag: nil, titleFont: App_Theme_PinFan_R_12_Font!, type: .withNoBoarder, pressClouse: { (tag) in
+            
+        })
         self.contentView.addSubview(topUpButton)
         
         self.updateConstraintsIfNeeded()

@@ -48,6 +48,6 @@ let SupplierOrderList = "\(BaseURL)supplier/order/"
 
 let SupplierTicketList = "\(BaseURL)supplier/ticket/"
 
-let SupplierTicketDetail = "\(BaseURL)supplier/show/3535216718/session/3535216917/ticket/"
-
-
+let WallBlance = "\(BaseURL)account/"
+let WallHistory = "\(BaseURL)account/history/"
+let WallWithDraw = "\(BaseURL)account/withdraw/"
