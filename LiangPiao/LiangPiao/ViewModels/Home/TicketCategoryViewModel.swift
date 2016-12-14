@@ -92,6 +92,10 @@ class TicketCategoryViewModel: NSObject {
         if index == 1000 {
             model = categoryModels.objectAtIndex(selectIdex) as! TicketCategorys
             let recommentModel:RecommentTickes = reconmmendModels[selectIdex] as! RecommentTickes
+            if recommentModel.hasNext == false {
+                controller.tableView.mj_footer.endRefreshing()
+                return
+            }
             url = "\(TickeCategotyList)?cat_id=\(model.id)&start=\(recommentModel.nextStart)"
         }else{
             model = categoryModels.objectAtIndex(index) as! TicketCategorys

@@ -20,6 +20,7 @@ class WithDrawViewModel: NSObject {
 
     let cellTitleStrs = ["支付宝账户","支付宝姓名"]
     var form:WithDrawForm = WithDrawForm.init()
+    var maxMuch:String!
     var controller:WithDrawViewController!
     override init() {
         
@@ -47,10 +48,20 @@ class WithDrawViewModel: NSObject {
     }
     
     func requestWithDraw(form:WithDrawForm){
+        if Double(form.amount) < 50 {
+            UIAlertController.shwoAlertControl(self.controller, title: "单笔提现金额须大于50元哦", message: nil, cancel: "好的", doneTitle: nil, cancelAction: { 
+                
+                }, doneAction: {
+                    
+            })
+            return
+        }
         let parameters = ["alipay_account":form.aliPayCount,"alipay_name":form.aliPayName,"amount":form.amount]
 //        let parameters = ["alipay_account":"18363899723","alipay_name":"张德全","amount":0.01]
         
         BaseNetWorke.sharedInstance.postUrlWithString(WallWithDraw, parameters: parameters).subscribeNext { (resultDic) in
+            UserDefaultsSetSynchronize(form.aliPayCount, key: "aliPayCount")
+            UserDefaultsSetSynchronize(form.aliPayName, key: "aliPayName")
             let controllerVC = WithDrawStatusViewController()
             controllerVC.name = form.aliPayName
             controllerVC.amount = form.amount

@@ -75,7 +75,7 @@ class Tools: NSObject {
         return hud
     }
     
-    func showErrorMessage(errorDic:AnyObject) ->MBProgressHUD {
+    func showErrorMessage(errorDic:AnyObject) ->MBProgressHUD? {
         let errorModel = ErrorModel.init(fromDictionary: errorDic as! NSDictionary)
         var errorMsg:String = ""
         if errorModel.code != nil {
@@ -86,7 +86,12 @@ class Tools: NSObject {
             }
             return self.showMessage(KWINDOWDS!, msg:errorMsg , autoHidder: true)
         }else{
-            return self.showMessage(KWINDOWDS!, msg:"数据错误" , autoHidder: true)
+            let error = ErrorStatus.init(fromDictionary: errorDic as! NSDictionary)
+            if error.status == 500 {
+                return self.showMessage(KWINDOWDS!, msg:"网络服务错误" , autoHidder: true)
+            }else{
+                return nil
+            }
         }
     }
     

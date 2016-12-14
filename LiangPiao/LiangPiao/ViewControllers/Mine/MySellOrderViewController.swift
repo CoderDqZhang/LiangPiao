@@ -18,8 +18,8 @@ class MySellOrderViewController: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.init(hexString: App_Theme_E9EBF2_Color)
         self.setUpNavigationItem()
-        self.setUpView()
         self.talKingDataPageName = "订单交易-卖家"
+        self.bindViewModel()
         // Do any additional setup after loading the view.
     }
 
@@ -46,7 +46,6 @@ class MySellOrderViewController: UIViewController {
             make.edges.equalTo(UIEdgeInsetsMake(0, 0, 0, 0))
         }
         self.setUpRefreshData()
-        self.bindViewModel()
         
     }
     

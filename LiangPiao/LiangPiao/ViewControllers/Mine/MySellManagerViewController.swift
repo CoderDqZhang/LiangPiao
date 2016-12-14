@@ -18,8 +18,9 @@ class MySellManagerViewController: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.init(hexString: App_Theme_E9EBF2_Color)
         self.setUpNavigationItem()
-        self.setUpView()
         self.talKingDataPageName = "品类管理"
+        self.bindViewModel()
+
         // Do any additional setup after loading the view.
     }
     
@@ -46,7 +47,6 @@ class MySellManagerViewController: UIViewController {
             make.edges.equalTo(UIEdgeInsetsMake(0, 0, 0, 0))
         }
         
-        self.bindViewModel()
         self.setUpRefreshData()
         
     }

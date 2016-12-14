@@ -47,13 +47,13 @@ class MySellManagerMuchTableViewCell: UITableViewCell {
         
         self.contentView.addSubview(muchLabel)
         
-        handerButton = UIButton(type: .Custom)
-        handerButton.layer.masksToBounds = true
-        handerButton.layer.cornerRadius = 2.0
-        handerButton.setImage(UIImage.init(named: "Btn_More_Normal"), forState: .Normal)
-        handerButton.setImage(UIImage.init(named: "Btn_More_Press"), forState: .Highlighted)
-        handerButton.titleLabel?.font = App_Theme_PinFan_R_13_Font
-        self.contentView.addSubview(handerButton)
+//        handerButton = UIButton(type: .Custom)
+//        handerButton.layer.masksToBounds = true
+//        handerButton.layer.cornerRadius = 2.0
+//        handerButton.setImage(UIImage.init(named: "Btn_More_Normal"), forState: .Normal)
+//        handerButton.setImage(UIImage.init(named: "Btn_More_Press"), forState: .Highlighted)
+//        handerButton.titleLabel?.font = App_Theme_PinFan_R_13_Font
+//        self.contentView.addSubview(handerButton)
         
         linLabel = GloabLineView(frame: CGRectMake(15, 0, SCREENWIDTH - 30, 0.5))
         self.contentView.addSubview(linLabel)
@@ -82,11 +82,11 @@ class MySellManagerMuchTableViewCell: UITableViewCell {
                 make.centerY.equalTo(self.contentView.snp_centerY).offset(0.5)
             })
             
-            handerButton.snp_makeConstraints(closure: { (make) in
-                make.right.equalTo(self.contentView.snp_right).offset(8)
-                make.centerY.equalTo(self.contentView.snp_centerY).offset(0)
-                make.size.equalTo(CGSizeMake(80, 30))
-            })
+//            handerButton.snp_makeConstraints(closure: { (make) in
+//                make.right.equalTo(self.contentView.snp_right).offset(8)
+//                make.centerY.equalTo(self.contentView.snp_centerY).offset(0)
+//                make.size.equalTo(CGSizeMake(80, 30))
+//            })
             
             self.didMakeConstraints = true
         }

@@ -35,6 +35,9 @@ let LoginStatuesChange = "LoginStatuesChange"
 
 let OrderStatuesChange = "OrderStatusChange"
 
+let BlanceNumberChange = "BlanceNumberChange"
+
+
 
 let TalkingDataKey = "AC559E27399F4ECEA0D9880E0C6977FB"
 
@@ -54,8 +57,11 @@ func UserDefaultsSetSynchronize(value:AnyObject,key:String) {
     NSUserDefaults.standardUserDefaults().synchronize()
 }
 
-func UserDefaultsGetSynchronize(key:String) -> Any{
-    return NSUserDefaults.standardUserDefaults().objectForKey(key)
+func UserDefaultsGetSynchronize(key:String) -> AnyObject{
+    if NSUserDefaults.standardUserDefaults().objectForKey(key) == nil {
+        return "nil"
+    }
+    return NSUserDefaults.standardUserDefaults().objectForKey(key)!
 }
 
 func Storyboard(name:String,controllerid:String) -> UIViewController{
@@ -79,9 +85,11 @@ func MainThreadAlertShow(msg:String,view:UIView){
 }
 
 func MainThreanShowErrorMessage(error:AnyObject){
-    dispatch_async(dispatch_get_main_queue(), {
-        Tools.shareInstance.showErrorMessage(error)
-    })
+    if error is NSDictionary {
+        dispatch_async(dispatch_get_main_queue(), {
+            Tools.shareInstance.showErrorMessage(error)
+        })
+    }
 }
 
 func MainThreanShowNetWorkError(error:AnyObject){

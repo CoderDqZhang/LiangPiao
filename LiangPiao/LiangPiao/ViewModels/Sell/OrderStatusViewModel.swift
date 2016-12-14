@@ -8,12 +8,16 @@
 
 import UIKit
 
+typealias ReloadeMySellOrderList = (indexPath:NSIndexPath, model:OrderList) -> Void
+
 class OrderStatusViewModel: NSObject {
 
     let cellHeight = [[112,107],[49,149,119,52]]
     let cellCancelHeight = [49,149,119,52]
     var model:OrderList!
     var controller:OrderStatusViewController!
+    var selectIndexPath:NSIndexPath!
+    var reloadeMySellOrderList:ReloadeMySellOrderList!
     
     override init() {
         
@@ -130,6 +134,9 @@ class OrderStatusViewModel: NSObject {
                         self.model.statusDesc = tempModel.statusDesc
                         self.controller.updateTableView(self.model.status)
                         self.controller.tableView.reloadData()
+                        if self.reloadeMySellOrderList != nil {
+                            self.reloadeMySellOrderList(indexPath: self.selectIndexPath, model:self.model)
+                        }
                     }
             })
         }else{
@@ -141,6 +148,9 @@ class OrderStatusViewModel: NSObject {
                 self.model.statusDesc = tempModel.statusDesc
                 self.controller.updateTableView(self.model.status)
                 self.controller.tableView.reloadData()
+                if self.reloadeMySellOrderList != nil {
+                    self.reloadeMySellOrderList(indexPath: self.selectIndexPath, model:self.model)
+                }
             }
         }
         

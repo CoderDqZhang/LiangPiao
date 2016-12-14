@@ -8,12 +8,13 @@
 
 import UIKit
 
+typealias WithDrawTableViewCellClouse = () ->Void
 class WithDrawTableViewCell: UITableViewCell {
 
     var muchLabel:UILabel!
     var muchTextField:UITextField!
     var topUpButton:CustomButton!
-    
+    var withDrawTableViewCellClouse:WithDrawTableViewCellClouse!
     var didMakeConstraints:Bool = false
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
@@ -29,20 +30,26 @@ class WithDrawTableViewCell: UITableViewCell {
         self.contentView.addSubview(muchLabel)
         
         muchTextField = UITextField()
-        let text = "最多可提：200.00元"
-        muchTextField.placeholder = text
-        muchTextField.tintColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
-        muchTextField.font = App_Theme_PinFan_R_15_Font
-        muchTextField.textColor = UIColor.init(hexString: App_Theme_384249_Color)
-        muchTextField.attributedPlaceholder = NSAttributedString.init(string: text, attributes: [NSFontAttributeName:App_Theme_PinFan_R_13_Font!,NSForegroundColorAttributeName:UIColor.init(hexString: App_Theme_DDE0E5_Color)])
+        
         self.contentView.addSubview(muchTextField)
         
         topUpButton = CustomButton.init(frame: CGRectZero, title: "全部提现", tag: nil, titleFont: App_Theme_PinFan_R_12_Font!, type: .withNoBoarder, pressClouse: { (tag) in
-            
+            if self.withDrawTableViewCellClouse != nil {
+                self.withDrawTableViewCellClouse()
+            }
         })
         self.contentView.addSubview(topUpButton)
         
         self.updateConstraintsIfNeeded()
+    }
+    
+    func setPlachText(text:String){
+        let text = "最多可提：\(text)元"
+        muchTextField.placeholder = text
+        muchTextField.tintColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
+        muchTextField.font = App_Theme_PinFan_R_13_Font
+        muchTextField.textColor = UIColor.init(hexString: App_Theme_384249_Color)
+        muchTextField.attributedPlaceholder = NSAttributedString.init(string: text, attributes: [NSFontAttributeName:App_Theme_PinFan_R_13_Font!,NSForegroundColorAttributeName:UIColor.init(hexString: App_Theme_DDE0E5_Color)])
     }
     
     override func updateConstraints() {
@@ -54,7 +61,7 @@ class WithDrawTableViewCell: UITableViewCell {
             })
             
             muchTextField.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.muchLabel.snp_right).offset(24)
+                make.left.equalTo(self.muchLabel.snp_right).offset(28)
                 make.right.equalTo(self.topUpButton.snp_left).offset(-7)
                 make.centerY.equalTo(self.contentView.snp_centerY).offset(0)
             })

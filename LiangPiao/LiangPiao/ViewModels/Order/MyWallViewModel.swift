@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ReactiveCocoa
 
 class MyWallViewModel: NSObject {
 
@@ -14,10 +15,17 @@ class MyWallViewModel: NSObject {
     var controller:MyWalletViewController!
     override init() {
         super.init()
+        NSNotificationCenter.defaultCenter().rac_addObserverForName(BlanceNumberChange, object: nil).subscribeNext { (object) in
+            self.requestMyWall()
+        }
+    }
+    
+    deinit {
+        self.removeObserver(self, forKeyPath: BlanceNumberChange)
     }
     
     func messageTitle() -> String{
-        return "良票根据您的交易情况收取佣金\n每日前 10 张成交订单，佣金免费\n超过 10 单，每张收取订单金额 5% 作为佣金"
+        return "演出结束后第二天，完成票款结算；/n 所有交易佣金免费，仅包含1%第三方支付平台交易手续费；"
     }
     
     func tableViewHeightForRow(indexPath:NSIndexPath) ->CGFloat {
@@ -47,9 +55,8 @@ class MyWallViewModel: NSObject {
                 cell.setBlance("0.00")
             }else{
             
-                let blance = Double("\(self.model.balance).00")! / 100.00
-                
-                cell.setBlance("\(blance)")
+                let str = "\(self.model.balance)".muchType("\(self.model.balance)")
+                cell.setBlance("\(str)")
             }
         }
         
@@ -60,10 +67,10 @@ class MyWallViewModel: NSObject {
             var blance:String = "0.00"
             var pendingBalance = "0.00"
             if self.model.balance != 0 {
-                blance = String(Double(Double("\(self.model.balance).00")! / 100.00))
+                blance = "\(self.model.balance)".muchType("\(self.model.balance)")
             }
             if self.model.pendingBalance != 0 {
-                pendingBalance = String(Double(Double("\(self.model.pendingBalance).00")! / 100.00))
+                pendingBalance = "\(self.model.pendingBalance)".muchType("\(self.model.pendingBalance)")
             }
             cell.setData(blance, freeze: "0.00", preString: pendingBalance)
         }

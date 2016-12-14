@@ -71,7 +71,11 @@ class TicketDescripTableViewCell: UITableViewCell {
         }
         ticketTitle.text = model.title
         UILabel.changeLineSpaceForLabel(ticketTitle, withSpace: TitleLineSpace)
-        ticketTime.text = "\(sessionModel.startTime)"
+        if model.sessionCount != nil {
+            ticketTime.text = "\(sessionModel.startTime)"
+        }else{
+            ticketTime.text = "\(sessionModel.name)"
+        }
         ticketLocation.text = model.venue.name
 
         self.setUpTicketStatues(sessionModel)

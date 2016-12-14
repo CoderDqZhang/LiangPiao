@@ -46,7 +46,12 @@ class MySellViewModel: NSObject {
     //MARK: MySellViewController
     func mySellOrderTableViewDidSelect(indexPath:NSIndexPath, controller:MySellPagerViewController){
         let controllerVC = OrderStatusViewController()
+        controllerVC.viewModel.selectIndexPath = indexPath
         controllerVC.viewModel.model = self.orderListModel.orderList[indexPath.section]
+        controllerVC.viewModel.reloadeMySellOrderList = { selectIndexPath, model in
+            self.orderListModel.orderList[indexPath.section] = model
+            self.mySellOrder.tableView.reloadSections(NSIndexSet.init(index: selectIndexPath.section), withRowAnimation: .Automatic)
+        }
         NavigationPushView(self.controller, toConroller: controllerVC)
     }
     
@@ -109,6 +114,9 @@ class MySellViewModel: NSObject {
             url = SupplierOrderList
         }
         BaseNetWorke.sharedInstance.getUrlWithString(url, parameters: nil).subscribeNext { (resultDic) in
+            if self.mySellOrder.tableView == nil{
+                self.mySellOrder.setUpView()
+            }
             
             if isNext {
                 let tempModel =  OrderListModel.init(fromDictionary: resultDic as! NSDictionary)
@@ -186,7 +194,7 @@ class MySellViewModel: NSObject {
     }
     
     func tableViewCellMySellAttentionTableViewCell(cell:MySellAttentionTableViewCell, indexPath:NSIndexPath) {
-        let model = TicketShowModel.init(fromDictionary: ticketShowModel[indexPath.section] as! NSDictionary)
+//        let model = TicketShowModel.init(fromDictionary: ticketShowModel[indexPath.section] as! NSDictionary)
     }
     
     func requestOrderManager(){
@@ -195,6 +203,9 @@ class MySellViewModel: NSObject {
             return;
         }
         BaseNetWorke.sharedInstance.getUrlWithString(SupplierTicketList, parameters: nil).subscribeNext { (resultDic) in
+            if self.mySellManager.tableView == nil {
+                self.mySellManager.setUpView()
+            }
             self.ticketShowModel = NSMutableArray.mj_objectArrayWithKeyValuesArray(resultDic)
             if self.mySellManager.tableView.mj_header != nil {
                 self.mySellManager.tableView.mj_header.endRefreshing()

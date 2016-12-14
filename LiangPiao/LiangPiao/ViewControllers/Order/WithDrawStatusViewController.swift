@@ -131,6 +131,7 @@ extension WithDrawStatusViewController : UITableViewDataSource {
                 let topUpButton = CustomButton.init(frame: CGRect.init(x: 15 , y: 0, width: SCREENWIDTH - 30, height: 49), title: "完成", tag: nil, titleFont: App_Theme_PinFan_M_15_Font!, type: .withBackBoarder) { (tag) in
                     for controller in (self.navigationController?.viewControllers)! {
                         if controller is MyWalletViewController {
+                            NSNotificationCenter.defaultCenter().postNotificationName(BlanceNumberChange, object: nil)
                             self.navigationController?.popToViewController(controller, animated: true)
                             break
                         }

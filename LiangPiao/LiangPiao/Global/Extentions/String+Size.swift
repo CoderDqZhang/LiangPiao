@@ -55,5 +55,16 @@ extension String{
         return temp as String
     }
     
+    func muchType(str:String) -> String {
+        let doubleStr = Double(str)
+        var str = ""
+        if doubleStr! % 10 == 0 {
+            str = "\(doubleStr! / 100)0"
+        }else{
+            str = "\(doubleStr! / 100)"
+        }
+        return str
+    }
+    
 }//extension end
 

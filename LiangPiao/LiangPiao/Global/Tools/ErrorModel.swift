@@ -7,6 +7,62 @@
 
 import Foundation
 
+class ErrorStatus : NSObject, NSCoding{
+    
+    var message : String!
+    var status : Int!
+    
+    
+    /**
+     * Instantiate the instance using the passed dictionary values to set the properties values
+     */
+    init(fromDictionary dictionary: NSDictionary){
+        message = dictionary["message"] as? String
+        status = dictionary["status"] as? Int
+    }
+    
+    /**
+     * Returns all the available property values in the form of NSDictionary object where the key is the approperiate json key and the value is the value of the corresponding property
+     */
+    func toDictionary() -> NSDictionary
+    {
+        let dictionary = NSMutableDictionary()
+        if message != nil{
+            dictionary["message"] = message
+        }
+        if status != nil{
+            dictionary["status"] = status
+        }
+        return dictionary
+    }
+    
+    /**
+     * NSCoding required initializer.
+     * Fills the data from the passed decoder
+     */
+    @objc required init(coder aDecoder: NSCoder)
+    {
+        message = aDecoder.decodeObjectForKey("message") as? String
+        status = aDecoder.decodeObjectForKey("status") as? Int
+        
+    }
+    
+    /**
+     * NSCoding required method.
+     * Encodes mode properties into the decoder
+     */
+    @objc func encodeWithCoder(aCoder: NSCoder)
+    {
+        if message != nil{
+            aCoder.encodeObject(message, forKey: "message")
+        }
+        if status != nil{
+            aCoder.encodeObject(status, forKey: "status")
+        }
+        
+    }
+    
+}
 
 class ErrorModel : NSObject, NSCoding{
     

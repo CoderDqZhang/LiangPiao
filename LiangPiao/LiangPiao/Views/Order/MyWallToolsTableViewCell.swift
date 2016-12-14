@@ -21,7 +21,7 @@ class MyWallToolsTableViewCell: UITableViewCell {
     }
     
     func setUpView() {
-        let titles = ["可用余额 (元)","冻结余额 (元)","即将到账 (元)"]
+        let titles = ["可用余额 (元)","押金余额 (元)","待结算票款 (元)"]
         let details = ["0.00","0.00","0.00"]
 
         var originX:CGFloat = 0

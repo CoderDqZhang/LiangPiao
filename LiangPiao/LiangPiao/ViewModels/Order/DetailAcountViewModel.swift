@@ -43,6 +43,9 @@ class DetailAcountViewModel: NSObject {
             url = WallHistory
         }
         BaseNetWorke.sharedInstance.getUrlWithString(url, parameters: nil).subscribeNext { (resultDic) in
+            if self.controller.tableView == nil {
+                self.controller.setUpView()
+            }
             if isNext {
                 let tempModel =  MyWallHistoryModel.init(fromDictionary: resultDic as! NSDictionary)
                 self.model.hasNext = tempModel.hasNext

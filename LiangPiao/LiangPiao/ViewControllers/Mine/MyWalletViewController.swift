@@ -49,13 +49,13 @@ class MyWalletViewController: UIViewController {
 //        self.view.addSubview(topUpButton)
         
         let withdraw = CustomButton.init(frame: CGRect.init(x: SpaceTopUpAndWidth , y: SCREENHEIGHT - 79 - 64, width: SCREENWIDTH - SpaceTopUpAndWidth * 2, height: 49), title: "提现", tag: nil, titleFont: App_Theme_PinFan_M_15_Font!, type: .withBackBoarder) { (tag) in
-            NavigationPushView(self, toConroller: WithDrawViewController())
+            let controllerVC = WithDrawViewController()
+            controllerVC.viewModel.maxMuch = "\(self.viewModel.model.balance)".muchType("\(self.viewModel.model.balance)")
+            NavigationPushView(self, toConroller: controllerVC)
         }
         self.view.addSubview(withdraw)
-        
-        
-        
-        let ruleButton = CustomButton.init(frame: CGRectZero, title: "查看规则说明", tag: nil, titleFont: App_Theme_PinFan_R_13_Font!, type: .withNoBoarder) { (tag) in
+            
+        let ruleButton = CustomButton.init(frame: CGRectZero, title: "规则说明", tag: nil, titleFont: App_Theme_PinFan_R_13_Font!, type: .withNoBoarder) { (tag) in
             KWINDOWDS!.addSubview(GloableServiceView.init(title: "佣金说明", message: self.viewModel.messageTitle()))
         }
         self.view.addSubview(ruleButton)
@@ -120,8 +120,8 @@ extension MyWalletViewController : UITableViewDelegate {
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
-        let cell = tableView.cellForRowAtIndexPath(NSIndexPath.init(forRow: 0, inSection: 0)) as! MyWallHeaderTableViewCell
         if scrollView.contentOffset.y < 0 {
+            let cell = tableView.cellForRowAtIndexPath(NSIndexPath.init(forRow: 0, inSection: 0)) as! MyWallHeaderTableViewCell
             cell.cellBackView.frame = CGRectMake(0, scrollView.contentOffset.y, SCREENWIDTH, 190 - scrollView.contentOffset.y)
         }
     }

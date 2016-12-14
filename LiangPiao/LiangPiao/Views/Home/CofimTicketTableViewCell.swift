@@ -34,6 +34,7 @@ class CofimTicketTableViewCell: UITableViewCell {
         
         ticketTitle = UILabel()
         ticketTitle.text = "万有音乐系 陈粒《小梦大半》2016巡回演唱会"
+        ticketTitle.numberOfLines = 0
         UILabel.changeLineSpaceForLabel(ticketTitle, withSpace: TitleLineSpace)
         ticketTitle.textColor = UIColor.init(hexString: App_Theme_556169_Color)
         ticketTitle.font = App_Theme_PinFan_R_14_Font
@@ -101,10 +102,10 @@ class CofimTicketTableViewCell: UITableViewCell {
                 make.top.equalTo(self.contentView.snp_top).offset(17)
                 make.left.equalTo(self.ticketPhoto.snp_right).offset(12)
                 make.right.equalTo(self.contentView.snp_right).offset(-15)
-                make.height.equalTo(21)
             })
             
             ticketTime.snp_makeConstraints(closure: { (make) in
+                make.top.greaterThanOrEqualTo(self.ticketTitle.snp_bottom).offset(-2)
                 make.bottom.equalTo(self.ticketLocation.snp_top).offset(-2)
                 make.left.equalTo(self.ticketPhoto.snp_right).offset(12)
                 make.right.equalTo(self.contentView.snp_right).offset(-15)

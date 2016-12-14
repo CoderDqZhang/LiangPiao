@@ -18,8 +18,10 @@ class DetailAccountViewController: UIViewController {
         super.viewDidLoad()
         self.navigationItem.title = "明细"
         self.talKingDataPageName = "明细"
+        self.view.backgroundColor = UIColor.whiteColor()
         self.setUpNavigationItem()
-        self.setUpView()
+        self.bindViewModel()
+//        self.setUpView()
         // Do any additional setup after loading the view.
     }
 
@@ -38,9 +40,7 @@ class DetailAccountViewController: UIViewController {
         tableView.snp_makeConstraints { (make) in
             make.edges.equalTo(UIEdgeInsetsMake(0, 0, 0, 0))
         }
-        self.setUpRefreshData()
-        self.bindViewModel()
-        
+        self.setUpRefreshData()       
     }
     
     func bindViewModel(){
@@ -49,7 +49,7 @@ class DetailAccountViewController: UIViewController {
     }
     
     func setUpLoadMoreData(){
-        self.tableView.mj_footer = LiangPiaoLoadMoreDataFooter(refreshingBlock: {
+        self.tableView.mj_footer = LiangPiaoLoadMoreDataFooterWhite(refreshingBlock: {
             self.viewModel.requestDetailAcount(true)
         })
     }
@@ -127,7 +127,7 @@ extension DetailAccountViewController :DZNEmptyDataSetSource {
     }
     
     func descriptionForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
-        let str = "没有交易明细"
+        let str = "还没有交易明细哦"
         let attribute = NSMutableAttributedString(string: str)
         attribute.addAttributes([NSForegroundColorAttributeName:UIColor.init(hexString: App_Theme_DDE0E5_Color)], range: NSRange(location: 0, length: str.length))
         attribute.addAttributes([NSFontAttributeName:App_Theme_PinFan_R_16_Font!], range: NSRange.init(location: 0, length: str.length))

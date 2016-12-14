@@ -63,7 +63,7 @@ class TickerInfoTableViewCell: UITableViewCell {
         if model.region == "" {
             ticketRow.text = "择优分配"
         }else{
-            let row = model.row != "" ? "\(model.row)排" : ""
+            let row = model.row != "" ? "\(model.row)排" : "择优分配"
             ticketRow.text = "\(model.region) \(row)"
         }
         ticketNowPrice.text = "\(model.price)"

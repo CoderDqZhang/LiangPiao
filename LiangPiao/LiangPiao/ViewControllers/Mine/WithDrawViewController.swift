@@ -138,9 +138,14 @@ extension WithDrawViewController : UITableViewDataSource {
                 let cell = tableView.dequeueReusableCellWithIdentifier("WithDrawTableViewCell", forIndexPath: indexPath) as! WithDrawTableViewCell
                 cell.muchTextField.tag = indexPath.row
                 cell.muchTextField.delegate = self
+                cell.setPlachText(viewModel.maxMuch)
+                cell.muchTextField.textColor = UIColor.init(hexString: App_Theme_384249_Color)
                 cell.muchTextField.rac_textSignal().subscribeNext({ (str) in
                     self.viewModel.form.amount = str as! String
                 })
+                cell.withDrawTableViewCellClouse =  { _ in
+                    cell.muchTextField.text = self.viewModel.maxMuch
+                }
                 cell.selectionStyle = .None
                 return cell
             default:
@@ -148,15 +153,22 @@ extension WithDrawViewController : UITableViewDataSource {
                 cell.setData(viewModel.cellTitle(indexPath), detail: "")
                 cell.textField.textColor = UIColor.init(hexString: App_Theme_8A96A2_Color)
                 cell.textField.returnKeyType = .Next
+                cell.textField.textColor = UIColor.init(hexString: App_Theme_384249_Color)
                 cell.textField.keyboardType = .EmailAddress
                 if indexPath.row == 1 {
                     cell.textField.keyboardType = .NamePhonePad
                 }
                 if indexPath.row == 0 {
+                    if UserDefaultsGetSynchronize("aliPayCount") as! String != "nil" {
+                        cell.textField.text = UserDefaultsGetSynchronize("aliPayCount") as? String
+                    }
                     cell.textField.rac_textSignal().subscribeNext({ (str) in
                         self.viewModel.form.aliPayCount = str as! String
                     })
                 }else{
+                    if UserDefaultsGetSynchronize("aliPayName") as! String != "nil" {
+                        cell.textField.text = UserDefaultsGetSynchronize("aliPayName") as? String
+                    }
                     cell.textField.rac_textSignal().subscribeNext({ (str) in
                         self.viewModel.form.aliPayName = str as! String
                     })

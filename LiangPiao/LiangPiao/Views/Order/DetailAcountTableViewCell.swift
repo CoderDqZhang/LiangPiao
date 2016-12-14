@@ -32,7 +32,7 @@ class DetailAcountTableViewCell: UITableViewCell {
         muchLabel = UILabel()
         muchLabel.font = App_Theme_PinFan_R_15_Font
         muchLabel.textColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
-        muchLabel.text = "+688.00"
+        muchLabel.text = "0.00"
         self.contentView.addSubview(muchLabel)
         
         timeLabel = UILabel()
@@ -50,7 +50,13 @@ class DetailAcountTableViewCell: UITableViewCell {
     func setData(model:HisList){
         muchInfoLabel.text = model.desc
         timeLabel.text = model.created
-        muchLabel.text = "+\(model.amount)"
+        let str = "\(model.amount)".muchType("\(model.amount)")
+        muchLabel.text = "\(model.optionDesc)\(str)"
+        if model.optionDesc == "+" {
+            muchLabel.textColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
+        }else{
+            muchLabel.textColor = UIColor.init(hexString: App_Theme_8A96A2_Color)
+        }
     }
     
     override func updateConstraints() {
