@@ -49,7 +49,6 @@ class PickUpTickeTableViewCell: UITableViewCell {
         ticketTime.text = "2016.10.14 - 2016.11.28"
         ticketTime.textColor = UIColor.init(hexString: App_Theme_A2ABB5_Color)
         ticketTime.font = App_Theme_PinFan_R_12_Font
-        ticketTime.numberOfLines = 0
         self.contentView.addSubview(ticketTime)
         
         ticketLocation = UILabel()

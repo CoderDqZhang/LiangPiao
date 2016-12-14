@@ -34,7 +34,18 @@ class OrderListViewModel: NSObject {
     override init() {
         super.init()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(OrderDetailViewModel.orderStatusChange(_:)), name: OrderStatuesChange, object: nil)
-        
+        NSNotificationCenter.defaultCenter().rac_addObserverForName(LoginStatuesChange, object: nil).subscribeNext { (object) in
+            self.requestOrderList(self.controller, isNext: false)
+        }
+        NSNotificationCenter.defaultCenter().rac_addObserverForName(UserConfimNewOrder, object: nil).subscribeNext { (object) in
+            self.requestOrderList(self.controller, isNext: false)
+        }
+    }
+    
+    deinit {
+        self.removeObserver(self, forKeyPath: LoginStatuesChange)
+        self.removeObserver(self, forKeyPath: OrderStatuesChange)
+        self.removeObserver(self, forKeyPath: UserConfimNewOrder)
     }
     
     func orderStatusChange(object:NSNotification){
@@ -53,10 +64,6 @@ class OrderListViewModel: NSObject {
                 NavigationPushView(controller, toConroller: controller)
             }
         }
-    }
-    
-    deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     func listTitle() ->String {
@@ -136,6 +143,9 @@ class OrderListViewModel: NSObject {
     
     func requestOrderList(controller:OrderListViewController, isNext:Bool){
         if !UserInfoModel.isLoggedIn() {
+            if controller.tableView.mj_header != nil {
+                controller.tableView.mj_header.endRefreshing()
+            }
             MainThreadAlertShow("请登录后查看", view: KWINDOWDS!)
             return;
         }

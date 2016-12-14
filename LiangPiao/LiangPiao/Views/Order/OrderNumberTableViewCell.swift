@@ -51,6 +51,17 @@ class OrderNumberTableViewCell: UITableViewCell {
         orderNumber.text = "订单号：\(model.id)"
     }
     
+    func setSellData(model:OrderList) {
+        orderStatus.text = model.supplierStatusDesc
+        
+        if model.status == 0 || model.status == 7 || model.status == 3{
+            orderStatus.textColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
+        }else{
+            orderStatus.textColor = UIColor.init(hexString: App_Theme_A2ABB5_Color)
+        }
+        orderNumber.text = "订单号：\(model.id)"
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

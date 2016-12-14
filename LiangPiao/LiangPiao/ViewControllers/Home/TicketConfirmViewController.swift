@@ -132,7 +132,7 @@ class TicketConfirmViewController: UIViewController {
             }
         }
         viewModel.updateMuchOfTicke()
-        viewModel.orderForme.ticketCount = viewModel.ticketCount
+        viewModel.orderForme.remainCount = viewModel.remainCount
         viewModel.orderForme.ticketID = viewModel.ticketModel.id
     }
     

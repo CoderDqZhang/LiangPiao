@@ -144,6 +144,7 @@ extension WithDrawViewController : UITableViewDataSource {
                     self.viewModel.form.amount = str as! String
                 })
                 cell.withDrawTableViewCellClouse =  { _ in
+                    self.viewModel.form.amount = self.viewModel.maxMuch
                     cell.muchTextField.text = self.viewModel.maxMuch
                 }
                 cell.selectionStyle = .None

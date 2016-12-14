@@ -41,6 +41,7 @@ class ReciveAddressTableViewCell: UITableViewCell {
         
         deliveryAddress = UILabel()
         deliveryAddress.font = App_Theme_PinFan_R_13_Font
+        deliveryAddress.numberOfLines = 0
         deliveryAddress.textColor = UIColor.init(hexString: App_Theme_384249_Color)
         self.contentView.addSubview(deliveryAddress)
         
@@ -70,6 +71,7 @@ class ReciveAddressTableViewCell: UITableViewCell {
             deliveryName.text = "姓名：\(model.name)"
             deliveryAddress.text = "电话：\(model.phone)"
         }
+        deliveryAddress.numberOfLines = 0
         self.updateConstraintsIfNeeded()
     }
     

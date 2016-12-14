@@ -132,13 +132,13 @@ class OrderManagerTableViewCell: UITableViewCell {
         
     }
     
-    func setData(title:String, cover:String, session:String, much:String, ticketCount:String, soldCount:String, isMoreTicket:Bool){
+    func setData(title:String, cover:String, session:String, much:String, remainCount:String, soldCount:String, isMoreTicket:Bool){
         
         ticketTitle.text = title
         UILabel.changeLineSpaceForLabel(ticketTitle, withSpace: TitleLineSpace)
         ticketTime.text = "场次：\(session)"
         ticketMuch.text = "票面：\(much)"
-        ticketSelledNumber.text = "在售：\(ticketCount)   已售：\(soldCount)"
+        ticketSelledNumber.text = "在售：\(remainCount)   已售：\(soldCount)"
         if isMoreTicket {
             ticketRow.hidden = true
             ticketMuch.snp_remakeConstraints(closure: { (make) in

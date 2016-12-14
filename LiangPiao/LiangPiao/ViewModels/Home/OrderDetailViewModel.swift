@@ -59,9 +59,13 @@ class OrderDetailViewModel: NSObject {
         switch indexPath.section {
         case 0:
             if self.model.status == 0 {
-                return 170
+                return controller.tableView.fd_heightForCellWithIdentifier("OrderWaitePayTableViewCell", configuration: { (cell) in
+                    self.configCellWaitPay(cell as! OrderWaitePayTableViewCell, indexPath: indexPath)
+                })
             }else{
-                return 124
+                return controller.tableView.fd_heightForCellWithIdentifier("OrderDoneTableViewCell", configuration: { (cell) in
+                    self.configCellDone(cell as! OrderDoneTableViewCell, indexPath: indexPath)
+                })
             }
         case 1:
             switch indexPath.row {
@@ -88,6 +92,15 @@ class OrderDetailViewModel: NSObject {
         }
     }
     
+    
+    func configCellWaitPay(cell:OrderWaitePayTableViewCell, indexPath:NSIndexPath) {
+        cell.setData(model)
+    }
+    
+    func configCellDone(cell:OrderDoneTableViewCell, indexPath:NSIndexPath) {
+        cell.setData(model)
+    }
+    
     func tableViewDidSelectRowAtIndexPath(indexPath: NSIndexPath, controller:OrderDetailViewController){
         if indexPath.section == 1 && indexPath.row == 0 {
             let controllerVC = TicketDescriptionViewController()
@@ -105,8 +118,8 @@ class OrderDetailViewModel: NSObject {
 
     }
     
-    func tableViewCellOrderWaitePayTableViewCell(cell:OrderWaitePayTableViewCell) {
-        cell.setData(model)
+    func tableViewCellOrderWaitePayTableViewCell(cell:OrderWaitePayTableViewCell, indexPath:NSIndexPath) {
+        self.configCellWaitPay(cell, indexPath: indexPath)
     }
     
     func tableViewCellTicketDetailInfoTableViewCell(cell:TicketDetailInfoTableViewCell){
@@ -125,8 +138,8 @@ class OrderDetailViewModel: NSObject {
         cell.setData(model)
     }
     
-    func tableViewCellOrderDoneTableViewCell(cell:OrderDoneTableViewCell){
-        cell.setData(model)
+    func tableViewCellOrderDoneTableViewCell(cell:OrderDoneTableViewCell, indexPath:NSIndexPath){
+        self.configCellDone(cell, indexPath: indexPath)
     }
     
     func requestPayModel(cnotroller:OrderDetailViewController){

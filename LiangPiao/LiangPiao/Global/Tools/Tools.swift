@@ -87,7 +87,7 @@ class Tools: NSObject {
             return self.showMessage(KWINDOWDS!, msg:errorMsg , autoHidder: true)
         }else{
             let error = ErrorStatus.init(fromDictionary: errorDic as! NSDictionary)
-            if error.status == 500 {
+            if error.status != nil && error.status == 500 {
                 return self.showMessage(KWINDOWDS!, msg:"网络服务错误" , autoHidder: true)
             }else{
                 return nil

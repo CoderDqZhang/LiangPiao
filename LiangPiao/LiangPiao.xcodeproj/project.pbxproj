@@ -1742,7 +1742,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/LiangPiao/Uti/TalkingData",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.liangpiao.liangpiaom;
+				PRODUCT_BUNDLE_IDENTIFIER = com.liangpiao.liangpiao;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "LiangPiao/Global/Catagory/LiangPiao-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1771,7 +1771,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/LiangPiao/Uti/TalkingData",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.liangpiao.liangpiaom;
+				PRODUCT_BUNDLE_IDENTIFIER = com.liangpiao.liangpiao;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "LiangPiao/Global/Catagory/LiangPiao-Bridging-Header.h";
 				SWIFT_VERSION = 2.3;

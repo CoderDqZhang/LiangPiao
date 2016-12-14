@@ -21,7 +21,7 @@ enum PayType {
 
 class OrderFormModel: NSObject {
     var ticketID : Int?
-    var ticketCount : Int?
+    var remainCount : Int?
     var deliveryType : FormDelivityType?
     var message : String? = ""
     var deliveryPrice : String?

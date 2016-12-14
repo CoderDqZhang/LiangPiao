@@ -28,6 +28,7 @@ extension UIButton {
     
     func buttonSetImage(nImage:UIImage, sImage:UIImage) {
         self.setImage(nImage, forState: .Normal)
-        self.setImage(sImage, forState: .Normal)
+        self.setImage(sImage, forState: .Selected)
+        self.setImage(sImage, forState: .Highlighted)
     }
 }

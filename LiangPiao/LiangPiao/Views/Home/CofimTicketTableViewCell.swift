@@ -70,14 +70,14 @@ class CofimTicketTableViewCell: UITableViewCell {
         
     }
     
-    func setData(model:TicketShowModel, ticketModel:TicketList, sessionModel:ShowSessionModel, ticketCount:String) {
+    func setData(model:TicketShowModel, ticketModel:TicketList, sessionModel:ShowSessionModel, remainCount:String) {
         ticketPhoto.sd_setImageWithURL(NSURL.init(string: model.cover), placeholderImage: UIImage.init(named: "Feeds_Default_Cover_02")) { (image, error, cacheType, url) in
         }
         ticketTitle.text = model.title
         UILabel.changeLineSpaceForLabel(ticketTitle, withSpace: TitleLineSpace)
         ticketTime.text = "时间：\(sessionModel.name)"
         ticketLocation.text = "场馆：\(model.venue.name)"
-        ticketMuch.text = "票面：\(ticketModel.originalTicket.name) x \(ticketCount)"
+        ticketMuch.text = "票面：\(ticketModel.originalTicket.name) x \(remainCount)"
         var str = ""
         if ticketModel.region == "" {
             str = "优先择座"

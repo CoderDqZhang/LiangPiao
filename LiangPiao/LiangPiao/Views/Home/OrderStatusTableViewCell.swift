@@ -63,7 +63,7 @@ extension OrderStatusTableViewCell: ZDQFlowViewDataSource {
                 viewItem.setData("待付款",type: ZDQFlowViewItemType.itemWaitSelect)
             case 1:
                 viewItem.setData("待发货",type: ZDQFlowViewItemType.itemWaitSelect)
-            case 1:
+            case 2:
                 viewItem.setData("待收货",type: ZDQFlowViewItemType.itemWaitSelect)
             default:
                 viewItem.setData("待结算",type: ZDQFlowViewItemType.itemWaitSelect)
@@ -90,7 +90,7 @@ extension OrderStatusTableViewCell: ZDQFlowViewDataSource {
             default:
                 viewItem.setData("待结算",type: ZDQFlowViewItemType.itemWaitSelect)
             }
-        }else if orderStatus == "9" {
+        }else if orderStatus == "9" || orderStatus == "8" {
             switch index {
             case 0:
                 viewItem.setData("已付款",type: ZDQFlowViewItemType.itemDone)

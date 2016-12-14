@@ -55,8 +55,8 @@ class MyWalletViewController: UIViewController {
         }
         self.view.addSubview(withdraw)
             
-        let ruleButton = CustomButton.init(frame: CGRectZero, title: "规则说明", tag: nil, titleFont: App_Theme_PinFan_R_13_Font!, type: .withNoBoarder) { (tag) in
-            KWINDOWDS!.addSubview(GloableServiceView.init(title: "佣金说明", message: self.viewModel.messageTitle()))
+        let ruleButton = CustomButton.init(frame: CGRectZero, title: "查看规则说明", tag: nil, titleFont: App_Theme_PinFan_M_13_Font!, type: .withNoBoarder) { (tag) in
+            KWINDOWDS!.addSubview(GloableServiceView.init(title: "规则说明", message: self.viewModel.messageTitle()))
         }
         self.view.addSubview(ruleButton)
         

@@ -63,7 +63,7 @@ class ZDQFlowView: UIView {
             label.frame = CGRect(x: item.frame.maxX - 4, y: 8, width: spaceWidthX + 8, height: 1)
             if item.itemType == ZDQFlowViewItemType.itemSelect {
                 label.backgroundColor = UIColor.init(hexString: App_Theme_DDE0E5_Color)
-            }else if item.itemType == .itemDone{
+            }else if item.itemType == ZDQFlowViewItemType.itemDone {
                 label.backgroundColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
             }else{
                 label.backgroundColor = UIColor.init(hexString: App_Theme_DDE0E5_Color)

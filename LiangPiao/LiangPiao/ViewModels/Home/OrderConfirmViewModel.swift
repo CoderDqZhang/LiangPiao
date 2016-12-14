@@ -36,7 +36,7 @@ class OrderConfirmViewModel: NSObject {
     var formDelevityType:FormDelivityType = .presentRecive
     var formType:OrderFormType = .withAddress
     var formAddress:NSInteger = 0
-    var ticketCount:Int = 0
+    var remainCount:Int = 0
     var orderModel:OrderList!
     var controller:TicketConfirmViewController!
     var delivityType:DelivityType = .delivityNomal
@@ -218,7 +218,7 @@ class OrderConfirmViewModel: NSObject {
     
     func tableViewCellCofimTicketTableViewCell(cell:CofimTicketTableViewCell, controller:TicketConfirmViewController){
         cell.ticketPhoto.image = UIImage.init(named: "Feeds_Default_Cover_02")
-        cell.setData(model.show, ticketModel: ticketModel, sessionModel: model.session, ticketCount:"\(ticketCount)")
+        cell.setData(model.show, ticketModel: ticketModel, sessionModel: model.session, remainCount:"\(remainCount)")
     }
     
     func tableViewCellGloabTextFieldCell(cell:GloabTextFieldCell,indexPath:NSIndexPath, controller:TicketConfirmViewController)
@@ -230,7 +230,7 @@ class OrderConfirmViewModel: NSObject {
     {
         switch indexPath.row {
         case 1:
-            let much = Double(Double(ticketModel.price) * Double(ticketCount))
+            let much = Double(Double(ticketModel.price) * Double(remainCount))
             cell.setData(self.configCellLabel(indexPath), detail: "\(much)0 元")
         default:
             if self.formDelevityType == .expressage {
@@ -311,7 +311,7 @@ class OrderConfirmViewModel: NSObject {
         let delivery_price = self.delivityType == .delivityNomal ? "\(self.ticketModel.deliveryPrice)" : "\(self.ticketModel.deliveryPriceSf)"
         if orderForm.deliveryType == .expressage {
             parameters = ["ticket_id":orderForm.ticketID!
-                ,"ticket_count":orderForm.ticketCount!
+                ,"ticket_count":orderForm.remainCount!
                 ,"delivery_type":delivery_type
                 ,"delivery_price":delivery_price
                 ,"pay_type":pay_type
@@ -319,7 +319,7 @@ class OrderConfirmViewModel: NSObject {
                 ,"message":orderForme.message!]
         }else{
             parameters = ["ticket_id":orderForm.ticketID!
-                ,"ticket_count":orderForm.ticketCount!
+                ,"ticket_count":orderForm.remainCount!
                 ,"delivery_type":delivery_type
                 ,"pay_type":pay_type
                 ,"delivery_price":"0"
@@ -329,6 +329,7 @@ class OrderConfirmViewModel: NSObject {
         }
         
         BaseNetWorke.sharedInstance.postUrlWithString(OrderCreate, parameters: parameters).subscribeNext { (resultDic) in
+            NSNotificationCenter.defaultCenter().postNotificationName(UserConfimNewOrder, object: nil)
             self.orderModel = OrderList.init(fromDictionary: resultDic as! NSDictionary)
             self.orderModel.session = self.model.session
             self.orderModel.show = self.model.show

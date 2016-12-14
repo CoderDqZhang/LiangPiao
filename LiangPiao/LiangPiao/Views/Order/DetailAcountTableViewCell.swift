@@ -63,7 +63,7 @@ class DetailAcountTableViewCell: UITableViewCell {
         if !self.didMakeConstraints {
             muchInfoLabel.snp_makeConstraints(closure: { (make) in
                 make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.top.equalTo(self.contentView.snp_top).offset(14)
+                make.top.equalTo(self.contentView.snp_top).offset(15)
             })
             
             timeLabel.snp_makeConstraints(closure: { (make) in

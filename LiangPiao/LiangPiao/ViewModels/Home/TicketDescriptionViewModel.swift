@@ -164,7 +164,7 @@ class TicketDescriptionViewModel: NSObject {
                  controllerVC.viewModel.formDelevityType = .expressage
             }
         }
-        controllerVC.viewModel.ticketCount = self.getTicketNumber(indexPath)
+        controllerVC.viewModel.remainCount = self.getTicketNumber(indexPath)
         controllerVC.viewModel.muchOfTicket = self.getMuchOfTicket(indexPath)
         NavigationPushView(controller, toConroller: controllerVC)
     }

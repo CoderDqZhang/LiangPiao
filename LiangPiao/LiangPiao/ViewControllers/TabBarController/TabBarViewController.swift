@@ -17,6 +17,14 @@ class TabBarViewController: UITabBarController {
         self.tabBar.shadowImage = UIImage.init()
         self.delegate = self
         self.tabBar.addSubview(GloabLineView(frame: CGRectMake(0,0,SCREENWIDTH,0.5)))
+        for viewController in (self.viewControllers)! {
+            print(viewController)
+            for controllerVC in (viewController as! UINavigationController).viewControllers {
+                if controllerVC is OrderListViewController {
+                    controllerVC.viewDidLoad()
+                }
+            }
+        }
 //        self.tabBar.shadowImage = UIImage.init(color: UIColor.init(hexString: App_Theme_E9EBF2_Color), size: CGSizeMake(SCREENWIDTH, 0.2))
         // Do any additional setup after loading the view.
     }

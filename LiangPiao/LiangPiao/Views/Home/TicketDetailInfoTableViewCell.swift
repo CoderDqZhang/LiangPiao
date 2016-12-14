@@ -67,7 +67,7 @@ class TicketDetailInfoTableViewCell: UITableViewCell {
         ticketTitle.text = model.show.title
         UILabel.changeLineSpaceForLabel(ticketTitle, withSpace: TitleLineSpace)
         ticketTime.text = "时间：\(model.session.startTime)"
-        ticketMuch.text = "票面：\(model.ticket.originalTicket.name) x \(model.ticketCount)"
+        ticketMuch.text = "票面：\(model.ticket.originalTicket.name) x \(model.remainCount)"
         var str = ""
         if model.ticket.region == "" {
             str = "优先择座"

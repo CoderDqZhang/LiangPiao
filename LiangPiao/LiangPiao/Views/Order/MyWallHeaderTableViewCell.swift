@@ -39,13 +39,14 @@ class MyWallHeaderTableViewCell: UITableViewCell {
         self.contentView.addSubview(muchLabel)
         
         muchmLable = UILabel()
-        muchmLable.text = "账户余额 (元) "
+        muchmLable.text = "账户余额 ( 元 ) "
         muchmLable.font = App_Theme_PinFan_M_14_Font
         muchmLable.textAlignment = .Center
         muchmLable.textColor = UIColor.whiteColor()
         self.contentView.addSubview(muchmLable)
         
         let image = UIImage.init(named: "Btn_W_More")?.imageWithRenderingMode(.AlwaysOriginal)
+        let selectImage = UIImage.init(named: "Btn_More_W_Pressed")?.imageWithRenderingMode(.AlwaysOriginal)
         detailBtn = UIButton(type: .Custom)
         detailBtn.titleLabel?.font = App_Theme_PinFan_R_12_Font
         detailBtn.setTitle("明细", forState: .Normal)
@@ -55,10 +56,10 @@ class MyWallHeaderTableViewCell: UITableViewCell {
                 self.myWallHeaderTableViewCellClouse()
             }
         }
-        detailBtn.setImage(image, forState: .Normal)
-        detailBtn.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        detailBtn.buttonSetImage(image!, sImage: selectImage!)
+        detailBtn.buttonSetTitleColor(App_Theme_FFFFFF_Color, sTitleColor: App_Theme_A5E9E2_Color)
         detailBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -(image?.size.width)!, 0, (image?.size.width)!)
-        detailBtn.imageEdgeInsets = UIEdgeInsetsMake(0, stringWidth! + 5, -2, -stringWidth!)
+        detailBtn.imageEdgeInsets = UIEdgeInsetsMake(0, stringWidth! + 15, -2, -stringWidth!)
         self.contentView.addSubview(detailBtn)
         
         self.updateConstraintsIfNeeded()
@@ -78,8 +79,9 @@ class MyWallHeaderTableViewCell: UITableViewCell {
             })
             
             detailBtn.snp_makeConstraints(closure: { (make) in
-                make.top.equalTo(self.contentView.snp_top).offset(100)
-                make.left.equalTo(self.muchLabel.snp_right).offset(12)
+                make.top.equalTo(self.contentView.snp_top).offset(83)
+                make.left.equalTo(self.muchLabel.snp_right).offset(0)
+                make.size.equalTo(CGSize.init(width: 50, height: 50))
             })
             
             self.didMakeConstraints = true

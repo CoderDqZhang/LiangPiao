@@ -223,7 +223,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Version 0.0.1" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="quG-ie-T7q">
-                                <rect key="frame" x="118" y="273" width="84" height="17"/>
+                                <rect key="frame" x="118" y="262" width="84" height="17"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="17" id="WOP-4J-Y2K"/>
                                 </constraints>
@@ -232,7 +232,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="5gb-de-8tJ">
-                                <rect key="frame" x="28" y="295" width="264" height="105"/>
+                                <rect key="frame" x="28" y="284" width="264" height="105"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="105" id="93z-U9-Cfg"/>
@@ -254,22 +254,21 @@ marketing - zhaoming</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5g1-8K-nCE">
-                                <rect key="frame" x="124" y="353" width="72" height="26"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <rect key="frame" x="119" y="353" width="82" height="26"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="26" id="T2P-bI-OOv"/>
-                                    <constraint firstAttribute="width" constant="72" id="dPY-qe-s6E"/>
+                                    <constraint firstAttribute="width" constant="82" id="dPY-qe-s6E"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="10"/>
-                                <state key="normal" title="使用协议">
-                                    <color key="titleColor" red="0.26005136966705322" green="0.83378976583480835" blue="0.77418917417526245" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" name="PingFangSC-Regular" family="PingFang SC" pointSize="13"/>
+                                <state key="normal" title="查看使用协议">
+                                    <color key="titleColor" red="0.9889302069" green="0.98674551389999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Homepage_Brand_Logo" translatesAutoresizingMaskIntoConstraints="NO" id="lco-Dw-i5r">
-                                <rect key="frame" x="125" y="142" width="70" height="67"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AboutUs_Logo" translatesAutoresizingMaskIntoConstraints="NO" id="lco-Dw-i5r">
+                                <rect key="frame" x="131" y="142" width="58" height="55"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="70" id="IM0-85-PrC"/>
-                                    <constraint firstAttribute="height" constant="67" id="cZx-8Q-KMc"/>
+                                    <constraint firstAttribute="width" constant="58" id="IM0-85-PrC"/>
+                                    <constraint firstAttribute="height" constant="55" id="cZx-8Q-KMc"/>
                                 </constraints>
                             </imageView>
                         </subviews>
@@ -281,7 +280,7 @@ marketing - zhaoming</string>
                             <constraint firstItem="5g1-8K-nCE" firstAttribute="centerX" secondItem="WXj-ew-h0L" secondAttribute="centerX" id="U8N-u0-oY4"/>
                             <constraint firstItem="OjI-Cu-bGb" firstAttribute="top" secondItem="n9p-f3-wMh" secondAttribute="bottom" constant="44" id="Xjx-Dw-2gS"/>
                             <constraint firstItem="lco-Dw-i5r" firstAttribute="centerX" secondItem="WXj-ew-h0L" secondAttribute="centerX" id="Ycb-pG-tZy"/>
-                            <constraint firstItem="quG-ie-T7q" firstAttribute="top" secondItem="lco-Dw-i5r" secondAttribute="bottom" constant="64" id="eKZ-DX-0Di"/>
+                            <constraint firstItem="quG-ie-T7q" firstAttribute="top" secondItem="lco-Dw-i5r" secondAttribute="bottom" constant="65" id="eKZ-DX-0Di"/>
                             <constraint firstItem="quG-ie-T7q" firstAttribute="centerX" secondItem="WXj-ew-h0L" secondAttribute="centerX" id="k84-xf-01z"/>
                             <constraint firstItem="n9p-f3-wMh" firstAttribute="top" secondItem="5g1-8K-nCE" secondAttribute="bottom" constant="46" id="lho-M9-O5Q"/>
                             <constraint firstItem="5gb-de-8tJ" firstAttribute="top" secondItem="quG-ie-T7q" secondAttribute="bottom" constant="5" id="xIj-EG-xf6"/>
@@ -297,7 +296,7 @@ marketing - zhaoming</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WqN-YE-gYj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1198" y="222"/>
+            <point key="canvasLocation" x="1196.25" y="221.25"/>
         </scene>
         <!--卖票-->
         <scene sceneID="9sR-f2-yJg">
@@ -356,7 +355,7 @@ marketing - zhaoming</string>
         </scene>
     </scenes>
     <resources>
-        <image name="Homepage_Brand_Logo" width="70" height="67"/>
+        <image name="AboutUs_Logo" width="58" height="55"/>
         <image name="Icon" width="116" height="101"/>
         <image name="Icon_Homepage_ Selected" width="24" height="24"/>
         <image name="Icon_Homepage_Normal" width="24" height="24"/>

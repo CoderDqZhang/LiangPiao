@@ -29,21 +29,21 @@ class OrderDoneTableViewCell: UITableViewCell {
         orderStatusDone.textColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
         self.contentView.addSubview(orderStatusDone)
         
-        pickUpLocation = self.createLabel(CGRectMake(15, 58, SCREENWIDTH - 15, 18), text: "取票地点：朝阳区香河园小区西坝河中里35号楼二层207")
+        pickUpLocation = UILabel()
+        pickUpLocation.text = "取票地点：朝阳区香河园小区西坝河中里35号楼二层207"
+        pickUpLocation.numberOfLines = 0
+        pickUpLocation.textColor = UIColor.init(hexString: App_Theme_384249_Color)
+        pickUpLocation.font = App_Theme_PinFan_R_13_Font
         self.contentView.addSubview(pickUpLocation)
         
-        pickUpTime = self.createLabel(CGRectMake(15, 77, SCREENWIDTH - 15, 18), text: "取票时间：周一至周五 08:30 - 20:30")
+        pickUpTime = UILabel()
+        pickUpTime.text = "取票地点：朝阳区香河园小区西坝河中里35号楼二层207"
+        pickUpTime.textColor = UIColor.init(hexString: App_Theme_384249_Color)
+        pickUpTime.numberOfLines = 0
+        pickUpTime.font = App_Theme_PinFan_R_13_Font
         self.contentView.addSubview(pickUpTime)
         
         self.updateConstraintsIfNeeded()
-    }
-    
-    func createLabel(frame:CGRect, text:String) -> UILabel {
-        let label = UILabel(frame: frame)
-        label.font = App_Theme_PinFan_R_13_Font
-        label.textColor = UIColor.init(hexString: App_Theme_384249_Color)
-        label.text = text
-        return label
     }
     
     func setData(model:OrderList){
@@ -52,10 +52,23 @@ class OrderDoneTableViewCell: UITableViewCell {
             pickUpLocation.text = "\(model.address.name) \(model.address.mobileNum)"
             let str = "\(model.address.location)\(model.address.address)".stringByReplacingOccurrencesOfString(" ", withString: "")
             pickUpTime.text = str
-        }else{
-            pickUpLocation.text = "姓名：\(model.name)"
-            pickUpTime.text = "电话：\(model.phone)"
+        }else if model.deliveryType == 2 {
+            let str = "取票地点：\(model.ticket.sceneGetTicketAddress)"
+            pickUpLocation.snp_updateConstraints { (make) in
+                make.height.equalTo(str.heightWithConstrainedWidth(str, font: App_Theme_PinFan_R_13_Font!, width: SCREENWIDTH - 30) + 3)
+            }
+            pickUpLocation.text = str
+            pickUpTime.text = "取票时间：\(model.ticket.sceneGetTicketDate)"
+        }else {
+//            pickUpLocation.text = "取票地点：取票地点：朝阳区香河园小区西坝河中里35号楼二层207取票地点：朝阳区香河园小区西坝河中里35号楼二层207取票地点：朝阳区香河园小区西坝河中里35号楼二层207取票地点：朝阳区香河园小区西坝河中里35号楼二层207"
+            let str = "取票地点：\(model.ticket.selfGetTicketAddress)"
+            pickUpLocation.text = str
+            pickUpTime.text = "取票时间：\(model.ticket.selfGetTicketDate)"
+            pickUpLocation.snp_updateConstraints { (make) in
+                make.height.equalTo(str.heightWithConstrainedWidth(str, font: App_Theme_PinFan_R_13_Font!, width: SCREENWIDTH - 30) + 3)
+            }
         }
+        self.updateConstraintsIfNeeded()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -65,10 +78,27 @@ class OrderDoneTableViewCell: UITableViewCell {
     override func updateConstraints() {
         if !self.didMakeConstraints {
             
+            pickUpTime.snp_makeConstraints(closure: { (make) in
+                make.left.equalTo(self.contentView.snp_left).offset(15)
+                make.right.equalTo(self.contentView.snp_right).offset(-15)
+                make.bottom.equalTo(self.contentView.snp_bottom).offset(-28)
+            })
+            
+            pickUpLocation.snp_makeConstraints(closure: { (make) in
+                make.bottom.equalTo(self.pickUpTime.snp_top).offset(-1)
+                make.left.equalTo(self.contentView.snp_left).offset(15)
+                make.right.equalTo(self.contentView.snp_right).offset(-15)
+            })
+            
             orderStatusDone.snp_makeConstraints(closure: { (make) in
+                make.bottom.equalTo(self.pickUpLocation.snp_top).offset(-10)
                 make.left.equalTo(self.contentView.snp_left).offset(15)
                 make.top.equalTo(self.contentView.snp_top).offset(25)
             })
+            
+            
+            
+            
             
             self.didMakeConstraints = true
         }

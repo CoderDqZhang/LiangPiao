@@ -186,12 +186,12 @@ class TicketShowModel : NSObject, NSCoding{
     var sessionList : [ShowSessionModel]!
     var sessionCount : Int!
     var showDate : String!
-    var ticketCount : Int!
+    var remainCount : Int!
     var ticketStatus : Int!
     var isFavorite : Bool!
     var title : String!
     var venue : Venue!
-    
+    var soldCount : Int!
     
     /**
      * Instantiate the instance using the passed dictionary values to set the properties values
@@ -218,7 +218,7 @@ class TicketShowModel : NSObject, NSCoding{
         sessionCount = dictionary["session_count"] as? Int
         showDate = dictionary["show_date"] as? String
         isFavorite = dictionary["is_favorite"] as? Bool
-        ticketCount = dictionary["ticket_count"] as? Int
+        remainCount = dictionary["ticket_count"] as? Int
         ticketStatus = dictionary["ticket_status"] as? Int
         title = dictionary["title"] as? String
         if let venueData = dictionary["venue"] as? NSDictionary{
@@ -269,8 +269,8 @@ class TicketShowModel : NSObject, NSCoding{
         if showDate != nil{
             dictionary["show_date"] = showDate
         }
-        if ticketCount != nil{
-            dictionary["ticket_count"] = ticketCount
+        if remainCount != nil{
+            dictionary["ticket_count"] = remainCount
         }
         if ticketStatus != nil{
             dictionary["ticket_status"] = ticketStatus
@@ -301,7 +301,7 @@ class TicketShowModel : NSObject, NSCoding{
         sessionList = aDecoder.decodeObjectForKey("session_list") as? [ShowSessionModel]
         sessionCount = aDecoder.decodeObjectForKey("session_count") as? Int
         showDate = aDecoder.decodeObjectForKey("show_date") as? String
-        ticketCount = aDecoder.decodeObjectForKey("ticket_count") as? Int
+        remainCount = aDecoder.decodeObjectForKey("ticket_count") as? Int
         ticketStatus = aDecoder.decodeObjectForKey("ticket_status") as? Int
         title = aDecoder.decodeObjectForKey("title") as? String
         venue = aDecoder.decodeObjectForKey("venue") as? Venue
@@ -347,8 +347,8 @@ class TicketShowModel : NSObject, NSCoding{
         if showDate != nil{
             aCoder.encodeObject(showDate, forKey: "show_date")
         }
-        if ticketCount != nil{
-            aCoder.encodeObject(ticketCount, forKey: "ticket_count")
+        if remainCount != nil{
+            aCoder.encodeObject(remainCount, forKey: "ticket_count")
         }
         if ticketStatus != nil{
             aCoder.encodeObject(ticketStatus, forKey: "ticket_status")

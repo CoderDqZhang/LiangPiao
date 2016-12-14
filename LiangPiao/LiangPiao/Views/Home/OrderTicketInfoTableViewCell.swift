@@ -92,7 +92,7 @@ class OrderTicketInfoTableViewCell: UITableViewCell {
         ticketTitle.text = model.show.title
         UILabel.changeLineSpaceForLabel(ticketTitle, withSpace: TitleLineSpace)
         ticketTime.text = "时间：\(model.session.startTime)"
-        ticketMuch.text = "票面：\(model.ticket.originalTicket.name) x \(model.ticketCount)"
+        ticketMuch.text = "票面：\(model.ticket.originalTicket.name) x \(model.remainCount)"
         if model.ticket.region == "" {
             ticketRow.text = "座位：择优分配"
         }else{
@@ -114,14 +114,14 @@ class OrderTicketInfoTableViewCell: UITableViewCell {
         ticketTitle.text = model.show.title
         UILabel.changeLineSpaceForLabel(ticketTitle, withSpace: TitleLineSpace)
         ticketTime.text = "时间：\(model.session.startTime)"
-        ticketMuch.text = "票面：\(model.ticket.originalTicket.name) x \(model.ticketCount)"
+        ticketMuch.text = "票面：\(model.ticket.originalTicket.name)"
         if model.ticket.region == "" {
             ticketAllMuch.text = "座位：择优分配"
         }else{
             let row = model.ticket.row == "" ? "择优分配":"\(model.ticket.row)排"
             ticketAllMuch.text = "座位：\(model.ticket.region) \(row)"
         }
-        ticketRow.text = "数量：\(model.ticketCount)"
+        ticketRow.text = "数量：\(model.remainCount)"
         
         self.updateConstraintsIfNeeded()
     }

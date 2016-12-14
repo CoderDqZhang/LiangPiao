@@ -39,6 +39,7 @@ class OrderDetailViewController: UIViewController {
     
     
     func setUpView() {
+        viewModel.controller = self
         tableView = UITableView(frame: CGRectZero, style: .Grouped)
         tableView.backgroundColor = UIColor.init(hexString: App_Theme_E9EBF2_Color)
         tableView.delegate = self
@@ -252,12 +253,12 @@ extension OrderDetailViewController : UITableViewDataSource {
             if viewModel.model.status == 0 {
                 let cell = tableView.dequeueReusableCellWithIdentifier("OrderWaitePayTableViewCell", forIndexPath: indexPath) as! OrderWaitePayTableViewCell
                 cell.selectionStyle = .None
-                viewModel.tableViewCellOrderWaitePayTableViewCell(cell)
+                viewModel.tableViewCellOrderWaitePayTableViewCell(cell, indexPath:indexPath)
                 return cell
             }else{
                 let cell = tableView.dequeueReusableCellWithIdentifier("OrderDoneTableViewCell", forIndexPath: indexPath) as! OrderDoneTableViewCell
                 cell.selectionStyle = .None
-                viewModel.tableViewCellOrderDoneTableViewCell(cell)
+                viewModel.tableViewCellOrderDoneTableViewCell(cell, indexPath:indexPath)
                 return cell
             }
          case 1:

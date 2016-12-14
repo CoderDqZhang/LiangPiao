@@ -52,7 +52,7 @@ class OrderPayTableViewCell: UITableViewCell {
     }
     
     func setData(model:OrderList) {
-        let much = Double(Double(model.ticketCount) * Double(model.ticket.price))
+        let much = Double(Double(model.remainCount) * Double(model.ticket.price))
         receiptsLabel.text = "\(much)0 元"
         packingFee.text = "\(model.deliveryPrice).00 元"
     }

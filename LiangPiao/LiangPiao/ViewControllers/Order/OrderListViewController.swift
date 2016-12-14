@@ -59,7 +59,10 @@ class OrderListViewController: BaseViewController {
     }
     
     func bindViewModel(){
-        viewModel.requestOrderList(self,isNext: false)
+        viewModel.controller = self
+        if UserInfoModel.isLoggedIn() {
+            viewModel.requestOrderList(self,isNext: false)
+        }
     }
     
     func setUpLoadMoreData(){

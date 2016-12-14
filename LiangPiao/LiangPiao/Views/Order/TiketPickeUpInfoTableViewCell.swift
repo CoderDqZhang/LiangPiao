@@ -49,7 +49,6 @@ class TiketPickeUpInfoTableViewCell: UITableViewCell {
         
         ticketNowPrice = UILabel()
         ticketNowPrice.text = "2280"
-        
         ticketNowPrice.font = App_Theme_PinFan_R_14_Font
         ticketNowPrice.textColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
         self.contentView.addSubview(ticketNowPrice)
@@ -113,6 +112,20 @@ class TiketPickeUpInfoTableViewCell: UITableViewCell {
             self.setUpStatuesView(statuesArray, types: nil)
         }else{
             self.setUpStatuesView([], types: nil)
+        }
+        
+        if model.remainCount == 0 {
+            ticketNomalPrice.textColor = UIColor.init(hexString: App_Theme_BBC1CB_Color)
+            ticketRow.textColor = UIColor.init(hexString: App_Theme_BBC1CB_Color)
+            ticketDescirp.textColor = UIColor.init(hexString: App_Theme_BBC1CB_Color)
+            ticketNowPrice.textColor = UIColor.init(hexString: App_Theme_BBC1CB_Color)
+            editBtn.hidden = true
+        }else{
+            editBtn.hidden = false
+            ticketNomalPrice.textColor = UIColor.init(hexString: App_Theme_384249_Color)
+            ticketRow.textColor = UIColor.init(hexString: App_Theme_384249_Color)
+            ticketDescirp.textColor = UIColor.init(hexString: App_Theme_BBC1CB_Color)
+            ticketNowPrice.textColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
         }
     }
     

@@ -58,12 +58,14 @@ class OrderWaitePayTableViewCell: UITableViewCell {
         orderName = UILabel()
         orderName.text = "冉灿    18602035508"
         orderName.textColor = UIColor.init(hexString: App_Theme_384249_Color)
+        orderName.numberOfLines = 0
         orderName.font = App_Theme_PinFan_R_13_Font
         self.contentView.addSubview(orderName)
         
         orderAddress = UILabel()
         orderAddress.text = "朝阳区香河园小区西坝河中里35号楼二层207"
         orderAddress.textColor = UIColor.init(hexString: App_Theme_384249_Color)
+        orderAddress.numberOfLines = 0
         orderAddress.font = App_Theme_PinFan_R_13_Font
         self.contentView.addSubview(orderAddress)
         
@@ -78,11 +80,23 @@ class OrderWaitePayTableViewCell: UITableViewCell {
             orderName.text = "\(model.address.name) \(model.address.mobileNum)"
             let str = "\(model.address.location)\(model.address.address)".stringByReplacingOccurrencesOfString(" ", withString: "")
             orderAddress.text = str
-        }else{
-            orderName.text = "姓名：\(model.name)"
-            orderAddress.text = "电话：\(model.phone)"
+        }else if model.deliveryType == 2 {
+            let str = "取票地点：\(model.ticket.selfGetTicketAddress)"
+            orderName.text = str
+            orderAddress.text = "取票时间：\(model.ticket.selfGetTicketDate)"
+            orderName.snp_updateConstraints { (make) in
+                make.height.equalTo(str.heightWithConstrainedWidth(str, font: App_Theme_PinFan_R_13_Font!, width: SCREENWIDTH - 30) + 3)
+            }
+        }else {
+            let str = "取票地点：\(model.ticket.selfGetTicketAddress)"
+            orderName.text = str
+            orderAddress.text = "取票时间：\(model.ticket.selfGetTicketDate)"
+            orderName.snp_updateConstraints { (make) in
+                make.height.equalTo(str.heightWithConstrainedWidth(str, font: App_Theme_PinFan_R_13_Font!, width: SCREENWIDTH - 30) + 3)
+            }
         }
         orderCountDownView.setUpDate("\(model.created)")
+        self.updateConstraintsIfNeeded()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -111,11 +125,14 @@ class OrderWaitePayTableViewCell: UITableViewCell {
             orderName.snp_makeConstraints(closure: { (make) in
                 make.top.equalTo(self.contentView.snp_top).offset(106)
                 make.left.equalTo(self.contentView.snp_left).offset(15)
+                make.right.equalTo(self.orderImage.snp_left).offset(-15)
             })
             
             orderAddress.snp_makeConstraints(closure: { (make) in
                 make.top.equalTo(self.orderName.snp_bottom).offset(1)
                 make.left.equalTo(self.contentView.snp_left).offset(15)
+                make.right.equalTo(self.orderImage.snp_left).offset(-15)
+                make.bottom.equalTo(self.contentView.snp_bottom).offset(-28)
             })
             
             lineLabel.snp_makeConstraints(closure: { (make) in

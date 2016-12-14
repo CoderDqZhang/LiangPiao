@@ -189,8 +189,9 @@ class OrderList : NSObject, NSCoding{
     var show : TicketShowModel!
     var status : Int!
     var statusDesc : String!
+    var supplierStatusDesc : String!
     var ticket : TicketList!
-    var ticketCount : Int!
+    var remainCount : Int!
     var total : Int!
     
     
@@ -224,10 +225,11 @@ class OrderList : NSObject, NSCoding{
         }
         status = dictionary["status"] as? Int
         statusDesc = dictionary["status_desc"] as? String
+        supplierStatusDesc = dictionary["supplier_status_desc"] as? String
         if let ticketData = dictionary["ticket"] as? NSDictionary{
             ticket = TicketList(fromDictionary: ticketData)
         }
-        ticketCount = dictionary["ticket_count"] as? Int
+        remainCount = dictionary["ticket_count"] as? Int
         total = dictionary["total"] as? Int
     }
     
@@ -291,11 +293,14 @@ class OrderList : NSObject, NSCoding{
         if statusDesc != nil{
             dictionary["status_desc"] = statusDesc
         }
+        if supplierStatusDesc != nil{
+            dictionary["supplier_status_desc"] = supplierStatusDesc
+        }
         if ticket != nil{
             dictionary["ticket"] = ticket.toDictionary()
         }
-        if ticketCount != nil{
-            dictionary["ticket_count"] = ticketCount
+        if remainCount != nil{
+            dictionary["ticket_count"] = remainCount
         }
         if total != nil{
             dictionary["total"] = total
@@ -327,8 +332,9 @@ class OrderList : NSObject, NSCoding{
         show = aDecoder.decodeObjectForKey("show") as? TicketShowModel
         status = aDecoder.decodeObjectForKey("status") as? Int
         statusDesc = aDecoder.decodeObjectForKey("status_desc") as? String
+        supplierStatusDesc = aDecoder.decodeObjectForKey("supplier_status_desc") as? String
         ticket = aDecoder.decodeObjectForKey("ticket") as? TicketList
-        ticketCount = aDecoder.decodeObjectForKey("ticket_count") as? Int
+        remainCount = aDecoder.decodeObjectForKey("ticket_count") as? Int
         total = aDecoder.decodeObjectForKey("total") as? Int
         
     }
@@ -393,11 +399,14 @@ class OrderList : NSObject, NSCoding{
         if statusDesc != nil{
             aCoder.encodeObject(statusDesc, forKey: "status_desc")
         }
+        if supplierStatusDesc != nil{
+            aCoder.encodeObject(supplierStatusDesc, forKey: "supplier_status_desc")
+        }
         if ticket != nil{
             aCoder.encodeObject(ticket, forKey: "ticket")
         }
-        if ticketCount != nil{
-            aCoder.encodeObject(ticketCount, forKey: "ticket_count")
+        if remainCount != nil{
+            aCoder.encodeObject(remainCount, forKey: "ticket_count")
         }
         if total != nil{
             aCoder.encodeObject(total, forKey: "total")
