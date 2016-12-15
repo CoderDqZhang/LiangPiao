@@ -37,13 +37,10 @@ class MySellConfimViewController: UIViewController {
         tableView.dataSource = self
         tableView.showsVerticalScrollIndicator = false
         tableView.keyboardDismissMode = .OnDrag
-        tableView.registerClass(MySellPriceTableViewCell.self, forCellReuseIdentifier: "MySellPriceTableViewCell")
+        tableView.registerClass(MySellConfimHeaderTableViewCell.self, forCellReuseIdentifier: "MySellConfimHeaderTableViewCell")
         tableView.registerClass(GloabTitleNumberCountTableViewCell.self, forCellReuseIdentifier: "GloabTitleNumberCountTableViewCell")
-        tableView.registerClass(MySellIntrouductTableViewCell.self, forCellReuseIdentifier: "MySellIntrouductTableViewCell")
-        tableView.registerClass(MySellRowTableViewCell.self, forCellReuseIdentifier: "MySellRowTableViewCell")
-        tableView.registerClass(MySellRowTypeTableViewCell.self, forCellReuseIdentifier: "MySellRowTypeTableViewCell")
-        tableView.registerClass(MySellServiceTableViewCell.self, forCellReuseIdentifier: "MySellServiceTableViewCell")
-        tableView.registerClass(GloabTitleAndDetailImageCell.self, forCellReuseIdentifier: "GloabTitleAndDetailImageCell")
+        tableView.registerClass(MySellTicketTableViewCell.self, forCellReuseIdentifier: "MySellTicketTableViewCell")
+        tableView.registerClass(MySellTicketMuchTableViewCell.self, forCellReuseIdentifier: "MySellTicketMuchTableViewCell")
         tableView.separatorStyle = .None
         self.view.addSubview(tableView)
         
@@ -58,8 +55,11 @@ class MySellConfimViewController: UIViewController {
     
     func setNavigationItem(){
         self.setNavigationItemBack()
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "卖票须知", style: .Plain, target: self, action: #selector(MySellConfimViewController.rightItemPress))
     }
     
+    func rightItemPress(){
+    }
     
     func bindViewModel() {
         viewModel.controller = self
@@ -79,7 +79,7 @@ class MySellConfimViewController: UIViewController {
 
 extension MySellConfimViewController : UITableViewDelegate {
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 4
+        return 1
     }
     
     func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -107,42 +107,24 @@ extension MySellConfimViewController : UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        switch indexPath.section {
+        switch indexPath.row{
         case 0:
-            switch indexPath.row {
-            case 0:
-                let cell = tableView.dequeueReusableCellWithIdentifier("MySellPriceTableViewCell", forIndexPath: indexPath) as! MySellPriceTableViewCell
-                cell.selectionStyle = .None
-                return cell
-            case 3:
-                let cell = tableView.dequeueReusableCellWithIdentifier("MySellIntrouductTableViewCell", forIndexPath: indexPath) as! MySellIntrouductTableViewCell
-                cell.selectionStyle = .None
-                return cell
-            default:
-                let cell = tableView.dequeueReusableCellWithIdentifier("GloabTitleNumberCountTableViewCell", forIndexPath: indexPath) as! GloabTitleNumberCountTableViewCell
-                viewModel.tableViewCellGloabTitleNumberCountTableViewCell(cell, indexPath: indexPath)
-                cell.selectionStyle = .None
-                return cell
-            }
+            let cell = tableView.dequeueReusableCellWithIdentifier("MySellConfimHeaderTableViewCell", forIndexPath: indexPath) as! MySellConfimHeaderTableViewCell
+            viewModel.tableViewMySellConfimHeaderTableViewCell(cell, indexPath: indexPath)
+            cell.selectionStyle = .None
+            return cell
         case 1:
-            switch indexPath.row {
-            case 2:
-                let cell = tableView.dequeueReusableCellWithIdentifier("MySellRowTableViewCell", forIndexPath: indexPath) as! MySellRowTableViewCell
-                cell.selectionStyle = .None
-                return cell
-            case 3:
-                let cell = tableView.dequeueReusableCellWithIdentifier("MySellRowTypeTableViewCell", forIndexPath: indexPath) as! MySellRowTypeTableViewCell
-                cell.selectionStyle = .None
-                return cell
-            default:
-                let cell = tableView.dequeueReusableCellWithIdentifier("GloabTitleAndDetailImageCell", forIndexPath: indexPath) as! GloabTitleAndDetailImageCell
-                viewModel.tableViewGloabTitleAndDetailImageCell(cell, indexPath:indexPath)
-                cell.selectionStyle = .None
-                return cell
-            }
+            let cell = tableView.dequeueReusableCellWithIdentifier("MySellTicketTableViewCell", forIndexPath: indexPath) as! MySellTicketTableViewCell
+            viewModel.tableViewCellMySellTicketTableViewCell(cell, indexPath: indexPath)
+            cell.selectionStyle = .None
+            return cell
+        case 2:
+            let cell = tableView.dequeueReusableCellWithIdentifier("GloabTitleNumberCountTableViewCell", forIndexPath: indexPath) as! GloabTitleNumberCountTableViewCell
+            viewModel.tableViewCellGloabTitleNumberCountTableViewCell(cell, indexPath: indexPath)
+            cell.selectionStyle = .None
+            return cell
         default:
-            let cell = tableView.dequeueReusableCellWithIdentifier("MySellServiceTableViewCell", forIndexPath: indexPath) as! MySellServiceTableViewCell
-            viewModel.tableViewMySellServiceTableViewCell(cell, indexPath: indexPath)
+            let cell = tableView.dequeueReusableCellWithIdentifier("MySellTicketMuchTableViewCell", forIndexPath: indexPath) as! MySellTicketMuchTableViewCell
             cell.selectionStyle = .None
             return cell
         }

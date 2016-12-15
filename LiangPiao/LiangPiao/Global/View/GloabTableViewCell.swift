@@ -554,7 +554,7 @@ class GloabTitleNumberCountTableViewCell: UITableViewCell {
         titleLabel.font = App_Theme_PinFan_R_13_Font!
         self.contentView.addSubview(titleLabel)
         
-        numberTickView = NumberTickView.init(frame: CGRectMake(15, 56, SCREENWIDTH - 30, 34), buttonWidth: 70)
+        numberTickView = NumberTickView.init(frame: CGRectMake(15, 56, SCREENWIDTH - 30, 41), buttonWidth: 70)
         
         self.contentView.addSubview(numberTickView)
         

@@ -11,11 +11,19 @@ import UIKit
 class MySellConfimViewModel: NSObject {
     
     var controller:MySellConfimViewController!
+    var tickeListView:GloableTitleList!
     
-    let tableViewHeight = [[110,97,97,109],[55,55,55,55,55],[114],[114]]
-    let numberOfRowInSection = [4,5,1,1]
     override init() {
-        
+        super.init()
+        self.setUpView()
+    }
+    
+    func setUpView(){
+        tickeListView = GloableTitleList.init(frame: CGRect.init(x: 15, y: 62, width: SCREENWIDTH - 30, height: 0), title: ["80","280","380","680","980","800（400*2）","800","980"])
+        tickeListView.frame = CGRect.init(x: 15, y: 62, width: SCREENWIDTH - 30, height: tickeListView.maxHeight)
+        tickeListView.gloableTitleListClouse = { title, index in
+            print("\(title) \(index)")
+        }
     }
     
     func tableViewHeightForFooterInSection(section:Int) -> CGFloat{
@@ -24,7 +32,19 @@ class MySellConfimViewModel: NSObject {
     }
     
     func tableViewHeightForRowAtIndexPath(indexPath:NSIndexPath) -> CGFloat {
-        return CGFloat(tableViewHeight[indexPath.section][indexPath.row])
+        switch indexPath.row {
+        case 0:
+            return controller.tableView.fd_heightForCellWithIdentifier("MySellConfimHeaderTableViewCell", configuration: { (cell) in
+                self.setConfigHeaderCell(cell as! MySellConfimHeaderTableViewCell, indexPath: indexPath)
+            })
+        case 1:
+            return tickeListView.maxHeight + 78
+        case 2:
+            return 105
+        default:
+            return 173
+        }
+        
     }
     
     func tableViewDidSelect(indexPath:NSIndexPath) {
@@ -32,17 +52,26 @@ class MySellConfimViewModel: NSObject {
     }
     
     func tableViewNumberOfRowsInSection(section:Int) -> Int{
-        return numberOfRowInSection[section]
+        return 4
     }
     
     func tableViewCellGloabTitleNumberCountTableViewCell(cell:GloabTitleNumberCountTableViewCell, indexPath:NSIndexPath) {
-        switch indexPath.row {
-        case 1:
-            cell.setText("售卖数量", textFieldText: "1")
-        default:
-            cell.setText("售卖价格", textFieldText: "220.00")
-        }
+        cell.setText("售卖数量", textFieldText: "1")
     }
+    
+    func setConfigHeaderCell(cell:MySellConfimHeaderTableViewCell, indexPath:NSIndexPath) {
+        
+    }
+    
+    
+    func tableViewMySellConfimHeaderTableViewCell(cell:MySellConfimHeaderTableViewCell, indexPath:NSIndexPath) {
+        self.setConfigHeaderCell(cell, indexPath: indexPath)
+    }
+    
+    func tableViewCellMySellTicketTableViewCell(cell:MySellTicketTableViewCell, indexPath:NSIndexPath) {
+        cell.contentView.addSubview(tickeListView)
+    }
+    
     
     func tableViewGloabTitleAndDetailImageCell(cell:GloabTitleAndDetailImageCell, indexPath:NSIndexPath) {
         switch indexPath.row {

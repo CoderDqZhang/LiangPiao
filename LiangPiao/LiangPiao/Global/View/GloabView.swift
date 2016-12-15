@@ -376,7 +376,7 @@ class NumberTickView: UIView {
         self.layer.borderWidth = 0.5
         downButton = UIButton(type: .Custom)
         downButton.setImage(UIImage.init(named: "Icon_Reduce_Disable"), forState: .Normal)
-        downButton.frame = CGRectMake(0, 0, buttonWidth, NumberTickButtonHeight)
+        downButton.frame = CGRectMake(0, 0, buttonWidth, frame.size.height)
         downButton.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (object) in
             if self.number > 1 {
                 self.number = self.number - 1
@@ -393,7 +393,7 @@ class NumberTickView: UIView {
             self.numberTextField.text = "\(self.number)"
             self.setNumberDownColor()
         }
-        upButton.frame = CGRectMake(self.frame.size.width - buttonWidth, 0, buttonWidth, NumberTickButtonHeight)
+        upButton.frame = CGRectMake(self.frame.size.width - buttonWidth, 0, buttonWidth, frame.size.height)
         self.addSubview(upButton)
         numberTextField = UITextField()
         numberTextField.text = "\(self.number)"
@@ -402,7 +402,7 @@ class NumberTickView: UIView {
         numberTextField.layer.borderColor = UIColor.init(hexString: App_Theme_384249_Color).CGColor
         numberTextField.layer.borderWidth = 0.5
         numberTextField.font = App_Theme_PinFan_M_15_Font
-        numberTextField.frame = CGRectMake(buttonWidth, 0, self.frame.size.width - 2 * buttonWidth, NumberTickButtonHeight)
+        numberTextField.frame = CGRectMake(buttonWidth, 0, self.frame.size.width - 2 * buttonWidth, frame.size.height)
         numberTextField.textAlignment = .Center
         self.addSubview(numberTextField)
     }
@@ -580,6 +580,96 @@ class CustomButton: UIButton {
     }
 }
 
+let GloableTitleListLabelHeight:CGFloat = 41
+let GloableTitleListLabelHSpace:CGFloat = 13
+let GloableTitleListLabelVSpace:CGFloat = 12
+
+enum GloableLabelType {
+    case selectType
+    case nomalType
+}
+typealias GloableTitleListClouse = (title:String, index:Int) -> Void
+class GloableTitleList: UIView {
+    var maxHeight:CGFloat = 0
+    var originX:CGFloat = 0
+    var originY:CGFloat = 0
+    var tileCount:NSInteger = 0
+    var gloableTitleListClouse:GloableTitleListClouse!
+    
+    init(frame:CGRect, title:NSArray) {
+        super.init(frame: frame)
+        tileCount = title.count
+        for index in 0...title.count - 1 {
+            var labelFrame = CGRectZero
+            let str = title.objectAtIndex(index) as! String
+            let strWidth = CGFloat(Int((str).widthWithConstrainedHeight(str , font: App_Theme_PinFan_R_13_Font!, height: 41) + 54))
+            labelFrame = CGRect.init(x: originX, y: originY, width: strWidth, height: GloableTitleListLabelHeight)
+            if CGRectGetMaxX(labelFrame) > frame.size.width {
+                originX = 0
+                originY = CGRectGetMaxY(labelFrame) + GloableTitleListLabelVSpace
+                labelFrame = CGRect.init(x: originX, y: originY, width: strWidth, height: GloableTitleListLabelHeight)
+            }
+            let label = self.createLabel(str, frame: labelFrame, type: .nomalType)
+            if index == 0 {
+                self.updateLabelType(label, type: .selectType)
+            }
+            label.tag = index
+            originX = CGRectGetMaxX(label.frame) + GloableTitleListLabelHSpace
+            let singTap = UITapGestureRecognizer.init(target: self, action: #selector(GloableTitleList.tapGesture(_:)))
+            singTap.numberOfTapsRequired = 1
+            singTap.numberOfTouchesRequired = 1
+//            label.userInteractionEnabled = true
+            label.addGestureRecognizer(singTap)
+            self.addSubview(label)
+        }
+        maxHeight = CGRectGetMaxY((self.viewWithTag(title.count - 1)?.frame)!)
+    }
+    
+    func tapGesture(tap:UITapGestureRecognizer) {
+        for index in 0...tileCount - 1 {
+            let label = self.viewWithTag(index) as! UILabel
+            if index == tap.view?.tag {
+                self.updateLabelType(label, type: .selectType)
+            }else{
+                self.updateLabelType(label, type: .nomalType)
+            }
+        }
+        if self.gloableTitleListClouse != nil {
+            let label = self.viewWithTag((tap.view?.tag)!) as! UILabel
+            self.gloableTitleListClouse(title: label.text!, index:(tap.view?.tag)!)
+        }
+    }
+    
+    func createLabel(title:String, frame:CGRect, type:GloableLabelType) -> UILabel {
+        let label = UILabel(frame: frame)
+        label.text = title
+        label.textAlignment = .Center
+        label.layer.masksToBounds = true
+        label.font = App_Theme_PinFan_R_13_Font
+        self.updateLabelType(label, type: type)
+        return label
+    }
+    
+    func updateLabelType(label:UILabel, type:GloableLabelType) {
+        if type == .nomalType {
+            label.backgroundColor = UIColor.whiteColor()
+            label.layer.cornerRadius = 3.0
+            label.layer.borderWidth = 0.5
+            label.textColor = UIColor.init(hexString: App_Theme_384249_Color)
+            label.layer.borderColor = UIColor.init(hexString: App_Theme_556169_Color).CGColor
+        }else{
+            label.backgroundColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
+            label.layer.cornerRadius = 3.0
+            label.layer.borderWidth = 0.1
+            label.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
+            label.layer.borderColor = UIColor.init(hexString: App_Theme_4BD4C5_Color).CGColor
+        }
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
 
 
 

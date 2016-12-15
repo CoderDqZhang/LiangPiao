@@ -10,6 +10,8 @@ import UIKit
 
 class SellViewModel: NSObject {
 
+    var controller:SellTicketsViewController!
+    
     override init() {
         
     }
@@ -18,7 +20,7 @@ class SellViewModel: NSObject {
         return 140
     }
     
-    func tableViewDidSelectRowAtIndexPath(indexPath:NSIndexPath, controller:SellTicketsViewController) {
+    func tableViewDidSelectRowAtIndexPath(indexPath:NSIndexPath) {
         if indexPath.row != 0 {
             let controllerVC = MySellConfimViewController()
             NavigationPushView(controller, toConroller: controllerVC)
