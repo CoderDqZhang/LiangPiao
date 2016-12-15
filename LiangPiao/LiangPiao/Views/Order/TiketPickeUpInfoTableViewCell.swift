@@ -114,7 +114,7 @@ class TiketPickeUpInfoTableViewCell: UITableViewCell {
             self.setUpStatuesView([], types: nil)
         }
         
-        if model.remainCount == 0 {
+        if model.remainCount == 0 || model.status != 1 {
             ticketNomalPrice.textColor = UIColor.init(hexString: App_Theme_BBC1CB_Color)
             ticketRow.textColor = UIColor.init(hexString: App_Theme_BBC1CB_Color)
             ticketDescirp.textColor = UIColor.init(hexString: App_Theme_BBC1CB_Color)

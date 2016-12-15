@@ -110,6 +110,10 @@ class MySellViewModel: NSObject {
         }
         var url = ""
         if isNext {
+            if orderListModel.hasNext == false {
+                self.mySellOrder.tableView.mj_footer.endRefreshing()
+                return
+            }
             url = "\(SupplierOrderList)?page=\(orderListModel.nextPage)"
         }else{
             url = SupplierOrderList
@@ -287,12 +291,16 @@ class MySellViewModel: NSObject {
         if model.sessionList.count != 1 {
             for session in model.sessionList {
                 for ticket in session.ticketList {
-                    ticketCount = ticketCount + ticket.remainCount
+                    if ticket.status == 1 {
+                        ticketCount = ticketCount + ticket.remainCount
+                    }
                 }
             }
         }else{
             for ticket in model.sessionList[0].ticketList {
-                ticketCount = ticketCount + ticket.remainCount
+                if ticket.status == 1 {
+                    ticketCount = ticketCount + ticket.remainCount
+                }
             }
         }
         return "\(ticketCount)"

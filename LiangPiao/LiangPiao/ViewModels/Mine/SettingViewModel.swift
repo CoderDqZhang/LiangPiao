@@ -18,7 +18,10 @@ class SettingViewModel: NSObject {
     }
     
     func numberOfSection() ->Int {
-        return 2
+        if UserInfoModel.isLoggedIn() {
+            return 2
+        }
+        return 1
     }
     
     func numbrOfRowInSection(section:Int) ->Int {

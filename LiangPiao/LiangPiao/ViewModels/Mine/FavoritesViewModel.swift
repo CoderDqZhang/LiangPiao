@@ -58,6 +58,10 @@ class FavoritesViewModel: NSObject {
     func requestFavoriteTicket(controller:FavoriteViewController, isNext:Bool){
         var url = ""
         if isNext {
+            if model.hasNext == false {
+                controller.tableView.mj_footer.endRefreshing()
+                return
+            }
             url = "\(TicketFavorite)?page=\(model.nextPage)"
         }else{
             url = "\(TicketFavorite)"

@@ -38,6 +38,10 @@ class DetailAcountViewModel: NSObject {
     func requestDetailAcount(isNext:Bool){
         var url = ""
         if isNext {
+            if model.hasNext == false {
+                self.controller.tableView.mj_footer.endRefreshing()
+                return
+            }
             url = "\(WallHistory)?page=\(model.nextPage)"
         }else{
             url = WallHistory

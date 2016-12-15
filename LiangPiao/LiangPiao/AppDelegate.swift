@@ -9,6 +9,7 @@
 import UIKit
 import Fabric
 import Crashlytics
+import Alamofire
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -37,7 +38,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.logUser()
         Crashlytics.sharedInstance().debugMode = true
         Fabric.with([Crashlytics.self])
-        
+//        Alamofire.NetworkReachabilityManager.NetworkReachabilityStatus
         WXApi.registerApp(WeiXinAppID)
         TalkingData.setExceptionReportEnabled(true)
         UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .None)

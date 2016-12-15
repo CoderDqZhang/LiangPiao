@@ -55,17 +55,9 @@ class TicketCategoryViewModel: NSObject {
             }else if model.name == "体育赛事" {
                 categoryModels.replaceObjectAtIndex(4, withObject: model)
             }else if model.name == "舞蹈芭蕾" {
-                if tempCategory.count == 5 {
-                    categoryModels.replaceObjectAtIndex(5, withObject: model)
-                }else{
-                    categoryModels.replaceObjectAtIndex(5, withObject: model)
-                }
+                categoryModels.replaceObjectAtIndex(tempCategory.count - i, withObject: model)
             }else if model.name == "曲苑杂技" {
-                if tempCategory.count == 5 {
-                    categoryModels.replaceObjectAtIndex(5, withObject: model)
-                }else{
-                    categoryModels.replaceObjectAtIndex(6, withObject: model)
-                }
+                categoryModels.replaceObjectAtIndex(tempCategory.count - i, withObject: model)
             }
         }
         
