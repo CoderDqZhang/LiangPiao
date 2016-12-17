@@ -38,7 +38,7 @@ class MyProfileViewController: UIViewController {
     
     override func viewWillDisappear(animated: Bool) {
         self.view.endEditing(true)
-        if KWINDOWDS?.viewWithTag(1) != nil {
+        if sexPickerView != nil {
             sexPickerView.remove()
         }
     }

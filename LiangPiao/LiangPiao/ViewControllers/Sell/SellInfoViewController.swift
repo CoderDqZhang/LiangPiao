@@ -31,6 +31,19 @@ class SellInfoViewController: UIViewController {
     deinit {
     }
     
+    override func viewWillDisappear(animated: Bool) {
+        self.view.endEditing(true)
+        if sellType != nil {
+            sellType.remove()
+        }
+        if ticketRegion != nil {
+            ticketRegion.remove()
+        }
+        if ticketRow != nil {
+            ticketRow.remove()
+        }
+    }
+    
     func setUpView() {
         
         tableView = UITableView(frame: CGRectZero, style: .Grouped)
@@ -66,6 +79,7 @@ class SellInfoViewController: UIViewController {
     }
     
     func rightItemPress(){
+        KWINDOWDS!.addSubview(GloableServiceView.init(title: "卖票规则", message: self.viewModel.messageTitle()))
     }
     
     func bindViewModel() {
@@ -137,6 +151,21 @@ class SellInfoViewController: UIViewController {
         return orderListView
     }
     
+    func hiderPickerView(tag:NSInteger) {
+        for index in 0...2 {
+            if index != tag {
+                if sellType != nil {
+                    sellType.remove()
+                }
+                if ticketRegion != nil {
+                    ticketRegion.remove()
+                }
+                if ticketRow != nil {
+                    ticketRow.remove()
+                }
+            }
+        }
+    }
 }
 
 extension SellInfoViewController : UITableViewDelegate {
@@ -201,9 +230,13 @@ extension SellInfoViewController : UITableViewDataSource {
 
 extension SellInfoViewController : ZHPickViewDelegate {
     func toobarDonBtnHaveClick(pickView: ZHPickView!, resultString: String!) {
+        self.hiderPickerView(pickView.tag)
         if resultString != nil {
             let cell = tableView.cellForRowAtIndexPath(NSIndexPath.init(forRow: pickView.tag, inSection: 0)) as! GloabTitleAndDetailImageCell
             viewModel.updateGloabTitleAndDetailImageCell(cell, row:pickView.tag, title:resultString)
+            if pickView.tag != 2 {
+                self.tableView(tableView, didSelectRowAtIndexPath: NSIndexPath.init(forRow:pickView.tag + 1, inSection: 0))
+            }
         }
     }
 }

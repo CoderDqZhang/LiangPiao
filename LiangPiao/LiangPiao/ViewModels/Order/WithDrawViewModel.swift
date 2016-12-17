@@ -56,9 +56,7 @@ class WithDrawViewModel: NSObject {
             })
             return
         }
-        let parameters = ["alipay_account":form.aliPayCount,"alipay_name":form.aliPayName,"amount":form.amount]
-//        let parameters = ["alipay_account":"18363899723","alipay_name":"张德全","amount":0.01]
-        
+        let parameters = ["alipay_account":form.aliPayCount,"alipay_name":form.aliPayName,"amount":form.amount]        
         BaseNetWorke.sharedInstance.postUrlWithString(WallWithDraw, parameters: parameters).subscribeNext { (resultDic) in
             UserDefaultsSetSynchronize(form.aliPayCount, key: "aliPayCount")
             UserDefaultsSetSynchronize(form.aliPayName, key: "aliPayName")

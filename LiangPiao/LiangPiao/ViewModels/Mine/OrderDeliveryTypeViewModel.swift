@@ -242,16 +242,5 @@ class OrderDeliveryTypeViewModel: NSObject {
             }
         }
     }
-    
-    func talbleViewCellOrderExpressDetailTableViewCell(cell:OrderExpressDetailTableViewCell, indexPath:NSIndexPath){
-        switch indexPath.row {
-        case 2:
-            cell.setData("北京市崇文区东花市北里20号楼6单元501室")
-            self.present.address = cell.textLabel?.text
-        default:
-            cell.setData("北京市崇文区东花市北里20号楼6单元501室sfsdfs")
-            self.visite.address = cell.textLabel?.text
-        }
-    }
 
 }

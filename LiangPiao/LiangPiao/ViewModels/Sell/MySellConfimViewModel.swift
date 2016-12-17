@@ -31,6 +31,10 @@ class MySellConfimViewModel: NSObject {
     
     static let shareInstance = MySellConfimViewModel()
     
+    func messageTitle() -> String {
+        return "演出结束后第二天，完成票款结算\n 所有交易免佣金，仅含1%第三方支付平台交易手续费"
+    }
+    
     //MARK: MySellConfimViewController
     func setUpView(){
         tickeListView = GloableTitleList.init(frame: CGRect.init(x: 15, y: 62, width: SCREENWIDTH - 30, height: 0), title: ["80","280","380","680","980","800（400*2）","800","980"])
@@ -79,6 +83,14 @@ class MySellConfimViewModel: NSObject {
     
     func tableViewCellMySellTicketMuchTableViewCell(cell:MySellTicketMuchTableViewCell, indexPath:NSIndexPath) {
         cell.muchTextField.rac_textSignal().subscribeNext { (str) in
+            if str as! String == "" {
+                self.controller.bottomButton.button.enabled = false
+                self.controller.bottomButton.button.buttonSetThemColor(App_Theme_DDE0E5_Color, selectColor: App_Theme_DDE0E5_Color, size: CGSize.init(width: SCREENWIDTH, height: 49))
+                self.controller.bottomButton.button.backgroundColor = UIColor.init(hexString: App_Theme_DDE0E5_Color)
+            }else{
+                self.controller.bottomButton.button.enabled = true
+                self.controller.bottomButton.button.buttonSetThemColor(App_Theme_4BD4C5_Color, selectColor: App_Theme_40C6B7_Color, size: CGSize.init(width: SCREENWIDTH, height: 49))
+            }
             self.sellFormModel.price = str as! String
         }
     }
