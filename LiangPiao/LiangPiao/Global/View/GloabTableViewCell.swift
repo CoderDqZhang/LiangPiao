@@ -197,6 +197,15 @@ class GloabTitleAndDetailImageCell: UITableViewCell {
         }
     }
     
+    func setDetailText(text:String) {
+        detailLabel.text = text
+        if detailLabel.text == "未选择" {
+            detailLabel.textColor = UIColor.init(hexString: App_Theme_BBC1CB_Color)
+        }else{
+            detailLabel.textColor = UIColor.init(hexString: App_Theme_8A96A2_Color)
+        }
+    }
+    
     func hideLineLabel() {
         self.lineLable.hidden = true
     }

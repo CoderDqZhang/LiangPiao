@@ -20,5 +20,6 @@
 #import "UserInfoModel.h"
 #import "UILabel+ChangeLineSpaceAndWordSpace.h"
 #import "TalkingData.h"
+#import "SellFormModel.h"
 #import "UIViewController+TalKingData.h"
-
+#import "NSString+Utils.h"

@@ -47,6 +47,7 @@ class MySellTicketTableViewCell: UITableViewCell {
         }
         super.updateConstraints()
     }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

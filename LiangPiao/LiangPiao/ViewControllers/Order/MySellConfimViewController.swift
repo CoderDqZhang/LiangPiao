@@ -13,7 +13,8 @@ class MySellConfimViewController: UIViewController {
     
     var tableView:UITableView!
     var expressage:ZHPickView!
-    var viewModel = MySellConfimViewModel()
+    var viewModel = MySellConfimViewModel.shareInstance
+    var bottomButton:GloableBottomButtonView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,7 +33,7 @@ class MySellConfimViewController: UIViewController {
     func setUpView() {
         
         tableView = UITableView(frame: CGRectZero, style: .Grouped)
-        tableView.backgroundColor = UIColor.init(hexString: App_Theme_E9EBF2_Color)
+        tableView.backgroundColor = UIColor.whiteColor()
         tableView.delegate = self
         tableView.dataSource = self
         tableView.showsVerticalScrollIndicator = false
@@ -48,8 +49,14 @@ class MySellConfimViewController: UIViewController {
             make.top.equalTo(self.view.snp_top).offset(0)
             make.left.equalTo(self.view.snp_left).offset(0)
             make.right.equalTo(self.view.snp_right).offset(0)
-            make.bottom.equalTo(self.view.snp_bottom).offset(0)
+            make.bottom.equalTo(self.view.snp_bottom).offset(-44)
         }
+        
+        bottomButton = GloableBottomButtonView.init(frame: nil, title: "继续", tag: nil, action: { (tag) in
+            NavigationPushView(self, toConroller: SellInfoViewController())
+        })
+        
+        self.view.addSubview(bottomButton)
         
     }
     
@@ -125,6 +132,7 @@ extension MySellConfimViewController : UITableViewDataSource {
             return cell
         default:
             let cell = tableView.dequeueReusableCellWithIdentifier("MySellTicketMuchTableViewCell", forIndexPath: indexPath) as! MySellTicketMuchTableViewCell
+            viewModel.tableViewCellMySellTicketMuchTableViewCell(cell, indexPath:indexPath)
             cell.selectionStyle = .None
             return cell
         }

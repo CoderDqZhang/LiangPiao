@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class OrderDeliveryTypeViewController: UIViewController {
 
     var tableView:UITableView!
@@ -32,7 +33,6 @@ class OrderDeliveryTypeViewController: UIViewController {
         tableView.separatorStyle = .None
         tableView.registerClass(OrderExpressTableViewCell.self, forCellReuseIdentifier: "OrderExpressTableViewCell")
         tableView.registerClass(GloabTextFieldCell.self, forCellReuseIdentifier: "GloabTextFieldCell")
-        tableView.registerClass(OrderExpressDetailTableViewCell.self, forCellReuseIdentifier: "OrderExpressDetailTableViewCell")
         tableView.registerClass(GloabTitleAndSwitchBarTableViewCell.self, forCellReuseIdentifier: "GloabTitleAndSwitchBarTableViewCell")
         self.view.addSubview(tableView)
         tableView.snp_makeConstraints { (make) in
@@ -56,19 +56,23 @@ class OrderDeliveryTypeViewController: UIViewController {
     
     
     func bindViewModel(){
+        viewModel.controller = self
+        viewModel.isRecivi = viewModel.present.isSelect
+        viewModel.isVisite = viewModel.visite.isSelect
+        viewModel.updateDeliveryType()
+        self.tableView.reloadData()
         
     }
     
     func setUpNavigationItem(){
         self.setNavigationItemBack()
-        let saveItem = UIBarButtonItem.init(title: "保存", style: .Plain, target: self, action: #selector(OrderDeliveryTypeViewController.saveDelivery))
+        let saveItem = UIBarButtonItem.init(title: "保存", style: .Plain, target: self, action: #selector(OrderDeliveryTypeViewController.saveDeviliType))
         self.navigationItem.rightBarButtonItem = saveItem
     }
     
-    func saveDelivery(){
-        
+    func saveDeviliType(){
+        viewModel.saveDelivery()
     }
-    
     
     /*
      // MARK: - Navigation
@@ -83,7 +87,7 @@ class OrderDeliveryTypeViewController: UIViewController {
     func cellOrderExpressTableViewCell(tableView:UITableView,indexPath:NSIndexPath) -> OrderExpressTableViewCell{
         let cell = tableView.dequeueReusableCellWithIdentifier("OrderExpressTableViewCell", forIndexPath: indexPath) as! OrderExpressTableViewCell
         cell.selectionStyle = .None
-        
+        viewModel.talbleViewcellOrderExpressTableViewCell(cell, indexPath: indexPath)
         return cell
     }
     
@@ -101,12 +105,6 @@ class OrderDeliveryTypeViewController: UIViewController {
         return cell
     }
     
-    func cellOrderExpressDetailTableViewCell(tableView:UITableView,indexPath:NSIndexPath) -> OrderExpressDetailTableViewCell{
-        let cell = tableView.dequeueReusableCellWithIdentifier("OrderExpressDetailTableViewCell", forIndexPath: indexPath) as! OrderExpressDetailTableViewCell
-        cell.selectionStyle = .None
-        viewModel.talbleViewCellOrderExpressDetailTableViewCell(cell, indexPath: indexPath)
-        return cell
-    }
 }
 
 extension OrderDeliveryTypeViewController : UITableViewDelegate {
@@ -155,8 +153,6 @@ extension OrderDeliveryTypeViewController : UITableViewDataSource {
                 return cellOrderExpressTableViewCell(tableView, indexPath: indexPath)
             case 1,5:
                 return cellGloabTitleAndSwitchBarTableViewCell(tableView, indexPath: indexPath)
-            case 2,6:
-                return cellOrderExpressDetailTableViewCell(tableView, indexPath: indexPath)
             default:
                 return cellGloabTextFieldCell(tableView, indexPath: indexPath)
             }
@@ -165,12 +161,10 @@ extension OrderDeliveryTypeViewController : UITableViewDataSource {
                 switch indexPath.row {
                 case 0:
                     return cellOrderExpressTableViewCell(tableView, indexPath: indexPath)
-                case 4,5:
-                    return cellGloabTextFieldCell(tableView, indexPath: indexPath)
                 case 1,2:
                     return cellGloabTitleAndSwitchBarTableViewCell(tableView, indexPath: indexPath)
                 default:
-                    return cellOrderExpressDetailTableViewCell(tableView, indexPath: indexPath)
+                    return cellGloabTextFieldCell(tableView, indexPath: indexPath)
                 }
             }else{
                 switch indexPath.row {
@@ -178,8 +172,6 @@ extension OrderDeliveryTypeViewController : UITableViewDataSource {
                     return cellOrderExpressTableViewCell(tableView, indexPath: indexPath)
                 case 1,5:
                     return cellGloabTitleAndSwitchBarTableViewCell(tableView, indexPath: indexPath)
-                case 2:
-                    return cellOrderExpressDetailTableViewCell(tableView, indexPath: indexPath)
                 default:
                     return cellGloabTextFieldCell(tableView, indexPath: indexPath)
                 }

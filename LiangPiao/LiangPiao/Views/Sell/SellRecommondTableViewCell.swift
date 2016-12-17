@@ -65,7 +65,7 @@ class SellRecommondTableViewCell: UITableViewCell {
         ticketMuch = UILabel()
         ticketMuch.text = "80-360"
         ticketMuch.textColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
-        ticketMuch.font = App_Theme_PinFan_R_21_Font
+        ticketMuch.font = App_Theme_PinFan_R_18_Font
         self.contentView.addSubview(ticketMuch)
         
         sellButton = UIButton(type: .Custom)
@@ -116,7 +116,7 @@ class SellRecommondTableViewCell: UITableViewCell {
             
             ticketmMuch.snp_makeConstraints(closure: { (make) in
                 make.left.equalTo(self.ticketMuch.snp_right).offset(4)
-                make.bottom.equalTo(self.contentView.snp_bottom).offset(-15)
+                make.bottom.equalTo(self.contentView.snp_bottom).offset(-14)
             })
             
             ticketMuch.snp_makeConstraints(closure: { (make) in

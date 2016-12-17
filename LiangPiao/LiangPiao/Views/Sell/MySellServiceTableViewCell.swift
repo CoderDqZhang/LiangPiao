@@ -28,7 +28,7 @@ class MySellServiceTableViewCell: UITableViewCell {
     
     func setUpView() {
         seveiceImage = UIImageView()
-        seveiceImage.image = UIImage.init(named: "Feeds_Default_Cover")
+        seveiceImage.image = UIImage.init(named: "Icon_Info")
         self.contentView.addSubview(seveiceImage)
         
         muchLabel = UILabel()
@@ -49,7 +49,7 @@ class MySellServiceTableViewCell: UITableViewCell {
         serviceP.text = "第三方支付交易手续费1%\n订单票款结算金额将于演出结束后24小时内转入账户钱包中"
         serviceP.textColor = UIColor.init(hexString: App_Theme_BBC1CB_Color)
         serviceP.numberOfLines = 0
-        serviceP.font = App_Theme_PinFan_R_13_Font
+        serviceP.font = App_Theme_PinFan_R_12_Font
         self.contentView.addSubview(serviceP)
         
         self.updateConstraintsIfNeeded()
@@ -115,6 +115,7 @@ class MySellServiceTableViewCell: UITableViewCell {
                 make.top.equalTo(self.muchLabel.snp_bottom).offset(8)
                 make.left.equalTo(self.contentView.snp_left).offset(15)
                 make.right.equalTo(self.contentView.snp_right).offset(-15)
+                make.bottom.equalTo(self.contentView.snp_bottom).offset(-26)
             })
             
             self.didMakeConstraints = true

@@ -593,12 +593,12 @@ class GloableTitleList: UIView {
     var maxHeight:CGFloat = 0
     var originX:CGFloat = 0
     var originY:CGFloat = 0
-    var tileCount:NSInteger = 0
+    var titleCount:NSInteger = 0
     var gloableTitleListClouse:GloableTitleListClouse!
     
     init(frame:CGRect, title:NSArray) {
         super.init(frame: frame)
-        tileCount = title.count
+        titleCount = title.count
         for index in 0...title.count - 1 {
             var labelFrame = CGRectZero
             let str = title.objectAtIndex(index) as! String
@@ -613,22 +613,22 @@ class GloableTitleList: UIView {
             if index == 0 {
                 self.updateLabelType(label, type: .selectType)
             }
-            label.tag = index
+            label.tag = index + 100
             originX = CGRectGetMaxX(label.frame) + GloableTitleListLabelHSpace
             let singTap = UITapGestureRecognizer.init(target: self, action: #selector(GloableTitleList.tapGesture(_:)))
             singTap.numberOfTapsRequired = 1
             singTap.numberOfTouchesRequired = 1
-//            label.userInteractionEnabled = true
+            label.userInteractionEnabled = true
             label.addGestureRecognizer(singTap)
             self.addSubview(label)
         }
-        maxHeight = CGRectGetMaxY((self.viewWithTag(title.count - 1)?.frame)!)
+        maxHeight = CGRectGetMaxY((self.viewWithTag(title.count - 1 + 100)?.frame)!)
     }
     
     func tapGesture(tap:UITapGestureRecognizer) {
-        for index in 0...tileCount - 1 {
-            let label = self.viewWithTag(index) as! UILabel
-            if index == tap.view?.tag {
+        for index in 0...titleCount - 1 {
+            let label = self.viewWithTag(index + 100) as! UILabel
+            if index + 100 == tap.view?.tag {
                 self.updateLabelType(label, type: .selectType)
             }else{
                 self.updateLabelType(label, type: .nomalType)
@@ -636,7 +636,7 @@ class GloableTitleList: UIView {
         }
         if self.gloableTitleListClouse != nil {
             let label = self.viewWithTag((tap.view?.tag)!) as! UILabel
-            self.gloableTitleListClouse(title: label.text!, index:(tap.view?.tag)!)
+            self.gloableTitleListClouse(title: label.text!, index:(tap.view?.tag)! - 100)
         }
     }
     
@@ -655,7 +655,7 @@ class GloableTitleList: UIView {
             label.backgroundColor = UIColor.whiteColor()
             label.layer.cornerRadius = 3.0
             label.layer.borderWidth = 0.5
-            label.textColor = UIColor.init(hexString: App_Theme_384249_Color)
+            label.textColor = UIColor.init(hexString: App_Theme_556169_Color)
             label.layer.borderColor = UIColor.init(hexString: App_Theme_556169_Color).CGColor
         }else{
             label.backgroundColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)

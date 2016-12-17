@@ -12,6 +12,7 @@
 		1F0360991DE9494D00594767 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F0360981DE9494D00594767 /* Security.framework */; };
 		1F03609C1DE94A5100594767 /* UIViewController+TalkingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F03609B1DE94A5100594767 /* UIViewController+TalkingData.swift */; };
 		1F089DD51DCB05E800762C14 /* GlobalTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F089DD41DCB05E800762C14 /* GlobalTools.swift */; };
+		1F0DE5B71E039CFB0068D9A6 /* SellInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0DE5B61E039CFB0068D9A6 /* SellInfoViewController.swift */; };
 		1F0EAB5B1DD053EE00D25B64 /* OrderDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0EAB5A1DD053EE00D25B64 /* OrderDetailViewModel.swift */; };
 		1F0EAB5F1DD05A9800D25B64 /* OrderTicketInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0EAB5E1DD05A9800D25B64 /* OrderTicketInfoTableViewCell.swift */; };
 		1F0EAB611DD05C2200D25B64 /* TicketLocationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0EAB601DD05C2200D25B64 /* TicketLocationTableViewCell.swift */; };
@@ -221,6 +222,8 @@
 		1FD881EA1DC8546500B2B702 /* SDCycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FD881E21DC8546500B2B702 /* SDCycleScrollView.m */; };
 		1FD881EB1DC8546500B2B702 /* UIView+SDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FD881E41DC8546500B2B702 /* UIView+SDExtension.m */; };
 		1FD881ED1DC854EE00B2B702 /* HomeScrollerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD881EC1DC854EE00B2B702 /* HomeScrollerTableViewCell.swift */; };
+		1FEC72E31E03CD1100F0D2C3 /* TicketRow.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1FEC72E21E03CD1100F0D2C3 /* TicketRow.plist */; };
+		1FEC72E61E03D00900F0D2C3 /* SellFormModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FEC72E51E03D00900F0D2C3 /* SellFormModel.m */; };
 		1FEE7E991DF51A1300479648 /* MySellOrderMuchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEE7E981DF51A1300479648 /* MySellOrderMuchTableViewCell.swift */; };
 		1FEE7E9B1DF53ADC00479648 /* OrderManagerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEE7E9A1DF53ADC00479648 /* OrderManagerTableViewCell.swift */; };
 		1FEE7E9D1DF53FAB00479648 /* MySellManagerMuchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEE7E9C1DF53FAB00479648 /* MySellManagerMuchTableViewCell.swift */; };
@@ -251,6 +254,7 @@
 		1F0360981DE9494D00594767 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		1F03609B1DE94A5100594767 /* UIViewController+TalkingData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+TalkingData.swift"; sourceTree = "<group>"; };
 		1F089DD41DCB05E800762C14 /* GlobalTools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalTools.swift; sourceTree = "<group>"; };
+		1F0DE5B61E039CFB0068D9A6 /* SellInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SellInfoViewController.swift; sourceTree = "<group>"; };
 		1F0EAB5A1DD053EE00D25B64 /* OrderDetailViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderDetailViewModel.swift; path = ../Home/OrderDetailViewModel.swift; sourceTree = "<group>"; };
 		1F0EAB5E1DD05A9800D25B64 /* OrderTicketInfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderTicketInfoTableViewCell.swift; path = ../Home/OrderTicketInfoTableViewCell.swift; sourceTree = "<group>"; };
 		1F0EAB601DD05C2200D25B64 /* TicketLocationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketLocationTableViewCell.swift; sourceTree = "<group>"; };
@@ -384,7 +388,7 @@
 		1FAA85161DE54CA600F77835 /* AddressModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressModel.swift; sourceTree = "<group>"; };
 		1FAA851A1DE58FDB00F77835 /* city.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = city.plist; sourceTree = "<group>"; };
 		1FAA851F1DE5C3BC00F77835 /* Tools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tools.swift; sourceTree = "<group>"; };
-		1FAADB3E1DF7ABDC00D08BB9 /* OrderDeliveryTypeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderDeliveryTypeViewController.swift; sourceTree = "<group>"; };
+		1FAADB3E1DF7ABDC00D08BB9 /* OrderDeliveryTypeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderDeliveryTypeViewController.swift; path = ../Order/OrderDeliveryTypeViewController.swift; sourceTree = "<group>"; };
 		1FAADB401DF7AEB300D08BB9 /* OrderDeliveryTypeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderDeliveryTypeViewModel.swift; path = ../Mine/OrderDeliveryTypeViewModel.swift; sourceTree = "<group>"; };
 		1FAADB421DF7B29800D08BB9 /* OrderExpressTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderExpressTableViewCell.swift; sourceTree = "<group>"; };
 		1FAADB441DF7C98C00D08BB9 /* OrderExpressDetailTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderExpressDetailTableViewCell.swift; sourceTree = "<group>"; };
@@ -512,6 +516,9 @@
 		1FD881E31DC8546500B2B702 /* UIView+SDExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+SDExtension.h"; sourceTree = "<group>"; };
 		1FD881E41DC8546500B2B702 /* UIView+SDExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SDExtension.m"; sourceTree = "<group>"; };
 		1FD881EC1DC854EE00B2B702 /* HomeScrollerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeScrollerTableViewCell.swift; sourceTree = "<group>"; };
+		1FEC72E21E03CD1100F0D2C3 /* TicketRow.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = TicketRow.plist; sourceTree = "<group>"; };
+		1FEC72E41E03D00900F0D2C3 /* SellFormModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SellFormModel.h; sourceTree = "<group>"; };
+		1FEC72E51E03D00900F0D2C3 /* SellFormModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SellFormModel.m; sourceTree = "<group>"; };
 		1FEE7E981DF51A1300479648 /* MySellOrderMuchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MySellOrderMuchTableViewCell.swift; sourceTree = "<group>"; };
 		1FEE7E9A1DF53ADC00479648 /* OrderManagerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderManagerTableViewCell.swift; sourceTree = "<group>"; };
 		1FEE7E9C1DF53FAB00479648 /* MySellManagerMuchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MySellManagerMuchTableViewCell.swift; sourceTree = "<group>"; };
@@ -589,7 +596,6 @@
 				1FEE7EA01DF5534A00479648 /* MyTicketPutUpViewController.swift */,
 				1F451F021DF5092E00441044 /* MyWalletViewController.swift */,
 				1FEE7EB41DF68CF500479648 /* DetailAccountViewController.swift */,
-				1FAADB3E1DF7ABDC00D08BB9 /* OrderDeliveryTypeViewController.swift */,
 				1FEE7EB01DF68C4A00479648 /* TopUpViewController.swift */,
 				1FEE7EB21DF68CAA00479648 /* WithDrawViewController.swift */,
 				1F424C541DFE8A9D00C5269B /* WithDrawStatusViewController.swift */,
@@ -639,6 +645,8 @@
 			children = (
 				1F0EAB6D1DD0932400D25B64 /* SellTicketsViewController.swift */,
 				1F9A0C9D1DF937D6002F4C19 /* MySellConfimViewController.swift */,
+				1F0DE5B61E039CFB0068D9A6 /* SellInfoViewController.swift */,
+				1FAADB3E1DF7ABDC00D08BB9 /* OrderDeliveryTypeViewController.swift */,
 			);
 			path = Sell;
 			sourceTree = "<group>";
@@ -676,6 +684,8 @@
 		1F0EAB711DD093A100D25B64 /* Sell */ = {
 			isa = PBXGroup;
 			children = (
+				1FEC72E41E03D00900F0D2C3 /* SellFormModel.h */,
+				1FEC72E51E03D00900F0D2C3 /* SellFormModel.m */,
 			);
 			path = Sell;
 			sourceTree = "<group>";
@@ -867,6 +877,7 @@
 				1FD881C01DC7410D00B2B702 /* AppThemeTool.swift */,
 				1FD244EC1DC2FD9700AFD3BC /* LiangPiao-Bridging-Header.h */,
 				1FAA851A1DE58FDB00F77835 /* city.plist */,
+				1FEC72E21E03CD1100F0D2C3 /* TicketRow.plist */,
 				1FD244C91DC2F92E00AFD3BC /* Main.storyboard */,
 				1FD244CC1DC2F92E00AFD3BC /* Assets.xcassets */,
 				1FD244CE1DC2F92E00AFD3BC /* LaunchScreen.storyboard */,
@@ -1331,6 +1342,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1FEC72E31E03CD1100F0D2C3 /* TicketRow.plist in Resources */,
 				1F6BB9731DD954B300893932 /* AlipaySDK.bundle in Resources */,
 				1FD244D01DC2F92E00AFD3BC /* LaunchScreen.storyboard in Resources */,
 				1FAA851B1DE58FDB00F77835 /* city.plist in Resources */,
@@ -1444,6 +1456,7 @@
 				1FEE7EA11DF5534A00479648 /* MyTicketPutUpViewController.swift in Sources */,
 				1F0EAB611DD05C2200D25B64 /* TicketLocationTableViewCell.swift in Sources */,
 				1F0EAB8D1DD1DD3C00D25B64 /* MyProfileViewModel.swift in Sources */,
+				1F0DE5B71E039CFB0068D9A6 /* SellInfoViewController.swift in Sources */,
 				1F987DEA1E028DF10095803A /* MySellConfimHeaderTableViewCell.swift in Sources */,
 				1FEE7E9F1DF540B400479648 /* MySellAttentionTableViewCell.swift in Sources */,
 				1F03609C1DE94A5100594767 /* UIViewController+TalkingData.swift in Sources */,
@@ -1610,6 +1623,7 @@
 				1FBFC7ED1DDABD48008D9CEC /* FMResultSet.m in Sources */,
 				1FEE7EB71DF68EAA00479648 /* DetailAcountViewModel.swift in Sources */,
 				1FC3DDEB1DE45B1A00420A05 /* RecommentTickes.swift in Sources */,
+				1FEC72E61E03D00900F0D2C3 /* SellFormModel.m in Sources */,
 				1F67D1161DCDB56A00378116 /* DetailAddressTableViewCell.swift in Sources */,
 				1F5B1CAF1DF175370073E770 /* OrderListViewModel.swift in Sources */,
 				1F0EAB5F1DD05A9800D25B64 /* OrderTicketInfoTableViewCell.swift in Sources */,
@@ -1794,6 +1808,7 @@
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "LiangPiao/Global/Catagory/LiangPiao-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 2.3;
 			};
 			name = Release;

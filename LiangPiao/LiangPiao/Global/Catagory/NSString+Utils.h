@@ -17,5 +17,8 @@
  */
 - (NSString *)pinyin;
 
++ (NSString*)DataTOjsonString:(id)object;
+
++ (id)DataToNSDiction:(id)object;
 
 @end

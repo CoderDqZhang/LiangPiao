@@ -29,7 +29,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
         AppleThemeTool.setUpToolBarColor()
-        AppleThemeTool.setUpToolBarColor()
         AppleThemeTool.setUpKeyBoardManager()
         
         TalkingData.setExceptionReportEnabled(true)
