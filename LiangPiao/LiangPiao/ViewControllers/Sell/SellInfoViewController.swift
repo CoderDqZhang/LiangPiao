@@ -65,7 +65,7 @@ class SellInfoViewController: UIViewController {
             make.bottom.equalTo(self.view.snp_bottom).offset(-44)
         }
         
-        bottomButton = GloableBottomButtonView.init(frame: nil, title: "余额不足，请充值", tag: nil, action: { (tag) in
+        bottomButton = GloableBottomButtonView.init(frame: nil, title: "立即挂票", tag: nil, action: { (tag) in
             self.viewModel.sellFormModel.saveOrUpdate()
             self.viewModel.requestSellTicketPost()
         })

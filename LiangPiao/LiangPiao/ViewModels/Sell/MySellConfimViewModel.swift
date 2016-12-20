@@ -22,10 +22,15 @@ class MySellConfimViewModel: NSObject {
     var present:Present = Present()
     var visite:Visite = Visite()
     var putUpModel:PutUpModel!
+    var much:String!
     
     override init() {
         super.init()
         
+    }
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self, forKeyPath: SellTicketNumberChange)
     }
     
     static let shareInstance = MySellConfimViewModel()
@@ -105,8 +110,8 @@ class MySellConfimViewModel: NSObject {
     
     func tableViewCellGloabTitleNumberCountTableViewCell(cell:GloabTitleNumberCountTableViewCell, indexPath:NSIndexPath) {
         cell.setText("售卖数量", textFieldText: "1")
-        cell.numberTickView.numberTextField.rac_textSignal().subscribeNext { (number) in
-            self.sellFormModel.number = Int(number as! String)!
+        cell.numberTickView.numberTextField.rac_observeKeyPath("text", options: .New, observer: self) { (object, objetecs, new, old) in
+            self.sellFormModel.number = Int(object as! String)!
         }
     }
     
@@ -135,6 +140,11 @@ class MySellConfimViewModel: NSObject {
     
     func tableViewCellMySellTicketTableViewCell(cell:MySellTicketTableViewCell, indexPath:NSIndexPath) {
         cell.contentView.addSubview(tickeListView)
+    }
+    
+    func pushSellInfo(){
+        self.much = "\(Double(self.sellFormModel.number) * Double(self.sellFormModel.price)!)"
+        NavigationPushView(self.controller, toConroller: SellInfoViewController())
     }
     
     
@@ -199,7 +209,9 @@ class MySellConfimViewModel: NSObject {
     }
 
     func configMySellServiceCell(cell:MySellServiceTableViewCell, indexPath:NSIndexPath) {
-        cell.setData("交易服务费: 00.00 元", servicemuch: "结算总价: 00.00 元", sevicep: "第三方支付交易手续费1%\n订单票款结算金额将于演出结束后24小时内转入账户钱包中", type: 0)
+        let totalMuch = "\(much)".muchType("\((Double(much)! * 100))")
+        let serviceMuch = "\((Double(much)! * 100) * 0.1)".muchType("\((Double(much)! * 100) * 0.1)")
+        cell.setData("结算总价: \(totalMuch) 元", servicemuch: "交易服务费: \(serviceMuch) 元", sevicep: "第三方支付交易手续费1%\n订单票款结算金额将于演出结束后24小时内转入账户钱包中", type: 0)
     }
     
     

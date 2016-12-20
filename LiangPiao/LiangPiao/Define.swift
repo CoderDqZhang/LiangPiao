@@ -37,6 +37,8 @@ let OrderStatuesChange = "OrderStatusChange"
 
 let BlanceNumberChange = "BlanceNumberChange"
 
+let SellTicketNumberChange = "SellTicketNumberChange"
+
 let UserConfimNewOrder = "UserConfimNewOrder"
 
 let TalkingDataKey = "AC559E27399F4ECEA0D9880E0C6977FB"

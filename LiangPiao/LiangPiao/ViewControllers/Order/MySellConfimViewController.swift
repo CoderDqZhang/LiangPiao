@@ -53,7 +53,7 @@ class MySellConfimViewController: UIViewController {
         }
         
         bottomButton = GloableBottomButtonView.init(frame: nil, title: "继续", tag: nil, action: { (tag) in
-            NavigationPushView(self, toConroller: SellInfoViewController())
+            self.viewModel.pushSellInfo()
         })
         
         self.view.addSubview(bottomButton)
