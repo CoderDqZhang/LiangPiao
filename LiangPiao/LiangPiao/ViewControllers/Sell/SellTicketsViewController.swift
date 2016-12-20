@@ -81,6 +81,7 @@ class SellTicketsViewController: BaseViewController {
     func bindViewModel(){
         searchViewModel.controllerS = self
         viewModel.controller = self
+        viewModel.requestHotTicket()
         RACSignal.interval(1, onScheduler: RACScheduler.currentScheduler()).subscribeNext { (str) in
             
         }
@@ -180,7 +181,7 @@ extension SellTicketsViewController : UITableViewDataSource {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("SellRecommondTableViewCell", forIndexPath: indexPath) as! SellRecommondTableViewCell
         cell.selectionStyle = .None
-        //            viewModel.cellData(cell, indexPath:indexPath)
+        viewModel.tableViewtableViewSellRecommondTableViewCell(cell, indexPath: indexPath)
         return cell
     }
 }

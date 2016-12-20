@@ -51,3 +51,6 @@ let SupplierTicketList = "\(BaseURL)supplier/ticket/"
 let WallBlance = "\(BaseURL)account/"
 let WallHistory = "\(BaseURL)account/history/"
 let WallWithDraw = "\(BaseURL)account/withdraw/"
+
+
+let SellTicket = "\(BaseURL)supplier/show/"

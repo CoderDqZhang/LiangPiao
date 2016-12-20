@@ -126,7 +126,7 @@ class OrderListViewModel: NSObject {
     
     func tableViewOrderHandleCellIndexPath(indexPath:NSIndexPath, cell:OrderHandleTableViewCell, controller:OrderListViewController) {
         cell.cancelOrderBtn.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (action) in
-            UIAlertController.shwoAlertControl(controller, title: nil, message: "是否要放弃本次交易", cancel: "稍等一会", doneTitle: "确认取消", cancelAction: {
+            UIAlertController.shwoAlertControl(controller, style: .Alert, title: nil, message: "是否要放弃本次交易", cancel: "稍等一会", doneTitle: "确认取消", cancelAction: {
                 
                 }, doneAction: {
                     let model = self.model.orderList[indexPath.section]

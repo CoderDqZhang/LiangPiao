@@ -12,7 +12,7 @@ class TicketSessionViewModel: NSObject {
 
     var models = NSMutableArray()
     var model:TicketShowModel!
-    
+    var isSellType:Bool = false
     override init() {
         
     }
@@ -54,10 +54,18 @@ class TicketSessionViewModel: NSObject {
     }
     
     func didSelectRowAtIndexPath(indexPath:NSIndexPath,controller:TicketSceneViewController) {
-        let controllerVC = TicketDescriptionViewController()
-        controllerVC.viewModel.ticketModel = model
-        controllerVC.viewModel.sesstionModel = ShowSessionModel.init(fromDictionary: self.models.objectAtIndex(indexPath.row) as! NSDictionary)
-        NavigationPushView(controller, toConroller: controllerVC)
+        if isSellType {
+            let controllerVC = MySellConfimViewController()
+            model.session = ShowSessionModel.init(fromDictionary: self.models.objectAtIndex(indexPath.row) as! NSDictionary)
+            controllerVC.viewModel.model = model
+            controllerVC.viewModel.setUpViewModel()
+            NavigationPushView(controller, toConroller: controllerVC)
+        }else{
+            let controllerVC = TicketDescriptionViewController()
+            controllerVC.viewModel.ticketModel = model
+            controllerVC.viewModel.sesstionModel = ShowSessionModel.init(fromDictionary: self.models.objectAtIndex(indexPath.row) as! NSDictionary)
+            NavigationPushView(controller, toConroller: controllerVC)
+        }
     }
     
     func cellForRowAtIndexPath(indexPath:NSIndexPath,cell:TicketSceneTableViewCell){

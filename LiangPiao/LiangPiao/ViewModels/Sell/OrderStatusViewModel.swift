@@ -122,40 +122,21 @@ class OrderStatusViewModel: NSObject {
     }
     
     func requestOrderStatusChange(){
-        if model.status == 9 {
-            UIAlertController.shwoAlertControl(self.controller, title: "是否结算", message: nil, cancel: "取消", doneTitle: "确认结算", cancelAction: {
-                
-                }, doneAction: {
-                    let url = "\(OrderChangeShatus)\(self.model.orderId)/"
-                    let parameters = ["status":"10"]
-                    BaseNetWorke.sharedInstance.postUrlWithString(url, parameters: parameters).subscribeNext { (resultDic) in
-                        let tempModel = OrderList.init(fromDictionary: resultDic as! NSDictionary)
-                        self.model.status = tempModel.status
-                        self.model.statusDesc = tempModel.statusDesc
-                        self.controller.updateTableView(self.model.status)
-                        self.controller.tableView.reloadData()
-                        if self.reloadeMySellOrderList != nil {
-                            self.reloadeMySellOrderList(indexPath: self.selectIndexPath, model:self.model)
-                        }
+        UIAlertController.shwoAlertControl(self.controller, style: .Alert, title: "是否已经发货了", message: nil, cancel: "取消", doneTitle: "确认发货", cancelAction: {
+            
+            }, doneAction: {
+                let url = "\(OrderChangeShatus)\(self.model.orderId)/"
+                let parameters = ["status":"7"]
+                BaseNetWorke.sharedInstance.postUrlWithString(url, parameters: parameters).subscribeNext { (resultDic) in
+                    let tempModel = OrderList.init(fromDictionary: resultDic as! NSDictionary)
+                    self.model.status = tempModel.status
+                    self.model.statusDesc = tempModel.statusDesc
+                    self.controller.updateTableView(self.model.status)
+                    self.controller.tableView.reloadData()
+                    if self.reloadeMySellOrderList != nil {
+                        self.reloadeMySellOrderList(indexPath: self.selectIndexPath, model:self.model)
                     }
-            })
-        }else{
-            UIAlertController.shwoAlertControl(self.controller, title: "是否已经发货了", message: nil, cancel: "取消", doneTitle: "确认发货", cancelAction: {
-                
-                }, doneAction: {
-                    let url = "\(OrderChangeShatus)\(self.model.orderId)/"
-                    let parameters = ["status":"7"]
-                    BaseNetWorke.sharedInstance.postUrlWithString(url, parameters: parameters).subscribeNext { (resultDic) in
-                        let tempModel = OrderList.init(fromDictionary: resultDic as! NSDictionary)
-                        self.model.status = tempModel.status
-                        self.model.statusDesc = tempModel.statusDesc
-                        self.controller.updateTableView(self.model.status)
-                        self.controller.tableView.reloadData()
-                        if self.reloadeMySellOrderList != nil {
-                            self.reloadeMySellOrderList(indexPath: self.selectIndexPath, model:self.model)
-                        }
-                    }
-            })
-        }
+                }
+        })
     }
 }

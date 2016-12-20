@@ -43,9 +43,10 @@ let TalkingDataKey = "AC559E27399F4ECEA0D9880E0C6977FB"
 
 let KWINDOWDS = UIApplication.sharedApplication().keyWindow
 
+let SHARE_APPLICATION = UIApplication.sharedApplication()
 
 func AppCallViewShow(view:UIView, phone:String) {
-    UIAlertController.shwoAlertControl(view.findViewController()!, title: nil, message: phone, cancel: "取消", doneTitle: "确定", cancelAction: {
+    UIAlertController.shwoAlertControl(view.findViewController()!, style: .Alert, title: nil, message: phone, cancel: "取消", doneTitle: "确定", cancelAction: {
         
         }, doneAction: {
            UIApplication.sharedApplication().openURL(NSURL.init(string: "tel:\(phone)")!)

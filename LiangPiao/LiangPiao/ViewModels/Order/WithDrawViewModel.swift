@@ -49,7 +49,7 @@ class WithDrawViewModel: NSObject {
     
     func requestWithDraw(form:WithDrawForm){
         if Double(form.amount) < 50 {
-            UIAlertController.shwoAlertControl(self.controller, title: "单笔提现金额须大于50元哦", message: nil, cancel: "好的", doneTitle: nil, cancelAction: { 
+            UIAlertController.shwoAlertControl(self.controller, style: .Alert, title: "单笔提现金额须大于50元哦", message: nil, cancel: "好的", doneTitle: nil, cancelAction: { 
                 
                 }, doneAction: {
                     

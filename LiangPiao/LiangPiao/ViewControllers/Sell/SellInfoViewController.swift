@@ -67,6 +67,7 @@ class SellInfoViewController: UIViewController {
         
         bottomButton = GloableBottomButtonView.init(frame: nil, title: "余额不足，请充值", tag: nil, action: { (tag) in
             self.viewModel.sellFormModel.saveOrUpdate()
+            self.viewModel.requestSellTicketPost()
         })
         
         self.view.addSubview(bottomButton)
@@ -88,7 +89,7 @@ class SellInfoViewController: UIViewController {
     
     func showSellTypePickerView(){
         if sellType == nil {
-            sellType = ZHPickView(pickviewWithArray: ["单卖","打包一起卖"], isHaveNavControler: false)
+            sellType = ZHPickView(pickviewWithArray: viewModel.getSellType() as [AnyObject], isHaveNavControler: false)
             sellType.setPickViewColer(UIColor.whiteColor())
             sellType.setPickViewColer(UIColor.whiteColor())
             sellType.setTintColor(UIColor.whiteColor())
@@ -103,7 +104,7 @@ class SellInfoViewController: UIViewController {
     
     func showTicketRegionPickerView(){
         if ticketRegion == nil {
-            ticketRegion = ZHPickView(pickviewWithArray: ["男","女"], isHaveNavControler: false)
+            ticketRegion = ZHPickView(pickviewWithArray: viewModel.getRegionArray() as [AnyObject], isHaveNavControler: false)
             ticketRegion.setPickViewColer(UIColor.whiteColor())
             ticketRegion.setPickViewColer(UIColor.whiteColor())
             ticketRegion.setTintColor(UIColor.whiteColor())
@@ -211,6 +212,7 @@ extension SellInfoViewController : UITableViewDataSource {
             case 3:
                 let cell = tableView.dequeueReusableCellWithIdentifier("GloabTitleAndSwitchBarTableViewCell", forIndexPath: indexPath) as! GloabTitleAndSwitchBarTableViewCell
                 cell.setTitleLabel("连坐", isSelect: false)
+                viewModel.tableViewGloabTitleAndSwitchBarTableViewCell(cell)
                 cell.selectionStyle = .None
                 return cell
             default:

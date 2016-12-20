@@ -18,9 +18,13 @@
 
 @property (nonatomic, assign) NSInteger number;
 
+@property (nonatomic, copy) NSString *ticketPrice;
+
 @property (nonatomic, copy) NSString *sellPrice;
 
 @property (nonatomic, copy) NSString  *sellType;
+
+@property (nonatomic, copy) NSString  *seatType;
 
 @property (nonatomic, copy) NSString  *ticketRegin;
 

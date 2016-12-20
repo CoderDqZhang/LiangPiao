@@ -85,6 +85,19 @@ class SellRecommondTableViewCell: UITableViewCell {
         
     }
     
+    func setData(model:TicketShowModel) {
+        ticketPhoto.sd_setImageWithURL(NSURL.init(string: model.cover), placeholderImage: UIImage.init(named: "Feeds_Default_Cover")) { (image, error, cacheType, url) in
+        }
+        ticketTitle.text = model.title
+        UILabel.changeLineSpaceForLabel(ticketTitle, withSpace: TitleLineSpace)
+        UILabel.changeLineSpaceForLabel(ticketTitle, withSpace: TitleLineSpace)
+        ticketLocation.text = model.venue.name
+        ticketTime.text = model.showDate
+        
+        self.updateConstraintsIfNeeded()
+        
+    }
+    
     override func updateConstraints() {
         if !self.didMakeConstraints {
             ticketPhoto.snp_makeConstraints(closure: { (make) in

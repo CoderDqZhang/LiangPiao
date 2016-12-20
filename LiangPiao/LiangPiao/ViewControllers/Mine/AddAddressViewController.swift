@@ -75,7 +75,7 @@ class AddAddressViewController: UIViewController {
         self.view.addSubview(tableView)
         if type == .EditType {
             deleteView = GloableBottomButtonView.init(frame: nil, title: "删除收货地址", tag: 1, action: { (tag) in
-                UIAlertController.shwoAlertControl(self, title: "确定删除地址吗？", message: nil, cancel: "取消", doneTitle: "确定", cancelAction: {
+                UIAlertController.shwoAlertControl(self, style: .Alert, title: "确定删除地址吗？", message: nil, cancel: "取消", doneTitle: "确定", cancelAction: {
                     
                     }, doneAction: {
                         self.viewModel.deleteAddress(self, model: self.models!)

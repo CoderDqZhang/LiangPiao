@@ -19,7 +19,7 @@ class MySellConfimViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "确认订单"
-        self.setUpView()
+        self.view.backgroundColor = UIColor.whiteColor()
         self.setNavigationItem()
         self.bindViewModel()
         self.talKingDataPageName = "确认订单"
@@ -71,6 +71,7 @@ class MySellConfimViewController: UIViewController {
     
     func bindViewModel() {
         viewModel.controller = self
+        viewModel.requestSellTicket()
     }
 
     /*
@@ -100,10 +101,6 @@ extension MySellConfimViewController : UITableViewDelegate {
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return viewModel.tableViewHeightForRowAtIndexPath(indexPath)
-    }
-    
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        viewModel.tableViewDidSelect(indexPath)
     }
 }
 

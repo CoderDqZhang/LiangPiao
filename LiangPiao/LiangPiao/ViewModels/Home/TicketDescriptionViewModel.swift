@@ -138,7 +138,7 @@ class TicketDescriptionViewModel: NSObject {
         if indexPath.row > 3 && self.model.ticketList.count > 0{
             let ticketModel = self.model.ticketList[indexPath.row - 4]
             if ticketModel.sellType == 2 && ticketModel.remainCount > self.ticketNumber {
-                UIAlertController.shwoAlertControl(controller, title: nil, message: "该票种须打包\(ticketModel.remainCount)张一起购买哦", cancel: "取消", doneTitle: "继续购买", cancelAction: {
+                UIAlertController.shwoAlertControl(controller, style: .Alert, title: nil, message: "该票种须打包\(ticketModel.remainCount)张一起购买哦", cancel: "取消", doneTitle: "继续购买", cancelAction: {
                     
                     }, doneAction: {
                      self.ticketNumber = ticketModel.remainCount

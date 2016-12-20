@@ -50,8 +50,6 @@ class OrderStatusViewController: UIViewController {
         payView = GloableBottomButtonView.init(frame: nil, title: "立即发货", tag: 1, action: { (tag) in
             if self.viewModel.model.status == 3 {
                 self.viewModel.requestOrderStatusChange()
-            }else if self.viewModel.model.status == 9 {
-                self.viewModel.requestOrderStatusChange()
             }
         })
         self.view.addSubview(payView)
@@ -63,22 +61,18 @@ class OrderStatusViewController: UIViewController {
         viewModel.controller = self
     }
     func updateTableView(status:Int) {
-        if status == 3 || status == 9 {
+        if status == 3 {
             if payView != nil {
                 payView.hidden = false
             }else{
                 payView = GloableBottomButtonView.init(frame: nil, title: "立即发货", tag: 1, action: { (tag) in
                     if self.viewModel.model.status == 3 {
                         self.viewModel.requestOrderStatusChange()
-                    }else if self.viewModel.model.status == 9 {
-                        self.viewModel.requestOrderStatusChange()
                     }
                 })
                 self.view.addSubview(payView)
             }
-            if status == 9 {
-                payView.updateButtonTitle("立即结算")
-            }
+            
             if status == 3 {
                 payView.updateButtonTitle("立即发货")
             }

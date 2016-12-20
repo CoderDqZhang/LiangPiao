@@ -107,6 +107,8 @@ class OrderDetailViewModel: NSObject {
             controllerVC.viewModel.ticketModel = model.show
             controllerVC.viewModel.sesstionModel = model.session
             NavigationPushView(controller, toConroller: controllerVC)
+        }else if indexPath.section == 1 && indexPath.row == 1 {
+            self.creatOptionMenu()
         }
     }
     
@@ -177,7 +179,7 @@ class OrderDetailViewModel: NSObject {
     }
     
     func requestOrderStatusChange(controller:OrderDetailViewController){
-        UIAlertController.shwoAlertControl(controller, title: "是否已经收到演出票", message: nil, cancel: "取消", doneTitle: "确认收货", cancelAction: { 
+        UIAlertController.shwoAlertControl(controller, style: .Alert, title: "是否已经收到演出票", message: nil, cancel: "取消", doneTitle: "确认收货", cancelAction: {
             
             }, doneAction: {
                 let url = "\(OrderChangeShatus)\(self.model.orderId)/"
@@ -193,5 +195,67 @@ class OrderDetailViewModel: NSObject {
                     }
                 }
         })
+    }
+    
+    func creatOptionMenu(){
+        let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+        let geoC = CLGeocoder.init()
+        var centerLat:CLLocationDegrees = 0.00
+        var centerLng:CLLocationDegrees = 0.00
+        let siteTitle = "北京市海淀区西直门外白石桥5号"
+        geoC.geocodeAddressString(siteTitle) { (placemarks, errors) in
+            if errors == nil {
+                let pl = placemarks?.first
+                centerLat = (pl?.location?.coordinate.latitude)!
+                centerLng = (pl?.location?.coordinate.longitude)!
+            }
+        }
+        
+        if(SHARE_APPLICATION.canOpenURL(NSURL(string:"iosamap://")!) == true){
+            let gaodeAction = UIAlertAction(title: "高德地图", style: .Default, handler: {
+                (alert: UIAlertAction!) -> Void in
+                let urlString = "iosamap://navi?sourceApplication=app名&backScheme=iosamap://&lat=\(centerLat)&lon=\(centerLng)&dev=0"
+                let encodedHost = NSURL.init(string:urlString.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!)
+                SHARE_APPLICATION.openURL(encodedHost!)
+            })
+            optionMenu.addAction(gaodeAction)
+        }
+        
+        if(SHARE_APPLICATION.canOpenURL(NSURL(string:"comgooglemaps://")!) == true){
+            let googleAction = UIAlertAction(title: "Google地图", style: .Default, handler: {
+                (alert: UIAlertAction!) -> Void in
+                SHARE_APPLICATION.openURL(NSURL.init(string: "comgooglemaps://?center=\(centerLat),\(centerLng)5&zoom=12")!)
+            })
+            optionMenu.addAction(googleAction)
+        }
+        
+        let appleAction = UIAlertAction(title: "苹果地图", style: .Default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            let loc = CLLocationCoordinate2DMake(centerLat, centerLng)
+            let currentLocation = MKMapItem.mapItemForCurrentLocation()
+            let toLocation = MKMapItem(placemark:MKPlacemark(coordinate:loc,addressDictionary:nil))
+            toLocation.name = siteTitle
+            MKMapItem.openMapsWithItems([currentLocation,toLocation], launchOptions: [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving,MKLaunchOptionsShowsTrafficKey: NSNumber(bool: true)])
+            
+        })
+        optionMenu.addAction(appleAction)
+        
+        if(SHARE_APPLICATION.canOpenURL(NSURL(string:"baidumap://map/")!) == true){
+            let baiduAction = UIAlertAction(title: "百度地图", style: .Default, handler: {
+                (alert: UIAlertAction!) -> Void in
+                let urlString = "baidumap://map/direction?origin=中关村&destination=五道口&mode=driving&region=北京"
+                let encodedHost = NSURL.init(string:urlString.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!)
+                SHARE_APPLICATION.openURL(encodedHost!)
+            })
+            optionMenu.addAction(baiduAction)
+        }
+        
+        let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: {
+            (alert: UIAlertAction!) -> Void in
+        })
+        optionMenu.addAction(cancelAction)
+        controller.presentViewController(optionMenu, animated: true) {
+            
+        }
     }
 }

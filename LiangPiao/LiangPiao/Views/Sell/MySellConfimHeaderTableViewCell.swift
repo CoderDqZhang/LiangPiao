@@ -48,6 +48,12 @@ class MySellConfimHeaderTableViewCell: UITableViewCell {
         self.updateConstraintsIfNeeded()
     }
     
+    func setUpData(model:TicketShowModel){
+        ticketTitle.text = model.title
+        ticketTime.text = model.session.startTime
+        ticketLoacation.text = model.venue.name
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

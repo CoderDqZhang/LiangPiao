@@ -26,12 +26,10 @@ class TicketSession: UIView {
         self.layer.borderWidth = 0.5
         self.layer.cornerRadius = 2.0
         self.clouse = clouse!
-        if type != 0 {
-            singTapPress = UITapGestureRecognizer(target: self, action: #selector(TicketSession.singTapPress(_:)))
-            singTapPress.numberOfTapsRequired = 1
-            singTapPress.numberOfTouchesRequired = 1
-            self.addGestureRecognizer(singTapPress)
-        }
+        singTapPress = UITapGestureRecognizer(target: self, action: #selector(TicketSession.singTapPress(_:)))
+        singTapPress.numberOfTapsRequired = 1
+        singTapPress.numberOfTouchesRequired = 1
+        self.addGestureRecognizer(singTapPress)
         self.type = type
         label.text = title
         self.tag = tag
@@ -91,12 +89,17 @@ class PicketUpSessionTableViewCell: UITableViewCell {
     
     func updateSession(tag:Int){
         for index in 0...sessionTitle.count - 1 {
-            let sesstion = scrollerView.viewWithTag(index + 10) as! TicketSession
-            if index + 10 == tag {
-                sesstion.upDataType(1)
-            }else{
+            let sesstionTag = scrollerView.viewWithTag(tag) as! TicketSession
+            if sesstionTag.type != 0 {
+                let sesstion = scrollerView.viewWithTag(index + 10) as! TicketSession
                 if sesstion.type != 0 {
-                    sesstion.upDataType(2)
+                    if index + 10 == tag {
+                        sesstion.upDataType(1)
+                    }else{
+                        if sesstion.type != 0 {
+                            sesstion.upDataType(2)
+                        }
+                    }
                 }
             }
         }

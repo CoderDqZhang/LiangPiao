@@ -80,7 +80,7 @@ class MyTicketPutUpViewModel: NSObject {
     }
     
     func tableViewnumberOfRowsInSection(section:Int) -> Int{
-        if sesstionModels.count != 0 || ticketShowModel.sessionCount == 1{
+        if sesstionModels.count != 0 || ticketShowModel.sessionCount == 1 {
             if ticketShowModel.sessionCount == 1 {
                 return self.ticketShowModel.sessionList[0].ticketList.count + 3
             }
@@ -112,16 +112,20 @@ class MyTicketPutUpViewModel: NSObject {
         if ticketShowModel.sessionCount != 1 {
             cell.setUpDataAarray(self.getSessionTitle(sesstionModels), selectArray: self.getSessionType(sesstionModels))
             cell.picketUpSessionClouse = { tag in
-                self.controller.hiderTicketToolsView()
-                self.selectSession = tag
-                if self.temListArray[self.selectSession] is [TicketList] {
-                    self.tempList = self.temListArray[self.selectSession] as! [TicketList]
-                }else{
-                    self.tempList = self.getTicketList(ShowSessionModel.init(fromDictionary: self.sesstionModels.objectAtIndex(self.selectSession) as! NSDictionary))
+                if self.ticketDic.objectForKey("\(tag)") == nil {
+                    self.connectService()
+                }else {
+                    self.controller.hiderTicketToolsView()
+                    self.selectSession = tag
+                    if self.temListArray[self.selectSession] is [TicketList] {
+                        self.tempList = self.temListArray[self.selectSession] as! [TicketList]
+                    }else{
+                        self.tempList = self.getTicketList(ShowSessionModel.init(fromDictionary: self.sesstionModels.objectAtIndex(self.selectSession) as! NSDictionary))
+                    }
+                    self.getPriceArray(self.tempList)
+                    self.getRowArray(self.tempList)
+                    self.controller.tableView.reloadData()
                 }
-                self.getPriceArray(self.tempList)
-                self.getRowArray(self.tempList)
-                self.controller.tableView.reloadData()
             }
         }
     }
@@ -154,7 +158,7 @@ class MyTicketPutUpViewModel: NSObject {
     }
     
     func connectService(){
-        UIAlertController.shwoAlertControl(self.controller, title: "暂时请联系客服帮忙操作", message: nil, cancel: "稍等一会", doneTitle: "联系客服", cancelAction:{
+        UIAlertController.shwoAlertControl(self.controller, style: .Alert, title: "暂时请联系客服帮忙操作", message: nil, cancel: "稍等一会", doneTitle: "联系客服", cancelAction:{
             
             }, doneAction: {
                 AppCallViewShow(self.controller.view, phone: "400-873-8011")
@@ -201,7 +205,7 @@ class MyTicketPutUpViewModel: NSObject {
         let sessionTitle = NSMutableArray()
         for session in showSessions {
             let session = ShowSessionModel.init(fromDictionary: session as! NSDictionary)
-            sessionTitle.addObject(session.name)
+            sessionTitle.addObject("\(session.name) ")
         }
         return sessionTitle
     }
