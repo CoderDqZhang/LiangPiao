@@ -214,9 +214,8 @@ class OrderDetailViewModel: NSObject {
         if(SHARE_APPLICATION.canOpenURL(NSURL(string:"iosamap://")!) == true){
             let gaodeAction = UIAlertAction(title: "高德地图", style: .Default, handler: {
                 (alert: UIAlertAction!) -> Void in
-                let urlString = "iosamap://navi?sourceApplication=app名&backScheme=iosamap://&lat=\(centerLat)&lon=\(centerLng)&dev=0"
-                let encodedHost = NSURL.init(string:urlString.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!)
-                SHARE_APPLICATION.openURL(encodedHost!)
+                let urlString = "iosamap://navi?sourceApplication=LiangPiao&backScheme=iosamap://&lat=\(centerLat)&lon=\(centerLng)&dev=0"
+                SHARE_APPLICATION.openURL(NSURL.init(string: urlString)!)
             })
             optionMenu.addAction(gaodeAction)
         }
@@ -243,9 +242,8 @@ class OrderDetailViewModel: NSObject {
         if(SHARE_APPLICATION.canOpenURL(NSURL(string:"baidumap://map/")!) == true){
             let baiduAction = UIAlertAction(title: "百度地图", style: .Default, handler: {
                 (alert: UIAlertAction!) -> Void in
-                let urlString = "baidumap://map/direction?origin=中关村&destination=五道口&mode=driving&region=北京"
-                let encodedHost = NSURL.init(string:urlString.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!)
-                SHARE_APPLICATION.openURL(encodedHost!)
+                let urlString = "baidumap://map/geocoder?location=\(centerLat),\(centerLng)&coord_type=gcj02&src=webapp.rgeo.yourCompanyName.yourAppName"
+                SHARE_APPLICATION.openURL(NSURL.init(string: urlString)!)
             })
             optionMenu.addAction(baiduAction)
         }

@@ -194,7 +194,11 @@ class MySellConfimViewModel: NSObject {
     func sellInfoTableViewDidSelect(indexPath:NSIndexPath) {
         switch indexPath.row {
         case 0:
-           infoController.showSellTypePickerView()
+            if indexPath.section == 0 {
+                infoController.showSellTypePickerView()
+            }else{
+                controller.rightItemPress()
+            }
         case 1:
             infoController.showTicketRegionPickerView()
         case 2:
