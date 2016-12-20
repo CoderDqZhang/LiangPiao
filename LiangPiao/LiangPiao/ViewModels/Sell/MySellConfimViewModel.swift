@@ -43,9 +43,21 @@ class MySellConfimViewModel: NSObject {
             self.present = Present.init()
             self.visite = Visite.init()
         }else{
-            self.express = Expressage.mj_objectWithKeyValues(sellFormModel.deverliExpress)
-            self.present = Present.mj_objectWithKeyValues(sellFormModel.deverliPresnt)
-            self.visite = Visite.mj_objectWithKeyValues(sellFormModel.deverliVisite)
+            if sellFormModel.deverliExpress != "请选择" {
+                self.express = Expressage.mj_objectWithKeyValues(sellFormModel.deverliExpress)
+            }else{
+                self.express = Expressage.init()
+            }
+            if sellFormModel.deverliPresnt != "请选择" {
+                self.present = Present.mj_objectWithKeyValues(sellFormModel.deverliPresnt)
+            }else{
+                self.present = Present.init()
+            }
+            if sellFormModel.deverliVisite != "请选择" {
+                self.visite = Visite.mj_objectWithKeyValues(sellFormModel.deverliVisite)
+            }else{
+                self.visite = Visite.init()
+            }
         }
     }
     
@@ -313,7 +325,11 @@ class MySellConfimViewModel: NSObject {
     
     func requestSellTicketPost(){
         var paramerts = NSMutableDictionary()
-        paramerts = ["show_session_ticket":self.sellFormModel.ticketPrice,"seat_type":self.sellFormModel.seatType, "price":self.sellFormModel.price, "region":self.sellFormModel.ticketRegin, "sell_type":self.sellFormModel.sellType == "单卖" ? "1" : "2", "ticket_count":self.sellFormModel.number,"row":self.sellFormModel.ticketRow]
+        var str = ""
+        if self.sellFormModel.ticketRegin != "择优分配" {
+            str = self.sellFormModel.ticketRow == "择优分配" ? "" : (self.sellFormModel.ticketRow as NSString).substringToIndex(self.sellFormModel.ticketRow.length - 1)
+        }
+        paramerts = ["show_session_ticket":self.sellFormModel.ticketPrice,"seat_type":self.sellFormModel.seatType, "price":self.sellFormModel.price, "region":self.sellFormModel.ticketRegin, "sell_type":self.sellFormModel.sellType == "单卖" ? "1" : "2", "ticket_count":self.sellFormModel.number,"row":str]
         var delivery_type = ""
         if self.express.isSelect {
             delivery_type = delivery_type.stringByAppendingString("1,")

@@ -113,7 +113,7 @@ class MyTicketPutUpViewModel: NSObject {
             cell.setUpDataAarray(self.getSessionTitle(sesstionModels), selectArray: self.getSessionType(sesstionModels))
             cell.picketUpSessionClouse = { tag in
                 if self.ticketDic.objectForKey("\(tag)") == nil {
-                    self.connectService()
+                    self.continuePutUpTicket(ShowSessionModel.init(fromDictionary: self.sesstionModels.objectAtIndex(tag) as! NSDictionary))
                 }else {
                     self.controller.hiderTicketToolsView()
                     self.selectSession = tag
@@ -153,16 +153,43 @@ class MyTicketPutUpViewModel: NSObject {
                 NavigationPushView(controller, toConroller: controllerVC)
             }
         }else if indexPath.row > 2 {
-            self.connectService()
+            self.connectService(self.tempList[indexPath.row - 3], indexPath: indexPath)
         }
     }
     
-    func connectService(){
-        UIAlertController.shwoAlertControl(self.controller, style: .Alert, title: "暂时请联系客服帮忙操作", message: nil, cancel: "稍等一会", doneTitle: "联系客服", cancelAction:{
+    func connectService(ticket:TicketList, indexPath:NSIndexPath){
+        let alertController = UIAlertController.init(title: nil, message: nil, preferredStyle: .ActionSheet)
+        alertController.addAction(UIAlertAction.init(title: "取消", style: .Cancel, handler: { (cancelAction) in
             
-            }, doneAction: {
-                AppCallViewShow(self.controller.view, phone: "400-873-8011")
-        })
+        }))
+        alertController.addAction(UIAlertAction.init(title: "编辑", style: .Default, handler: { (up) in
+            
+        }))
+        //status 1 正常， 2 卖光了 0 下架
+        if ticket.status != 2 {
+            let str = ticket.status == 1 ? "下架":"上架"
+            alertController.addAction(UIAlertAction.init(title: str, style: .Default, handler: { (up) in
+                self.requestTicketPutStatus(ticket, indexPath:indexPath)
+            }))
+        }
+        
+        alertController.addAction(UIAlertAction.init(title: "删除", style: .Default, handler: { (up) in
+            self.requestDeleteTicket(ticket, indexPath:indexPath)
+        }))
+        
+        self.controller.presentViewController(alertController, animated: true) { 
+            
+        }
+    }
+    
+    func continuePutUpTicket(sessionModel:ShowSessionModel?){
+        let controllerVC = MySellConfimViewController()
+        let tempModel = ticketShowModel
+        let sessionModel = ShowSessionModel.init(fromDictionary: self.sesstionModels.objectAtIndex(self.selectSession) as! NSDictionary)
+        tempModel.session = sessionModel
+        controllerVC.viewModel.model = tempModel
+        controllerVC.viewModel.setUpViewModel()
+        NavigationPushView(controller, toConroller: controllerVC)
     }
     
     func oneSession(){
@@ -305,6 +332,27 @@ class MyTicketPutUpViewModel: NSObject {
             }
             ticketShowModel.sessionList[Int(ticketDic.objectForKey("\(self.selectSession)") as! NSInteger)].ticketList = sortArrayList
             self.controller.tableView.reloadData()
+        }
+    }
+    
+    func requestDeleteTicket(ticket:TicketList, indexPath:NSIndexPath){
+        let url = "\(SellTicketStatus)\(ticket.id)/"
+        BaseNetWorke.sharedInstance.deleteUrlWithString(url, parameters: nil).subscribeNext { (resultDic) in
+            self.tempList.removeAtIndex(indexPath.row - 3)
+            self.controller.tableView.beginUpdates()
+            self.ticketShowModel.sessionList[Int(self.ticketDic.objectForKey("\(self.selectSession)") as! NSInteger)].ticketList.removeAtIndex(indexPath.row - 3)
+            self.controller.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            self.controller.tableView.endUpdates()
+        }
+    }
+    
+    func requestTicketPutStatus(ticket:TicketList, indexPath:NSIndexPath){
+        let url = "\(SellTicketStatus)\(ticket.id)/"
+        BaseNetWorke.sharedInstance.putUrlWithString(url, parameters: nil).subscribeNext { (resultDic) in
+            ticket.status = ticket.status == 1 ? 0 : 1
+            ticket.statusDesc = ticket.status == 1 ? "已上线" : "已下线"
+            self.tempList[indexPath.row - 3] = ticket
+            self.controller.tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
         }
     }
 }

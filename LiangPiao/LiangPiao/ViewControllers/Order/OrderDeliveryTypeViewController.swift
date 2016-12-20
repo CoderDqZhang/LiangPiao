@@ -95,12 +95,15 @@ class OrderDeliveryTypeViewController: UIViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("GloabTitleAndSwitchBarTableViewCell", forIndexPath: indexPath) as! GloabTitleAndSwitchBarTableViewCell
         cell.selectionStyle = .None
         viewModel.talbleViewCellGloabTitleAndSwitchBarTableViewCell(cell, indexPath: indexPath, controller:self)
+        cell.titleLabel.font = App_Theme_PinFan_R_14_Font
         return cell
     }
     
     func cellGloabTextFieldCell(tableView:UITableView,indexPath:NSIndexPath) -> GloabTextFieldCell{
         let cell = tableView.dequeueReusableCellWithIdentifier("GloabTextFieldCell", forIndexPath: indexPath) as! GloabTextFieldCell
         cell.selectionStyle = .None
+        cell.textField.textColor = UIColor.init(hexString: App_Theme_556169_Color)
+        cell.textField.font = App_Theme_PinFan_R_13_Font
         viewModel.talbleViewCellGloabTextFieldCell(cell, indexPath: indexPath)
         return cell
     }

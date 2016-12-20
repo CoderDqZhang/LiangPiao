@@ -75,6 +75,7 @@ class SellRecommondTableViewCell: UITableViewCell {
         sellButton.layer.cornerRadius = 2.0
         sellButton.layer.borderWidth = 1.0
         sellButton.layer.masksToBounds = true
+        sellButton.userInteractionEnabled = false
         sellButton.setTitleColor(UIColor.init(hexString: App_Theme_4BD4C5_Color), forState: .Normal)
         self.contentView.addSubview(sellButton)
         

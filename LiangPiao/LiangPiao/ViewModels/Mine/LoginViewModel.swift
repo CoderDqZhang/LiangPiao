@@ -39,7 +39,7 @@ class LoginViewModel: NSObject {
             UserInfoModel.shareInstance().id = model.id
             UserInfoModel.shareInstance().gender = model.gender
             UserInfoModel.shareInstance().phone = model.phone
-            
+            UserInfoModel.shareInstance().role = model.role
             model.saveOrUpdate()
             self.savePhotoImage()
             Notification(LoginStatuesChange, value: nil)

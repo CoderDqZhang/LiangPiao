@@ -28,6 +28,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
+        if UserInfoModel.isLoggedIn() {
+            if UserInfoModel.shareInstance().role == nil {
+                UserInfoModel.logout()
+            }
+        }
         AppleThemeTool.setUpToolBarColor()
         AppleThemeTool.setUpKeyBoardManager()
         

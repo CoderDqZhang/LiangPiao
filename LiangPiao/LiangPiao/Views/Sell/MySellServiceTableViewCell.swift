@@ -61,6 +61,7 @@ class MySellServiceTableViewCell: UITableViewCell {
         muchLabel.text = much
         seveiceMuch.text = servicemuch
         serviceP.text = sevicep
+        UILabel.changeLineSpaceForLabel(serviceP, withSpace: 2.0)
         switch type {
         case 0:
             seveiceImage.snp_remakeConstraints(closure: { (make) in

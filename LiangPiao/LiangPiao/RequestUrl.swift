@@ -54,3 +54,6 @@ let WallWithDraw = "\(BaseURL)account/withdraw/"
 
 
 let SellTicket = "\(BaseURL)supplier/show/"
+
+let SellTicketStatus = "\(BaseURL)supplier/ticket/"
+

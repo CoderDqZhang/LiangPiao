@@ -56,6 +56,7 @@ class TiketPickeUpInfoTableViewCell: UITableViewCell {
         editBtn = UIButton(type: .Custom)
         editBtn.setTitle("编辑", forState: .Normal)
         editBtn.setTitleColor(UIColor.init(hexString: App_Theme_A2ABB5_Color), forState: .Normal)
+        editBtn.userInteractionEnabled = false
         editBtn.titleLabel?.font = App_Theme_PinFan_R_10_Font
         self.contentView.addSubview(editBtn)
         

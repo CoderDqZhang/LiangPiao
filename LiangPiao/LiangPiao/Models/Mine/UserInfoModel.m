@@ -72,6 +72,7 @@ static UserInfoModel *_instance = nil;
 //    BOOL result = [fileManager removeItemAtPath:kEncodedObjectPath_User error:&error];
     [UserInfoModel shareInstance].id = nil;
     [UserInfoModel shareInstance].avatar = nil;
+    [UserInfoModel shareInstance].role = nil;
     [UserInfoModel shareInstance].username = nil;
     [UserInfoModel shareInstance].phone = nil;
     [UserInfoModel shareInstance].gender = 0;

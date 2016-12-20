@@ -22,17 +22,25 @@ class SellViewModel: NSObject {
     }
     
     func tableViewDidSelectRowAtIndexPath(indexPath:NSIndexPath) {
-        let model = TicketShowModel.init(fromDictionary: self.models.objectAtIndex(indexPath.row) as! NSDictionary)
-        if model.sessionCount != 1 {
-            let controllerVC = TicketSceneViewController()
-            controllerVC.viewModel.model = model
-            controllerVC.viewModel.isSellType = true
-            NavigationPushView(controller, toConroller: controllerVC)            
+        if UserInfoModel.shareInstance().role == "supplier" {
+            let model = TicketShowModel.init(fromDictionary: self.models.objectAtIndex(indexPath.row) as! NSDictionary)
+            if model.sessionCount != 1 {
+                let controllerVC = TicketSceneViewController()
+                controllerVC.viewModel.model = model
+                controllerVC.viewModel.isSellType = true
+                NavigationPushView(controller, toConroller: controllerVC)
+            }else{
+                let controllerVC = MySellConfimViewController()
+                controllerVC.viewModel.model = model
+                controllerVC.viewModel.setUpViewModel()
+                NavigationPushView(controller, toConroller: controllerVC)
+            }
         }else{
-            let controllerVC = MySellConfimViewController()
-            controllerVC.viewModel.model = model
-            controllerVC.viewModel.setUpViewModel()
-            NavigationPushView(controller, toConroller: controllerVC)
+            UIAlertController.shwoAlertControl(controller, style: .Alert, title: "请联系客服开通商家权限", message: nil, cancel: "取消", doneTitle: "联系删减", cancelAction: { 
+                
+                }, doneAction: {
+                    AppCallViewShow(self.controller.view, phone: "400-873-8011")
+            })
         }
     }
     

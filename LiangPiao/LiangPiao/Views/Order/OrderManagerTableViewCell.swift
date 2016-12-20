@@ -17,7 +17,7 @@ class TicketImageViews: UIView {
     var imageViewSplash1:UIImageView = UIImageView()
     var imageViewSplash2:UIImageView = UIImageView()
     
-    init(imageUrl:String, frame:CGRect, type:TicketImageViewsType?) {
+    init(imageUrl:String?, frame:CGRect, type:TicketImageViewsType?) {
         super.init(frame: frame)
         imageView.frame = CGRect.init(x: 0, y: 8, width: frame.size.width, height: frame.size.height - 8)
         imageViewSplash1.frame = CGRect.init(x: 8, y: 0, width: frame.size.width - 16, height: (frame.size.width - 16) * frame.size.height / frame.size.width)
@@ -28,7 +28,28 @@ class TicketImageViews: UIView {
         self.setImage(imageView)
         self.setImage(imageViewSplash1)
         self.setImage(imageViewSplash2)
-        imageView.sd_setImageWithURL(NSURL.init(string: imageUrl), placeholderImage: UIImage.init(named: "Feeds_Default_Cover")) { (image, error, cacheType, url) in
+        if imageUrl != nil {
+            imageView.sd_setImageWithURL(NSURL.init(string: imageUrl!), placeholderImage: UIImage.init(named: "Feeds_Default_Cover")) { (image, error, cacheType, url) in
+                if type == nil || type == .OneImage {
+                    self.imageViewSplash1.hidden = true
+                    self.imageViewSplash2.hidden = true
+                }
+                if type == .TwoOrMore {
+                    self.imageViewSplash1.hidden = false
+                    self.imageViewSplash2.hidden = false
+                    self.imageViewSplash1.image = image
+                    self.imageViewSplash1.alpha = 0.2
+                    self.imageViewSplash2.image = image
+                    self.imageViewSplash2.alpha = 0.4
+                }
+            }
+        }else{
+            let image = UIImage.init(named: "Feeds_Default_Cover")
+            imageView.image = image
+            self.imageViewSplash1.image = image
+            self.imageViewSplash1.alpha = 0.2
+            self.imageViewSplash2.image = image
+            self.imageViewSplash2.alpha = 0.4
             if type == nil || type == .OneImage {
                 self.imageViewSplash1.hidden = true
                 self.imageViewSplash2.hidden = true
@@ -36,10 +57,6 @@ class TicketImageViews: UIView {
             if type == .TwoOrMore {
                 self.imageViewSplash1.hidden = false
                 self.imageViewSplash2.hidden = false
-                self.imageViewSplash1.image = image
-                self.imageViewSplash1.alpha = 0.2
-                self.imageViewSplash2.image = image
-                self.imageViewSplash2.alpha = 0.4
             }
         }
     }
@@ -93,7 +110,7 @@ class OrderManagerTableViewCell: UITableViewCell {
     }
     
     func setUpView() {
-        ticketPhoto = TicketImageViews(imageUrl: "http://7xsatk.com1.z0.glb.clouddn.com/6b20c1598794e54b2983eab6e78d48e5.jpg?imageMogr/v2/format/jpg/thumbnail/277x373", frame: CGRect.init(x: 15, y: 22, width: 82, height: 118), type: .TwoOrMore)
+        ticketPhoto = TicketImageViews(imageUrl: nil, frame: CGRect.init(x: 15, y: 22, width: 82, height: 118), type: .OneImage)
         self.contentView.addSubview(ticketPhoto)
         
         ticketTitle = UILabel()

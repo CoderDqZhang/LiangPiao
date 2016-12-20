@@ -19,6 +19,8 @@
 
 @property (nonatomic, copy) NSString *avatar;
 
+@property (nonatomic, copy) NSString *role;
+
 @property (nonatomic, assign) NSInteger gender;
 
 + (instancetype)shareInstance;

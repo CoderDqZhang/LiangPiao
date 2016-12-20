@@ -54,7 +54,7 @@ class MyTicketPutUpViewController: UIViewController {
         self.view.addSubview(ticketToolsView)
         
         bottomView = GloableBottomButtonView(frame: nil, title: "继续挂票", tag: 1) { (tag) in
-            self.viewModel.connectService()
+            self.viewModel.continuePutUpTicket(nil)
         }
         self.view.addSubview(bottomView)
         
