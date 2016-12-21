@@ -123,7 +123,6 @@
 		1F8AA0B61DD34B1700587C24 /* AboutUsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8AA0B51DD34B1700587C24 /* AboutUsViewController.swift */; };
 		1F8AA0B81DD475C000587C24 /* ReciveTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F8AA0B71DD475C000587C24 /* ReciveTableViewCell.swift */; };
 		1F90E6031E08E14500661165 /* TickeSellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F90E6021E08E14500661165 /* TickeSellModel.swift */; };
-		1F90E6051E0908B100661165 /* PutUpModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F90E6041E0908B100661165 /* PutUpModel.swift */; };
 		1F987DEA1E028DF10095803A /* MySellConfimHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F987DE91E028DF10095803A /* MySellConfimHeaderTableViewCell.swift */; };
 		1F987DEC1E028E2D0095803A /* MySellTicketTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F987DEB1E028E2D0095803A /* MySellTicketTableViewCell.swift */; };
 		1F987DEE1E028E5E0095803A /* MySellTicketMuchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F987DED1E028E5E0095803A /* MySellTicketMuchTableViewCell.swift */; };
@@ -376,7 +375,6 @@
 		1F8AA0B51DD34B1700587C24 /* AboutUsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutUsViewController.swift; sourceTree = "<group>"; };
 		1F8AA0B71DD475C000587C24 /* ReciveTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReciveTableViewCell.swift; sourceTree = "<group>"; };
 		1F90E6021E08E14500661165 /* TickeSellModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TickeSellModel.swift; sourceTree = "<group>"; };
-		1F90E6041E0908B100661165 /* PutUpModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PutUpModel.swift; sourceTree = "<group>"; };
 		1F987DE91E028DF10095803A /* MySellConfimHeaderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MySellConfimHeaderTableViewCell.swift; sourceTree = "<group>"; };
 		1F987DEB1E028E2D0095803A /* MySellTicketTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MySellTicketTableViewCell.swift; sourceTree = "<group>"; };
 		1F987DED1E028E5E0095803A /* MySellTicketMuchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MySellTicketMuchTableViewCell.swift; sourceTree = "<group>"; };
@@ -691,7 +689,6 @@
 				1FEC72E41E03D00900F0D2C3 /* SellFormModel.h */,
 				1FEC72E51E03D00900F0D2C3 /* SellFormModel.m */,
 				1F90E6021E08E14500661165 /* TickeSellModel.swift */,
-				1F90E6041E0908B100661165 /* PutUpModel.swift */,
 			);
 			path = Sell;
 			sourceTree = "<group>";
@@ -1478,7 +1475,6 @@
 				1FEE7EAB1DF65A9B00479648 /* MyWallHeaderTableViewCell.swift in Sources */,
 				1F8857311DFFA4220054367C /* ZDQFlowViewItem.swift in Sources */,
 				1F24DE971DD5BA0A00C6E8CA /* FavoriteViewModel.swift in Sources */,
-				1F90E6051E0908B100661165 /* PutUpModel.swift in Sources */,
 				1F36E1A71DF0509900565D1A /* SearchViewModel.swift in Sources */,
 				1F889EEB1DF6BC71009717DB /* TopUpTypeTableViewCell.swift in Sources */,
 				1F54C52E1DDC3A61009ADDA9 /* JKDBHelper.m in Sources */,
@@ -1778,7 +1774,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/LiangPiao/Uti/TalkingData",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.liangpiao.liangpiaom;
+				PRODUCT_BUNDLE_IDENTIFIER = com.liangpiao.liangpiao;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1811,7 +1807,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/LiangPiao/Uti/TalkingData",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.liangpiao.liangpiaom;
+				PRODUCT_BUNDLE_IDENTIFIER = com.liangpiao.liangpiao;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";

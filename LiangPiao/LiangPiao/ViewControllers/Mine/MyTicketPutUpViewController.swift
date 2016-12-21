@@ -54,7 +54,8 @@ class MyTicketPutUpViewController: UIViewController {
         self.view.addSubview(ticketToolsView)
         
         bottomView = GloableBottomButtonView(frame: nil, title: "继续挂票", tag: 1) { (tag) in
-            self.viewModel.continuePutUpTicket(nil)
+            let ret = self.viewModel.tempList.count == 0 ? true : false
+            self.viewModel.continuePutUpTicket(nil, isNoneTicket: ret)
         }
         self.view.addSubview(bottomView)
         

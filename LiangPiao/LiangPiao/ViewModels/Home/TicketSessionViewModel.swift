@@ -57,6 +57,8 @@ class TicketSessionViewModel: NSObject {
         if isSellType {
             let controllerVC = MySellConfimViewController()
             model.session = ShowSessionModel.init(fromDictionary: self.models.objectAtIndex(indexPath.row) as! NSDictionary)
+            controllerVC.viewModel.isChange = false
+            controllerVC.viewModel.isSellTicketView = true
             controllerVC.viewModel.model = model
             controllerVC.viewModel.setUpViewModel()
             NavigationPushView(controller, toConroller: controllerVC)

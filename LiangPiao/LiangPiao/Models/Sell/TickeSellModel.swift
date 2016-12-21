@@ -35,7 +35,7 @@ class TickeSellModel : NSObject, NSCoding{
      */
     func toDictionary() -> NSDictionary
     {
-        var dictionary = NSMutableDictionary()
+        let dictionary = NSMutableDictionary()
         if deliveryTypeChoices != nil{
             dictionary["delivery_type_choices"] = deliveryTypeChoices
         }

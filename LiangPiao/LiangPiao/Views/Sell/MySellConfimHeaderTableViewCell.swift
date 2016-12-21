@@ -50,6 +50,7 @@ class MySellConfimHeaderTableViewCell: UITableViewCell {
     
     func setUpData(model:TicketShowModel){
         ticketTitle.text = model.title
+        UILabel.changeLineSpaceForLabel(ticketTitle, withSpace: TitleLineSpace)
         ticketTime.text = model.session.startTime
         ticketLoacation.text = model.venue.name
     }

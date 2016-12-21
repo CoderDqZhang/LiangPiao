@@ -94,7 +94,19 @@ class SellRecommondTableViewCell: UITableViewCell {
         UILabel.changeLineSpaceForLabel(ticketTitle, withSpace: TitleLineSpace)
         ticketLocation.text = model.venue.name
         ticketTime.text = model.showDate
-        
+        if model.maxPrice == nil  {
+            ticketMuch.text = "\(model.minPrice)"
+        }else{
+            if model.minPrice == 0 && model.maxPrice == 0 {
+                ticketMuch.text = "0"
+            }else{
+                if model.minPrice == model.maxPrice {
+                    ticketMuch.text = "\(model.minPrice)"
+                }else{
+                    ticketMuch.text = "\(model.minPrice)-\(model.maxPrice)"
+                }
+            }
+        }
         self.updateConstraintsIfNeeded()
         
     }

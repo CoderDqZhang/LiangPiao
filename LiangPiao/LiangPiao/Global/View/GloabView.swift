@@ -495,14 +495,15 @@ class GloableServiceView: UIView, UIGestureRecognizerDelegate {
         let recommentTitle = UILabel()
         let width = title.widthWithConstrainedHeight(title, font: App_Theme_PinFan_M_14_Font!, height: 20)
         if IPHONE_VERSION >= 9 {
-            recommentTitle.frame = CGRectMake((SCREENWIDTH - width) / 2, 48, 56, 20)
+            recommentTitle.frame = CGRectMake((SCREENWIDTH - width) / 2, 48, width, 20)
         }else{
-            recommentTitle.frame = CGRectMake((SCREENWIDTH - (width + 3)) / 2, 48, 69, 20)
+            recommentTitle.frame = CGRectMake((SCREENWIDTH - width) / 2, 48, width, 20)
         }
         
         recommentTitle.textColor = UIColor.init(hexString: App_Theme_384249_Color)
         recommentTitle.font = App_Theme_PinFan_M_14_Font
         recommentTitle.text = title
+        recommentTitle.textAlignment = .Center
         detailView.addSubview(recommentTitle)
         
         let lineLabel = GloabLineView(frame: CGRectMake(CGRectGetMinX(recommentTitle.frame) - 50, 58, 30, 0.5))
@@ -596,7 +597,7 @@ class GloableTitleList: UIView {
     var titleCount:NSInteger = 0
     var gloableTitleListClouse:GloableTitleListClouse!
     
-    init(frame:CGRect, title:NSArray) {
+    init(frame:CGRect, title:NSArray, selectIndex:NSInteger) {
         super.init(frame: frame)
         titleCount = title.count
         for index in 0...title.count - 1 {
@@ -610,7 +611,7 @@ class GloableTitleList: UIView {
                 labelFrame = CGRect.init(x: originX, y: originY, width: strWidth, height: GloableTitleListLabelHeight)
             }
             let label = self.createLabel(str, frame: labelFrame, type: .nomalType)
-            if index == 0 {
+            if index == selectIndex {
                 self.updateLabelType(label, type: .selectType)
             }
             label.tag = index + 100

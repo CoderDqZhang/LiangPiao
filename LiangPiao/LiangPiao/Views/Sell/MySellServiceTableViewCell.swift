@@ -32,7 +32,7 @@ class MySellServiceTableViewCell: UITableViewCell {
         self.contentView.addSubview(seveiceImage)
         
         muchLabel = UILabel()
-        muchLabel.text = "交易服务费：00.00 元"
+        muchLabel.text = "交易手续费：00.00 元"
         UILabel.changeLineSpaceForLabel(muchLabel, withSpace: 3.0)
         muchLabel.textColor = UIColor.init(hexString: App_Theme_384249_Color)
         muchLabel.font = App_Theme_PinFan_R_13_Font

@@ -90,7 +90,7 @@ class SellTicketsViewController: BaseViewController {
             .ignore("")
             .distinctUntilChanged()
         single.throttle(0.5).subscribeNext { (str) in
-//            self.searchViewModel.requestSearchTicket(str as! String, searchTable: self.searchTableView)
+            self.searchViewModel.requestSearchTicket(str as! String, searchTable: self.searchTableView)
         }
         searchViewModel.searchViewModelClouse = { _ in
             

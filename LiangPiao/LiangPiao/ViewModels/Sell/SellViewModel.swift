@@ -22,26 +22,33 @@ class SellViewModel: NSObject {
     }
     
     func tableViewDidSelectRowAtIndexPath(indexPath:NSIndexPath) {
-        if UserInfoModel.shareInstance().role == "supplier" {
-            let model = TicketShowModel.init(fromDictionary: self.models.objectAtIndex(indexPath.row) as! NSDictionary)
-            if model.sessionCount != 1 {
-                let controllerVC = TicketSceneViewController()
-                controllerVC.viewModel.model = model
-                controllerVC.viewModel.isSellType = true
-                NavigationPushView(controller, toConroller: controllerVC)
+        if UserInfoModel.isLoggedIn() {
+            if UserInfoModel.shareInstance().role == "supplier" {
+                let model = TicketShowModel.init(fromDictionary: self.models.objectAtIndex(indexPath.row) as! NSDictionary)
+                if model.sessionCount != 1 {
+                    let controllerVC = TicketSceneViewController()
+                    controllerVC.viewModel.model = model
+                    controllerVC.viewModel.isSellType = true
+                    NavigationPushView(controller, toConroller: controllerVC)
+                }else{
+                    let controllerVC = MySellConfimViewController()
+                    controllerVC.viewModel.model = model
+                    controllerVC.viewModel.isChange = false
+                    controllerVC.viewModel.isSellTicketView = true
+                    controllerVC.viewModel.setUpViewModel()
+                    NavigationPushView(controller, toConroller: controllerVC)
+                }
             }else{
-                let controllerVC = MySellConfimViewController()
-                controllerVC.viewModel.model = model
-                controllerVC.viewModel.setUpViewModel()
-                NavigationPushView(controller, toConroller: controllerVC)
+                UIAlertController.shwoAlertControl(controller, style: .Alert, title: "您还非商家哦，可联系客服400-873-8011", message: nil, cancel: "取消", doneTitle: "联系客服", cancelAction: {
+                    
+                    }, doneAction: {
+                        AppCallViewShow(self.controller.view, phone: "400-873-8011")
+                })
             }
         }else{
-            UIAlertController.shwoAlertControl(controller, style: .Alert, title: "请联系客服开通商家权限", message: nil, cancel: "取消", doneTitle: "联系删减", cancelAction: { 
-                
-                }, doneAction: {
-                    AppCallViewShow(self.controller.view, phone: "400-873-8011")
-            })
+            NavigationPushView(controller, toConroller: LoginViewController())
         }
+        
     }
     
     func numberOfRowsInSection(section:Int) -> Int {
@@ -58,7 +65,7 @@ class SellViewModel: NSObject {
     }
     
     func requestHotTicket(){
-        BaseNetWorke.sharedInstance.getUrlWithString(TickeHot, parameters: nil).subscribeNext { (resultDic) in
+        BaseNetWorke.sharedInstance.getUrlWithString(HotSellURl, parameters: nil).subscribeNext { (resultDic) in
             let resultModels =  NSMutableArray.mj_objectArrayWithKeyValuesArray(resultDic)
             self.models = resultModels.mutableCopy() as! NSMutableArray
             self.controller.tableView.reloadData()

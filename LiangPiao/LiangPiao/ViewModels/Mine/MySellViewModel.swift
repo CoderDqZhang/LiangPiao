@@ -159,6 +159,9 @@ class MySellViewModel: NSObject {
         }else{
             ticketMuch = "\(priceModel.minPrice)"
         }
+        controllerVC.viewModel.myTicketPutUpViewModelClouse = { ticketShow in
+            self.ticketShowModel.replaceObjectAtIndex(indexPath.section, withObject: ticketShow.toDictionary())
+        }
         controllerVC.viewModel.ticketSoldMuch = ticketMuch
         controllerVC.viewModel.ticketSession = self.TicketShowModelSession(model)
         NavigationPushView(self.controller, toConroller: controllerVC)
@@ -189,12 +192,14 @@ class MySellViewModel: NSObject {
     }
     
     func tableViewCellMySellManagerMuchTableViewCell(cell:MySellManagerMuchTableViewCell, indexPath:NSIndexPath) {
-        let model = TicketShowModel.init(fromDictionary: ticketShowModel[indexPath.section] as! NSDictionary)
-        let priceModel = self.sellManagerMinMaxPrice(model)
-        if priceModel.minPrice != priceModel.maxPrice {
-            cell.setMuchLabelText("\(priceModel.minPrice)-\(priceModel.maxPrice)")
-        }else{
-            cell.setMuchLabelText("\(priceModel.minPrice)")
+        if ticketShowModel.count != 0 {
+            let model = TicketShowModel.init(fromDictionary: ticketShowModel[indexPath.section] as! NSDictionary)
+            let priceModel = self.sellManagerMinMaxPrice(model)
+            if priceModel.minPrice != priceModel.maxPrice {
+                cell.setMuchLabelText("\(priceModel.minPrice)-\(priceModel.maxPrice)")
+            }else{
+                cell.setMuchLabelText("\(priceModel.minPrice)")
+            }
         }
     }
     
@@ -207,6 +212,7 @@ class MySellViewModel: NSObject {
             MainThreadAlertShow("请登录后查看", view: KWINDOWDS!)
             return;
         }
+        self.ticketShowModel.removeAllObjects()
         BaseNetWorke.sharedInstance.getUrlWithString(SupplierTicketList, parameters: nil).subscribeNext { (resultDic) in
             if self.mySellManager.tableView == nil {
                 self.mySellManager.setUpView()

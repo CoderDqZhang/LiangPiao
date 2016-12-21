@@ -19,11 +19,11 @@ class SellInfoViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.title = "确认订单"
+        self.navigationItem.title = "挂票"
         self.bindViewModel()
         self.setUpView()
         self.setNavigationItem()
-        self.talKingDataPageName = "确认订单"
+        self.talKingDataPageName = "挂票"
         self.setupForDismissKeyboard()
         // Do any additional setup after loading the view.
     }

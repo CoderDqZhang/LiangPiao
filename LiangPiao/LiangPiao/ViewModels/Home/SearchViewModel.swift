@@ -67,15 +67,30 @@ class SearchViewModel: NSObject {
                 NavigationPushView(controller, toConroller: controllerVC)
             }
         }else {
-            let searchTicke = searchModel.showList[indexPath.row]
-            if searchTicke.sessionCount == 1 {
-                let controllerVC = TicketDescriptionViewController()
-                controllerVC.viewModel.ticketModel = searchTicke
-                NavigationPushView(controllerS, toConroller: controllerVC)
+            if UserInfoModel.isLoggedIn() {
+                if UserInfoModel.shareInstance().role == "supplier" {
+                    let model = searchModel.showList[indexPath.row]
+                    if model.sessionCount != 1 {
+                        let controllerVC = TicketSceneViewController()
+                        controllerVC.viewModel.model = model
+                        controllerVC.viewModel.isSellType = true
+                        NavigationPushView(controllerS, toConroller: controllerVC)
+                    }else{
+                        let controllerVC = MySellConfimViewController()
+                        controllerVC.viewModel.model = model
+                        controllerVC.viewModel.isChange = false
+                        controllerVC.viewModel.setUpViewModel()
+                        NavigationPushView(controllerS, toConroller: controllerVC)
+                    }
+                }else{
+                    UIAlertController.shwoAlertControl(controller, style: .Alert, title: "您还非商家哦，可联系客服400-873-8011", message: nil, cancel: "取消", doneTitle: "联系客服", cancelAction: {
+                        
+                        }, doneAction: {
+                            AppCallViewShow(self.controller.view, phone: "400-873-8011")
+                    })
+                }
             }else{
-                let controllerVC = TicketSceneViewController()
-                controllerVC.viewModel.model = searchTicke
-                NavigationPushView(controllerS, toConroller: controllerVC)
+                NavigationPushView(controllerS, toConroller: LoginViewController())
             }
         }
         
@@ -92,12 +107,11 @@ class SearchViewModel: NSObject {
     }
     
     func searchTableCellDatas(cell:SellRecommondTableViewCell, indexPath:NSIndexPath) {
-//        if searchModel != nil {
-//            let searchTicke = searchModel.showList[indexPath.row]
-//            cell.setData(searchTicke)
-//        }
+        if searchModel != nil {
+            let searchTicke = searchModel.showList[indexPath.row]
+            cell.setData(searchTicke)
+        }
     }
-    
     
     func requestSearchTicket(searchText:String, searchTable:GlobalSearchTableView) {
         let str = searchText.addEncoding(searchText)

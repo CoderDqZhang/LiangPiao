@@ -564,7 +564,6 @@ class GloabTitleNumberCountTableViewCell: UITableViewCell {
         self.contentView.addSubview(titleLabel)
         
         numberTickView = NumberTickView.init(frame: CGRectMake(15, 56, SCREENWIDTH - 30, 41), buttonWidth: 70)
-        
         self.contentView.addSubview(numberTickView)
         
         self.updateConstraintsIfNeeded()
@@ -585,6 +584,8 @@ class GloabTitleNumberCountTableViewCell: UITableViewCell {
     func setText(title:String, textFieldText:String){
         titleLabel.text = title
         numberTickView.numberTextField.text = textFieldText
+        numberTickView.number = Int(textFieldText)!
+        numberTickView.setNumberDownColor()
     }
     
     override func awakeFromNib() {

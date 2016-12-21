@@ -182,6 +182,7 @@ class TicketShowModel : NSObject, NSCoding{
     var id : Int!
     var minDiscount : String!
     var minPrice : Int!
+    var maxPrice : Int!
     var session : ShowSessionModel!
     var sessionList : [ShowSessionModel]!
     var sessionCount : Int!
@@ -205,6 +206,7 @@ class TicketShowModel : NSObject, NSCoding{
         id = dictionary["id"] as? Int
         minDiscount = dictionary["min_discount"] as? String
         minPrice = dictionary["min_price"] as? Int
+        maxPrice = dictionary["max_price"] as? Int
         if let sessionData = dictionary["session"] as? NSDictionary{
             session = ShowSessionModel(fromDictionary: sessionData)
         }
@@ -253,6 +255,9 @@ class TicketShowModel : NSObject, NSCoding{
         if minPrice != nil{
             dictionary["min_price"] = minPrice
         }
+        if maxPrice != nil{
+            dictionary["max_price"] = maxPrice
+        }
         if session != nil{
             dictionary["session"] = session.toDictionary()
         }
@@ -297,6 +302,7 @@ class TicketShowModel : NSObject, NSCoding{
         isFavorite = aDecoder.decodeObjectForKey("is_favorite") as? Bool
         minDiscount = aDecoder.decodeObjectForKey("min_discount") as? String
         minPrice = aDecoder.decodeObjectForKey("min_price") as? Int
+        maxPrice = aDecoder.decodeObjectForKey("max_price") as? Int
         session = aDecoder.decodeObjectForKey("session") as? ShowSessionModel
         sessionList = aDecoder.decodeObjectForKey("session_list") as? [ShowSessionModel]
         sessionCount = aDecoder.decodeObjectForKey("session_count") as? Int
@@ -325,6 +331,9 @@ class TicketShowModel : NSObject, NSCoding{
         }
         if id != nil{
             aCoder.encodeObject(id, forKey: "id")
+        }
+        if maxPrice != nil{
+            aCoder.encodeObject(maxPrice, forKey: "max_price")
         }
         if isFavorite != nil{
             aCoder.encodeObject(isFavorite, forKey: "is_favorite")

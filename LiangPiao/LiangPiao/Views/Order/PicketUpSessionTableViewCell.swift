@@ -120,6 +120,9 @@ class PicketUpSessionTableViewCell: UITableViewCell {
                     }, type: selectArray.objectAtIndex(index) as! Int)
                 OriginX = CGRectGetMaxX(sessionView.frame) + 10
                 scrollerView.addSubview(sessionView)
+                if index == 0 {
+                    sessionView.upDataType(1)
+                }
             }
             scrollerView.showsHorizontalScrollIndicator = false
             scrollerView.contentSize = CGSizeMake(OriginX, 90)

@@ -8,6 +8,9 @@
 
 import UIKit
 
+typealias MySellConfimViewModelClouse = (ticket:TicketList, name:String) -> Void
+typealias MySellConfimViewModelAddClouse = (originTicket:OriginalTicket, ticket:TicketList, name:String) -> Void
+
 class MySellConfimViewModel: NSObject {
     
     var controller:MySellConfimViewController!
@@ -21,9 +24,16 @@ class MySellConfimViewModel: NSObject {
     var express:Expressage = Expressage()
     var present:Present = Present()
     var visite:Visite = Visite()
-    var putUpModel:PutUpModel!
+    var putUpModel:TicketList!
     var much:String!
-    
+    var isChange:Bool = false
+    var selectIndex:NSInteger = 0
+    var ticketOriginName:String = ""
+    var originTicket:OriginalTicket!
+    var isNoneTicket:Bool = false
+    var isSellTicketView:Bool = false
+    var mySellConfimViewModelAddClouse:MySellConfimViewModelAddClouse!
+    var mySellConfimViewModelClouse:MySellConfimViewModelClouse!
     override init() {
         super.init()
         
@@ -36,7 +46,7 @@ class MySellConfimViewModel: NSObject {
     static let shareInstance = MySellConfimViewModel()
     
     func messageTitle() -> String {
-        return "演出结束后第二天，完成票款结算\n 所有交易免佣金，仅含1%第三方支付平台交易手续费"
+        return "卖票前请确保有票，拒绝挂售期票\n位置精确的票品更有利于售卖\n平台所有交易免佣金，仅含1%的第三方平台交易手续费\n商家跳票后押金会直接赔付用户\n三次跳票将取消卖票资格"
     }
     
     func setUpViewModel(){
@@ -66,19 +76,87 @@ class MySellConfimViewModel: NSObject {
         }
     }
     
+    func setUpChangeCellForm(ticket:TicketList){
+        sellFormModel = SellFormModel.findFirstByCriteria("WHERE id = \(model.session.id)")
+        if sellFormModel == nil {
+            sellFormModel = SellFormModel.init()
+            sellFormModel.id = "\(model.session.id)"
+        }
+        self.ticketOriginName = ticket.originalTicket.name
+        self.putUpModel = ticket
+        sellFormModel.ticketPrice = "\(ticket.originalTicket.id)"
+        sellFormModel.price = "\(ticket.price)"
+        sellFormModel.number = ticket.ticketCount
+        sellFormModel.sellType = ticket.sellType == 1 ? "单卖":"一起卖"
+        sellFormModel.seatType = "\(ticket.seatType)"
+        sellFormModel.ticketRegin = ticket.region == "" ? "择优分配" : ticket.region
+        if ticket.region == "" {
+           sellFormModel.ticketRow = "择优分配"
+        }else{
+            sellFormModel.ticketRow = ticket.row == "" ? "则有分配" : "\(ticket.row)排"
+        }
+        if ticket.deliveryType == "1" {
+            self.express.isSelect = true
+            sellFormModel.deverliExpress = NSString.DataTOjsonString(self.express.mj_keyValues())
+        }else{
+            sellFormModel.deverliExpress = "请选择"
+            self.express = Expressage.init()
+        }
+        if ticket.sceneGetTicketAddress != "" {
+            self.present.isSelect = true
+            self.present.address = ticket.sceneGetTicketAddress
+            self.present.phone = ticket.sceneGetTicketPhone
+            self.present.time = ticket.sceneGetTicketDate
+            sellFormModel.deverliPresnt = NSString.DataTOjsonString(self.present.mj_keyValues())
+        }else{
+            sellFormModel.deverliPresnt = "请选择"
+            self.present = Present.init()
+        }
+        if ticket.selfGetTicketAddress != "" {
+            self.visite.isSelect = true
+            self.visite.address = ticket.selfGetTicketAddress
+            self.visite.phone = ticket.selfGetTicketPhone
+            self.visite.time = ticket.selfGetTicketDate
+            sellFormModel.deverliPresnt = NSString.DataTOjsonString(self.visite.mj_keyValues())
+        }else{
+            sellFormModel.deverliVisite = "请选择"
+            self.visite = Visite.init()
+        }
+    }
+    
     //MARK: MySellConfimViewController
     func setUpView(){
-        tickeListView = GloableTitleList.init(frame: CGRect.init(x: 15, y: 62, width: SCREENWIDTH - 30, height: 0), title: ticketList)
+        tickeListView = GloableTitleList.init(frame: CGRect.init(x: 15, y: 62, width: SCREENWIDTH - 30, height: 0), title: ticketList, selectIndex:selectIndex)
         tickeListView.frame = CGRect.init(x: 15, y: 62, width: SCREENWIDTH - 30, height: tickeListView.maxHeight)
+        if self.sellFormModel.ticketPrice == "10" {
+            self.sellFormModel.ticketPrice = self.sellTicketModel.ticketChoices[0][0]
+            if self.originTicket != nil {
+                self.originTicket.name = self.sellTicketModel.ticketChoices[0][1]
+                self.originTicket.id = Int(self.sellTicketModel.ticketChoices[0][0])
+            }
+        }
         tickeListView.gloableTitleListClouse = { title, index in
             self.sellFormModel.ticketPrice = self.sellTicketModel.ticketChoices[index][0]
+            if self.originTicket != nil {
+                self.originTicket.name = self.sellTicketModel.ticketChoices[index][1]
+                self.originTicket.id = Int(self.sellTicketModel.ticketChoices[index][0])
+            }
+            self.ticketOriginName = self.sellTicketModel.ticketChoices[index][1]
         }
     }
     
     func getTickeList(){
         ticketList.removeAllObjects()
+        selectIndex = 0
+        var index:NSInteger = 0
         for ticketModel in self.sellTicketModel.ticketChoices {
             ticketList.addObject(ticketModel[1])
+            if isChange {
+                if ticketModel[0] == sellFormModel.ticketPrice {
+                    selectIndex = index
+                }
+            }
+            index = index + 1
         }
         self.setUpView()
     }
@@ -110,12 +188,18 @@ class MySellConfimViewModel: NSObject {
     
     func tableViewCellGloabTitleNumberCountTableViewCell(cell:GloabTitleNumberCountTableViewCell, indexPath:NSIndexPath) {
         cell.setText("售卖数量", textFieldText: "1")
+        if isChange {
+            cell.setText("售卖数量", textFieldText: "\(sellFormModel.number)")
+        }
         cell.numberTickView.numberTextField.rac_observeKeyPath("text", options: .New, observer: self) { (object, objetecs, new, old) in
             self.sellFormModel.number = Int(object as! String)!
         }
     }
     
     func tableViewCellMySellTicketMuchTableViewCell(cell:MySellTicketMuchTableViewCell, indexPath:NSIndexPath) {
+        if isChange {
+            cell.muchTextField.text = self.sellFormModel.price
+        }
         cell.muchTextField.rac_textSignal().subscribeNext { (str) in
             if str as! String == "" {
                 self.controller.bottomButton.button.enabled = false
@@ -210,8 +294,8 @@ class MySellConfimViewModel: NSObject {
 
     func configMySellServiceCell(cell:MySellServiceTableViewCell, indexPath:NSIndexPath) {
         let totalMuch = "\(much)".muchType("\((Double(much)! * 100))")
-        let serviceMuch = "\((Double(much)! * 100) * 0.1)".muchType("\((Double(much)! * 100) * 0.1)")
-        cell.setData("结算总价: \(totalMuch) 元", servicemuch: "交易服务费: \(serviceMuch) 元", sevicep: "第三方支付交易手续费1%\n订单票款结算金额将于演出结束后24小时内转入账户钱包中", type: 0)
+        let serviceMuch = "\((Double(much)! * 100) * 0.01)".muchType("\((Double(much)! * 100) * 0.01)")
+        cell.setData("结算总价: \(totalMuch) 元", servicemuch: "交易手续费: \(serviceMuch) 元", sevicep: "第三方支付交易手续费1%\n订单票款结算金额将于演出结束后24小时内转入账户钱包中", type: 0)
     }
     
     
@@ -221,7 +305,7 @@ class MySellConfimViewModel: NSObject {
             if indexPath.section == 0 {
                 infoController.showSellTypePickerView()
             }else{
-                controller.rightItemPress()
+                KWINDOWDS!.addSubview(GloableServiceView.init(title: "手续费说明", message: "所有交易免佣金，仅含1%第三方支付平台交易手续费\n结算票款时系统自动扣减手续费"))
             }
         case 1:
             infoController.showTicketRegionPickerView()
@@ -272,6 +356,11 @@ class MySellConfimViewModel: NSObject {
     }
     
     func tableViewGloabTitleAndSwitchBarTableViewCell(cell:GloabTitleAndSwitchBarTableViewCell) {
+        if self.sellFormModel.seatType == "1"  {
+            cell.switchBar.setOn(true, animated: true)
+        }else{
+            cell.switchBar.setOn(false, animated: true)
+        }
         cell.switchBar.rac_signalForControlEvents(.ValueChanged).subscribeNext { (value) in
             self.sellFormModel.seatType = (value as! UISwitch).on ? "1" : "2"
         }
@@ -324,13 +413,19 @@ class MySellConfimViewModel: NSObject {
         let url = "\(SellTicket)\(model.id)/session/\(model.session.id)/ticket/"
         BaseNetWorke.sharedInstance.getUrlWithString(url, parameters: nil).subscribeNext { (resultDic) in
             self.sellTicketModel = TickeSellModel.init(fromDictionary: resultDic as! NSDictionary)
-            if self.sellTicketModel != nil {
-                self.getTickeList()
-                self.controller.setUpView()
-                self.controller.tableView.reloadData()
-                if self.controller.tableView.mj_header != nil {
-                    self.controller.tableView.mj_header.endRefreshing()
+            if self.sellTicketModel.ticketChoices.count != 0 {
+                let dic = ["id":self.sellTicketModel.ticketChoices[0][1],"name":self.sellTicketModel.ticketChoices[0][0],"price":"100"]
+                self.originTicket = OriginalTicket.init(fromDictionary: dic)
+                if self.sellTicketModel != nil {
+                    self.getTickeList()
+                    self.controller.setUpView()
+                    self.controller.tableView.reloadData()
+                    if self.controller.tableView.mj_header != nil {
+                        self.controller.tableView.mj_header.endRefreshing()
+                    }
                 }
+            }else{
+                MainThreadAlertShow("该场次暂无售票", view: KWINDOWDS!)
             }
         }
     }
@@ -340,6 +435,8 @@ class MySellConfimViewModel: NSObject {
         var str = ""
         if self.sellFormModel.ticketRegin != "择优分配" {
             str = self.sellFormModel.ticketRow == "择优分配" ? "" : (self.sellFormModel.ticketRow as NSString).substringToIndex(self.sellFormModel.ticketRow.length - 1)
+        }else{
+            str = "0"
         }
         paramerts = ["show_session_ticket":self.sellFormModel.ticketPrice,"seat_type":self.sellFormModel.seatType, "price":self.sellFormModel.price, "region":self.sellFormModel.ticketRegin, "sell_type":self.sellFormModel.sellType == "单卖" ? "1" : "2", "ticket_count":self.sellFormModel.number,"row":str]
         var delivery_type = ""
@@ -355,11 +452,46 @@ class MySellConfimViewModel: NSObject {
             paramerts.addEntriesFromDictionary(["self_get_ticket_date":self.visite.time,"self_get_ticket_address":self.visite.address, "self_get_ticket_phone":self.visite.phone])
         }
         paramerts.addEntriesFromDictionary(["delivery_type":delivery_type])
+        if self.isChange {
+            self.changeTicke(paramerts)
+        }else{
+            self.postTicket(paramerts)
+        }
+    }
+    
+    func changeTicke(paramerts:NSDictionary){
+        let url = "\(SellTicketStatus)\(putUpModel.id)/"
+        BaseNetWorke.sharedInstance.postUrlWithString(url, parameters: paramerts).subscribeNext { (resultDic) in
+            self.putUpModel = TicketList.init(fromDictionary: resultDic as! NSDictionary)
+            MainThreadAlertShow("修改成功", view: KWINDOWDS!)
+            if self.mySellConfimViewModelClouse != nil {
+                self.mySellConfimViewModelClouse(ticket: self.putUpModel, name:self.ticketOriginName)
+                for controllers in (self.controller.navigationController?.viewControllers)! {
+                    if controllers is MyTicketPutUpViewController {
+                        self.infoController.navigationController?.popToViewController(controllers, animated: true)
+                    }
+                }
+            }
+        }
+    }
+    
+    func postTicket(paramerts:NSDictionary){
         let url = "\(SellTicket)\(model.id)/session/\(model.session.id)/ticket/"
         BaseNetWorke.sharedInstance.postUrlWithString(url, parameters: paramerts).subscribeNext { (resultDic) in
-            self.putUpModel = PutUpModel.init(fromDictionary: resultDic as! NSDictionary)
-            Tools.shareInstance.showMessage(self.controller.view, msg: "挂票成功", autoHidder: true)
-            self.controller.navigationController?.popViewControllerAnimated(true)
+            self.putUpModel = TicketList.init(fromDictionary: resultDic as! NSDictionary)
+            MainThreadAlertShow("挂票成功", view: KWINDOWDS!)
+            if self.isSellTicketView {
+                self.infoController.navigationController?.popViewControllerAnimated(true)
+            }else{
+                if self.mySellConfimViewModelAddClouse != nil {
+                    self.mySellConfimViewModelAddClouse(originTicket:self.originTicket,ticket: self.putUpModel, name:self.ticketOriginName)
+                    for controllers in (self.controller.navigationController?.viewControllers)! {
+                        if controllers is MyTicketPutUpViewController {
+                            self.infoController.navigationController?.popToViewController(controllers, animated: true)
+                        }
+                    }
+                }
+            }
         }
     }
 }

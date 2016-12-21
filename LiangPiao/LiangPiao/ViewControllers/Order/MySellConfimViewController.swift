@@ -18,11 +18,11 @@ class MySellConfimViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.title = "确认订单"
+        self.navigationItem.title = "挂票"
         self.view.backgroundColor = UIColor.whiteColor()
         self.setNavigationItem()
         self.bindViewModel()
-        self.talKingDataPageName = "确认订单"
+        self.talKingDataPageName = "挂票"
         self.setupForDismissKeyboard()
         // Do any additional setup after loading the view.
     }
@@ -66,7 +66,7 @@ class MySellConfimViewController: UIViewController {
     }
     
     func rightItemPress(){
-        KWINDOWDS!.addSubview(GloableServiceView.init(title: "卖票规则", message: self.viewModel.messageTitle()))
+        KWINDOWDS!.addSubview(GloableServiceView.init(title: "卖票须知", message: self.viewModel.messageTitle()))
     }
     
     func bindViewModel() {
