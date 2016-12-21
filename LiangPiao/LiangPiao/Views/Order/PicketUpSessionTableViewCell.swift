@@ -120,7 +120,7 @@ class PicketUpSessionTableViewCell: UITableViewCell {
                     }, type: selectArray.objectAtIndex(index) as! Int)
                 OriginX = CGRectGetMaxX(sessionView.frame) + 10
                 scrollerView.addSubview(sessionView)
-                if index == 0 {
+                if Int(selectArray[index] as! NSNumber) == 1 {
                     sessionView.upDataType(1)
                 }
             }

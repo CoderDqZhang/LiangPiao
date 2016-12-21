@@ -336,22 +336,14 @@ class MyTicketPutUpViewModel: NSObject {
         for _ in 0...showSessions.count - 1 {
             sessionTypes.addObject(0)
         }
-        var isSelect = false
-        for ticketSession in ticketShowModel.sessionList {
-            for index in 0...showSessions.count - 1 {
-                let session = showSessions[index]
-                if session.id ==  ticketSession.id {
-                    if !isSelect {
-                        sessionTypes.replaceObjectAtIndex(index, withObject: 1)
-                        isSelect = true
-                    }else{
-                        if session.ticketList.count != 0 {
-                            sessionTypes.replaceObjectAtIndex(index, withObject: 2)
-                        }else{
-                            sessionTypes.replaceObjectAtIndex(index, withObject: 0)
-                        }
-                    }
-                    break;
+        for index in 0...ticketShowModel.sessionList.count - 1 {
+            if index == self.selectSession {
+                sessionTypes.replaceObjectAtIndex(index, withObject: 1)
+            }else{
+                if ticketShowModel.sessionList[index].ticketList.count != 0 {
+                    sessionTypes.replaceObjectAtIndex(index, withObject: 2)
+                }else{
+                    sessionTypes.replaceObjectAtIndex(index, withObject: 0)
                 }
             }
         }

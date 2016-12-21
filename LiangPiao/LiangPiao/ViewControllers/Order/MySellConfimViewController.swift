@@ -55,6 +55,14 @@ class MySellConfimViewController: UIViewController {
         bottomButton = GloableBottomButtonView.init(frame: nil, title: "继续", tag: nil, action: { (tag) in
             self.viewModel.pushSellInfo()
         })
+        if !self.viewModel.isChange {
+            self.bottomButton.button.enabled = false
+            self.bottomButton.button.buttonSetThemColor(App_Theme_DDE0E5_Color, selectColor: App_Theme_DDE0E5_Color, size: CGSize.init(width: SCREENWIDTH, height: 49))
+            self.bottomButton.button.backgroundColor = UIColor.init(hexString: App_Theme_DDE0E5_Color)
+        }else{
+            self.bottomButton.button.enabled = true
+            self.bottomButton.button.buttonSetThemColor(App_Theme_4BD4C5_Color, selectColor: App_Theme_40C6B7_Color, size: CGSize.init(width: SCREENWIDTH, height: 49))
+        }
         
         self.view.addSubview(bottomButton)
         

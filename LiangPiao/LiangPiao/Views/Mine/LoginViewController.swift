@@ -77,7 +77,7 @@ class LoginViewController: UIViewController {
         phontTextField.rac_textSignal().subscribeNext { (action) in
             self.loginForm.phone = action as! String
             if self.senderCode != nil {
-                if action.length == 11 {
+                if self.loginForm.phone.length == 11 {
                     self.senderCode.enabled = true
                     self.senderCode.backgroundColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
                 }else{
