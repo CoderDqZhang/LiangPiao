@@ -15,7 +15,7 @@
     self.ticketRow = @"择优分配";
     self.ticketRegin = @"择优分配";
     self.sellType = @"单卖";
-    self.seatType = @"2";
+    self.seatType = @"1";
     self.ticketPrice = @"10";
     self.deverliExpress = @"请选择";
     self.deverliVisite = @"请选择";

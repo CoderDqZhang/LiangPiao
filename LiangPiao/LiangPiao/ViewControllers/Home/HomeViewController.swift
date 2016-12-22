@@ -29,6 +29,7 @@ class HomeViewController: BaseViewController {
         self.setSearchNavigatioBarClouse()
         self.setUpMJRefeshView()
         self.view.addSubview(searchNavigationBar)
+        searchNavigationBar.hidden = true
         self.bindViewModel()
         self.talKingDataPageName = "首页"
     }
@@ -94,8 +95,8 @@ class HomeViewController: BaseViewController {
         }
         
         searchViewModel.searchViewModelClouse = { _ in
-            
-            self.cancelSearchTable()
+            self.searchNavigationBar.searchField.hidden = false
+            self.view.endEditing(true)
         }
     }
     
@@ -160,9 +161,19 @@ extension HomeViewController : UITableViewDelegate {
             searchNavigationBar.searchField.hidden = false
             searchNavigationBar.hidden = false
             searchNavigationBar.backgroundColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
+            if self.searchTableView == nil || self.searchTableView.hidden {
+                self.tabBarController?.tabBar.hidden = false
+            }else{
+                self.tabBarController?.tabBar.hidden = true
+            }
         }else{
-            searchNavigationBar.searchField.hidden = true
-            searchNavigationBar.hidden = true
+            if self.searchTableView == nil || self.searchTableView.hidden {
+                searchNavigationBar.searchField.hidden = true
+                searchNavigationBar.hidden = true
+                self.tabBarController?.tabBar.hidden = false
+            }else{
+                self.tabBarController?.tabBar.hidden = true
+            }
         }
         if cell != nil {
             if scrollView.contentOffset.y < 0 {

@@ -356,9 +356,16 @@ class MySellConfimViewModel: NSObject {
     }
     
     func tableViewGloabTitleAndSwitchBarTableViewCell(cell:GloabTitleAndSwitchBarTableViewCell) {
+        cell.switchBar.enabled = true
         if self.sellFormModel.seatType == "1"  {
-            cell.switchBar.setOn(true, animated: true)
+            if self.sellFormModel.number > 1 {
+                cell.switchBar.setOn(true, animated: true)
+            }else{
+                cell.switchBar.setOn(false, animated: true)
+                cell.switchBar.enabled = false
+            }
         }else{
+            
             cell.switchBar.setOn(false, animated: true)
         }
         cell.switchBar.rac_signalForControlEvents(.ValueChanged).subscribeNext { (value) in

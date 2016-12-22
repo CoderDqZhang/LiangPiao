@@ -1774,7 +1774,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/LiangPiao/Uti/TalkingData",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.liangpiao.liangpiao;
+				PRODUCT_BUNDLE_IDENTIFIER = com.liangpiao.liangpiaom;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1807,7 +1807,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/LiangPiao/Uti/TalkingData",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.liangpiao.liangpiao;
+				PRODUCT_BUNDLE_IDENTIFIER = com.liangpiao.liangpiaom;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";

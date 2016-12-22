@@ -8,6 +8,7 @@
 
 import UIKit
 import ReactiveCocoa
+import DZNEmptyDataSet
 
 class SellTicketsViewController: BaseViewController {
 
@@ -31,6 +32,11 @@ class SellTicketsViewController: BaseViewController {
     override func viewWillAppear(animated: Bool) {
         self.navigationController?.fd_prefersNavigationBarHidden = true
         self.navigationController?.setNavigationBarHidden(true, animated: true)
+        if searchTableView == nil || searchTableView.hidden {
+            self.tabBarController?.tabBar.hidden = false
+        }else{
+            self.tabBarController?.tabBar.hidden = true
+        }
         
     }
     
@@ -43,6 +49,8 @@ class SellTicketsViewController: BaseViewController {
         tableView = UITableView(frame: CGRect.zero, style: .Plain)
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.emptyDataSetSource = self
+        tableView.emptyDataSetDelegate = self
         tableView.showsVerticalScrollIndicator = false
         tableView.keyboardDismissMode = .OnDrag
         tableView.backgroundColor = UIColor.init(hexString: App_Theme_E9EBF2_Color)
@@ -53,7 +61,13 @@ class SellTicketsViewController: BaseViewController {
         tableView.snp_makeConstraints { (make) in
             make.edges.equalTo(UIEdgeInsetsMake(64, 0, -44, 0))
         }
-        
+        self.setUpRefreshData()
+    }
+    
+    func setUpRefreshData(){
+        self.tableView.mj_header = LiangNomalRefreshHeader(refreshingBlock: {
+            self.viewModel.requestHotTicket()
+        })
     }
     
     func setUpNavigationItem(){
@@ -93,8 +107,7 @@ class SellTicketsViewController: BaseViewController {
             self.searchViewModel.requestSearchTicket(str as! String, searchTable: self.searchTableView)
         }
         searchViewModel.searchViewModelClouse = { _ in
-            
-            self.cancelSearchTable()
+            self.view.endEditing(true)
         }
     }
     
@@ -183,6 +196,43 @@ extension SellTicketsViewController : UITableViewDataSource {
         cell.selectionStyle = .None
         viewModel.tableViewtableViewSellRecommondTableViewCell(cell, indexPath: indexPath)
         return cell
+    }
+}
+
+extension SellTicketsViewController : DZNEmptyDataSetDelegate {
+    
+    func emptyDataSetShouldAllowTouch(scrollView: UIScrollView!) -> Bool {
+        return true
+    }
+    func emptyDataSetDidTapView(scrollView: UIScrollView!) {
+        self.viewModel.requestHotTicket()
+    }
+}
+
+extension SellTicketsViewController :DZNEmptyDataSetSource {
+    
+    func backgroundColorForEmptyDataSet(scrollView: UIScrollView!) -> UIColor {
+        return UIColor.init(hexString: App_Theme_F6F7FA_Color)
+    }
+    
+    func descriptionForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
+        let str = "点击屏幕，重新加载"
+        let attribute = NSMutableAttributedString(string: str)
+        attribute.addAttributes([NSForegroundColorAttributeName:UIColor.init(hexString: App_Theme_DDE0E5_Color)], range: NSRange(location: 0, length: str.length))
+        attribute.addAttributes([NSFontAttributeName:App_Theme_PinFan_R_16_Font!], range: NSRange.init(location: 0, length: str.length))
+        return attribute
+    }
+    
+    func verticalOffsetForEmptyDataSet(scrollView: UIScrollView!) -> CGFloat {
+        return -70
+    }
+    
+    func spaceHeightForEmptyDataSet(scrollView: UIScrollView!) -> CGFloat {
+        return 27
+    }
+    
+    func imageForEmptyDataSet(scrollView: UIScrollView!) -> UIImage! {
+        return UIImage.init(named: "empty_order")?.imageWithRenderingMode(.AlwaysOriginal)
     }
 }
 

@@ -64,19 +64,23 @@ class MySellServiceTableViewCell: UITableViewCell {
         UILabel.changeLineSpaceForLabel(serviceP, withSpace: 2.0)
         switch type {
         case 0:
+            muchLabel.snp_remakeConstraints(closure: { (make) in
+                make.top.equalTo(self.contentView.snp_top).offset(26)
+                make.left.equalTo(self.contentView.snp_left).offset(15)
+            })
             seveiceImage.snp_remakeConstraints(closure: { (make) in
                 make.top.equalTo(self.contentView.snp_top).offset(26)
-                make.left.equalTo(self.muchLabel.snp_right).offset(8)
+                make.left.equalTo(self.seveiceMuch.snp_right).offset(8)
                 make.size.equalTo(CGSizeMake(15, 15))
             })
             seveiceMuch.snp_remakeConstraints(closure: { (make) in
                 make.top.equalTo(self.contentView.snp_top).offset(26)
-                make.left.equalTo(self.seveiceImage.snp_right).offset(20)
+                make.left.equalTo(self.muchLabel.snp_right).offset(20)
             })
-            let strArray = servicemuch.componentsSeparatedByString(" ")
-            let strribute = NSMutableAttributedString.init(string: servicemuch)
+            let strArray = much.componentsSeparatedByString(" ")
+            let strribute = NSMutableAttributedString.init(string: much)
             strribute.addAttributes([NSForegroundColorAttributeName:UIColor.init(hexString: App_Theme_4BD4C5_Color)], range: NSRange.init(location: strArray[0].length + 1, length: strArray[1].length))
-            seveiceMuch.attributedText = strribute
+            muchLabel.attributedText = strribute
         default:
             seveiceImage.snp_remakeConstraints(closure: { (make) in
                 make.top.equalTo(self.contentView.snp_top).offset(26)
