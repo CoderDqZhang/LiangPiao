@@ -102,7 +102,7 @@ class SellTicketsViewController: BaseViewController {
         let single = searchNavigationBar.searchField
             .rac_textSignal()
             .distinctUntilChanged()
-        single.throttle(0.5).subscribeNext { (str) in
+        single.throttle(0.1).subscribeNext { (str) in
             if self.searchTableView != nil {
                 self.searchViewModel.requestSearchTicket(str as! String, searchTable: self.searchTableView)
             }
