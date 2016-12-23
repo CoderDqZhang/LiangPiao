@@ -17,6 +17,7 @@ typealias SearchViewModelClouse = () ->Void
 class SearchViewModel: NSObject {
 
     var searchModel:RecommentTickes!
+    var sellSearchModel:RecommentTickes!
     var controller:HomeViewController!
     var controllerS:SellTicketsViewController!
     var searchViewModelClouse:SearchViewModelClouse!
@@ -37,11 +38,10 @@ class SearchViewModel: NSObject {
                 return searchModel.showList.count
             }
         }else {
-            if searchModel != nil {
-                return searchModel.showList.count
+            if sellSearchModel != nil {
+                return sellSearchModel.showList.count
             }
         }
-        
         return 0
     }
     
@@ -69,7 +69,7 @@ class SearchViewModel: NSObject {
         }else {
             if UserInfoModel.isLoggedIn() {
                 if UserInfoModel.shareInstance().role == "supplier" {
-                    let model = searchModel.showList[indexPath.row]
+                    let model = sellSearchModel.showList[indexPath.row]
                     if model.sessionCount != 1 {
                         let controllerVC = TicketSceneViewController()
                         controllerVC.viewModel.model = model
@@ -100,25 +100,49 @@ class SearchViewModel: NSObject {
     }
     
     func searchTableCellData(cell:RecommendTableViewCell, indexPath:NSIndexPath) {
-        if searchModel != nil {
-            let searchTicke = searchModel.showList[indexPath.row]
-            cell.setData(searchTicke)
+        if self.searchType == .TicketShowModel {
+            if searchModel != nil {
+                let searchTicke = searchModel.showList[indexPath.row]
+                cell.setData(searchTicke)
+            }
+        }else{
+            if sellSearchModel != nil {
+                let searchTicke = sellSearchModel.showList[indexPath.row]
+                cell.setData(searchTicke)
+            }
         }
     }
     
     func searchTableCellDatas(cell:SellRecommondTableViewCell, indexPath:NSIndexPath) {
-        if searchModel != nil {
-            let searchTicke = searchModel.showList[indexPath.row]
+        if sellSearchModel != nil {
+            let searchTicke = sellSearchModel.showList[indexPath.row]
             cell.setData(searchTicke)
         }
     }
     
     func requestSearchTicket(searchText:String, searchTable:GlobalSearchTableView) {
-        let str = searchText.addEncoding(searchText)
-        let url = "\(TicketSearchUrl)?kw=\((str)!)"
-        BaseNetWorke.sharedInstance.getUrlWithString(url, parameters: nil).subscribeNext { (resultDic) in
-            self.searchModel = RecommentTickes.init(fromDictionary: resultDic as! NSDictionary)
-            searchTable.tableView.reloadData()
+        if self.searchType == .TicketShowModel {
+            if searchModel != nil && searchText == "" {
+                self.searchModel.showList.removeAll()
+                searchTable.tableView.reloadData()
+            }
+        }else{
+            if sellSearchModel != nil && searchText == "" {
+                self.sellSearchModel.showList.removeAll()
+                searchTable.tableView.reloadData()
+            }
+        }
+        if searchText != "" {
+            let str = searchText.addEncoding(searchText)
+            let url = "\(TicketSearchUrl)?kw=\((str)!)"
+            BaseNetWorke.sharedInstance.getUrlWithString(url, parameters: nil).subscribeNext { (resultDic) in
+                if self.searchType == .TicketShowModel {
+                     self.searchModel = RecommentTickes.init(fromDictionary: resultDic as! NSDictionary)
+                }else{
+                    self.sellSearchModel = RecommentTickes.init(fromDictionary: resultDic as! NSDictionary)
+                }
+                searchTable.tableView.reloadData()
+            }
         }
     }
 }

@@ -101,10 +101,11 @@ class SellTicketsViewController: BaseViewController {
         }
         let single = searchNavigationBar.searchField
             .rac_textSignal()
-            .ignore("")
             .distinctUntilChanged()
         single.throttle(0.5).subscribeNext { (str) in
-            self.searchViewModel.requestSearchTicket(str as! String, searchTable: self.searchTableView)
+            if self.searchTableView != nil {
+                self.searchViewModel.requestSearchTicket(str as! String, searchTable: self.searchTableView)
+            }
         }
         searchViewModel.searchViewModelClouse = { _ in
             self.view.endEditing(true)
