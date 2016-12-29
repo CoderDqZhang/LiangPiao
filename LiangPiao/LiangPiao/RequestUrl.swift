@@ -8,6 +8,8 @@
 
 import Foundation
 
+//https://itunes.apple.com/us/app/liang-piao-da-mai-yong-le/id1170039060?mt=8
+
 let BaseURL = "http://api.liangpiao.me/"
 //let BaseURL = "http://api.niceticket.cc/"
 
@@ -46,4 +48,7 @@ let WallWithDraw = "\(BaseURL)account/withdraw/"
 let SellTicket = "\(BaseURL)supplier/show/"
 let SellTicketStatus = "\(BaseURL)supplier/ticket/"
 let HotSellURl = "\(BaseURL)show/hot_sell/"
+//待完善当个场次
+let OneShowTicketUrl = "\(BaseURL)supplier/show/"
 
+let ShareUrl = "http://www.liangpiao.me/show/"

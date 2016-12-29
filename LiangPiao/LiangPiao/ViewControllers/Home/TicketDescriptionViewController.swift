@@ -65,8 +65,16 @@ class TicketDescriptionViewController: UIViewController {
     
     func updataLikeImage(){
         var image:UIImage!
-        if viewModel.model != nil && UserInfoModel.isLoggedIn() && viewModel.model.show.isFavorite == true {
-            image = UIImage.init(named: "Icon_Liked_Normal")?.imageWithRenderingMode(.AlwaysOriginal)
+        if viewModel.model != nil && UserInfoModel.isLoggedIn() {
+            if viewModel.model.show.isFavorite != nil{
+                if viewModel.model.show.isFavorite == true {
+                    image = UIImage.init(named: "Icon_Liked_Normal")?.imageWithRenderingMode(.AlwaysOriginal)
+                }else{
+                    image = UIImage.init(named: "Icon_Like_Normal")?.imageWithRenderingMode(.AlwaysOriginal)
+                }
+            }else{
+                image = UIImage.init(named: "Icon_Like_Normal")?.imageWithRenderingMode(.AlwaysOriginal)
+            }
         }else{
             image = UIImage.init(named: "Icon_Like_Normal")?.imageWithRenderingMode(.AlwaysOriginal)
         }
@@ -77,17 +85,15 @@ class TicketDescriptionViewController: UIViewController {
         likeButton.addTarget(self, action: #selector(TicketDescriptionViewController.likeItemPress(_:)), forControlEvents: .TouchUpInside)
         
         let likeItem = UIBarButtonItem.init(customView: likeButton)
-        self.navigationItem.rightBarButtonItem = likeItem
+        
+        let shareItem = UIBarButtonItem(image: UIImage.init(named: "Icon_Share_Normal")?.imageWithRenderingMode(.AlwaysOriginal), style: .Plain, target: self, action: #selector(TicketDescriptionViewController.shareItemPress(_:)))
+        shareItem.setBackgroundImage(UIImage.init(named: "Icon_Share_Press"), forState: .Selected, barMetrics: .Default)
+        self.navigationItem.rightBarButtonItems = [likeItem, shareItem]
     }
     
     func setUpNavigationItems() {
-        
         self.isShowTicketNavigationBar(false)
         self.setNavigationItemBack()
-        
-//        let shareItem = UIBarButtonItem(image: UIImage.init(named: "Icon_Share_Normal")?.imageWithRenderingMode(.AlwaysOriginal), style: .Plain, target: self, action: #selector(TicketDescriptionViewController.shareItemPress(_:)))
-//        shareItem.setBackgroundImage(UIImage.init(named: "Icon_Share_Press"), forState: .Selected, barMetrics: .Default)
-
     }
     
     func likeItemPress(sender:UIButton) {
@@ -110,7 +116,13 @@ class TicketDescriptionViewController: UIViewController {
     }
     
     func shareItemPress(sender:UIBarButtonItem) {
-        
+        var url = ""
+        if viewModel.sesstionModel != nil {
+            url = "\(ShareUrl)\(viewModel.ticketModel.id)/session/\(viewModel.sesstionModel.id)"
+        }else if viewModel.ticketModel.session != nil {
+            url = "\(ShareUrl)\(viewModel.ticketModel.id)/session/\(viewModel.ticketModel.session.id)"
+        }
+        KWINDOWDS?.addSubview(GloableShareView.init(title: "推荐给好友", model: self.viewModel.ticketModel, image: nil, url: url))
     }
     
     override func didReceiveMemoryWarning() {

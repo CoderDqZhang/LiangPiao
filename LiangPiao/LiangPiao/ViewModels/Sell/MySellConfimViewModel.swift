@@ -488,7 +488,9 @@ class MySellConfimViewModel: NSObject {
             self.putUpModel = TicketList.init(fromDictionary: resultDic as! NSDictionary)
             MainThreadAlertShow("挂票成功", view: KWINDOWDS!)
             if self.isSellTicketView {
-                self.infoController.navigationController?.popViewControllerAnimated(true)
+                
+                self.showMyTicketPutUpViewController(self.model)
+//                self.infoController.navigationController?.popViewControllerAnimated(true)
             }else{
                 if self.mySellConfimViewModelAddClouse != nil {
                     self.mySellConfimViewModelAddClouse(originTicket:self.originTicket,ticket: self.putUpModel, name:self.ticketOriginName)
@@ -499,6 +501,33 @@ class MySellConfimViewModel: NSObject {
                     }
                 }
             }
+        }
+    }
+    
+    func showMyTicketPutUpViewController(model:TicketShowModel){
+        let url = "\(OneShowTicketUrl)\(model.id)/ticket/"
+        BaseNetWorke.sharedInstance.getUrlWithString(url, parameters: nil).subscribeNext { (resultDic) in
+            let sessionList = NSMutableArray.mj_objectArrayWithKeyValuesArray((resultDic as! NSDictionary).objectForKey("session_list"))
+            var sessions:[ShowSessionModel] = []
+            for session in sessionList{
+                sessions.append(ShowSessionModel.init(fromDictionary: session as! NSDictionary))
+            }
+            model.sessionList = sessions
+            let controllerVC = MyTicketPutUpViewController()
+            controllerVC.viewModel.ticketShowModel = model
+            controllerVC.viewModel.ticketSellCount = MySellViewModel.TicketShowModelSellCount(model)
+            controllerVC.viewModel.ticketSoldCount = MySellViewModel.TicketShowModelSoldCount(model)
+            let priceModel = MySellViewModel.sellManagerMinMaxPrice(model)
+            var ticketMuch = ""
+            if priceModel.minPrice != priceModel.maxPrice {
+                ticketMuch = "\(priceModel.minPrice)-\(priceModel.maxPrice)"
+            }else{
+                ticketMuch = "\(priceModel.minPrice)"
+            }
+            controllerVC.viewModel.ticketSoldMuch = ticketMuch
+            controllerVC.viewModel.ticketSession = MySellViewModel.TicketShowModelSession(model)
+            controllerVC.viewModel.isSellTicketVC = true
+            NavigationPushView(self.controller, toConroller: controllerVC)
         }
     }
 }

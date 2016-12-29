@@ -54,8 +54,12 @@ class MyTicketPutUpViewController: UIViewController {
         self.view.addSubview(ticketToolsView)
         
         bottomView = GloableBottomButtonView(frame: nil, title: "继续挂票", tag: 1) { (tag) in
-            let ret = self.viewModel.tempList.count == 0 ? true : false
-            self.viewModel.continuePutUpTicket(nil, isNoneTicket: ret)
+            if self.viewModel.isSellTicketVC {
+                self.popSellTicketVC()
+            }else{
+                let ret = self.viewModel.tempList.count == 0 ? true : false
+                self.viewModel.continuePutUpTicket(nil, isNoneTicket: ret)
+            }
         }
         self.view.addSubview(bottomView)
         
@@ -65,6 +69,16 @@ class MyTicketPutUpViewController: UIViewController {
             make.right.equalTo(self.view.snp_right).offset(0)
             make.bottom.equalTo(self.view.snp_bottom).offset(-bottomView.frame.size.height)
         }
+    }
+    
+    func popSellTicketVC(){
+        for controller in (self.navigationController?.viewControllers)! {
+            if controller is TicketSceneViewController {
+                self.navigationController?.popToViewController(controller, animated: true)
+                return
+            }
+        }
+        self.navigationController?.popToRootViewControllerAnimated(true)
     }
     
     func bindeViewModel(){

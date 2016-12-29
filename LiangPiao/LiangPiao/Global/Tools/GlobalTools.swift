@@ -86,44 +86,89 @@ class SaveImageTools{
     
     
     func saveImage(name:String, image:UIImage, path:String) -> Bool {
-        let saveFilePath = self.getCachesDirectoryUserInfoDocumetPathDocument(UserInfoModel.shareInstance().phone, document: path)
-        if saveFilePath == nil {
-            return false
+        if UserInfoModel.isLoggedIn() {
+            let saveFilePath = self.getCachesDirectoryUserInfoDocumetPathDocument(UserInfoModel.shareInstance().phone, document: path)
+            if saveFilePath == nil {
+                return false
+            }
+            let saveName = saveFilePath?.stringByAppendingString("/\(name)")
+            let imageData = UIImagePNGRepresentation(image)
+            self.saveSmallImage(name, image: image, path: path)
+            return (imageData?.writeToFile(saveName!, atomically: true))!
+        }else{
+            let saveFilePath = self.getCachesDirectoryUserInfoDocumetPathDocument("Public", document: path)
+            if saveFilePath == nil {
+                return false
+            }
+            let saveName = saveFilePath?.stringByAppendingString("/\(name)")
+            let imageData = UIImagePNGRepresentation(image)
+            self.saveSmallImage(name, image: image, path: path)
+            return (imageData?.writeToFile(saveName!, atomically: true))!
         }
-        let saveName = saveFilePath?.stringByAppendingString("/\(name)")
-        let imageData = UIImagePNGRepresentation(image)
-        self.saveSmallImage(name, image: image, path: path)
-        return (imageData?.writeToFile(saveName!, atomically: true))!
     }
     
     func saveSmallImage(name:String, image:UIImage, path:String) -> Bool {
-        let saveFilePath = self.getCachesDirectoryUserInfoDocumetPathDocument(UserInfoModel.shareInstance().phone, document: path)
-        if saveFilePath == nil {
-            return false
+        if UserInfoModel.isLoggedIn() {
+            let saveFilePath = self.getCachesDirectoryUserInfoDocumetPathDocument(UserInfoModel.shareInstance().phone, document: path)
+            if saveFilePath == nil {
+                return false
+            }
+            let saveName = saveFilePath?.stringByAppendingString("/\(name)")
+            let imageData = UIImageJPEGRepresentation(image, 0.5)
+            return (imageData?.writeToFile(saveName!, atomically: false))!
+        }else{
+            let saveFilePath = self.getCachesDirectoryUserInfoDocumetPathDocument("Public", document: path)
+            if saveFilePath == nil {
+                return false
+            }
+            let saveName = saveFilePath?.stringByAppendingString("/\(name)")
+            let imageData = UIImageJPEGRepresentation(image, 0.5)
+            return (imageData?.writeToFile(saveName!, atomically: false))!
         }
-        let saveName = saveFilePath?.stringByAppendingString("/\(name)")
-        let imageData = UIImageJPEGRepresentation(image, 0.5)
-        return (imageData?.writeToFile(saveName!, atomically: false))!
     }
     
     func LoadImage(name:String, path:String) -> UIImage? {
-       let saveFilePath = self.getCachesDirectoryUserInfoDocumetPathDocument(UserInfoModel.shareInstance().phone, document: path)
-        let saveName = saveFilePath?.stringByAppendingString("/\(name)")
-        let data = NSData.init(contentsOfFile: saveName!)
-        if data == nil {
-            return nil
+        if UserInfoModel.isLoggedIn() {
+            let saveFilePath = self.getCachesDirectoryUserInfoDocumetPathDocument(UserInfoModel.shareInstance().phone, document: path)
+            if saveFilePath == nil {
+                return nil
+            }
+            let saveName = saveFilePath?.stringByAppendingString("/\(name)")
+            let data = NSData.init(contentsOfFile: saveName!)
+            if data == nil {
+                return nil
+            }
+            return UIImage.init(data: data!)
+        }else{
+            let saveFilePath = self.getCachesDirectoryUserInfoDocumetPathDocument("Public", document: path)
+            if saveFilePath == nil {
+                return nil
+            }
+            let saveName = saveFilePath?.stringByAppendingString("/\(name)")
+            let data = NSData.init(contentsOfFile: saveName!)
+            if data == nil {
+                return nil
+            }
+            return UIImage.init(data: data!)
         }
-        return UIImage.init(data: data!)
     }
     
     func getCachesDirectory(name:String, path:String) -> String {
-        let saveFilePath = self.getCachesDirectoryUserInfoDocumetPathDocument(UserInfoModel.shareInstance().phone, document: path)
-        if saveFilePath == nil {
-            return ""
+        if UserInfoModel.isLoggedIn() {
+            let saveFilePath = self.getCachesDirectoryUserInfoDocumetPathDocument(UserInfoModel.shareInstance().phone, document: path)
+            if saveFilePath == nil {
+                return ""
+            }
+            let saveName = saveFilePath?.stringByAppendingString("/\(name)")
+            return saveName!
+        }else{
+            let saveFilePath = self.getCachesDirectoryUserInfoDocumetPathDocument("Public", document: path)
+            if saveFilePath == nil {
+                return ""
+            }
+            let saveName = saveFilePath?.stringByAppendingString("/\(name)")
+            return saveName!
         }
-        let saveName = saveFilePath?.stringByAppendingString("/\(name)")
-        return saveName!
     }
-    
 }
 

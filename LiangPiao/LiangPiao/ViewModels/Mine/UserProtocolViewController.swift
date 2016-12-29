@@ -20,7 +20,7 @@ class UserProtocolViewController: UIViewController {
         self.setNavigationItemBack()
         self.view.backgroundColor = UIColor.whiteColor()
         webView = WKWebView(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: SCREENHEIGHT - 64))
-        webView.loadRequest(NSURLRequest.init(URL: NSURL.init(string: "http://www.liangpiao.me/protocol/")!))
+        webView.loadRequest(NSURLRequest.init(URL: NSURL.init(string: "http://www.liangpiao.me/show/3535216724/session/3535216716/")!))
         self.view.addSubview(webView)
         // Do any additional setup after loading the view.
     }

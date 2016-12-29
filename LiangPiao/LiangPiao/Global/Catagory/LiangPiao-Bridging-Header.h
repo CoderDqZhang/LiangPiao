@@ -23,3 +23,9 @@
 #import "SellFormModel.h"
 #import "UIViewController+TalKingData.h"
 #import "NSString+Utils.h"
+#import <TencentOpenAPI/QQApiInterface.h>
+#import <TencentOpenAPI/TencentOAuth.h>
+#import "WeiboSDK.h"
+#import "UIWindow+Screenshot.h"
+#import "UIImage+Compress.h"
+

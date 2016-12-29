@@ -68,6 +68,7 @@ class TicketDescripTableViewCell: UITableViewCell {
     
     func setData(model:TicketShowModel, sessionModel:ShowSessionModel){
         ticketPhoto.sd_setImageWithURL(NSURL.init(string: model.cover), placeholderImage: UIImage.init(named: "Feeds_Default_Cover")) { (image, error, cacheType, url) in
+            SaveImageTools.sharedInstance.saveImage("\(model.id).png", image: image!, path: "TicketShowImages")
         }
         ticketTitle.text = model.title
         UILabel.changeLineSpaceForLabel(ticketTitle, withSpace: TitleLineSpace)

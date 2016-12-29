@@ -30,6 +30,7 @@ class MyTicketPutUpViewModel: NSObject {
     var tempSelect:NSInteger = 100
     var ticketPriceArray = NSMutableArray()
     var ticketRowArray = NSMutableArray()
+    var isSellTicketVC:Bool = false
     var myTicketPutUpViewModelClouse:MyTicketPutUpViewModelClouse!
     
     override init() {
@@ -91,8 +92,10 @@ class MyTicketPutUpViewModel: NSObject {
             if ticketShowModel.sessionList.count == 1 {
                 return self.ticketShowModel.sessionList[0].ticketList.count + 3
             }
+            if self.selectSession == 100 {
+                self.selectSession = 0
+            }
             return self.sesstionModels[self.selectSession].ticketList.count + 3
-//                self.ticketShowModel.sessionList[Int(ticketDic.objectForKey("\(self.selectSession)") as! NSInteger)].ticketList.count + 3
         }
         return 0
     }
@@ -125,8 +128,12 @@ class MyTicketPutUpViewModel: NSObject {
                     UIAlertController.shwoAlertControl(self.controller, style: .Alert, title: "当前场次未挂票，是否添加", message: nil, cancel: "取消", doneTitle: "立即添加", cancelAction: {
                         
                         }, doneAction: {
-                            self.continuePutUpTicket(self.sesstionModels[tag],isNoneTicket: true)
-                            self.tempSelect = tag
+                            if self.isSellTicketVC {
+                                self.controller.popSellTicketVC()
+                            }else{
+                                self.continuePutUpTicket(self.sesstionModels[tag],isNoneTicket: true)
+                                self.tempSelect = tag
+                            }
                     })
                 }else {
                     self.controller.hiderTicketToolsView()

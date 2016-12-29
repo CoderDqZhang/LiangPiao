@@ -12,12 +12,14 @@ import Crashlytics
 import Alamofire
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate,WeiboSDKDelegate {
 
     var window: UIWindow?
 
     var spalshView:SpalshView!
     
+    var wbtoken:String!
+        
     func addSplshView() {
         
         spalshView = SpalshView(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: SCREENHEIGHT))
@@ -42,8 +44,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.logUser()
         Crashlytics.sharedInstance().debugMode = true
         Fabric.with([Crashlytics.self])
-//        Alamofire.NetworkReachabilityManager.NetworkReachabilityStatus
         WXApi.registerApp(WeiXinAppID)
+        WeiboSDK.registerApp(WeiboApiKey)
+        WeiboSDK.enableDebugMode(true)
         TalkingData.setExceptionReportEnabled(true)
         UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .None)
         self.window?.makeKeyAndVisible()
@@ -80,7 +83,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(application: UIApplication, handleOpenURL url: NSURL) -> Bool {
-        return WXApi.handleOpenURL(url, delegate: self)
+        if url.host == "response_from_qq" {
+            return TencentOAuth.HandleOpenURL(url)
+        }
+        if url.host == "platformId=wechat" {
+            return WXApi.handleOpenURL(url, delegate: self)
+        }
+        return WeiboSDK.handleOpenURL(url, delegate: self)
+//
     }
     
     func application(app: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
@@ -95,7 +105,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             })
             return true
         }
-        return WXApi.handleOpenURL(url, delegate: self)
+        
+        if url.host == "response_from_qq" {
+            return TencentOAuth.HandleOpenURL(url)
+        }
+        if url.host == "platformId=wechat" {
+            return WXApi.handleOpenURL(url, delegate: self)
+        }
+        return WeiboSDK.handleOpenURL(url, delegate: self)
     }
     
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
@@ -110,7 +127,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             return true
         }
-        return WXApi.handleOpenURL(url, delegate: self)
+        if url.host == "response_from_qq" {
+            return TencentOAuth.HandleOpenURL(url)
+        }
+        if url.host == "platformId=wechat" {
+            return WXApi.handleOpenURL(url, delegate: self)
+        }
+        return WeiboSDK.handleOpenURL(url, delegate: self)
+    }
+    //MARK: 微博SDKDelegate
+    func didReceiveWeiboRequest(request: WBBaseRequest!) {
+        
+    }
+    
+    func didReceiveWeiboResponse(response: WBBaseResponse!) {
+        if response is WBShareMessageToContactResponse {
+            print(response.statusCode)
+        }
     }
 }
 
@@ -133,6 +166,13 @@ extension AppDelegate : WXApiDelegate {
                 Notification(OrderStatuesChange, value: "100")
                 MainThreadAlertShow("取消支付", view: KWINDOWDS!)
 //                print("无需处理。发生场景：用户不支付了，点击取消，返回APP。")
+            default:
+                break;
+            }
+        }else if resp is SendMessageToWXResp {
+            switch resp.errCode {
+            case -2:
+                MainThreadAlertShow("取消分享", view: KWINDOWDS!)
             default:
                 break;
             }

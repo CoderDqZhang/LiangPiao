@@ -150,9 +150,9 @@ class MySellViewModel: NSObject {
         let model = TicketShowModel.init(fromDictionary: ticketShowModel[indexPath.section] as! NSDictionary)
         let controllerVC = MyTicketPutUpViewController()
         controllerVC.viewModel.ticketShowModel = model
-        controllerVC.viewModel.ticketSellCount = self.TicketShowModelSellCount(model)
-        controllerVC.viewModel.ticketSoldCount = self.TicketShowModelSoldCount(model)
-        let priceModel = self.sellManagerMinMaxPrice(model)
+        controllerVC.viewModel.ticketSellCount = MySellViewModel.TicketShowModelSellCount(model)
+        controllerVC.viewModel.ticketSoldCount = MySellViewModel.TicketShowModelSoldCount(model)
+        let priceModel = MySellViewModel.sellManagerMinMaxPrice(model)
         var ticketMuch = ""
         if priceModel.minPrice != priceModel.maxPrice {
             ticketMuch = "\(priceModel.minPrice)-\(priceModel.maxPrice)"
@@ -163,7 +163,8 @@ class MySellViewModel: NSObject {
             self.ticketShowModel.replaceObjectAtIndex(indexPath.section, withObject: ticketShow.toDictionary())
         }
         controllerVC.viewModel.ticketSoldMuch = ticketMuch
-        controllerVC.viewModel.ticketSession = self.TicketShowModelSession(model)
+        controllerVC.viewModel.ticketSession = MySellViewModel.TicketShowModelSession(model)
+        controllerVC.viewModel.isSellTicketVC = false
         NavigationPushView(self.controller, toConroller: controllerVC)
     }
     
@@ -188,13 +189,13 @@ class MySellViewModel: NSObject {
     
     func tableViewCellOrderManagerTableViewCell(cell:OrderManagerTableViewCell, indexPath:NSIndexPath) {
         let model = TicketShowModel.init(fromDictionary: ticketShowModel[indexPath.section] as! NSDictionary)
-        cell.setData(self.TicketShowModelTitle(model), cover: self.TicketShowModelCover(model), session: self.TicketShowModelSession(model), much: self.TicketShowModelTicketName(model), remainCount: self.TicketShowModelSellCount(model), soldCount: self.TicketShowModelSoldCount(model), isMoreTicket: self.TicketShowModelIsMoreTicket(model))
+        cell.setData(MySellViewModel.TicketShowModelTitle(model), cover: MySellViewModel.TicketShowModelCover(model), session: MySellViewModel.TicketShowModelSession(model), much: MySellViewModel.TicketShowModelTicketName(model), remainCount: MySellViewModel.TicketShowModelSellCount(model), soldCount: MySellViewModel.TicketShowModelSoldCount(model), isMoreTicket: self.TicketShowModelIsMoreTicket(model))
     }
     
     func tableViewCellMySellManagerMuchTableViewCell(cell:MySellManagerMuchTableViewCell, indexPath:NSIndexPath) {
         if ticketShowModel.count != 0 {
             let model = TicketShowModel.init(fromDictionary: ticketShowModel[indexPath.section] as! NSDictionary)
-            let priceModel = self.sellManagerMinMaxPrice(model)
+            let priceModel = MySellViewModel.sellManagerMinMaxPrice(model)
             if priceModel.minPrice != priceModel.maxPrice {
                 cell.setMuchLabelText("\(priceModel.minPrice)-\(priceModel.maxPrice)")
             }else{
@@ -244,15 +245,15 @@ class MySellViewModel: NSObject {
 //        }
 //    }
     
-    func TicketShowModelCover(model:TicketShowModel) -> String{
+    class func TicketShowModelCover(model:TicketShowModel) -> String{
         return model.cover
     }
     
-    func TicketShowModelTitle(model:TicketShowModel) -> String{
+    class func TicketShowModelTitle(model:TicketShowModel) -> String{
         return model.title
     }
     
-    func TicketShowModelSession(model:TicketShowModel) -> String{
+    class func TicketShowModelSession(model:TicketShowModel) -> String{
         var sessionStr = ""
         if model.sessionList.count != 1 {
             for session in model.sessionList {
@@ -265,7 +266,7 @@ class MySellViewModel: NSObject {
         }
     }
     
-    func TicketShowModelTicketName(model:TicketShowModel) -> String {
+    class func TicketShowModelTicketName(model:TicketShowModel) -> String {
         var ticketName = ""
         if model.sessionCount != 1 {
             for session in model.sessionList {
@@ -292,7 +293,7 @@ class MySellViewModel: NSObject {
         return ticketName
     }
     
-    func TicketShowModelSellCount(model:TicketShowModel) -> String {
+    class func TicketShowModelSellCount(model:TicketShowModel) -> String {
         var ticketCount:Int = 0
         if model.sessionList.count != 1 {
             for session in model.sessionList {
@@ -324,7 +325,7 @@ class MySellViewModel: NSObject {
         return ret
     }
     
-    func TicketShowModelSoldCount(model:TicketShowModel) -> String {
+    class func TicketShowModelSoldCount(model:TicketShowModel) -> String {
         var ticketSoldCount:Int = 0
         if model.sessionList.count != 1 {
             for session in model.sessionList {
@@ -356,7 +357,7 @@ class MySellViewModel: NSObject {
         return ticketRow
     }
     
-    func sellManagerMinMaxPrice(model:TicketShowModel) -> PriceModel {
+    class func sellManagerMinMaxPrice(model:TicketShowModel) -> PriceModel {
         let priceModel = PriceModel()
         if model.sessionList.count != 1 {
             priceModel.minPrice = model.sessionList[0].minPrice

@@ -17,7 +17,17 @@ class HomeViewModel: NSObject {
     var controller:HomeViewController!
     
     override init() {
-        
+        super.init()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeViewModel.userDidTakeScreenshot(_:)), name: UIApplicationUserDidTakeScreenshotNotification, object: nil)
+    }
+    
+    func userDidTakeScreenshot(notifiation:NSNotification){
+        let image = KWINDOWDS!.screenshot()
+        SaveImageTools.sharedInstance.saveImage("ScreenShotImage.png", image: image, path: "ScreenShot")
+        if KWINDOWDS?.viewWithTag(10000) != nil {
+            KWINDOWDS?.viewWithTag(10000)?.removeFromSuperview()
+        }
+        KWINDOWDS?.addSubview(GloableShareView.init(title: "分享截屏给好友", model: nil, image: image, url: nil))
     }
     
     func numberOfSectionsInTableView() -> Int{

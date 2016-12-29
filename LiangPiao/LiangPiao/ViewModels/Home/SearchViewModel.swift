@@ -26,6 +26,14 @@ class SearchViewModel: NSObject {
     private override init() {
         
     }
+    
+    func emptyPlachTextTitle() -> String {
+        if searchType == .TicketShowModel {
+            return "搜索你关注的演出"
+        }
+        return "搜索想转卖的演出"
+    }
+    
     static let shareInstance = SearchViewModel()
     // MARK: SearchTableView
     func searchTableNumberOfSectionsInTableView() -> Int{

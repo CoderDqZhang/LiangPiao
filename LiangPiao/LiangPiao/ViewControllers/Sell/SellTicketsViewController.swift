@@ -71,6 +71,7 @@ class SellTicketsViewController: BaseViewController {
     }
     
     func setUpNavigationItem(){
+        searchNavigationBar.searchField.placeholder = "搜索想转卖的演出..."
         self.view.addSubview(searchNavigationBar)
     }
     

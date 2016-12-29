@@ -29,6 +29,13 @@ let WeiXinPayStatues = "WeiXinPayStatuesChange"
 let AliPayStatues = "AliPayStatuesChange"
 
 let WeiXinAppID = "wx6c6b940e660449a2"
+let QQAppID = "1105914312"
+let QQAppKey = "13YjjEEnKWGQ5IJl"
+
+let WeiboApiKey   =    "3220687526"
+let WeiboApiSecret =   "974c901f0d3cf9e27b2a7dfca56f08c7"
+let WeiboRedirectUrl = "http://sns.whalecloud.com/sina2/callback"
+
 
 let ToolViewNotifacationName = "ToolsViewNotification"
 let LoginStatuesChange = "LoginStatuesChange"
@@ -46,6 +53,7 @@ let TalkingDataKey = "AC559E27399F4ECEA0D9880E0C6977FB"
 let KWINDOWDS = UIApplication.sharedApplication().keyWindow
 
 let SHARE_APPLICATION = UIApplication.sharedApplication()
+
 
 func AppCallViewShow(view:UIView, phone:String) {
     UIAlertController.shwoAlertControl(view.findViewController()!, style: .Alert, title: nil, message: phone, cancel: "取消", doneTitle: "确定", cancelAction: {

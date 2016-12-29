@@ -672,6 +672,275 @@ class GloableTitleList: UIView {
     }
 }
 
+class GloableShareView: UIView, UIGestureRecognizerDelegate, CAAnimationDelegate {
+    var detailView:UIView!
+    var shareView:UIView!
+    var titleLabel:UILabel!
+    var detailLabel:UILabel!
+    var cancelButton:UIButton!
+    var height:CGFloat = 0
+    var wxSession:UIButton!
+    var wxTimeLine:UIButton!
+    var weiboTimeLine:UIButton!
+    var qqSeession:UIButton!
+    var qqTimeLine:UIButton!
+    var shareImage:UIImage!
+    var shareModel:TicketShowModel!
+    var ticketImage:UIImage!
+    var shareUrl:String!
+    init(title:String, model:TicketShowModel?, image:UIImage?, url:String?) {
+        super.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: SCREENHEIGHT))
+        shareImage = image
+        self.tag = 10000
+        if image == nil {
+            ticketImage = SaveImageTools.sharedInstance.LoadImage("\((model?.id)!).png", path: "TicketShowImages") != nil ? SaveImageTools.sharedInstance.LoadImage("\((model?.id)!).png", path: "TicketShowImages") : UIImage.init(named: "AboutUs_Logo")
+            shareModel = model
+        }
+        if url != nil {
+            shareUrl = url
+        }
+        self.backgroundColor = UIColor.init(hexString: App_Theme_384249_Color, andAlpha: 0.5)
+        detailView = UIView()
+        detailView.backgroundColor = UIColor.whiteColor()
+        self.setUpTitleView(title)
+        
+        self.setUpCancelButton()
+        self.addShareButton()
+        detailView.frame = CGRectMake(0, SCREENHEIGHT, SCREENWIDTH, 188)
+        self.addSubview(detailView)
+        
+        let singleTap = UITapGestureRecognizer(target: self, action: #selector(GloableServiceView.singleTapPress(_:)))
+        singleTap.numberOfTapsRequired = 1
+        singleTap.numberOfTouchesRequired = 1
+        singleTap.delegate = self
+        self.addGestureRecognizer(singleTap)
+        UIView.animateWithDuration(AnimationTime, animations: {
+            self.detailView.frame = CGRectMake(0, SCREENHEIGHT - 188, SCREENWIDTH, 188)
+            }, completion: { completion in
+                
+        })
+    }
+    
+    func singleTapPress(sender:UITapGestureRecognizer){
+        self.removwSelf()
+    }
+    
+    func removwSelf(){
+        UIView.animateWithDuration(AnimationTime, animations: {
+            self.detailView.frame = CGRectMake(0, SCREENHEIGHT, SCREENWIDTH, 188)
+            }, completion: { completion in
+                self.removeFromSuperview()
+        })
+    }
+    
+    func setUpCancelButton(){
+        cancelButton =  UIButton(type: .Custom)
+        cancelButton.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (action) in
+            self.removwSelf()
+        }
+        cancelButton.frame = CGRect.init(x: SCREENWIDTH - 50, y: 10, width: 40, height: 40)
+        cancelButton.setImage(UIImage.init(named: "Btn_Close"), forState: .Normal)
+        detailView.addSubview(cancelButton)
+    }
+    
+    func addShareButton(){
+        shareView = UIView.init()
+        var maxX:CGFloat = -16
+        if WXApi.isWXAppInstalled() {
+            wxSession = UIButton(type: .Custom)
+            wxSession.buttonSetImage(UIImage.init(named: "Wechat_Normal")!, sImage: UIImage.init(named: "Wechat_Pressed")!)
+            wxSession.rac_signalForControlEvents(.TouchUpInside).subscribeNext({ (action) in
+                if self.shareImage == nil {
+                    ShareTools.shareInstance.shareWeChatSession(self.shareModel.title, description: self.shareModel.venue.address, image: self.ticketImage, url: self.shareUrl)
+                }else{
+                    ShareTools.shareInstance.shareWeChatScreenShotImage(self.shareImage, type: 0)
+                }
+            })
+            wxSession.tag = 100
+            wxSession.frame = CGRectMake(maxX + 16, 188, 50, 50)
+            if #available(iOS 9.0, *) {
+                wxSession.layer.addAnimation(self.setUpAnimation(wxSession.layer.position.y - 98, velocity: 6.0), forKey: "wxSession")
+                shareView.addSubview(wxSession)
+            } else {
+                shareView.addSubview(wxSession)
+                // Fallback on earlier versions
+            }
+            maxX = CGRectGetMaxX(wxSession.frame)
+            
+            wxTimeLine = UIButton(type: .Custom)
+            wxTimeLine.tag = 101
+            wxTimeLine.buttonSetImage(UIImage.init(named: "Moment_Normal")!, sImage: UIImage.init(named: "Moment_Pressed")!)
+            wxTimeLine.rac_signalForControlEvents(.TouchUpInside).subscribeNext({ (action) in
+                if self.shareImage == nil {
+                    ShareTools.shareInstance.shareWeChatTimeLine(self.shareModel.title, description: self.shareModel.venue.address, image: self.ticketImage, url: self.shareUrl)
+                }else{
+                    ShareTools.shareInstance.shareWeChatScreenShotImage(self.shareImage, type: 1)
+                }
+                
+            })
+            wxTimeLine.frame = CGRectMake(maxX + 16, 188, 50, 50)
+            if #available(iOS 9.0, *) {
+                wxTimeLine.layer.addAnimation(self.setUpAnimation(wxTimeLine.layer.position.y - 98, velocity: 5.5), forKey: "wxTimeLine")
+                shareView.addSubview(wxTimeLine)
+            } else {
+                shareView.addSubview(wxTimeLine)
+                // Fallback on earlier versions
+            }
+            shareView.addSubview(wxTimeLine)
+            maxX = CGRectGetMaxX(wxTimeLine.frame)
+        }
+        
+        if WeiboSDK.isWeiboAppInstalled() {
+            weiboTimeLine = UIButton(type: .Custom)
+            weiboTimeLine.tag = 102
+            weiboTimeLine.buttonSetImage(UIImage.init(named: "Weibo_Normal")!, sImage: UIImage.init(named: "Weibo_Pressed")!)
+            weiboTimeLine.rac_signalForControlEvents(.TouchUpInside).subscribeNext({ (action) in
+                if self.shareImage == nil {
+                    ShareTools.shareInstance.shareWeiboWebUrl("\(self.shareModel.title)--\(self.shareModel.venue.address)-\(self.shareUrl)", webTitle: self.shareModel.title, image: self.ticketImage, webDescription: self.shareModel.venue.address, webUrl: self.shareUrl)
+                }else{
+                    ShareTools.shareInstance.shareWBScreenShotImag(self.shareImage, text: "良票")
+                }
+            })
+            weiboTimeLine.frame = CGRectMake(maxX + 16, 188, 50, 50)
+            if #available(iOS 9.0, *) {
+                weiboTimeLine.layer.addAnimation(self.setUpAnimation(weiboTimeLine.layer.position.y - 98, velocity: 5.0), forKey: "weiboTimeLine")
+                shareView.addSubview(weiboTimeLine)
+            } else {
+                shareView.addSubview(weiboTimeLine)
+                // Fallback on earlier versions
+            }
+            shareView.addSubview(weiboTimeLine)
+            maxX = CGRectGetMaxX(weiboTimeLine.frame)
+        }
+        
+        if TencentOAuth.iphoneQQInstalled() {
+            qqSeession = UIButton(type: .Custom)
+            qqSeession.tag = 103
+            qqSeession.buttonSetImage(UIImage.init(named: "QQ_Normal")!, sImage: UIImage.init(named: "QQ_Pressed")!)
+            shareView.addSubview(qqSeession)
+            qqSeession.rac_signalForControlEvents(.TouchUpInside).subscribeNext({ (action) in
+                if self.shareImage == nil {
+                    ShareTools.shareInstance.shareQQSessionWebUrl("良票", webTitle: self.shareModel.title,imageUrl: "\(self.shareModel.cover)",  webDescription: self.shareModel.venue.address, webUrl: self.shareUrl)
+                }else{
+                    ShareTools.shareInstance.shareQQScreenShotImage(self.shareImage, type: 0)
+                }
+            })
+            qqSeession.frame = CGRectMake(maxX + 16, 188, 50, 50)
+            if #available(iOS 9.0, *) {
+                qqSeession.layer.addAnimation(self.setUpAnimation(qqSeession.layer.position.y - 98, velocity: 4.5), forKey: "qqSeession")
+                shareView.addSubview(qqSeession)
+            } else {
+                shareView.addSubview(qqSeession)
+                // Fallback on earlier versions
+            }
+            maxX = CGRectGetMaxX(qqSeession.frame)
+        }
+        
+        if TencentOAuth.iphoneQZoneInstalled() {
+            qqTimeLine = UIButton(type: .Custom)
+            qqTimeLine.tag = 104
+            qqTimeLine.buttonSetImage(UIImage.init(named: "QZone_Normal")!, sImage: UIImage.init(named: "QZone_Pressed")!)
+            qqTimeLine.frame = CGRectMake(maxX + 16, 90, 50, 50)
+            qqTimeLine.rac_signalForControlEvents(.TouchUpInside).subscribeNext({ (action) in
+                if self.shareImage == nil {
+                    ShareTools.shareInstance.shareQQTimeLineUrl("良票", webTitle: self.shareModel.title,imageUrl: "\(self.shareModel.cover)", webDescription: self.shareModel.venue.address, webUrl: self.shareUrl)
+                }else{
+                    ShareTools.shareInstance.shareQQScreenShotImage(self.shareImage, type: 1)
+                }
+            })
+            qqTimeLine.frame = CGRectMake(maxX + 16, 188, 50, 50)
+            if #available(iOS 9.0, *) {
+                qqTimeLine.layer.addAnimation(self.setUpAnimation(qqTimeLine.layer.position.y - 98, velocity: 4.0), forKey: "qqTimeLine")
+                shareView.addSubview(qqTimeLine)
+            } else {
+                shareView.addSubview(qqTimeLine)
+                // Fallback on earlier versions
+            }
+            shareView.addSubview(qqTimeLine)
+            maxX = CGRectGetMaxX(qqTimeLine.frame)
+        }
+        
+        shareView.frame = CGRectMake((SCREENWIDTH - maxX)/2, 0, maxX, 188)
+        self.detailView.addSubview(shareView)
+    }
+    
+    func setUpTitleView(title:String){
+        let recommentTitle = UILabel()
+        let width = title.widthWithConstrainedHeight(title, font: App_Theme_PinFan_M_13_Font!, height: 20)
+        recommentTitle.frame = CGRectMake((SCREENWIDTH - width) / 2, 45, width, 20)
+        recommentTitle.textColor = UIColor.init(hexString: App_Theme_A2ABB5_Color)
+        recommentTitle.font = App_Theme_PinFan_M_13_Font
+        recommentTitle.text = title
+        recommentTitle.textAlignment = .Center
+        detailView.addSubview(recommentTitle)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool{
+        let touchPoint = touch.locationInView(self)
+        return touchPoint.y < SCREENHEIGHT - (self.height + 160) ? true : false
+    }
+    
+    @available(iOS 9.0, *)
+    func setUpAnimation(float:CGFloat,velocity:CGFloat) ->CASpringAnimation{
+        let ani = CASpringAnimation.init(keyPath: "position.y")
+        ani.mass = 10.0; //质量，影响图层运动时的弹簧惯性，质量越大，弹簧拉伸和压缩的幅度越大
+        ani.stiffness = 1000; //刚度系数(劲度系数/弹性系数)，刚度系数越大，形变产生的力就越大，运动越快
+        ani.damping = 100.0;//阻尼系数，阻止弹簧伸缩的系数，阻尼系数越大，停止越快
+        ani.initialVelocity = velocity;//初始速率，动画视图的初始速度大小;速率为正数时，速度方向与运动方向一致，速率为负数时，速度方向与运动方向相反
+        ani.duration = ani.settlingDuration;
+        ani.toValue = float
+        ani.delegate = self
+        ani.removedOnCompletion = false
+        ani.fillMode = kCAFillModeForwards;
+        ani.timingFunction = CAMediaTimingFunction.init(name: kCAMediaTimingFunctionEaseInEaseOut)
+        return ani
+    }
+    
+    func animationDidStop(anim: CAAnimation, finished flag: Bool) {
+        if self.wxSession != nil {
+            if anim == self.wxSession.layer.animationForKey("wxSession") {
+                var frame = self.wxSession.frame
+                frame.origin.y =  90
+                self.wxSession.frame = frame
+            }
+        }
+        if self.wxTimeLine != nil {
+            if anim == self.wxTimeLine.layer.animationForKey("wxTimeLine") {
+                var frame = self.wxTimeLine.frame
+                frame.origin.y =  90
+                self.wxTimeLine.frame = frame
+            }
+        }
+        if self.weiboTimeLine != nil {
+            if anim == self.weiboTimeLine.layer.animationForKey("weiboTimeLine") {
+                var frame = self.weiboTimeLine.frame
+                frame.origin.y =  90
+                self.weiboTimeLine.frame = frame
+            }
+        }
+        
+        if self.qqSeession != nil {
+            if anim == self.qqSeession.layer.animationForKey("qqSeession") {
+                var frame = self.qqSeession.frame
+                frame.origin.y =  90
+                self.qqSeession.frame = frame
+            }
+        }
+        
+        if self.qqTimeLine != nil {
+            if anim == self.qqTimeLine.layer.animationForKey("qqTimeLine") {
+                var frame = self.qqTimeLine.frame
+                frame.origin.y =  90
+                self.qqTimeLine.frame = frame
+            }
+        }
+    }
+}
+
 
 
 
