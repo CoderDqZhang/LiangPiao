@@ -247,13 +247,19 @@ class OrderConfirmViewModel: NSObject {
             let cell = tableView.cellForRowAtIndexPath(indexPath) as! GloabTitleAndImageCell
             cell.updateImageView(true)
             if indexPath.row == 0 {
-                let cell = tableView.cellForRowAtIndexPath(NSIndexPath.init(forRow: 1, inSection: 2)) as! GloabTitleAndImageCell
-                cell.updateImageView(false)
+                if tableView.numberOfRowsInSection(2) > 1 {
+                    let cell = tableView.cellForRowAtIndexPath(NSIndexPath.init(forRow: 1, inSection: 2)) as! GloabTitleAndImageCell
+                    cell.updateImageView(false)
+                }
             }else{
                 let cell = tableView.cellForRowAtIndexPath(NSIndexPath.init(forRow: 0, inSection: 2)) as! GloabTitleAndImageCell
                 cell.updateImageView(false)
             }
-            orderForme.payType = indexPath.row == 0 ? .weiChat : .aliPay
+            if WXApi.isWXAppInstalled() {
+                orderForme.payType = indexPath.row == 0 ? .weiChat : .aliPay
+            }else{
+                orderForme.payType = .aliPay
+            }
             
         }else{
             if self.formType == .withNomal {
