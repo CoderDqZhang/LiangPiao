@@ -58,7 +58,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>2</string>
+	<string>1</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
@@ -77,7 +77,7 @@
 	<string></string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
-		<string>weixin://app/</string>
+		<string>mqqopensdkapiv4</string>
 		<string>mqzoneopensdkapiV2</string>
 		<string>mqzoneopensdkapi19</string>
 		<string>mqzoneopensdkapi</string>

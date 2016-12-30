@@ -86,12 +86,17 @@ class ShareTools: NSObject, TencentSessionDelegate, TencentLoginDelegate {
     
     func shareQQScreenShotImage(image:UIImage,type:Int){
         self.tencentOAuth =  TencentOAuth.init(appId: QQAppID, andDelegate: nil)
-        let imageData = UIImagePNGRepresentation(image)
-        let imgObj = QQApiImageObject.objectWithData(imageData, previewImageData: imageData, title: "截屏分享", description: "良票截屏分享")
-        let req = SendMessageToQQReq.init(content: imgObj as! QQApiImageObject)
+        
         if type == 0 {
+            let imageData = UIImagePNGRepresentation(image)
+            let compress = image.compressImage(image, maxLength: 32)
+            let imgObj = QQApiImageObject.objectWithData(compress, previewImageData: imageData, title: "", description: "")
+            let req = SendMessageToQQReq.init(content: imgObj as! QQApiImageObject)
             QQApiInterface.sendReq(req)
         }else{
+            let imageData = UIImagePNGRepresentation(image)
+            let imgObj = QQApiImageArrayForQZoneObject.init(imageArrayData: [imageData!], title: "")
+            let req = SendMessageToQQReq.init(content: imgObj as QQApiImageArrayForQZoneObject)
             QQApiInterface.SendReqToQZone(req)
         }
     }
