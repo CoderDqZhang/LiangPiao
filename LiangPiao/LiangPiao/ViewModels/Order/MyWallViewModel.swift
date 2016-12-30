@@ -66,13 +66,17 @@ class MyWallViewModel: NSObject {
         if self.model != nil {
             var blance:String = "0.00"
             var pendingBalance = "0.00"
+            var deposit = "0.00"
             if self.model.balance != 0 {
                 blance = "\(self.model.balance)".muchType("\(self.model.balance)")
             }
             if self.model.pendingBalance != 0 {
                 pendingBalance = "\(self.model.pendingBalance)".muchType("\(self.model.pendingBalance)")
             }
-            cell.setData(blance, freeze: "0.00", preString: pendingBalance)
+            if self.model.deposit != 0 {
+                deposit = "\(self.model.deposit)".muchType("\(self.model.deposit)")
+            }
+            cell.setData(blance, freeze: deposit, preString: pendingBalance)
         }
     }
     

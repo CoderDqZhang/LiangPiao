@@ -211,7 +211,7 @@ extension HomeViewController : UITableViewDataSource {
                     self.searchViewController()
                 }
                 cell.location.rac_signalForControlEvents(.TouchUpInside).subscribeNext({ (action) in
-                    MainThreadAlertShow("更多城市正在开拓中...", view: KWINDOWDS!)
+                    MainThreadAlertShow("更多城市正在开拓中...", view: KWINDOWDS())
                 })
                 cell.selectionStyle = .None
                 return cell

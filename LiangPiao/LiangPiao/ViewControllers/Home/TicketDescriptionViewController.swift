@@ -88,7 +88,7 @@ class TicketDescriptionViewController: UIViewController {
         
         let shareItem = UIBarButtonItem(image: UIImage.init(named: "Icon_Share_Normal")?.imageWithRenderingMode(.AlwaysOriginal), style: .Plain, target: self, action: #selector(TicketDescriptionViewController.shareItemPress(_:)))
         shareItem.setBackgroundImage(UIImage.init(named: "Icon_Share_Press"), forState: .Selected, barMetrics: .Default)
-        self.navigationItem.rightBarButtonItems = [likeItem, shareItem]
+        self.navigationItem.rightBarButtonItems = [shareItem, likeItem]
     }
     
     func setUpNavigationItems() {
@@ -122,7 +122,7 @@ class TicketDescriptionViewController: UIViewController {
         }else if viewModel.ticketModel.session != nil {
             url = "\(ShareUrl)\(viewModel.ticketModel.id)/session/\(viewModel.ticketModel.session.id)"
         }
-        KWINDOWDS?.addSubview(GloableShareView.init(title: "推荐给好友", model: self.viewModel.ticketModel, image: nil, url: url))
+        KWINDOWDS().addSubview(GloableShareView.init(title: "推荐给好友", model: self.viewModel.ticketModel, image: nil, url: url))
     }
     
     override func didReceiveMemoryWarning() {

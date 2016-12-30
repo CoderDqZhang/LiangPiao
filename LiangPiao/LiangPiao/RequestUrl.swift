@@ -10,8 +10,9 @@ import Foundation
 
 //https://itunes.apple.com/us/app/liang-piao-da-mai-yong-le/id1170039060?mt=8
 
-let BaseURL = "http://api.liangpiao.me/"
-//let BaseURL = "http://api.niceticket.cc/"
+let BaseStr = "liangpiao.me/"
+//let BaseStr = "niceticket.cc/"
+let BaseURL = "http://api.\(BaseStr)"
 
 
 let LoginUrl = "\(BaseURL)user/login/"
@@ -51,4 +52,5 @@ let HotSellURl = "\(BaseURL)show/hot_sell/"
 //待完善当个场次
 let OneShowTicketUrl = "\(BaseURL)supplier/show/"
 
-let ShareUrl = "http://www.liangpiao.me/show/"
+let ShareUrl = "http://www.\(BaseStr)show/"
+let UserProtocol = "http://www.\(BaseStr)protocol/"

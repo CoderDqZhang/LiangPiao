@@ -437,7 +437,7 @@ class MyTicketPutUpViewModel: NSObject {
         BaseNetWorke.sharedInstance.deleteUrlWithString(url, parameters: nil).subscribeNext { (resultDic) in
             if resultDic is NSDictionary {
                 if (resultDic as! NSDictionary).allKeys.count > 0 {
-                    MainThreadAlertShow("\((resultDic as! NSDictionary)["message"]!)", view: KWINDOWDS!)
+                    MainThreadAlertShow("\((resultDic as! NSDictionary)["message"]!)", view: KWINDOWDS())
                 }else{
                     self.tempSelect = self.selectSession
                     self.tempList.removeAtIndex(indexPath.row - 3)

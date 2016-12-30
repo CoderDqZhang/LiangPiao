@@ -80,7 +80,7 @@ class SellInfoViewController: UIViewController {
     }
     
     func rightItemPress(){
-        KWINDOWDS!.addSubview(GloableServiceView.init(title: "卖票规则", message: self.viewModel.messageTitle()))
+        KWINDOWDS().addSubview(GloableServiceView.init(title: "卖票规则", message: self.viewModel.messageTitle()))
     }
     
     func bindViewModel() {

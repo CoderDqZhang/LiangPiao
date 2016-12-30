@@ -105,7 +105,7 @@ class MySellViewModel: NSObject {
     
     func requesrSellOrder(isNext:Bool){
         if !UserInfoModel.isLoggedIn() {
-            MainThreadAlertShow("请登录后查看", view: KWINDOWDS!)
+            MainThreadAlertShow("请登录后查看", view: KWINDOWDS())
             return;
         }
         var url = ""
@@ -210,7 +210,7 @@ class MySellViewModel: NSObject {
     
     func requestOrderManager(){
         if !UserInfoModel.isLoggedIn() {
-            MainThreadAlertShow("请登录后查看", view: KWINDOWDS!)
+            MainThreadAlertShow("请登录后查看", view: KWINDOWDS())
             return;
         }
         self.ticketShowModel.removeAllObjects()

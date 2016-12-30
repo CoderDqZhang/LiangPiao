@@ -14,6 +14,7 @@ class TickerInfoTableViewCell: UITableViewCell {
     var ticketRow:UILabel!
     var ticketDescirp:UILabel!
     var ticketNowPrice:UILabel!
+    var ticketNowPriceInfo:UILabel!
     var ticketStatusView:GlobalTicketStatus!
     var lineLabel:GloabLineView!
     var didMakeConstraints:Bool = false
@@ -52,6 +53,12 @@ class TickerInfoTableViewCell: UITableViewCell {
         ticketNowPrice.textColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
         self.contentView.addSubview(ticketNowPrice)
         
+        ticketNowPriceInfo = UILabel()
+        ticketNowPriceInfo.text = "元"
+        ticketNowPriceInfo.font = App_Theme_PinFan_R_13_Font
+        ticketNowPriceInfo.textColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
+        self.contentView.addSubview(ticketNowPriceInfo)
+        
         lineLabel = GloabLineView(frame: CGRectMake(15, 59.5, SCREENWIDTH - 30, 0.5))
         self.contentView.addSubview(lineLabel)
         self.updateConstraintsIfNeeded()
@@ -86,17 +93,17 @@ class TickerInfoTableViewCell: UITableViewCell {
             }else if str == "3"  {
                 delivery = delivery.stringByAppendingString("上门自取 ")
             }else if str == "2" {
-                delivery = delivery.stringByAppendingString("自取")
+                delivery = delivery.stringByAppendingString("自取 ")
             }
+        }
+        if model.seatType == 1{
+            delivery = delivery.stringByAppendingString("连坐")
         }
         return delivery
     }
     
     func setUpTicketStatues(model:TicketList){
         var statuesArray:[String] = []
-        if model.seatType == 1{
-            statuesArray.append("连")
-        }
         if model.remainCount != 0 {
             let str = model.remainCount >= 20 ? "剩余\(model.remainCount)张" : "最后\(model.remainCount)张"
             statuesArray.append(str)
@@ -145,8 +152,13 @@ class TickerInfoTableViewCell: UITableViewCell {
             })
             
             ticketNowPrice.snp_makeConstraints(closure: { (make) in
-                make.right.equalTo(self.contentView.snp_right).offset(-25)
+                make.right.equalTo(self.ticketNowPriceInfo.snp_left).offset(-2)
                 make.top.equalTo(self.contentView.snp_top).offset(14)
+            })
+            
+            ticketNowPriceInfo.snp_makeConstraints(closure: { (make) in
+                make.right.equalTo(self.contentView.snp_right).offset(-25)
+                make.top.equalTo(self.contentView.snp_top).offset(14.5)
             })
             
             lineLabel.snp_makeConstraints(closure: { (make) in

@@ -146,7 +146,7 @@ class OrderListViewModel: NSObject {
             if controller.tableView.mj_header != nil {
                 controller.tableView.mj_header.endRefreshing()
             }
-            MainThreadAlertShow("请登录后查看", view: KWINDOWDS!)
+            MainThreadAlertShow("请登录后查看", view: KWINDOWDS())
             return;
         }
         var url = ""
@@ -208,7 +208,7 @@ class OrderListViewModel: NSObject {
             model.payUrl = payUrl
             if model.payType == 1 {
                 if model.payUrl.alipay == "" {
-                    MainThreadAlertShow("获取支付链接错误", view: KWINDOWDS!)
+                    MainThreadAlertShow("获取支付链接错误", view: KWINDOWDS())
                     return
                 }
                 AlipaySDK.defaultService().payOrder(model.payUrl.alipay, fromScheme: "LiangPiaoAlipay") { (resultDic) in
@@ -216,7 +216,7 @@ class OrderListViewModel: NSObject {
                 }
             }else{
                 if model.payUrl.wxpay == nil {
-                    MainThreadAlertShow("获取支付链接错误", view: KWINDOWDS!)
+                    MainThreadAlertShow("获取支付链接错误", view: KWINDOWDS())
                     return
                 }
                 let request = PayReq()

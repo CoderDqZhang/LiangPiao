@@ -22,12 +22,12 @@ class HomeViewModel: NSObject {
     }
     
     func userDidTakeScreenshot(notifiation:NSNotification){
-        let image = KWINDOWDS!.screenshot()
+        let image = KWINDOWDS().screenshot()
         SaveImageTools.sharedInstance.saveImage("ScreenShotImage.png", image: image, path: "ScreenShot")
-        if KWINDOWDS?.viewWithTag(10000) != nil {
-            KWINDOWDS?.viewWithTag(10000)?.removeFromSuperview()
+        if KWINDOWDS().viewWithTag(10000) != nil {
+            KWINDOWDS().viewWithTag(10000)?.removeFromSuperview()
         }
-        KWINDOWDS?.addSubview(GloableShareView.init(title: "分享截屏给好友", model: nil, image: image, url: nil))
+        KWINDOWDS().addSubview(GloableShareView.init(title: "分享截屏给好友", model: nil, image: image, url: nil))
     }
     
     func numberOfSectionsInTableView() -> Int{

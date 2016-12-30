@@ -147,7 +147,7 @@ class OrderDetailViewModel: NSObject {
     func requestPayModel(cnotroller:OrderDetailViewController){
         if model.payType == 1 {
             if self.model.payUrl == nil || self.model.payUrl.alipay == "" {
-                MainThreadAlertShow("获取支付链接错误", view: KWINDOWDS!)
+                MainThreadAlertShow("获取支付链接错误", view: KWINDOWDS())
                 return
             }
             AlipaySDK.defaultService().payOrder(self.model.payUrl.alipay, fromScheme: "LiangPiaoAlipay") { (resultDic) in
@@ -155,7 +155,7 @@ class OrderDetailViewModel: NSObject {
             }
         }else{
             if self.model.payUrl == nil || self.model.payUrl.wxpay == nil {
-                MainThreadAlertShow("获取支付链接错误", view: KWINDOWDS!)
+                MainThreadAlertShow("获取支付链接错误", view: KWINDOWDS())
                 return
             }
             let request = PayReq()

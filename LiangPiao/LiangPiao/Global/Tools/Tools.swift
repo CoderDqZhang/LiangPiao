@@ -84,11 +84,11 @@ class Tools: NSObject {
                 print("errorType = \(error.type)--->ErrorString=\(error.error[0])")
                 errorMsg =  error.error[0]
             }
-            return self.showMessage(KWINDOWDS!, msg:errorMsg , autoHidder: true)
+            return self.showMessage(KWINDOWDS(), msg:errorMsg , autoHidder: true)
         }else{
             let error = ErrorStatus.init(fromDictionary: errorDic as! NSDictionary)
             if error.status != nil && error.status == 500 {
-                return self.showMessage(KWINDOWDS!, msg:"网络服务错误" , autoHidder: true)
+                return self.showMessage(KWINDOWDS(), msg:"网络服务错误" , autoHidder: true)
             }else{
                 return nil
             }
@@ -98,10 +98,10 @@ class Tools: NSObject {
     func showNetWorkError(error:AnyObject) ->MBProgressHUD {
         let netWorkError = (error as! NSError)
         print(netWorkError)
-        return self.showMessage(KWINDOWDS!, msg:netWorkError.localizedDescription , autoHidder: true)
+        return self.showMessage(KWINDOWDS(), msg:netWorkError.localizedDescription , autoHidder: true)
     }
     
     func showAliPathError(error:String) ->MBProgressHUD {
-        return self.showMessage(KWINDOWDS!, msg: error, autoHidder: true)
+        return self.showMessage(KWINDOWDS(), msg: error, autoHidder: true)
     }
 }

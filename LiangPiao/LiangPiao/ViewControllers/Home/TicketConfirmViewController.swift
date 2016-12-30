@@ -284,7 +284,7 @@ extension TicketConfirmViewController : UITableViewDataSource {
                     }else{
                         let cell = tableView.dequeueReusableCellWithIdentifier("GloabTitleAndDetailImageCell", forIndexPath: indexPath) as! GloabTitleAndDetailImageCell
                         cell.selectionStyle = .None
-                        cell.setData(viewModel.configCellLabel(indexPath), detail: "普通快递（8元）")
+                        cell.setData(viewModel.configCellLabel(indexPath), detail: "普通快递（\(viewModel.ticketModel.deliveryPrice)元）")
                         if indexPath.row == 2 {
                             cell.hideLineLabel()
                         }

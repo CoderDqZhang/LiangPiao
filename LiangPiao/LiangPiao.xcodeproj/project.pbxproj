@@ -173,7 +173,6 @@
 		1FBFC7F11DDAC45B008D9CEC /* ZDQFMDBHelp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBFC7F01DDAC45B008D9CEC /* ZDQFMDBHelp.swift */; };
 		1FBFC7F31DDACC02008D9CEC /* ZDQFMDBModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBFC7F21DDACC02008D9CEC /* ZDQFMDBModel.swift */; };
 		1FC39C211E14EA2800A1EDAE /* Default-568.png in Resources */ = {isa = PBXBuildFile; fileRef = 1FC39C201E14EA2800A1EDAE /* Default-568.png */; };
-		1FC39C241E150F8300A1EDAE /* UIImage+Compress.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FC39C231E150F8300A1EDAE /* UIImage+Compress.m */; };
 		1FC3DDE51DE42C0D00420A05 /* SpalshView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC3DDE41DE42C0D00420A05 /* SpalshView.swift */; };
 		1FC3DDE71DE4510700420A05 /* TicketCategorys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC3DDE61DE4510700420A05 /* TicketCategorys.swift */; };
 		1FC3DDE91DE4520C00420A05 /* TicketCategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FC3DDE81DE4520C00420A05 /* TicketCategoryViewModel.swift */; };
@@ -458,8 +457,6 @@
 		1FBFC7F01DDAC45B008D9CEC /* ZDQFMDBHelp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZDQFMDBHelp.swift; sourceTree = "<group>"; };
 		1FBFC7F21DDACC02008D9CEC /* ZDQFMDBModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZDQFMDBModel.swift; sourceTree = "<group>"; };
 		1FC39C201E14EA2800A1EDAE /* Default-568.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568.png"; sourceTree = "<group>"; };
-		1FC39C221E150F8300A1EDAE /* UIImage+Compress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Compress.h"; sourceTree = "<group>"; };
-		1FC39C231E150F8300A1EDAE /* UIImage+Compress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Compress.m"; sourceTree = "<group>"; };
 		1FC3DDE41DE42C0D00420A05 /* SpalshView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpalshView.swift; sourceTree = "<group>"; };
 		1FC3DDE61DE4510700420A05 /* TicketCategorys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketCategorys.swift; sourceTree = "<group>"; };
 		1FC3DDE81DE4520C00420A05 /* TicketCategoryViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketCategoryViewModel.swift; sourceTree = "<group>"; };
@@ -1065,8 +1062,6 @@
 				1FBF86C21DDD47EF0057BB11 /* UILabel+ChangeLineSpaceAndWordSpace.m */,
 				1FF2A5F41DE96C0700FC3909 /* UIViewController+TalKingData.h */,
 				1FF2A5F51DE96C0700FC3909 /* UIViewController+TalKingData.m */,
-				1FC39C221E150F8300A1EDAE /* UIImage+Compress.h */,
-				1FC39C231E150F8300A1EDAE /* UIImage+Compress.m */,
 			);
 			path = Catagory;
 			sourceTree = "<group>";
@@ -1621,7 +1616,6 @@
 				1FD245011DC2FD9700AFD3BC /* NSString+StringSize.m in Sources */,
 				1F538C091DFE5A120020AE31 /* UIButton+Extentions.swift in Sources */,
 				1F0EAB681DD091FA00D25B64 /* OrderListViewController.swift in Sources */,
-				1FC39C241E150F8300A1EDAE /* UIImage+Compress.m in Sources */,
 				1FAADB3F1DF7ABDC00D08BB9 /* OrderDeliveryTypeViewController.swift in Sources */,
 				1F9A0CA21DF93A7F002F4C19 /* MySellServiceTableViewCell.swift in Sources */,
 				1F45C4001DD7361C008C60CD /* LiangPiaoHomeRefreshHeader.swift in Sources */,

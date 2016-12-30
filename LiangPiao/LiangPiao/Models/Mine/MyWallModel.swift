@@ -11,6 +11,7 @@ import UIKit
 class MyWallModel : NSObject, NSCoding{
     
     var balance : Int!
+    var deposit : Int!
     var pendingBalance : Int!
     
     
@@ -19,6 +20,7 @@ class MyWallModel : NSObject, NSCoding{
      */
     init(fromDictionary dictionary: NSDictionary){
         balance = dictionary["balance"] as? Int
+        deposit = dictionary["deposit"] as? Int
         pendingBalance = dictionary["pending_balance"] as? Int
     }
     
@@ -27,9 +29,12 @@ class MyWallModel : NSObject, NSCoding{
      */
     func toDictionary() -> NSDictionary
     {
-        let dictionary = NSMutableDictionary()
+        var dictionary = NSMutableDictionary()
         if balance != nil{
             dictionary["balance"] = balance
+        }
+        if deposit != nil{
+            dictionary["deposit"] = deposit
         }
         if pendingBalance != nil{
             dictionary["pending_balance"] = pendingBalance
@@ -44,6 +49,7 @@ class MyWallModel : NSObject, NSCoding{
     @objc required init(coder aDecoder: NSCoder)
     {
         balance = aDecoder.decodeObjectForKey("balance") as? Int
+        deposit = aDecoder.decodeObjectForKey("deposit") as? Int
         pendingBalance = aDecoder.decodeObjectForKey("pending_balance") as? Int
         
     }
@@ -56,6 +62,9 @@ class MyWallModel : NSObject, NSCoding{
     {
         if balance != nil{
             aCoder.encodeObject(balance, forKey: "balance")
+        }
+        if deposit != nil{
+            aCoder.encodeObject(deposit, forKey: "deposit")
         }
         if pendingBalance != nil{
             aCoder.encodeObject(pendingBalance, forKey: "pending_balance")

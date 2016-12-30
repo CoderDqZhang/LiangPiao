@@ -305,7 +305,7 @@ class MySellConfimViewModel: NSObject {
             if indexPath.section == 0 {
                 infoController.showSellTypePickerView()
             }else{
-                KWINDOWDS!.addSubview(GloableServiceView.init(title: "手续费说明", message: "所有交易免佣金，仅含1%第三方支付平台交易手续费\n结算票款时系统自动扣减手续费"))
+                KWINDOWDS().addSubview(GloableServiceView.init(title: "手续费说明", message: "所有交易免佣金，仅含1%第三方支付平台交易手续费\n结算票款时系统自动扣减手续费"))
             }
         case 1:
             infoController.showTicketRegionPickerView()
@@ -432,7 +432,7 @@ class MySellConfimViewModel: NSObject {
                     }
                 }
             }else{
-                MainThreadAlertShow("该场次暂无售票", view: KWINDOWDS!)
+                MainThreadAlertShow("该场次暂无售票", view: KWINDOWDS())
             }
         }
     }
@@ -470,7 +470,7 @@ class MySellConfimViewModel: NSObject {
         let url = "\(SellTicketStatus)\(putUpModel.id)/"
         BaseNetWorke.sharedInstance.postUrlWithString(url, parameters: paramerts).subscribeNext { (resultDic) in
             self.putUpModel = TicketList.init(fromDictionary: resultDic as! NSDictionary)
-            MainThreadAlertShow("修改成功", view: KWINDOWDS!)
+            MainThreadAlertShow("修改成功", view: KWINDOWDS())
             if self.mySellConfimViewModelClouse != nil {
                 self.mySellConfimViewModelClouse(ticket: self.putUpModel, name:self.ticketOriginName)
                 for controllers in (self.controller.navigationController?.viewControllers)! {
@@ -486,7 +486,7 @@ class MySellConfimViewModel: NSObject {
         let url = "\(SellTicket)\(model.id)/session/\(model.session.id)/ticket/"
         BaseNetWorke.sharedInstance.postUrlWithString(url, parameters: paramerts).subscribeNext { (resultDic) in
             self.putUpModel = TicketList.init(fromDictionary: resultDic as! NSDictionary)
-            MainThreadAlertShow("挂票成功", view: KWINDOWDS!)
+            MainThreadAlertShow("挂票成功", view: KWINDOWDS())
             if self.isSellTicketView {
                 
                 self.showMyTicketPutUpViewController(self.model)

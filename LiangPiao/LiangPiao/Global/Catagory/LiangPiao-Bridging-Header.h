@@ -27,5 +27,4 @@
 #import <TencentOpenAPI/TencentOAuth.h>
 #import "WeiboSDK.h"
 #import "UIWindow+Screenshot.h"
-#import "UIImage+Compress.h"
 

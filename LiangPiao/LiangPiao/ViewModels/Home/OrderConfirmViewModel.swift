@@ -73,7 +73,7 @@ class OrderConfirmViewModel: NSObject {
                     NavigationPushView(self.controller, toConroller: controllerVC)
                 }
             }else{
-//                MainThreadAlertShow("订单失效，请重新生成", view: KWINDOWDS!)
+//                MainThreadAlertShow("订单失效，请重新生成", view: KWINDOWDS())
             }
         }else{
             if self.orderModel != nil {
@@ -287,11 +287,11 @@ class OrderConfirmViewModel: NSObject {
     func createOrder(controller:TicketConfirmViewController){
         self.orderForme.deliveryType = self.formDelevityType
         if (self.orderForme.deliveryType == .expressage) && (self.orderForme.addressId == nil) {
-            MainThreadAlertShow("请填写配送地址", view: KWINDOWDS!)
+            MainThreadAlertShow("请填写配送地址", view: KWINDOWDS())
             return
         }
         if (self.orderForme.deliveryType != .expressage) && (self.orderForme.name == "" || self.orderForme.phone == "") {
-            MainThreadAlertShow("请填写配送信息", view: KWINDOWDS!)
+            MainThreadAlertShow("请填写配送信息", view: KWINDOWDS())
             return
         }
         self.requestOrderPay(self.orderForme, controller: controller)
@@ -342,7 +342,7 @@ class OrderConfirmViewModel: NSObject {
         self.controller = controller
         if model.payType == 1 {
             if model.payUrl.alipay == "" {
-                MainThreadAlertShow("获取支付链接错误", view: KWINDOWDS!)
+                MainThreadAlertShow("获取支付链接错误", view: KWINDOWDS())
                 return
             }
             AlipaySDK.defaultService().payOrder(model.payUrl.alipay, fromScheme: "LiangPiaoAlipay") { (resultDic) in
@@ -350,7 +350,7 @@ class OrderConfirmViewModel: NSObject {
             }
         }else{
             if model.payUrl.wxpay == nil {
-                MainThreadAlertShow("获取支付链接错误", view: KWINDOWDS!)
+                MainThreadAlertShow("获取支付链接错误", view: KWINDOWDS())
                 return
             }
             let request = PayReq()

@@ -81,7 +81,6 @@ class RecommendTableViewCell: UITableViewCell {
         }
         ticketTitle.text = model.title
         UILabel.changeLineSpaceForLabel(ticketTitle, withSpace: TitleLineSpace)
-        UILabel.changeLineSpaceForLabel(ticketTitle, withSpace: TitleLineSpace)
         ticketLocation.text = model.venue.name
         if model.ticketStatus != 0 || model.minPrice == 0 {
             let mMuch = model.remainCount == 0 || model.minPrice == 0 ? "暂时缺票" : "元起"

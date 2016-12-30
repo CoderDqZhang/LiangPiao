@@ -74,7 +74,7 @@ class MySellConfimViewController: UIViewController {
     }
     
     func rightItemPress(){
-        KWINDOWDS!.addSubview(GloableServiceView.init(title: "卖票须知", message: self.viewModel.messageTitle()))
+        KWINDOWDS().addSubview(GloableServiceView.init(title: "卖票须知", message: self.viewModel.messageTitle()))
     }
     
     func bindViewModel() {

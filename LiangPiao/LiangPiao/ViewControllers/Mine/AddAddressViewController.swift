@@ -40,7 +40,7 @@ class AddAddressViewController: UIViewController {
     }
     
     override func viewWillDisappear(animated: Bool) {
-        if KWINDOWDS?.viewWithTag(2) != nil {
+        if KWINDOWDS().viewWithTag(2) != nil {
             cityPickerView.remove()
         }
     }
@@ -265,7 +265,7 @@ extension AddAddressViewController : UITableViewDataSource {
 
 extension AddAddressViewController : UITextFieldDelegate {
     func textFieldDidBeginEditing(textField: UITextField) {
-        if KWINDOWDS?.viewWithTag(2) != nil {
+        if KWINDOWDS().viewWithTag(2) != nil {
             cityPickerView.remove()
         }
     }
@@ -302,7 +302,7 @@ extension AddAddressViewController : ZHPickViewDelegate {
 
 extension AddAddressViewController : UITextViewDelegate {
     func textViewDidBeginEditing(textView: UITextView) {
-        if KWINDOWDS?.viewWithTag(2) != nil {
+        if KWINDOWDS().viewWithTag(2) != nil {
             cityPickerView.remove()
         }
     }

@@ -33,7 +33,7 @@ let QQAppID = "1105914312"
 let QQAppKey = "13YjjEEnKWGQ5IJl"
 
 let WeiboApiKey   =    "3220687526"
-let WeiboApiSecret =   "974c901f0d3cf9e27b2a7dfca56f08c7"
+let WeiboApiSecret =   "97f3d51f3a1017cf54268accf9b83391"
 let WeiboRedirectUrl = "http://sns.whalecloud.com/sina2/callback"
 
 
@@ -50,7 +50,10 @@ let UserConfimNewOrder = "UserConfimNewOrder"
 
 let TalkingDataKey = "AC559E27399F4ECEA0D9880E0C6977FB"
 
-let KWINDOWDS = UIApplication.sharedApplication().keyWindow
+func KWINDOWDS() -> UIWindow{
+    let window = UIApplication.sharedApplication().keyWindow
+    return window!
+}
 
 let SHARE_APPLICATION = UIApplication.sharedApplication()
 

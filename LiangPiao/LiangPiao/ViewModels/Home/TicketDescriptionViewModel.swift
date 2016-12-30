@@ -122,7 +122,7 @@ class TicketDescriptionViewModel: NSObject {
         let url = "\(TicketFavorite)"
         let parameters = ["show_id":model.show.id]
         BaseNetWorke.sharedInstance.postUrlWithString(url, parameters: parameters).subscribeNext { (resultDic) in
-            MainThreadAlertShow("已加入想看", view: KWINDOWDS!)
+            MainThreadAlertShow("已加入想看", view: KWINDOWDS())
         }
     }
     
@@ -130,24 +130,28 @@ class TicketDescriptionViewModel: NSObject {
         let url = "\(TicketFavorite)"
         let parameters = ["show_id":model.show.id]
         BaseNetWorke.sharedInstance.deleteUrlWithString(url, parameters: parameters).subscribeNext { (resultDic) in
-            MainThreadAlertShow("已从想看移除", view: KWINDOWDS!)
+            MainThreadAlertShow("已从想看移除", view: KWINDOWDS())
         }
     }
     
     func tableViewDidSelectRowAtIndexPath(controller:TicketDescriptionViewController, indexPath:NSIndexPath) {
-        if indexPath.row > 3 && self.model.ticketList.count > 0{
-            let ticketModel = self.model.ticketList[indexPath.row - 4]
-            if ticketModel.sellType == 2 && ticketModel.remainCount > self.ticketNumber {
-                UIAlertController.shwoAlertControl(controller, style: .Alert, title: nil, message: "该票种须打包\(ticketModel.remainCount)张一起购买哦", cancel: "取消", doneTitle: "继续购买", cancelAction: {
-                    
-                    }, doneAction: {
-                     self.ticketNumber = ticketModel.remainCount
-                     self.pushTicketDescription(controller, indexPath: indexPath)
-                })
-            }else{
-                self.pushTicketDescription(controller, indexPath: indexPath)
+        if UserInfoModel.isLoggedIn() {
+            if indexPath.row > 3 && self.model.ticketList.count > 0{
+                let ticketModel = self.model.ticketList[indexPath.row - 4]
+                if ticketModel.sellType == 2 && ticketModel.remainCount > self.ticketNumber {
+                    UIAlertController.shwoAlertControl(controller, style: .Alert, title: nil, message: "该票种须打包\(ticketModel.remainCount)张一起购买哦", cancel: "取消", doneTitle: "继续购买", cancelAction: {
+                        
+                        }, doneAction: {
+                            self.ticketNumber = ticketModel.remainCount
+                            self.pushTicketDescription(controller, indexPath: indexPath)
+                    })
+                }else{
+                    self.pushTicketDescription(controller, indexPath: indexPath)
+                }
+                
             }
-            
+        }else{
+            NavigationPushView(controller, toConroller: LoginViewController())
         }
     }
     
