@@ -207,11 +207,12 @@ extension HomeViewController : UITableViewDataSource {
             switch indexPath.row {
             case 0:
                 cell = tableView.dequeueReusableCellWithIdentifier("HomeSearchTableViewCell", forIndexPath: indexPath) as! HomeSearchTableViewCell
+                cell.location.setTitle(viewModel.locationStr, forState: .Normal)
                 cell.homeSearchTableViewCellClouse = { _ in
                     self.searchViewController()
                 }
                 cell.location.rac_signalForControlEvents(.TouchUpInside).subscribeNext({ (action) in
-                    MainThreadAlertShow("更多城市正在开拓中...", view: KWINDOWDS())
+                    self.viewModel.showLocationData()
                 })
                 cell.selectionStyle = .None
                 return cell

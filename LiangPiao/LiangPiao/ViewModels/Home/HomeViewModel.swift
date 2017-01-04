@@ -9,16 +9,37 @@
 import UIKit
 import ReactiveCocoa
 import MJExtension
+import MapKit
 
 class HomeViewModel: NSObject {
     
     var models = NSMutableArray()
     var searchModel:RecommentTickes!
     var controller:HomeViewController!
+    var locationManager:AMapLocationManager!
+    var locationStr:String = UserDefaultsGetSynchronize("location") as! String == "nil" ? "全国": UserDefaultsGetSynchronize("location") as! String
     
     override init() {
         super.init()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeViewModel.userDidTakeScreenshot(_:)), name: UIApplicationUserDidTakeScreenshotNotification, object: nil)
+        self.setUpLocationManager()
+    }
+    
+    func setUpLocationManager(){
+        locationManager = AMapLocationManager.init()
+        locationManager.locationTimeout = 2
+        locationManager.reGeocodeTimeout = 2
+        locationManager.delegate = self
+        locationManager.requestLocationWithReGeocode(true) { (location, regeo, error) in
+            if error != nil {
+                return;
+            }
+            if (regeo != nil) {
+                self.locationStr = (regeo.city as NSString).substringToIndex(2)
+                UserDefaultsSetSynchronize(self.locationStr, key: "location")
+                self.controller.tableView.reloadSections(NSIndexSet.init(index: 0), withRowAnimation: .Automatic)
+            }
+        }
     }
     
     func userDidTakeScreenshot(notifiation:NSNotification){
@@ -136,4 +157,80 @@ class HomeViewModel: NSObject {
         }
     }
     
+    func showLoacationAlert(){
+        UIAlertController.shwoAlertControl(controller, style: .Alert, title: "定位服务未开启", message: "请在手机设置中开启定位服务以便更好为您服务", cancel: "知道了", doneTitle: "开启定位", cancelAction: { 
+            
+            }, doneAction: {
+                let url = NSURL.init(string: "prefs:root=LOCATION_SERVICES")
+                if SHARE_APPLICATION.canOpenURL(url!) {
+                    SHARE_APPLICATION.canOpenURL(url!)
+                }
+        })
+    }
+    
+    func showLocationData(){
+        let alertSheet = UIAlertController.init(title: "城市选择", message: nil, preferredStyle: .ActionSheet)
+        alertSheet.addAction(UIAlertAction.init(title: "取消", style: .Cancel, handler: { (cancelAction) in
+            
+        }))
+        alertSheet.addAction(UIAlertAction.init(title: "北京", style: .Default, handler: { (defaultAction) in
+            
+        }))
+        alertSheet.addAction(UIAlertAction.init(title: "天津", style: .Default, handler: { (defaultAction) in
+            
+        }))
+        alertSheet.addAction(UIAlertAction.init(title: "上海", style: .Default, handler: { (defaultAction) in
+            
+        }))
+        alertSheet.addAction(UIAlertAction.init(title: "武汉", style: .Default, handler: { (defaultAction) in
+            
+        }))
+        controller.presentViewController(alertSheet, animated: true) { 
+            
+        }
+    }
+}
+
+extension HomeViewModel : AMapLocationManagerDelegate {
+    func amapLocationManager(manager: AMapLocationManager!, didFailWithError error: NSError!) {
+        print(error)
+    }
+    
+    func amapLocationManager(manager: AMapLocationManager!, didUpdateLocation location: CLLocation!) {
+        print(location)
+        
+    }
+    
+    func amapLocationManager(manager: AMapLocationManager!, didExitRegion region: AMapLocationRegion!) {
+        print(region)
+    }
+    
+    func amapLocationManager(manager: AMapLocationManager!, didUpdateLocation location: CLLocation!, reGeocode: AMapLocationReGeocode!) {
+        
+    }
+    
+    func amapLocationManager(manager: AMapLocationManager!, didStartMonitoringForRegion region: AMapLocationRegion!) {
+        
+    }
+    
+    func amapLocationManager(manager: AMapLocationManager!, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+        if status == .AuthorizedWhenInUse || status == .AuthorizedAlways {
+            if locationStr == "北京" {
+                manager.requestLocationWithReGeocode(true, completionBlock: { (lcation, regencode, error) in
+                    if error != nil {
+                        return
+                    }
+                    if regencode != nil {
+                        self.locationStr = (regencode.city as NSString).substringToIndex(2)
+                        UserDefaultsSetSynchronize(self.locationStr, key: "location")
+                        self.controller.tableView.reloadSections(NSIndexSet.init(index: 0), withRowAnimation: .Automatic)
+                    }
+                })
+            }
+        }else if status == .NotDetermined {
+            self.showLoacationAlert()
+        }else {
+            
+        }
+    }
 }

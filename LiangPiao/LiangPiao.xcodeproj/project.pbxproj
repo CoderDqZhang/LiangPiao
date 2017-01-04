@@ -13,6 +13,11 @@
 		1F03609C1DE94A5100594767 /* UIViewController+TalkingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F03609B1DE94A5100594767 /* UIViewController+TalkingData.swift */; };
 		1F0457091E14B08500EA0E70 /* UIWindow+Screenshot.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0457081E14B08500EA0E70 /* UIWindow+Screenshot.m */; };
 		1F089DD51DCB05E800762C14 /* GlobalTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F089DD41DCB05E800762C14 /* GlobalTools.swift */; };
+		1F0AB5A41E1B539C004179D3 /* jcore-ios-1.0.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F0AB5A11E1B539C004179D3 /* jcore-ios-1.0.0.a */; };
+		1F0AB5A51E1B539C004179D3 /* jpush-ios-3.0.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F0AB5A21E1B539C004179D3 /* jpush-ios-3.0.0.a */; };
+		1F0AB5A71E1B55BE004179D3 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F0AB5A61E1B55BE004179D3 /* CoreFoundation.framework */; };
+		1F0AB5A91E1B55FF004179D3 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F0AB5A81E1B55FF004179D3 /* UserNotifications.framework */; };
+		1F0AB5AB1E1B560C004179D3 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F0AB5AA1E1B560C004179D3 /* libresolv.tbd */; };
 		1F0DE5B71E039CFB0068D9A6 /* SellInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0DE5B61E039CFB0068D9A6 /* SellInfoViewController.swift */; };
 		1F0EAB5B1DD053EE00D25B64 /* OrderDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0EAB5A1DD053EE00D25B64 /* OrderDetailViewModel.swift */; };
 		1F0EAB5F1DD05A9800D25B64 /* OrderTicketInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F0EAB5E1DD05A9800D25B64 /* OrderTicketInfoTableViewCell.swift */; };
@@ -137,6 +142,8 @@
 		1F9A0CA81DF93AC6002F4C19 /* MySellPriceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9A0CA71DF93AC6002F4C19 /* MySellPriceTableViewCell.swift */; };
 		1F9A0CAA1DF93BB9002F4C19 /* MySellConfimViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9A0CA91DF93BB9002F4C19 /* MySellConfimViewModel.swift */; };
 		1F9A0CAC1DFA52E0002F4C19 /* MySellHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9A0CAB1DFA52DF002F4C19 /* MySellHeaderTableViewCell.swift */; };
+		1FA431C51E1A2D27003E9F08 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA431C41E1A2D27003E9F08 /* NotificationService.swift */; };
+		1FA431C91E1A2D27003E9F08 /* LiangPiaoPush.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 1FA431C21E1A2D26003E9F08 /* LiangPiaoPush.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		1FA708831DEBCD7400FCCAEB /* TicketDescriptionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA708821DEBCD7400FCCAEB /* TicketDescriptionModel.swift */; };
 		1FAA85171DE54CA600F77835 /* AddressModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FAA85161DE54CA600F77835 /* AddressModel.swift */; };
 		1FAA851B1DE58FDB00F77835 /* city.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1FAA851A1DE58FDB00F77835 /* city.plist */; };
@@ -256,6 +263,30 @@
 		FF939C055E3696DD0A65FE1D /* Pods_LiangPiao.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9F98174D1FB502062618746 /* Pods_LiangPiao.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		1FA431C71E1A2D27003E9F08 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1FD244BA1DC2F92E00AFD3BC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1FA431C11E1A2D26003E9F08;
+			remoteInfo = LiangPiaoPush;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		1FA431CD1E1A2D27003E9F08 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				1FA431C91E1A2D27003E9F08 /* LiangPiaoPush.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		1F0360931DE943F300594767 /* libTalkingData.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTalkingData.a; sourceTree = "<group>"; };
 		1F0360941DE943F300594767 /* TalkingData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TalkingData.h; sourceTree = "<group>"; };
@@ -265,6 +296,12 @@
 		1F0457071E14B08500EA0E70 /* UIWindow+Screenshot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWindow+Screenshot.h"; sourceTree = "<group>"; };
 		1F0457081E14B08500EA0E70 /* UIWindow+Screenshot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWindow+Screenshot.m"; sourceTree = "<group>"; };
 		1F089DD41DCB05E800762C14 /* GlobalTools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalTools.swift; sourceTree = "<group>"; };
+		1F0AB5A11E1B539C004179D3 /* jcore-ios-1.0.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "jcore-ios-1.0.0.a"; sourceTree = "<group>"; };
+		1F0AB5A21E1B539C004179D3 /* jpush-ios-3.0.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "jpush-ios-3.0.0.a"; sourceTree = "<group>"; };
+		1F0AB5A31E1B539C004179D3 /* JPUSHService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPUSHService.h; sourceTree = "<group>"; };
+		1F0AB5A61E1B55BE004179D3 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		1F0AB5A81E1B55FF004179D3 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
+		1F0AB5AA1E1B560C004179D3 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
 		1F0DE5B61E039CFB0068D9A6 /* SellInfoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SellInfoViewController.swift; sourceTree = "<group>"; };
 		1F0EAB5A1DD053EE00D25B64 /* OrderDetailViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderDetailViewModel.swift; path = ../Home/OrderDetailViewModel.swift; sourceTree = "<group>"; };
 		1F0EAB5E1DD05A9800D25B64 /* OrderTicketInfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderTicketInfoTableViewCell.swift; path = ../Home/OrderTicketInfoTableViewCell.swift; sourceTree = "<group>"; };
@@ -389,6 +426,7 @@
 		1F6BB9931DD964E700893932 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		1F6BB9951DD964F900893932 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		1F6BB9B71DD9974300893932 /* OrderAddressTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OrderAddressTableViewCell.swift; path = ../../ViewModels/Home/OrderAddressTableViewCell.swift; sourceTree = "<group>"; };
+		1F7AAF091E19F833004ABACC /* LiangPiao.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LiangPiao.entitlements; sourceTree = "<group>"; };
 		1F80A65B1DE6905400DA51AB /* ErrorModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorModel.swift; sourceTree = "<group>"; };
 		1F88572E1DFFA4220054367C /* ZDQFlowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZDQFlowView.swift; sourceTree = "<group>"; };
 		1F88572F1DFFA4220054367C /* ZDQFlowViewItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZDQFlowViewItem.swift; sourceTree = "<group>"; };
@@ -409,6 +447,9 @@
 		1F9A0CA71DF93AC6002F4C19 /* MySellPriceTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MySellPriceTableViewCell.swift; sourceTree = "<group>"; };
 		1F9A0CA91DF93BB9002F4C19 /* MySellConfimViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MySellConfimViewModel.swift; sourceTree = "<group>"; };
 		1F9A0CAB1DFA52DF002F4C19 /* MySellHeaderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MySellHeaderTableViewCell.swift; sourceTree = "<group>"; };
+		1FA431C21E1A2D26003E9F08 /* LiangPiaoPush.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = LiangPiaoPush.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		1FA431C41E1A2D27003E9F08 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		1FA431C61E1A2D27003E9F08 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1FA708821DEBCD7400FCCAEB /* TicketDescriptionModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketDescriptionModel.swift; sourceTree = "<group>"; };
 		1FAA85161DE54CA600F77835 /* AddressModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressModel.swift; sourceTree = "<group>"; };
 		1FAA851A1DE58FDB00F77835 /* city.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = city.plist; sourceTree = "<group>"; };
@@ -576,20 +617,32 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		1FA431BF1E1A2D26003E9F08 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1FD244BF1DC2F92E00AFD3BC /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F0AB5AB1E1B560C004179D3 /* libresolv.tbd in Frameworks */,
+				1F0AB5A91E1B55FF004179D3 /* UserNotifications.framework in Frameworks */,
+				1F0AB5A71E1B55BE004179D3 /* CoreFoundation.framework in Frameworks */,
 				1F0360991DE9494D00594767 /* Security.framework in Frameworks */,
 				1FAFCA821E0D00FB0046DC9C /* libstdc++.tbd in Frameworks */,
 				1FAFCA801E0D00DA0046DC9C /* libiconv.tbd in Frameworks */,
 				1F5B1CAA1DF115BB0073E770 /* WebKit.framework in Frameworks */,
+				1F0AB5A51E1B539C004179D3 /* jpush-ios-3.0.0.a in Frameworks */,
 				1F3983AB1DED2C4000A24541 /* MessageUI.framework in Frameworks */,
 				1F6BB98A1DD9554700893932 /* CoreMotion.framework in Frameworks */,
 				1F6BB97C1DD954E700893932 /* CoreTelephony.framework in Frameworks */,
 				1F0360971DE9493A00594767 /* AdSupport.framework in Frameworks */,
 				1F6BB9961DD964F900893932 /* libsqlite3.0.tbd in Frameworks */,
 				1FAFCA8B1E0D05390046DC9C /* TencentOpenAPI.framework in Frameworks */,
+				1F0AB5A41E1B539C004179D3 /* jcore-ios-1.0.0.a in Frameworks */,
 				1F6BB9911DD960E200893932 /* libWeChatSDK.a in Frameworks */,
 				1F6BB9881DD9554200893932 /* CFNetwork.framework in Frameworks */,
 				1F6BB9861DD9553B00893932 /* Foundation.framework in Frameworks */,
@@ -617,6 +670,16 @@
 				1F0360941DE943F300594767 /* TalkingData.h */,
 			);
 			path = TalkingData;
+			sourceTree = "<group>";
+		};
+		1F0AB5A01E1B539C004179D3 /* JPush */ = {
+			isa = PBXGroup;
+			children = (
+				1F0AB5A11E1B539C004179D3 /* jcore-ios-1.0.0.a */,
+				1F0AB5A21E1B539C004179D3 /* jpush-ios-3.0.0.a */,
+				1F0AB5A31E1B539C004179D3 /* JPUSHService.h */,
+			);
+			path = JPush;
 			sourceTree = "<group>";
 		};
 		1F0EAB661DD091FA00D25B64 /* Order */ = {
@@ -812,6 +875,15 @@
 			path = SDKExport;
 			sourceTree = "<group>";
 		};
+		1FA431C31E1A2D27003E9F08 /* LiangPiaoPush */ = {
+			isa = PBXGroup;
+			children = (
+				1FA431C41E1A2D27003E9F08 /* NotificationService.swift */,
+				1FA431C61E1A2D27003E9F08 /* Info.plist */,
+			);
+			path = LiangPiaoPush;
+			sourceTree = "<group>";
+		};
 		1FAFCA871E0D052C0046DC9C /* QQ */ = {
 			isa = PBXGroup;
 			children = (
@@ -916,6 +988,7 @@
 				1FD244D91DC2FC8A00AFD3BC /* Global */,
 				1FD244D81DC2FC8A00AFD3BC /* Uti */,
 				1FD244C41DC2F92E00AFD3BC /* LiangPiao */,
+				1FA431C31E1A2D27003E9F08 /* LiangPiaoPush */,
 				1FD244C31DC2F92E00AFD3BC /* Products */,
 				ED3BF2CE54FE77E9E21E6F0C /* Pods */,
 				A6EDDA7D546857A6EFCA593E /* Frameworks */,
@@ -926,6 +999,7 @@
 			isa = PBXGroup;
 			children = (
 				1FD244C21DC2F92E00AFD3BC /* LiangPiao.app */,
+				1FA431C21E1A2D26003E9F08 /* LiangPiaoPush.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -933,6 +1007,7 @@
 		1FD244C41DC2F92E00AFD3BC /* LiangPiao */ = {
 			isa = PBXGroup;
 			children = (
+				1F7AAF091E19F833004ABACC /* LiangPiao.entitlements */,
 				1FD244C51DC2F92E00AFD3BC /* AppDelegate.swift */,
 				1FD244C71DC2F92E00AFD3BC /* ViewController.swift */,
 				1FD2450B1DC2FE5400AFD3BC /* RequestUrl.swift */,
@@ -966,6 +1041,7 @@
 		1FD244D81DC2FC8A00AFD3BC /* Uti */ = {
 			isa = PBXGroup;
 			children = (
+				1F0AB5A01E1B539C004179D3 /* JPush */,
 				1F3FE9861E1116290026A93D /* libWeiboSDK */,
 				1FAFCA871E0D052C0046DC9C /* QQ */,
 				1F0360921DE943C500594767 /* TalkingData */,
@@ -1313,6 +1389,9 @@
 		A6EDDA7D546857A6EFCA593E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1F0AB5AA1E1B560C004179D3 /* libresolv.tbd */,
+				1F0AB5A81E1B55FF004179D3 /* UserNotifications.framework */,
+				1F0AB5A61E1B55BE004179D3 /* CoreFoundation.framework */,
 				1FAFCA811E0D00FB0046DC9C /* libstdc++.tbd */,
 				1FAFCA7F1E0D00D90046DC9C /* libiconv.tbd */,
 				1F5B1CA91DF115BB0073E770 /* WebKit.framework */,
@@ -1351,6 +1430,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		1FA431C11E1A2D26003E9F08 /* LiangPiaoPush */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1FA431CA1E1A2D27003E9F08 /* Build configuration list for PBXNativeTarget "LiangPiaoPush" */;
+			buildPhases = (
+				1FA431BE1E1A2D26003E9F08 /* Sources */,
+				1FA431BF1E1A2D26003E9F08 /* Frameworks */,
+				1FA431C01E1A2D26003E9F08 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LiangPiaoPush;
+			productName = LiangPiaoPush;
+			productReference = 1FA431C21E1A2D26003E9F08 /* LiangPiaoPush.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		1FD244C11DC2F92E00AFD3BC /* LiangPiao */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1FD244D41DC2F92E00AFD3BC /* Build configuration list for PBXNativeTarget "LiangPiao" */;
@@ -1362,10 +1458,12 @@
 				EE54D18EE19CD21BD7606BE0 /* [CP] Embed Pods Frameworks */,
 				7EC71D3A7E148CA7050B1210 /* [CP] Copy Pods Resources */,
 				1FF2A5F31DE96B0300FC3909 /* ShellScript */,
+				1FA431CD1E1A2D27003E9F08 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				1FA431C81E1A2D27003E9F08 /* PBXTargetDependency */,
 			);
 			name = LiangPiao;
 			productName = LiangPiao;
@@ -1378,15 +1476,28 @@
 		1FD244BA1DC2F92E00AFD3BC /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0800;
-				LastUpgradeCheck = 0800;
+				LastSwiftUpdateCheck = 0820;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = Zhang;
 				TargetAttributes = {
+					1FA431C11E1A2D26003E9F08 = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = 77L324L35A;
+						ProvisioningStyle = Automatic;
+					};
 					1FD244C11DC2F92E00AFD3BC = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = 77L324L35A;
 						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -1404,11 +1515,19 @@
 			projectRoot = "";
 			targets = (
 				1FD244C11DC2F92E00AFD3BC /* LiangPiao */,
+				1FA431C11E1A2D26003E9F08 /* LiangPiaoPush */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		1FA431C01E1A2D26003E9F08 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1FD244C01DC2F92E00AFD3BC /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1491,6 +1610,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		1FA431BE1E1A2D26003E9F08 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1FA431C51E1A2D27003E9F08 /* NotificationService.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		1FD244BE1DC2F92E00AFD3BC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1712,6 +1839,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		1FA431C81E1A2D27003E9F08 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1FA431C11E1A2D26003E9F08 /* LiangPiaoPush */;
+			targetProxy = 1FA431C71E1A2D27003E9F08 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		1FD244C91DC2F92E00AFD3BC /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -1732,6 +1867,36 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		1FA431CB1E1A2D27003E9F08 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				DEVELOPMENT_TEAM = 77L324L35A;
+				INFOPLIST_FILE = LiangPiaoPush/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.liangpiao.liangpiao.LiangPiaoPush;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 2.3;
+			};
+			name = Debug;
+		};
+		1FA431CC1E1A2D27003E9F08 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				DEVELOPMENT_TEAM = 77L324L35A;
+				INFOPLIST_FILE = LiangPiaoPush/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.liangpiao.liangpiao.LiangPiaoPush;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 2.3;
+			};
+			name = Release;
+		};
 		1FD244D21DC2F92E00AFD3BC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1750,6 +1915,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -1799,6 +1965,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -1827,9 +1994,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 95CF3D41845421C0E94D6429 /* Pods-LiangPiao.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = LiangPiao/LiangPiao.entitlements;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 77L324L35A;
@@ -1847,6 +2016,8 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/LiangPiao/Uti/TalkingData",
 					"$(PROJECT_DIR)/LiangPiao/Uti/libWeiboSDK",
+					"$(PROJECT_DIR)/Lib",
+					"$(PROJECT_DIR)/LiangPiao/Uti/JPush",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.liangpiao.liangpiao;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1862,9 +2033,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8A6A0D77355C7ECF380D7770 /* Pods-LiangPiao.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = LiangPiao/LiangPiao.entitlements;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 77L324L35A;
@@ -1882,6 +2055,8 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/LiangPiao/Uti/TalkingData",
 					"$(PROJECT_DIR)/LiangPiao/Uti/libWeiboSDK",
+					"$(PROJECT_DIR)/Lib",
+					"$(PROJECT_DIR)/LiangPiao/Uti/JPush",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.liangpiao.liangpiao;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1896,6 +2071,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		1FA431CA1E1A2D27003E9F08 /* Build configuration list for PBXNativeTarget "LiangPiaoPush" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1FA431CB1E1A2D27003E9F08 /* Debug */,
+				1FA431CC1E1A2D27003E9F08 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		1FD244BD1DC2F92E00AFD3BC /* Build configuration list for PBXProject "LiangPiao" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

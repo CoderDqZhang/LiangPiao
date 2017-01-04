@@ -791,28 +791,28 @@ class GloableShareView: UIView, UIGestureRecognizerDelegate, CAAnimationDelegate
             maxX = CGRectGetMaxX(wxTimeLine.frame)
         }
         
-//        if WeiboSDK.isWeiboAppInstalled() {
-//            weiboTimeLine = UIButton(type: .Custom)
-//            weiboTimeLine.tag = 102
-//            weiboTimeLine.buttonSetImage(UIImage.init(named: "Weibo_Normal")!, sImage: UIImage.init(named: "Weibo_Pressed")!)
-//            weiboTimeLine.rac_signalForControlEvents(.TouchUpInside).subscribeNext({ (action) in
-//                if self.shareImage == nil {
-//                    ShareTools.shareInstance.shareWeiboWebUrl("\(self.shareModel.title)--\(self.shareModel.venue.address)-\(self.shareUrl)", webTitle: self.shareModel.title, image: self.ticketImage, webDescription: self.shareModel.venue.address, webUrl: self.shareUrl)
-//                }else{
-//                    ShareTools.shareInstance.shareWBScreenShotImag(self.shareImage, text: "良票")
-//                }
-//            })
-//            weiboTimeLine.frame = CGRectMake(maxX + 16, 188, 50, 50)
-//            if #available(iOS 9.0, *) {
-//                weiboTimeLine.layer.addAnimation(self.setUpAnimation(weiboTimeLine.layer.position.y - 98, velocity: 5.0), forKey: "weiboTimeLine")
-//                shareView.addSubview(weiboTimeLine)
-//            } else {
-//                shareView.addSubview(weiboTimeLine)
-//                // Fallback on earlier versions
-//            }
-//            shareView.addSubview(weiboTimeLine)
-//            maxX = CGRectGetMaxX(weiboTimeLine.frame)
-//        }
+        if WeiboSDK.isWeiboAppInstalled() {
+            weiboTimeLine = UIButton(type: .Custom)
+            weiboTimeLine.tag = 102
+            weiboTimeLine.buttonSetImage(UIImage.init(named: "Weibo_Normal")!, sImage: UIImage.init(named: "Weibo_Pressed")!)
+            weiboTimeLine.rac_signalForControlEvents(.TouchUpInside).subscribeNext({ (action) in
+                if self.shareImage == nil {
+                    ShareTools.shareInstance.shareWeiboWebUrl("\(self.shareModel.title)--\(self.shareModel.venue.address)-\(self.shareUrl)", webTitle: self.shareModel.title, image: self.ticketImage, webDescription: self.shareModel.venue.address, webUrl: self.shareUrl)
+                }else{
+                    ShareTools.shareInstance.shareWBScreenShotImag(self.shareImage, text: "良票")
+                }
+            })
+            weiboTimeLine.frame = CGRectMake(maxX + 16, 188, 50, 50)
+            if #available(iOS 9.0, *) {
+                weiboTimeLine.layer.addAnimation(self.setUpAnimation(weiboTimeLine.layer.position.y - 98, velocity: 5.0), forKey: "weiboTimeLine")
+                shareView.addSubview(weiboTimeLine)
+            } else {
+                shareView.addSubview(weiboTimeLine)
+                // Fallback on earlier versions
+            }
+            shareView.addSubview(weiboTimeLine)
+            maxX = CGRectGetMaxX(weiboTimeLine.frame)
+        }
         
         if TencentOAuth.iphoneQQInstalled() {
             qqSeession = UIButton(type: .Custom)

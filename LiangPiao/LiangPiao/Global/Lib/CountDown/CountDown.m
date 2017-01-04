@@ -134,7 +134,6 @@
 }
 /**
  *  主动销毁定时器
- *  @return 格式为年-月-日
  */
 -(void)destoryTimer{
     if (_timer) {

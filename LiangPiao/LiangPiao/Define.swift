@@ -14,6 +14,8 @@ let SCREENHEIGHT = UIScreen.mainScreen().bounds.size.height
 
 let IPHONE_VERSION = UIDevice.currentDevice().systemVersion.floatValue
 let IPHONE_VERSION_LAST9 = UIDevice.currentDevice().systemVersion.floatValue >= 9 ? 1:0
+let IPHONE_VERSION_LAST10 = UIDevice.currentDevice().systemVersion.floatValue >= 10 ? 1:0
+
 
 let IPHONE4 = SCREENHEIGHT == 480 ? true:false
 let IPHONE5 = SCREENHEIGHT == 568 ? true:false
@@ -35,6 +37,10 @@ let QQAppKey = "13YjjEEnKWGQ5IJl"
 let WeiboApiKey   =    "3220687526"
 let WeiboApiSecret =   "97f3d51f3a1017cf54268accf9b83391"
 let WeiboRedirectUrl = "http://sns.whalecloud.com/sina2/callback"
+
+let JPushApiKey = "35d49a6e7dd7d1e678d1f7a6"
+
+let GaoDeApiKey = "36cf817a65c10eff954c24c3a9edcb3d"
 
 
 let ToolViewNotifacationName = "ToolsViewNotification"

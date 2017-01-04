@@ -10,9 +10,10 @@ import UIKit
 import Fabric
 import Crashlytics
 import Alamofire
+import UserNotifications
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate,WeiboSDKDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate,WeiboSDKDelegate, JPUSHRegisterDelegate {
 
     var window: UIWindow?
 
@@ -52,9 +53,66 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WeiboSDKDelegate {
         
         self.window?.makeKeyAndVisible()
 //        self.addSplshView()
+        self.addNotification(launchOptions,application:application)
+        self.addGaoDeMap(application)
         return true
     }
     
+    func addGaoDeMap(application:UIApplication) {
+        AMapServices.sharedServices().apiKey = GaoDeApiKey
+    }
+    
+    func addNotification(lanuching:[NSObject : AnyObject]?,application:UIApplication){
+        let entity = JPUSHRegisterEntity.init()
+        JPUSHService.registerForRemoteNotificationConfig(entity, delegate: self)
+        JPUSHService.setupWithOption(lanuching, appKey: JPushApiKey, channel: "channel", apsForProduction: false)
+//        if #available(iOS 10.0, *) {
+//            let center = UNUserNotificationCenter.currentNotificationCenter()
+//            center.delegate = self
+//            center.requestAuthorizationWithOptions([UNAuthorizationOptions.Alert , UNAuthorizationOptions.Badge, UNAuthorizationOptions.Sound], completionHandler: { (grandted, error) in
+//                if (grandted) {
+//                    print("注册 成功")
+//                    center.getNotificationSettingsWithCompletionHandler({ (settings) in
+//                        print(settings)
+//                    })
+//                    application.registerForRemoteNotifications()
+//                }else{
+//                    print("注册 失败")
+//                }
+//            })
+//        } else {
+//            // Fallback on earlier versions
+//            application.registerForRemoteNotificationTypes([UIRemoteNotificationType.Alert, UIRemoteNotificationType.Badge, UIRemoteNotificationType.Sound])
+//            application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [UIUserNotificationType.Alert,UIUserNotificationType.Badge,UIUserNotificationType.Sound], categories: nil))
+//            application.registerForRemoteNotifications()
+//        }
+        
+    }
+    
+    @available(iOS 10.0, *)
+    func jpushNotificationCenter(center: UNUserNotificationCenter!, willPresentNotification notification: UNNotification!, withCompletionHandler completionHandler: ((Int) -> Void)!) {
+//        self.contentHandler = contentHandler
+//        bestAttemptContent = (request.content.mutableCopy() as? UNMutableNotificationContent)
+//        
+        let dict = notification.request.content.userInfo as NSDictionary
+//        let imageUrl = "\((notiDict["imageAbsoluteString"])!)"
+//        self.bestAttemptContent!.title = "\((notiDict["alert"])!)"
+//        self.bestAttemptContent!.subtitle = "\((notiDict["time"])!)"
+//        self.bestAttemptContent!.body = "\((notiDict["venu"])!)"
+//        print(imageUrl)
+//        self.loadAttachmentForUrlString(imageUrl, type: "image") { (attach) in
+//            self.bestAttemptContent!.attachments = [attach]
+//            self.contentHandler!(self.bestAttemptContent!);
+//        }
+        completionHandler(1)
+    }
+    
+    @available(iOS 10.0, *)
+    func jpushNotificationCenter(center: UNUserNotificationCenter!, didReceiveNotificationResponse response: UNNotificationResponse!, withCompletionHandler completionHandler: (() -> Void)!) {
+        let dict = response.notification.request.content.userInfo
+        completionHandler()
+
+    }
     
     func logUser(){
         Crashlytics.sharedInstance().setUserIdentifier(UserInfoModel.shareInstance().id)
@@ -82,6 +140,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WeiboSDKDelegate {
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
+    
+    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
+        print(userInfo)
+        JPUSHService.handleRemoteNotification(userInfo)
+    }
+    
+    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
+        //可以在这个方法里做一些后台操作（下载数据，更新UI等），记得修改Background Modes。
+        JPUSHService.handleRemoteNotification(userInfo)
+        completionHandler(.NewData)
+    }
+    
+    func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+        print("DEVICE TOKEN = \(deviceToken)")
+        JPUSHService.registerDeviceToken(deviceToken)
+    }
+    
+    func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
+        print(error)
+    }
+    
     
     func application(application: UIApplication, handleOpenURL url: NSURL) -> Bool {
         if url.host == "response_from_qq" {
@@ -178,6 +257,21 @@ extension AppDelegate : WXApiDelegate {
                 break;
             }
         }
+    }
+}
+
+extension AppDelegate : UNUserNotificationCenterDelegate {
+    @available(iOS 10.0, *)
+    func userNotificationCenter(center: UNUserNotificationCenter, didReceiveNotificationResponse response: UNNotificationResponse, withCompletionHandler completionHandler: () -> Void) {
+        let categoryIdentifier = response.notification.request.content.categoryIdentifier
+        print(categoryIdentifier)
+        completionHandler()
+    }
+    
+    @available(iOS 10.0, *)
+    func userNotificationCenter(center: UNUserNotificationCenter, willPresentNotification notification: UNNotification, withCompletionHandler completionHandler: (UNNotificationPresentationOptions) -> Void) {
+        //如果需要在应用在前台也展示通知
+        completionHandler([.Sound, .Alert, .Badge])
     }
 }
 

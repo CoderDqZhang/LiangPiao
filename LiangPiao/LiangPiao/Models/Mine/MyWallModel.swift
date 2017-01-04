@@ -29,7 +29,7 @@ class MyWallModel : NSObject, NSCoding{
      */
     func toDictionary() -> NSDictionary
     {
-        var dictionary = NSMutableDictionary()
+        let dictionary = NSMutableDictionary()
         if balance != nil{
             dictionary["balance"] = balance
         }

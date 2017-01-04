@@ -129,20 +129,22 @@ class SearchViewModel: NSObject {
     }
     
     func requestSearchTicket(searchText:String, searchTable:GlobalSearchTableView) {
+        var url = ""
+        let str = searchText.addEncoding(searchText)
         if self.searchType == .TicketShowModel {
             if searchModel != nil && searchText == "" {
                 self.searchModel.showList.removeAll()
                 searchTable.tableView.reloadData()
             }
+            url = "\(TicketSearchUrl)?kw=\((str)!)"
         }else{
             if sellSearchModel != nil && searchText == "" {
                 self.sellSearchModel.showList.removeAll()
                 searchTable.tableView.reloadData()
             }
+            url = "\(SearchSellURl)?kw=\((str)!)"
         }
         if searchText != "" {
-            let str = searchText.addEncoding(searchText)
-            let url = "\(TicketSearchUrl)?kw=\((str)!)"
             BaseNetWorke.sharedInstance.getUrlWithString(url, parameters: nil).subscribeNext { (resultDic) in
                 if self.searchType == .TicketShowModel {
                      self.searchModel = RecommentTickes.init(fromDictionary: resultDic as! NSDictionary)

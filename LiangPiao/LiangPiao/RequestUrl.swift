@@ -49,6 +49,7 @@ let WallWithDraw = "\(BaseURL)account/withdraw/"
 let SellTicket = "\(BaseURL)supplier/show/"
 let SellTicketStatus = "\(BaseURL)supplier/ticket/"
 let HotSellURl = "\(BaseURL)show/hot_sell/"
+let SearchSellURl = "\(BaseURL)/show/search/sell/"
 //待完善当个场次
 let OneShowTicketUrl = "\(BaseURL)supplier/show/"
 
