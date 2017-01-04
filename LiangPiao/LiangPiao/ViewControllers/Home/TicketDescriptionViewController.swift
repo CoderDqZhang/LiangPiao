@@ -34,29 +34,30 @@ class TicketDescriptionViewController: UIViewController {
     }
     
     func setUpView() {
-        
-        tableView = UITableView(frame: CGRectZero, style: .Plain)
-        tableView.backgroundColor = UIColor.init(hexString: App_Theme_E9EBF2_Color)
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.showsVerticalScrollIndicator = false
-        tableView.separatorStyle = .None
-        tableView.keyboardDismissMode = .OnDrag
-        tableView.registerClass(TicketDescripTableViewCell.self, forCellReuseIdentifier: "TicketDescripTableViewCell")
-        tableView.registerClass(TicketNumberTableViewCell.self, forCellReuseIdentifier: "TicketNumberTableViewCell")
-        tableView.registerClass(TickerInfoTableViewCell.self, forCellReuseIdentifier: "TickerInfoTableViewCell")
-        tableView.registerClass(TicketToolsTableViewCell.self, forCellReuseIdentifier: "TicketToolsTableViewCell")
-        tableView.registerClass(TicketMapTableViewCell.self, forCellReuseIdentifier: "TicketMapTableViewCell")
-        tableView.registerClass(NoneTicketTableViewCell.self, forCellReuseIdentifier: "NoneTicketTableViewCell")
-        self.view.addSubview(tableView)
-        
-        tableView.snp_makeConstraints { (make) in
-            make.edges.equalTo(UIEdgeInsetsMake(0, 0, 0, 0))
+        if tableView == nil {
+            tableView = UITableView(frame: CGRectZero, style: .Plain)
+            tableView.backgroundColor = UIColor.init(hexString: App_Theme_E9EBF2_Color)
+            tableView.delegate = self
+            tableView.dataSource = self
+            tableView.showsVerticalScrollIndicator = false
+            tableView.separatorStyle = .None
+            tableView.keyboardDismissMode = .OnDrag
+            tableView.registerClass(TicketDescripTableViewCell.self, forCellReuseIdentifier: "TicketDescripTableViewCell")
+            tableView.registerClass(TicketNumberTableViewCell.self, forCellReuseIdentifier: "TicketNumberTableViewCell")
+            tableView.registerClass(TickerInfoTableViewCell.self, forCellReuseIdentifier: "TickerInfoTableViewCell")
+            tableView.registerClass(TicketToolsTableViewCell.self, forCellReuseIdentifier: "TicketToolsTableViewCell")
+            tableView.registerClass(TicketMapTableViewCell.self, forCellReuseIdentifier: "TicketMapTableViewCell")
+            tableView.registerClass(NoneTicketTableViewCell.self, forCellReuseIdentifier: "NoneTicketTableViewCell")
+            self.view.addSubview(tableView)
+            
+            tableView.snp_makeConstraints { (make) in
+                make.edges.equalTo(UIEdgeInsetsMake(0, 0, 0, 0))
+            }
+            ticketToolsView = UIView(frame: CGRectMake(0,-2,SCREENWIDTH,42))
+            ticketToolsView.hidden = true
+            ticketToolsView.backgroundColor = UIColor.whiteColor()
+            self.view.addSubview(ticketToolsView)
         }
-        ticketToolsView = UIView(frame: CGRectMake(0,-2,SCREENWIDTH,42))
-        ticketToolsView.hidden = true
-        ticketToolsView.backgroundColor = UIColor.whiteColor()
-        self.view.addSubview(ticketToolsView)
     }
 
     func bindeViewModel(){

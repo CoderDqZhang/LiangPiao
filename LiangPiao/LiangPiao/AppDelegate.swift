@@ -62,31 +62,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WeiboSDKDelegate, JPUSHReg
         AMapServices.sharedServices().apiKey = GaoDeApiKey
     }
     
-    func addNotification(lanuching:[NSObject : AnyObject]?,application:UIApplication){
-        let entity = JPUSHRegisterEntity.init()
-        JPUSHService.registerForRemoteNotificationConfig(entity, delegate: self)
-        JPUSHService.setupWithOption(lanuching, appKey: JPushApiKey, channel: "channel", apsForProduction: false)
-//        if #available(iOS 10.0, *) {
-//            let center = UNUserNotificationCenter.currentNotificationCenter()
-//            center.delegate = self
-//            center.requestAuthorizationWithOptions([UNAuthorizationOptions.Alert , UNAuthorizationOptions.Badge, UNAuthorizationOptions.Sound], completionHandler: { (grandted, error) in
-//                if (grandted) {
-//                    print("注册 成功")
-//                    center.getNotificationSettingsWithCompletionHandler({ (settings) in
-//                        print(settings)
-//                    })
-//                    application.registerForRemoteNotifications()
-//                }else{
-//                    print("注册 失败")
-//                }
-//            })
-//        } else {
-//            // Fallback on earlier versions
-//            application.registerForRemoteNotificationTypes([UIRemoteNotificationType.Alert, UIRemoteNotificationType.Badge, UIRemoteNotificationType.Sound])
-//            application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [UIUserNotificationType.Alert,UIUserNotificationType.Badge,UIUserNotificationType.Sound], categories: nil))
-//            application.registerForRemoteNotifications()
-//        }
+    func addNotification(launchOptions:[NSObject : AnyObject]?,application:UIApplication){
         
+        if (UIDevice.currentDevice().systemVersion.floatValue >= 10.0) {
+            // 可以自定义 categories
+            let entity = JPUSHRegisterEntity.init()
+//            entity.types = (Int(UIUserNotificationType.Sound.rawValue) | Int(UIUserNotificationType.Badge.rawValue) | Int(UIUserNotificationType.Alert.rawValue))
+            JPUSHService.registerForRemoteNotificationConfig(entity, delegate: self)
+        } else if (UIDevice.currentDevice().systemVersion.floatValue >= 8.0) {
+            JPUSHService.registerForRemoteNotificationTypes(UIUserNotificationType.Badge.rawValue | UIUserNotificationType.Badge.rawValue | UIUserNotificationType.Alert.rawValue , categories: nil)
+        }else {
+            JPUSHService.registerForRemoteNotificationTypes(UIUserNotificationType.Badge.rawValue | UIUserNotificationType.Badge.rawValue | UIUserNotificationType.Alert.rawValue , categories: nil)
+        }
+        JPUSHService.setupWithOption(launchOptions, appKey: JPushApiKey, channel: "channel", apsForProduction: false)
     }
     
     @available(iOS 10.0, *)
@@ -94,24 +82,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WeiboSDKDelegate, JPUSHReg
 //        self.contentHandler = contentHandler
 //        bestAttemptContent = (request.content.mutableCopy() as? UNMutableNotificationContent)
 //        
-        let dict = notification.request.content.userInfo as NSDictionary
-//        let imageUrl = "\((notiDict["imageAbsoluteString"])!)"
-//        self.bestAttemptContent!.title = "\((notiDict["alert"])!)"
-//        self.bestAttemptContent!.subtitle = "\((notiDict["time"])!)"
-//        self.bestAttemptContent!.body = "\((notiDict["venu"])!)"
-//        print(imageUrl)
-//        self.loadAttachmentForUrlString(imageUrl, type: "image") { (attach) in
-//            self.bestAttemptContent!.attachments = [attach]
-//            self.contentHandler!(self.bestAttemptContent!);
-//        }
-        completionHandler(1)
+        let userInfo = notification.request.content.userInfo as NSDictionary
+        let request = notification.request
+        let content = request.content
+        let badge = content.badge
+        let body = content.body
+        let sound = content.sound
+        let subtitle = content.subtitle
+        let title = content.title
+        if notification.request.trigger is UNPushNotificationTrigger {
+            JPUSHService.handleRemoteNotification(userInfo as [NSObject : AnyObject])
+        }
+        completionHandler(Int(UIUserNotificationType.Sound.rawValue) | Int(UIUserNotificationType.Badge.rawValue) | Int(UIUserNotificationType.Alert.rawValue))
     }
     
     @available(iOS 10.0, *)
     func jpushNotificationCenter(center: UNUserNotificationCenter!, didReceiveNotificationResponse response: UNNotificationResponse!, withCompletionHandler completionHandler: (() -> Void)!) {
-        let dict = response.notification.request.content.userInfo
+        let userInfo = response.notification.request.content.userInfo as NSDictionary
+        if response.notification.request.trigger is UNPushNotificationTrigger {
+            JPUSHService.handleRemoteNotification(userInfo as [NSObject : AnyObject])
+        }
+        if userInfo.objectForKey("type") as! String == "ticketDescrip" {
+            NSNotificationCenter.defaultCenter().postNotificationName(DidRegisterRemoteNotification, object: userInfo.objectForKey("url"))
+        }
         completionHandler()
-
     }
     
     func logUser(){
@@ -127,6 +121,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WeiboSDKDelegate, JPUSHReg
     func applicationDidEnterBackground(application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        SHARE_APPLICATION.applicationIconBadgeNumber = 0
+        JPUSHService.setBadge(0)
+        SHARE_APPLICATION.cancelAllLocalNotifications()
     }
 
     func applicationWillEnterForeground(application: UIApplication) {
@@ -154,6 +151,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WeiboSDKDelegate, JPUSHReg
     
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
         print("DEVICE TOKEN = \(deviceToken)")
+        NSNotificationCenter.defaultCenter().postNotificationName(DidRegisterRemoteDiviceToken, object: deviceToken)
         JPUSHService.registerDeviceToken(deviceToken)
     }
     

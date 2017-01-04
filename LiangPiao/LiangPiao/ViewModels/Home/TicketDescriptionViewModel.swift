@@ -101,20 +101,37 @@ class TicketDescriptionViewModel: NSObject {
     }
     
     func requestTicketSession(controller:TicketDescriptionViewController){
-        var url = ""
-        if sesstionModel != nil {
-            url = "\(TickeSession)\(ticketModel.id)/session/\(sesstionModel.id)"
-        }else if ticketModel.session != nil {
-            url = "\(TickeSession)\(ticketModel.id)/session/\(ticketModel.session.id)"
+        if self.ticketModel != nil {
+            var url = ""
+            if sesstionModel != nil {
+                url = "\(TickeSession)\(ticketModel.id)/session/\(sesstionModel.id)"
+            }else if ticketModel.session != nil {
+                url = "\(TickeSession)\(ticketModel.id)/session/\(ticketModel.session.id)"
+            }
+            BaseNetWorke.sharedInstance.getUrlWithString(url, parameters: nil).subscribeNext { (resultDic) in
+                self.model = TicketDescriptionModel.init(fromDictionary: resultDic as! NSDictionary)
+                self.tempList = self.model.ticketList
+                self.getPriceArray(self.tempList)
+                self.getRowArray(self.tempList)
+                
+                controller.tableView.reloadData()
+                controller.updataLikeImage()
+            }
         }
+    }
+    
+    func requestNotificationUrl(url:String, controller:TicketDescriptionViewController){
         BaseNetWorke.sharedInstance.getUrlWithString(url, parameters: nil).subscribeNext { (resultDic) in
             self.model = TicketDescriptionModel.init(fromDictionary: resultDic as! NSDictionary)
             self.tempList = self.model.ticketList
             self.getPriceArray(self.tempList)
             self.getRowArray(self.tempList)
-            
+            if controller.tableView == nil {
+                controller.setUpView()
+            }
             controller.tableView.reloadData()
             controller.updataLikeImage()
+            
         }
     }
     

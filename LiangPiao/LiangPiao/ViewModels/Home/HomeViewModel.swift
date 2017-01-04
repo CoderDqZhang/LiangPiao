@@ -22,6 +22,7 @@ class HomeViewModel: NSObject {
     override init() {
         super.init()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeViewModel.userDidTakeScreenshot(_:)), name: UIApplicationUserDidTakeScreenshotNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeViewModel.pushViewController(_:)), name: DidRegisterRemoteNotification, object: nil)
         self.setUpLocationManager()
     }
     
@@ -138,6 +139,13 @@ class HomeViewModel: NSObject {
                 }
             }
         }
+    }
+    
+    func pushViewController(notifiation:NSNotification){
+        
+        let controllerVC = TicketDescriptionViewController()
+        controllerVC.viewModel.requestNotificationUrl(notifiation.object as! String, controller: controllerVC)
+        NavigationPushView(controller, toConroller: controllerVC)
     }
     
     func cellData(cell:RecommendTableViewCell, indexPath:NSIndexPath) {

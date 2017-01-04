@@ -30,6 +30,10 @@ let TitleLineSpace:Float = 3.0
 let WeiXinPayStatues = "WeiXinPayStatuesChange"
 let AliPayStatues = "AliPayStatuesChange"
 
+let DidRegisterRemoteNotification = "DidRegisterRemoteNotification"
+let DidRegisterRemoteDiviceToken = "DidRegisterRemoteDiviceToken"
+
+
 let WeiXinAppID = "wx6c6b940e660449a2"
 let QQAppID = "1105914312"
 let QQAppKey = "13YjjEEnKWGQ5IJl"
