@@ -10,110 +10,123 @@ import UIKit
 
 class OrderDoneTableViewCell: UITableViewCell {
 
-    var orderStatusDone:UILabel!
-    var pickUpLocation:UILabel!
-    var pickUpTime:UILabel!
-    var packUpInfo:UILabel!
+    let orderStatusArray:NSArray = ["提交申请","待确认","待付款","待见面"]
+    var flowView:ZDQFlowView!
+    var orderStatus:String!
+    var statusType:String!
     
     var didMakeConstraints:Bool = false
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.setUpView()
-    }
-    
-    func setUpView() {
-        orderStatusDone = UILabel()
-        orderStatusDone.text = "已完成"
-        orderStatusDone.font = App_Theme_PinFan_M_16_Font
-        orderStatusDone.textColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
-        self.contentView.addSubview(orderStatusDone)
         
-        pickUpLocation = UILabel()
-        pickUpLocation.text = "取票地点：朝阳区香河园小区西坝河中里35号楼二层207"
-        pickUpLocation.numberOfLines = 0
-        pickUpLocation.textColor = UIColor.init(hexString: App_Theme_384249_Color)
-        pickUpLocation.font = App_Theme_PinFan_R_13_Font
-        self.contentView.addSubview(pickUpLocation)
-        
-        pickUpTime = UILabel()
-        pickUpTime.text = "取票地点：朝阳区香河园小区西坝河中里35号楼二层207"
-        pickUpTime.textColor = UIColor.init(hexString: App_Theme_384249_Color)
-        pickUpTime.numberOfLines = 0
-        pickUpTime.font = App_Theme_PinFan_R_13_Font
-        self.contentView.addSubview(pickUpTime)
-        
-        self.updateConstraintsIfNeeded()
-    }
-    
-    func setData(model:OrderList){
-        orderStatusDone.text = model.statusDesc
-        if model.deliveryType == 1 {
-            pickUpLocation.text = "\(model.address.name) \(model.address.mobileNum)"
-            let str = "\(model.address.location)\(model.address.address)".stringByReplacingOccurrencesOfString(" ", withString: "")
-            pickUpTime.text = str
-        }else if model.deliveryType == 2 {
-            let str = "取票地点：\(model.ticket.sceneGetTicketAddress)"
-            pickUpLocation.snp_updateConstraints { (make) in
-                make.height.equalTo(str.heightWithConstrainedWidth(str, font: App_Theme_PinFan_R_13_Font!, width: SCREENWIDTH - 30) + 3)
-            }
-            pickUpLocation.text = str
-            pickUpTime.text = "取票时间：\(model.ticket.sceneGetTicketDate)"
-        }else {
-//            pickUpLocation.text = "取票地点：取票地点：朝阳区香河园小区西坝河中里35号楼二层207取票地点：朝阳区香河园小区西坝河中里35号楼二层207取票地点：朝阳区香河园小区西坝河中里35号楼二层207取票地点：朝阳区香河园小区西坝河中里35号楼二层207"
-            let str = "取票地点：\(model.ticket.selfGetTicketAddress)"
-            pickUpLocation.text = str
-            pickUpTime.text = "取票时间：\(model.ticket.selfGetTicketDate)"
-            pickUpLocation.snp_updateConstraints { (make) in
-                make.height.equalTo(str.heightWithConstrainedWidth(str, font: App_Theme_PinFan_R_13_Font!, width: SCREENWIDTH - 30) + 3)
-            }
-        }
-        self.updateConstraintsIfNeeded()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func updateConstraints() {
-        if !self.didMakeConstraints {
-            
-            pickUpTime.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.right.equalTo(self.contentView.snp_right).offset(-15)
-                make.bottom.equalTo(self.contentView.snp_bottom).offset(-28)
-            })
-            
-            pickUpLocation.snp_makeConstraints(closure: { (make) in
-                make.bottom.equalTo(self.pickUpTime.snp_top).offset(-1)
-                make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.right.equalTo(self.contentView.snp_right).offset(-15)
-            })
-            
-            orderStatusDone.snp_makeConstraints(closure: { (make) in
-                make.bottom.equalTo(self.pickUpLocation.snp_top).offset(-10)
-                make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.top.equalTo(self.contentView.snp_top).offset(25)
-            })
-            
-            
-            
-            
-            
-            self.didMakeConstraints = true
-        }
-        super.updateConstraints()
+    func setUpView(){
+        flowView = ZDQFlowView(frame: CGRect(x: orxginX,y: 42,width: SCREENWIDTH - orxginX * 2,height: 40))
+        flowView.dataSource = self
+        self.contentView.addSubview(flowView)
     }
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+    func setData(status:String,statusType:String) {
+        self.orderStatus = status
+        self.statusType = statusType
+        flowView.reloadData()
+        self.updateConstraintsIfNeeded()
     }
-
+    
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
         // Configure the view for the selected state
     }
+    
+}
 
+extension OrderDoneTableViewCell: ZDQFlowViewDataSource {
+    func numberOfFlowViewItemCount(flowView: ZDQFlowView) -> NSInteger {
+        return 4
+    }
+    
+    func numberOfFlowViewItem(flowView: ZDQFlowView, index: NSInteger) -> ZDQFlowViewItem {
+        let viewItem = ZDQFlowViewItem()
+        if orderStatus == "0" {
+            switch index {
+            case 0:
+                viewItem.setData("待付款",type: ZDQFlowViewItemType.itemWaitSelect)
+            case 1:
+                viewItem.setData("待发货",type: ZDQFlowViewItemType.itemWaitSelect)
+            case 2:
+                viewItem.setData("待收货",type: ZDQFlowViewItemType.itemWaitSelect)
+            default:
+                viewItem.setData("待结算",type: ZDQFlowViewItemType.itemWaitSelect)
+            }
+        }else if orderStatus == "3"{
+            switch index {
+            case 0:
+                viewItem.setData("已付款",type: ZDQFlowViewItemType.itemDone)
+            case 1:
+                viewItem.setData("待发货",type: ZDQFlowViewItemType.itemWaitSelect)
+            case 2:
+                viewItem.setData("待收货",type: ZDQFlowViewItemType.itemWaitSelect)
+            default:
+                viewItem.setData("已完成",type: ZDQFlowViewItemType.itemWaitSelect)
+            }
+        }else if orderStatus == "7" {
+            switch index {
+            case 0:
+                viewItem.setData("已付款",type: ZDQFlowViewItemType.itemSelect)
+            case 1:
+                viewItem.setData("已发货",type: ZDQFlowViewItemType.itemSelect)
+            case 2:
+                viewItem.setData("待收货",type: ZDQFlowViewItemType.itemWaitSelect)
+            default:
+                viewItem.setData("已完成",type: ZDQFlowViewItemType.itemWaitSelect)
+            }
+        }else if orderStatus == "9" || orderStatus == "8" {
+            switch index {
+            case 0:
+                viewItem.setData("已付款",type: ZDQFlowViewItemType.itemSelect)
+            case 1:
+                viewItem.setData("已发货",type: ZDQFlowViewItemType.itemSelect)
+            case 2:
+                viewItem.setData("已收货",type: ZDQFlowViewItemType.itemSelect)
+            default:
+                viewItem.setData("已完成",type: ZDQFlowViewItemType.itemWaitSelect)
+            }
+        }else if orderStatus == "10" {
+            switch index {
+            case 0:
+                viewItem.setData("已付款",type: ZDQFlowViewItemType.itemSelect)
+            case 1:
+                viewItem.setData("已发货",type: ZDQFlowViewItemType.itemSelect)
+            case 2:
+                viewItem.setData("已收货",type: ZDQFlowViewItemType.itemSelect)
+            default:
+                viewItem.setData("已完成",type: ZDQFlowViewItemType.itemDone)
+            }
+        }else if orderStatus == "2" {
+            switch index {
+            case 0:
+                viewItem.setData("已取消",type: ZDQFlowViewItemType.itemSelect)
+            case 1:
+                viewItem.setData("已发货",type: ZDQFlowViewItemType.itemWaitSelect)
+            case 2:
+                viewItem.setData("已收货",type: ZDQFlowViewItemType.itemWaitSelect)
+            default:
+                viewItem.setData("已完成",type: ZDQFlowViewItemType.itemWaitSelect)
+            }
+        }
+        
+        return viewItem
+    }
+    
+    func flowViewItemSize(flowView: ZDQFlowView) -> CGSize {
+        return CGSize(width: 45, height: 57)
+    }
 }

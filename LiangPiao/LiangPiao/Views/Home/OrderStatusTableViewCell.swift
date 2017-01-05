@@ -14,7 +14,6 @@ class OrderStatusTableViewCell: UITableViewCell {
 
     
     let orderStatusArray:NSArray = ["提交申请","待确认","待付款","待见面"]
-    let font_orderStatus:NSArray = ["待确认","待付款","待见面"]
     var flowView:ZDQFlowView!
     var orderStatus:String!
     var statusType:String!

@@ -13,8 +13,6 @@
 		1F03609C1DE94A5100594767 /* UIViewController+TalkingData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F03609B1DE94A5100594767 /* UIViewController+TalkingData.swift */; };
 		1F0457091E14B08500EA0E70 /* UIWindow+Screenshot.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F0457081E14B08500EA0E70 /* UIWindow+Screenshot.m */; };
 		1F089DD51DCB05E800762C14 /* GlobalTools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F089DD41DCB05E800762C14 /* GlobalTools.swift */; };
-		1F0AB5A41E1B539C004179D3 /* jcore-ios-1.0.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F0AB5A11E1B539C004179D3 /* jcore-ios-1.0.0.a */; };
-		1F0AB5A51E1B539C004179D3 /* jpush-ios-3.0.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F0AB5A21E1B539C004179D3 /* jpush-ios-3.0.0.a */; };
 		1F0AB5A71E1B55BE004179D3 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F0AB5A61E1B55BE004179D3 /* CoreFoundation.framework */; };
 		1F0AB5A91E1B55FF004179D3 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F0AB5A81E1B55FF004179D3 /* UserNotifications.framework */; };
 		1F0AB5AB1E1B560C004179D3 /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F0AB5AA1E1B560C004179D3 /* libresolv.tbd */; };
@@ -48,6 +46,8 @@
 		1F24DE931DD5A35900C6E8CA /* GlobalSearchTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F24DE921DD5A35900C6E8CA /* GlobalSearchTableView.swift */; };
 		1F24DE951DD5B9E100C6E8CA /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F24DE941DD5B9E100C6E8CA /* FavoriteViewController.swift */; };
 		1F24DE971DD5BA0A00C6E8CA /* FavoriteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F24DE961DD5BA0A00C6E8CA /* FavoriteViewModel.swift */; };
+		1F273B0E1E1DF0FD009B6CB8 /* jcore-ios-1.0.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F273B0B1E1DF0FD009B6CB8 /* jcore-ios-1.0.0.a */; };
+		1F273B0F1E1DF0FD009B6CB8 /* jpush-ios-3.0.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F273B0C1E1DF0FD009B6CB8 /* jpush-ios-3.0.0.a */; };
 		1F3241931DF02614007BC078 /* FavoritesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3241921DF02614007BC078 /* FavoritesViewModel.swift */; };
 		1F3241951DF028E7007BC078 /* FavorityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3241941DF028E7007BC078 /* FavorityModel.swift */; };
 		1F36E1A71DF0509900565D1A /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F36E1A61DF0509900565D1A /* SearchViewModel.swift */; };
@@ -296,9 +296,6 @@
 		1F0457071E14B08500EA0E70 /* UIWindow+Screenshot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWindow+Screenshot.h"; sourceTree = "<group>"; };
 		1F0457081E14B08500EA0E70 /* UIWindow+Screenshot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWindow+Screenshot.m"; sourceTree = "<group>"; };
 		1F089DD41DCB05E800762C14 /* GlobalTools.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalTools.swift; sourceTree = "<group>"; };
-		1F0AB5A11E1B539C004179D3 /* jcore-ios-1.0.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "jcore-ios-1.0.0.a"; sourceTree = "<group>"; };
-		1F0AB5A21E1B539C004179D3 /* jpush-ios-3.0.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "jpush-ios-3.0.0.a"; sourceTree = "<group>"; };
-		1F0AB5A31E1B539C004179D3 /* JPUSHService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPUSHService.h; sourceTree = "<group>"; };
 		1F0AB5A61E1B55BE004179D3 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		1F0AB5A81E1B55FF004179D3 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		1F0AB5AA1E1B560C004179D3 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
@@ -334,6 +331,9 @@
 		1F24DE921DD5A35900C6E8CA /* GlobalSearchTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalSearchTableView.swift; sourceTree = "<group>"; };
 		1F24DE941DD5B9E100C6E8CA /* FavoriteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
 		1F24DE961DD5BA0A00C6E8CA /* FavoriteViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteViewModel.swift; sourceTree = "<group>"; };
+		1F273B0B1E1DF0FD009B6CB8 /* jcore-ios-1.0.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "jcore-ios-1.0.0.a"; sourceTree = "<group>"; };
+		1F273B0C1E1DF0FD009B6CB8 /* jpush-ios-3.0.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "jpush-ios-3.0.0.a"; sourceTree = "<group>"; };
+		1F273B0D1E1DF0FD009B6CB8 /* JPUSHService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPUSHService.h; sourceTree = "<group>"; };
 		1F3241921DF02614007BC078 /* FavoritesViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesViewModel.swift; sourceTree = "<group>"; };
 		1F3241941DF028E7007BC078 /* FavorityModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavorityModel.swift; sourceTree = "<group>"; };
 		1F36E1A61DF0509900565D1A /* SearchViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
@@ -633,16 +633,16 @@
 				1F0AB5A71E1B55BE004179D3 /* CoreFoundation.framework in Frameworks */,
 				1F0360991DE9494D00594767 /* Security.framework in Frameworks */,
 				1FAFCA821E0D00FB0046DC9C /* libstdc++.tbd in Frameworks */,
+				1F273B0E1E1DF0FD009B6CB8 /* jcore-ios-1.0.0.a in Frameworks */,
 				1FAFCA801E0D00DA0046DC9C /* libiconv.tbd in Frameworks */,
 				1F5B1CAA1DF115BB0073E770 /* WebKit.framework in Frameworks */,
-				1F0AB5A51E1B539C004179D3 /* jpush-ios-3.0.0.a in Frameworks */,
 				1F3983AB1DED2C4000A24541 /* MessageUI.framework in Frameworks */,
+				1F273B0F1E1DF0FD009B6CB8 /* jpush-ios-3.0.0.a in Frameworks */,
 				1F6BB98A1DD9554700893932 /* CoreMotion.framework in Frameworks */,
 				1F6BB97C1DD954E700893932 /* CoreTelephony.framework in Frameworks */,
 				1F0360971DE9493A00594767 /* AdSupport.framework in Frameworks */,
 				1F6BB9961DD964F900893932 /* libsqlite3.0.tbd in Frameworks */,
 				1FAFCA8B1E0D05390046DC9C /* TencentOpenAPI.framework in Frameworks */,
-				1F0AB5A41E1B539C004179D3 /* jcore-ios-1.0.0.a in Frameworks */,
 				1F6BB9911DD960E200893932 /* libWeChatSDK.a in Frameworks */,
 				1F6BB9881DD9554200893932 /* CFNetwork.framework in Frameworks */,
 				1F6BB9861DD9553B00893932 /* Foundation.framework in Frameworks */,
@@ -670,16 +670,6 @@
 				1F0360941DE943F300594767 /* TalkingData.h */,
 			);
 			path = TalkingData;
-			sourceTree = "<group>";
-		};
-		1F0AB5A01E1B539C004179D3 /* JPush */ = {
-			isa = PBXGroup;
-			children = (
-				1F0AB5A11E1B539C004179D3 /* jcore-ios-1.0.0.a */,
-				1F0AB5A21E1B539C004179D3 /* jpush-ios-3.0.0.a */,
-				1F0AB5A31E1B539C004179D3 /* JPUSHService.h */,
-			);
-			path = JPush;
 			sourceTree = "<group>";
 		};
 		1F0EAB661DD091FA00D25B64 /* Order */ = {
@@ -804,6 +794,16 @@
 				1F0EAB961DD1EBAA00D25B64 /* ZHPickView.m */,
 			);
 			path = ZHPickView;
+			sourceTree = "<group>";
+		};
+		1F273B0A1E1DF0FD009B6CB8 /* Lib */ = {
+			isa = PBXGroup;
+			children = (
+				1F273B0B1E1DF0FD009B6CB8 /* jcore-ios-1.0.0.a */,
+				1F273B0C1E1DF0FD009B6CB8 /* jpush-ios-3.0.0.a */,
+				1F273B0D1E1DF0FD009B6CB8 /* JPUSHService.h */,
+			);
+			path = Lib;
 			sourceTree = "<group>";
 		};
 		1F3FE9861E1116290026A93D /* libWeiboSDK */ = {
@@ -1041,7 +1041,7 @@
 		1FD244D81DC2FC8A00AFD3BC /* Uti */ = {
 			isa = PBXGroup;
 			children = (
-				1F0AB5A01E1B539C004179D3 /* JPush */,
+				1F273B0A1E1DF0FD009B6CB8 /* Lib */,
 				1F3FE9861E1116290026A93D /* libWeiboSDK */,
 				1FAFCA871E0D052C0046DC9C /* QQ */,
 				1F0360921DE943C500594767 /* TalkingData */,
@@ -2016,9 +2016,9 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/LiangPiao/Uti/TalkingData",
 					"$(PROJECT_DIR)/LiangPiao/Uti/libWeiboSDK",
-					"$(PROJECT_DIR)/Lib",
-					"$(PROJECT_DIR)/LiangPiao/Uti/JPush",
+					"$(PROJECT_DIR)/LiangPiao/Uti/Lib",
 				);
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.liangpiao.liangpiao;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
@@ -2055,9 +2055,9 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/LiangPiao/Uti/TalkingData",
 					"$(PROJECT_DIR)/LiangPiao/Uti/libWeiboSDK",
-					"$(PROJECT_DIR)/Lib",
-					"$(PROJECT_DIR)/LiangPiao/Uti/JPush",
+					"$(PROJECT_DIR)/LiangPiao/Uti/Lib",
 				);
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.liangpiao.liangpiao;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

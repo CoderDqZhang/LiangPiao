@@ -48,7 +48,7 @@ class OrderDetailViewModel: NSObject {
     
     func tableViewHeiFootView(tableView:UITableView, section:Int) -> CGFloat {
         switch section {
-        case 2:
+        case 1:
             return 118
         default:
             return 10
@@ -58,65 +58,79 @@ class OrderDetailViewModel: NSObject {
     func tableViewHeightForRowAtIndexPath(indexPath:NSIndexPath) -> CGFloat{
         switch indexPath.section {
         case 0:
-            if self.model.status == 0 {
-                return controller.tableView.fd_heightForCellWithIdentifier("OrderWaitePayTableViewCell", configuration: { (cell) in
-                    self.configCellWaitPay(cell as! OrderWaitePayTableViewCell, indexPath: indexPath)
-                })
-            }else{
-                return controller.tableView.fd_heightForCellWithIdentifier("OrderDoneTableViewCell", configuration: { (cell) in
-                    self.configCellDone(cell as! OrderDoneTableViewCell, indexPath: indexPath)
-                })
-            }
-        case 1:
-            switch indexPath.row {
-            case 0:
-                return 150
-            default:
-                if self.model.message != "" {
-                    let str = "备注详情：\(self.model.message)"
-//                    let str = "开发者使用这门语言进行 iOS 应用开发,在开发中 我们常常需要用到各种字符串、类、接口等等,今天小编和大家分享的就是 swift2.0 中 String 的类型转换..."
-                    let height = str.heightWithConstrainedWidth(str, font: App_Theme_PinFan_R_12_Font!, width: SCREENWIDTH - 30)
-                    let returnHeight = height + 125 > 145 ? height + 125 : 145
-                    return returnHeight
+            if indexPath.row == 0 {
+                if self.model.status == 0 || self.model.status == 2 {
+                    return 116
+                }else{
+                    return 112
                 }
-                return 80
+            }else{
+                return controller.tableView.fd_heightForCellWithIdentifier("ReciveAddressTableViewCell", configuration: { (cell) in
+                    self.configCellReviceCell(cell as! ReciveAddressTableViewCell, indexPath: indexPath)
+                })
             }
+            
         default:
-            switch indexPath.row {
-            case 0:
-                return 125
-            default:
-                return 48
-                
+            if indexPath.row == 0 {
+                return 49
+            }else if indexPath.row == 1 {
+                return 149
+            }else if indexPath.row == 2 {
+                if self.model.status == 0 || self.model.status == 2 {
+                    return controller.tableView.fd_heightForCellWithIdentifier("TicketLocationTableViewCell", configuration: { (cell) in
+                        self.configCellLocationCell(cell as! TicketLocationTableViewCell, indexPath: indexPath)
+                    })
+                }else{
+                    return 119
+                }
+            }else if indexPath.row == 3 {
+                if self.model.status == 0 || self.model.status == 2 {
+                    return 119
+                }else{
+                    return 52
+                }
+            }else{
+                return 52
             }
         }
     }
     
+    func configCellLocationCell(cell:TicketLocationTableViewCell, indexPath:NSIndexPath) {
+        cell.setData(model)
+    }
     
     func configCellWaitPay(cell:OrderWaitePayTableViewCell, indexPath:NSIndexPath) {
         cell.setData(model)
     }
     
     func configCellDone(cell:OrderDoneTableViewCell, indexPath:NSIndexPath) {
-        cell.setData(model)
+        cell.setData("\(model.status)", statusType: "")
+    }
+    
+    func configCellReviceCell(cell:ReciveAddressTableViewCell, indexPath:NSIndexPath) {
+        cell.setUpData(model)
     }
     
     func tableViewDidSelectRowAtIndexPath(indexPath: NSIndexPath, controller:OrderDetailViewController){
-        if indexPath.section == 1 && indexPath.row == 0 {
+        if indexPath.section == 1 && indexPath.row == 1 {
             let controllerVC = TicketDescriptionViewController()
             controllerVC.viewModel.ticketModel = model.show
             controllerVC.viewModel.sesstionModel = model.session
             NavigationPushView(controller, toConroller: controllerVC)
-        }else if indexPath.section == 1 && indexPath.row == 1 {
+        }else if indexPath.section == 1 && indexPath.row == 2 && (model.status == 0 || model.status == 2)  {
             self.creatOptionMenu()
         }
     }
     
     func tableViewNumberRowInSection(tableView:UITableView, section:Int) ->Int {
         if section == 0 {
-            return 1
+            return 2
         }
-        return 2
+        
+        if self.model.status == 0 || self.model.status == 2 {
+            return 5
+        }
+        return 4
 
     }
     
@@ -129,7 +143,10 @@ class OrderDetailViewModel: NSObject {
     }
     
     func tableViewCellTicketLocationTableViewCell(cell:TicketLocationTableViewCell, controller:OrderDetailViewController){
-        cell.setData(model)
+        cell.locationButton.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (action) in
+            self.creatOptionMenu()
+        }
+        self.configCellLocationCell(cell, indexPath: indexPath)
     }
     
     func tableViewCellOrderPayTableViewCell(cell:OrderPayTableViewCell) {
@@ -142,6 +159,14 @@ class OrderDetailViewModel: NSObject {
     
     func tableViewCellOrderDoneTableViewCell(cell:OrderDoneTableViewCell, indexPath:NSIndexPath){
         self.configCellDone(cell, indexPath: indexPath)
+    }
+    
+    func tableViewCellReciveAddressTableViewCell(cell:ReciveAddressTableViewCell, indexPath:NSIndexPath) {
+        self.configCellReviceCell(cell, indexPath: indexPath)
+    }
+    
+    func tableViewOrderCellIndexPath(indexPath:NSIndexPath, cell:OrderNumberTableViewCell) {
+        cell.setData(model)
     }
     
     func requestPayModel(cnotroller:OrderDetailViewController){
@@ -202,7 +227,7 @@ class OrderDetailViewModel: NSObject {
         let geoC = CLGeocoder.init()
         var centerLat:CLLocationDegrees = 0.00
         var centerLng:CLLocationDegrees = 0.00
-        let siteTitle = "北京市海淀区西直门外白石桥5号"
+        let siteTitle = ""
         geoC.geocodeAddressString(siteTitle) { (placemarks, errors) in
             if errors == nil {
                 let pl = placemarks?.first

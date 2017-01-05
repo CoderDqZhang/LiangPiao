@@ -13,14 +13,16 @@ class TicketDetailInfoTableViewCell: UITableViewCell {
     var ticketPhoto:UIImageView!
     var ticketTitle:UILabel!
     var ticketTime:UILabel!
+    var ticketNumber:UILabel!
     var ticketMuch:UILabel!
     var ticketRow:UILabel!
+    var lineLabel:GloabLineView!
     
     var didMakeConstraints:Bool = false
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.backgroundColor = UIColor.init(hexString: App_Theme_F6F7FA_Color)
+        self.backgroundColor = UIColor.whiteColor()
         self.setUpView()
     }
     
@@ -51,11 +53,20 @@ class TicketDetailInfoTableViewCell: UITableViewCell {
         ticketMuch.font = App_Theme_PinFan_R_12_Font
         self.contentView.addSubview(ticketMuch)
         
+        ticketNumber = UILabel()
+        ticketNumber.text = "时间：2016.12.18 20:25"
+        ticketNumber.textColor = UIColor.init(hexString: App_Theme_A2ABB5_Color)
+        ticketNumber.font = App_Theme_PinFan_R_12_Font
+        self.contentView.addSubview(ticketNumber)
+        
         ticketRow = UILabel()
         ticketRow.text = "座位：优先择座"
         ticketRow.textColor = UIColor.init(hexString: App_Theme_A2ABB5_Color)
         ticketRow.font = App_Theme_PinFan_R_12_Font
         self.contentView.addSubview(ticketRow)
+        
+        lineLabel = GloabLineView.init(frame: CGRect.init(x: 15, y: 148.5, width: SCREENWIDTH - 30, height: 0.5))
+        self.contentView.addSubview(lineLabel)
         
         self.updateConstraintsIfNeeded()
         
@@ -67,7 +78,8 @@ class TicketDetailInfoTableViewCell: UITableViewCell {
         ticketTitle.text = model.show.title
         UILabel.changeLineSpaceForLabel(ticketTitle, withSpace: TitleLineSpace)
         ticketTime.text = "时间：\(model.session.startTime)"
-        ticketMuch.text = "票面：\(model.ticket.originalTicket.name) x \(model.remainCount)"
+        ticketMuch.text = "票面：\(model.ticket.originalTicket.name)"
+        ticketNumber.text = "数量：\(model.remainCount)"
         var str = ""
         if model.ticket.region == "" {
             str = "优先择座"
@@ -101,6 +113,12 @@ class TicketDetailInfoTableViewCell: UITableViewCell {
             })
             
             ticketMuch.snp_makeConstraints(closure: { (make) in
+                make.bottom.equalTo(self.ticketNumber.snp_top).offset(-2)
+                make.left.equalTo(self.ticketPhoto.snp_right).offset(12)
+                make.right.equalTo(self.contentView.snp_right).offset(-15)
+            })
+            
+            ticketNumber.snp_makeConstraints(closure: { (make) in
                 make.bottom.equalTo(self.ticketRow.snp_top).offset(-2)
                 make.left.equalTo(self.ticketPhoto.snp_right).offset(12)
                 make.right.equalTo(self.contentView.snp_right).offset(-15)

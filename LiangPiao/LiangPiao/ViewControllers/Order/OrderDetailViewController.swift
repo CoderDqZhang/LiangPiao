@@ -46,12 +46,14 @@ class OrderDetailViewController: UIViewController {
         tableView.showsVerticalScrollIndicator = false
         tableView.dataSource = self
         tableView.keyboardDismissMode = .OnDrag
+        tableView.registerClass(OrderNumberTableViewCell.self, forCellReuseIdentifier: "OrderNumberTableViewCell")
         tableView.registerClass(TicketDetailInfoTableViewCell.self, forCellReuseIdentifier: "TicketDetailInfoTableViewCell")
         tableView.registerClass(TicketLocationTableViewCell.self, forCellReuseIdentifier: "TicketLocationTableViewCell")
         tableView.registerClass(OrderMuchTableViewCell.self, forCellReuseIdentifier: "OrderMuchTableViewCell")
         tableView.registerClass(OrderPayTableViewCell.self, forCellReuseIdentifier: "OrderPayTableViewCell")
         tableView.registerClass(OrderDoneTableViewCell.self, forCellReuseIdentifier: "OrderDoneTableViewCell")
         tableView.registerClass(OrderWaitePayTableViewCell.self, forCellReuseIdentifier: "OrderWaitePayTableViewCell")
+        tableView.registerClass(ReciveAddressTableViewCell.self, forCellReuseIdentifier: "ReciveAddressTableViewCell")
         tableView.separatorStyle = .None
         self.view.addSubview(tableView)
         tableView.snp_makeConstraints { (make) in
@@ -231,7 +233,7 @@ extension OrderDetailViewController : UITableViewDelegate {
 
 extension OrderDetailViewController : UITableViewDataSource {
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 3
+        return 2
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -239,7 +241,7 @@ extension OrderDetailViewController : UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        if section == 2 {
+        if section == 1 {
             return self.tableforFootView()
         }else if section == 0{
             return self.tableOrderFooterView()
@@ -250,40 +252,66 @@ extension OrderDetailViewController : UITableViewDataSource {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         switch indexPath.section {
         case 0:
-            if viewModel.model.status == 0 {
-                let cell = tableView.dequeueReusableCellWithIdentifier("OrderWaitePayTableViewCell", forIndexPath: indexPath) as! OrderWaitePayTableViewCell
-                cell.selectionStyle = .None
-                viewModel.tableViewCellOrderWaitePayTableViewCell(cell, indexPath:indexPath)
-                return cell
-            }else{
-                let cell = tableView.dequeueReusableCellWithIdentifier("OrderDoneTableViewCell", forIndexPath: indexPath) as! OrderDoneTableViewCell
-                cell.selectionStyle = .None
-                viewModel.tableViewCellOrderDoneTableViewCell(cell, indexPath:indexPath)
-                return cell
-            }
-         case 1:
             switch indexPath.row {
             case 0:
+                if viewModel.model.status == 0 || viewModel.model.status == 2 {
+                    let cell = tableView.dequeueReusableCellWithIdentifier("OrderWaitePayTableViewCell", forIndexPath: indexPath) as! OrderWaitePayTableViewCell
+                    cell.selectionStyle = .None
+                    viewModel.tableViewCellOrderWaitePayTableViewCell(cell, indexPath:indexPath)
+                    return cell
+                }else{
+                    let cell = tableView.dequeueReusableCellWithIdentifier("OrderDoneTableViewCell", forIndexPath: indexPath) as! OrderDoneTableViewCell
+                    cell.selectionStyle = .None
+                    viewModel.tableViewCellOrderDoneTableViewCell(cell, indexPath:indexPath)
+                    return cell
+                }
+            default:
+                let cell = tableView.dequeueReusableCellWithIdentifier("ReciveAddressTableViewCell", forIndexPath: indexPath) as! ReciveAddressTableViewCell
+                viewModel.tableViewCellReciveAddressTableViewCell(cell, indexPath: indexPath)
+                cell.selectionStyle = .None
+                return cell
+            }
+         default :
+            if indexPath.row == 0 {
+                let cell = tableView.dequeueReusableCellWithIdentifier("OrderNumberTableViewCell", forIndexPath: indexPath) as! OrderNumberTableViewCell
+                cell.userInteractionEnabled = false
+                viewModel.tableViewOrderCellIndexPath(indexPath, cell: cell)
+                cell.selectionStyle = .None
+                return cell
+            }else if indexPath.row == 1 {
                 let cell = tableView.dequeueReusableCellWithIdentifier("TicketDetailInfoTableViewCell", forIndexPath: indexPath) as! TicketDetailInfoTableViewCell
                 cell.ticketPhoto.image = UIImage.init(named: "Feeds_Default_Cover_02")
                 viewModel.tableViewCellTicketDetailInfoTableViewCell(cell)
                 cell.selectionStyle = .None
                 return cell
-            default:
-                let cell = tableView.dequeueReusableCellWithIdentifier("TicketLocationTableViewCell", forIndexPath: indexPath) as! TicketLocationTableViewCell
-                viewModel.tableViewCellTicketLocationTableViewCell(cell, controller: self)
-                cell.selectionStyle = .None
-                return cell
-            }
-        default:
-            if indexPath.row == 1 {
+            }else if indexPath.row == 2 {
+                if viewModel.model.status == 0 || viewModel.model.status == 2 {
+                    let cell = tableView.dequeueReusableCellWithIdentifier("TicketLocationTableViewCell", forIndexPath: indexPath) as! TicketLocationTableViewCell
+                    viewModel.tableViewCellTicketLocationTableViewCell(cell, controller: self)
+                    cell.selectionStyle = .None
+                    return cell
+                }else{
+                    let cell = tableView.dequeueReusableCellWithIdentifier("OrderPayTableViewCell", forIndexPath: indexPath) as! OrderPayTableViewCell
+                    viewModel.tableViewCellOrderPayTableViewCell(cell)
+                    cell.selectionStyle = .None
+                    return cell
+                    
+                }
+            }else if indexPath.row == 3 {
+                if viewModel.model.status == 0 || viewModel.model.status == 2 {
+                    let cell = tableView.dequeueReusableCellWithIdentifier("OrderPayTableViewCell", forIndexPath: indexPath) as! OrderPayTableViewCell
+                    viewModel.tableViewCellOrderPayTableViewCell(cell)
+                    cell.selectionStyle = .None
+                    return cell
+                }else{
+                    let cell = tableView.dequeueReusableCellWithIdentifier("OrderMuchTableViewCell", forIndexPath: indexPath) as! OrderMuchTableViewCell
+                    viewModel.tableViewCellOrderMuchTableViewCell(cell)
+                    cell.selectionStyle = .None
+                    return cell
+                }
+            }else{
                 let cell = tableView.dequeueReusableCellWithIdentifier("OrderMuchTableViewCell", forIndexPath: indexPath) as! OrderMuchTableViewCell
                 viewModel.tableViewCellOrderMuchTableViewCell(cell)
-                cell.selectionStyle = .None
-                return cell
-            }else{
-                let cell = tableView.dequeueReusableCellWithIdentifier("OrderPayTableViewCell", forIndexPath: indexPath) as! OrderPayTableViewCell
-                viewModel.tableViewCellOrderPayTableViewCell(cell)
                 cell.selectionStyle = .None
                 return cell
             }

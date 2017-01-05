@@ -61,7 +61,7 @@ class OrderNumberTableViewCell: UITableViewCell {
         }
         orderNumber.text = "订单号：\(model.id)"
     }
-    
+        
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

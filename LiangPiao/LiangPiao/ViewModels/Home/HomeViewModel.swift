@@ -59,7 +59,7 @@ class HomeViewModel: NSObject {
     func numberOfRowsInSection(section:Int) ->Int {
         switch section {
         case 0:
-            return 2
+            return 3
         default:
             if models.count > 0{
                 return models.count + 2
