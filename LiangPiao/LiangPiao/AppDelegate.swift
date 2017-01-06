@@ -83,13 +83,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WeiboSDKDelegate, JPUSHReg
 //        bestAttemptContent = (request.content.mutableCopy() as? UNMutableNotificationContent)
 //        
         let userInfo = notification.request.content.userInfo as NSDictionary
-        let request = notification.request
-        let content = request.content
-        let badge = content.badge
-        let body = content.body
-        let sound = content.sound
-        let subtitle = content.subtitle
-        let title = content.title
         if notification.request.trigger is UNPushNotificationTrigger {
             JPUSHService.handleRemoteNotification(userInfo as [NSObject : AnyObject])
         }
@@ -103,7 +96,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WeiboSDKDelegate, JPUSHReg
             JPUSHService.handleRemoteNotification(userInfo as [NSObject : AnyObject])
         }
         if userInfo.objectForKey("type") as! String == "ticketDescrip" {
-            NSNotificationCenter.defaultCenter().postNotificationName(DidRegisterRemoteNotification, object: userInfo.objectForKey("url"))
+            let url = "\(TickeSession)\((userInfo.objectForKey("show_id")!))/session/\((userInfo.objectForKey("session_id")!))"
+            NSNotificationCenter.defaultCenter().postNotificationName(DidRegisterRemoteNotification, object: url)
         }
         completionHandler()
     }
@@ -145,7 +139,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WeiboSDKDelegate, JPUSHReg
     
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
         //可以在这个方法里做一些后台操作（下载数据，更新UI等），记得修改Background Modes。
-        JPUSHService.handleRemoteNotification(userInfo)
+        if IPHONE_VERSION_LAST10 == 1 {
+            JPUSHService.handleRemoteNotification(userInfo)
+        }else{
+            if (userInfo as NSDictionary).objectForKey("type") as! String == "ticketDescrip" {
+                let url = "\(TickeSession)\(((userInfo as NSDictionary).objectForKey("show_id")!))/session/\(((userInfo as NSDictionary).objectForKey("session_id")!))"
+                NSNotificationCenter.defaultCenter().postNotificationName(DidRegisterRemoteNotification, object: url)
+            }
+        }
         completionHandler(.NewData)
     }
     
@@ -164,7 +165,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WeiboSDKDelegate, JPUSHReg
         if url.host == "response_from_qq" {
             return TencentOAuth.HandleOpenURL(url)
         }
-        if url.host == "platformId=wechat" {
+        if url.host == "platformId=wechat" || url.host == "pay" {
             return WXApi.handleOpenURL(url, delegate: self)
         }
         return WeiboSDK.handleOpenURL(url, delegate: self)
@@ -187,9 +188,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WeiboSDKDelegate, JPUSHReg
         if url.host == "response_from_qq" {
             return TencentOAuth.HandleOpenURL(url)
         }
-        if url.host == "platformId=wechat" {
+        if url.host == "platformId=wechat" || url.host == "pay" {
             return WXApi.handleOpenURL(url, delegate: self)
         }
+        
         return WeiboSDK.handleOpenURL(url, delegate: self)
     }
     
@@ -208,7 +210,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WeiboSDKDelegate, JPUSHReg
         if url.host == "response_from_qq" {
             return TencentOAuth.HandleOpenURL(url)
         }
-        if url.host == "platformId=wechat" {
+        if url.host == "platformId=wechat" || url.host == "pay" {
             return WXApi.handleOpenURL(url, delegate: self)
         }
         return WeiboSDK.handleOpenURL(url, delegate: self)

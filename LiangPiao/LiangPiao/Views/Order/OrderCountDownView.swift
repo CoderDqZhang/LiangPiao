@@ -29,7 +29,7 @@ class OrderCountDownView: UIView {
 //        let interval:Double = Double(zone.secondsFromGMTForDate(date))
 //        let nowData = date.dateByAddingTimeInterval(interval)
         let startLongLong:Int64 = self.countDownLabel.longLongFromDate(NSDate.init()) / 1000 * 1000
-        let secondeLongLong = 9 * 60 + 59
+        let secondeLongLong = 10 * 60 + 30
         let secontrong = dateString
         let dateFormatter = NSDateFormatter.init()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
@@ -96,7 +96,7 @@ class OrderCountDownView: UIView {
             secondesLabel.text = "\(secondes)"
         }
         if day == 0 && hour == 0 && minute == 0 && secondes == 0 {
-            NSNotification(name: OrderStatuesChange, object: "2")
+            Notification(OrderStatuesChange, value: "2")
         }
     }
     

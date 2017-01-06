@@ -63,7 +63,7 @@ class OrderDetailViewController: UIViewController {
         }
         
         payView = GloableBottomButtonView.init(frame: nil, title: "立即付款", tag: 1, action: { (tag) in
-            if self.viewModel.model.status == 0 {
+            if self.viewModel.model.status == 0 || self.viewModel.model.status == 100 {
                 self.viewModel.requestPayModel(self)
             }else if self.viewModel.model.status == 7 {
                 self.viewModel.requestOrderStatusChange(self)
@@ -254,7 +254,7 @@ extension OrderDetailViewController : UITableViewDataSource {
         case 0:
             switch indexPath.row {
             case 0:
-                if viewModel.model.status == 0 || viewModel.model.status == 2 {
+                if viewModel.viewModelWailOrCancelStatus() {
                     let cell = tableView.dequeueReusableCellWithIdentifier("OrderWaitePayTableViewCell", forIndexPath: indexPath) as! OrderWaitePayTableViewCell
                     cell.selectionStyle = .None
                     viewModel.tableViewCellOrderWaitePayTableViewCell(cell, indexPath:indexPath)
@@ -285,9 +285,10 @@ extension OrderDetailViewController : UITableViewDataSource {
                 cell.selectionStyle = .None
                 return cell
             }else if indexPath.row == 2 {
-                if viewModel.model.status == 0 || viewModel.model.status == 2 {
+                if viewModel.viewModelWailOrCancelStatus() {
                     let cell = tableView.dequeueReusableCellWithIdentifier("TicketLocationTableViewCell", forIndexPath: indexPath) as! TicketLocationTableViewCell
-                    viewModel.tableViewCellTicketLocationTableViewCell(cell, controller: self)
+                    viewModel.tableViewCellTicketLocationTableViewCell(cell, indexPath:indexPath)
+
                     cell.selectionStyle = .None
                     return cell
                 }else{
@@ -298,7 +299,7 @@ extension OrderDetailViewController : UITableViewDataSource {
                     
                 }
             }else if indexPath.row == 3 {
-                if viewModel.model.status == 0 || viewModel.model.status == 2 {
+                if viewModel.viewModelWailOrCancelStatus() {
                     let cell = tableView.dequeueReusableCellWithIdentifier("OrderPayTableViewCell", forIndexPath: indexPath) as! OrderPayTableViewCell
                     viewModel.tableViewCellOrderPayTableViewCell(cell)
                     cell.selectionStyle = .None

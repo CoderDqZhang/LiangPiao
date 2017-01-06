@@ -61,6 +61,14 @@ class OrderWaitePayTableViewCell: UITableViewCell {
             orderTime.text = "感谢您的购买，因未在规定时间内付款，故该订单已取消"
             orderTime.font = App_Theme_PinFan_R_12_Font
             orderCountDownView.hidden = true
+        }else if model.status == 5 {
+            orderTime.text = "感谢您的购买，但由于其他原因，订单已被卖家取消"
+            orderTime.font = App_Theme_PinFan_R_12_Font
+            orderCountDownView.hidden = true
+        }else if model.status == 1 {
+            orderTime.text = "订单已被取消，如需帮助请致电客服"
+            orderTime.font = App_Theme_PinFan_R_12_Font
+            orderCountDownView.hidden = true
         }
         self.updateConstraintsIfNeeded()
     }

@@ -59,7 +59,7 @@ class OrderDetailViewModel: NSObject {
         switch indexPath.section {
         case 0:
             if indexPath.row == 0 {
-                if self.model.status == 0 || self.model.status == 2 {
+                if self.viewModelWailOrCancelStatus() {
                     return 116
                 }else{
                     return 112
@@ -76,7 +76,7 @@ class OrderDetailViewModel: NSObject {
             }else if indexPath.row == 1 {
                 return 149
             }else if indexPath.row == 2 {
-                if self.model.status == 0 || self.model.status == 2 {
+                if self.viewModelWailOrCancelStatus() {
                     return controller.tableView.fd_heightForCellWithIdentifier("TicketLocationTableViewCell", configuration: { (cell) in
                         self.configCellLocationCell(cell as! TicketLocationTableViewCell, indexPath: indexPath)
                     })
@@ -84,7 +84,7 @@ class OrderDetailViewModel: NSObject {
                     return 119
                 }
             }else if indexPath.row == 3 {
-                if self.model.status == 0 || self.model.status == 2 {
+                if self.viewModelWailOrCancelStatus() {
                     return 119
                 }else{
                     return 52
@@ -117,7 +117,7 @@ class OrderDetailViewModel: NSObject {
             controllerVC.viewModel.ticketModel = model.show
             controllerVC.viewModel.sesstionModel = model.session
             NavigationPushView(controller, toConroller: controllerVC)
-        }else if indexPath.section == 1 && indexPath.row == 2 && (model.status == 0 || model.status == 2)  {
+        }else if indexPath.section == 1 && indexPath.row == 2 && (model.status == 0 || model.status == 2 || model.status == 5 || model.status == 100)  {
             self.creatOptionMenu()
         }
     }
@@ -127,7 +127,7 @@ class OrderDetailViewModel: NSObject {
             return 2
         }
         
-        if self.model.status == 0 || self.model.status == 2 {
+        if self.model.status == 0 || self.model.status == 2 || self.model.status == 5 || self.model.status == 100{
             return 5
         }
         return 4
@@ -142,7 +142,7 @@ class OrderDetailViewModel: NSObject {
         cell.setData(model)
     }
     
-    func tableViewCellTicketLocationTableViewCell(cell:TicketLocationTableViewCell, controller:OrderDetailViewController){
+    func tableViewCellTicketLocationTableViewCell(cell:TicketLocationTableViewCell, indexPath:NSIndexPath){
         cell.locationButton.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (action) in
             self.creatOptionMenu()
         }
@@ -220,6 +220,14 @@ class OrderDetailViewModel: NSObject {
                     }
                 }
         })
+    }
+    
+    func viewModelWailOrCancelStatus() -> Bool{
+        var ret = false
+        if self.model.status == 0 || self.model.status == 1 || self.model.status == 2 || self.model.status == 5 || self.model.status == 100 {
+            ret = true
+        }
+        return ret
     }
     
     func creatOptionMenu(){

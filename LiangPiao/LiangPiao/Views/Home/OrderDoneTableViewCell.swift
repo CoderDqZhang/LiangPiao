@@ -69,7 +69,7 @@ extension OrderDoneTableViewCell: ZDQFlowViewDataSource {
         }else if orderStatus == "3"{
             switch index {
             case 0:
-                viewItem.setData("已付款",type: ZDQFlowViewItemType.itemDone)
+                viewItem.setData("已付款",type: ZDQFlowViewItemType.itemSelect)
             case 1:
                 viewItem.setData("待发货",type: ZDQFlowViewItemType.itemWaitSelect)
             case 2:
@@ -80,7 +80,7 @@ extension OrderDoneTableViewCell: ZDQFlowViewDataSource {
         }else if orderStatus == "7" {
             switch index {
             case 0:
-                viewItem.setData("已付款",type: ZDQFlowViewItemType.itemSelect)
+                viewItem.setData("已付款",type: ZDQFlowViewItemType.itemDone)
             case 1:
                 viewItem.setData("已发货",type: ZDQFlowViewItemType.itemSelect)
             case 2:
@@ -91,9 +91,9 @@ extension OrderDoneTableViewCell: ZDQFlowViewDataSource {
         }else if orderStatus == "9" || orderStatus == "8" {
             switch index {
             case 0:
-                viewItem.setData("已付款",type: ZDQFlowViewItemType.itemSelect)
+                viewItem.setData("已付款",type: ZDQFlowViewItemType.itemDone)
             case 1:
-                viewItem.setData("已发货",type: ZDQFlowViewItemType.itemSelect)
+                viewItem.setData("已发货",type: ZDQFlowViewItemType.itemDone)
             case 2:
                 viewItem.setData("已收货",type: ZDQFlowViewItemType.itemSelect)
             default:
@@ -102,20 +102,20 @@ extension OrderDoneTableViewCell: ZDQFlowViewDataSource {
         }else if orderStatus == "10" {
             switch index {
             case 0:
-                viewItem.setData("已付款",type: ZDQFlowViewItemType.itemSelect)
+                viewItem.setData("已付款",type: ZDQFlowViewItemType.itemDone)
             case 1:
-                viewItem.setData("已发货",type: ZDQFlowViewItemType.itemSelect)
+                viewItem.setData("已发货",type: ZDQFlowViewItemType.itemDone)
             case 2:
-                viewItem.setData("已收货",type: ZDQFlowViewItemType.itemSelect)
+                viewItem.setData("已收货",type: ZDQFlowViewItemType.itemDone)
             default:
                 viewItem.setData("已完成",type: ZDQFlowViewItemType.itemDone)
             }
-        }else if orderStatus == "2" {
+        }else if orderStatus == "6" {
             switch index {
             case 0:
-                viewItem.setData("已取消",type: ZDQFlowViewItemType.itemSelect)
+                viewItem.setData("已付款",type: ZDQFlowViewItemType.itemDone)
             case 1:
-                viewItem.setData("已发货",type: ZDQFlowViewItemType.itemWaitSelect)
+                viewItem.setData("已退款",type: ZDQFlowViewItemType.itemSelect)
             case 2:
                 viewItem.setData("已收货",type: ZDQFlowViewItemType.itemWaitSelect)
             default:
