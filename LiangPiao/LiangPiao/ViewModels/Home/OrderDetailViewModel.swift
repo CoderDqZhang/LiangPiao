@@ -183,6 +183,10 @@ class OrderDetailViewModel: NSObject {
                 MainThreadAlertShow("获取支付链接错误", view: KWINDOWDS())
                 return
             }
+            if self.model.payUrl.wxpay.appid == nil {
+                MainThreadAlertShow("获取支付链接错误", view: KWINDOWDS())
+                return
+            }
             let request = PayReq()
             request.prepayId = self.model.payUrl.wxpay.prepayid
             request.partnerId = self.model.payUrl.wxpay.partnerid
