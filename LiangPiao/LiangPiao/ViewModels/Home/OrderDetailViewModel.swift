@@ -117,7 +117,7 @@ class OrderDetailViewModel: NSObject {
             controllerVC.viewModel.ticketModel = model.show
             controllerVC.viewModel.sesstionModel = model.session
             NavigationPushView(controller, toConroller: controllerVC)
-        }else if indexPath.section == 1 && indexPath.row == 2 && (model.status == 0 || model.status == 2 || model.status == 5 || model.status == 100)  {
+        }else if indexPath.section == 1 && indexPath.row == 2 && self.viewModelWailOrCancelStatus() {
             self.creatOptionMenu()
         }
     }
@@ -127,7 +127,7 @@ class OrderDetailViewModel: NSObject {
             return 2
         }
         
-        if self.model.status == 0 || self.model.status == 2 || self.model.status == 5 || self.model.status == 100{
+        if self.viewModelWailOrCancelStatus() {
             return 5
         }
         return 4
@@ -153,7 +153,7 @@ class OrderDetailViewModel: NSObject {
         cell.setData(model)
     }
     
-    func tableViewCellOrderMuchTableViewCell(cell:OrderMuchTableViewCell){
+    func tableViewCellOrderMuchTableViewCell(cell:OrderStatusMuchTableViewCell){
         cell.setData(model)
     }
     

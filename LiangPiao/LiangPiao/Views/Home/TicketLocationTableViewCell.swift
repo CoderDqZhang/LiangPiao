@@ -62,7 +62,8 @@ class TicketLocationTableViewCell: UITableViewCell {
     func setData(model:OrderList){
         addressLabel.text = model.show.venue.name
         detailAddress.text = model.show.venue.address
-//        let str = "开发者使用这门语言进行 iOS 应用开发,在开发中 我们常常需要用到各种字符串、类、接口等等,今天小编和大家分享的就是 swift2.0 中 String 的类型转换..."
+        UILabel.changeLineSpaceForLabel(detailAddress, withSpace: 2.0)
+
         if model.message != "" {
             linLabel2.hidden = false
             messageLabel.hidden = false
@@ -73,12 +74,14 @@ class TicketLocationTableViewCell: UITableViewCell {
                 make.top.equalTo(self.detailAddress.snp_bottom).offset(20)
                 make.height.equalTo(0.5)
             })
+            
             messageLabel.snp_makeConstraints(closure: { (make) in
                 make.right.equalTo(self.contentView.snp_right).offset(0)
                 make.top.equalTo(self.linLabel1.snp_bottom).offset(23)
                 make.left.equalTo(self.contentView.snp_left).offset(15)
                 make.bottom.equalTo(self.contentView.snp_bottom).offset(-20)
             })
+            
             linLabel2.snp_remakeConstraints(closure: { (make) in
                 make.left.equalTo(self.contentView.snp_left).offset(15)
                 make.right.equalTo(self.contentView.snp_right).offset(-15)
@@ -113,7 +116,7 @@ class TicketLocationTableViewCell: UITableViewCell {
         if !self.didMakeConstraints {
             addressLabel.snp_makeConstraints(closure: { (make) in
                 make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.top.equalTo(self.contentView.snp_top).offset(22)
+                make.top.equalTo(self.contentView.snp_top).offset(20)
             })
             
             detailAddress.snp_makeConstraints(closure: { (make) in
@@ -124,7 +127,7 @@ class TicketLocationTableViewCell: UITableViewCell {
             
             locationButton.snp_makeConstraints(closure: { (make) in
                 make.right.equalTo(self.contentView.snp_right).offset(0)
-                make.top.equalTo(self.contentView.snp_top).offset(0)
+                make.top.equalTo(self.contentView.snp_top).offset(5)
                 make.height.equalTo(80)
                 make.width.equalTo(80)
             })
@@ -136,12 +139,12 @@ class TicketLocationTableViewCell: UITableViewCell {
                 make.height.equalTo(0.5)
             })
             
-            messageLabel.snp_makeConstraints(closure: { (make) in
-                make.right.equalTo(self.contentView.snp_right).offset(0)
-                make.top.equalTo(self.linLabel1.snp_bottom).offset(23)
-                make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.right.equalTo(self.contentView.snp_right).offset(-15)
-            })
+//            messageLabel.snp_makeConstraints(closure: { (make) in
+//                make.right.equalTo(self.contentView.snp_right).offset(0)
+//                make.top.equalTo(self.linLabel1.snp_bottom).offset(23)
+//                make.left.equalTo(self.contentView.snp_left).offset(15)
+//                make.right.equalTo(self.contentView.snp_right).offset(-15)
+//            })
 
             self.didMakeConstraints = true
         }

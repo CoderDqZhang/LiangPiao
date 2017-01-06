@@ -45,7 +45,7 @@ class OrderWaitePayTableViewCell: UITableViewCell {
         orderTime.font = App_Theme_PinFan_R_11_Font
         self.contentView.addSubview(orderTime)
     
-        orderCountDownView = OrderCountDownView(frame: CGRectMake(91, 67, 68, 15))
+        orderCountDownView = OrderCountDownView(frame: CGRectMake(91, 66, 68, 15))
         self.contentView.addSubview(orderCountDownView)
         
         self.updateConstraintsIfNeeded()

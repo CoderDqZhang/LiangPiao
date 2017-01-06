@@ -109,6 +109,9 @@ class OrderListViewModel: NSObject {
             controllerVC.viewModel.model = model.orderList[indexPath.section]
             controllerVC.viewModel.indexPath = indexPath
             controllerVC.viewModel.orderDetailViewMoedelClouse = { indexPath, model in
+                if model.status == 100 {
+                    model.status = 0
+                }
                 self.model.orderList[indexPath.section] = model
                 controller.tableView.reloadSections(NSIndexSet.init(index: indexPath.section), withRowAnimation: .Automatic)
             }

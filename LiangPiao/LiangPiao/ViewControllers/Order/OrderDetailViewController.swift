@@ -49,7 +49,7 @@ class OrderDetailViewController: UIViewController {
         tableView.registerClass(OrderNumberTableViewCell.self, forCellReuseIdentifier: "OrderNumberTableViewCell")
         tableView.registerClass(TicketDetailInfoTableViewCell.self, forCellReuseIdentifier: "TicketDetailInfoTableViewCell")
         tableView.registerClass(TicketLocationTableViewCell.self, forCellReuseIdentifier: "TicketLocationTableViewCell")
-        tableView.registerClass(OrderMuchTableViewCell.self, forCellReuseIdentifier: "OrderMuchTableViewCell")
+        tableView.registerClass(OrderStatusMuchTableViewCell.self, forCellReuseIdentifier: "OrderStatusMuchTableViewCell")
         tableView.registerClass(OrderPayTableViewCell.self, forCellReuseIdentifier: "OrderPayTableViewCell")
         tableView.registerClass(OrderDoneTableViewCell.self, forCellReuseIdentifier: "OrderDoneTableViewCell")
         tableView.registerClass(OrderWaitePayTableViewCell.self, forCellReuseIdentifier: "OrderWaitePayTableViewCell")
@@ -305,13 +305,13 @@ extension OrderDetailViewController : UITableViewDataSource {
                     cell.selectionStyle = .None
                     return cell
                 }else{
-                    let cell = tableView.dequeueReusableCellWithIdentifier("OrderMuchTableViewCell", forIndexPath: indexPath) as! OrderMuchTableViewCell
+                    let cell = tableView.dequeueReusableCellWithIdentifier("OrderStatusMuchTableViewCell", forIndexPath: indexPath) as! OrderStatusMuchTableViewCell
                     viewModel.tableViewCellOrderMuchTableViewCell(cell)
                     cell.selectionStyle = .None
                     return cell
                 }
             }else{
-                let cell = tableView.dequeueReusableCellWithIdentifier("OrderMuchTableViewCell", forIndexPath: indexPath) as! OrderMuchTableViewCell
+                let cell = tableView.dequeueReusableCellWithIdentifier("OrderStatusMuchTableViewCell", forIndexPath: indexPath) as! OrderStatusMuchTableViewCell
                 viewModel.tableViewCellOrderMuchTableViewCell(cell)
                 cell.selectionStyle = .None
                 return cell

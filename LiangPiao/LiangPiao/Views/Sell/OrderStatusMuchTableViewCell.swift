@@ -45,7 +45,8 @@ class OrderStatusMuchTableViewCell: UITableViewCell {
     }
     
     func setData(model:OrderList){
-        muchLabel.text = "\(model.total).00"
+        let much = "\(model.total)".muchType("\(model.total)")
+        muchLabel.text = "\(much)"
     }
     
     required init?(coder aDecoder: NSCoder) {

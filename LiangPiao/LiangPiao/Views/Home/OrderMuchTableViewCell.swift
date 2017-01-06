@@ -36,8 +36,8 @@ class OrderMuchTableViewCell: UITableViewCell {
         self.contentView.addSubview(muchLabel)
         
         muchmLabel = UILabel()
-        muchmLabel.font = App_Theme_PinFan_R_10_Font
-        muchmLabel.textColor = UIColor.init(hexString: App_Theme_BBC1CB_Color)
+        muchmLabel.font = App_Theme_PinFan_R_12_Font
+        muchmLabel.textColor = UIColor.init(hexString: App_Theme_384249_Color)
         muchmLabel.text = "元"
         
         self.contentView.addSubview(muchmLabel)
@@ -48,7 +48,8 @@ class OrderMuchTableViewCell: UITableViewCell {
     }
     
     func setData(model:OrderList){
-        muchLabel.text = "\(model.total).00"
+        let much = "\(model.total)".muchType("\(model.total)")
+        muchLabel.text = "\(much)"
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -59,17 +60,17 @@ class OrderMuchTableViewCell: UITableViewCell {
         if !self.didMakeConstraints {
             muchLabel.snp_makeConstraints(closure: { (make) in
                 make.right.equalTo(self.muchmLabel.snp_left).offset(-3)
-                make.centerY.equalTo(self.contentView.snp_centerY).offset(0)
+                make.centerY.equalTo(self.contentView.snp_centerY).offset(3)
             })
             
             muchInfoLabel.snp_makeConstraints(closure: { (make) in
                 make.right.equalTo(self.muchLabel.snp_left).offset(-2)
-                make.centerY.equalTo(self.contentView.snp_centerY).offset(0)
+                make.centerY.equalTo(self.contentView.snp_centerY).offset(3)
             })
             
             muchmLabel.snp_makeConstraints(closure: { (make) in
                 make.right.equalTo(self.contentView.snp_right).offset(-15)
-                make.centerY.equalTo(self.contentView.snp_centerY).offset(2)
+                make.centerY.equalTo(self.contentView.snp_centerY).offset(4)
             })
             
             self.didMakeConstraints = true
