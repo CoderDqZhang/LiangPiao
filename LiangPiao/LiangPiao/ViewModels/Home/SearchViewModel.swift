@@ -65,6 +65,7 @@ class SearchViewModel: NSObject {
     func searchTablaTableViewDidSelectRowAtIndexPath(indexPath:NSIndexPath ) {
         if searchType == .TicketShowModel {
             let searchTicke = searchModel.showList[indexPath.row]
+            GloableSetEvent("HomeSearch", lable: "HomeSearch", parameters: searchTicke.toDictionary())
             if searchTicke.sessionCount == 1 {
                 let controllerVC = TicketDescriptionViewController()
                 controllerVC.viewModel.ticketModel = searchTicke
@@ -76,6 +77,7 @@ class SearchViewModel: NSObject {
             }
         }else {
             if UserInfoModel.isLoggedIn() {
+                GloableSetEvent("SellSearch", lable: "SellSearch", parameters: sellSearchModel.showList[indexPath.row].toDictionary())
                 if UserInfoModel.shareInstance().role == "supplier" {
                     let model = sellSearchModel.showList[indexPath.row]
                     if model.sessionCount != 1 {

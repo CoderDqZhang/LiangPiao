@@ -20,7 +20,7 @@ class HomeScrollerTableViewCell: UITableViewCell {
     
     func setUpView() {
         if cycleScrollView == nil {
-            cycleScrollView = SDCycleScrollView(frame: CGRectMake(0, 0, SCREENWIDTH, 152), delegate: self, placeholderImage: UIImage.init(named: "Banner_Default_Cover"))
+            cycleScrollView = SDCycleScrollView(frame: CGRectMake(0, 0, SCREENWIDTH, SCREENWIDTH * 162/375), delegate: self, placeholderImage: UIImage.init(named: "Banner_Default_Cover"))
             cycleScrollView.pageDotColor = UIColor.whiteColor()
             cycleScrollView.pageControlStyle = SDCycleScrollViewPageContolStyleAnimated;
             cycleScrollView.pageControlDotSize = CGSizeMake(6, 6)

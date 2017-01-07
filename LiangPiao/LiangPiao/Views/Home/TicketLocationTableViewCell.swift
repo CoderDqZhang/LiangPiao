@@ -68,6 +68,7 @@ class TicketLocationTableViewCell: UITableViewCell {
             linLabel2.hidden = false
             messageLabel.hidden = false
             messageLabel.text = "备注：\(model.message)"
+            UILabel.changeLineSpaceForLabel(messageLabel, withSpace: 2.0)
             linLabel1.snp_remakeConstraints(closure: { (make) in
                 make.left.equalTo(self.contentView.snp_left).offset(15)
                 make.right.equalTo(self.contentView.snp_right).offset(-15)
@@ -76,10 +77,10 @@ class TicketLocationTableViewCell: UITableViewCell {
             })
             
             messageLabel.snp_makeConstraints(closure: { (make) in
-                make.right.equalTo(self.contentView.snp_right).offset(0)
-                make.top.equalTo(self.linLabel1.snp_bottom).offset(23)
+                make.right.equalTo(self.contentView.snp_right).offset(-15)
+                make.top.equalTo(self.linLabel1.snp_bottom).offset(20)
                 make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.bottom.equalTo(self.contentView.snp_bottom).offset(-20)
+                make.bottom.equalTo(self.linLabel2.snp_top).offset(-20)
             })
             
             linLabel2.snp_remakeConstraints(closure: { (make) in

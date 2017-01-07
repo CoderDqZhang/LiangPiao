@@ -164,6 +164,7 @@
 		1FB7B29A1DCC320200945B70 /* OrderFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB7B2991DCC320200945B70 /* OrderFormView.swift */; };
 		1FB7B29C1DCC392900945B70 /* GloabTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB7B29B1DCC392900945B70 /* GloabTableViewCell.swift */; };
 		1FB7B29E1DCC412500945B70 /* OrderConfirmViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB7B29D1DCC412500945B70 /* OrderConfirmViewModel.swift */; };
+		1FBB9A441E20883900E2EC1B /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBB9A431E20883900E2EC1B /* NotificationViewController.swift */; };
 		1FBF86C31DDD47EF0057BB11 /* UILabel+ChangeLineSpaceAndWordSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FBF86C21DDD47EF0057BB11 /* UILabel+ChangeLineSpaceAndWordSpace.m */; };
 		1FBFC7C51DDAAD2B008D9CEC /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBFC7C41DDAAD2B008D9CEC /* LoginViewModel.swift */; };
 		1FBFC7E41DDABD48008D9CEC /* FMDatabase+FTS3.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FBFC7CA1DDABD48008D9CEC /* FMDatabase+FTS3.m */; };
@@ -471,6 +472,7 @@
 		1FB7B2991DCC320200945B70 /* OrderFormView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderFormView.swift; sourceTree = "<group>"; };
 		1FB7B29B1DCC392900945B70 /* GloabTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GloabTableViewCell.swift; sourceTree = "<group>"; };
 		1FB7B29D1DCC412500945B70 /* OrderConfirmViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderConfirmViewModel.swift; sourceTree = "<group>"; };
+		1FBB9A431E20883900E2EC1B /* NotificationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
 		1FBF86C11DDD47EF0057BB11 /* UILabel+ChangeLineSpaceAndWordSpace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+ChangeLineSpaceAndWordSpace.h"; sourceTree = "<group>"; };
 		1FBF86C21DDD47EF0057BB11 /* UILabel+ChangeLineSpaceAndWordSpace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+ChangeLineSpaceAndWordSpace.m"; sourceTree = "<group>"; };
 		1FBFC7C41DDAAD2B008D9CEC /* LoginViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
@@ -893,6 +895,14 @@
 			path = QQ;
 			sourceTree = "<group>";
 		};
+		1FBB9A421E20882200E2EC1B /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				1FBB9A431E20883900E2EC1B /* NotificationViewController.swift */,
+			);
+			path = Other;
+			sourceTree = "<group>";
+		};
 		1FBFC7C61DDABD48008D9CEC /* FMDB */ = {
 			isa = PBXGroup;
 			children = (
@@ -1092,6 +1102,7 @@
 		1FD244DC1DC2FC8A00AFD3BC /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				1FBB9A421E20882200E2EC1B /* Other */,
 				1F451F061DF50C8F00441044 /* TabBarController */,
 				1FD2459B1DC356AA00AFD3BC /* BaseViewController */,
 				1F0EAB6C1DD0931A00D25B64 /* Sell */,
@@ -1792,6 +1803,7 @@
 				1FD2450E1DC2FE7300AFD3BC /* Define.swift in Sources */,
 				1FEE7E9D1DF53FAB00479648 /* MySellManagerMuchTableViewCell.swift in Sources */,
 				1FBFC7F31DDACC02008D9CEC /* ZDQFMDBModel.swift in Sources */,
+				1FBB9A441E20883900E2EC1B /* NotificationViewController.swift in Sources */,
 				1F45C4021DD73AA4008C60CD /* LiangNomalRefreshHeader.swift in Sources */,
 				1F3C7F5C1DFF8B59009992AE /* ReciveAddressTableViewCell.swift in Sources */,
 				1FD881CB1DC75FE600B2B702 /* HomeToolsTableViewCell.swift in Sources */,

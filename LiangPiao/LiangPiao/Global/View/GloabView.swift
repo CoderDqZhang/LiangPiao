@@ -750,6 +750,7 @@ class GloableShareView: UIView, UIGestureRecognizerDelegate, CAAnimationDelegate
             wxSession = UIButton(type: .Custom)
             wxSession.buttonSetImage(UIImage.init(named: "Wechat_Normal")!, sImage: UIImage.init(named: "Wechat_Pressed")!)
             wxSession.rac_signalForControlEvents(.TouchUpInside).subscribeNext({ (action) in
+                GloableSetEvent("shareTicket", lable: "WeChatSession", parameters: nil)
                 if self.shareImage == nil {
                     ShareTools.shareInstance.shareWeChatSession(self.shareModel.title, description: self.shareModel.venue.address, image: self.ticketImage, url: self.shareUrl)
                 }else{
@@ -772,6 +773,7 @@ class GloableShareView: UIView, UIGestureRecognizerDelegate, CAAnimationDelegate
             wxTimeLine.tag = 101
             wxTimeLine.buttonSetImage(UIImage.init(named: "Moment_Normal")!, sImage: UIImage.init(named: "Moment_Pressed")!)
             wxTimeLine.rac_signalForControlEvents(.TouchUpInside).subscribeNext({ (action) in
+                GloableSetEvent("shareTicket", lable: "WeChatTimeLine", parameters: nil)
                 if self.shareImage == nil {
                     ShareTools.shareInstance.shareWeChatTimeLine(self.shareModel.title, description: self.shareModel.venue.address, image: self.ticketImage, url: self.shareUrl)
                 }else{
@@ -796,6 +798,7 @@ class GloableShareView: UIView, UIGestureRecognizerDelegate, CAAnimationDelegate
             weiboTimeLine.tag = 102
             weiboTimeLine.buttonSetImage(UIImage.init(named: "Weibo_Normal")!, sImage: UIImage.init(named: "Weibo_Pressed")!)
             weiboTimeLine.rac_signalForControlEvents(.TouchUpInside).subscribeNext({ (action) in
+                GloableSetEvent("shareTicket", lable: "weiboTimeLine", parameters: nil)
                 if self.shareImage == nil {
                     ShareTools.shareInstance.shareWeiboWebUrl("\(self.shareModel.title)--\(self.shareModel.venue.address)-\(self.shareUrl)", webTitle: self.shareModel.title, image: self.ticketImage, webDescription: self.shareModel.venue.address, webUrl: self.shareUrl)
                 }else{
@@ -820,6 +823,7 @@ class GloableShareView: UIView, UIGestureRecognizerDelegate, CAAnimationDelegate
             qqSeession.buttonSetImage(UIImage.init(named: "QQ_Normal")!, sImage: UIImage.init(named: "QQ_Pressed")!)
             shareView.addSubview(qqSeession)
             qqSeession.rac_signalForControlEvents(.TouchUpInside).subscribeNext({ (action) in
+                GloableSetEvent("shareTicket", lable: "qqSeession", parameters: nil)
                 if self.shareImage == nil {
                     ShareTools.shareInstance.shareQQSessionWebUrl("良票", webTitle: self.shareModel.title,imageUrl: "\(self.shareModel.cover)",  webDescription: self.shareModel.venue.address, webUrl: self.shareUrl)
                 }else{
@@ -844,6 +848,7 @@ class GloableShareView: UIView, UIGestureRecognizerDelegate, CAAnimationDelegate
             qqTimeLine.buttonSetImage(UIImage.init(named: "QZone_Normal")!, sImage: UIImage.init(named: "QZone_Pressed")!)
             qqTimeLine.frame = CGRectMake(maxX + 16, 90, 50, 50)
             qqTimeLine.rac_signalForControlEvents(.TouchUpInside).subscribeNext({ (action) in
+                GloableSetEvent("shareTicket", lable: "qqTimeLine", parameters: nil)
                 if self.shareImage == nil {
                     ShareTools.shareInstance.shareQQTimeLineUrl("良票", webTitle: self.shareModel.title,imageUrl: "\(self.shareModel.cover)", webDescription: self.shareModel.venue.address, webUrl: self.shareUrl)
                 }else{

@@ -17,12 +17,11 @@ class HomeViewModel: NSObject {
     var searchModel:RecommentTickes!
     var controller:HomeViewController!
     var locationManager:AMapLocationManager!
-    var locationStr:String = UserDefaultsGetSynchronize("location") as! String == "nil" ? "全国": UserDefaultsGetSynchronize("location") as! String
+    var locationStr:String = UserDefaultsGetSynchronize("location") as! String == "nil" ? "北京": UserDefaultsGetSynchronize("location") as! String
     
     override init() {
         super.init()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeViewModel.userDidTakeScreenshot(_:)), name: UIApplicationUserDidTakeScreenshotNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeViewModel.pushViewController(_:)), name: DidRegisterRemoteNotification, object: nil)
         self.setUpLocationManager()
     }
     
@@ -87,7 +86,7 @@ class HomeViewModel: NSObject {
             case 1:
                 return 100
             default:
-                return 152
+                return SCREENWIDTH * 162/375
             }
         default:
             switch indexPath.row {
@@ -113,6 +112,20 @@ class HomeViewModel: NSObject {
         }else{
             ticketPage.pageViewControllerDidSelectIndexPath(index + 1)
         }
+        //TakingData事件
+        switch index {
+        case 0:
+            GloableSetEvent("Home_Tools", lable: "drama", parameters: nil)
+        case 1:
+            GloableSetEvent("Home_Tools", lable: "show", parameters: nil)
+        case 2:
+            GloableSetEvent("Home_Tools", lable: "music", parameters: nil)
+        case 3:
+            GloableSetEvent("Home_Tools", lable: "sport", parameters: nil)
+        default:
+            GloableSetEvent("Home_Tools", lable: "All", parameters: nil)
+        }
+        
         NavigationPushView(controller, toConroller: ticketPage)
     }
     
@@ -139,13 +152,6 @@ class HomeViewModel: NSObject {
                 }
             }
         }
-    }
-    
-    func pushViewController(notifiation:NSNotification){
-        
-        let controllerVC = TicketDescriptionViewController()
-        controllerVC.viewModel.requestNotificationUrl(notifiation.object as! String, controller: controllerVC)
-        NavigationPushView(controller, toConroller: controllerVC)
     }
     
     func cellData(cell:RecommendTableViewCell, indexPath:NSIndexPath) {

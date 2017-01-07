@@ -31,6 +31,7 @@ let WeiXinPayStatues = "WeiXinPayStatuesChange"
 let AliPayStatues = "AliPayStatuesChange"
 
 let DidRegisterRemoteNotification = "DidRegisterRemoteNotification"
+let DidRegisterRemoteURLNotification = "DidRegisterRemoteURLNotification"
 let DidRegisterRemoteDiviceToken = "DidRegisterRemoteDiviceToken"
 
 
@@ -122,6 +123,15 @@ func MainThreanShowNetWorkError(error:AnyObject){
     })
 }
 
+func GloableSetEvent(trackEvent:String, lable:String?, parameters:NSDictionary?) {
+    if lable == nil {
+        TalkingData.trackEvent(trackEvent)
+    }else if parameters == nil {
+        TalkingData.trackEvent(trackEvent, label: lable)
+    }else{
+        TalkingData.trackEvent(trackEvent, label: lable, parameters: parameters as! [NSObject:AnyObject])
+    }
+}
 
 func MainThreseanShowAliPayError(error:String) {
     var aliPayError = ""

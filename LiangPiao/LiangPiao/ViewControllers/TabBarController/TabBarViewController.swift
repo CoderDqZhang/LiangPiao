@@ -25,8 +25,36 @@ class TabBarViewController: UITabBarController {
                 }
             }
         }
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(TabBarViewController.pushViewController(_:)), name: DidRegisterRemoteNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(TabBarViewController.pushUrlViewController(_:)), name: DidRegisterRemoteURLNotification, object: nil)
 //        self.tabBar.shadowImage = UIImage.init(color: UIColor.init(hexString: App_Theme_E9EBF2_Color), size: CGSizeMake(SCREENWIDTH, 0.2))
         // Do any additional setup after loading the view.
+    }
+    
+    func pushViewController(notifiation:NSNotification){
+        let controllerVC = TicketDescriptionViewController()
+        controllerVC.viewModel.requestNotificationUrl(notifiation.object as! String, controller: controllerVC)
+        for viewController in (self.viewControllers)! {
+            print(viewController)
+            for controller in (viewController as! UINavigationController).viewControllers {
+                if controller is HomeViewController {
+                    NavigationPushView(controller, toConroller: controllerVC)
+                }
+            }
+        }
+    }
+    
+    func pushUrlViewController(notifiation:NSNotification) {
+        let controllerVC = NotificationViewController()
+        controllerVC.url = notifiation.object as! String
+        for viewController in (self.viewControllers)! {
+            print(viewController)
+            for controller in (viewController as! UINavigationController).viewControllers {
+                if controller is HomeViewController {
+                    NavigationPushView(controller, toConroller: controllerVC)
+                }
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {
