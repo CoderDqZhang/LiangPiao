@@ -285,31 +285,16 @@ extension OrderDetailViewController : UITableViewDataSource {
                 cell.selectionStyle = .None
                 return cell
             }else if indexPath.row == 2 {
-                if viewModel.viewModelWailOrCancelStatus() {
-                    let cell = tableView.dequeueReusableCellWithIdentifier("TicketLocationTableViewCell", forIndexPath: indexPath) as! TicketLocationTableViewCell
-                    viewModel.tableViewCellTicketLocationTableViewCell(cell, indexPath:indexPath)
-
-                    cell.selectionStyle = .None
-                    return cell
-                }else{
-                    let cell = tableView.dequeueReusableCellWithIdentifier("OrderPayTableViewCell", forIndexPath: indexPath) as! OrderPayTableViewCell
-                    viewModel.tableViewCellOrderPayTableViewCell(cell)
-                    cell.selectionStyle = .None
-                    return cell
-                    
-                }
+                let cell = tableView.dequeueReusableCellWithIdentifier("TicketLocationTableViewCell", forIndexPath: indexPath) as! TicketLocationTableViewCell
+                viewModel.tableViewCellTicketLocationTableViewCell(cell, indexPath:indexPath)
+                
+                cell.selectionStyle = .None
+                return cell
             }else if indexPath.row == 3 {
-                if viewModel.viewModelWailOrCancelStatus() {
-                    let cell = tableView.dequeueReusableCellWithIdentifier("OrderPayTableViewCell", forIndexPath: indexPath) as! OrderPayTableViewCell
-                    viewModel.tableViewCellOrderPayTableViewCell(cell)
-                    cell.selectionStyle = .None
-                    return cell
-                }else{
-                    let cell = tableView.dequeueReusableCellWithIdentifier("OrderStatusMuchTableViewCell", forIndexPath: indexPath) as! OrderStatusMuchTableViewCell
-                    viewModel.tableViewCellOrderMuchTableViewCell(cell)
-                    cell.selectionStyle = .None
-                    return cell
-                }
+                let cell = tableView.dequeueReusableCellWithIdentifier("OrderPayTableViewCell", forIndexPath: indexPath) as! OrderPayTableViewCell
+                viewModel.tableViewCellOrderPayTableViewCell(cell)
+                cell.selectionStyle = .None
+                return cell
             }else{
                 let cell = tableView.dequeueReusableCellWithIdentifier("OrderStatusMuchTableViewCell", forIndexPath: indexPath) as! OrderStatusMuchTableViewCell
                 viewModel.tableViewCellOrderMuchTableViewCell(cell)

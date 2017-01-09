@@ -76,19 +76,11 @@ class OrderDetailViewModel: NSObject {
             }else if indexPath.row == 1 {
                 return 149
             }else if indexPath.row == 2 {
-                if self.viewModelWailOrCancelStatus() {
-                    return controller.tableView.fd_heightForCellWithIdentifier("TicketLocationTableViewCell", configuration: { (cell) in
-                        self.configCellLocationCell(cell as! TicketLocationTableViewCell, indexPath: indexPath)
-                    })
-                }else{
-                    return 119
-                }
+                return controller.tableView.fd_heightForCellWithIdentifier("TicketLocationTableViewCell", configuration: { (cell) in
+                    self.configCellLocationCell(cell as! TicketLocationTableViewCell, indexPath: indexPath)
+                })
             }else if indexPath.row == 3 {
-                if self.viewModelWailOrCancelStatus() {
-                    return 119
-                }else{
-                    return 52
-                }
+                return 119
             }else{
                 return 52
             }
@@ -117,7 +109,7 @@ class OrderDetailViewModel: NSObject {
             controllerVC.viewModel.ticketModel = model.show
             controllerVC.viewModel.sesstionModel = model.session
             NavigationPushView(controller, toConroller: controllerVC)
-        }else if indexPath.section == 1 && indexPath.row == 2 && self.viewModelWailOrCancelStatus() {
+        }else if indexPath.section == 1 && indexPath.row == 2 {
             self.creatOptionMenu()
         }
     }
@@ -127,10 +119,7 @@ class OrderDetailViewModel: NSObject {
             return 2
         }
         
-        if self.viewModelWailOrCancelStatus() {
-            return 5
-        }
-        return 4
+        return 5
 
     }
     

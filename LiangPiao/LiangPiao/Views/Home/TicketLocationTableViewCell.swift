@@ -127,10 +127,10 @@ class TicketLocationTableViewCell: UITableViewCell {
             })
             
             locationButton.snp_makeConstraints(closure: { (make) in
-                make.right.equalTo(self.contentView.snp_right).offset(0)
-                make.top.equalTo(self.contentView.snp_top).offset(5)
-                make.height.equalTo(80)
-                make.width.equalTo(80)
+                make.right.equalTo(self.contentView.snp_right).offset(-15)
+                make.top.equalTo(self.contentView.snp_top).offset(20)
+                make.height.equalTo(37)
+                make.width.equalTo(37)
             })
             
             linLabel1.snp_makeConstraints(closure: { (make) in
