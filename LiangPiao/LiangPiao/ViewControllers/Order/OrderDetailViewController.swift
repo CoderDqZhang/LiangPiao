@@ -54,6 +54,7 @@ class OrderDetailViewController: UIViewController {
         tableView.registerClass(OrderDoneTableViewCell.self, forCellReuseIdentifier: "OrderDoneTableViewCell")
         tableView.registerClass(OrderWaitePayTableViewCell.self, forCellReuseIdentifier: "OrderWaitePayTableViewCell")
         tableView.registerClass(ReciveAddressTableViewCell.self, forCellReuseIdentifier: "ReciveAddressTableViewCell")
+        tableView.registerClass(TicketRemarkTableViewCell.self, forCellReuseIdentifier: "TicketRemarkTableViewCell")
         tableView.separatorStyle = .None
         self.view.addSubview(tableView)
         tableView.snp_makeConstraints { (make) in
@@ -204,6 +205,20 @@ class OrderDetailViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    func orderStatuesCell(tableView:UITableView, indexPath:NSIndexPath) -> OrderStatusMuchTableViewCell{
+        let cell = tableView.dequeueReusableCellWithIdentifier("OrderStatusMuchTableViewCell", forIndexPath: indexPath) as! OrderStatusMuchTableViewCell
+        viewModel.tableViewCellOrderMuchTableViewCell(cell)
+        cell.selectionStyle = .None
+        return cell
+    }
+    
+    func orderPayCell(tableView:UITableView, indexPath:NSIndexPath) ->OrderPayTableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("OrderPayTableViewCell", forIndexPath: indexPath) as! OrderPayTableViewCell
+        viewModel.tableViewCellOrderPayTableViewCell(cell)
+        cell.selectionStyle = .None
+        return cell
+    }
 
 }
 
@@ -291,15 +306,20 @@ extension OrderDetailViewController : UITableViewDataSource {
                 cell.selectionStyle = .None
                 return cell
             }else if indexPath.row == 3 {
-                let cell = tableView.dequeueReusableCellWithIdentifier("OrderPayTableViewCell", forIndexPath: indexPath) as! OrderPayTableViewCell
-                viewModel.tableViewCellOrderPayTableViewCell(cell)
-                cell.selectionStyle = .None
-                return cell
+                if viewModel.viewModelHaveRemarkMessage() {
+                    let cell = tableView.dequeueReusableCellWithIdentifier("TicketRemarkTableViewCell", forIndexPath: indexPath) as! TicketRemarkTableViewCell
+                    viewModel.tableViewCellOrderTicketRemarkTableViewCell(cell, indexPath: indexPath)
+                    cell.selectionStyle = .None
+                    return cell
+                }
+                return self.orderPayCell(tableView, indexPath: indexPath)
+            }else if indexPath.row == 4{
+                if viewModel.viewModelHaveRemarkMessage() {
+                    return self.orderPayCell(tableView, indexPath: indexPath)
+                }
+                return self.orderStatuesCell(tableView, indexPath: indexPath)
             }else{
-                let cell = tableView.dequeueReusableCellWithIdentifier("OrderStatusMuchTableViewCell", forIndexPath: indexPath) as! OrderStatusMuchTableViewCell
-                viewModel.tableViewCellOrderMuchTableViewCell(cell)
-                cell.selectionStyle = .None
-                return cell
+                return self.orderStatuesCell(tableView, indexPath: indexPath)
             }
         }
     }

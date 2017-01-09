@@ -80,11 +80,25 @@ class OrderDetailViewModel: NSObject {
                     self.configCellLocationCell(cell as! TicketLocationTableViewCell, indexPath: indexPath)
                 })
             }else if indexPath.row == 3 {
+                if self.viewModelHaveRemarkMessage() {
+                    return controller.tableView.fd_heightForCellWithIdentifier("TicketRemarkTableViewCell", configuration: { (cell) in
+                        self.configCellRemarkCell(cell as! TicketRemarkTableViewCell, indexPath: indexPath)
+                    })
+                }
                 return 119
+            }else if indexPath.row == 4{
+                if self.viewModelHaveRemarkMessage(){
+                    return 119
+                }
+                return 52
             }else{
                 return 52
             }
         }
+    }
+    
+    func configCellRemarkCell(cell:TicketRemarkTableViewCell, indexPath:NSIndexPath) {
+        cell.setData(model)
     }
     
     func configCellLocationCell(cell:TicketLocationTableViewCell, indexPath:NSIndexPath) {
@@ -119,12 +133,19 @@ class OrderDetailViewModel: NSObject {
             return 2
         }
         
+        if self.viewModelHaveRemarkMessage() {
+            return 6
+        }
         return 5
 
     }
     
     func tableViewCellOrderWaitePayTableViewCell(cell:OrderWaitePayTableViewCell, indexPath:NSIndexPath) {
         self.configCellWaitPay(cell, indexPath: indexPath)
+    }
+    
+    func tableViewCellOrderTicketRemarkTableViewCell(cell:TicketRemarkTableViewCell, indexPath:NSIndexPath) {
+        self.configCellRemarkCell(cell, indexPath: indexPath)
     }
     
     func tableViewCellTicketDetailInfoTableViewCell(cell:TicketDetailInfoTableViewCell){
@@ -213,6 +234,14 @@ class OrderDetailViewModel: NSObject {
                     }
                 }
         })
+    }
+    
+    func viewModelHaveRemarkMessage() -> Bool {
+        var ret = false
+        if self.model.message != "" {
+            ret = true
+        }
+        return ret
     }
     
     func viewModelWailOrCancelStatus() -> Bool{

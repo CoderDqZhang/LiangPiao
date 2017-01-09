@@ -13,9 +13,7 @@ class TicketLocationTableViewCell: UITableViewCell {
     var addressLabel:UILabel!
     var detailAddress:UILabel!
     var locationButton:UIButton!
-    var messageLabel:UILabel!
-    var linLabel1:UILabel!
-    var linLabel2:UILabel!
+    var linLabel:UILabel!
     var didMakeConstraints:Bool = false
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
@@ -42,19 +40,9 @@ class TicketLocationTableViewCell: UITableViewCell {
         locationButton.buttonSetImage(UIImage.init(named: "Order_Address_Location")!, sImage: UIImage.init(named: "Order_Address_Location_Pressed")!)
         self.contentView.addSubview(locationButton)
         
-        linLabel1 = UILabel()
-        linLabel1.backgroundColor = UIColor.init(hexString: App_Theme_E9EBF2_Color)
-        self.contentView.addSubview(linLabel1)
-        
-        linLabel2 = UILabel()
-        linLabel2.backgroundColor = UIColor.init(hexString: App_Theme_E9EBF2_Color)
-        self.contentView.addSubview(linLabel2)
-        
-        messageLabel = UILabel()
-        messageLabel.font = App_Theme_PinFan_R_12_Font
-        messageLabel.textColor = UIColor.init(hexString: App_Theme_384249_Color)
-        messageLabel.numberOfLines = 0
-        self.contentView.addSubview(messageLabel)
+        linLabel = UILabel()
+        linLabel.backgroundColor = UIColor.init(hexString: App_Theme_E9EBF2_Color)
+        self.contentView.addSubview(linLabel)
         
         self.updateConstraintsIfNeeded()
     }
@@ -64,49 +52,7 @@ class TicketLocationTableViewCell: UITableViewCell {
         detailAddress.text = model.show.venue.address
         UILabel.changeLineSpaceForLabel(detailAddress, withSpace: 2.0)
 
-        if model.message != "" {
-            linLabel2.hidden = false
-            messageLabel.hidden = false
-            messageLabel.text = "备注：\(model.message)"
-            UILabel.changeLineSpaceForLabel(messageLabel, withSpace: 2.0)
-            linLabel1.snp_remakeConstraints(closure: { (make) in
-                make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.right.equalTo(self.contentView.snp_right).offset(-15)
-                make.top.equalTo(self.detailAddress.snp_bottom).offset(20)
-                make.height.equalTo(0.5)
-            })
-            
-            messageLabel.snp_makeConstraints(closure: { (make) in
-                make.right.equalTo(self.contentView.snp_right).offset(-15)
-                make.top.equalTo(self.linLabel1.snp_bottom).offset(20)
-                make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.bottom.equalTo(self.linLabel2.snp_top).offset(-20)
-            })
-            
-            linLabel2.snp_remakeConstraints(closure: { (make) in
-                make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.right.equalTo(self.contentView.snp_right).offset(-15)
-                make.bottom.equalTo(self.contentView.snp_bottom).offset(-0.5)
-                make.height.equalTo(0.5)
-            })
-        }else{
-            linLabel2.hidden = true
-            messageLabel.hidden = true
-            linLabel1.snp_remakeConstraints(closure: { (make) in
-                make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.right.equalTo(self.contentView.snp_right).offset(-15)
-                make.bottom.equalTo(self.contentView.snp_bottom).offset(-0.5)
-                make.height.equalTo(0.5)
-            })
-            detailAddress.snp_remakeConstraints(closure: { (make) in
-                make.top.equalTo(self.addressLabel.snp_bottom).offset(3)
-                make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.right.equalTo(self.locationButton.snp_left).offset(-10)
-                make.bottom.equalTo(self.contentView.snp_bottom).offset(-20)
-            })
-        }
         self.updateConstraintsIfNeeded()
-//        messageLabel.text = str
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -123,29 +69,23 @@ class TicketLocationTableViewCell: UITableViewCell {
             detailAddress.snp_makeConstraints(closure: { (make) in
                 make.top.equalTo(self.addressLabel.snp_bottom).offset(3)
                 make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.right.equalTo(self.locationButton.snp_left).offset(-10)
+                make.right.equalTo(self.locationButton.snp_left).offset(-20)
+                make.bottom.equalTo(self.contentView.snp_bottom).offset(-20)
             })
             
             locationButton.snp_makeConstraints(closure: { (make) in
                 make.right.equalTo(self.contentView.snp_right).offset(-15)
-                make.top.equalTo(self.contentView.snp_top).offset(20)
+                make.centerY.equalTo(self.contentView.snp_centerY).offset(0)
                 make.height.equalTo(37)
                 make.width.equalTo(37)
             })
             
-            linLabel1.snp_makeConstraints(closure: { (make) in
+            linLabel.snp_makeConstraints(closure: { (make) in
                 make.left.equalTo(self.contentView.snp_left).offset(15)
                 make.right.equalTo(self.contentView.snp_right).offset(-15)
-                make.top.equalTo(self.contentView.snp_top).offset(84)
+                make.bottom.equalTo(self.contentView.snp_bottom).offset(-0.5)
                 make.height.equalTo(0.5)
             })
-            
-//            messageLabel.snp_makeConstraints(closure: { (make) in
-//                make.right.equalTo(self.contentView.snp_right).offset(0)
-//                make.top.equalTo(self.linLabel1.snp_bottom).offset(23)
-//                make.left.equalTo(self.contentView.snp_left).offset(15)
-//                make.right.equalTo(self.contentView.snp_right).offset(-15)
-//            })
 
             self.didMakeConstraints = true
         }

@@ -35,7 +35,6 @@ class TabBarViewController: UITabBarController {
         let controllerVC = TicketDescriptionViewController()
         controllerVC.viewModel.requestNotificationUrl(notifiation.object as! String, controller: controllerVC)
         for viewController in (self.viewControllers)! {
-            print(viewController)
             for controller in (viewController as! UINavigationController).viewControllers {
                 if controller is HomeViewController {
                     NavigationPushView(controller, toConroller: controllerVC)

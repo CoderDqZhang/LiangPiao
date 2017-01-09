@@ -82,6 +82,7 @@
 		1F54C52E1DDC3A61009ADDA9 /* JKDBHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F54C52B1DDC3A61009ADDA9 /* JKDBHelper.m */; };
 		1F54C52F1DDC3A61009ADDA9 /* JKDBModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F54C52D1DDC3A61009ADDA9 /* JKDBModel.m */; };
 		1F54C5341DDC4891009ADDA9 /* UserInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F54C5331DDC4891009ADDA9 /* UserInfoModel.m */; };
+		1F56807D1E2368F700A318EA /* TicketRemarkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F56807C1E2368F700A318EA /* TicketRemarkTableViewCell.swift */; };
 		1F5B1CA81DF115880073E770 /* UserProtocolViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5B1CA71DF115880073E770 /* UserProtocolViewController.swift */; };
 		1F5B1CAA1DF115BB0073E770 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F5B1CA91DF115BB0073E770 /* WebKit.framework */; };
 		1F5B1CAC1DF14A9E0073E770 /* View+Extntion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5B1CAB1DF14A9E0073E770 /* View+Extntion.swift */; };
@@ -383,6 +384,7 @@
 		1F54C52D1DDC3A61009ADDA9 /* JKDBModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKDBModel.m; sourceTree = "<group>"; };
 		1F54C5321DDC4891009ADDA9 /* UserInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoModel.h; sourceTree = "<group>"; };
 		1F54C5331DDC4891009ADDA9 /* UserInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoModel.m; sourceTree = "<group>"; };
+		1F56807C1E2368F700A318EA /* TicketRemarkTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketRemarkTableViewCell.swift; sourceTree = "<group>"; };
 		1F5B1CA71DF115880073E770 /* UserProtocolViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserProtocolViewController.swift; path = ../../ViewModels/Mine/UserProtocolViewController.swift; sourceTree = "<group>"; };
 		1F5B1CA91DF115BB0073E770 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		1F5B1CAB1DF14A9E0073E770 /* View+Extntion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "View+Extntion.swift"; path = "../View/View+Extntion.swift"; sourceTree = "<group>"; };
@@ -1281,6 +1283,7 @@
 				1FB7B2991DCC320200945B70 /* OrderFormView.swift */,
 				1F6BB9B71DD9974300893932 /* OrderAddressTableViewCell.swift */,
 				1F0EAB601DD05C2200D25B64 /* TicketLocationTableViewCell.swift */,
+				1F56807C1E2368F700A318EA /* TicketRemarkTableViewCell.swift */,
 				1F0EAB621DD0616F00D25B64 /* OrderMuchTableViewCell.swift */,
 				1F0EAB641DD073B900D25B64 /* OrderWaitePayTableViewCell.swift */,
 				1F0EAB7C1DD16D0E00D25B64 /* OrderDoneTableViewCell.swift */,
@@ -1718,6 +1721,7 @@
 				1F9A0CA41DF93A8E002F4C19 /* MySellRowTableViewCell.swift in Sources */,
 				1FC3DDE91DE4520C00420A05 /* TicketCategoryViewModel.swift in Sources */,
 				1F4C80251E0005A200155E25 /* OrderStatusMuchTableViewCell.swift in Sources */,
+				1F56807D1E2368F700A318EA /* TicketRemarkTableViewCell.swift in Sources */,
 				1F9A0CA61DF93A9F002F4C19 /* MySellRowTypeTableViewCell.swift in Sources */,
 				1F52ED721DE31E2300916C91 /* TicketDetailInfoTableViewCell.swift in Sources */,
 				1FD2458A1DC336B300AFD3BC /* BaseNetWorke.swift in Sources */,
