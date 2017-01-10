@@ -98,7 +98,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WeiboSDKDelegate, JPUSHReg
         if userInfo.objectForKey("type") as! String == "ticketDescrip" {
             let url = "\(TickeSession)\((userInfo.objectForKey("show_id")!))/session/\((userInfo.objectForKey("session_id")!))"
             NSNotificationCenter.defaultCenter().postNotificationName(DidRegisterRemoteNotification, object: url)
-        }else if userInfo.objectForKey("type") as! String == "ticketDescrip" {
+        }else if userInfo.objectForKey("type") as! String == "operation" {
             let url = "\((userInfo.objectForKey("url")!))"
             NSNotificationCenter.defaultCenter().postNotificationName(DidRegisterRemoteURLNotification, object: url)
         }
@@ -148,7 +148,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WeiboSDKDelegate, JPUSHReg
             if (userInfo as NSDictionary).objectForKey("type") as! String == "ticketDescrip" {
                 let url = "\(TickeSession)\(((userInfo as NSDictionary).objectForKey("show_id")!))/session/\(((userInfo as NSDictionary).objectForKey("session_id")!))"
                 NSNotificationCenter.defaultCenter().postNotificationName(DidRegisterRemoteNotification, object: url)
-            }else if (userInfo as NSDictionary).objectForKey("type") as! String == "ticketDescrip" {
+            }else if (userInfo as NSDictionary).objectForKey("type") as! String == "operation" {
                 let url = "\(((userInfo as NSDictionary).objectForKey("url")!))"
                 NSNotificationCenter.defaultCenter().postNotificationName(DidRegisterRemoteURLNotification, object: url)
             }

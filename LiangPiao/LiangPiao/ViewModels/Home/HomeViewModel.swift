@@ -14,6 +14,7 @@ import MapKit
 class HomeViewModel: NSObject {
     
     var models = NSMutableArray()
+    var banners:Banners!
     var searchModel:RecommentTickes!
     var controller:HomeViewController!
     var locationManager:AMapLocationManager!
@@ -58,7 +59,10 @@ class HomeViewModel: NSObject {
     func numberOfRowsInSection(section:Int) ->Int {
         switch section {
         case 0:
-            return 3
+            if self.banners != nil && self.banners.banners.count > 0 {
+                return 3
+            }
+            return 2
         default:
             if models.count > 0{
                 return models.count + 2
@@ -159,6 +163,28 @@ class HomeViewModel: NSObject {
         cell.setData(model)
     }
     
+    func tableViewHomeScrollerTableViewCell(cell:HomeScrollerTableViewCell, indexPath:NSIndexPath) {
+        let imageUrls = NSMutableArray()
+        for banner in self.banners.banners {
+            imageUrls.addObject(banner.image)
+        }
+        cell.setcycleScrollerViewData(imageUrls.mutableCopy() as! NSArray)
+        cell.cyCleScrollerViewClouse = { index in
+            let banner = self.banners.banners[index] 
+            if banner.bannerType == 2 {
+                let controllerVC = NotificationViewController()
+                controllerVC.url = banner.url
+                NavigationPushView(self.controller, toConroller: controllerVC)
+            }else{
+                let controllerVC = TicketDescriptionViewController()
+                let url = "\(TickeSession)\(banner.showId)/session/\(banner.sessionId)"
+                controllerVC.viewModel.requestNotificationUrl(url, controller: controllerVC)
+                NavigationPushView(self.controller, toConroller: controllerVC)
+
+            }
+        }
+    }
+    
     func requestHotTicket(tableView:UITableView){
         BaseNetWorke.sharedInstance.getUrlWithString(TickeHot, parameters: nil).subscribeNext { (resultDic) in
             let resultModels =  NSMutableArray.mj_objectArrayWithKeyValuesArray(resultDic)
@@ -168,6 +194,15 @@ class HomeViewModel: NSObject {
                 tableView.mj_header.endRefreshing()
                 self.controller.endRefreshView()
             }
+        }
+    }
+    
+    
+    
+    func requestBanner(){
+        BaseNetWorke.sharedInstance.getUrlWithString(HomeBanner, parameters: nil).subscribeNext { (resultDic) in
+            self.banners = Banners.init(fromDictionary: resultDic as! NSDictionary)
+            self.controller.tableView.reloadSections(NSIndexSet.init(index: 0), withRowAnimation: .Automatic)
         }
     }
     

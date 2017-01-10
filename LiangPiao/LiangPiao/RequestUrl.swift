@@ -30,6 +30,8 @@ let TickeHot = "\(BaseURL)show/hot/"
 let TickeCategoty = "\(BaseURL)show/category/"
 let TickeCategotyList = "\(BaseURL)show/list/"
 
+let HomeBanner = "\(BaseURL)banner/"
+
 let TickeSession = "\(BaseURL)show/"
 
 let TickeDescription = "\(BaseURL)show/"

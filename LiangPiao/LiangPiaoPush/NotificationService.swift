@@ -25,12 +25,16 @@ class NotificationService: UNNotificationServiceExtension {
     
         let dict = self.bestAttemptContent?.userInfo
         let notiDict = dict!["aps"] as! NSDictionary
-        let imageUrl = "\((dict!["imageAbsoluteString"])!)"
+        
         self.bestAttemptContent!.title = "\((dict!["title"])!)"
-        self.bestAttemptContent!.subtitle = "\((dict!["subtitle"])!)"
         self.bestAttemptContent!.body = "\((notiDict["alert"])!)"
-        self.loadAttachmentForUrlString(imageUrl, type: "image") { (attach) in
-            self.bestAttemptContent!.attachments = [attach]
+        if dict!["type"] as! String != "operation" {
+            let imageUrl = "\((dict!["imageAbsoluteString"])!)"
+            self.loadAttachmentForUrlString(imageUrl, type: "image") { (attach) in
+                self.bestAttemptContent!.attachments = [attach]
+                self.contentHandler!(self.bestAttemptContent!);
+            }
+        }else{
             self.contentHandler!(self.bestAttemptContent!);
         }
     }

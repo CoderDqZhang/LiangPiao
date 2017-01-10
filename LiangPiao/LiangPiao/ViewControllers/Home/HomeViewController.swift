@@ -80,9 +80,10 @@ class HomeViewController: BaseViewController {
     }
     
     func bindViewModel(){
-        viewModel.requestHotTicket(tableView)
         viewModel.controller = self
         searchViewModel.controller = self
+        viewModel.requestHotTicket(tableView)
+        viewModel.requestBanner()
         RACSignal.interval(1, onScheduler: RACScheduler.currentScheduler()).subscribeNext { (str) in
             
         }
@@ -225,6 +226,7 @@ extension HomeViewController : UITableViewDataSource {
                 return cell
             default:
                 let cell = tableView.dequeueReusableCellWithIdentifier("HomeScrollerTableViewCell", forIndexPath: indexPath) as! HomeScrollerTableViewCell
+                viewModel.tableViewHomeScrollerTableViewCell(cell, indexPath: indexPath)
                 cell.selectionStyle = .None
                 return cell
             }

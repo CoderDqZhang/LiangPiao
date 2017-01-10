@@ -19,7 +19,8 @@ class NotificationViewController: UIViewController {
         self.setNavigationItemBack()
         self.view.backgroundColor = UIColor.whiteColor()
         webView = WKWebView(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: SCREENHEIGHT - 64))
-        webView.loadRequest(NSURLRequest.init(URL: NSURL.init(string: url)!))
+        webView.navigationDelegate = self
+        webView.loadRequest(NSURLRequest.init(URL: NSURL.init(string: "http://\(url)")!))
         self.view.addSubview(webView)
         // Do any additional setup after loading the view.
     }
@@ -40,4 +41,10 @@ class NotificationViewController: UIViewController {
     }
     */
 
+}
+
+extension NotificationViewController : WKNavigationDelegate {
+    func webView(webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: NSError) {
+        Tools.shareInstance.showMessage(KWINDOWDS(), msg: "加载失败", autoHidder: true)
+    }
 }
