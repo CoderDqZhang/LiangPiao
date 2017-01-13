@@ -73,7 +73,7 @@ class MyTicketPutUpViewController: UIViewController {
     
     func popSellTicketVC(){
         for controller in (self.navigationController?.viewControllers)! {
-            if controller is TicketSceneViewController {
+            if controller is MySellConfimViewController {
                 self.navigationController?.popToViewController(controller, animated: true)
                 return
             }

@@ -20,6 +20,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WeiboSDKDelegate, JPUSHReg
     var spalshView:SpalshView!
     
     var wbtoken:String!
+    
+    var backgroundTime:NSTimer!
+    
+    var loginTime:Int = 0
+    
+    var backgroundTaskIdentifier:UIBackgroundTaskIdentifier!
         
     func addSplshView() {
         
@@ -58,6 +64,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WeiboSDKDelegate, JPUSHReg
         return true
     }
     
+    func endBackGroundTask(){
+        if self.backgroundTime != nil {
+            dispatch_async(dispatch_get_main_queue()) {
+                self.backgroundTime.invalidate()
+                SHARE_APPLICATION.endBackgroundTask(self.backgroundTaskIdentifier)
+                self.backgroundTaskIdentifier = UIBackgroundTaskInvalid
+            }
+        }
+    }
+    
+    
     func addGaoDeMap(application:UIApplication) {
         AMapServices.sharedServices().apiKey = GaoDeApiKey
     }
@@ -67,7 +84,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WeiboSDKDelegate, JPUSHReg
         if (UIDevice.currentDevice().systemVersion.floatValue >= 10.0) {
             // 可以自定义 categories
             let entity = JPUSHRegisterEntity.init()
-//            entity.types = (Int(UIUserNotificationType.Sound.rawValue) | Int(UIUserNotificationType.Badge.rawValue) | Int(UIUserNotificationType.Alert.rawValue))
             JPUSHService.registerForRemoteNotificationConfig(entity, delegate: self)
         } else if (UIDevice.currentDevice().systemVersion.floatValue >= 8.0) {
             JPUSHService.registerForRemoteNotificationTypes(UIUserNotificationType.Badge.rawValue | UIUserNotificationType.Badge.rawValue | UIUserNotificationType.Alert.rawValue , categories: nil)
@@ -118,9 +134,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WeiboSDKDelegate, JPUSHReg
     func applicationDidEnterBackground(application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-        SHARE_APPLICATION.applicationIconBadgeNumber = 0
-        JPUSHService.setBadge(0)
-        SHARE_APPLICATION.cancelAllLocalNotifications()
+        self.backgroundTaskIdentifier = application.beginBackgroundTaskWithExpirationHandler({
+            self.endBackGroundTask()
+        })
+        if UserDefaultsGetSynchronize("isLoginTime") as! String != "nil" {
+            loginTime = UserDefaultsGetSynchronize("backGroundTime") as! Int
+            UserDefaultsSetSynchronize("true", key: "isLoginEnterBack")
+            self.backgroundTime = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(AppDelegate.timerMethod(_:)), userInfo: nil, repeats: true)
+        }else{
+            UserDefaultsSetSynchronize(0, key: "backGroundTime")
+        }
+        
+    }
+    
+    func timerMethod(paramSender:NSTimer){
+        if loginTime > 59 {
+            self.endBackGroundTask()
+        }
+        loginTime = loginTime + 1
+        UserDefaultsSetSynchronize(loginTime, key: "backGroundTime")
     }
 
     func applicationWillEnterForeground(application: UIApplication) {
@@ -129,6 +161,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WeiboSDKDelegate, JPUSHReg
 
     func applicationDidBecomeActive(application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        SHARE_APPLICATION.applicationIconBadgeNumber = 0
+        JPUSHService.setBadge(0)
+        SHARE_APPLICATION.cancelAllLocalNotifications()
+        self.endBackGroundTask()
     }
 
     func applicationWillTerminate(application: UIApplication) {

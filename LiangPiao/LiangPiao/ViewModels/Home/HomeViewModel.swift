@@ -14,7 +14,7 @@ import MapKit
 class HomeViewModel: NSObject {
     
     var models = NSMutableArray()
-    var banners:Banners!
+    var banner:Banners!
     var searchModel:RecommentTickes!
     var controller:HomeViewController!
     var locationManager:AMapLocationManager!
@@ -45,10 +45,12 @@ class HomeViewModel: NSObject {
     
     func userDidTakeScreenshot(notifiation:NSNotification){
         let image = KWINDOWDS().screenshot()
+        KWINDOWDS().currentViewController()?.view.endEditing(true)
         SaveImageTools.sharedInstance.saveImage("ScreenShotImage.png", image: image, path: "ScreenShot")
         if KWINDOWDS().viewWithTag(10000) != nil {
             KWINDOWDS().viewWithTag(10000)?.removeFromSuperview()
         }
+        
         KWINDOWDS().addSubview(GloableShareView.init(title: "分享截屏给好友", model: nil, image: image, url: nil))
     }
     
@@ -59,7 +61,7 @@ class HomeViewModel: NSObject {
     func numberOfRowsInSection(section:Int) ->Int {
         switch section {
         case 0:
-            if self.banners != nil && self.banners.banners.count > 0 {
+            if self.banner != nil && self.banner.banners.count > 0 {
                 return 3
             }
             return 2
@@ -145,16 +147,20 @@ class HomeViewModel: NSObject {
                 self.navigationPushTicketPage(4)
             default:
                 let model = TicketShowModel.init(fromDictionary: models.objectAtIndex(indexPath.row - 1) as! NSDictionary)
-                if model.sessionCount == 1 {
-                    let controllerVC = TicketDescriptionViewController()
-                    controllerVC.viewModel.ticketModel = model
-                    NavigationPushView(controller, toConroller: controllerVC)
-                }else{
-                    let controllerVC = TicketSceneViewController()
-                    controllerVC.viewModel.model = model
-                    NavigationPushView(controller, toConroller: controllerVC)
-                }
+                self.pushTicketDetail(model)
             }
+        }
+    }
+    
+    func pushTicketDetail(model:TicketShowModel){
+        if model.sessionCount == 1 {
+            let controllerVC = TicketDescriptionViewController()
+            controllerVC.viewModel.ticketModel = model
+            NavigationPushView(controller, toConroller: controllerVC)
+        }else{
+            let controllerVC = TicketSceneViewController()
+            controllerVC.viewModel.model = model
+            NavigationPushView(controller, toConroller: controllerVC)
         }
     }
     
@@ -165,31 +171,32 @@ class HomeViewModel: NSObject {
     
     func tableViewHomeScrollerTableViewCell(cell:HomeScrollerTableViewCell, indexPath:NSIndexPath) {
         let imageUrls = NSMutableArray()
-        for banner in self.banners.banners {
+        for banner in self.banner.banners {
             imageUrls.addObject(banner.image)
         }
         cell.setcycleScrollerViewData(imageUrls.mutableCopy() as! NSArray)
         cell.cyCleScrollerViewClouse = { index in
-            let banner = self.banners.banners[index] 
+            let banner = self.banner.banners[index]
             if banner.bannerType == 2 {
                 let controllerVC = NotificationViewController()
                 controllerVC.url = banner.url
                 NavigationPushView(self.controller, toConroller: controllerVC)
             }else{
-                let controllerVC = TicketDescriptionViewController()
-                let url = "\(TickeSession)\(banner.showId)/session/\(banner.sessionId)"
-                controllerVC.viewModel.requestNotificationUrl(url, controller: controllerVC)
-                NavigationPushView(self.controller, toConroller: controllerVC)
-
+                self.pushTicketDetail(banner.show)
             }
         }
     }
     
     func requestHotTicket(tableView:UITableView){
+        
         BaseNetWorke.sharedInstance.getUrlWithString(TickeHot, parameters: nil).subscribeNext { (resultDic) in
-            let resultModels =  NSMutableArray.mj_objectArrayWithKeyValuesArray(resultDic)
-            self.models = resultModels.mutableCopy() as! NSMutableArray
-            tableView.reloadSections(NSIndexSet.init(index: 1), withRowAnimation: .Automatic)
+            if resultDic is NSDictionary {
+                
+            }else{
+                let resultModels =  NSMutableArray.mj_objectArrayWithKeyValuesArray(resultDic)
+                self.models = resultModels.mutableCopy() as! NSMutableArray
+                tableView.reloadSections(NSIndexSet.init(index: 1), withRowAnimation: .Automatic)
+            }
             if tableView.mj_header != nil {
                 tableView.mj_header.endRefreshing()
                 self.controller.endRefreshView()
@@ -201,7 +208,7 @@ class HomeViewModel: NSObject {
     
     func requestBanner(){
         BaseNetWorke.sharedInstance.getUrlWithString(HomeBanner, parameters: nil).subscribeNext { (resultDic) in
-            self.banners = Banners.init(fromDictionary: resultDic as! NSDictionary)
+            self.banner = Banners.init(fromDictionary: resultDic as! NSDictionary)
             self.controller.tableView.reloadSections(NSIndexSet.init(index: 0), withRowAnimation: .Automatic)
         }
     }

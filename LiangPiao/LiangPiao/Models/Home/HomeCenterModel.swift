@@ -71,13 +71,22 @@ class Banners : NSObject, NSCoding{
     
 }
 
+//
+//	Banner.swift
+//
+//	Create by Zhang on 10/1/2017
+//	Copyright © 2017. All rights reserved.
+//	Model file generated using JSONExport: https://github.com/Ahmed-Ali/JSONExport
+
+import Foundation
+
+
 class Banner : NSObject, NSCoding{
     
     var bannerType : Int!
     var id : Int!
     var image : String!
-    var sessionId : Int!
-    var showId : Int!
+    var show : TicketShowModel!
     var url : String!
     
     
@@ -88,8 +97,9 @@ class Banner : NSObject, NSCoding{
         bannerType = dictionary["banner_type"] as? Int
         id = dictionary["id"] as? Int
         image = dictionary["image"] as? String
-        sessionId = dictionary["session_id"] as? Int
-        showId = dictionary["show_id"] as? Int
+        if let showData = dictionary["show"] as? NSDictionary{
+            show = TicketShowModel(fromDictionary: showData)
+        }
         url = dictionary["url"] as? String
     }
     
@@ -108,11 +118,8 @@ class Banner : NSObject, NSCoding{
         if image != nil{
             dictionary["image"] = image
         }
-        if sessionId != nil{
-            dictionary["session_id"] = sessionId
-        }
-        if showId != nil{
-            dictionary["show_id"] = showId
+        if show != nil{
+            dictionary["show"] = show.toDictionary()
         }
         if url != nil{
             dictionary["url"] = url
@@ -129,8 +136,7 @@ class Banner : NSObject, NSCoding{
         bannerType = aDecoder.decodeObjectForKey("banner_type") as? Int
         id = aDecoder.decodeObjectForKey("id") as? Int
         image = aDecoder.decodeObjectForKey("image") as? String
-        sessionId = aDecoder.decodeObjectForKey("session_id") as? Int
-        showId = aDecoder.decodeObjectForKey("show_id") as? Int
+        show = aDecoder.decodeObjectForKey("show") as? TicketShowModel
         url = aDecoder.decodeObjectForKey("url") as? String
         
     }
@@ -150,11 +156,8 @@ class Banner : NSObject, NSCoding{
         if image != nil{
             aCoder.encodeObject(image, forKey: "image")
         }
-        if sessionId != nil{
-            aCoder.encodeObject(sessionId, forKey: "session_id")
-        }
-        if showId != nil{
-            aCoder.encodeObject(showId, forKey: "show_id")
+        if show != nil{
+            aCoder.encodeObject(show, forKey: "show")
         }
         if url != nil{
             aCoder.encodeObject(url, forKey: "url")

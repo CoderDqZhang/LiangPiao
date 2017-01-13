@@ -26,6 +26,7 @@ class BaseNetWorke {
     }
     
     static let sharedInstance = BaseNetWorke()
+    //加一个特使标识，首页请求失败
     /// getRequest
     /// - parameter url:        输入URL
     /// - parameter parameters: 参数
@@ -41,7 +42,11 @@ class BaseNetWorke {
                         MainThreanShowErrorMessage(responseError)
                     }else{
                         MainThreanShowNetWorkError(responseError)
-                        subscriber.sendError(responseError as! NSError)
+                        if url == "http://api.niceticket.cc/show/hot/"{
+                            subscriber.sendNext(["error":"似乎已断开与互联网的连接"])
+                        }else{
+                            subscriber.sendError(responseError as! NSError)
+                        }
                     }
                 subscriber.sendCompleted()
             })

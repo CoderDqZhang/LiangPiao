@@ -20,7 +20,7 @@ class NotificationViewController: UIViewController {
         self.view.backgroundColor = UIColor.whiteColor()
         webView = WKWebView(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: SCREENHEIGHT - 64))
         webView.navigationDelegate = self
-        webView.loadRequest(NSURLRequest.init(URL: NSURL.init(string: "http://\(url)")!))
+        webView.loadRequest(NSURLRequest.init(URL: NSURL.init(string: url)!))
         self.view.addSubview(webView)
         // Do any additional setup after loading the view.
     }

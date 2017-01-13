@@ -10,9 +10,9 @@ import Foundation
 
 //https://itunes.apple.com/us/app/liang-piao-da-mai-yong-le/id1170039060?mt=8
 
-let BaseStr = "liangpiao.me/"
-//let BaseStr = "niceticket.cc/"
-let BaseURL = "http://api.\(BaseStr)"
+//let BaseStr = "liangpiao.me/"
+let BaseStr = "niceticket.cc/"
+let BaseURL = "https://api.\(BaseStr)"
 
 
 let LoginUrl = "\(BaseURL)user/login/"

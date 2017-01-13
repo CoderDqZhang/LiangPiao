@@ -188,8 +188,11 @@ class MySellConfimViewModel: NSObject {
     
     func tableViewCellGloabTitleNumberCountTableViewCell(cell:GloabTitleNumberCountTableViewCell, indexPath:NSIndexPath) {
         cell.setText("售卖数量", textFieldText: "1")
+        
         if isChange {
             cell.setText("售卖数量", textFieldText: "\(sellFormModel.number)")
+        }else{
+            self.sellFormModel.number = 1
         }
         cell.numberTickView.numberTextField.rac_observeKeyPath("text", options: .New, observer: self) { (object, objetecs, new, old) in
             self.sellFormModel.number = Int(object as! String)!
@@ -445,7 +448,7 @@ class MySellConfimViewModel: NSObject {
         }else{
             str = "0"
         }
-        paramerts = ["show_session_ticket":self.sellFormModel.ticketPrice,"seat_type":self.sellFormModel.seatType, "price":self.sellFormModel.price, "region":self.sellFormModel.ticketRegin, "sell_type":self.sellFormModel.sellType == "单卖" ? "1" : "2", "ticket_count":self.sellFormModel.number,"row":str]
+        paramerts = ["show_session_ticket":self.sellFormModel.ticketPrice,"seat_type":self.sellFormModel.seatType, "price":self.sellFormModel.price, "region":self.sellFormModel.ticketRegin, "sell_type":self.sellFormModel.sellType == "单卖" ? "1" : "2", "ticket_count":self.sellFormModel.number == 0 ? 1:self.sellFormModel.number,"row":str]
         var delivery_type = ""
         if self.express.isSelect {
             delivery_type = delivery_type.stringByAppendingString("1,")

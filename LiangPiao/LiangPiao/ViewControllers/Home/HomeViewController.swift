@@ -213,7 +213,8 @@ extension HomeViewController : UITableViewDataSource {
                     self.searchViewController()
                 }
                 cell.location.rac_signalForControlEvents(.TouchUpInside).subscribeNext({ (action) in
-                    self.viewModel.showLocationData()
+                    Tools.shareInstance.showMessage(KWINDOWDS(), msg: "更多城市正在开拓中...", autoHidder: true)
+//                    self.viewModel.showLocationData()
                 })
                 cell.selectionStyle = .None
                 return cell

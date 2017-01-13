@@ -257,7 +257,7 @@ class OrderDetailViewModel: NSObject {
         let geoC = CLGeocoder.init()
         var centerLat:CLLocationDegrees = 0.00
         var centerLng:CLLocationDegrees = 0.00
-        let siteTitle = ""
+        let siteTitle = model.show.venue.address
         geoC.geocodeAddressString(siteTitle) { (placemarks, errors) in
             if errors == nil {
                 let pl = placemarks?.first

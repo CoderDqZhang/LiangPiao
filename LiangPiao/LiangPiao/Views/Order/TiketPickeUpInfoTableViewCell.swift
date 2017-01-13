@@ -120,9 +120,13 @@ class TiketPickeUpInfoTableViewCell: UITableViewCell {
             ticketRow.textColor = UIColor.init(hexString: App_Theme_BBC1CB_Color)
             ticketDescirp.textColor = UIColor.init(hexString: App_Theme_BBC1CB_Color)
             ticketNowPrice.textColor = UIColor.init(hexString: App_Theme_BBC1CB_Color)
-            editBtn.hidden = true
+            if model.remainCount == 0 {
+                editBtn.setTitle("售罄", forState: .Normal)
+            }else{
+                editBtn.setTitle("编辑", forState: .Normal)
+            }
         }else{
-            editBtn.hidden = false
+            editBtn.setTitle("编辑", forState: .Normal)
             ticketNomalPrice.textColor = UIColor.init(hexString: App_Theme_384249_Color)
             ticketRow.textColor = UIColor.init(hexString: App_Theme_384249_Color)
             ticketDescirp.textColor = UIColor.init(hexString: App_Theme_BBC1CB_Color)

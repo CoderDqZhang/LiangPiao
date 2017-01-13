@@ -24,9 +24,10 @@ class HomeScrollerTableViewCell: UITableViewCell {
     func setUpView() {
         if cycleScrollView == nil {
             cycleScrollView = SDCycleScrollView(frame: CGRectMake(0, 0, SCREENWIDTH, SCREENWIDTH * 162/375), delegate: self, placeholderImage: UIImage.init(named: "Banner_Default_Cover"))
-            cycleScrollView.pageDotColor = UIColor.whiteColor()
+            cycleScrollView.pageDotImage = UIImage.init(named: "banner_normal")
+            cycleScrollView.currentPageDotImage = UIImage.init(named: "banner_select")
             cycleScrollView.pageControlStyle = SDCycleScrollViewPageContolStyleAnimated;
-            cycleScrollView.pageControlDotSize = CGSizeMake(6, 6)
+            cycleScrollView.pageControlDotSize = CGSizeMake(8, 8)
             self.contentView.addSubview(cycleScrollView)
             //         --- 轮播时间间隔，默认1.0秒，可自定义
             cycleScrollView.autoScroll = true

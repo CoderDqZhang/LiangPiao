@@ -132,9 +132,16 @@ class LoginViewController: UIViewController {
     }
     
     func startWithStartDate(date:NSDate, finishDate:NSDate){
+        UserDefaultsSetSynchronize("true", key: "isLoginTime")
+        UserDefaultsSetSynchronize("nil", key: "isLoginEnterBack")
+        UserDefaultsSetSynchronize(0, key: "backGroundTime")
         timeDownLabel.countDownWithStratDate(date, finishDate: finishDate) { (day, hours, minutes, seconds) in
-            let totoalSecod = day*24*60*60+hours*60*60+minutes*60+seconds
+            var totoalSecod = day*24*60*60+hours*60*60+minutes*60+seconds
+            if UserDefaultsGetSynchronize("isLoginEnterBack") as! String != "nil"{
+                totoalSecod = totoalSecod - (UserDefaultsGetSynchronize("backGroundTime") as! Int)
+            }
             if totoalSecod == 0 {
+                UserDefaultsSetSynchronize(0, key: "backGroundTime")
                 self.senderCode.enabled = true
                 self.senderCode.setTitle("发验证码", forState: .Normal)
             }else{

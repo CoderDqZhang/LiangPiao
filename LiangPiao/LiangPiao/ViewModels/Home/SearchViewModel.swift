@@ -66,6 +66,7 @@ class SearchViewModel: NSObject {
         if searchType == .TicketShowModel {
             let searchTicke = searchModel.showList[indexPath.row]
             GloableSetEvent("HomeSearch", lable: "HomeSearch", parameters: searchTicke.toDictionary())
+            self.controller.view.endEditing(true)
             if searchTicke.sessionCount == 1 {
                 let controllerVC = TicketDescriptionViewController()
                 controllerVC.viewModel.ticketModel = searchTicke
@@ -75,6 +76,7 @@ class SearchViewModel: NSObject {
                 controllerVC.viewModel.model = searchTicke
                 NavigationPushView(controller, toConroller: controllerVC)
             }
+            
         }else {
             if UserInfoModel.isLoggedIn() {
                 GloableSetEvent("SellSearch", lable: "SellSearch", parameters: sellSearchModel.showList[indexPath.row].toDictionary())
