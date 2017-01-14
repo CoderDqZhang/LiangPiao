@@ -90,7 +90,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WeiboSDKDelegate, JPUSHReg
         }else {
             JPUSHService.registerForRemoteNotificationTypes(UIUserNotificationType.Badge.rawValue | UIUserNotificationType.Badge.rawValue | UIUserNotificationType.Alert.rawValue , categories: nil)
         }
-        JPUSHService.setupWithOption(launchOptions, appKey: JPushApiKey, channel: "channel", apsForProduction: false)
+        JPUSHService.setupWithOption(launchOptions, appKey: JPushApiKey, channel: "channel", apsForProduction: true)
     }
     
     @available(iOS 10.0, *)
@@ -111,12 +111,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WeiboSDKDelegate, JPUSHReg
         if response.notification.request.trigger is UNPushNotificationTrigger {
             JPUSHService.handleRemoteNotification(userInfo as [NSObject : AnyObject])
         }
-        if userInfo.objectForKey("type") as! String == "ticketDescrip" {
-            let url = "\(TickeSession)\((userInfo.objectForKey("show_id")!))/session/\((userInfo.objectForKey("session_id")!))"
-            NSNotificationCenter.defaultCenter().postNotificationName(DidRegisterRemoteNotification, object: url)
-        }else if userInfo.objectForKey("type") as! String == "operation" {
-            let url = "\((userInfo.objectForKey("url")!))"
-            NSNotificationCenter.defaultCenter().postNotificationName(DidRegisterRemoteURLNotification, object: url)
+        if userInfo.objectForKey("type") != nil {
+            if userInfo.objectForKey("type") as! String == "ticketDescrip" {
+                let url = "\(TickeSession)\((userInfo.objectForKey("show_id")!))/session/\((userInfo.objectForKey("session_id")!))"
+                NSNotificationCenter.defaultCenter().postNotificationName(DidRegisterRemoteNotification, object: url)
+            }else if userInfo.objectForKey("type") as! String == "operation" {
+                let url = "\((userInfo.objectForKey("url")!))"
+                NSNotificationCenter.defaultCenter().postNotificationName(DidRegisterRemoteURLNotification, object: url)
+            }
         }
         completionHandler()
     }
@@ -181,12 +183,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WeiboSDKDelegate, JPUSHReg
         if IPHONE_VERSION_LAST10 == 1 {
             JPUSHService.handleRemoteNotification(userInfo)
         }else{
-            if (userInfo as NSDictionary).objectForKey("type") as! String == "ticketDescrip" {
-                let url = "\(TickeSession)\(((userInfo as NSDictionary).objectForKey("show_id")!))/session/\(((userInfo as NSDictionary).objectForKey("session_id")!))"
-                NSNotificationCenter.defaultCenter().postNotificationName(DidRegisterRemoteNotification, object: url)
-            }else if (userInfo as NSDictionary).objectForKey("type") as! String == "operation" {
-                let url = "\(((userInfo as NSDictionary).objectForKey("url")!))"
-                NSNotificationCenter.defaultCenter().postNotificationName(DidRegisterRemoteURLNotification, object: url)
+            if (userInfo as NSDictionary).objectForKey("type") != nil {
+                if (userInfo as NSDictionary).objectForKey("type") as! String == "ticketDescrip" {
+                    let url = "\(TickeSession)\(((userInfo as NSDictionary).objectForKey("show_id")!))/session/\(((userInfo as NSDictionary).objectForKey("session_id")!))"
+                    NSNotificationCenter.defaultCenter().postNotificationName(DidRegisterRemoteNotification, object: url)
+                }else if (userInfo as NSDictionary).objectForKey("type") as! String == "operation" {
+                    let url = "\(((userInfo as NSDictionary).objectForKey("url")!))"
+                    NSNotificationCenter.defaultCenter().postNotificationName(DidRegisterRemoteURLNotification, object: url)
+                }
             }
         }
         completionHandler(.NewData)

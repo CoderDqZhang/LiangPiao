@@ -18,12 +18,13 @@ class HomeViewModel: NSObject {
     var searchModel:RecommentTickes!
     var controller:HomeViewController!
     var locationManager:AMapLocationManager!
-    var locationStr:String = UserDefaultsGetSynchronize("location") as! String == "nil" ? "北京": UserDefaultsGetSynchronize("location") as! String
+    var locationStr:String = "北京"
+//    var locationStr:String = UserDefaultsGetSynchronize("location") as! String == "nil" ? "北京": UserDefaultsGetSynchronize("location") as! String
     
     override init() {
         super.init()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeViewModel.userDidTakeScreenshot(_:)), name: UIApplicationUserDidTakeScreenshotNotification, object: nil)
-        self.setUpLocationManager()
+//        self.setUpLocationManager()
     }
     
     func setUpLocationManager(){

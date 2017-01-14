@@ -175,6 +175,7 @@ class BaseNetWorke {
                 method = .PUT
         }
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+        
         Alamofire.request(method, url, parameters: parameters as? [String : AnyObject], encoding: .JSON, headers: nil).responseJSON { (response) in
             UIApplication.sharedApplication().networkActivityIndicatorVisible = false
             if response.result.error != nil{
