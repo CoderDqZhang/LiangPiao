@@ -103,9 +103,8 @@ class RecommendTableViewCell: UITableViewCell {
         if model.minDiscount != "" && Double(model.minDiscount) < 1 && Double(model.minDiscount) > 0{
             statuesArray.append("\((Double(model.minDiscount)! * 10))折")
         }
-        if model.remainCount != 0 {
-            let str = model.remainCount >= 20 ? "剩余\(model.remainCount)张" : "最后\(model.remainCount)张"
-            statuesArray.append(str)
+        if model.remainCount != 0 && model.remainCount <= 20{
+            statuesArray.append("最后\(model.remainCount)张")
         }
         if model.ticketStatus == 0 {
             statuesArray.append("预售中")

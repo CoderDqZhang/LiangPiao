@@ -118,8 +118,8 @@ class TicketDescriptionViewController: UIViewController {
     
     func shareItemPress(sender:UIBarButtonItem) {
         var url = ""
-        if viewModel.sesstionModel != nil {
-            url = "\(ShareUrl)\(viewModel.ticketModel.id)/session/\(viewModel.sesstionModel.id)"
+        if viewModel.ticketModel.session != nil {
+            url = "\(ShareUrl)\(viewModel.ticketModel.id)/session/\(viewModel.ticketModel.session.id)"
         }else if viewModel.ticketModel.session != nil {
             url = "\(ShareUrl)\(viewModel.ticketModel.id)/session/\(viewModel.ticketModel.session.id)"
         }
@@ -286,6 +286,7 @@ extension TicketDescriptionViewController : UITableViewDataSource {
             return cell
         case 2:
             let cell = tableView.dequeueReusableCellWithIdentifier("TicketMapTableViewCell", forIndexPath: indexPath) as! TicketMapTableViewCell
+            viewModel.configTicketMapTableViewCell(cell, indexPath:indexPath)
             cell.selectionStyle = .None
             return cell
         case 3:

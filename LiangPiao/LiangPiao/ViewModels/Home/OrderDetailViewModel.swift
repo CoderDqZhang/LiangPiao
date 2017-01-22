@@ -121,7 +121,7 @@ class OrderDetailViewModel: NSObject {
         if indexPath.section == 1 && indexPath.row == 1 {
             let controllerVC = TicketDescriptionViewController()
             controllerVC.viewModel.ticketModel = model.show
-            controllerVC.viewModel.sesstionModel = model.session
+            controllerVC.viewModel.ticketModel.session = model.session
             NavigationPushView(controller, toConroller: controllerVC)
         }else if indexPath.section == 1 && indexPath.row == 2 {
             self.creatOptionMenu()

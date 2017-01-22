@@ -7,15 +7,17 @@
 //
 
 import UIKit
+import SDWebImage
 
 class TicketMapTableViewCell: UITableViewCell {
 
-    var ticketMap:UIView!
+    var ticketMap:UIImageView!
+    
     var didMakeConstraits:Bool = false
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-//        self.setUpView()
+        self.setUpView()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -24,26 +26,30 @@ class TicketMapTableViewCell: UITableViewCell {
     
     func setUpView() {
     
-        ticketMap = UIView()
-        ticketMap.backgroundColor = UIColor.init(hexString: App_Theme_8A96A2_Color)
+        ticketMap = UIImageView()
         self.contentView.addSubview(ticketMap)
         
         self.updateConstraintsIfNeeded()
     }
     
-//    override func updateConstraints() {
-//        if !self.didMakeConstraits {
-//            ticketMap.snp_makeConstraints(closure: { (make) in
-//                make.left.equalTo(self.contentView.snp_left).offset(0)
-//                make.right.equalTo(self.contentView.snp_right).offset(0)
-//                make.top.equalTo(self.contentView.snp_top).offset(0)
-//                make.bottom.equalTo(self.contentView.snp_bottom).offset(-10)
-//            })
-//            
-//            self.didMakeConstraits = true
-//        }
-//        super.updateConstraints()
-//    }
+    func setData(imageUrl:String){
+        ticketMap.sd_setImageWithURL(NSURL.init(string: imageUrl), placeholderImage: UIImage.init(color: UIColor.init(hexString: App_Theme_F6F7FA_Color), size: CGSize.init(width: SCREENWIDTH, height: 170))) { (image, error, cacheType, url) in
+        }
+    }
+    
+    override func updateConstraints() {
+        if !self.didMakeConstraits {
+            ticketMap.snp_makeConstraints(closure: { (make) in
+                make.left.equalTo(self.contentView.snp_left).offset(0)
+                make.right.equalTo(self.contentView.snp_right).offset(0)
+                make.top.equalTo(self.contentView.snp_top).offset(0)
+                make.bottom.equalTo(self.contentView.snp_bottom).offset(-10)
+            })
+            
+            self.didMakeConstraits = true
+        }
+        super.updateConstraints()
+    }
 
     
     override func awakeFromNib() {

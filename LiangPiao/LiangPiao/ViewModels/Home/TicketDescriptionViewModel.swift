@@ -15,7 +15,6 @@ class TicketDescriptionViewModel: NSObject {
     var model:TicketDescriptionModel!
     var ticketNumber:NSInteger = 1
     var tempList:[TicketList]!
-    var sesstionModel:ShowSessionModel!
     
     var ticketPriceArray:NSMutableArray = NSMutableArray()
     var ticketRowArray:NSArray = NSArray()
@@ -57,6 +56,9 @@ class TicketDescriptionViewModel: NSObject {
         case 1:
             return 80
         case 2:
+            if ticketModel.session.venueMap != "" {
+                return 170
+            }
             return 0.00000000001
         case 3:
             return 42
@@ -100,11 +102,15 @@ class TicketDescriptionViewModel: NSObject {
         }
     }
     
+    func configTicketMapTableViewCell(cell:TicketMapTableViewCell, indexPath:NSIndexPath) {
+        cell.setData(ticketModel.session.venueMap)
+    }
+    
     func requestTicketSession(controller:TicketDescriptionViewController){
         if self.ticketModel != nil {
             var url = ""
-            if sesstionModel != nil {
-                url = "\(TickeSession)\(ticketModel.id)/session/\(sesstionModel.id)"
+            if ticketModel.session != nil {
+                url = "\(TickeSession)\(ticketModel.id)/session/\(ticketModel.session.id)"
             }else if ticketModel.session != nil {
                 url = "\(TickeSession)\(ticketModel.id)/session/\(ticketModel.session.id)"
             }

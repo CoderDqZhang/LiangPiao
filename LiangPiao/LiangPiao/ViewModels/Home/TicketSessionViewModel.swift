@@ -65,7 +65,7 @@ class TicketSessionViewModel: NSObject {
         }else{
             let controllerVC = TicketDescriptionViewController()
             controllerVC.viewModel.ticketModel = model
-            controllerVC.viewModel.sesstionModel = ShowSessionModel.init(fromDictionary: self.models.objectAtIndex(indexPath.row) as! NSDictionary)
+            controllerVC.viewModel.ticketModel.session = ShowSessionModel.init(fromDictionary: self.models.objectAtIndex(indexPath.row) as! NSDictionary)
             NavigationPushView(controller, toConroller: controllerVC)
         }
     }

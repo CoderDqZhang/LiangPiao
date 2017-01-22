@@ -21,6 +21,7 @@ class ShowSessionModel : NSObject, NSCoding{
     var ticketCount : Int!
     var ticketList : [TicketList]!
     var ticketStatus : Int!
+    var venueMap: String!
     
     
     /**
@@ -44,6 +45,7 @@ class ShowSessionModel : NSObject, NSCoding{
             }
         }
         ticketStatus = dictionary["ticket_status"] as? Int
+        venueMap = dictionary["venue_map"] as? String
     }
     
     /**
@@ -89,6 +91,9 @@ class ShowSessionModel : NSObject, NSCoding{
         if ticketStatus != nil{
             dictionary["ticket_status"] = ticketStatus
         }
+        if venueMap != nil{
+            dictionary["venue_map"] = venueMap
+        }
         return dictionary
     }
     
@@ -109,6 +114,8 @@ class ShowSessionModel : NSObject, NSCoding{
         ticketCount = aDecoder.decodeObjectForKey("ticket_count") as? Int
         ticketList = aDecoder.decodeObjectForKey("ticket_list") as? [TicketList]
         ticketStatus = aDecoder.decodeObjectForKey("ticket_status") as? Int
+        venueMap = aDecoder.decodeObjectForKey("venue_map") as? String
+
         
     }
     
@@ -150,6 +157,9 @@ class ShowSessionModel : NSObject, NSCoding{
         }
         if ticketStatus != nil{
             aCoder.encodeObject(ticketStatus, forKey: "ticket_status")
+        }
+        if venueMap != nil{
+            aCoder.encodeObject(venueMap, forKey: "venue_map")
         }
         
     }

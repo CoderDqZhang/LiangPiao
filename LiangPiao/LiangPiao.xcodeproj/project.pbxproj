@@ -59,6 +59,7 @@
 		1F424C571DFE952100C5269B /* WithDreaViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F424C561DFE952100C5269B /* WithDreaViewModel.swift */; };
 		1F424C591DFE963D00C5269B /* WithDrawStatusHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F424C581DFE963D00C5269B /* WithDrawStatusHeaderCell.swift */; };
 		1F424C5B1DFE9F8900C5269B /* MyWallModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F424C5A1DFE9F8900C5269B /* MyWallModel.swift */; };
+		1F440E981E347F3C009FA697 /* TicketNotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F440E971E347F3C009FA697 /* TicketNotificationViewController.swift */; };
 		1F451F031DF5092E00441044 /* MyWalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F451F021DF5092E00441044 /* MyWalletViewController.swift */; };
 		1F451F051DF5094000441044 /* MySellOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F451F041DF5094000441044 /* MySellOrderViewController.swift */; };
 		1F451F081DF50C8F00441044 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F451F071DF50C8F00441044 /* TabBarViewController.swift */; };
@@ -347,6 +348,7 @@
 		1F424C561DFE952100C5269B /* WithDreaViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WithDreaViewModel.swift; sourceTree = "<group>"; };
 		1F424C581DFE963D00C5269B /* WithDrawStatusHeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WithDrawStatusHeaderCell.swift; sourceTree = "<group>"; };
 		1F424C5A1DFE9F8900C5269B /* MyWallModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyWallModel.swift; sourceTree = "<group>"; };
+		1F440E971E347F3C009FA697 /* TicketNotificationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketNotificationViewController.swift; sourceTree = "<group>"; };
 		1F451F021DF5092E00441044 /* MyWalletViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyWalletViewController.swift; path = ../Mine/MyWalletViewController.swift; sourceTree = "<group>"; };
 		1F451F041DF5094000441044 /* MySellOrderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MySellOrderViewController.swift; path = ../Mine/MySellOrderViewController.swift; sourceTree = "<group>"; };
 		1F451F071DF50C8F00441044 /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
@@ -1218,6 +1220,7 @@
 				1F62F2561DC9BC1900B591F1 /* TicketSceneViewController.swift */,
 				1F62F25C1DC9EE3400B591F1 /* TicketDescriptionViewController.swift */,
 				1FB7B2971DCC31CB00945B70 /* TicketConfirmViewController.swift */,
+				1F440E971E347F3C009FA697 /* TicketNotificationViewController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -1785,6 +1788,7 @@
 				1FD2450C1DC2FE5400AFD3BC /* RequestUrl.swift in Sources */,
 				1F0EAB631DD0616F00D25B64 /* OrderMuchTableViewCell.swift in Sources */,
 				1FD245091DC2FD9700AFD3BC /* NSString+StringType.m in Sources */,
+				1F440E981E347F3C009FA697 /* TicketNotificationViewController.swift in Sources */,
 				1FD881BA1DC7252800B2B702 /* UITableView+FDTemplateLayoutCellDebug.m in Sources */,
 				1FD245051DC2FD9700AFD3BC /* UIImage+PureColor.m in Sources */,
 				1FEE7EA71DF55A6300479648 /* TiketPickeUpInfoTableViewCell.swift in Sources */,
