@@ -90,14 +90,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WeiboSDKDelegate, JPUSHReg
         }else {
             JPUSHService.registerForRemoteNotificationTypes(UIUserNotificationType.Badge.rawValue | UIUserNotificationType.Badge.rawValue | UIUserNotificationType.Alert.rawValue , categories: nil)
         }
-        JPUSHService.setupWithOption(launchOptions, appKey: JPushApiKey, channel: "channel", apsForProduction: true)
+        JPUSHService.setupWithOption(launchOptions, appKey: JPushApiKey, channel: "App Store", apsForProduction: true)
     }
     
     @available(iOS 10.0, *)
-    func jpushNotificationCenter(center: UNUserNotificationCenter!, willPresentNotification notification: UNNotification!, withCompletionHandler completionHandler: ((Int) -> Void)!) {
-//        self.contentHandler = contentHandler
-//        bestAttemptContent = (request.content.mutableCopy() as? UNMutableNotificationContent)
-//        
+    func jpushNotificationCenter(center: UNUserNotificationCenter!, willPresentNotification notification: UNNotification!, withCompletionHandler completionHandler: ((Int) -> Void)!) {        
         let userInfo = notification.request.content.userInfo as NSDictionary
         if notification.request.trigger is UNPushNotificationTrigger {
             JPUSHService.handleRemoteNotification(userInfo as [NSObject : AnyObject])
