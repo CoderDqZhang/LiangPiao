@@ -53,7 +53,7 @@ class TicketConfirmViewController: UIViewController {
         
         orderConfirm = ConfirmView(frame: CGRectMake(0, SCREENHEIGHT - 49 - 64, SCREENHEIGHT, 49))
         orderConfirm.payButton.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (action) in            
-            self.viewModel.createOrder(self)
+            self.viewModel.createOrder()
         }
         
         muchOfTicket = viewModel.rac_observeKeyPath("muchOfTicketWithOther", options: .New, observer: self) { (object, objects, new, old) in
@@ -91,6 +91,7 @@ class TicketConfirmViewController: UIViewController {
     
     
     func bindViewModel() {
+        viewModel.controller = self
         viewModel.orderConfirmViewModelClouse = { indexPath in
             if indexPath.section == 0 {
                 switch indexPath.row {
@@ -215,7 +216,7 @@ extension TicketConfirmViewController : UITableViewDelegate {
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        viewModel.tableViewDidSelect(tableView, indexPath:indexPath, controller: self)
+        viewModel.tableViewDidSelect(tableView, indexPath:indexPath)
     }
 }
 
@@ -242,7 +243,7 @@ extension TicketConfirmViewController : UITableViewDataSource {
             case 0:
                 let cell = tableView.dequeueReusableCellWithIdentifier("ReciveTableViewCell", forIndexPath: indexPath) as! ReciveTableViewCell
                 cell.selectionStyle = .None
-                viewModel.tableViewCellReciveTableViewCell(cell, controller:self)
+                viewModel.tableViewCellReciveTableViewCell(cell)
                 return cell
             default:
                 if viewModel.formType == .withAddress {
@@ -296,13 +297,13 @@ extension TicketConfirmViewController : UITableViewDataSource {
             switch indexPath.row {
             case 0:
                 let cell = tableView.dequeueReusableCellWithIdentifier("CofimTicketTableViewCell", forIndexPath: indexPath) as! CofimTicketTableViewCell
-                viewModel.tableViewCellCofimTicketTableViewCell(cell, controller: self)
+                viewModel.tableViewCellCofimTicketTableViewCell(cell)
                 cell.selectionStyle = .None
                 return cell
             case 1,3:
                 let cell = tableView.dequeueReusableCellWithIdentifier("GloabTitleAndDetailCell", forIndexPath: indexPath) as! GloabTitleAndDetailCell
                 cell.selectionStyle = .None
-                viewModel.tableViewCellGloabTitleAndDetailCell(cell, indexPath:indexPath, controller:self)
+                viewModel.tableViewCellGloabTitleAndDetailCell(cell, indexPath:indexPath)
                 return cell
             case 2:
                 let cell = tableView.dequeueReusableCellWithIdentifier("GloabTitleAndDetailImageCell", forIndexPath: indexPath) as! GloabTitleAndDetailImageCell

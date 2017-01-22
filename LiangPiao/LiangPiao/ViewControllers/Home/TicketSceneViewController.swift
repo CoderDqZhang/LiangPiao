@@ -43,6 +43,7 @@ class TicketSceneViewController: UIViewController {
     }
 
     func bindViewModel(){
+        viewModel.controller = self
         viewModel.requestTicketSession(tableView)
     }
     
@@ -59,7 +60,7 @@ extension TicketSceneViewController : UITableViewDelegate {
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        viewModel.didSelectRowAtIndexPath(indexPath, controller:self)
+        viewModel.didSelectRowAtIndexPath(indexPath)
     }
 }
 

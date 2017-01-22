@@ -60,6 +60,9 @@
 		1F424C591DFE963D00C5269B /* WithDrawStatusHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F424C581DFE963D00C5269B /* WithDrawStatusHeaderCell.swift */; };
 		1F424C5B1DFE9F8900C5269B /* MyWallModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F424C5A1DFE9F8900C5269B /* MyWallModel.swift */; };
 		1F440E981E347F3C009FA697 /* TicketNotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F440E971E347F3C009FA697 /* TicketNotificationViewController.swift */; };
+		1F440EA11E34990A009FA697 /* SDBrowserImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F440E9B1E34990A009FA697 /* SDBrowserImageView.m */; };
+		1F440EA21E34990A009FA697 /* SDPhotoBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F440E9D1E34990A009FA697 /* SDPhotoBrowser.m */; };
+		1F440EA31E34990A009FA697 /* SDWaitingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F440EA01E34990A009FA697 /* SDWaitingView.m */; };
 		1F451F031DF5092E00441044 /* MyWalletViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F451F021DF5092E00441044 /* MyWalletViewController.swift */; };
 		1F451F051DF5094000441044 /* MySellOrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F451F041DF5094000441044 /* MySellOrderViewController.swift */; };
 		1F451F081DF50C8F00441044 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F451F071DF50C8F00441044 /* TabBarViewController.swift */; };
@@ -349,6 +352,13 @@
 		1F424C581DFE963D00C5269B /* WithDrawStatusHeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WithDrawStatusHeaderCell.swift; sourceTree = "<group>"; };
 		1F424C5A1DFE9F8900C5269B /* MyWallModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyWallModel.swift; sourceTree = "<group>"; };
 		1F440E971E347F3C009FA697 /* TicketNotificationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketNotificationViewController.swift; sourceTree = "<group>"; };
+		1F440E9A1E34990A009FA697 /* SDBrowserImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDBrowserImageView.h; sourceTree = "<group>"; };
+		1F440E9B1E34990A009FA697 /* SDBrowserImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDBrowserImageView.m; sourceTree = "<group>"; };
+		1F440E9C1E34990A009FA697 /* SDPhotoBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDPhotoBrowser.h; sourceTree = "<group>"; };
+		1F440E9D1E34990A009FA697 /* SDPhotoBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDPhotoBrowser.m; sourceTree = "<group>"; };
+		1F440E9E1E34990A009FA697 /* SDPhotoBrowserConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDPhotoBrowserConfig.h; sourceTree = "<group>"; };
+		1F440E9F1E34990A009FA697 /* SDWaitingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDWaitingView.h; sourceTree = "<group>"; };
+		1F440EA01E34990A009FA697 /* SDWaitingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDWaitingView.m; sourceTree = "<group>"; };
 		1F451F021DF5092E00441044 /* MyWalletViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MyWalletViewController.swift; path = ../Mine/MyWalletViewController.swift; sourceTree = "<group>"; };
 		1F451F041DF5094000441044 /* MySellOrderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MySellOrderViewController.swift; path = ../Mine/MySellOrderViewController.swift; sourceTree = "<group>"; };
 		1F451F071DF50C8F00441044 /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
@@ -807,6 +817,20 @@
 			path = ZHPickView;
 			sourceTree = "<group>";
 		};
+		1F440E991E34990A009FA697 /* SDPhotoBrowser */ = {
+			isa = PBXGroup;
+			children = (
+				1F440E9A1E34990A009FA697 /* SDBrowserImageView.h */,
+				1F440E9B1E34990A009FA697 /* SDBrowserImageView.m */,
+				1F440E9C1E34990A009FA697 /* SDPhotoBrowser.h */,
+				1F440E9D1E34990A009FA697 /* SDPhotoBrowser.m */,
+				1F440E9E1E34990A009FA697 /* SDPhotoBrowserConfig.h */,
+				1F440E9F1E34990A009FA697 /* SDWaitingView.h */,
+				1F440EA01E34990A009FA697 /* SDWaitingView.m */,
+			);
+			path = SDPhotoBrowser;
+			sourceTree = "<group>";
+		};
 		1F451F061DF50C8F00441044 /* TabBarController */ = {
 			isa = PBXGroup;
 			children = (
@@ -1180,6 +1204,7 @@
 		1FD244DF1DC2FCDA00AFD3BC /* Lib */ = {
 			isa = PBXGroup;
 			children = (
+				1F440E991E34990A009FA697 /* SDPhotoBrowser */,
 				1F54C5291DDC3A61009ADDA9 /* DBModel */,
 				1FBFC7C61DDABD48008D9CEC /* FMDB */,
 				1F0EAB941DD1EBAA00D25B64 /* ZHPickView */,
@@ -1743,6 +1768,7 @@
 				1F1FE8C61DEDE84A0034268F /* OrderListModel.swift in Sources */,
 				1F987DEE1E028E5E0095803A /* MySellTicketMuchTableViewCell.swift in Sources */,
 				1F0EAB651DD073B900D25B64 /* OrderWaitePayTableViewCell.swift in Sources */,
+				1F440EA11E34990A009FA697 /* SDBrowserImageView.m in Sources */,
 				1FAFCA8D1E0D17DA0046DC9C /* ShareTools.swift in Sources */,
 				1F62F25D1DC9EE3400B591F1 /* TicketDescriptionViewController.swift in Sources */,
 				1F089DD51DCB05E800762C14 /* GlobalTools.swift in Sources */,
@@ -1797,6 +1823,7 @@
 				1FD245A51DC3574800AFD3BC /* MineViewController.swift in Sources */,
 				1FEE7EBB1DF68EEE00479648 /* WithDrawViewModel.swift in Sources */,
 				1FD245101DC2FE8900AFD3BC /* Config.swift in Sources */,
+				1F440EA31E34990A009FA697 /* SDWaitingView.m in Sources */,
 				1FC3DDE71DE4510700420A05 /* TicketCategorys.swift in Sources */,
 				1FBFC7EC1DDABD48008D9CEC /* FMDatabaseQueue.m in Sources */,
 				1FD881D11DC83E8900B2B702 /* RecommendTableViewCell.swift in Sources */,
@@ -1837,6 +1864,7 @@
 				1FAADB431DF7B29800D08BB9 /* OrderExpressTableViewCell.swift in Sources */,
 				1FD244E91DC2FD3D00AFD3BC /* UIViewController+NavigationBar.swift in Sources */,
 				1F62F2631DC9F1F200B591F1 /* TicketToolsTableViewCell.swift in Sources */,
+				1F440EA21E34990A009FA697 /* SDPhotoBrowser.m in Sources */,
 				1FEE7EB31DF68CAA00479648 /* WithDrawViewController.swift in Sources */,
 				1FC4FEEA1DC8A32E00EBFD18 /* TYPagerController.m in Sources */,
 				1FD881B81DC7252800B2B702 /* UITableView+FDKeyedHeightCache.m in Sources */,

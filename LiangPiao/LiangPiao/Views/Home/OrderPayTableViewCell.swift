@@ -52,9 +52,9 @@ class OrderPayTableViewCell: UITableViewCell {
     }
     
     func setData(model:OrderList) {
-        let doubleMuch = Double(Double(model.remainCount) * Double(model.ticket.price))
+        let doubleMuch = Double(Double(model.remainCount) * Double(model.ticket.price)) * 100
         let much = "\(doubleMuch)".muchType("\(doubleMuch)")
-        let deliveryPrice = "\(model.deliveryPrice)".muchType("\(model.deliveryPrice)")
+        let deliveryPrice = "\(model.deliveryPrice).00"
         receiptsLabel.text = "\(much) 元"
         packingFee.text = "\(deliveryPrice) 元"
     }

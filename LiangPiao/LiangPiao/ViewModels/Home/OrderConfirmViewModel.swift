@@ -77,7 +77,7 @@ class OrderConfirmViewModel: NSObject {
             }
         }else{
             if self.orderModel != nil {
-                self.requestPayUrl(self.orderModel, controller: controller)
+                self.requestPayUrl(self.orderModel)
             }
         }
         
@@ -195,7 +195,7 @@ class OrderConfirmViewModel: NSObject {
         }
     }
     
-    func tableViewCellReciveTableViewCell(cell:ReciveTableViewCell, controller:TicketConfirmViewController){
+    func tableViewCellReciveTableViewCell(cell:ReciveTableViewCell){
         cell.setData(ticketModel)
         cell.reciveViewClouse = { tag in
             if tag == 1 {
@@ -211,22 +211,22 @@ class OrderConfirmViewModel: NSObject {
             }
             self.formAddress = tag
             self.updateMuchOfTicke()
-            controller.upDataTableView()
+            self.controller.upDataTableView()
             
         }
     }
     
-    func tableViewCellCofimTicketTableViewCell(cell:CofimTicketTableViewCell, controller:TicketConfirmViewController){
+    func tableViewCellCofimTicketTableViewCell(cell:CofimTicketTableViewCell){
         cell.ticketPhoto.image = UIImage.init(named: "Feeds_Default_Cover_02")
         cell.setData(model.show, ticketModel: ticketModel, sessionModel: model.session, remainCount:"\(remainCount)")
     }
     
-    func tableViewCellGloabTextFieldCell(cell:GloabTextFieldCell,indexPath:NSIndexPath, controller:TicketConfirmViewController)
+    func tableViewCellGloabTextFieldCell(cell:GloabTextFieldCell,indexPath:NSIndexPath)
     {
         
     }
     
-    func tableViewCellGloabTitleAndDetailCell(cell:GloabTitleAndDetailCell,indexPath:NSIndexPath, controller:TicketConfirmViewController)
+    func tableViewCellGloabTitleAndDetailCell(cell:GloabTitleAndDetailCell,indexPath:NSIndexPath)
     {
         switch indexPath.row {
         case 1:
@@ -242,7 +242,7 @@ class OrderConfirmViewModel: NSObject {
         }
     }
     
-    func tableViewDidSelect(tableView:UITableView, indexPath:NSIndexPath, controller:TicketConfirmViewController) {
+    func tableViewDidSelect(tableView:UITableView, indexPath:NSIndexPath) {
         if indexPath.section == 2 {
             let cell = tableView.cellForRowAtIndexPath(indexPath) as! GloabTitleAndImageCell
             cell.updateImageView(true)
@@ -290,7 +290,7 @@ class OrderConfirmViewModel: NSObject {
         orderForme.deliveryPrice = muchOfTicketWithOther
     }
     
-    func createOrder(controller:TicketConfirmViewController){
+    func createOrder(){
         self.orderForme.deliveryType = self.formDelevityType
         if (self.orderForme.deliveryType == .expressage) && (self.orderForme.addressId == nil) {
             MainThreadAlertShow("请填写配送地址", view: KWINDOWDS())
@@ -300,10 +300,10 @@ class OrderConfirmViewModel: NSObject {
             MainThreadAlertShow("请填写配送信息", view: KWINDOWDS())
             return
         }
-        self.requestOrderPay(self.orderForme, controller: controller)
+        self.requestOrderPay(self.orderForme)
     }
     
-    func requestOrderPay(orderForm:OrderFormModel,controller:TicketConfirmViewController){
+    func requestOrderPay(orderForm:OrderFormModel){
         var parameters:NSDictionary = NSDictionary()
         let pay_type = orderForm.payType == .weiChat ? "2" : "1"
         var delivery_type = ""
@@ -340,12 +340,11 @@ class OrderConfirmViewModel: NSObject {
             self.orderModel.session = self.model.session
             self.orderModel.show = self.model.show
             self.orderModel.ticket = self.ticketModel
-            self.requestPay(self.orderModel, controller: controller)
+            self.requestPay(self.orderModel)
         }
     }
     
-    func requestPay(model:OrderList, controller:TicketConfirmViewController){
-        self.controller = controller
+    func requestPay(model:OrderList){
         if model.payType == 1 {
             if model.payUrl.alipay == "" {
                 MainThreadAlertShow("获取支付链接错误", view: KWINDOWDS())
@@ -370,7 +369,7 @@ class OrderConfirmViewModel: NSObject {
         }
     }
     
-    func requestPayUrl(model:OrderList, controller:TicketConfirmViewController){
+    func requestPayUrl(model:OrderList){
         let url = "\(OrderPayInfo)\(model.orderId)/"
         BaseNetWorke.sharedInstance.getUrlWithString(url, parameters: nil).subscribeNext { (resultDic) in
             let payUrl = PayUrl.init(fromDictionary: resultDic as! NSDictionary)
@@ -378,7 +377,7 @@ class OrderConfirmViewModel: NSObject {
             let controllerVC = OrderDetailViewController()
             controllerVC.viewModel.model = self.orderModel
             controllerVC.viewModel.isOrderConfim = true
-            NavigationPushView(controller, toConroller: controllerVC)
+            NavigationPushView(self.controller, toConroller: controllerVC)
         }
     }
 }

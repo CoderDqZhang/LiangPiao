@@ -33,7 +33,7 @@ class TabBarViewController: UITabBarController {
     
     func pushViewController(notifiation:NSNotification){
         let controllerVC = TicketDescriptionViewController()
-        controllerVC.viewModel.requestNotificationUrl(notifiation.object as! String, controller: controllerVC)
+        controllerVC.viewModel.requestNotificationUrl(notifiation.object as! String, controllerVC: controllerVC)
         for viewController in (self.viewControllers)! {
             for controller in (viewController as! UINavigationController).viewControllers {
                 if controller is HomeViewController {

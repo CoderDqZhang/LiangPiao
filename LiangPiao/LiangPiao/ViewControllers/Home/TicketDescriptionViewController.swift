@@ -61,7 +61,8 @@ class TicketDescriptionViewController: UIViewController {
     }
 
     func bindeViewModel(){
-        viewModel.requestTicketSession(self)
+        viewModel.controller = self
+        viewModel.requestTicketSession()
     }
     
     func updataLikeImage(){
@@ -167,11 +168,11 @@ class TicketDescriptionViewController: UIViewController {
                     if indexPath.row != 0 {
                         Notification(ToolViewNotifacationName, value: "100")
                         self.isShowTicketNavigationBar(false)
-                        self.viewModel.sortTickeByOriginTicketPrice(str as? String, controller:self)
+                        self.viewModel.sortTickeByOriginTicketPrice(str as? String)
                     }else{
                         Notification(ToolViewNotifacationName, value: "100")
                         self.isShowTicketNavigationBar(false)
-                        self.viewModel.sortTickeByOriginTicketPrice("0", controller:self)
+                        self.viewModel.sortTickeByOriginTicketPrice("0")
                     }
                 }
                 self.view.addSubview(ticketPrice)
@@ -188,11 +189,11 @@ class TicketDescriptionViewController: UIViewController {
                     if indexPath.row != 0 {
                         Notification(ToolViewNotifacationName, value: "200")
                         self.isShowTicketNavigationBar(false)
-                        self.viewModel.sortTickeByRowTicketPrice(str as? String, controller:self)
+                        self.viewModel.sortTickeByRowTicketPrice(str as? String)
                     }else{
                         Notification(ToolViewNotifacationName, value: "200")
                         self.isShowTicketNavigationBar(false)
-                        self.viewModel.sortTickeByOriginTicketPrice("0", controller:self)
+                        self.viewModel.sortTickeByOriginTicketPrice("0")
                     }
                 }
                 self.view.addSubview(ticketRow)
@@ -207,7 +208,7 @@ class TicketDescriptionViewController: UIViewController {
     func ticketToolsViewSortPrice(type:TicketSortType){
         if self.view.viewWithTag(100) != nil { self.view.viewWithTag(100)?.removeFromSuperview()}
         if self.view.viewWithTag(200) != nil { self.view.viewWithTag(200)?.removeFromSuperview()}
-        viewModel.sortTicket(self, type:type)
+        viewModel.sortTicket(type)
     }
     
     func updateTicketViewFrame(tag:NSInteger){
@@ -229,7 +230,7 @@ extension TicketDescriptionViewController : UITableViewDelegate {
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-       viewModel.tableViewDidSelectRowAtIndexPath(self, indexPath: indexPath)
+       viewModel.tableViewDidSelectRowAtIndexPath(indexPath)
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {

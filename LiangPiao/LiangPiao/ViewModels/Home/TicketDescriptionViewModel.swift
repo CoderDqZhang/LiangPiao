@@ -15,9 +15,11 @@ class TicketDescriptionViewModel: NSObject {
     var model:TicketDescriptionModel!
     var ticketNumber:NSInteger = 1
     var tempList:[TicketList]!
-    
+    var controller:TicketDescriptionViewController!
     var ticketPriceArray:NSMutableArray = NSMutableArray()
     var ticketRowArray:NSArray = NSArray()
+    
+    var plachImage:UIImage!
     
     override init() {
         super.init()
@@ -56,8 +58,9 @@ class TicketDescriptionViewModel: NSObject {
         case 1:
             return 80
         case 2:
-            if ticketModel.session.venueMap != "" {
-                return 170
+            ticketModel.session.venueMap = "http://7xsatk.com1.z0.glb.clouddn.com/e4c652f19dadbac0db40cbc7dce53c16.jpg?imageMogr/v2/format/jpg/thumbnail/277x373"
+            if ticketModel.session.venueMap != nil && ticketModel.session.venueMap != "" {
+                return SCREENWIDTH * 170/375
             }
             return 0.00000000001
         case 3:
@@ -103,10 +106,14 @@ class TicketDescriptionViewModel: NSObject {
     }
     
     func configTicketMapTableViewCell(cell:TicketMapTableViewCell, indexPath:NSIndexPath) {
-        cell.setData(ticketModel.session.venueMap)
+        if ticketModel.session.venueMap != nil {
+            cell.ticketMap.sd_setImageWithURL(NSURL.init(string: ticketModel.session.venueMap), placeholderImage: UIImage.init(color: UIColor.init(hexString: App_Theme_F6F7FA_Color), size: CGSize.init(width: SCREENWIDTH, height: SCREENWIDTH * 170/375))) { (image, error, cacheType, url) in
+                self.plachImage = image
+            }
+        }
     }
     
-    func requestTicketSession(controller:TicketDescriptionViewController){
+    func requestTicketSession(){
         if self.ticketModel != nil {
             var url = ""
             if ticketModel.session != nil {
@@ -120,23 +127,23 @@ class TicketDescriptionViewModel: NSObject {
                 self.getPriceArray(self.tempList)
                 self.getRowArray(self.tempList)
                 
-                controller.tableView.reloadData()
-                controller.updataLikeImage()
+                self.controller.tableView.reloadData()
+                self.controller.updataLikeImage()
             }
         }
     }
     
-    func requestNotificationUrl(url:String, controller:TicketDescriptionViewController){
+    func requestNotificationUrl(url:String ,controllerVC: TicketDescriptionViewController){
         BaseNetWorke.sharedInstance.getUrlWithString(url, parameters: nil).subscribeNext { (resultDic) in
             self.model = TicketDescriptionModel.init(fromDictionary: resultDic as! NSDictionary)
             self.tempList = self.model.ticketList
             self.getPriceArray(self.tempList)
             self.getRowArray(self.tempList)
-            if controller.tableView == nil {
-                controller.setUpView()
+            if controllerVC.tableView == nil {
+                controllerVC.setUpView()
             }
-            controller.tableView.reloadData()
-            controller.updataLikeImage()
+            controllerVC.tableView.reloadData()
+            controllerVC.updataLikeImage()
             
         }
     }
@@ -157,29 +164,44 @@ class TicketDescriptionViewModel: NSObject {
         }
     }
     
-    func tableViewDidSelectRowAtIndexPath(controller:TicketDescriptionViewController, indexPath:NSIndexPath) {
+    func tableViewDidSelectRowAtIndexPath(indexPath:NSIndexPath) {
         if UserInfoModel.isLoggedIn() {
-            if indexPath.row > 3 && self.model.ticketList.count > 0{
+            if indexPath.row == 2 {
+                let cell = controller.tableView.cellForRowAtIndexPath(NSIndexPath.init(forRow: 2, inSection: 0)) as! TicketMapTableViewCell
+               self.presentImageBrowse(cell.contentView)
+            }else if indexPath.row > 3 && self.model.ticketList.count > 0{
                 let ticketModel = self.model.ticketList[indexPath.row - 4]
                 if ticketModel.sellType == 2 && ticketModel.remainCount > self.ticketNumber {
-                    UIAlertController.shwoAlertControl(controller, style: .Alert, title: nil, message: "该票种须打包\(ticketModel.remainCount)张一起购买哦", cancel: "取消", doneTitle: "继续购买", cancelAction: {
+                    UIAlertController.shwoAlertControl(self.controller, style: .Alert, title: nil, message: "该票种须打包\(ticketModel.remainCount)张一起购买哦", cancel: "取消", doneTitle: "继续购买", cancelAction: {
                         
                         }, doneAction: {
                             self.ticketNumber = ticketModel.remainCount
-                            self.pushTicketDescription(controller, indexPath: indexPath)
+                            self.pushTicketDescription(indexPath)
                     })
                 }else{
-                    self.pushTicketDescription(controller, indexPath: indexPath)
+                    self.pushTicketDescription(indexPath)
                 }
                 
             }
         }else{
-            NavigationPushView(controller, toConroller: LoginViewController())
+            NavigationPushView(self.controller, toConroller: LoginViewController())
         }
     }
     
+    func presentImageBrowse(sourceView:UIView){
+        let photoBrowser = SDPhotoBrowser()
+        photoBrowser.delegate = self
+        photoBrowser.currentImageIndex = 0
+        photoBrowser.imageCount = 1
+        photoBrowser.backgroundColor = UIColor.whiteColor()
+        photoBrowser.sourceImagesContainerView = sourceView
+        photoBrowser.imageBlock = { index in
+            
+        }
+        photoBrowser.show()
+    }
     
-    func pushTicketDescription(controller:TicketDescriptionViewController, indexPath:NSIndexPath){
+    func pushTicketDescription(indexPath:NSIndexPath){
         let controllerVC = TicketConfirmViewController()
         controllerVC.viewModel.model = self.model
         controllerVC.viewModel.ticketModel = self.model.ticketList[indexPath.row - 4]
@@ -193,7 +215,7 @@ class TicketDescriptionViewModel: NSObject {
         }
         controllerVC.viewModel.remainCount = self.getTicketNumber(indexPath)
         controllerVC.viewModel.muchOfTicket = self.getMuchOfTicket(indexPath)
-        NavigationPushView(controller, toConroller: controllerVC)
+        NavigationPushView(self.controller, toConroller: controllerVC)
     }
     
     func getTicketNumber(indexPath:NSIndexPath) -> Int {
@@ -212,7 +234,7 @@ class TicketDescriptionViewModel: NSObject {
     }
     
     
-    func sortTicket(controller:TicketDescriptionViewController, type:TicketSortType){
+    func sortTicket(type:TicketSortType){
         switch type {
         case .noneType,.upType:
             let tickesList = self.model.ticketList
@@ -225,10 +247,10 @@ class TicketDescriptionViewModel: NSObject {
                 return downList.price > upList.price
             })
         }
-        controller.tableView.reloadData()
+        self.controller.tableView.reloadData()
     }
     
-    func sortTickeByOriginTicketPrice(price:String?, controller:TicketDescriptionViewController) {
+    func sortTickeByOriginTicketPrice(price:String?) {
         if price == "0" {
             self.model.ticketList = tempList
         }else{
@@ -240,10 +262,10 @@ class TicketDescriptionViewModel: NSObject {
             }
             self.model.ticketList = sortArrayList
         }
-        controller.tableView.reloadData()
+        self.controller.tableView.reloadData()
     }
     
-    func sortTickeByRowTicketPrice(ticketRow:String?, controller:TicketDescriptionViewController) {
+    func sortTickeByRowTicketPrice(ticketRow:String?) {
         if ticketRow == "0" {
             self.model.ticketList = tempList
         }else{
@@ -258,7 +280,20 @@ class TicketDescriptionViewModel: NSObject {
                 }
             }
             self.model.ticketList = sortArrayList
-            controller.tableView.reloadData()
+            self.controller.tableView.reloadData()
         }
+    }
+}
+
+extension TicketDescriptionViewModel : SDPhotoBrowserDelegate {
+    func photoBrowser(browser: SDPhotoBrowser!, highQualityImageURLForIndex index: Int) -> NSURL! {
+        if ticketModel.session.venueMap != nil {
+            return NSURL.init(string: ticketModel.session.venueMap)
+        }
+        return NSURL.init(string: "")
+    }
+    
+    func photoBrowser(browser: SDPhotoBrowser!, placeholderImageForIndex index: Int) -> UIImage! {
+        return plachImage == nil ? UIImage.init(color: UIColor.init(hexString: App_Theme_F6F7FA_Color), size: CGSize.init(width: SCREENWIDTH, height: SCREENWIDTH * 170/375)) : plachImage
     }
 }
