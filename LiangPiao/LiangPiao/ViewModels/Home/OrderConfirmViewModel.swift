@@ -316,15 +316,15 @@ class OrderConfirmViewModel: NSObject {
         }
         let delivery_price = self.delivityType == .delivityNomal ? "\(self.ticketModel.deliveryPrice)" : "\(self.ticketModel.deliveryPriceSf)"
         if orderForm.deliveryType == .expressage {
-            parameters = ["ticket_id":orderForm.ticketID!
+            parameters = ["ticket_id":orderForm.ticketID as! AnyObject
                 ,"ticket_count":orderForm.remainCount!
                 ,"delivery_type":delivery_type
                 ,"delivery_price":delivery_price
                 ,"pay_type":pay_type
-                ,"address_id":orderForme.addressId!
+                ,"address_id":orderForme.addressId as! AnyObject
                 ,"message":orderForme.message!]
         }else{
-            parameters = ["ticket_id":orderForm.ticketID!
+            parameters = ["ticket_id":orderForm.ticketID as! AnyObject
                 ,"ticket_count":orderForm.remainCount!
                 ,"delivery_type":delivery_type
                 ,"pay_type":pay_type

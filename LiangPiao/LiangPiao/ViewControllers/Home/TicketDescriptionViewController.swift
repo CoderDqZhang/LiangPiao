@@ -281,15 +281,16 @@ extension TicketDescriptionViewController : UITableViewDataSource {
             cell.selectionStyle = .None
             return cell
         case 1:
-            let cell = tableView.dequeueReusableCellWithIdentifier("TicketNumberTableViewCell", forIndexPath: indexPath) as! TicketNumberTableViewCell
-            viewModel.configCellTicketNumberTableViewCell(cell)
-            cell.selectionStyle = .None
-            return cell
-        case 2:
             let cell = tableView.dequeueReusableCellWithIdentifier("TicketMapTableViewCell", forIndexPath: indexPath) as! TicketMapTableViewCell
             viewModel.configTicketMapTableViewCell(cell, indexPath:indexPath)
             cell.selectionStyle = .None
             return cell
+        case 2:
+            let cell = tableView.dequeueReusableCellWithIdentifier("TicketNumberTableViewCell", forIndexPath: indexPath) as! TicketNumberTableViewCell
+            viewModel.configCellTicketNumberTableViewCell(cell)
+            cell.selectionStyle = .None
+            return cell
+        
         case 3:
             cell = tableView.dequeueReusableCellWithIdentifier("TicketToolsTableViewCell", forIndexPath: indexPath) as! TicketToolsTableViewCell
             cell.selectionStyle = .None

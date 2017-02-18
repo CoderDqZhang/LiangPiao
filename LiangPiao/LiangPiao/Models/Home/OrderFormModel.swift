@@ -20,7 +20,7 @@ enum PayType {
 }
 
 class OrderFormModel: NSObject {
-    var ticketID : Int?
+    var ticketID : intmax_t?
     var remainCount : Int?
     var deliveryType : FormDelivityType?
     var message : String? = ""
@@ -28,7 +28,7 @@ class OrderFormModel: NSObject {
     var payType : PayType = .weiChat
     var phone : String?
     var name : String?
-    var addressId : Int?
+    var addressId : intmax_t?
     
     private override init() {
         print("")

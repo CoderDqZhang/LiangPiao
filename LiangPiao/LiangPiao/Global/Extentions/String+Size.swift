@@ -35,7 +35,7 @@ extension String{
     }
     
     func addEncoding(st : String ) ->String? {
-        if #available(iOS 7.0, OSX 10.9, *) {
+        if #available(iOS 8.0, OSX 10.9, *) {
             return st.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())
         }
         else {

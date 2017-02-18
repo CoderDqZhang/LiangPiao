@@ -46,9 +46,9 @@ class TicketCategoryViewModel: NSObject {
         }
         for i in 0...tempCategory.count - 1 {
             let model = tempCategory[i] as! TicketCategorys
-            if model.name == "话剧歌剧" {
+            if model.name == "演唱会" {
                 categoryModels.replaceObjectAtIndex(1, withObject: model)
-            }else if model.name == "演唱会" {
+            }else if model.name == "话剧歌剧" {
                 categoryModels.replaceObjectAtIndex(2, withObject: model)
             }else if model.name == "音乐会" {
                 categoryModels.replaceObjectAtIndex(3, withObject: model)

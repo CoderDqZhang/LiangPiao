@@ -66,8 +66,8 @@ typealias HomeToolsClouse = (index:NSInteger) -> Void
 class HomeToolsTableViewCell: UITableViewCell {
 
     var homeToolsClouse:HomeToolsClouse!
-    let imageArray = ["Icon_Opera","Icon_Live","Icon_Concert","Icon_Sport","Icon_All"]
-    let titles = ["话剧歌剧","演唱会","音乐会","体育赛事","全部"]
+    let imageArray = ["Icon_Live","Icon_Opera","Icon_Concert","Icon_Sport","Icon_All"]
+    let titles = ["演唱会","话剧歌剧","音乐会","体育赛事","全部"]
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.setUpView()

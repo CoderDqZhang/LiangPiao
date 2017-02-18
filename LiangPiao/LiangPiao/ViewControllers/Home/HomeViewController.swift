@@ -252,7 +252,7 @@ extension HomeViewController : UITableViewDataSource {
                
                 recommentTitle.textColor = UIColor.init(hexString: App_Theme_384249_Color)
                 recommentTitle.font = App_Theme_PinFan_M_14_Font
-                recommentTitle.text = "近期尾票"
+                recommentTitle.text = "近期热门"
                 cell?.contentView.addSubview(recommentTitle)
                 
                 let lineLabel = GloabLineView(frame: CGRectMake(CGRectGetMinX(recommentTitle.frame) - 50, 40, 30, 0.5))

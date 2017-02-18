@@ -267,6 +267,7 @@
 		1FEE7EBB1DF68EEE00479648 /* WithDrawViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEE7EBA1DF68EEE00479648 /* WithDrawViewModel.swift */; };
 		1FEE7EBD1DF6907C00479648 /* DetailAcountTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEE7EBC1DF6907C00479648 /* DetailAcountTableViewCell.swift */; };
 		1FF2A5F61DE96C0700FC3909 /* UIViewController+TalKingData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF2A5F51DE96C0700FC3909 /* UIViewController+TalKingData.m */; };
+		1FF891B41E46F816006B7440 /* LiangPiaoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF891B31E46F816006B7440 /* LiangPiaoUITests.swift */; };
 		FF939C055E3696DD0A65FE1D /* Pods_LiangPiao.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9F98174D1FB502062618746 /* Pods_LiangPiao.framework */; };
 /* End PBXBuildFile section */
 
@@ -277,6 +278,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 1FA431C11E1A2D26003E9F08;
 			remoteInfo = LiangPiaoPush;
+		};
+		1FF891B61E46F816006B7440 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1FD244BA1DC2F92E00AFD3BC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1FD244C11DC2F92E00AFD3BC;
+			remoteInfo = LiangPiao;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -631,6 +639,9 @@
 		1FEE7EBC1DF6907C00479648 /* DetailAcountTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailAcountTableViewCell.swift; sourceTree = "<group>"; };
 		1FF2A5F41DE96C0700FC3909 /* UIViewController+TalKingData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+TalKingData.h"; sourceTree = "<group>"; };
 		1FF2A5F51DE96C0700FC3909 /* UIViewController+TalKingData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+TalKingData.m"; sourceTree = "<group>"; };
+		1FF891B11E46F816006B7440 /* LiangPiaoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LiangPiaoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1FF891B31E46F816006B7440 /* LiangPiaoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiangPiaoUITests.swift; sourceTree = "<group>"; };
+		1FF891B51E46F816006B7440 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8A6A0D77355C7ECF380D7770 /* Pods-LiangPiao.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiangPiao.release.xcconfig"; path = "Pods/Target Support Files/Pods-LiangPiao/Pods-LiangPiao.release.xcconfig"; sourceTree = "<group>"; };
 		95CF3D41845421C0E94D6429 /* Pods-LiangPiao.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LiangPiao.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LiangPiao/Pods-LiangPiao.debug.xcconfig"; sourceTree = "<group>"; };
 		E9F98174D1FB502062618746 /* Pods_LiangPiao.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LiangPiao.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -678,6 +689,13 @@
 				FF939C055E3696DD0A65FE1D /* Pods_LiangPiao.framework in Frameworks */,
 				1F6BD0E51E2C8AA70068B733 /* jcore-ios-1.1.0.a in Frameworks */,
 				1F6BB9741DD954B300893932 /* AlipaySDK.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1FF891AE1E46F816006B7440 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1032,6 +1050,7 @@
 				1FD244D81DC2FC8A00AFD3BC /* Uti */,
 				1FD244C41DC2F92E00AFD3BC /* LiangPiao */,
 				1FA431C31E1A2D27003E9F08 /* LiangPiaoPush */,
+				1FF891B21E46F816006B7440 /* LiangPiaoUITests */,
 				1FD244C31DC2F92E00AFD3BC /* Products */,
 				ED3BF2CE54FE77E9E21E6F0C /* Pods */,
 				A6EDDA7D546857A6EFCA593E /* Frameworks */,
@@ -1043,6 +1062,7 @@
 			children = (
 				1FD244C21DC2F92E00AFD3BC /* LiangPiao.app */,
 				1FA431C21E1A2D26003E9F08 /* LiangPiaoPush.appex */,
+				1FF891B11E46F816006B7440 /* LiangPiaoUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1433,6 +1453,15 @@
 			path = PageControl;
 			sourceTree = "<group>";
 		};
+		1FF891B21E46F816006B7440 /* LiangPiaoUITests */ = {
+			isa = PBXGroup;
+			children = (
+				1FF891B31E46F816006B7440 /* LiangPiaoUITests.swift */,
+				1FF891B51E46F816006B7440 /* Info.plist */,
+			);
+			path = LiangPiaoUITests;
+			sourceTree = "<group>";
+		};
 		A6EDDA7D546857A6EFCA593E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1520,6 +1549,24 @@
 			productReference = 1FD244C21DC2F92E00AFD3BC /* LiangPiao.app */;
 			productType = "com.apple.product-type.application";
 		};
+		1FF891B01E46F816006B7440 /* LiangPiaoUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1FF891BA1E46F816006B7440 /* Build configuration list for PBXNativeTarget "LiangPiaoUITests" */;
+			buildPhases = (
+				1FF891AD1E46F816006B7440 /* Sources */,
+				1FF891AE1E46F816006B7440 /* Frameworks */,
+				1FF891AF1E46F816006B7440 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1FF891B71E46F816006B7440 /* PBXTargetDependency */,
+			);
+			name = LiangPiaoUITests;
+			productName = LiangPiaoUITests;
+			productReference = 1FF891B11E46F816006B7440 /* LiangPiaoUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1549,6 +1596,12 @@
 							};
 						};
 					};
+					1FF891B01E46F816006B7440 = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = 77L324L35A;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 1FD244C11DC2F92E00AFD3BC;
+					};
 				};
 			};
 			buildConfigurationList = 1FD244BD1DC2F92E00AFD3BC /* Build configuration list for PBXProject "LiangPiao" */;
@@ -1566,6 +1619,7 @@
 			targets = (
 				1FD244C11DC2F92E00AFD3BC /* LiangPiao */,
 				1FA431C11E1A2D26003E9F08 /* LiangPiaoPush */,
+				1FF891B01E46F816006B7440 /* LiangPiaoUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -1593,6 +1647,13 @@
 				1F6BD0D31E29D2330068B733 /* WeiboSDK.bundle in Resources */,
 				1FBFC7EE1DDABD48008D9CEC /* Info.plist in Resources */,
 				1FAFCA8A1E0D05390046DC9C /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1FF891AF1E46F816006B7440 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1893,6 +1954,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		1FF891AD1E46F816006B7440 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1FF891B41E46F816006B7440 /* LiangPiaoUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -1900,6 +1969,11 @@
 			isa = PBXTargetDependency;
 			target = 1FA431C11E1A2D26003E9F08 /* LiangPiaoPush */;
 			targetProxy = 1FA431C71E1A2D27003E9F08 /* PBXContainerItemProxy */;
+		};
+		1FF891B71E46F816006B7440 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1FD244C11DC2F92E00AFD3BC /* LiangPiao */;
+			targetProxy = 1FF891B61E46F816006B7440 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -2126,6 +2200,34 @@
 			};
 			name = Release;
 		};
+		1FF891B81E46F816006B7440 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = 77L324L35A;
+				INFOPLIST_FILE = LiangPiaoUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.LiangPiaoUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = LiangPiao;
+			};
+			name = Debug;
+		};
+		1FF891B91E46F816006B7440 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = 77L324L35A;
+				INFOPLIST_FILE = LiangPiaoUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.LiangPiaoUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = LiangPiao;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -2152,6 +2254,15 @@
 			buildConfigurations = (
 				1FD244D51DC2F92E00AFD3BC /* Debug */,
 				1FD244D61DC2F92E00AFD3BC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1FF891BA1E46F816006B7440 /* Build configuration list for PBXNativeTarget "LiangPiaoUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1FF891B81E46F816006B7440 /* Debug */,
+				1FF891B91E46F816006B7440 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

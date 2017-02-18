@@ -56,13 +56,12 @@ class TicketDescriptionViewModel: NSObject {
         case 0:
             return 188
         case 1:
-            return 80
-        case 2:
-            ticketModel.session.venueMap = "http://7xsatk.com1.z0.glb.clouddn.com/e4c652f19dadbac0db40cbc7dce53c16.jpg?imageMogr/v2/format/jpg/thumbnail/277x373"
             if ticketModel.session.venueMap != nil && ticketModel.session.venueMap != "" {
                 return SCREENWIDTH * 170/375
             }
             return 0.00000000001
+        case 2:
+            return 80
         case 3:
             return 42
         default:

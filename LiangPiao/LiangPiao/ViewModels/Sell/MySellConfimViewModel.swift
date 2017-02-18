@@ -132,14 +132,14 @@ class MySellConfimViewModel: NSObject {
             self.sellFormModel.ticketPrice = self.sellTicketModel.ticketChoices[0][0]
             if self.originTicket != nil {
                 self.originTicket.name = self.sellTicketModel.ticketChoices[0][1]
-                self.originTicket.id = Int(self.sellTicketModel.ticketChoices[0][0])
+                self.originTicket.id = intmax_t(self.sellTicketModel.ticketChoices[0][0])
             }
         }
         tickeListView.gloableTitleListClouse = { title, index in
             self.sellFormModel.ticketPrice = self.sellTicketModel.ticketChoices[index][0]
             if self.originTicket != nil {
                 self.originTicket.name = self.sellTicketModel.ticketChoices[index][1]
-                self.originTicket.id = Int(self.sellTicketModel.ticketChoices[index][0])
+                self.originTicket.id = intmax_t(self.sellTicketModel.ticketChoices[index][0])
             }
             self.ticketOriginName = self.sellTicketModel.ticketChoices[index][1]
         }
@@ -448,7 +448,13 @@ class MySellConfimViewModel: NSObject {
         }else{
             str = "0"
         }
-        paramerts = ["show_session_ticket":self.sellFormModel.ticketPrice,"seat_type":self.sellFormModel.seatType, "price":self.sellFormModel.price, "region":self.sellFormModel.ticketRegin, "sell_type":self.sellFormModel.sellType == "单卖" ? "1" : "2", "ticket_count":self.sellFormModel.number == 0 ? 1:self.sellFormModel.number,"row":str]
+//        paramerts = ["show_session_ticket":self.sellFormModel.ticketPrice,
+//                     "seat_type":self.sellFormModel.seatType,
+//                     "price":self.sellFormModel.price,
+//                     "region":self.sellFormModel.ticketRegin,
+//                     "sell_type":self.sellFormModel.sellType == "单卖" ? "1" : "2",
+//                     "ticket_count":self.sellFormModel.number == 0 ? 1:self.sellFormModel.number,
+//                     "row":str]
         var delivery_type = ""
         if self.express.isSelect {
             delivery_type = delivery_type.stringByAppendingString("1,")
