@@ -12,7 +12,7 @@ class LiangPiaoHomeRefreshHeader: UIView {
 
     var imageView:UIImageView!
     var loadImageView:UIImageView!
-    var timer = NSTimer()
+    var displayLink:CADisplayLink!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -24,7 +24,7 @@ class LiangPiaoHomeRefreshHeader: UIView {
     }
     
     deinit {
-        timer.invalidate()
+        self.displayLink.invalidate()
     }
     
     func setUpView(){
@@ -37,6 +37,11 @@ class LiangPiaoHomeRefreshHeader: UIView {
         loadImageView.image = UIImage.init(named: "加载动画圆点")
         self.loadImageView.frame = CGRect.init(x: self.center.x - 14, y: 49, width: 28, height: 28)
         self.addSubview(loadImageView)
+        
+        self.displayLink = CADisplayLink.init(target: self, selector: #selector(LiangNomalRefreshHeader.startAnimation))
+        self.displayLink.frameInterval = 60
+        self.displayLink.paused = false
+        self.displayLink.addToRunLoop(NSRunLoop.currentRunLoop(), forMode: NSRunLoopCommonModes)
 
     }
     
@@ -50,8 +55,8 @@ class LiangPiaoHomeRefreshHeader: UIView {
     }
     
     func stopAnimation(){
-        timer.timeInterval
         self.loadImageView.layer.removeAllAnimations()
+        self.displayLink.paused = true
     }
     
     /*
@@ -61,84 +66,4 @@ class LiangPiaoHomeRefreshHeader: UIView {
      // Drawing code
      }
      */
-    
-//    override func prepare() {
-//        super.prepare()
-//        self.backgroundColor = UIColor.whiteColor()
-//        self.mj_h = 88
-//        let imageView = UIImageView()
-//        self.addSubview(imageView)
-//        
-//        self.imageView = imageView
-//        
-//        let loadImageView = UIImageView()
-//        self.addSubview(loadImageView)
-//        imageView.image = UIImage.init(named: "加载动画圆点")
-//        self.loadImageView = loadImageView
-//    }
-//    
-//    func prepareImage(backImage:UIImage, loadImage:UIImage) {
-//        self.prepare()
-//        imageView.image = backImage
-//        loadImageView.image = loadImage
-//    }
-//    
-//    override func placeSubviews() {
-//        super.placeSubviews()
-//        self.imageView.frame = CGRect.init(x: self.center.x - 14, y: 30, width: 28, height: 28)
-//        self.loadImageView.frame = CGRect.init(x: self.center.x - 14, y: 30, width: 28, height: 28)
-//        loadImageView.image = UIImage.init(named: "刷新动画圆点")
-//        imageView.image = UIImage.init(named: "加载动画背景")
-//    }
-//    
-//    override func scrollViewPanStateDidChange(change: [NSObject : AnyObject]!) {
-//        super.scrollViewPanStateDidChange(change)
-//    }
-//    
-//    override func scrollViewContentSizeDidChange(change: [NSObject : AnyObject]!) {
-//        super.scrollViewContentSizeDidChange(change)
-//    }
-//    
-//    override func scrollViewContentOffsetDidChange(change: [NSObject : AnyObject]!) {
-//        super.scrollViewContentOffsetDidChange(change)
-//    }
-//    
-//    override func setState(state:MJRefreshState) {
-//        
-//        if state == oldState {
-//            return
-//        }
-//        oldState = self.state
-//        
-//        super.setState(state)
-//        switch state {
-//        case .Idle:
-//            self.stopAnimation()
-//            break
-//        case .Pulling:
-//            timer = NSTimer.YQ_scheduledTimerWithTimeInterval(1, closure: {
-//                self.startAnimation()
-//            }, repeats: true)
-//            NSRunLoop.currentRunLoop().addTimer(timer, forMode: NSRunLoopCommonModes)
-//            break
-//        case .Refreshing:
-////            if timer == nil {
-////                <#code#>
-////            }
-////            timer = NSTimer.YQ_scheduledTimerWithTimeInterval(1, closure: {
-////                self.startAnimation()
-////                }, repeats: true)
-////            NSRunLoop.currentRunLoop().addTimer(timer, forMode: NSRunLoopCommonModes)
-//
-//            break
-//        case .NoMoreData:
-//            self.stopAnimation()
-//            break
-//        default:
-//            break
-//        }
-//    }
-//    
-    
-
 }

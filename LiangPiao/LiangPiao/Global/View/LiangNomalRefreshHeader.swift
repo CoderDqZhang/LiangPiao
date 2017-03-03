@@ -21,8 +21,8 @@ class LiangNomalRefreshHeader: MJRefreshHeader {
     var imageView:UIImageView!
     var loadImageView:UIImageView!
     var oldState:MJRefreshState!
-    var timer = NSTimer()
-
+    var displayLink:CADisplayLink!
+    
     override func prepare() {
         super.prepare()
         self.backgroundColor = UIColor.init(hexString: App_Theme_E9EBF2_Color)
@@ -36,10 +36,14 @@ class LiangNomalRefreshHeader: MJRefreshHeader {
         self.addSubview(loadImageView)
 //        imageView.image = UIImage.init(named: "加载动画圆点")
         self.loadImageView = loadImageView
+        self.displayLink = CADisplayLink.init(target: self, selector: #selector(LiangNomalRefreshHeader.startAnimation))
+        self.displayLink.frameInterval = 60
+        self.displayLink.paused = true
+        self.displayLink.addToRunLoop(NSRunLoop.currentRunLoop(), forMode: NSRunLoopCommonModes)
     }
 
     deinit {
-        timer.invalidate()
+        self.displayLink.invalidate()
     }
     
     func prepareImage(backImage:UIImage, loadImage:UIImage) {
@@ -79,16 +83,16 @@ class LiangNomalRefreshHeader: MJRefreshHeader {
         super.setState(state)
         switch state {
         case .Idle:
-            self.stopAnimation()
+            self.displayLink.paused = true
             break
         case .Pulling:
-            self.startAnimation()
+            self.displayLink.paused = false
             break
         case .Refreshing:
-            self.startAnimation()
+            self.displayLink.paused = false
             break
         case .NoMoreData:
-            self.stopAnimation()
+            self.displayLink.paused = true
             break
         default:
             break
@@ -102,15 +106,12 @@ class LiangNomalRefreshHeader: MJRefreshHeader {
             ani.timingFunctions = [CAMediaTimingFunction(controlPoints: 0.014,-0.003,0.726,0.306), CAMediaTimingFunction(controlPoints: 0.233,0.824,0.326,0.97)]
             ani.values = [0,3.543,6.283]
             ani.duration = 1
-            timer = NSTimer.YQ_scheduledTimerWithTimeInterval(1, closure: {
-                self.loadImageView.layer.addAnimation(ani, forKey: "done")
-                }, repeats: true)
-            NSRunLoop.currentRunLoop().addTimer(self.timer, forMode: NSRunLoopCommonModes)
+            self.loadImageView.layer.addAnimation(ani, forKey: "done")
         }
     }
     
     func stopAnimation(){
-        timer.timeInterval
         self.loadImageView.layer.removeAllAnimations()
+        self.displayLink.paused = true
     }
 }
