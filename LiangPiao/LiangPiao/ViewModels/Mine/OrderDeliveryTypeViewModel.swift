@@ -53,7 +53,55 @@ class OrderDeliveryTypeViewModel: NSObject {
     
     func saveDelivery(){
         delviTypeArray.addObject(express)
+        if self.present.isSelect {
+            if self.present.address == "" {
+                UIAlertController.shwoAlertControl(self.controller, style: .Alert, title: "请输入地址", message: nil, cancel: nil, doneTitle: "我知道了", cancelAction: { 
+                    
+                    }, doneAction: { 
+                        
+                })
+                return
+            }else if self.present.time == "" {
+                UIAlertController.shwoAlertControl(self.controller, style: .Alert, title: "请输入时间", message: nil, cancel: nil, doneTitle: "我知道了", cancelAction: {
+                    
+                    }, doneAction: {
+                        
+                })
+                return
+            }else if self.present.phone == "" {
+                UIAlertController.shwoAlertControl(self.controller, style: .Alert, title: "请输入电话", message: nil, cancel: nil, doneTitle: "我知道了", cancelAction: {
+                    
+                    }, doneAction: {
+                        
+                })
+                return
+            }
+        }
         delviTypeArray.addObject(present)
+        if self.visite.isSelect {
+            if self.visite.address == "" {
+                UIAlertController.shwoAlertControl(self.controller, style: .Alert, title: "请输入地址", message: nil, cancel: nil, doneTitle: "我知道了", cancelAction: {
+                    
+                    }, doneAction: {
+                        
+                })
+                return
+            }else if self.visite.time == "" {
+                UIAlertController.shwoAlertControl(self.controller, style: .Alert, title: "请输入时间", message: nil, cancel: nil, doneTitle: "我知道了", cancelAction: {
+                    
+                    }, doneAction: {
+                        
+                })
+                return
+            }else if self.visite.phone == "" {
+                UIAlertController.shwoAlertControl(self.controller, style: .Alert, title: "请输入电话", message: nil, cancel: nil, doneTitle: "我知道了", cancelAction: {
+                    
+                    }, doneAction: {
+                        
+                })
+                return
+            }
+        }
         delviTypeArray.addObject(visite)
         if self.orderDeliveryTypeViewModelClouse != nil {
             self.orderDeliveryTypeViewModelClouse(devilyArray:delviTypeArray)
@@ -92,7 +140,7 @@ class OrderDeliveryTypeViewModel: NSObject {
         if type == .Recivi {
             switch indexPath.row {
             case 0:
-                return 91
+                return 49
             case 2:
                 return 45
             default:
@@ -101,7 +149,7 @@ class OrderDeliveryTypeViewModel: NSObject {
         }else if type == .Visite{
             switch indexPath.row {
             case 0:
-                return 91
+                return 49
             case 4:
                 return 45
             default:
@@ -110,7 +158,7 @@ class OrderDeliveryTypeViewModel: NSObject {
         }else if type == .All {
             switch indexPath.row {
             case 0:
-                return 91
+                return 49
             case 2,6:
                 return 45
             default:
@@ -119,7 +167,7 @@ class OrderDeliveryTypeViewModel: NSObject {
         }else{
             switch indexPath.row {
             case 0:
-                return 91
+                return 49
             default:
                 return 49
             }
@@ -211,6 +259,8 @@ class OrderDeliveryTypeViewModel: NSObject {
     
     func talbleViewCellGloabTitleAndSwitchBarTableViewCell(cell:GloabTitleAndSwitchBarTableViewCell, indexPath:NSIndexPath, controller:OrderDeliveryTypeViewController){
         switch indexPath.row {
+        case 0:
+            cell.setTitleLabel("快递到付", isSelect: self.express.isSelect)
         case 1:
             cell.titleLabel.text = "现场取票"
             if self.isRecivi || self.type == .All {

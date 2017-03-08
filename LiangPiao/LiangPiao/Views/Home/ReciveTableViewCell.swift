@@ -60,7 +60,7 @@ class ReciveTableViewCell: UITableViewCell {
             let typeArray = model.deliveryType.componentsSeparatedByString(",")
             selectEnabel.removeAllObjects()
             for str in typeArray {
-                if str == "1" {
+                if str == "1" || str == "4" {
                     selectEnabel.addObject("1")
                     self.upDataLabelType(.Select, label: self.viewWithTag(1) as! UILabel)
                 }

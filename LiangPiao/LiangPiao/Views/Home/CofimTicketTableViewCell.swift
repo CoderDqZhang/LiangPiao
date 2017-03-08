@@ -77,7 +77,7 @@ class CofimTicketTableViewCell: UITableViewCell {
         UILabel.changeLineSpaceForLabel(ticketTitle, withSpace: TitleLineSpace)
         ticketTime.text = "时间：\(sessionModel.name)"
         ticketLocation.text = "场馆：\(model.venue.name)"
-        ticketMuch.text = "票面：\(ticketModel.originalTicket.name) x \(remainCount)"
+        ticketMuch.text = "票面：\(ticketModel.originalTicket.name)"
         var str = ""
         if ticketModel.region == "" {
             str = "优先择座"

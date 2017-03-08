@@ -25,7 +25,7 @@ class MyWallViewModel: NSObject {
     }
     
     func messageTitle() -> String{
-        return "演出结束后第二天，完成票款结算\n 所有交易免佣金，仅含1%第三方支付平台交易手续费"
+        return "订单票款将于对方确认收货后立即结算至钱包账户\n 所有交易免佣金，仅含1%第三方支付平台交易手续费"
     }
     
     func tableViewHeightForRow(indexPath:NSIndexPath) ->CGFloat {

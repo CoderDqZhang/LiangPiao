@@ -35,7 +35,17 @@ class TicketConfirmViewController: UIViewController {
     
     func showExpressagePickerView(){
         if expressage == nil {
-            expressage = ZHPickView(pickviewWithArray: ["普通快递（\(viewModel.ticketModel.deliveryPrice)元）","顺丰快递（\(viewModel.ticketModel.deliveryPriceSf)元）"], isHaveNavControler: false)
+            let typeArray = viewModel.ticketModel.deliveryType.componentsSeparatedByString(",")
+            let array = NSMutableArray.init(array: [])
+            for index in typeArray {
+                if index == "1" {
+                    array.addObject("普通快递（\(viewModel.ticketModel.deliveryPrice)元")
+                    array.addObject("顺丰快递（\(viewModel.ticketModel.deliveryPriceSf)元)")
+                }else if index == "4" {
+                    array.addObject("快递到付")
+                }
+            }
+            expressage = ZHPickView(pickviewWithArray: array as [AnyObject], isHaveNavControler: false)
             expressage.setPickViewColer(UIColor.whiteColor())
             expressage.setPickViewColer(UIColor.whiteColor())
             expressage.setTintColor(UIColor.whiteColor())
@@ -75,6 +85,7 @@ class TicketConfirmViewController: UIViewController {
         tableView.registerClass(CofimTicketTableViewCell.self, forCellReuseIdentifier: "CofimTicketTableViewCell")
         tableView.registerClass(OrderConfirmAddressTableViewCell.self, forCellReuseIdentifier: "OrderConfirmAddressTableViewCell")
         tableView.registerClass(GloabTextFieldCell.self, forCellReuseIdentifier: "GloabTextFieldCell")
+        tableView.registerClass(TicketNumberTableViewCell.self, forCellReuseIdentifier: "TicketNumberTableViewCell")
         tableView.registerClass(ReciveTableViewCell.self, forCellReuseIdentifier: "ReciveTableViewCell")
         tableView.separatorStyle = .None
         self.view.addSubview(tableView)
@@ -127,7 +138,7 @@ class TicketConfirmViewController: UIViewController {
                     break;
                 }
             }else{
-                if indexPath.row == 2 {
+                if indexPath.row == 3 {
                     NavigationPushView(self, toConroller: DiscountViewController())
                 }
             }
@@ -285,7 +296,18 @@ extension TicketConfirmViewController : UITableViewDataSource {
                     }else{
                         let cell = tableView.dequeueReusableCellWithIdentifier("GloabTitleAndDetailImageCell", forIndexPath: indexPath) as! GloabTitleAndDetailImageCell
                         cell.selectionStyle = .None
-                        cell.setData(viewModel.configCellLabel(indexPath), detail: "普通快递（\(viewModel.ticketModel.deliveryPrice)元）")
+                        let typeArray = viewModel.ticketModel.deliveryType.componentsSeparatedByString(",")
+                        for index in typeArray {
+                            if index == "1" {
+                                cell.setData(viewModel.configCellLabel(indexPath), detail: "普通快递（\(viewModel.ticketModel.deliveryPrice)元）")
+                                self.viewModel.delivityType = .delivityNomal
+                                break;
+                            }else if index == "4" {
+                                cell.setData(viewModel.configCellLabel(indexPath), detail: "快递到付")
+                                self.viewModel.delivityType = .delivityVisite
+                                break;
+                            }
+                        }
                         if indexPath.row == 2 {
                             cell.hideLineLabel()
                         }
@@ -300,12 +322,17 @@ extension TicketConfirmViewController : UITableViewDataSource {
                 viewModel.tableViewCellCofimTicketTableViewCell(cell)
                 cell.selectionStyle = .None
                 return cell
-            case 1,3:
+            case 1:
+                let cell = tableView.dequeueReusableCellWithIdentifier("TicketNumberTableViewCell", forIndexPath: indexPath) as! TicketNumberTableViewCell
+                viewModel.configCellTicketNumberTableViewCell(cell)
+                cell.selectionStyle = .None
+                return cell
+            case 2,4:
                 let cell = tableView.dequeueReusableCellWithIdentifier("GloabTitleAndDetailCell", forIndexPath: indexPath) as! GloabTitleAndDetailCell
                 cell.selectionStyle = .None
                 viewModel.tableViewCellGloabTitleAndDetailCell(cell, indexPath:indexPath)
                 return cell
-            case 2:
+            case 3:
                 let cell = tableView.dequeueReusableCellWithIdentifier("GloabTitleAndDetailImageCell", forIndexPath: indexPath) as! GloabTitleAndDetailImageCell
                 cell.selectionStyle = .None
                 cell.setData(viewModel.configCellLabel(indexPath), detail: "无可用")

@@ -43,7 +43,6 @@ class TicketDescriptionViewController: UIViewController {
             tableView.separatorStyle = .None
             tableView.keyboardDismissMode = .OnDrag
             tableView.registerClass(TicketDescripTableViewCell.self, forCellReuseIdentifier: "TicketDescripTableViewCell")
-            tableView.registerClass(TicketNumberTableViewCell.self, forCellReuseIdentifier: "TicketNumberTableViewCell")
             tableView.registerClass(TickerInfoTableViewCell.self, forCellReuseIdentifier: "TickerInfoTableViewCell")
             tableView.registerClass(TicketToolsTableViewCell.self, forCellReuseIdentifier: "TicketToolsTableViewCell")
             tableView.registerClass(TicketMapTableViewCell.self, forCellReuseIdentifier: "TicketMapTableViewCell")
@@ -280,18 +279,18 @@ extension TicketDescriptionViewController : UITableViewDataSource {
             viewModel.configCellTicketDescripTableViewCell(cell)
             cell.selectionStyle = .None
             return cell
-        case 1:
-            let cell = tableView.dequeueReusableCellWithIdentifier("TicketMapTableViewCell", forIndexPath: indexPath) as! TicketMapTableViewCell
-            viewModel.configTicketMapTableViewCell(cell, indexPath:indexPath)
-            cell.selectionStyle = .None
-            return cell
-        case 2:
-            let cell = tableView.dequeueReusableCellWithIdentifier("TicketNumberTableViewCell", forIndexPath: indexPath) as! TicketNumberTableViewCell
-            viewModel.configCellTicketNumberTableViewCell(cell)
-            cell.selectionStyle = .None
-            return cell
+//        case 1:
+//            let cell = tableView.dequeueReusableCellWithIdentifier("TicketMapTableViewCell", forIndexPath: indexPath) as! TicketMapTableViewCell
+//            viewModel.configTicketMapTableViewCell(cell, indexPath:indexPath)
+//            cell.selectionStyle = .None
+//            return cell
+//        case 2:
+//            let cell = tableView.dequeueReusableCellWithIdentifier("TicketNumberTableViewCell", forIndexPath: indexPath) as! TicketNumberTableViewCell
+//            viewModel.configCellTicketNumberTableViewCell(cell)
+//            cell.selectionStyle = .None
+//            return cell
         
-        case 3:
+        case 1:
             cell = tableView.dequeueReusableCellWithIdentifier("TicketToolsTableViewCell", forIndexPath: indexPath) as! TicketToolsTableViewCell
             cell.selectionStyle = .None
             cell.ticketCellClouse = { tag in

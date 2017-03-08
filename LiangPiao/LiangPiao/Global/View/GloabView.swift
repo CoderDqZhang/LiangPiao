@@ -364,47 +364,111 @@ class GloableBottomButtonView: UIView {
 //let NumberTickButtonWidth:CGFloat = 44
 let NumberTickButtonHeight:CGFloat = 34
 
+enum NumberTickViewType {
+    case Sell
+    case Confirm
+}
+
 class NumberTickView: UIView {
     var downButton:UIButton!
     var upButton:UIButton!
     var numberTextField:UITextField!
     var number:NSInteger = 1
-    init(frame:CGRect, buttonWidth:CGFloat) {
+    init(frame:CGRect, buttonWidth:CGFloat, type:NumberTickViewType) {
         super.init(frame: frame)
-        self.layer.cornerRadius = 3.0
-        self.layer.borderColor = UIColor.init(hexString: App_Theme_384249_Color).CGColor
-        self.layer.borderWidth = 0.5
-        downButton = UIButton(type: .Custom)
-        downButton.setImage(UIImage.init(named: "Icon_Reduce_Disable"), forState: .Normal)
-        downButton.frame = CGRectMake(0, 0, buttonWidth, frame.size.height)
-        downButton.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (object) in
-            if self.number > 1 {
-                self.number = self.number - 1
-                self.numberTextField.text = "\(self.number)"
+        if type == .Confirm {
+            self.layer.cornerRadius = 3.0
+            
+            downButton = UIButton(type: .Custom)
+            downButton.setImage(UIImage.init(named: "Icon_Reduce_Disable"), forState: .Normal)
+            downButton.frame = CGRectMake(0, 0, buttonWidth, frame.size.height)
+            downButton.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (object) in
+                if self.number > 1 {
+                    self.number = self.number - 1
+                    self.numberTextField.text = "\(self.number)"
+                }
+                self.setNumberDownColor()
             }
-            self.setNumberDownColor()
+            downButton.backgroundColor = UIColor.init(hexString: App_Theme_F6F7FA_Color)
+            self.addSubview(downButton)
+            
+            upButton = UIButton(type: .Custom)
+            upButton.setImage(UIImage.init(named: "Icon_Add_Normal"), forState: .Normal)
+            upButton.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (object) in
+                self.number = self.number + 1
+                self.numberTextField.text = "\(self.number)"
+                self.setNumberDownColor()
+            }
+            upButton.frame = CGRectMake(self.frame.size.width - buttonWidth, 0, buttonWidth, frame.size.height)
+            upButton.backgroundColor = UIColor.init(hexString: App_Theme_F6F7FA_Color)
+            self.addSubview(upButton)
+            
+            numberTextField = UITextField()
+            numberTextField.text = "\(self.number)"
+            numberTextField.tintColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
+            numberTextField.textColor = UIColor.init(hexString: App_Theme_556169_Color)
+            
+            let borderLeft = CALayer.init()
+            borderLeft.backgroundColor = UIColor.init(hexString: App_Theme_FFFFFF_Color).CGColor
+            borderLeft.frame = CGRect.init(x: 0, y: 0, width: 2, height: frame.size.height)
+            numberTextField.layer.addSublayer(borderLeft)
+            
+            let borderRight = CALayer.init()
+            borderRight.backgroundColor = UIColor.init(hexString: App_Theme_FFFFFF_Color).CGColor
+            borderRight.frame = CGRect.init(x: self.frame.size.width - 2 * buttonWidth, y: 0, width: 2, height: frame.size.height)
+            numberTextField.layer.addSublayer(borderRight)
+
+            numberTextField.backgroundColor = UIColor.init(hexString: App_Theme_F6F7FA_Color)
+            numberTextField.font = App_Theme_PinFan_M_15_Font
+            numberTextField.frame = CGRectMake(buttonWidth, 0, self.frame.size.width - 2 * buttonWidth, frame.size.height)
+            numberTextField.rac_textSignal().subscribeNext({ (str) in
+                if str as! String == ""{
+                    self.number = 1
+                    self.numberTextField.text = "1"
+                }else{
+                    self.number = NSInteger(str as! String)!
+                    self.numberTextField.text = str as? String
+                }
+                
+            })
+            numberTextField.textAlignment = .Center
+            self.addSubview(numberTextField)
+        }else{
+            self.layer.cornerRadius = 3.0
+            self.layer.borderColor = UIColor.init(hexString: App_Theme_384249_Color).CGColor
+            self.layer.borderWidth = 0.5
+            downButton = UIButton(type: .Custom)
+            downButton.setImage(UIImage.init(named: "Icon_Reduce_Disable"), forState: .Normal)
+            downButton.frame = CGRectMake(0, 0, buttonWidth, frame.size.height)
+            downButton.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (object) in
+                if self.number > 1 {
+                    self.number = self.number - 1
+                    self.numberTextField.text = "\(self.number)"
+                }
+                self.setNumberDownColor()
+            }
+            self.addSubview(downButton)
+            
+            upButton = UIButton(type: .Custom)
+            upButton.setImage(UIImage.init(named: "Icon_Add_Normal"), forState: .Normal)
+            upButton.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (object) in
+                self.number = self.number + 1
+                self.numberTextField.text = "\(self.number)"
+                self.setNumberDownColor()
+            }
+            upButton.frame = CGRectMake(self.frame.size.width - buttonWidth, 0, buttonWidth, frame.size.height)
+            self.addSubview(upButton)
+            numberTextField = UITextField()
+            numberTextField.text = "\(self.number)"
+            numberTextField.tintColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
+            numberTextField.textColor = UIColor.init(hexString: App_Theme_384249_Color)
+            numberTextField.layer.borderColor = UIColor.init(hexString: App_Theme_384249_Color).CGColor
+            numberTextField.layer.borderWidth = 0.5
+            numberTextField.font = App_Theme_PinFan_M_15_Font
+            numberTextField.frame = CGRectMake(buttonWidth, 0, self.frame.size.width - 2 * buttonWidth, frame.size.height)
+            numberTextField.textAlignment = .Center
+            self.addSubview(numberTextField)
         }
-        self.addSubview(downButton)
-        
-        upButton = UIButton(type: .Custom)
-        upButton.setImage(UIImage.init(named: "Icon_Add_Normal"), forState: .Normal)
-        upButton.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (object) in
-            self.number = self.number + 1
-            self.numberTextField.text = "\(self.number)"
-            self.setNumberDownColor()
-        }
-        upButton.frame = CGRectMake(self.frame.size.width - buttonWidth, 0, buttonWidth, frame.size.height)
-        self.addSubview(upButton)
-        numberTextField = UITextField()
-        numberTextField.text = "\(self.number)"
-        numberTextField.tintColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
-        numberTextField.textColor = UIColor.init(hexString: App_Theme_384249_Color)
-        numberTextField.layer.borderColor = UIColor.init(hexString: App_Theme_384249_Color).CGColor
-        numberTextField.layer.borderWidth = 0.5
-        numberTextField.font = App_Theme_PinFan_M_15_Font
-        numberTextField.frame = CGRectMake(buttonWidth, 0, self.frame.size.width - 2 * buttonWidth, frame.size.height)
-        numberTextField.textAlignment = .Center
-        self.addSubview(numberTextField)
     }
     
     func setNumberDownColor(){

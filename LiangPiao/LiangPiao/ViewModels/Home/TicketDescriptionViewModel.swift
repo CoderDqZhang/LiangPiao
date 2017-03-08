@@ -55,14 +55,14 @@ class TicketDescriptionViewModel: NSObject {
         switch row {
         case 0:
             return 188
+//        case 1:
+//            if ticketModel.session.venueMap != nil && ticketModel.session.venueMap != "" {
+//                return SCREENWIDTH * 170/375
+//            }
+//            return 0.00000000001
+//        case 2:
+//            return 80
         case 1:
-            if ticketModel.session.venueMap != nil && ticketModel.session.venueMap != "" {
-                return SCREENWIDTH * 170/375
-            }
-            return 0.00000000001
-        case 2:
-            return 80
-        case 3:
             return 42
         default:
             if self.model.ticketList.count == 0 {
@@ -79,9 +79,9 @@ class TicketDescriptionViewModel: NSObject {
     func tableViewnumberOfRowsInSection(section:Int) -> Int{
         if self.model != nil{
             if self.model.ticketList.count == 0 {
-                return 5
+                return 3
             }
-            return self.model.ticketList.count + 4
+            return self.model.ticketList.count + 2
         }
         return 0
     }
@@ -89,18 +89,15 @@ class TicketDescriptionViewModel: NSObject {
     func configCellTicketDescripTableViewCell(cell:TicketDescripTableViewCell) {
         if model != nil {
             cell.setData(model.show,sessionModel: model.session)
+            cell.venueMapClouse = { view in
+                self.presentImageBrowse(view)
+            }
         }
     }
     
     func configCellTickerInfoTableViewCell(cell:TickerInfoTableViewCell, indexPath:NSIndexPath) {
         if model != nil {
-            cell.setData(model.ticketList[indexPath.row - 4])
-        }
-    }
-    
-    func configCellTicketNumberTableViewCell(cell:TicketNumberTableViewCell){
-        cell.numberTickView.numberTextField.rac_observeKeyPath("text", options: .New, observer: nil) { (object, objects,isNew, isOld) in
-            self.ticketNumber = NSInteger(object as! String)!
+            cell.setData(model.ticketList[indexPath.row - 2])
         }
     }
     
@@ -165,22 +162,19 @@ class TicketDescriptionViewModel: NSObject {
     
     func tableViewDidSelectRowAtIndexPath(indexPath:NSIndexPath) {
         if UserInfoModel.isLoggedIn() {
-            if indexPath.row == 2 {
-                let cell = controller.tableView.cellForRowAtIndexPath(NSIndexPath.init(forRow: 2, inSection: 0)) as! TicketMapTableViewCell
-               self.presentImageBrowse(cell.contentView)
-            }else if indexPath.row > 3 && self.model.ticketList.count > 0{
-                let ticketModel = self.model.ticketList[indexPath.row - 4]
-                if ticketModel.sellType == 2 && ticketModel.remainCount > self.ticketNumber {
+            if indexPath.row > 1 && self.model.ticketList.count > 0{
+                let ticketModel = self.model.ticketList[indexPath.row - 2]
+                if ticketModel.sellType == 2 {
                     UIAlertController.shwoAlertControl(self.controller, style: .Alert, title: nil, message: "该票种须打包\(ticketModel.remainCount)张一起购买哦", cancel: "取消", doneTitle: "继续购买", cancelAction: {
                         
                         }, doneAction: {
-                            self.ticketNumber = ticketModel.remainCount
+                            self.ticketNumber = 1
                             self.pushTicketDescription(indexPath)
                     })
+
                 }else{
                     self.pushTicketDescription(indexPath)
                 }
-                
             }
         }else{
             NavigationPushView(self.controller, toConroller: LoginViewController())
@@ -203,10 +197,10 @@ class TicketDescriptionViewModel: NSObject {
     func pushTicketDescription(indexPath:NSIndexPath){
         let controllerVC = TicketConfirmViewController()
         controllerVC.viewModel.model = self.model
-        controllerVC.viewModel.ticketModel = self.model.ticketList[indexPath.row - 4]
-        let typeArray = self.model.ticketList[indexPath.row - 4].deliveryType.componentsSeparatedByString(",")
+        controllerVC.viewModel.ticketModel = self.model.ticketList[indexPath.row - 2]
+        let typeArray = self.model.ticketList[indexPath.row - 2].deliveryType.componentsSeparatedByString(",")
         for str in typeArray {
-            if str == "1" {
+            if str == "1" || str == "4" {
                  controllerVC.viewModel.formType = .withNomal
                  controllerVC.viewModel.orderForme.deliveryType = .expressage
                  controllerVC.viewModel.formDelevityType = .expressage
@@ -218,7 +212,7 @@ class TicketDescriptionViewModel: NSObject {
     }
     
     func getTicketNumber(indexPath:NSIndexPath) -> Int {
-        let ticketModel = self.model.ticketList[indexPath.row - 4]
+        let ticketModel = self.model.ticketList[indexPath.row - 2]
         if self.ticketNumber > ticketModel.remainCount {
             return ticketModel.remainCount
         }else{
@@ -227,7 +221,7 @@ class TicketDescriptionViewModel: NSObject {
     }
     
     func getMuchOfTicket(indexPath:NSIndexPath) -> String {
-        let ticketModel = self.model.ticketList[indexPath.row - 4]
+        let ticketModel = self.model.ticketList[indexPath.row - 2]
         let str = "\(self.getTicketNumber(indexPath) * ticketModel.price)"
         return str
     }

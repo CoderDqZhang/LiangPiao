@@ -87,9 +87,11 @@ class TickerInfoTableViewCell: UITableViewCell {
         if model.sellType == 2 {
             delivery = delivery.stringByAppendingString("打包购买 ")
         }
+        var express = false
         for str in typeArray {
-            if str == "1" {
+            if (str == "1" || str == "4") && !express {
                delivery = delivery.stringByAppendingString("快递 ")
+                express = false
             }else if str == "3"  {
                 delivery = delivery.stringByAppendingString("上门自取 ")
             }else if str == "2" {

@@ -249,7 +249,7 @@ class MySellConfimViewModel: NSObject {
                 let dic = NSString.DataToNSDiction(self.sellFormModel.deverliExpress)
                 self.express = Expressage.mj_objectWithKeyValues(dic)
                 if self.express.isSelect {
-                    self.deverliStr = self.deverliStr.stringByAppendingString("快递配送 ")
+                    self.deverliStr = self.deverliStr.stringByAppendingString("快递到付 ")
                 }
             }
             if self.sellFormModel.deverliPresnt != nil && self.sellFormModel.deverliPresnt != "请选择"{
@@ -457,7 +457,7 @@ class MySellConfimViewModel: NSObject {
                      "row":str]
         var delivery_type = ""
         if self.express.isSelect {
-            delivery_type = delivery_type.stringByAppendingString("1,")
+            delivery_type = delivery_type.stringByAppendingString("4,")
         }
         if self.present.isSelect {
             delivery_type = delivery_type.stringByAppendingString("2,")

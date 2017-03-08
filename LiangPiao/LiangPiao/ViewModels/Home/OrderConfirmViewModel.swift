@@ -18,6 +18,7 @@ enum OrderFormType {
 enum DelivityType {
     case delivityNomal
     case delivitySF
+    case delivityVisite
 }
 
 typealias  OrderConfirmViewModelClouse = (indexPath:NSIndexPath) ->Void
@@ -36,7 +37,7 @@ class OrderConfirmViewModel: NSObject {
     var formDelevityType:FormDelivityType = .presentRecive
     var formType:OrderFormType = .withAddress
     var formAddress:NSInteger = 0
-    var remainCount:Int = 0
+    var remainCount:Int = 1
     var orderModel:OrderList!
     var controller:TicketConfirmViewController!
     var delivityType:DelivityType = .delivityNomal
@@ -100,13 +101,13 @@ class OrderConfirmViewModel: NSObject {
             switch indexPath.row {
             case 0:
                 return ""
-            case 1:
-                return "代收票款"
             case 2:
-                return "优惠券"
+                return "代收票款"
             case 3:
-                return "配送费"
+                return "优惠券"
             case 4:
+                return "配送费"
+            case 5:
                 return "买家留言:"
             default:
                 return "配送方式"
@@ -148,7 +149,9 @@ class OrderConfirmViewModel: NSObject {
             switch indexPath.row {
             case 0:
                 return 150
-            case 4:
+            case 1:
+                return 48
+            case 5:
                 return 62
             default:
                 return 48
@@ -186,7 +189,7 @@ class OrderConfirmViewModel: NSObject {
         case 0:
             return 3
         case 1:
-            return 5
+            return 6
         default:
             if WXApi.isWXAppInstalled() {
                 return 2
@@ -221,6 +224,19 @@ class OrderConfirmViewModel: NSObject {
         cell.setData(model.show, ticketModel: ticketModel, sessionModel: model.session, remainCount:"\(remainCount)")
     }
     
+    func configCellTicketNumberTableViewCell(cell:TicketNumberTableViewCell){
+        var  cellDetail:GloabTitleAndDetailCell!
+        cell.numberTickView.numberTextField.rac_observeKeyPath("text", options: .New, observer: nil) { (object, objects,isNew, isOld) in
+            self.remainCount = NSInteger(object as! String)!
+            if cellDetail == nil {
+                cellDetail = self.controller.tableView.cellForRowAtIndexPath(NSIndexPath.init(forRow: 2, inSection: 1)) as! GloabTitleAndDetailCell
+            }
+            let much = "\(Double(Double(self.ticketModel.price) * Double(self.remainCount)) * 100)"
+            cellDetail.detailLabel.text = "\(much.muchType(much)) 元"
+            self.updateMuchOfTicke()
+        }
+    }
+    
     func tableViewCellGloabTextFieldCell(cell:GloabTextFieldCell,indexPath:NSIndexPath)
     {
         
@@ -229,12 +245,12 @@ class OrderConfirmViewModel: NSObject {
     func tableViewCellGloabTitleAndDetailCell(cell:GloabTitleAndDetailCell,indexPath:NSIndexPath)
     {
         switch indexPath.row {
-        case 1:
+        case 2:
             let much = Double(Double(ticketModel.price) * Double(remainCount))
             cell.setData(self.configCellLabel(indexPath), detail: "\(much)0 元")
         default:
             if self.formDelevityType == .expressage {
-                let str = self.delivityType == .delivityNomal ? "\(self.ticketModel.deliveryPrice).00 元" : "\(self.ticketModel.deliveryPriceSf).00 元"
+                let str = self.delivityType == .delivityNomal ? "\(self.ticketModel.deliveryPrice).00 元" : self.delivityType == .delivitySF ? "\(self.ticketModel.deliveryPriceSf).00 元" : "0.00 元"
                 cell.setData(self.configCellLabel(indexPath), detail: str)
             }else{
                 cell.setData(self.configCellLabel(indexPath), detail: "0.00 元")
@@ -263,7 +279,7 @@ class OrderConfirmViewModel: NSObject {
             
         }else{
             if self.formType == .withNomal {
-                if (self.orderConfirmViewModelClouse == nil) != nil {
+                if self.orderConfirmViewModelClouse != nil {
                     self.orderConfirmViewModelClouse(indexPath:indexPath)
                 }
             }
@@ -271,12 +287,16 @@ class OrderConfirmViewModel: NSObject {
     }
     
     func updateCellString(tableView:UITableView, string:String){
-        self.delivityType = string == "普通快递（\(self.ticketModel.deliveryPrice)元）" ? .delivityNomal : .delivitySF
+        if string == "快递到付" {
+             self.delivityType = .delivityVisite
+        }else{
+            self.delivityType = string == "普通快递（\(self.ticketModel.deliveryPrice)元）" ? .delivityNomal : .delivitySF
+        }
         let cell = tableView.cellForRowAtIndexPath(NSIndexPath.init(forRow: 2, inSection: 0)) as! GloabTitleAndDetailImageCell
         cell.detailLabel.text = string
         
-        let cell1 = tableView.cellForRowAtIndexPath(NSIndexPath.init(forRow: 3, inSection: 1)) as! GloabTitleAndDetailCell
-        let str = self.delivityType == .delivityNomal ? "\(self.ticketModel.deliveryPrice).00 元" : "\(self.ticketModel.deliveryPriceSf).00 元"
+        let cell1 = tableView.cellForRowAtIndexPath(NSIndexPath.init(forRow: 4, inSection: 1)) as! GloabTitleAndDetailCell
+        let str = self.delivityType == .delivityNomal ? "\(self.ticketModel.deliveryPrice).00 元" : self.delivityType == .delivitySF ? "\(self.ticketModel.deliveryPriceSf).00 元" :  "0.00 元"
         cell1.detailLabel.text = str
         self.updateMuchOfTicke()
     }
@@ -284,9 +304,9 @@ class OrderConfirmViewModel: NSObject {
     func updateMuchOfTicke(){
         var much = 0
         if self.formDelevityType == .expressage {
-            much = self.delivityType == .delivityNomal ? self.ticketModel.deliveryPrice : self.ticketModel.deliveryPriceSf
+            much = self.delivityType == .delivityNomal ? self.ticketModel.deliveryPrice : self.delivityType == .delivitySF ? self.ticketModel.deliveryPriceSf : 0
         }
-        muchOfTicketWithOther = "\(Double(muchOfTicket)! + Double(much))0"
+        muchOfTicketWithOther = "\(Double(Double(ticketModel.price) * Double(remainCount)) + Double(much))0"
         orderForme.deliveryPrice = muchOfTicketWithOther
     }
     

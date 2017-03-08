@@ -146,15 +146,13 @@ extension OrderDeliveryTypeViewController : UITableViewDataSource {
         case .Nomal:
             switch indexPath.row {
             case 0:
-                return cellOrderExpressTableViewCell(tableView, indexPath: indexPath)
+                return cellGloabTitleAndSwitchBarTableViewCell(tableView, indexPath: indexPath)
             default:
                 return cellGloabTitleAndSwitchBarTableViewCell(tableView, indexPath: indexPath)
             }
         case .All:
             switch indexPath.row {
-            case 0:
-                return cellOrderExpressTableViewCell(tableView, indexPath: indexPath)
-            case 1,5:
+            case 0,1,5:
                 return cellGloabTitleAndSwitchBarTableViewCell(tableView, indexPath: indexPath)
             default:
                 return cellGloabTextFieldCell(tableView, indexPath: indexPath)
@@ -162,18 +160,14 @@ extension OrderDeliveryTypeViewController : UITableViewDataSource {
         default:
             if viewModel.type == .Visite {
                 switch indexPath.row {
-                case 0:
-                    return cellOrderExpressTableViewCell(tableView, indexPath: indexPath)
-                case 1,2:
+                case 0,1,2:
                     return cellGloabTitleAndSwitchBarTableViewCell(tableView, indexPath: indexPath)
                 default:
                     return cellGloabTextFieldCell(tableView, indexPath: indexPath)
                 }
             }else{
                 switch indexPath.row {
-                case 0:
-                    return cellOrderExpressTableViewCell(tableView, indexPath: indexPath)
-                case 1,5:
+                case 0,1,5:
                     return cellGloabTitleAndSwitchBarTableViewCell(tableView, indexPath: indexPath)
                 default:
                     return cellGloabTextFieldCell(tableView, indexPath: indexPath)
