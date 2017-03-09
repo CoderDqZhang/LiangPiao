@@ -13,7 +13,7 @@ class AddressModel : NSObject, NSCoding{
     
     var address : String!
     var defaultField : Bool!
-    var id : intmax_t!
+    var id : Int!
     var location : String!
     var mobileNum : String!
     var name : String!
@@ -25,7 +25,7 @@ class AddressModel : NSObject, NSCoding{
     init(fromDictionary dictionary: NSDictionary){
         address = dictionary["address"] as? String
         defaultField = dictionary["default"] as? Bool
-        id = dictionary["id"] as? intmax_t
+        id = dictionary["id"] as? Int
         location = dictionary["location"] as? String
         mobileNum = dictionary["mobile_num"] as? String
         name = dictionary["name"] as? String
@@ -66,7 +66,7 @@ class AddressModel : NSObject, NSCoding{
     {
         address = aDecoder.decodeObjectForKey("address") as? String
         defaultField = aDecoder.decodeObjectForKey("default") as? Bool
-        id = aDecoder.decodeObjectForKey("id") as? intmax_t
+        id = aDecoder.decodeObjectForKey("id")as? Int
         location = aDecoder.decodeObjectForKey("location") as? String
         mobileNum = aDecoder.decodeObjectForKey("mobile_num") as? String
         name = aDecoder.decodeObjectForKey("name") as? String

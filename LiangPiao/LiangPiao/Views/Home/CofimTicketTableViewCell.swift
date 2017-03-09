@@ -17,11 +17,13 @@ class CofimTicketTableViewCell: UITableViewCell {
     var ticketMuch:UILabel!
     var ticketRow:UILabel!
     
+    var lineLabel:GloabLineView!
+    
     var didMakeConstraints:Bool = false
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.backgroundColor = UIColor.init(hexString: App_Theme_F6F7FA_Color)
+        self.backgroundColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
         self.setUpView()
     }
     
@@ -65,6 +67,10 @@ class CofimTicketTableViewCell: UITableViewCell {
         ticketRow.textColor = UIColor.init(hexString: App_Theme_A2ABB5_Color)
         ticketRow.font = App_Theme_PinFan_R_12_Font
         self.contentView.addSubview(ticketRow)
+        
+        
+        lineLabel = GloabLineView(frame: CGRectMake(15, 149.5, SCREENWIDTH - 30, 0.5))
+        self.contentView.addSubview(lineLabel)
         
         self.updateConstraintsIfNeeded()
         

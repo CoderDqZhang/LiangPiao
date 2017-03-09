@@ -11,7 +11,7 @@ import Foundation
 class ShowSessionModel : NSObject, NSCoding{
     
     var endTime : String!
-    var id : intmax_t!
+    var id : Int!
     var minDiscount : String!
     var minPrice : Int!
     var name : String!
@@ -29,7 +29,7 @@ class ShowSessionModel : NSObject, NSCoding{
      */
     init(fromDictionary dictionary: NSDictionary){
         endTime = dictionary["end_time"] as? String
-        id = dictionary["id"] as? intmax_t
+        id = dictionary["id"] as? Int
         minDiscount = dictionary["min_discount"] as? String
         minPrice = dictionary["min_price"] as? Int
         name = dictionary["name"] as? String
@@ -104,7 +104,7 @@ class ShowSessionModel : NSObject, NSCoding{
     @objc required init(coder aDecoder: NSCoder)
     {
         endTime = aDecoder.decodeObjectForKey("end_time") as? String
-        id = aDecoder.decodeObjectForKey("id") as? intmax_t
+        id = aDecoder.decodeObjectForKey("id") as? Int
         minDiscount = aDecoder.decodeObjectForKey("min_discount") as? String
         minPrice = aDecoder.decodeObjectForKey("min_price") as? Int
         name = aDecoder.decodeObjectForKey("name") as? String

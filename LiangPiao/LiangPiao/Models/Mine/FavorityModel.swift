@@ -96,7 +96,7 @@ class  FavorityModel : NSObject, NSCoding{
 class Item : NSObject, NSCoding{
     
     var created : String!
-    var id : intmax_t!
+    var id : Int!
     var show : TicketShowModel!
     
     
@@ -105,7 +105,7 @@ class Item : NSObject, NSCoding{
      */
     init(fromDictionary dictionary: NSDictionary){
         created = dictionary["created"] as? String
-        id = dictionary["id"] as? intmax_t
+        id = dictionary["id"] as? Int
         if let showData = dictionary["show"] as? NSDictionary{
             show = TicketShowModel(fromDictionary: showData)
         }
@@ -136,7 +136,7 @@ class Item : NSObject, NSCoding{
     @objc required init(coder aDecoder: NSCoder)
     {
         created = aDecoder.decodeObjectForKey("created") as? String
-        id = aDecoder.decodeObjectForKey("id") as? intmax_t
+        id = aDecoder.decodeObjectForKey("id")as? Int
         show = aDecoder.decodeObjectForKey("show") as? TicketShowModel
         
     }

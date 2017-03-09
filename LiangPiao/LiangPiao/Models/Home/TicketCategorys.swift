@@ -9,7 +9,7 @@ import Foundation
 
 class TicketCategorys : NSObject, NSCoding{
     
-    var id : intmax_t!
+    var id : Int!
     var name : String!
     var showCount : Int!
     
@@ -18,7 +18,7 @@ class TicketCategorys : NSObject, NSCoding{
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: NSDictionary){
-        id = dictionary["id"] as? intmax_t
+        id = dictionary["id"]as? Int
         name = dictionary["name"] as? String
         showCount = dictionary["show_count"] as? Int
     }
@@ -47,7 +47,7 @@ class TicketCategorys : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        id = aDecoder.decodeObjectForKey("id") as? intmax_t
+        id = aDecoder.decodeObjectForKey("id") as? Int
         name = aDecoder.decodeObjectForKey("name") as? String
         showCount = aDecoder.decodeObjectForKey("show_count") as? Int
         

@@ -94,6 +94,10 @@ class TicketDescripTableViewCell: UITableViewCell {
         self.updateConstraintsIfNeeded()
     }
     
+    func setHiddenLine(hidden:Bool){
+        lineLabel.hidden = hidden
+    }
+    
     func venueMapTap(tap:UITapGestureRecognizer){
         print(self.venueTitle.frame)
         if self.venueMapClouse != nil {

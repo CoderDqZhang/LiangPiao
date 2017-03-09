@@ -84,7 +84,7 @@ import Foundation
 class Banner : NSObject, NSCoding{
     
     var bannerType : Int!
-    var id : intmax_t!
+    var id : Int!
     var image : String!
     var show : TicketShowModel!
     var url : String!
@@ -95,7 +95,7 @@ class Banner : NSObject, NSCoding{
      */
     init(fromDictionary dictionary: NSDictionary){
         bannerType = dictionary["banner_type"] as? Int
-        id = dictionary["id"] as? intmax_t
+        id = dictionary["id"] as? Int
         image = dictionary["image"] as? String
         if let showData = dictionary["show"] as? NSDictionary{
             show = TicketShowModel(fromDictionary: showData)
@@ -134,7 +134,7 @@ class Banner : NSObject, NSCoding{
     @objc required init(coder aDecoder: NSCoder)
     {
         bannerType = aDecoder.decodeObjectForKey("banner_type") as? Int
-        id = aDecoder.decodeObjectForKey("id") as? intmax_t
+        id = aDecoder.decodeObjectForKey("id") as? Int
         image = aDecoder.decodeObjectForKey("image") as? String
         show = aDecoder.decodeObjectForKey("show") as? TicketShowModel
         url = aDecoder.decodeObjectForKey("url") as? String

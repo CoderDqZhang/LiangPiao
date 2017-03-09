@@ -13,6 +13,7 @@ class TicketNumberTableViewCell: UITableViewCell {
 
     var ticketNumber:UILabel!
     var numberTickView:NumberTickView!
+    var lineLable:GloabLineView!
     var didMakeConstraints:Bool = false
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
@@ -31,11 +32,16 @@ class TicketNumberTableViewCell: UITableViewCell {
         ticketNumber.font = App_Theme_PinFan_R_13_Font!
         self.contentView.addSubview(ticketNumber)
         
-        numberTickView = NumberTickView.init(frame: CGRectMake(SCREENWIDTH - 140 - 15, 8, 140, 34), buttonWidth: 40, type: .Confirm)
+        numberTickView = NumberTickView.init(frame: CGRectMake(SCREENWIDTH - 128 - 15, 8, 128, 32), buttonWidth: 40, type: .Confirm)
         numberTickView.backgroundColor = UIColor.whiteColor()
+        
+        
         
         self.contentView.addSubview(numberTickView)
     
+        lineLable = GloabLineView(frame: CGRectMake(15,49,SCREENWIDTH - 30, 0.5))
+        self.contentView.addSubview(lineLable)
+        
         self.updateConstraintsIfNeeded()
     }
     

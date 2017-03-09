@@ -227,13 +227,17 @@ class OrderConfirmViewModel: NSObject {
     func configCellTicketNumberTableViewCell(cell:TicketNumberTableViewCell){
         var  cellDetail:GloabTitleAndDetailCell!
         cell.numberTickView.numberTextField.rac_observeKeyPath("text", options: .New, observer: nil) { (object, objects,isNew, isOld) in
-            self.remainCount = NSInteger(object as! String)!
-            if cellDetail == nil {
-                cellDetail = self.controller.tableView.cellForRowAtIndexPath(NSIndexPath.init(forRow: 2, inSection: 1)) as! GloabTitleAndDetailCell
+            if NSInteger(object as! String)! <= self.ticketModel.remainCount {
+                self.remainCount = NSInteger(object as! String)!
+                if cellDetail == nil {
+                    cellDetail = self.controller.tableView.cellForRowAtIndexPath(NSIndexPath.init(forRow: 2, inSection: 1)) as! GloabTitleAndDetailCell
+                }
+                let much = "\(Double(Double(self.ticketModel.price) * Double(self.remainCount)) * 100)"
+                cellDetail.detailLabel.text = "\(much.muchType(much)) 元"
+                self.updateMuchOfTicke()
+            }else{
+                cell.numberTickView.numberTextField.text = "\(self.ticketModel.remainCount)"
             }
-            let much = "\(Double(Double(self.ticketModel.price) * Double(self.remainCount)) * 100)"
-            cellDetail.detailLabel.text = "\(much.muchType(much)) 元"
-            self.updateMuchOfTicke()
         }
     }
     
@@ -328,13 +332,17 @@ class OrderConfirmViewModel: NSObject {
         let pay_type = orderForm.payType == .weiChat ? "2" : "1"
         var delivery_type = ""
         if orderForme.deliveryType == .expressage {
-            delivery_type = "1"
+            if self.delivityType == .delivityVisite {
+                delivery_type = "4"
+            }else{
+                delivery_type = "1"
+            }
         }else if orderForme.deliveryType == .presentRecive{
             delivery_type = "2"
         }else {
             delivery_type = "3"
         }
-        let delivery_price = self.delivityType == .delivityNomal ? "\(self.ticketModel.deliveryPrice)" : "\(self.ticketModel.deliveryPriceSf)"
+        let delivery_price = self.delivityType == .delivityNomal ? "\(self.ticketModel.deliveryPrice)" : self.delivityType == .delivitySF ? "\(self.ticketModel.deliveryPriceSf)" : "0"
         if orderForm.deliveryType == .expressage {
             parameters = ["ticket_id":orderForm.ticketID as! AnyObject
                 ,"ticket_count":orderForm.remainCount!

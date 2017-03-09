@@ -62,6 +62,7 @@ class MySellConfimViewModel: NSObject {
                 self.express = Expressage.mj_objectWithKeyValues(sellFormModel.deverliExpress)
             }else{
                 self.express = Expressage.init()
+                self.express.isSelect = true
             }
             if sellFormModel.deverliPresnt != "请选择" {
                 self.present = Present.mj_objectWithKeyValues(sellFormModel.deverliPresnt)
@@ -87,7 +88,7 @@ class MySellConfimViewModel: NSObject {
         sellFormModel.ticketPrice = "\(ticket.originalTicket.id)"
         sellFormModel.price = "\(ticket.price)"
         sellFormModel.number = ticket.ticketCount
-        sellFormModel.sellType = ticket.sellType == 1 ? "单卖":"一起卖"
+        sellFormModel.sellType = ticket.sellType == 1 ? "可以分开卖":"一起卖"
         sellFormModel.seatType = "\(ticket.seatType)"
         sellFormModel.ticketRegin = ticket.region == "" ? "择优分配" : ticket.region
         if ticket.region == "" {
@@ -132,14 +133,14 @@ class MySellConfimViewModel: NSObject {
             self.sellFormModel.ticketPrice = self.sellTicketModel.ticketChoices[0][0]
             if self.originTicket != nil {
                 self.originTicket.name = self.sellTicketModel.ticketChoices[0][1]
-                self.originTicket.id = intmax_t(self.sellTicketModel.ticketChoices[0][0])
+                self.originTicket.id = Int(self.sellTicketModel.ticketChoices[0][0])
             }
         }
         tickeListView.gloableTitleListClouse = { title, index in
             self.sellFormModel.ticketPrice = self.sellTicketModel.ticketChoices[index][0]
             if self.originTicket != nil {
                 self.originTicket.name = self.sellTicketModel.ticketChoices[index][1]
-                self.originTicket.id = intmax_t(self.sellTicketModel.ticketChoices[index][0])
+                self.originTicket.id = Int(self.sellTicketModel.ticketChoices[index][0])
             }
             self.ticketOriginName = self.sellTicketModel.ticketChoices[index][1]
         }
@@ -242,7 +243,7 @@ class MySellConfimViewModel: NSObject {
             return "请选择"
         }else{
             if self.sellFormModel.deverliPresnt == "请选择" && self.sellFormModel.deverliVisite == "请选择" && self.sellFormModel.deverliExpress == "请选择" {
-                return "请选择"
+                return "快递到付"
             }
             deverliStr = ""
             if self.sellFormModel.deverliExpress != nil && self.sellFormModel.deverliExpress != "请选择" {
@@ -298,7 +299,7 @@ class MySellConfimViewModel: NSObject {
     func configMySellServiceCell(cell:MySellServiceTableViewCell, indexPath:NSIndexPath) {
         let totalMuch = "\(much)".muchType("\((Double(much)! * 100))")
         let serviceMuch = "\((Double(much)! * 100) * 0.01)".muchType("\((Double(much)! * 100) * 0.01)")
-        cell.setData("结算总价: \(totalMuch) 元", servicemuch: "交易手续费: \(serviceMuch) 元", sevicep: "第三方支付交易手续费1%\n订单票款结算金额将于演出结束后24小时内转入账户钱包中", type: 0)
+        cell.setData("结算总价: \(totalMuch) 元", servicemuch: "交易手续费: \(serviceMuch) 元", sevicep: "第三方支付交易手续费1%\n订单票款将于对方确认收货后立即结算至钱包账户", type: 0)
     }
     
     
@@ -452,7 +453,7 @@ class MySellConfimViewModel: NSObject {
                      "seat_type":self.sellFormModel.seatType,
                      "price":self.sellFormModel.price,
                      "region":self.sellFormModel.ticketRegin,
-                     "sell_type":self.sellFormModel.sellType == "单卖" ? "1" : "2",
+                     "sell_type":self.sellFormModel.sellType == "可以分开卖" ? "1" : "2",
                      "ticket_count":self.sellFormModel.number == 0 ? 1:self.sellFormModel.number,
                      "row":str]
         var delivery_type = ""

@@ -377,8 +377,8 @@ class NumberTickView: UIView {
     init(frame:CGRect, buttonWidth:CGFloat, type:NumberTickViewType) {
         super.init(frame: frame)
         if type == .Confirm {
-            self.layer.cornerRadius = 3.0
-            
+            self.layer.cornerRadius = 2.0
+            self.layer.masksToBounds = true
             downButton = UIButton(type: .Custom)
             downButton.setImage(UIImage.init(named: "Icon_Reduce_Disable"), forState: .Normal)
             downButton.frame = CGRectMake(0, 0, buttonWidth, frame.size.height)

@@ -175,7 +175,7 @@ class OrderList : NSObject, NSCoding{
     var created : String!
     var deliveryPrice : Int!
     var deliveryType : Int!
-    var id : intmax_t!
+    var id : Int!
     var message : String!
     var name : String!
     var orderId : String!
@@ -205,7 +205,7 @@ class OrderList : NSObject, NSCoding{
         created = dictionary["created"] as? String
         deliveryPrice = dictionary["delivery_price"] as? Int
         deliveryType = dictionary["delivery_type"] as? Int
-        id = dictionary["id"] as? intmax_t
+        id = dictionary["id"]as? Int
         message = dictionary["message"] as? String
         name = dictionary["name"] as? String
         orderId = dictionary["order_id"] as? String
@@ -318,7 +318,7 @@ class OrderList : NSObject, NSCoding{
         created = aDecoder.decodeObjectForKey("created") as? String
         deliveryPrice = aDecoder.decodeObjectForKey("delivery_price") as? Int
         deliveryType = aDecoder.decodeObjectForKey("delivery_type") as? Int
-        id = aDecoder.decodeObjectForKey("id") as? intmax_t
+        id = aDecoder.decodeObjectForKey("id") as? Int
         message = aDecoder.decodeObjectForKey("message") as? String
         name = aDecoder.decodeObjectForKey("name") as? String
         orderId = aDecoder.decodeObjectForKey("order_id") as? String

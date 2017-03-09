@@ -24,31 +24,50 @@ class SellViewModel: NSObject {
     func tableViewDidSelectRowAtIndexPath(indexPath:NSIndexPath) {
         if UserInfoModel.isLoggedIn() {
             if UserInfoModel.shareInstance().role == "supplier" {
-                let model = TicketShowModel.init(fromDictionary: self.models.objectAtIndex(indexPath.row) as! NSDictionary)
-                if model.sessionCount != 1 {
-                    let controllerVC = TicketSceneViewController()
-                    controllerVC.viewModel.model = model
-                    controllerVC.viewModel.isSellType = true
-                    NavigationPushView(controller, toConroller: controllerVC)
-                }else{
-                    let controllerVC = MySellConfimViewController()
-                    controllerVC.viewModel.model = model
-                    controllerVC.viewModel.isChange = false
-                    controllerVC.viewModel.isSellTicketView = true
-                    controllerVC.viewModel.setUpViewModel()
-                    NavigationPushView(controller, toConroller: controllerVC)
-                }
+                self.pushSellViewController(indexPath)
             }else{
-                UIAlertController.shwoAlertControl(controller, style: .Alert, title: "您还非商家哦，可联系客服400-873-8011", message: nil, cancel: "取消", doneTitle: "联系客服", cancelAction: {
-                    
-                    }, doneAction: {
-                        AppCallViewShow(self.controller.view, phone: "400-873-8011")
+                BaseNetWorke.sharedInstance.getUrlWithString(UserInfoChange, parameters: nil).subscribeNext({ (resultDic) in
+                    print("dic")
+                    let model = UserInfoModel.mj_objectWithKeyValues(resultDic)
+                    UserInfoModel.shareInstance().avatar = model.avatar
+                    UserInfoModel.shareInstance().username = model.username
+                    UserInfoModel.shareInstance().id = model.id
+                    UserInfoModel.shareInstance().gender = model.gender
+                    UserInfoModel.shareInstance().phone = UserInfoModel.shareInstance().phone
+                    UserInfoModel.shareInstance().role = model.role
+                    model.saveOrUpdate()
+                    if UserInfoModel.shareInstance().role == "supplier" {
+                        self.pushSellViewController(indexPath)
+                    }else{
+                        UIAlertController.shwoAlertControl(self.controller, style: .Alert, title: "您还非商家哦，可联系客服400-873-8011", message: nil, cancel: "取消", doneTitle: "联系客服", cancelAction: {
+                            
+                            }, doneAction: {
+                                AppCallViewShow(self.controller.view, phone: "400-873-8011")
+                        })
+                    }
                 })
             }
         }else{
             NavigationPushView(controller, toConroller: LoginViewController())
         }
         
+    }
+    
+    func pushSellViewController(indexPath:NSIndexPath){
+        let model = TicketShowModel.init(fromDictionary: self.models.objectAtIndex(indexPath.row) as! NSDictionary)
+        if model.sessionCount != 1 {
+            let controllerVC = TicketSceneViewController()
+            controllerVC.viewModel.model = model
+            controllerVC.viewModel.isSellType = true
+            NavigationPushView(self.controller, toConroller: controllerVC)
+        }else{
+            let controllerVC = MySellConfimViewController()
+            controllerVC.viewModel.model = model
+            controllerVC.viewModel.isChange = false
+            controllerVC.viewModel.isSellTicketView = true
+            controllerVC.viewModel.setUpViewModel()
+            NavigationPushView(self.controller, toConroller: controllerVC)
+        }
     }
     
     func numberOfRowsInSection(section:Int) -> Int {

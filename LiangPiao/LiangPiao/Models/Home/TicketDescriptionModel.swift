@@ -90,7 +90,7 @@ class TicketDescriptionModel : NSObject, NSCoding{
 
 class Supplier : NSObject, NSCoding{
     
-    var id : intmax_t!
+    var id : Int!
     var mobileNum : String!
     var username : String!
     
@@ -99,7 +99,7 @@ class Supplier : NSObject, NSCoding{
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: NSDictionary){
-        id = dictionary["id"] as? intmax_t
+        id = dictionary["id"] as? Int
         mobileNum = dictionary["mobile_num"] as? String
         username = dictionary["username"] as? String
     }
@@ -111,7 +111,7 @@ class Supplier : NSObject, NSCoding{
     {
         let dictionary = NSMutableDictionary()
         if id != nil{
-            dictionary["id"] = id
+            dictionary["id"] = id as? AnyObject
         }
         if mobileNum != nil{
             dictionary["mobile_num"] = mobileNum
@@ -128,7 +128,7 @@ class Supplier : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        id = aDecoder.decodeObjectForKey("id") as? intmax_t
+        id = aDecoder.decodeObjectForKey("id") as? Int
         mobileNum = aDecoder.decodeObjectForKey("mobile_num") as? String
         username = aDecoder.decodeObjectForKey("username") as? String
         
@@ -160,7 +160,7 @@ class TicketList : NSObject, NSCoding{
     var deliveryPriceSf : Int!
     var deliveryType : String!
     var discount : String!
-    var id : intmax_t!
+    var id : Int!
     var originalTicket : OriginalTicket!
     var price : Int!
     var region : String!
@@ -189,7 +189,7 @@ class TicketList : NSObject, NSCoding{
         deliveryPriceSf = dictionary["delivery_price_sf"] as? Int
         deliveryType = dictionary["delivery_type"] as? String
         discount = dictionary["discount"] as? String
-        id = dictionary["id"] as? intmax_t
+        id = dictionary["id"] as? Int
         if let originalTicketData = dictionary["original_ticket"] as? NSDictionary{
             originalTicket = OriginalTicket(fromDictionary: originalTicketData)
         }
@@ -302,7 +302,7 @@ class TicketList : NSObject, NSCoding{
         deliveryPriceSf = aDecoder.decodeObjectForKey("delivery_price_sf") as? Int
         deliveryType = aDecoder.decodeObjectForKey("delivery_type") as? String
         discount = aDecoder.decodeObjectForKey("discount") as? String
-        id = aDecoder.decodeObjectForKey("id") as? intmax_t
+        id = aDecoder.decodeObjectForKey("id") as? Int
         originalTicket = aDecoder.decodeObjectForKey("original_ticket") as? OriginalTicket
         price = aDecoder.decodeObjectForKey("price") as? Int
         region = aDecoder.decodeObjectForKey("region") as? String
@@ -406,7 +406,7 @@ class TicketList : NSObject, NSCoding{
 
 class OriginalTicket : NSObject, NSCoding{
     
-    var id : intmax_t!
+    var id : Int!
     var name : String!
     var price : Int!
     
@@ -415,7 +415,7 @@ class OriginalTicket : NSObject, NSCoding{
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: NSDictionary){
-        id = dictionary["id"] as? intmax_t
+        id = dictionary["id"] as? Int
         name = dictionary["name"] as? String
         price = dictionary["price"] as? Int
     }
@@ -444,7 +444,7 @@ class OriginalTicket : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        id = aDecoder.decodeObjectForKey("id") as? intmax_t
+        id = aDecoder.decodeObjectForKey("id") as? Int
         name = aDecoder.decodeObjectForKey("name") as? String
         price = aDecoder.decodeObjectForKey("price") as? Int
         

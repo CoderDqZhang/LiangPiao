@@ -45,7 +45,7 @@ class TicketDescriptionViewController: UIViewController {
             tableView.registerClass(TicketDescripTableViewCell.self, forCellReuseIdentifier: "TicketDescripTableViewCell")
             tableView.registerClass(TickerInfoTableViewCell.self, forCellReuseIdentifier: "TickerInfoTableViewCell")
             tableView.registerClass(TicketToolsTableViewCell.self, forCellReuseIdentifier: "TicketToolsTableViewCell")
-            tableView.registerClass(TicketMapTableViewCell.self, forCellReuseIdentifier: "TicketMapTableViewCell")
+//            tableView.registerClass(TicketMapTableViewCell.self, forCellReuseIdentifier: "TicketMapTableViewCell")
             tableView.registerClass(NoneTicketTableViewCell.self, forCellReuseIdentifier: "NoneTicketTableViewCell")
             self.view.addSubview(tableView)
             
@@ -277,6 +277,7 @@ extension TicketDescriptionViewController : UITableViewDataSource {
         case 0:
             let cell = tableView.dequeueReusableCellWithIdentifier("TicketDescripTableViewCell", forIndexPath: indexPath) as! TicketDescripTableViewCell
             viewModel.configCellTicketDescripTableViewCell(cell)
+            cell.setHiddenLine(true)
             cell.selectionStyle = .None
             return cell
 //        case 1:

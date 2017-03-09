@@ -20,7 +20,7 @@ class Venue : NSObject, NSCoding{
     
     var address : String!
     var city : String!
-    var id : intmax_t!
+    var id : Int!
     var image : String!
     var name : String!
     var phone : String!
@@ -33,7 +33,7 @@ class Venue : NSObject, NSCoding{
     init(fromDictionary dictionary: NSDictionary){
         address = dictionary["address"] as? String
         city = dictionary["city"] as? String
-        id = dictionary["id"] as? intmax_t
+        id = dictionary["id"] as? Int
         image = dictionary["image"] as? String
         name = dictionary["name"] as? String
         phone = dictionary["phone"] as? String
@@ -53,7 +53,7 @@ class Venue : NSObject, NSCoding{
             dictionary["city"] = city
         }
         if id != nil{
-            dictionary["id"] = id
+            dictionary["id"] = id as? AnyObject
         }
         if image != nil{
             dictionary["image"] = image
@@ -78,7 +78,7 @@ class Venue : NSObject, NSCoding{
     {
         address = aDecoder.decodeObjectForKey("address") as? String
         city = aDecoder.decodeObjectForKey("city") as? String
-        id = aDecoder.decodeObjectForKey("id") as? intmax_t
+        id = aDecoder.decodeObjectForKey("id") as? Int
         image = aDecoder.decodeObjectForKey("image") as? String
         name = aDecoder.decodeObjectForKey("name") as? String
         phone = aDecoder.decodeObjectForKey("phone") as? String
@@ -99,7 +99,7 @@ class Venue : NSObject, NSCoding{
             aCoder.encodeObject(city, forKey: "city")
         }
         if id != nil{
-            aCoder.encodeObject(id, forKey: "id")
+            aCoder.encodeObject(id as? AnyObject, forKey: "id")
         }
         if image != nil{
             aCoder.encodeObject(image, forKey: "image")
@@ -120,7 +120,7 @@ class Venue : NSObject, NSCoding{
 
 class Category : NSObject, NSCoding{
     
-    var id : intmax_t!
+    var id : Int!
     var name : String!
     
     
@@ -128,7 +128,7 @@ class Category : NSObject, NSCoding{
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: NSDictionary){
-        id = dictionary["id"] as? intmax_t
+        id = dictionary["id"] as? Int
         name = dictionary["name"] as? String
     }
     
@@ -153,7 +153,7 @@ class Category : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        id = aDecoder.decodeObjectForKey("id") as? intmax_t
+        id = aDecoder.decodeObjectForKey("id") as? Int
         name = aDecoder.decodeObjectForKey("name") as? String
         
     }
@@ -179,7 +179,7 @@ class TicketShowModel : NSObject, NSCoding{
     var category : Category!
     var city : String!
     var cover : String!
-    var id : intmax_t!
+    var id : Int!
     var minDiscount : String!
     var minPrice : Int!
     var maxPrice : Int!
@@ -203,7 +203,7 @@ class TicketShowModel : NSObject, NSCoding{
         }
         city = dictionary["city"] as? String
         cover = dictionary["cover"] as? String
-        id = dictionary["id"] as! intmax_t
+        id = dictionary["id"] as! Int
         minDiscount = dictionary["min_discount"] as? String
         minPrice = dictionary["min_price"] as? Int
         maxPrice = dictionary["max_price"] as? Int

@@ -261,6 +261,9 @@ class OrderDeliveryTypeViewModel: NSObject {
         switch indexPath.row {
         case 0:
             cell.setTitleLabel("快递到付", isSelect: self.express.isSelect)
+            cell.switchBar.rac_signalForControlEvents(.ValueChanged).subscribeNext({ (value) in
+                self.express.isSelect = (value as! UISwitch).on
+            })
         case 1:
             cell.titleLabel.text = "现场取票"
             if self.isRecivi || self.type == .All {
