@@ -229,6 +229,7 @@ class OrderConfirmViewModel: NSObject {
         cell.numberTickView.numberTextField.rac_observeKeyPath("text", options: .New, observer: nil) { (object, objects,isNew, isOld) in
             if NSInteger(object as! String)! <= self.ticketModel.remainCount {
                 self.remainCount = NSInteger(object as! String)!
+                self.orderForme.remainCount = self.remainCount
                 if cellDetail == nil {
                     cellDetail = self.controller.tableView.cellForRowAtIndexPath(NSIndexPath.init(forRow: 2, inSection: 1)) as! GloabTitleAndDetailCell
                 }
@@ -237,6 +238,7 @@ class OrderConfirmViewModel: NSObject {
                 self.updateMuchOfTicke()
             }else{
                 cell.numberTickView.numberTextField.text = "\(self.ticketModel.remainCount)"
+                self.orderForme.remainCount = self.ticketModel.remainCount
             }
         }
     }
