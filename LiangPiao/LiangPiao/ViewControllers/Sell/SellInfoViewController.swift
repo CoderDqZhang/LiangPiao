@@ -55,6 +55,7 @@ class SellInfoViewController: UIViewController {
         tableView.registerClass(GloabTitleAndDetailImageCell.self, forCellReuseIdentifier: "GloabTitleAndDetailImageCell")
         tableView.registerClass(GloabTitleAndSwitchBarTableViewCell.self, forCellReuseIdentifier: "GloabTitleAndSwitchBarTableViewCell")
         tableView.registerClass(MySellServiceTableViewCell.self, forCellReuseIdentifier: "MySellServiceTableViewCell")
+        tableView.registerClass(TicketStatusTableViewCell.self, forCellReuseIdentifier: "TicketStatusTableViewCell")
         tableView.separatorStyle = .None
         self.view.addSubview(tableView)
         
@@ -183,7 +184,7 @@ extension SellInfoViewController : UITableViewDelegate {
     }
     
     func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        if section == 1 {
+        if section == 2 {
             return self.mySellConfimView()
         }
         return nil
@@ -209,18 +210,17 @@ extension SellInfoViewController : UITableViewDataSource {
         switch indexPath.section {
         case 0:
             switch indexPath.row {
-            case 3:
-                let cell = tableView.dequeueReusableCellWithIdentifier("GloabTitleAndSwitchBarTableViewCell", forIndexPath: indexPath) as! GloabTitleAndSwitchBarTableViewCell
-                cell.setTitleLabel("连坐", isSelect: false)
-                viewModel.tableViewGloabTitleAndSwitchBarTableViewCell(cell)
-                cell.selectionStyle = .None
-                return cell
             default:
                 let cell = tableView.dequeueReusableCellWithIdentifier("GloabTitleAndDetailImageCell", forIndexPath: indexPath) as! GloabTitleAndDetailImageCell
                 viewModel.tableViewGloabTitleAndDetailImageCell(cell, indexPath: indexPath)
                 cell.selectionStyle = .None
                 return cell
             }
+        case 1:
+            let cell = tableView.dequeueReusableCellWithIdentifier("TicketStatusTableViewCell", forIndexPath: indexPath) as! TicketStatusTableViewCell
+            viewModel.tableViewTicketStatusTableViewCell(cell)
+            cell.selectionStyle = .None
+            return cell
         default:
             let cell = tableView.dequeueReusableCellWithIdentifier("MySellServiceTableViewCell", forIndexPath: indexPath) as! MySellServiceTableViewCell
             viewModel.tableViewMySellServiceTableViewCell(cell, indexPath: indexPath)

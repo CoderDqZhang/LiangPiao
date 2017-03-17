@@ -272,13 +272,13 @@ class MySellConfimViewModel: NSObject {
     }
     
     func sellInfoViewNumberSection() -> Int {
-        return 2
+        return 3
     }
     
     func sellInfoNumberRowSection(section:Int) ->Int {
         switch section {
         case 0:
-            return 5
+            return 4
         default:
             return 1
         }
@@ -288,6 +288,8 @@ class MySellConfimViewModel: NSObject {
         switch indexPath.section {
         case 0:
             return 54
+        case 1:
+            return 70
         default:
             return infoController.tableView.fd_heightForCellWithIdentifier("MySellServiceTableViewCell", configuration: { (cell) in
                 self.configMySellServiceCell(cell as! MySellServiceTableViewCell, indexPath:indexPath)
@@ -308,14 +310,14 @@ class MySellConfimViewModel: NSObject {
         case 0:
             if indexPath.section == 0 {
                 infoController.showSellTypePickerView()
-            }else{
+            }else if indexPath.section == 2{
                 KWINDOWDS().addSubview(GloableServiceView.init(title: "手续费说明", message: "所有交易免佣金，仅含1%第三方支付平台交易手续费\n结算票款时系统自动扣减手续费"))
             }
         case 1:
             infoController.showTicketRegionPickerView()
         case 2:
             infoController.showTicketRowPickerView()
-        case 4:
+        case 3:
             let controllerVC = OrderDeliveryTypeViewController()
             controllerVC.viewModel.express = self.express
             controllerVC.viewModel.present = self.present
@@ -359,6 +361,10 @@ class MySellConfimViewModel: NSObject {
         }
     }
     
+    func tableViewTicketStatusTableViewCell(cell:TicketStatusTableViewCell) {
+        cell.setTicketModel(self.sellFormModel)
+    }
+    
     func tableViewGloabTitleAndSwitchBarTableViewCell(cell:GloabTitleAndSwitchBarTableViewCell) {
         cell.switchBar.enabled = true
         if self.sellFormModel.seatType == "1"  {
@@ -369,7 +375,6 @@ class MySellConfimViewModel: NSObject {
                 cell.switchBar.enabled = false
             }
         }else{
-            
             cell.switchBar.setOn(false, animated: true)
         }
         cell.switchBar.rac_signalForControlEvents(.ValueChanged).subscribeNext { (value) in
@@ -413,7 +418,7 @@ class MySellConfimViewModel: NSObject {
     
     func tableViewMySellServiceTableViewCell(cell:MySellServiceTableViewCell, indexPath:NSIndexPath) {
         switch indexPath.section {
-        case 1:
+        case 2:
             self.configMySellServiceCell(cell, indexPath: indexPath)
         default:
             cell.setData("余额：00.00 元", servicemuch: "押金：50.00 元", sevicep: "保证金将于订单完成后直接返还至账户钱包中，挂单、删除或下架后押金亦退还至钱包中", type: 1)
@@ -444,6 +449,8 @@ class MySellConfimViewModel: NSObject {
     func requestSellTicketPost(){
         var paramerts = NSMutableDictionary()
         var str = ""
+        let cell = self.controller.tableView.cellForRowAtIndexPath(NSIndexPath.init(forRow: 0, inSection: 1)) as! TicketStatusTableViewCell
+        self.sellFormModel.seatType = cell.isSeat ? "1" : "2"
         if self.sellFormModel.ticketRegin != "择优分配" {
             str = self.sellFormModel.ticketRow == "择优分配" ? "" : (self.sellFormModel.ticketRow as NSString).substringToIndex(self.sellFormModel.ticketRow.length - 1)
         }else{

@@ -171,6 +171,7 @@
 		1FB7B29C1DCC392900945B70 /* GloabTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB7B29B1DCC392900945B70 /* GloabTableViewCell.swift */; };
 		1FB7B29E1DCC412500945B70 /* OrderConfirmViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FB7B29D1DCC412500945B70 /* OrderConfirmViewModel.swift */; };
 		1FBB9A441E20883900E2EC1B /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBB9A431E20883900E2EC1B /* NotificationViewController.swift */; };
+		1FBE67171E7A792700AACBE0 /* TicketStatusTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBE67161E7A792700AACBE0 /* TicketStatusTableViewCell.swift */; };
 		1FBF86C31DDD47EF0057BB11 /* UILabel+ChangeLineSpaceAndWordSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FBF86C21DDD47EF0057BB11 /* UILabel+ChangeLineSpaceAndWordSpace.m */; };
 		1FBFC7C51DDAAD2B008D9CEC /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FBFC7C41DDAAD2B008D9CEC /* LoginViewModel.swift */; };
 		1FBFC7E41DDABD48008D9CEC /* FMDatabase+FTS3.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FBFC7CA1DDABD48008D9CEC /* FMDatabase+FTS3.m */; };
@@ -498,6 +499,7 @@
 		1FB7B29B1DCC392900945B70 /* GloabTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GloabTableViewCell.swift; sourceTree = "<group>"; };
 		1FB7B29D1DCC412500945B70 /* OrderConfirmViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderConfirmViewModel.swift; sourceTree = "<group>"; };
 		1FBB9A431E20883900E2EC1B /* NotificationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
+		1FBE67161E7A792700AACBE0 /* TicketStatusTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketStatusTableViewCell.swift; sourceTree = "<group>"; };
 		1FBF86C11DDD47EF0057BB11 /* UILabel+ChangeLineSpaceAndWordSpace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+ChangeLineSpaceAndWordSpace.h"; sourceTree = "<group>"; };
 		1FBF86C21DDD47EF0057BB11 /* UILabel+ChangeLineSpaceAndWordSpace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+ChangeLineSpaceAndWordSpace.m"; sourceTree = "<group>"; };
 		1FBFC7C41DDAAD2B008D9CEC /* LoginViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
@@ -803,6 +805,7 @@
 				1F987DE91E028DF10095803A /* MySellConfimHeaderTableViewCell.swift */,
 				1F987DEB1E028E2D0095803A /* MySellTicketTableViewCell.swift */,
 				1F987DED1E028E5E0095803A /* MySellTicketMuchTableViewCell.swift */,
+				1FBE67161E7A792700AACBE0 /* TicketStatusTableViewCell.swift */,
 			);
 			path = Sell;
 			sourceTree = "<group>";
@@ -1936,6 +1939,7 @@
 				1FEE7EB91DF68ECB00479648 /* TopUpViewModel.swift in Sources */,
 				1F52ED741DE3FBC800916C91 /* TicketShowModel.swift in Sources */,
 				1FD881BF1DC736D300B2B702 /* HomeSearchTableViewCell.swift in Sources */,
+				1FBE67171E7A792700AACBE0 /* TicketStatusTableViewCell.swift in Sources */,
 				1FD881D41DC84FDA00B2B702 /* GloabView.swift in Sources */,
 				1FEE7EAD1DF65AAF00479648 /* MyWallToolsTableViewCell.swift in Sources */,
 				1FA708831DEBCD7400FCCAEB /* TicketDescriptionModel.swift in Sources */,
