@@ -333,6 +333,7 @@ class GloableBottomButtonView: UIView {
         button.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (btnTouchUp) in
             if action != nil {
                 action!(tag:self.button.tag)
+                self.button.enabled = false
             }
         }
         button.snp_makeConstraints { (make) in
