@@ -9,12 +9,15 @@
 
 import UIKit
 
+typealias TicketStatusTableViewCellClouse = (isSeate:Bool, isTicket:Bool) ->Void
 
 class TicketStatusTableViewCell: UITableViewCell {
 
     var ticketStatus:UIView!
     var isSeat:Bool = false
     var isTicket:Bool = false
+    
+    var ticketStatusTableViewCellClouse:TicketStatusTableViewCellClouse!
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -28,21 +31,23 @@ class TicketStatusTableViewCell: UITableViewCell {
                 array.append("保证连坐")
                 array.append("期票预售")
                 typeArray.append(1)
-                typeArray.append(0)
+                
             }else{
                 array.append("期票预售")
-                typeArray.append(0)
             }
         }else{
             if model.number > 1 {
                 array.append("保证连坐")
                 array.append("期票预售")
                 typeArray.append(0)
-                typeArray.append(0)
             }else{
                 array.append("期票预售")
-                typeArray.append(0)
             }
+        }
+        if model.sellCategoty == 1 {
+            typeArray.append(1)
+        }else{
+            typeArray.append(0)
         }
         ticketStatus = UIView.init(frame: CGRect.init(x: 15, y: 17, width: SCREENWIDTH - 30, height: 35))
         self.setUpLable(array, type: typeArray)
@@ -110,7 +115,9 @@ class TicketStatusTableViewCell: UITableViewCell {
                 isTicket = false
             }
         }
-        
+        if (self.ticketStatusTableViewCellClouse != nil) {
+            self.ticketStatusTableViewCellClouse(isSeate: isSeat,isTicket: isTicket)
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -601,3 +601,94 @@ class GloabTitleNumberCountTableViewCell: UITableViewCell {
     
 }
 
+class GloabTitleAndTextFieldCell: UITableViewCell {
+    
+    var titleLabel:UILabel!
+    var textField:UITextField!
+    var lineLable:GloabLineView!
+    
+    var didMakeConstraints:Bool = false
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.setUpView()
+    }
+    
+    func setUpView() {
+        titleLabel = UILabel()
+        titleLabel.text = "售卖数量"
+        titleLabel.textColor = UIColor.init(hexString: App_Theme_384249_Color)
+        titleLabel.font = App_Theme_PinFan_R_13_Font!
+        self.contentView.addSubview(titleLabel)
+        
+        textField = UITextField()
+        textField.font = App_Theme_PinFan_R_13_Font
+        textField.textAlignment = .Right
+        textField.tintColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
+        textField.textColor = UIColor.init(hexString: App_Theme_384249_Color)
+        self.contentView.addSubview(textField)
+        
+        lineLable = GloabLineView(frame: CGRectMake(15,0,SCREENWIDTH - 30, 0.5))
+        self.contentView.addSubview(lineLable)
+        
+        self.updateConstraintsIfNeeded()
+    }
+    
+    func setData(title:String,  plachString:String, textFieldText:String) {
+        titleLabel.text = title
+        textField.placeholder = plachString
+        textField.attributedPlaceholder = NSAttributedString.init(string: plachString, attributes: [NSFontAttributeName:App_Theme_PinFan_R_13_Font!,NSForegroundColorAttributeName:UIColor.init(hexString: App_Theme_DDE0E5_Color)])
+    }
+    
+    func hideLineLabel() {
+        self.lineLable.hidden = true
+    }
+    
+    override func updateConstraints() {
+    
+        if !self.didMakeConstraints {
+            
+            titleLabel.snp_makeConstraints(closure: { (make) in
+                make.left.equalTo(self.contentView.snp_left).offset(15)
+                make.centerY.equalTo(self.contentView.snp_centerY).offset(0)
+            })
+            
+            textField.snp_makeConstraints(closure: { (make) in
+                make.left.equalTo(self.titleLabel.snp_right).offset(15)
+                make.right.equalTo(self.contentView.snp_right).offset(-15)
+                make.centerY.equalTo(self.contentView.snp_centerY).offset(0)
+            })
+            
+            lineLable.snp_makeConstraints(closure: { (make) in
+                make.left.equalTo(self.contentView.snp_left).offset(15)
+                make.right.equalTo(self.contentView.snp_right).offset(-15)
+                make.bottom.equalTo(self.contentView.snp_bottom).offset(-0.5)
+            })
+            
+            self.didMakeConstraints = true
+        }
+        super.updateConstraints()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setText(title:String, plachString:String, textFieldText:String){
+        titleLabel.text = title
+        textField.placeholder = plachString
+        textField.text = textFieldText
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        // Initialization code
+    }
+    
+    override func setSelected(selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+        
+        // Configure the view for the selected state
+    }
+    
+}
+

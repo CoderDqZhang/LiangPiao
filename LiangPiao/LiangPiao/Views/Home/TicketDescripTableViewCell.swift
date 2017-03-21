@@ -129,7 +129,6 @@ class TicketDescripTableViewCell: UITableViewCell {
         
         self.setUpTicketStatues(sessionModel)
         
-        self.updateConstraintsIfNeeded()
         
     }
     

@@ -70,7 +70,6 @@ class OrderWaitePayTableViewCell: UITableViewCell {
             orderTime.font = App_Theme_PinFan_R_12_Font
             orderCountDownView.hidden = true
         }
-        self.updateConstraintsIfNeeded()
     }
     
     required init?(coder aDecoder: NSCoder) {

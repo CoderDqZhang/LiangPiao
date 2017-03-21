@@ -111,7 +111,7 @@ class Supplier : NSObject, NSCoding{
     {
         let dictionary = NSMutableDictionary()
         if id != nil{
-            dictionary["id"] = id as? AnyObject
+            dictionary["id"] = id
         }
         if mobileNum != nil{
             dictionary["mobile_num"] = mobileNum
@@ -173,6 +173,7 @@ class TicketList : NSObject, NSCoding{
     var selfGetTicketAddress : String!
     var selfGetTicketDate : String!
     var selfGetTicketPhone : String!
+    var sellCategory : Int!
     var sellType : Int!
     var soldCount : Int!
     var status : Int!
@@ -204,6 +205,7 @@ class TicketList : NSObject, NSCoding{
         selfGetTicketAddress = dictionary["self_get_ticket_address"] as? String
         selfGetTicketDate = dictionary["self_get_ticket_date"] as? String
         selfGetTicketPhone = dictionary["self_get_ticket_phone"] as? String
+        sellCategory = dictionary["sell_category"] as? Int
         sellType = dictionary["sell_type"] as? Int
         soldCount = dictionary["sold_count"] as? Int
         status = dictionary["status"] as? Int
@@ -271,6 +273,9 @@ class TicketList : NSObject, NSCoding{
         if selfGetTicketPhone != nil{
             dictionary["self_get_ticket_phone"] = selfGetTicketPhone
         }
+        if sellCategory != nil{
+            dictionary["sell_category"] = sellCategory
+        }
         if sellType != nil{
             dictionary["sell_type"] = sellType
         }
@@ -315,6 +320,7 @@ class TicketList : NSObject, NSCoding{
         selfGetTicketAddress = aDecoder.decodeObjectForKey("self_get_ticket_address") as? String
         selfGetTicketDate = aDecoder.decodeObjectForKey("self_get_ticket_date") as? String
         selfGetTicketPhone = aDecoder.decodeObjectForKey("self_get_ticket_phone") as? String
+        sellCategory = aDecoder.decodeObjectForKey("sell_category") as? Int
         sellType = aDecoder.decodeObjectForKey("sell_type") as? Int
         soldCount = aDecoder.decodeObjectForKey("sold_count") as? Int
         status = aDecoder.decodeObjectForKey("status") as? Int
@@ -380,6 +386,9 @@ class TicketList : NSObject, NSCoding{
         }
         if selfGetTicketPhone != nil{
             aCoder.encodeObject(selfGetTicketPhone, forKey: "self_get_ticket_phone")
+        }
+        if sellCategory != nil{
+            aCoder.encodeObject(sellCategory, forKey: "sell_category")
         }
         if sellType != nil{
             aCoder.encodeObject(sellType, forKey: "sell_type")

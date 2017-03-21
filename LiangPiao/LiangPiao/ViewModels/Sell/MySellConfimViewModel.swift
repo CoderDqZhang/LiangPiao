@@ -272,13 +272,15 @@ class MySellConfimViewModel: NSObject {
     }
     
     func sellInfoViewNumberSection() -> Int {
-        return 3
+        return 4
     }
     
     func sellInfoNumberRowSection(section:Int) ->Int {
         switch section {
         case 0:
-            return 4
+            return 2
+        case 1:
+            return 2
         default:
             return 1
         }
@@ -289,6 +291,8 @@ class MySellConfimViewModel: NSObject {
         case 0:
             return 54
         case 1:
+            return 54
+        case 2:
             return 70
         default:
             return infoController.tableView.fd_heightForCellWithIdentifier("MySellServiceTableViewCell", configuration: { (cell) in
@@ -306,63 +310,74 @@ class MySellConfimViewModel: NSObject {
     
     
     func sellInfoTableViewDidSelect(indexPath:NSIndexPath) {
-        switch indexPath.row {
+        switch indexPath.section {
         case 0:
-            if indexPath.section == 0 {
-                infoController.showSellTypePickerView()
-            }else if indexPath.section == 2{
-                KWINDOWDS().addSubview(GloableServiceView.init(title: "手续费说明", message: "所有交易免佣金，仅含1%第三方支付平台交易手续费\n结算票款时系统自动扣减手续费"))
+            if indexPath.row == 0 {
+                infoController.showTicketRegionPickerView()
+            }else{
+                infoController.showTicketRowPickerView()
             }
         case 1:
-            infoController.showTicketRegionPickerView()
-        case 2:
-            infoController.showTicketRowPickerView()
-        case 3:
-            let controllerVC = OrderDeliveryTypeViewController()
-            controllerVC.viewModel.express = self.express
-            controllerVC.viewModel.present = self.present
-            controllerVC.viewModel.visite = self.visite
-            controllerVC.viewModel.orderDeliveryTypeViewModelClouse = { array in
-                self.deverliStr = ""
-                for object in array {
-                    if object is Expressage {
-                        let str = NSString.DataTOjsonString((object as! Expressage).mj_keyValues())
-                        self.sellFormModel.deverliExpress = str
+            if indexPath.row == 0 {
+                infoController.showSellTypePickerView()
+            }else{
+                let controllerVC = OrderDeliveryTypeViewController()
+                controllerVC.viewModel.express = self.express
+                controllerVC.viewModel.present = self.present
+                controllerVC.viewModel.visite = self.visite
+                controllerVC.viewModel.orderDeliveryTypeViewModelClouse = { array in
+                    self.deverliStr = ""
+                    for object in array {
+                        if object is Expressage {
+                            let str = NSString.DataTOjsonString((object as! Expressage).mj_keyValues())
+                            self.sellFormModel.deverliExpress = str
+                        }
+                        if object is Present {
+                            let str = NSString.DataTOjsonString((object as! Present).mj_keyValues())
+                            self.sellFormModel.deverliPresnt = str
+                        }
+                        if object is Visite {
+                            let str = NSString.DataTOjsonString((object as! Visite).mj_keyValues())
+                            self.sellFormModel.deverliVisite = str
+                        }
                     }
-                    if object is Present {
-                        let str = NSString.DataTOjsonString((object as! Present).mj_keyValues())
-                        self.sellFormModel.deverliPresnt = str
-                    }
-                    if object is Visite {
-                        let str = NSString.DataTOjsonString((object as! Visite).mj_keyValues())
-                        self.sellFormModel.deverliVisite = str
-                    }
+                    self.sellFormModel.saveOrUpdate()
+                    self.infoController.tableView.reloadRowsAtIndexPaths([NSIndexPath.init(forRow: 4, inSection: 0)], withRowAnimation: .Automatic)
                 }
-                self.sellFormModel.saveOrUpdate()
-                self.infoController.tableView.reloadRowsAtIndexPaths([NSIndexPath.init(forRow: 4, inSection: 0)], withRowAnimation: .Automatic)
+                NavigationPushView(infoController, toConroller: controllerVC)
             }
-            NavigationPushView(infoController, toConroller: controllerVC)
-        default:
+        case 2:
             break
+        default:
+            KWINDOWDS().addSubview(GloableServiceView.init(title: "手续费说明", message: "所有交易免佣金，仅含1%第三方支付平台交易手续费\n结算票款时系统自动扣减手续费"))
         }
     }
     
     func tableViewGloabTitleAndDetailImageCell(cell:GloabTitleAndDetailImageCell, indexPath:NSIndexPath) {
-        switch indexPath.row {
+        switch indexPath.section {
         case 0:
-            cell.setData("出售方式", detail: self.sellFormModel.sellType)
-        case 1:
-            cell.setData("区域", detail: self.sellFormModel.ticketRegin)
-        case 2:
-            cell.setData("排数", detail: self.sellFormModel.ticketRow)
+            if indexPath.row == 0 {
+                cell.setData("区域", detail: self.sellFormModel.ticketRegin)
+            }else{
+                cell.hideLineLabel()
+                cell.setData("排数", detail: self.sellFormModel.ticketRow)
+            }
         default:
-            cell.hideLineLabel()
-            cell.setData("配送方式", detail: self.getDeveliryStr())
+            if indexPath.row == 0 {
+                cell.setData("出售方式", detail: self.sellFormModel.sellType)
+            }else{
+                cell.hideLineLabel()
+                cell.setData("配送方式", detail: self.getDeveliryStr())
+            }
         }
     }
     
     func tableViewTicketStatusTableViewCell(cell:TicketStatusTableViewCell) {
         cell.setTicketModel(self.sellFormModel)
+        cell.ticketStatusTableViewCellClouse = { isSeat, isTicket in
+            self.sellFormModel.seatType = isSeat ? "1" : "2"
+            self.sellFormModel.sellCategoty = isTicket ? 1:0
+        }
     }
     
     func tableViewGloabTitleAndSwitchBarTableViewCell(cell:GloabTitleAndSwitchBarTableViewCell) {
@@ -418,7 +433,7 @@ class MySellConfimViewModel: NSObject {
     
     func tableViewMySellServiceTableViewCell(cell:MySellServiceTableViewCell, indexPath:NSIndexPath) {
         switch indexPath.section {
-        case 2:
+        case 3:
             self.configMySellServiceCell(cell, indexPath: indexPath)
         default:
             cell.setData("余额：00.00 元", servicemuch: "押金：50.00 元", sevicep: "保证金将于订单完成后直接返还至账户钱包中，挂单、删除或下架后押金亦退还至钱包中", type: 1)
@@ -449,8 +464,6 @@ class MySellConfimViewModel: NSObject {
     func requestSellTicketPost(){
         var paramerts = NSMutableDictionary()
         var str = ""
-        let cell = self.controller.tableView.cellForRowAtIndexPath(NSIndexPath.init(forRow: 0, inSection: 1)) as! TicketStatusTableViewCell
-        self.sellFormModel.seatType = cell.isSeat ? "1" : "2"
         if self.sellFormModel.ticketRegin != "择优分配" {
             str = self.sellFormModel.ticketRow == "择优分配" ? "" : (self.sellFormModel.ticketRow as NSString).substringToIndex(self.sellFormModel.ticketRow.length - 1)
         }else{
@@ -462,6 +475,7 @@ class MySellConfimViewModel: NSObject {
                      "region":self.sellFormModel.ticketRegin,
                      "sell_type":self.sellFormModel.sellType == "可以分开卖" ? "1" : "2",
                      "ticket_count":self.sellFormModel.number == 0 ? 1:self.sellFormModel.number,
+                     "sell_category":self.sellFormModel.sellCategoty == 1 ? "1":"0",
                      "row":str]
         var delivery_type = ""
         if self.express.isSelect {

@@ -52,7 +52,6 @@ class TicketLocationTableViewCell: UITableViewCell {
         detailAddress.text = model.show.venue.address
         UILabel.changeLineSpaceForLabel(detailAddress, withSpace: 2.0)
 
-        self.updateConstraintsIfNeeded()
     }
     
     required init?(coder aDecoder: NSCoder) {

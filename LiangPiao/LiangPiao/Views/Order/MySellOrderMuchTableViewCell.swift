@@ -63,7 +63,6 @@ class MySellOrderMuchTableViewCell: UITableViewCell {
         if model.status == 3 {
             handerButton.hidden = false
         }
-        self.updateConstraintsIfNeeded()
     }
     
     override func updateConstraints() {

@@ -57,3 +57,8 @@ let OneShowTicketUrl = "\(BaseURL)supplier/show/"
 
 let ShareUrl = "http://www.\(BaseStr)show/"
 let UserProtocol = "http://www.\(BaseStr)protocol/"
+
+//TEST
+let ExpressDeliveryUrl = "http://testapi.kdniao.cc:8081/api/dist"
+
+let ExpressOrderHandleUrl = "http://api.kdniao.cc/Ebusiness/EbusinessOrderHandle.aspx"

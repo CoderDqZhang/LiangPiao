@@ -55,6 +55,11 @@
 		1F3C7F5C1DFF8B59009992AE /* ReciveAddressTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3C7F5B1DFF8B59009992AE /* ReciveAddressTableViewCell.swift */; };
 		1F3C7F5E1DFF8BB2009992AE /* OrderStatusViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3C7F5D1DFF8BB2009992AE /* OrderStatusViewModel.swift */; };
 		1F3C7F601DFF9AC8009992AE /* MyWallHistoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3C7F5F1DFF9AC8009992AE /* MyWallHistoryModel.swift */; };
+		1F3F75AF1E7FBB84005D3AC0 /* DeverliyTypeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3F75AE1E7FBB84005D3AC0 /* DeverliyTypeTableViewCell.swift */; };
+		1F3F75B11E7FBDEA005D3AC0 /* DeverliyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3F75B01E7FBDEA005D3AC0 /* DeverliyModel.swift */; };
+		1F3F75B31E7FC15A005D3AC0 /* LogisticsTrackingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3F75B21E7FC15A005D3AC0 /* LogisticsTrackingViewController.swift */; };
+		1F3F75B51E7FC1A7005D3AC0 /* LogisticsTrackingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3F75B41E7FC1A7005D3AC0 /* LogisticsTrackingViewModel.swift */; };
+		1F3F75B71E7FEB67005D3AC0 /* DeverliyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3F75B61E7FEB67005D3AC0 /* DeverliyTableViewCell.swift */; };
 		1F424C551DFE8A9D00C5269B /* WithDrawStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F424C541DFE8A9D00C5269B /* WithDrawStatusViewController.swift */; };
 		1F424C571DFE952100C5269B /* WithDreaViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F424C561DFE952100C5269B /* WithDreaViewModel.swift */; };
 		1F424C591DFE963D00C5269B /* WithDrawStatusHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F424C581DFE963D00C5269B /* WithDrawStatusHeaderCell.swift */; };
@@ -128,6 +133,10 @@
 		1F6BD0E71E2C94B80068B733 /* libWeiboSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F6BD0E61E2C94B80068B733 /* libWeiboSDK.a */; };
 		1F6BD0E91E2C94D60068B733 /* libTalkingData.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F6BD0E81E2C94D60068B733 /* libTalkingData.a */; };
 		1F6BD0EB1E2C94ED0068B733 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F6BD0EA1E2C94ED0068B733 /* libWeChatSDK.a */; };
+		1F6E0A8B1E7E6627007773F7 /* ExpressDeliveryNet.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F6E0A8A1E7E6627007773F7 /* ExpressDeliveryNet.m */; };
+		1F6E0A8D1E7F6F5E007773F7 /* DelivererPushViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6E0A8C1E7F6F5E007773F7 /* DelivererPushViewController.swift */; };
+		1F6E0A8F1E7F6FAB007773F7 /* UserAddressTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6E0A8E1E7F6FAB007773F7 /* UserAddressTableViewCell.swift */; };
+		1F6E0A911E7F7A4D007773F7 /* DeverliyPushViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6E0A901E7F7A4D007773F7 /* DeverliyPushViewModel.swift */; };
 		1F80A65C1DE6905400DA51AB /* ErrorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F80A65B1DE6905400DA51AB /* ErrorModel.swift */; };
 		1F8857301DFFA4220054367C /* ZDQFlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F88572E1DFFA4220054367C /* ZDQFlowView.swift */; };
 		1F8857311DFFA4220054367C /* ZDQFlowViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F88572F1DFFA4220054367C /* ZDQFlowViewItem.swift */; };
@@ -356,6 +365,11 @@
 		1F3C7F5B1DFF8B59009992AE /* ReciveAddressTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReciveAddressTableViewCell.swift; path = ../Home/ReciveAddressTableViewCell.swift; sourceTree = "<group>"; };
 		1F3C7F5D1DFF8BB2009992AE /* OrderStatusViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderStatusViewModel.swift; sourceTree = "<group>"; };
 		1F3C7F5F1DFF9AC8009992AE /* MyWallHistoryModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyWallHistoryModel.swift; sourceTree = "<group>"; };
+		1F3F75AE1E7FBB84005D3AC0 /* DeverliyTypeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DeverliyTypeTableViewCell.swift; path = ../../ViewModels/Order/DeverliyTypeTableViewCell.swift; sourceTree = "<group>"; };
+		1F3F75B01E7FBDEA005D3AC0 /* DeverliyModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeverliyModel.swift; sourceTree = "<group>"; };
+		1F3F75B21E7FC15A005D3AC0 /* LogisticsTrackingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogisticsTrackingViewController.swift; sourceTree = "<group>"; };
+		1F3F75B41E7FC1A7005D3AC0 /* LogisticsTrackingViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogisticsTrackingViewModel.swift; sourceTree = "<group>"; };
+		1F3F75B61E7FEB67005D3AC0 /* DeverliyTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeverliyTableViewCell.swift; sourceTree = "<group>"; };
 		1F424C541DFE8A9D00C5269B /* WithDrawStatusViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WithDrawStatusViewController.swift; sourceTree = "<group>"; };
 		1F424C561DFE952100C5269B /* WithDreaViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WithDreaViewModel.swift; sourceTree = "<group>"; };
 		1F424C581DFE963D00C5269B /* WithDrawStatusHeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WithDrawStatusHeaderCell.swift; sourceTree = "<group>"; };
@@ -453,6 +467,11 @@
 		1F6BD0E61E2C94B80068B733 /* libWeiboSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeiboSDK.a; sourceTree = "<group>"; };
 		1F6BD0E81E2C94D60068B733 /* libTalkingData.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTalkingData.a; sourceTree = "<group>"; };
 		1F6BD0EA1E2C94ED0068B733 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
+		1F6E0A891E7E6627007773F7 /* ExpressDeliveryNet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExpressDeliveryNet.h; sourceTree = "<group>"; };
+		1F6E0A8A1E7E6627007773F7 /* ExpressDeliveryNet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpressDeliveryNet.m; sourceTree = "<group>"; };
+		1F6E0A8C1E7F6F5E007773F7 /* DelivererPushViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DelivererPushViewController.swift; sourceTree = "<group>"; };
+		1F6E0A8E1E7F6FAB007773F7 /* UserAddressTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAddressTableViewCell.swift; sourceTree = "<group>"; };
+		1F6E0A901E7F7A4D007773F7 /* DeverliyPushViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeverliyPushViewModel.swift; sourceTree = "<group>"; };
 		1F7AAF091E19F833004ABACC /* LiangPiao.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LiangPiao.entitlements; sourceTree = "<group>"; };
 		1F80A65B1DE6905400DA51AB /* ErrorModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorModel.swift; sourceTree = "<group>"; };
 		1F88572E1DFFA4220054367C /* ZDQFlowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZDQFlowView.swift; sourceTree = "<group>"; };
@@ -728,6 +747,8 @@
 				1FEE7EB21DF68CAA00479648 /* WithDrawViewController.swift */,
 				1F424C541DFE8A9D00C5269B /* WithDrawStatusViewController.swift */,
 				1F3C7F571DFF8924009992AE /* OrderStatusViewController.swift */,
+				1F6E0A8C1E7F6F5E007773F7 /* DelivererPushViewController.swift */,
+				1F3F75B21E7FC15A005D3AC0 /* LogisticsTrackingViewController.swift */,
 			);
 			path = Order;
 			sourceTree = "<group>";
@@ -755,6 +776,9 @@
 				1FAADB421DF7B29800D08BB9 /* OrderExpressTableViewCell.swift */,
 				1FAADB441DF7C98C00D08BB9 /* OrderExpressDetailTableViewCell.swift */,
 				1F424C581DFE963D00C5269B /* WithDrawStatusHeaderCell.swift */,
+				1F6E0A8E1E7F6FAB007773F7 /* UserAddressTableViewCell.swift */,
+				1F3F75AE1E7FBB84005D3AC0 /* DeverliyTypeTableViewCell.swift */,
+				1F3F75B61E7FEB67005D3AC0 /* DeverliyTableViewCell.swift */,
 			);
 			path = Order;
 			sourceTree = "<group>";
@@ -764,6 +788,7 @@
 			children = (
 				1F1FE8C51DEDE84A0034268F /* OrderListModel.swift */,
 				1F3983AC1DED68B700A24541 /* OrderFormModel.swift */,
+				1F3F75B01E7FBDEA005D3AC0 /* DeverliyModel.swift */,
 			);
 			path = Order;
 			sourceTree = "<group>";
@@ -884,6 +909,8 @@
 				1FEE7EBA1DF68EEE00479648 /* WithDrawViewModel.swift */,
 				1FAADB401DF7AEB300D08BB9 /* OrderDeliveryTypeViewModel.swift */,
 				1F424C561DFE952100C5269B /* WithDreaViewModel.swift */,
+				1F6E0A901E7F7A4D007773F7 /* DeverliyPushViewModel.swift */,
+				1F3F75B41E7FC1A7005D3AC0 /* LogisticsTrackingViewModel.swift */,
 			);
 			name = Order;
 			path = LiangPiao/ViewModels/Order;
@@ -1243,6 +1270,8 @@
 			isa = PBXGroup;
 			children = (
 				1FD245891DC336B300AFD3BC /* BaseNetWorke.swift */,
+				1F6E0A891E7E6627007773F7 /* ExpressDeliveryNet.h */,
+				1F6E0A8A1E7E6627007773F7 /* ExpressDeliveryNet.m */,
 			);
 			path = NetWorking;
 			sourceTree = "<group>";
@@ -1749,6 +1778,7 @@
 				1FD881B91DC7252800B2B702 /* UITableView+FDTemplateLayoutCell.m in Sources */,
 				1F0EAB811DD1B4BE00D25B64 /* CountDown.m in Sources */,
 				1FBFC7E61DDABD48008D9CEC /* FMDatabase+InMemoryOnDiskIO.m in Sources */,
+				1F3F75B71E7FEB67005D3AC0 /* DeverliyTableViewCell.swift in Sources */,
 				1F9A0CAA1DF93BB9002F4C19 /* MySellConfimViewModel.swift in Sources */,
 				1F451F031DF5092E00441044 /* MyWalletViewController.swift in Sources */,
 				1FD244C81DC2F92E00AFD3BC /* ViewController.swift in Sources */,
@@ -1801,6 +1831,7 @@
 				1FBFC7F11DDAC45B008D9CEC /* ZDQFMDBHelp.swift in Sources */,
 				1F0EABA11DD2C0A600D25B64 /* LoginViewController.swift in Sources */,
 				1F424C5B1DFE9F8900C5269B /* MyWallModel.swift in Sources */,
+				1F3F75B11E7FBDEA005D3AC0 /* DeverliyModel.swift in Sources */,
 				1FC3DDEF1DE46F1600420A05 /* ShowSessionModel.swift in Sources */,
 				1F0EAB911DD1E8F200D25B64 /* SettingViewController.swift in Sources */,
 				1FD881E81DC8546500B2B702 /* TAPageControl.m in Sources */,
@@ -1859,6 +1890,7 @@
 				1FD245011DC2FD9700AFD3BC /* NSString+StringSize.m in Sources */,
 				1F538C091DFE5A120020AE31 /* UIButton+Extentions.swift in Sources */,
 				1F0EAB681DD091FA00D25B64 /* OrderListViewController.swift in Sources */,
+				1F6E0A8F1E7F6FAB007773F7 /* UserAddressTableViewCell.swift in Sources */,
 				1FAADB3F1DF7ABDC00D08BB9 /* OrderDeliveryTypeViewController.swift in Sources */,
 				1F9A0CA21DF93A7F002F4C19 /* MySellServiceTableViewCell.swift in Sources */,
 				1F45C4001DD7361C008C60CD /* LiangPiaoHomeRefreshHeader.swift in Sources */,
@@ -1877,6 +1909,7 @@
 				1FEE7EBD1DF6907C00479648 /* DetailAcountTableViewCell.swift in Sources */,
 				1FD2450C1DC2FE5400AFD3BC /* RequestUrl.swift in Sources */,
 				1F0EAB631DD0616F00D25B64 /* OrderMuchTableViewCell.swift in Sources */,
+				1F3F75B31E7FC15A005D3AC0 /* LogisticsTrackingViewController.swift in Sources */,
 				1FD245091DC2FD9700AFD3BC /* NSString+StringType.m in Sources */,
 				1F440E981E347F3C009FA697 /* TicketNotificationViewController.swift in Sources */,
 				1FD881BA1DC7252800B2B702 /* UITableView+FDTemplateLayoutCellDebug.m in Sources */,
@@ -1904,6 +1937,7 @@
 				1F67D1121DCD854800378116 /* AddressViewModel.swift in Sources */,
 				1F90E6031E08E14500661165 /* TickeSellModel.swift in Sources */,
 				1F6629921DCC495F00336700 /* CofimTicketTableViewCell.swift in Sources */,
+				1F6E0A8B1E7E6627007773F7 /* ExpressDeliveryNet.m in Sources */,
 				1F3983AD1DED68B700A24541 /* OrderFormModel.swift in Sources */,
 				1F3241931DF02614007BC078 /* FavoritesViewModel.swift in Sources */,
 				1F0EAB8F1DD1DF1E00D25B64 /* ProfileImageTableViewCell.swift in Sources */,
@@ -1915,10 +1949,12 @@
 				1F3C7F5C1DFF8B59009992AE /* ReciveAddressTableViewCell.swift in Sources */,
 				1FD881CB1DC75FE600B2B702 /* HomeToolsTableViewCell.swift in Sources */,
 				1F45C4041DD73BC9008C60CD /* AllTicketTableViewCell.swift in Sources */,
+				1F3F75B51E7FC1A7005D3AC0 /* LogisticsTrackingViewModel.swift in Sources */,
 				1FAADB411DF7AEB300D08BB9 /* OrderDeliveryTypeViewModel.swift in Sources */,
 				1F0EAB931DD1E93C00D25B64 /* SettingViewModel.swift in Sources */,
 				1F451F081DF50C8F00441044 /* TabBarViewController.swift in Sources */,
 				1FC4FEEB1DC8A32E00EBFD18 /* TYTabButtonPagerController.m in Sources */,
+				1F6E0A911E7F7A4D007773F7 /* DeverliyPushViewModel.swift in Sources */,
 				1FBF86C31DDD47EF0057BB11 /* UILabel+ChangeLineSpaceAndWordSpace.m in Sources */,
 				1F0EAB5B1DD053EE00D25B64 /* OrderDetailViewModel.swift in Sources */,
 				1FAA85171DE54CA600F77835 /* AddressModel.swift in Sources */,
@@ -1928,6 +1964,7 @@
 				1FAADB431DF7B29800D08BB9 /* OrderExpressTableViewCell.swift in Sources */,
 				1FD244E91DC2FD3D00AFD3BC /* UIViewController+NavigationBar.swift in Sources */,
 				1F62F2631DC9F1F200B591F1 /* TicketToolsTableViewCell.swift in Sources */,
+				1F3F75AF1E7FBB84005D3AC0 /* DeverliyTypeTableViewCell.swift in Sources */,
 				1F440EA21E34990A009FA697 /* SDPhotoBrowser.m in Sources */,
 				1FEE7EB31DF68CAA00479648 /* WithDrawViewController.swift in Sources */,
 				1FC4FEEA1DC8A32E00EBFD18 /* TYPagerController.m in Sources */,
@@ -1952,6 +1989,7 @@
 				1F5B1CAF1DF175370073E770 /* OrderListViewModel.swift in Sources */,
 				1F0EAB5F1DD05A9800D25B64 /* OrderTicketInfoTableViewCell.swift in Sources */,
 				1FBFC7E91DDABD48008D9CEC /* FMDatabase.m in Sources */,
+				1F6E0A8D1E7F6F5E007773F7 /* DelivererPushViewController.swift in Sources */,
 				1FD881C11DC7410D00B2B702 /* AppThemeTool.swift in Sources */,
 				1FEE7E9B1DF53ADC00479648 /* OrderManagerTableViewCell.swift in Sources */,
 				1F1FE8CA1DEE830C0034268F /* NoneTicketTableViewCell.swift in Sources */,

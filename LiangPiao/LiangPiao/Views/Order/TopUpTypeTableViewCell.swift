@@ -56,7 +56,6 @@ class TopUpTypeTableViewCell: UITableViewCell {
         topUpTitle.text = title
         topUpDetail.text = detail
         self.updataSelectImage(isSelect)
-        self.updateConstraintsIfNeeded()
     }
     
     func updataSelectImage(isSelect:Bool){
@@ -65,7 +64,6 @@ class TopUpTypeTableViewCell: UITableViewCell {
         }else{
             touUpSelectImage.image = UIImage.init(named: "Checkbox_Normal")
         }
-        self.updateConstraintsIfNeeded()
     }
     
     override func updateConstraints() {

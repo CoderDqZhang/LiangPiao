@@ -38,7 +38,6 @@ class TicketRemarkTableViewCell: UITableViewCell {
     
     func setData(model:OrderList){
         messageLabel.text = "备注：\(model.message)"
-        self.updateConstraintsIfNeeded()
     }
     
     required init?(coder aDecoder: NSCoder) {

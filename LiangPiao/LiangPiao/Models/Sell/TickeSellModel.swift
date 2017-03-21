@@ -14,6 +14,7 @@ class TickeSellModel : NSObject, NSCoding{
     var regionChoices : [[String]]!
     var row : [Int]!
     var seatTypeChoices : [[String]]!
+    var sellCategoryChoices : [[String]]!
     var sellTypeChoices : [[String]]!
     var ticketChoices : [[String]]!
     
@@ -25,6 +26,7 @@ class TickeSellModel : NSObject, NSCoding{
         deliveryTypeChoices = dictionary["delivery_type_choices"] as? [[String]]
         regionChoices = dictionary["region_choices"] as? [[String]]
         row = dictionary["row"] as? [Int]
+        sellCategoryChoices = dictionary["sell_category_choices"] as? [[String]]
         seatTypeChoices = dictionary["seat_type_choices"] as? [[String]]
         sellTypeChoices = dictionary["sell_type_choices"] as? [[String]]
         ticketChoices = dictionary["ticket_choices"] as? [[String]]
@@ -48,6 +50,9 @@ class TickeSellModel : NSObject, NSCoding{
         if seatTypeChoices != nil{
             dictionary["seat_type_choices"] = seatTypeChoices
         }
+        if sellCategoryChoices != nil{
+            dictionary["sell_category_choices"] = sellCategoryChoices
+        }
         if sellTypeChoices != nil{
             dictionary["sell_type_choices"] = sellTypeChoices
         }
@@ -67,6 +72,7 @@ class TickeSellModel : NSObject, NSCoding{
         regionChoices = aDecoder.decodeObjectForKey("region_choices") as? [[String]]
         row = aDecoder.decodeObjectForKey("row") as? [Int]
         seatTypeChoices = aDecoder.decodeObjectForKey("seat_type_choices") as? [[String]]
+        sellCategoryChoices = aDecoder.decodeObjectForKey("sell_category_choices") as? [[String]]
         sellTypeChoices = aDecoder.decodeObjectForKey("sell_type_choices") as? [[String]]
         ticketChoices = aDecoder.decodeObjectForKey("ticket_choices") as? [[String]]
         
@@ -89,6 +95,9 @@ class TickeSellModel : NSObject, NSCoding{
         }
         if seatTypeChoices != nil{
             aCoder.encodeObject(seatTypeChoices, forKey: "seat_type_choices")
+        }
+        if sellCategoryChoices != nil{
+            aCoder.encodeObject(sellCategoryChoices, forKey: "sell_category_choices")
         }
         if sellTypeChoices != nil{
             aCoder.encodeObject(sellTypeChoices, forKey: "sell_type_choices")

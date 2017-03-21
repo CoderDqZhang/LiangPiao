@@ -21,6 +21,7 @@
     self.deverliVisite = @"请选择";
     self.deverliPresnt = @"请选择";
     self.ticketSellType = 1;
+    self.sellCategoty = 0;
     return self;
 }
 

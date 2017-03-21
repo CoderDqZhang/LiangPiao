@@ -51,7 +51,6 @@ class MySellAttentionTableViewCell: UITableViewCell {
     
     func setMuchLabelText(text:String){
 //        muchLabel.text = text
-        self.updateConstraintsIfNeeded()
     }
     
     override func updateConstraints() {

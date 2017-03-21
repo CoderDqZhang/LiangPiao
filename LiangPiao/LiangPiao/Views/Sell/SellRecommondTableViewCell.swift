@@ -106,9 +106,7 @@ class SellRecommondTableViewCell: UITableViewCell {
                     ticketMuch.text = "\(model.minPrice)-\(model.maxPrice)"
                 }
             }
-        }
-        self.updateConstraintsIfNeeded()
-        
+        }        
     }
     
     override func updateConstraints() {

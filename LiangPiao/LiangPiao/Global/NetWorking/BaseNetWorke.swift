@@ -189,4 +189,53 @@ class BaseNetWorke {
             }
         }
     }
+    //这个请求方法有问题
+//    func expressDelivery(url:String, parameters:NSMutableDictionary) -> RACSignal{
+//        return RACSignal.createSignal({ (subscriber) -> RACDisposable! in
+//            let headers = [
+//                "content-type": "application/x-www-form-urlencoded",
+//                "cache-control": "no-cache",
+//                "postman-token": "25f805ac-ede1-fba6-42c7-088ff700bd7d"
+//            ]
+//            
+//            parameters.setObject("NWUxNzljYTY1ZDQwYmNlY2UzODUzZjI3ZTI1MDEyODQ%3d", forKey: "DataSign")
+//            
+////            parameters.setValue("NmFiZDc1NTFlODI4YmZjZjY1MWVlZDQyZGFmOGFlZjM%3d", forKey: "DataSign")
+//            
+//            parameters.setObject("%7b%22CallBack%22%3a%22%22%2c%22IsNotice%22%3a%220%22%2c%22LogisticCode%22%3a%223241232435122%22%2c%22MemberID%22%3a%22%22%2c%22OrderCode%22%3a%2212345678%22%2c%22Receiver%22%3a%7b%22Address%22%3a%22%e4%b8%bd%e6%b0%b4%e5%98%89%e5%9b%ad6%e5%8f%b7%e6%a5%bc%22%2c%22CityName%22%3a%22%e5%8c%97%e4%ba%ac%e5%b8%82%22%2c%22ExpAreaName%22%3a%22%e6%9c%9d%e9%98%b3%e5%8c%ba%22%2c%22Mobile%22%3a%2213225023002%22%2c%22Name%22%3a%22%e6%9d%8e%e5%9b%9b%22%2c%22ProvinceName%22%3a%22%e5%8c%97%e4%ba%ac%e5%b8%82%22%7d%2c%22Sender%22%3a%7b%22Address%22%3a%22%e5%9d%82%e9%9d%a2%e9%95%87%22%2c%22CityName%22%3a%22%e4%b8%89%e6%98%8e%e5%b8%82%22%2c%22ExpAreaName%22%3a%22%e5%b0%a4%e6%ba%aa%e5%8e%bf%22%2c%22Mobile%22%3a%2218363899723%22%2c%22Name%22%3a%22%e5%bc%a0%e5%be%b7%e5%85%a8%22%2c%22ProvinceName%22%3a%22%e7%a6%8f%e5%bb%ba%e7%9c%81%22%7d%2c%22ShipperCode%22%3a%22YTO%22%7d", forKey: "RequestData")
+//            
+//            let postData = NSMutableData.init(data: "RequestType=\((parameters )["RequestType"])".dataUsingEncoding(NSUTF8StringEncoding)!)
+//            postData.appendData("&DataType=\((parameters["DataType"])!)".dataUsingEncoding(NSUTF8StringEncoding)!)
+//            postData.appendData("&EBusinessID=\((parameters["EBusinessID"])!)".dataUsingEncoding(NSUTF8StringEncoding)!)
+//            postData.appendData("&DataSign=\((parameters["DataSign"])!)".dataUsingEncoding(NSUTF8StringEncoding)!)
+//            postData.appendData("&RequestData=\((parameters["RequestData"])!)".dataUsingEncoding(NSUTF8StringEncoding)!)
+//            
+//            
+//            let request = NSMutableURLRequest.init(URL: NSURL.init(string: url)!, cachePolicy: NSURLRequestCachePolicy.UseProtocolCachePolicy, timeoutInterval: 10.0)
+//            
+//            request.HTTPMethod = "POST"
+//            request.allHTTPHeaderFields = headers
+//            request.HTTPBody = postData
+//            
+//            let session = NSURLSession.sharedSession()
+//            let dataTask = session.dataTaskWithRequest(request as NSURLRequest) { (data, response, error) in
+//                if (error != nil) {
+//                    print(error)
+//                    subscriber.sendNext(["fail":"error"])
+//                } else {
+//                    let httpResponse = response as? NSHTTPURLResponse
+//                    if (httpResponse?.statusCode == 200) {
+//                        let str = String.init(data: data!, encoding: NSUTF8StringEncoding)
+//                        subscriber.sendNext(data)
+//                    }else{
+//                        subscriber.sendNext(["fail":"error"])
+//                    }
+//                    print(httpResponse)
+//                }
+//            }
+//            
+//            dataTask.resume()
+//            return nil
+//        })
+//    }
 }

@@ -98,9 +98,7 @@ class PickUpTickeTableViewCell: UITableViewCell {
         ticketMuch.text = soldMuch
         ticketNumber.text = "已售：\(soldCount)"
         self.setUpTicketStatues(sellCount)
-        
-        self.updateConstraintsIfNeeded()
-        
+            
     }
     
     func hiddenLindeLabel(){

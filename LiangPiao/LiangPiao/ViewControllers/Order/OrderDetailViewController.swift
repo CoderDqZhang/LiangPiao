@@ -54,6 +54,7 @@ class OrderDetailViewController: UIViewController {
         tableView.registerClass(OrderDoneTableViewCell.self, forCellReuseIdentifier: "OrderDoneTableViewCell")
         tableView.registerClass(OrderWaitePayTableViewCell.self, forCellReuseIdentifier: "OrderWaitePayTableViewCell")
         tableView.registerClass(ReciveAddressTableViewCell.self, forCellReuseIdentifier: "ReciveAddressTableViewCell")
+        tableView.registerClass(DeverliyTableViewCell.self, forCellReuseIdentifier: "DeverliyTableViewCellDetail")
         tableView.registerClass(TicketRemarkTableViewCell.self, forCellReuseIdentifier: "TicketRemarkTableViewCell")
         tableView.separatorStyle = .None
         self.view.addSubview(tableView)
@@ -108,7 +109,10 @@ class OrderDetailViewController: UIViewController {
     func bindViewModel(){
         if viewModel.model.payUrl == nil && viewModel.model.status == 0 {
             viewModel.requestPayUrl(self)
-        }        
+        }
+        if viewModel.model.status >= 7 {
+            viewModel.getDeverliyTrac()
+        }
         self.updateTableView(viewModel.model.status)
     }
     
@@ -280,11 +284,25 @@ extension OrderDetailViewController : UITableViewDataSource {
                     viewModel.tableViewCellOrderDoneTableViewCell(cell, indexPath:indexPath)
                     return cell
                 }
-            default:
+            case 1:
                 let cell = tableView.dequeueReusableCellWithIdentifier("ReciveAddressTableViewCell", forIndexPath: indexPath) as! ReciveAddressTableViewCell
                 viewModel.tableViewCellReciveAddressTableViewCell(cell, indexPath: indexPath)
                 cell.selectionStyle = .None
                 return cell
+            default:
+                if viewModel.deverliyModel != nil {
+                    let cell = tableView.dequeueReusableCellWithIdentifier("DeverliyTableViewCellDetail", forIndexPath: indexPath) as! DeverliyTableViewCell
+                    viewModel.tableViewCellDeverliyTableViewCell(cell, indexPath: indexPath)
+                    cell.selectionStyle = .None
+                    return cell
+                }else{
+                    var cell = tableView.dequeueReusableCellWithIdentifier("defaultCell")
+                    if cell == nil {
+                        cell = UITableViewCell.init(style: UITableViewCellStyle.Default, reuseIdentifier: "defaultCell")
+                    }
+                    return cell!
+                }
+                
             }
          default :
             if indexPath.row == 0 {

@@ -173,7 +173,6 @@ class OrderManagerTableViewCell: UITableViewCell {
             })
             ticketPhoto.setImageType(cover, type: .OneImage)
         }
-        self.updateConstraintsIfNeeded()
     }
     
     override func updateConstraints() {

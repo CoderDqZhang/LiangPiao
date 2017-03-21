@@ -93,9 +93,6 @@ class RecommendTableViewCell: UITableViewCell {
         }
         ticketTime.text = model.showDate
         self.setUpTicketStatues(model)
-        
-        self.updateConstraintsIfNeeded()
-        
     }
     
     func setUpTicketStatues(model:TicketShowModel){

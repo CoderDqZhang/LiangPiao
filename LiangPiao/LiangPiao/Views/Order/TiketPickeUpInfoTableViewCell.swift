@@ -77,9 +77,6 @@ class TiketPickeUpInfoTableViewCell: UITableViewCell {
         ticketNowPrice.text = "\(model.price)"
         ticketDescirp.text = self.setUpTickeDelivery(model)
         self.setUpTicketStatues(model)
-        
-        self.updateConstraintsIfNeeded()
-        
     }
     
     func setUpTickeDelivery(model:TicketList) -> String{
@@ -89,6 +86,9 @@ class TiketPickeUpInfoTableViewCell: UITableViewCell {
             delivery = delivery.stringByAppendingString("打包购买 ")
         }
         var expressVisite = false
+        if model.seatType == 1{
+             delivery = delivery.stringByAppendingString("连 ")
+        }
         for str in typeArray {
             if (str == "1" || str == "4") && !expressVisite{
                 delivery = delivery.stringByAppendingString("快递 ")
@@ -104,15 +104,18 @@ class TiketPickeUpInfoTableViewCell: UITableViewCell {
     
     func setUpTicketStatues(model:TicketList){
         var statuesArray:[String] = []
-        if model.seatType == 1{
-            statuesArray.append("连")
+        let array = NSMutableArray()
+        if model.sellCategory != nil && model.sellCategory == 1 {
+            statuesArray.append("期票")
+            array.addObject(1)
         }
         if model.remainCount != 0 {
             let str = model.remainCount >= 20 ? "剩余\(model.remainCount)张" : "最后\(model.remainCount)张"
             statuesArray.append(str)
+            array.addObject(0)
         }
         if statuesArray.count > 0 {
-            self.setUpStatuesView(statuesArray, types: nil)
+            self.setUpStatuesView(statuesArray, types: array)
         }else{
             self.setUpStatuesView([], types: nil)
         }

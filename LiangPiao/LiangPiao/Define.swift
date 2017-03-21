@@ -61,6 +61,12 @@ let UserConfimNewOrder = "UserConfimNewOrder"
 
 let TalkingDataKey = "AC559E27399F4ECEA0D9880E0C6977FB"
 
+let ExpressDelivierKey = "a72a6d2f-019f-463f-8d20-a99bef74f1ce"
+let ExpressDelivierEBusinessID = "1281351"
+
+let deverliyDic:NSDictionary = ["顺丰":"SF","EMS":"EMS","圆通":"YTO","中通":"ZTO","申通":"STO","宅急送":"ZJS","韵达":"YD"]
+
+
 func KWINDOWDS() -> UIWindow{
     let window = UIApplication.sharedApplication().keyWindow
     return window!

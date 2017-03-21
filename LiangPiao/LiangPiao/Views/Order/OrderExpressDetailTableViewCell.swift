@@ -41,7 +41,6 @@ class OrderExpressDetailTableViewCell: UITableViewCell {
     
     func setData(detail:String){
         detailLabel.text = detail
-        self.updateConstraintsIfNeeded()
     }
     
     override func updateConstraints() {

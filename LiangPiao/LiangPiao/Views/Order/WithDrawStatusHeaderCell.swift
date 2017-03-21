@@ -62,7 +62,6 @@ class WithDrawStatusHeaderCell: UITableViewCell {
         withDrawName.text = title
         withDrawMuch.text = much
         
-        self.updateConstraintsIfNeeded()
     }
     
     func setUpLabel(title:String) -> UILabel {

@@ -53,7 +53,6 @@ class OrderExpressTableViewCell: UITableViewCell {
     
     func setData(title:String, detail:String, isSelect:Bool){
         self.updataSwitchBar(isSelect)
-        self.updateConstraintsIfNeeded()
     }
     
     func updataSwitchBar(isSelect:Bool){

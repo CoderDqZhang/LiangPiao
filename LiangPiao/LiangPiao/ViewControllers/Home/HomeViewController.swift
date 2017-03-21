@@ -83,7 +83,7 @@ class HomeViewController: BaseViewController {
         viewModel.controller = self
         searchViewModel.controller = self
         viewModel.requestHotTicket(tableView)
-        viewModel.requestBanner()
+//        viewModel.requestBanner()
         RACSignal.interval(1, onScheduler: RACScheduler.currentScheduler()).subscribeNext { (str) in
             
         }

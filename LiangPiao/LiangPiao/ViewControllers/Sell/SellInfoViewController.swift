@@ -184,7 +184,7 @@ extension SellInfoViewController : UITableViewDelegate {
     }
     
     func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        if section == 2 {
+        if section == 3 {
             return self.mySellConfimView()
         }
         return nil
@@ -208,7 +208,7 @@ extension SellInfoViewController : UITableViewDataSource {
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         switch indexPath.section {
-        case 0:
+        case 0,1:
             switch indexPath.row {
             default:
                 let cell = tableView.dequeueReusableCellWithIdentifier("GloabTitleAndDetailImageCell", forIndexPath: indexPath) as! GloabTitleAndDetailImageCell
@@ -216,7 +216,7 @@ extension SellInfoViewController : UITableViewDataSource {
                 cell.selectionStyle = .None
                 return cell
             }
-        case 1:
+        case 2:
             let cell = tableView.dequeueReusableCellWithIdentifier("TicketStatusTableViewCell", forIndexPath: indexPath) as! TicketStatusTableViewCell
             viewModel.tableViewTicketStatusTableViewCell(cell)
             cell.selectionStyle = .None
@@ -234,11 +234,18 @@ extension SellInfoViewController : ZHPickViewDelegate {
     func toobarDonBtnHaveClick(pickView: ZHPickView!, resultString: String!) {
         self.hiderPickerView(pickView.tag)
         if resultString != nil {
-            let cell = tableView.cellForRowAtIndexPath(NSIndexPath.init(forRow: pickView.tag, inSection: 0)) as! GloabTitleAndDetailImageCell
-            viewModel.updateGloabTitleAndDetailImageCell(cell, row:pickView.tag, title:resultString)
-            if pickView.tag != 2 {
-                self.tableView(tableView, didSelectRowAtIndexPath: NSIndexPath.init(forRow:pickView.tag + 1, inSection: 0))
+            var cell:GloabTitleAndDetailImageCell!
+            if pickView.tag == 0 {
+                self.tableView(tableView, didSelectRowAtIndexPath: NSIndexPath.init(forRow:pickView.tag + 1, inSection: 1))
+//                cell = tableView.cellForRowAtIndexPath(NSIndexPath.init(forRow: 0, inSection: 1)) as! GloabTitleAndDetailImageCell
+            }else if pickView.tag == 1 {
+                self.tableView(tableView, didSelectRowAtIndexPath: NSIndexPath.init(forRow:1, inSection: 0))
+                cell = tableView.cellForRowAtIndexPath(NSIndexPath.init(forRow: 0, inSection: 0)) as! GloabTitleAndDetailImageCell
+            }else if pickView.tag == 2 {
+                self.tableView(tableView, didSelectRowAtIndexPath: NSIndexPath.init(forRow:0, inSection: 1))
+                cell = tableView.cellForRowAtIndexPath(NSIndexPath.init(forRow: 1, inSection: 0)) as! GloabTitleAndDetailImageCell
             }
+            viewModel.updateGloabTitleAndDetailImageCell(cell, row:pickView.tag, title:resultString)
         }
     }
 }

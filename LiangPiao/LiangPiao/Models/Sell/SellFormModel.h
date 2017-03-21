@@ -30,6 +30,8 @@
 
 @property (nonatomic, copy) NSString  *ticketRow;
 
+@property (nonatomic, assign)  NSInteger sellCategoty;
+
 @property (nonatomic, assign) NSInteger ticketSellType;
 
 @property (nonatomic, copy) NSString *deverliExpress;

@@ -68,7 +68,6 @@ class TicketSceneTableViewCell: UITableViewCell {
         }
         timeTitle.text = model.name
         
-        self.updateConstraintsIfNeeded()
     }
     
     override func updateConstraints() {
