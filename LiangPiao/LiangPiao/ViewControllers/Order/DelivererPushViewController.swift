@@ -45,11 +45,7 @@ class DelivererPushViewController: UIViewController {
         }
         
         deliveryView = GloableBottomButtonView.init(frame: nil, title: "确认发货", tag: 1, action: { (tag) in
-//            if self.viewModel.model.status == 0 || self.viewModel.model.status == 100 {
-//                self.viewModel.requestPayModel(self)
-//            }else if self.viewModel.model.status == 7 {
-//                self.viewModel.requestOrderStatusChange(self)
-//            }
+            self.viewModel.orderExpressRequest()
         })
         
         self.view.addSubview(deliveryView)

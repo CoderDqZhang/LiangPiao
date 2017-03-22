@@ -55,6 +55,8 @@ let SearchSellURl = "\(BaseURL)/show/search/sell/"
 //待完善当个场次
 let OneShowTicketUrl = "\(BaseURL)supplier/show/"
 
+let OrderExpress = "\(BaseURL)supplier/order"
+
 let ShareUrl = "http://www.\(BaseStr)show/"
 let UserProtocol = "http://www.\(BaseStr)protocol/"
 

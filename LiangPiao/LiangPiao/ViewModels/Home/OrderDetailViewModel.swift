@@ -29,14 +29,16 @@ class OrderDetailViewModel: NSObject {
     }
     
     func getDeverliyTrac(){
-        let dics = ["RequestData":["LogisticCode":"3322768199385","ShipperCode":"STO"],"DataType":"2","RequestType":"1002","EBusinessID":ExpressDelivierEBusinessID,"key":ExpressDelivierKey]
-        
-        ExpressDeliveryNet.shareInstance().requestExpressDelivreyNetOrder(dics as [NSObject : AnyObject], url: ExpressOrderHandleUrl).subscribeNext { (resultDic) in
-            self.deverliyModel = DeverliyModel.init(fromDictionary: resultDic as! NSDictionary)
-            self.deverliyModel.traces = self.deverliyModel.traces.reverse()
-            dispatch_async(dispatch_get_main_queue(), { 
-                self.controller.tableView.reloadRowsAtIndexPaths([NSIndexPath.init(forRow: 2, inSection: 0)], withRowAnimation: .Automatic)
-            })
+        if model.expressInfo != nil && model.expressInfo.expressName != nil && model.expressInfo.expressNum != nil {
+            let dics = ["RequestData":["LogisticCode":model.expressInfo.expressNum,"ShipperCode":model.expressInfo.expressName],"DataType":"2","RequestType":"1002","EBusinessID":ExpressDelivierEBusinessID,"key":ExpressDelivierKey]
+            
+            ExpressDeliveryNet.shareInstance().requestExpressDelivreyNetOrder(dics as [NSObject : AnyObject], url: ExpressOrderHandleUrl).subscribeNext { (resultDic) in
+                self.deverliyModel = DeverliyModel.init(fromDictionary: resultDic as! NSDictionary)
+                self.deverliyModel.traces = self.deverliyModel.traces.reverse()
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.controller.tableView.reloadRowsAtIndexPaths([NSIndexPath.init(forRow: 2, inSection: 0)], withRowAnimation: .Automatic)
+                })
+            }
         }
     }
     
@@ -118,7 +120,9 @@ class OrderDetailViewModel: NSObject {
     }
     
     func configCellDeverliyTableViewCell(cell:DeverliyTableViewCell, indexPath:NSIndexPath) {
-        cell.setUpData(self.deverliyModel.traces[0])
+        if self.deverliyModel.traces.count > 0 {
+            cell.setUpData(self.deverliyModel.traces[0])
+        }
     }
     
     func configCellRemarkCell(cell:TicketRemarkTableViewCell, indexPath:NSIndexPath) {
@@ -253,25 +257,23 @@ class OrderDetailViewModel: NSObject {
     }
     
     func requestOrderStatusChange(controller:OrderDetailViewController){
-        let deverliyController = DelivererPushViewController()
-        deverliyController.viewModel.model = self.model
-        NavigationPushView(self.controller, toConroller: deverliyController)
-//        UIAlertController.shwoAlertControl(controller, style: .Alert, title: "是否已经收到演出票", message: nil, cancel: "取消", doneTitle: "确认收货", cancelAction: {
-//            
-//            }, doneAction: {
-//                let url = "\(OrderChangeShatus)\(self.model.orderId)/"
-//                let parameters = ["status":"8"]
-//                BaseNetWorke.sharedInstance.postUrlWithString(url, parameters: parameters).subscribeNext { (resultDic) in
-//                    let tempModel = OrderList.init(fromDictionary: resultDic as! NSDictionary)
-//                    self.model.status = tempModel.status
-//                    self.model.statusDesc = tempModel.statusDesc
-//                    controller.updateTableView(self.model.status)
-//                    self.controller.tableView.reloadData()
-//                    if self.orderDetailViewMoedelClouse != nil {
-//                        self.orderDetailViewMoedelClouse(indexPath: self.indexPath, model: self.model)
-//                    }
-//                }
-//        })
+        
+        UIAlertController.shwoAlertControl(controller, style: .Alert, title: "是否已经收到演出票", message: nil, cancel: "取消", doneTitle: "确认收货", cancelAction: {
+            
+            }, doneAction: {
+                let url = "\(OrderChangeShatus)\(self.model.orderId)/"
+                let parameters = ["status":"8"]
+                BaseNetWorke.sharedInstance.postUrlWithString(url, parameters: parameters).subscribeNext { (resultDic) in
+                    let tempModel = OrderList.init(fromDictionary: resultDic as! NSDictionary)
+                    self.model.status = tempModel.status
+                    self.model.statusDesc = tempModel.statusDesc
+                    controller.updateTableView(self.model.status)
+                    self.controller.tableView.reloadData()
+                    if self.orderDetailViewMoedelClouse != nil {
+                        self.orderDetailViewMoedelClouse(indexPath: self.indexPath, model: self.model)
+                    }
+                }
+        })
     }
     
     func viewModelHaveRemarkMessage() -> Bool {

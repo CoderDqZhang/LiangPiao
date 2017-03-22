@@ -175,6 +175,7 @@ class OrderList : NSObject, NSCoding{
     var created : String!
     var deliveryPrice : Int!
     var deliveryType : Int!
+    var expressInfo : ExpressInfo!
     var id : Int!
     var message : String!
     var name : String!
@@ -205,6 +206,9 @@ class OrderList : NSObject, NSCoding{
         created = dictionary["created"] as? String
         deliveryPrice = dictionary["delivery_price"] as? Int
         deliveryType = dictionary["delivery_type"] as? Int
+        if let expressInfoData = dictionary["express_info"] as? NSDictionary{
+            expressInfo = ExpressInfo(fromDictionary: expressInfoData)
+        }
         id = dictionary["id"]as? Int
         message = dictionary["message"] as? String
         name = dictionary["name"] as? String
@@ -250,6 +254,9 @@ class OrderList : NSObject, NSCoding{
         }
         if deliveryType != nil{
             dictionary["delivery_type"] = deliveryType
+        }
+        if expressInfo != nil{
+            dictionary["express_info"] = expressInfo.toDictionary()
         }
         if id != nil{
             dictionary["id"] = id
@@ -318,6 +325,7 @@ class OrderList : NSObject, NSCoding{
         created = aDecoder.decodeObjectForKey("created") as? String
         deliveryPrice = aDecoder.decodeObjectForKey("delivery_price") as? Int
         deliveryType = aDecoder.decodeObjectForKey("delivery_type") as? Int
+        expressInfo = aDecoder.decodeObjectForKey("express_info") as? ExpressInfo
         id = aDecoder.decodeObjectForKey("id") as? Int
         message = aDecoder.decodeObjectForKey("message") as? String
         name = aDecoder.decodeObjectForKey("name") as? String
@@ -356,6 +364,9 @@ class OrderList : NSObject, NSCoding{
         }
         if deliveryType != nil{
             aCoder.encodeObject(deliveryType, forKey: "delivery_type")
+        }
+        if expressInfo != nil{
+            aCoder.encodeObject(expressInfo, forKey: "express_info")
         }
         if id != nil{
             aCoder.encodeObject(id, forKey: "id")
@@ -416,6 +427,80 @@ class OrderList : NSObject, NSCoding{
     
 }
 
+class ExpressInfo : NSObject, NSCoding{
+    
+    var expressName : String!
+    var expressNum : String!
+    var id : Int!
+    var orderId : String!
+    
+    
+    /**
+     * Instantiate the instance using the passed dictionary values to set the properties values
+     */
+    init(fromDictionary dictionary: NSDictionary){
+        expressName = dictionary["express_name"] as? String
+        expressNum = dictionary["express_num"] as? String
+        id = dictionary["id"] as? Int
+        orderId = dictionary["order_id"] as? String
+    }
+    
+    /**
+     * Returns all the available property values in the form of NSDictionary object where the key is the approperiate json key and the value is the value of the corresponding property
+     */
+    func toDictionary() -> NSDictionary
+    {
+        var dictionary = NSMutableDictionary()
+        if expressName != nil{
+            dictionary["express_name"] = expressName
+        }
+        if expressNum != nil{
+            dictionary["express_num"] = expressNum
+        }
+        if id != nil{
+            dictionary["id"] = id
+        }
+        if orderId != nil{
+            dictionary["order_id"] = orderId
+        }
+        return dictionary
+    }
+    
+    /**
+     * NSCoding required initializer.
+     * Fills the data from the passed decoder
+     */
+    @objc required init(coder aDecoder: NSCoder)
+    {
+        expressName = aDecoder.decodeObjectForKey("express_name") as? String
+        expressNum = aDecoder.decodeObjectForKey("express_num") as? String
+        id = aDecoder.decodeObjectForKey("id") as? Int
+        orderId = aDecoder.decodeObjectForKey("order_id") as? String
+        
+    }
+    
+    /**
+     * NSCoding required method.
+     * Encodes mode properties into the decoder
+     */
+    @objc func encodeWithCoder(aCoder: NSCoder)
+    {
+        if expressName != nil{
+            aCoder.encodeObject(expressName, forKey: "express_name")
+        }
+        if expressNum != nil{
+            aCoder.encodeObject(expressNum, forKey: "express_num")
+        }
+        if id != nil{
+            aCoder.encodeObject(id, forKey: "id")
+        }
+        if orderId != nil{
+            aCoder.encodeObject(orderId, forKey: "order_id")
+        }
+        
+    }
+    
+}
 
 class OrderListModel : NSObject, NSCoding{
     

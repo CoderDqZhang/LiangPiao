@@ -41,6 +41,7 @@ class OrderStatusViewController: UIViewController {
         tableView.registerClass(OrderNumberTableViewCell.self, forCellReuseIdentifier: "OrderNumberTableViewCell")
         tableView.registerClass(OrderStatusTableViewCell.self, forCellReuseIdentifier: "OrderStatusTableViewCell")
         tableView.registerClass(OrderStatusMuchTableViewCell.self, forCellReuseIdentifier: "OrderStatusMuchTableViewCell")
+        tableView.registerClass(DeverliyTableViewCell.self, forCellReuseIdentifier: "DeverliyTableViewCellSellDetail")
         tableView.registerClass(OrderPayTableViewCell.self, forCellReuseIdentifier: "OrderPayTableViewCell")
         self.view.addSubview(tableView)
         tableView.snp_makeConstraints { (make) in
@@ -83,6 +84,7 @@ class OrderStatusViewController: UIViewController {
                 make.bottom.equalTo(self.view.snp_bottom).offset(-49)
             })
         }else{
+            self.viewModel.getDeverliyTrac()
             if payView != nil {
                 payView.hidden = true
             }
@@ -139,7 +141,7 @@ class OrderStatusViewController: UIViewController {
 
 extension OrderStatusViewController : UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        //        viewModel.mySellOrderTableViewDidSelect(indexPath, controller: self.viewModel.controller)
+        viewModel.orderStatusTableViewDidSelect(tableView, indexPath: indexPath)
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
@@ -189,11 +191,25 @@ extension OrderStatusViewController : UITableViewDataSource {
                     viewModel.tableViewCellOrderStatusTableViewCell(cell, indexPath: indexPath)
                     cell.selectionStyle = .None
                     return cell
-                default:
+                case 1:
                     let cell = tableView.dequeueReusableCellWithIdentifier("ReciveAddressTableViewCell", forIndexPath: indexPath) as! ReciveAddressTableViewCell
                     viewModel.tableViewCellReciveAddressTableViewCell(cell, indexPath: indexPath)
                     cell.selectionStyle = .None
                     return cell
+                default:
+                    if viewModel.deverliyModel != nil {
+                        let cell = tableView.dequeueReusableCellWithIdentifier("DeverliyTableViewCellSellDetail", forIndexPath: indexPath) as! DeverliyTableViewCell
+                        viewModel.tableViewCellDeverliyTableViewCell(cell, indexPath: indexPath)
+                        cell.selectionStyle = .None
+                        return cell
+                    }else{
+                        var cell = tableView.dequeueReusableCellWithIdentifier("defaultCell")
+                        if cell == nil {
+                            cell = UITableViewCell.init(style: UITableViewCellStyle.Default, reuseIdentifier: "defaultCell")
+                        }
+                        return cell!
+                    }
+                    
                 }
             default:
                 switch indexPath.row {

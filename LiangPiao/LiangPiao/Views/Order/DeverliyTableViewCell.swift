@@ -75,13 +75,13 @@ class DeverliyTableViewCell: UITableViewCell {
             leftLine.snp_makeConstraints(closure: { (make) in
                 make.top.equalTo(self.contentView.snp_top).offset(0)
                 make.bottom.equalTo(self.contentView.snp_bottom).offset(-5)
-                make.left.equalTo(self.contentView.snp_left).offset(27)
+                make.left.equalTo(self.contentView.snp_left).offset(25)
                 make.width.equalTo(1)
             })
             
             leftLabel.snp_makeConstraints(closure: { (make) in
                 make.centerY.equalTo(self.contentView.snp_centerY).offset(0)
-                make.left.equalTo(self.contentView.snp_left).offset(23)
+                make.left.equalTo(self.contentView.snp_left).offset(21)
                 make.size.equalTo(CGSize.init(width: 9, height: 9))
             })
             

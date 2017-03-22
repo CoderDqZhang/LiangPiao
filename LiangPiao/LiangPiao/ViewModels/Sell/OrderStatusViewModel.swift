@@ -15,12 +15,27 @@ class OrderStatusViewModel: NSObject {
     let cellHeight = [[112,107],[49,149,119,52]]
     let cellCancelHeight = [49,149,119,52]
     var model:OrderList!
+    var deverliyModel:DeverliyModel!
     var controller:OrderStatusViewController!
     var selectIndexPath:NSIndexPath!
     var reloadeMySellOrderList:ReloadeMySellOrderList!
     
     override init() {
         
+    }
+    
+    func getDeverliyTrac(){
+        if model.expressInfo != nil && model.expressInfo.expressName != nil && model.expressInfo.expressNum != nil {
+            let dics = ["RequestData":["LogisticCode":model.expressInfo.expressNum,"ShipperCode":model.expressInfo.expressName],"DataType":"2","RequestType":"1002","EBusinessID":ExpressDelivierEBusinessID,"key":ExpressDelivierKey]
+            
+            ExpressDeliveryNet.shareInstance().requestExpressDelivreyNetOrder(dics as [NSObject : AnyObject], url: ExpressOrderHandleUrl).subscribeNext { (resultDic) in
+                self.deverliyModel = DeverliyModel.init(fromDictionary: resultDic as! NSDictionary)
+                self.deverliyModel.traces = self.deverliyModel.traces.reverse()
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.controller.tableView.reloadRowsAtIndexPaths([NSIndexPath.init(forRow: 2, inSection: 0)], withRowAnimation: .Automatic)
+                })
+            }
+        }
     }
     
     func numberOfSection() ->Int {
@@ -34,7 +49,7 @@ class OrderStatusViewModel: NSObject {
         if !isCancel() {
             switch section {
             case 0:
-                return 2
+                return 3
             default:
                 return 4
             }
@@ -61,11 +76,18 @@ class OrderStatusViewModel: NSObject {
                 switch indexPath.row {
                 case 0:
                     return 112
-                default:
+                case 1:
                     return controller.tableView.fd_heightForCellWithIdentifier("ReciveAddressTableViewCell", configuration: { (cell) in
                         self.configCell(cell as! ReciveAddressTableViewCell, indexPath: indexPath)
                     })
-                }
+                default:
+                    if self.deverliyModel != nil {
+                        return controller.tableView.fd_heightForCellWithIdentifier("DeverliyTableViewCellSellDetail", configuration: { (cell) in
+                            self.configCellDeverliyTableViewCell(cell as! DeverliyTableViewCell, indexPath: indexPath)
+                        })
+                    }
+                    return 0
+            }
             default:
                 switch indexPath.row {
                 case 0:
@@ -84,6 +106,12 @@ class OrderStatusViewModel: NSObject {
         return CGFloat(cellCancelHeight[indexPath.row])
     }
     
+    func configCellDeverliyTableViewCell(cell:DeverliyTableViewCell, indexPath:NSIndexPath) {
+        if self.deverliyModel.traces.count > 0 {
+            cell.setUpData(self.deverliyModel.traces[0])
+        }
+    }
+    
     func configCell(cell:ReciveAddressTableViewCell, indexPath:NSIndexPath) {
         cell.setUpData(model)
     }
@@ -100,6 +128,11 @@ class OrderStatusViewModel: NSObject {
         cell.setData("\(model.status)", statusType: "")
     }
     
+    func tableViewCellDeverliyTableViewCell(cell:DeverliyTableViewCell, indexPath:NSIndexPath) {
+        if self.deverliyModel != nil {
+            cell.setUpData(self.deverliyModel.traces[0])
+        }
+    }
     
     func tableViewCellReciveAddressTableViewCell(cell:ReciveAddressTableViewCell, indexPath:NSIndexPath) {
         self.configCell(cell, indexPath: indexPath)
@@ -121,22 +154,26 @@ class OrderStatusViewModel: NSObject {
         cell.setData(model)
     }
     
+    func orderStatusTableViewDidSelect(tableView:UITableView, indexPath:NSIndexPath) {
+        if indexPath.section == 0 && indexPath.row == 2 {
+            let controllerVC = LogisticsTrackingViewController()
+            controllerVC.viewModel.deverliyModel = self.deverliyModel
+            controllerVC.viewModel.model = self.model
+            NavigationPushView(self.controller, toConroller: controllerVC)
+        }
+    }
+    
     func requestOrderStatusChange(){
-        UIAlertController.shwoAlertControl(self.controller, style: .Alert, title: "是否已经发货了", message: nil, cancel: "取消", doneTitle: "确认发货", cancelAction: {
-            
-            }, doneAction: {
-                let url = "\(OrderChangeShatus)\(self.model.orderId)/"
-                let parameters = ["status":"7"]
-                BaseNetWorke.sharedInstance.postUrlWithString(url, parameters: parameters).subscribeNext { (resultDic) in
-                    let tempModel = OrderList.init(fromDictionary: resultDic as! NSDictionary)
-                    self.model.status = tempModel.status
-                    self.model.statusDesc = tempModel.statusDesc
-                    self.controller.updateTableView(self.model.status)
-                    self.controller.tableView.reloadData()
-                    if self.reloadeMySellOrderList != nil {
-                        self.reloadeMySellOrderList(indexPath: self.selectIndexPath, model:self.model)
-                    }
-                }
-        })
+        let deverliyController = DelivererPushViewController()
+        deverliyController.viewModel.model = self.model
+        deverliyController.viewModel.indexPath = self.selectIndexPath
+        deverliyController.viewModel.reloadeMyOrderDeatail = { indexPath, model in
+            self.controller.tableView.reloadData()
+            if self.reloadeMySellOrderList != nil {
+                self.controller.updateTableView(model.status)
+                self.reloadeMySellOrderList(indexPath: self.selectIndexPath, model: model)
+            }
+        }
+        NavigationPushView(self.controller, toConroller: deverliyController)
     }
 }

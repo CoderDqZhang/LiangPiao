@@ -43,7 +43,7 @@ class DeverliyTypeTableViewCell: UITableViewCell {
         leftLabel = UILabel()
         leftLabel.backgroundColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
         leftLabel.layer.borderColor = UIColor.init(hexString: App_Theme_DDE0E5_Color).CGColor
-        leftLabel.layer.borderWidth = 0.5
+        leftLabel.layer.borderWidth = 1
         leftLabel.layer.cornerRadius = 4.5
         leftLabel.layer.masksToBounds = true
         self.contentView.addSubview(leftLabel)

@@ -13,12 +13,17 @@ class DeverliyForm : NSObject {
     var deverliyNum:String = ""
 }
 
+typealias ReloadeMyOrderDeatail = (indexPath:NSIndexPath, model:OrderList) -> Void
+
 class DeverliyPushViewModel: NSObject {
     
     var controller:DelivererPushViewController!
     var model:OrderList!
     var deverliyType:ZHPickView!
     var form = DeverliyForm()
+    var indexPath:NSIndexPath!
+    var reloadeMyOrderDeatail:ReloadeMyOrderDeatail!
+    
     override init() {
         
     }
@@ -40,6 +45,28 @@ class DeverliyPushViewModel: NSObject {
     
     func controllerTitle() -> String {
         return "发货"
+    }
+    
+    func orderExpressRequest(){
+        let url = "\(OrderExpress)/\(model.orderId)/express/"
+        let parameters = [
+            "express_name":self.form.deverliyName,
+            "express_num":self.form.deverliyNum
+        ]
+        BaseNetWorke.sharedInstance.postUrlWithString(url, parameters: parameters).subscribeNext { (resultDic) in
+            let url = "\(OrderChangeShatus)\(self.model.orderId)/"
+            let parameters = ["status":"7"]
+            BaseNetWorke.sharedInstance.postUrlWithString(url, parameters: parameters).subscribeNext { (resultDic) in
+                let tempModel = OrderList.init(fromDictionary: resultDic as! NSDictionary)
+                self.model.status = tempModel.status
+                self.model.statusDesc = tempModel.statusDesc
+                self.model.supplierStatusDesc = tempModel.supplierStatusDesc
+                if self.reloadeMyOrderDeatail != nil {
+                    self.reloadeMyOrderDeatail(indexPath: self.indexPath, model:self.model)
+                }
+                self.controller.navigationController?.popViewControllerAnimated(true)
+            }
+        }
     }
     
     func tableViewNumberRowInSection(section:Int) ->Int {

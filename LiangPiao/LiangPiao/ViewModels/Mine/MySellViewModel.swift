@@ -89,17 +89,13 @@ class MySellViewModel: NSObject {
     func tableViewCellMySellOrderMuchTableViewCell(cell:MySellOrderMuchTableViewCell, indexPath:NSIndexPath) {
         cell.setSellData(orderListModel.orderList[indexPath.section])
         cell.handerButton.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (action) in
-            let model = self.orderListModel.orderList[indexPath.section]
-            let url = "\(OrderChangeShatus)\(model.orderId)/"
-            let parameters = ["status":"7"]
-            BaseNetWorke.sharedInstance.postUrlWithString(url, parameters: parameters).subscribeNext { (resultDic) in
-                let tempModel = OrderList.init(fromDictionary: resultDic as! NSDictionary)
-                let controllerVC = OrderStatusViewController()
-                model.status = tempModel.status
-                model.statusDesc = tempModel.statusDesc
-                controllerVC.viewModel.model = model
-                NavigationPushView(self.controller, toConroller: controllerVC)
+            let deverliyController = DelivererPushViewController()
+            deverliyController.viewModel.model = self.orderListModel.orderList[indexPath.section]
+            deverliyController.viewModel.indexPath = indexPath
+            deverliyController.viewModel.reloadeMyOrderDeatail = { indexPath, model in
+                self.mySellOrder.tableView.reloadSections(NSIndexSet.init(index: indexPath.section), withRowAnimation: .Automatic)
             }
+            NavigationPushView(self.controller, toConroller: deverliyController)
         }
     }
     

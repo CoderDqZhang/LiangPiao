@@ -25,7 +25,7 @@ class HomeViewModel: NSObject {
     override init() {
         super.init()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeViewModel.userDidTakeScreenshot(_:)), name: UIApplicationUserDidTakeScreenshotNotification, object: nil)
-        self.setUpLocationManager()
+        //self.setUpLocationManager()
     }
     
     func setUpLocationManager(){
