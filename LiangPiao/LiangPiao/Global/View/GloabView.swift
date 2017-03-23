@@ -330,7 +330,7 @@ class GloableBottomButtonView: UIView {
         }
         self.userInteractionEnabled = true
         self.setUpButton(title)
-        button.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (btnTouchUp) in
+        button.rac_signalForControlEvents(.TouchUpInside).throttle(0.5).subscribeNext { (btnTouchUp) in
             if action != nil {
                 action!(tag:self.button.tag)
                 //self.button.enabled = false

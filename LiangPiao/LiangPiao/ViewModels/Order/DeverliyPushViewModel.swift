@@ -64,6 +64,7 @@ class DeverliyPushViewModel: NSObject {
                 if self.reloadeMyOrderDeatail != nil {
                     self.reloadeMyOrderDeatail(indexPath: self.indexPath, model:self.model)
                 }
+                
                 self.controller.navigationController?.popViewControllerAnimated(true)
             }
         }
