@@ -42,10 +42,9 @@ class DeverliyTypeTableViewCell: UITableViewCell {
         
         leftLabel = UILabel()
         leftLabel.backgroundColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
-        leftLabel.layer.borderColor = UIColor.init(hexString: App_Theme_DDE0E5_Color).CGColor
-        leftLabel.layer.borderWidth = 1
         leftLabel.layer.cornerRadius = 4.5
-        leftLabel.layer.masksToBounds = true
+        leftLabel.layer.borderWidth = 1
+        leftLabel.layer.borderColor = UIColor.init(hexString: App_Theme_DDE0E5_Color).CGColor
         self.contentView.addSubview(leftLabel)
         
         
@@ -70,6 +69,7 @@ class DeverliyTypeTableViewCell: UITableViewCell {
     func setUpData(trace:Trace, type:DeverliyTypeTableViewCellType) {
         infoLabel.text = trace.acceptStation
         timeLabel.text = trace.acceptTime
+        leftLabel.layer.masksToBounds = false
         switch type {
         case .Doing:
             self.leftLabel.hidden = false
@@ -79,6 +79,7 @@ class DeverliyTypeTableViewCell: UITableViewCell {
                 make.width.equalTo(1)
                 make.bottom.equalTo(self.contentView.snp_bottom).offset(0)
             })
+            leftLabel.layer.masksToBounds = true
             self.leftLabel.backgroundColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
             self.leftLabel.layer.borderColor = UIColor.init(hexString: App_Theme_4BD4C5_Color).CGColor
             infoLabel.textColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
@@ -88,7 +89,6 @@ class DeverliyTypeTableViewCell: UITableViewCell {
             self.leftLabel.hidden = false
             self.leftLabel.backgroundColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
             self.leftLabel.layer.borderColor = UIColor.init(hexString: App_Theme_DDE0E5_Color).CGColor
-            self.leftLabel.layer.borderWidth = 0.5
             infoLabel.textColor = UIColor.init(hexString: App_Theme_A2ABB5_Color)
             timeLabel.textColor = UIColor.init(hexString: App_Theme_A2ABB5_Color)
             self.linLabel.hidden = false
@@ -114,20 +114,20 @@ class DeverliyTypeTableViewCell: UITableViewCell {
             })
             
             infoLabel.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.contentView.snp_left).offset(55)
+                make.left.equalTo(self.contentView.snp_left).offset(53.5)
                 make.right.equalTo(self.contentView.snp_right).offset(-15)
                 make.top.equalTo(self.contentView.snp_top).offset(20)
             })
             
             timeLabel.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.contentView.snp_left).offset(55)
+                make.left.equalTo(self.contentView.snp_left).offset(53.5)
                 make.top.equalTo(self.infoLabel.snp_bottom).offset(2)
                 make.right.equalTo(self.contentView.snp_right).offset(-15)
                 make.bottom.equalTo(self.contentView.snp_bottom).offset(-20)
             })
             
             linLabel.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.contentView.snp_left).offset(55)
+                make.left.equalTo(self.contentView.snp_left).offset(53.5)
                 make.right.equalTo(self.contentView.snp_right).offset(-15)
                 make.bottom.equalTo(self.contentView.snp_bottom).offset(-1)
             })

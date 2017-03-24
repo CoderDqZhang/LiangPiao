@@ -342,7 +342,7 @@ class MySellConfimViewModel: NSObject {
                         }
                     }
                     self.sellFormModel.saveOrUpdate()
-                    self.infoController.tableView.reloadRowsAtIndexPaths([NSIndexPath.init(forRow: 4, inSection: 0)], withRowAnimation: .Automatic)
+                    self.infoController.tableView.reloadRowsAtIndexPaths([NSIndexPath.init(forRow: 1, inSection: 1)], withRowAnimation: .Automatic)
                 }
                 NavigationPushView(infoController, toConroller: controllerVC)
             }

@@ -182,8 +182,10 @@ class BaseNetWorke {
                 failure(responseError: response.result.error!)
             }else{
                 if response.response?.statusCode == 200 || response.response?.statusCode == 201 {
+                    print(response.result.value)
                     success(responseObject: response.result.value!)
                 }else{
+                    print(response.result.value)
                     failure(responseError: response.result.value!)
                 }
             }

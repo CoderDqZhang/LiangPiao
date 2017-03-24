@@ -41,17 +41,21 @@ class OrderHandleTableViewCell: UITableViewCell {
         let  button = UIButton(type: .Custom)
         button.setTitle(title, forState: .Normal)
         button.backgroundColor = UIColor.whiteColor()
-        if backGround != UIColor.init(hexString: App_Theme_4BD4C5_Color) {
-            button.layer.cornerRadius = 2.0
-            button.layer.borderColor = UIColor.init(hexString: App_Theme_4BD4C5_Color).CGColor
-            button.layer.borderWidth = 1.0
-        }
-        button.clipsToBounds = true
         button.titleLabel?.font = App_Theme_PinFan_R_13_Font
         button.layer.backgroundColor = backGround.CGColor
         button.layer.borderColor = titleColor.CGColor
         button.layer.masksToBounds = true
+        button.clipsToBounds = true
         button.setTitleColor(titleColor, forState: .Normal)
+        if backGround != UIColor.init(hexString: App_Theme_4BD4C5_Color) {
+            button.layer.cornerRadius = 2.0
+            button.layer.borderColor = UIColor.init(hexString: App_Theme_4BD4C5_Color).CGColor
+            button.layer.borderWidth = 1.0
+        }else{
+            button.layer.cornerRadius = 2.0
+            button.layer.borderColor = UIColor.init(hexString: App_Theme_4BD4C5_Color).CGColor
+            button.layer.borderWidth = 1.0
+        }
         return button
     }
     

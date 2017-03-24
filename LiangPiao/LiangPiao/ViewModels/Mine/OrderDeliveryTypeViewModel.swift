@@ -205,12 +205,12 @@ class OrderDeliveryTypeViewModel: NSObject {
             }
         case 4:
             if self.type == .Visite {
-                cell.textField.placeholder = "联系电话"
-                if self.visite.phone != "" {
-                    cell.textField.text = self.visite.phone
+                cell.textField.placeholder = "输入取票时间"
+                if self.visite.time != "" {
+                    cell.textField.text = self.visite.time
                 }
                 cell.textField.rac_textSignal().subscribeNext({ (str) in
-                    self.visite.phone = str as! String
+                    self.visite.time = str as! String
                 })
             }else{
                 cell.textField.placeholder = "联系电话"
@@ -222,12 +222,12 @@ class OrderDeliveryTypeViewModel: NSObject {
                 })
             }
         case 5,8:
-            cell.textField.placeholder = "输入取票时间"
-            if self.visite.time != "" {
-                cell.textField.text = self.visite.time
+            cell.textField.placeholder = "联系电话"
+            if self.visite.phone != "" {
+                cell.textField.text = self.visite.phone
             }
             cell.textField.rac_textSignal().subscribeNext({ (str) in
-                self.visite.time = str as! String
+                self.visite.phone = str as! String
             })
         case 6:
             cell.textField.placeholder = "输入取票地点"
@@ -238,12 +238,12 @@ class OrderDeliveryTypeViewModel: NSObject {
                 self.visite.address = str as! String
             })
         case 7:
-            cell.textField.placeholder = "联系电话"
-            if self.visite.phone != "" {
-                cell.textField.text = self.visite.phone
+            cell.textField.placeholder = "输入取票时间"
+            if self.visite.time != "" {
+                cell.textField.text = self.visite.time
             }
             cell.textField.rac_textSignal().subscribeNext({ (str) in
-                self.visite.phone = str as! String
+                self.visite.time = str as! String
             })
         default:
             break

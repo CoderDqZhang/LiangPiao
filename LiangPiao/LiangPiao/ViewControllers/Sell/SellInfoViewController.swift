@@ -245,7 +245,9 @@ extension SellInfoViewController : ZHPickViewDelegate {
                 self.tableView(tableView, didSelectRowAtIndexPath: NSIndexPath.init(forRow:0, inSection: 1))
                 cell = tableView.cellForRowAtIndexPath(NSIndexPath.init(forRow: 1, inSection: 0)) as! GloabTitleAndDetailImageCell
             }
-            viewModel.updateGloabTitleAndDetailImageCell(cell, row:pickView.tag, title:resultString)
+            if cell != nil {
+                viewModel.updateGloabTitleAndDetailImageCell(cell, row:pickView.tag, title:resultString)
+            }
         }
     }
 }

@@ -69,7 +69,7 @@ class SellRecommondTableViewCell: UITableViewCell {
         self.contentView.addSubview(ticketMuch)
         
         sellButton = UIButton(type: .Custom)
-        sellButton.setTitle("卖票", forState: .Normal)
+        sellButton.setTitle("挂票", forState: .Normal)
         sellButton.layer.borderColor = UIColor.init(hexString: App_Theme_4BD4C5_Color).CGColor
         sellButton.titleLabel?.font = App_Theme_PinFan_R_12_Font
         sellButton.layer.cornerRadius = 2.0

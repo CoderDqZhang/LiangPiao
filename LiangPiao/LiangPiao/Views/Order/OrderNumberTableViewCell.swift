@@ -54,7 +54,7 @@ class OrderNumberTableViewCell: UITableViewCell {
     func setSellData(model:OrderList) {
         orderStatus.text = model.supplierStatusDesc
         
-        if model.status == 0 || model.status == 7 || model.status == 3{
+        if model.status == 0 || model.status == 7 || model.status == 3 {
             orderStatus.textColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
         }else{
             orderStatus.textColor = UIColor.init(hexString: App_Theme_A2ABB5_Color)

@@ -84,7 +84,7 @@ class OrderDetailViewModel: NSObject {
                     self.configCellReviceCell(cell as! ReciveAddressTableViewCell, indexPath: indexPath)
                 })
             }else{
-                if self.deverliyModel != nil {
+                if self.deverliyModel != nil && self.deverliyModel.traces.count > 0 {
                     return controller.tableView.fd_heightForCellWithIdentifier("DeverliyTableViewCellDetail", configuration: { (cell) in
                         self.configCellDeverliyTableViewCell(cell as! DeverliyTableViewCell, indexPath: indexPath)
                     })
@@ -120,7 +120,7 @@ class OrderDetailViewModel: NSObject {
     }
     
     func configCellDeverliyTableViewCell(cell:DeverliyTableViewCell, indexPath:NSIndexPath) {
-        if self.deverliyModel.traces.count > 0 {
+        if self.deverliyModel != nil && self.deverliyModel.traces.count > 0 {
             cell.setUpData(self.deverliyModel.traces[0])
         }
     }
@@ -142,9 +142,7 @@ class OrderDetailViewModel: NSObject {
     }
     
     func tableViewCellDeverliyTableViewCell(cell:DeverliyTableViewCell, indexPath:NSIndexPath) {
-        if self.deverliyModel != nil {
-            cell.setUpData(self.deverliyModel.traces[0])
-        }
+        self.configCellDeverliyTableViewCell(cell, indexPath: indexPath)
     }
     
     func configCellReviceCell(cell:ReciveAddressTableViewCell, indexPath:NSIndexPath) {

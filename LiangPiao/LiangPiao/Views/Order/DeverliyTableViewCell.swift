@@ -42,14 +42,12 @@ class DeverliyTableViewCell: UITableViewCell {
         self.contentView.addSubview(infoTitle)
         
         infoLabel = UILabel()
-        infoLabel.text = "派件员 张永和 正在为您派件 18602230682"
         infoLabel.numberOfLines = 0
         infoLabel.textColor = UIColor.init(hexString: App_Theme_A2ABB5_Color)
         infoLabel.font = App_Theme_PinFan_R_13_Font
         self.contentView.addSubview(infoLabel)
         
         timeLabel = UILabel()
-        timeLabel.text = "2017.02.06 20:35"
         timeLabel.font = App_Theme_PinFan_R_13_Font
         timeLabel.numberOfLines = 0
         timeLabel.textColor = UIColor.init(hexString: App_Theme_A2ABB5_Color)
@@ -74,7 +72,7 @@ class DeverliyTableViewCell: UITableViewCell {
         if !self.didMakeContraints {
             leftLine.snp_makeConstraints(closure: { (make) in
                 make.top.equalTo(self.contentView.snp_top).offset(0)
-                make.bottom.equalTo(self.contentView.snp_bottom).offset(-5)
+                make.bottom.equalTo(self.contentView.snp_bottom).offset(0)
                 make.left.equalTo(self.contentView.snp_left).offset(25)
                 make.width.equalTo(1)
             })
@@ -87,18 +85,18 @@ class DeverliyTableViewCell: UITableViewCell {
             
             infoTitle.snp_makeConstraints(closure: { (make) in
                 make.top.equalTo(self.contentView.snp_top).offset(10.5)
-                make.left.equalTo(self.contentView.snp_left).offset(55)
+                make.left.equalTo(self.contentView.snp_left).offset(53.5)
             })
             
             infoLabel.snp_makeConstraints(closure: { (make) in
                 make.top.equalTo(self.infoTitle.snp_bottom).offset(6)
                 make.right.equalTo(self.contentView.snp_right).offset(-15)
-                make.left.equalTo(self.contentView.snp_left).offset(55)
+                make.left.equalTo(self.contentView.snp_left).offset(53.5)
             })
             
             timeLabel.snp_makeConstraints(closure: { (make) in
                 make.top.equalTo(self.infoLabel.snp_bottom).offset(2)
-                make.left.equalTo(self.contentView.snp_left).offset(55)
+                make.left.equalTo(self.contentView.snp_left).offset(53.5)
                 make.right.lessThanOrEqualTo(self.contentView.snp_right).offset(-15)
                 make.bottom.equalTo(self.contentView.snp_bottom).offset(-20)
             })

@@ -450,7 +450,7 @@ class ExpressInfo : NSObject, NSCoding{
      */
     func toDictionary() -> NSDictionary
     {
-        var dictionary = NSMutableDictionary()
+        let dictionary = NSMutableDictionary()
         if expressName != nil{
             dictionary["express_name"] = expressName
         }

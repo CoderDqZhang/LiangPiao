@@ -197,7 +197,7 @@ extension OrderStatusViewController : UITableViewDataSource {
                     cell.selectionStyle = .None
                     return cell
                 default:
-                    if viewModel.deverliyModel != nil {
+                    if viewModel.deverliyModel != nil && viewModel.deverliyModel.traces.count > 0 {
                         let cell = tableView.dequeueReusableCellWithIdentifier("DeverliyTableViewCellSellDetail", forIndexPath: indexPath) as! DeverliyTableViewCell
                         viewModel.tableViewCellDeverliyTableViewCell(cell, indexPath: indexPath)
                         cell.selectionStyle = .None
@@ -209,7 +209,6 @@ extension OrderStatusViewController : UITableViewDataSource {
                         }
                         return cell!
                     }
-                    
                 }
             default:
                 switch indexPath.row {

@@ -41,7 +41,7 @@ class SellTicketsViewController: BaseViewController {
     }
     
     func setUpView() {
-        searchBarView = GloableSearchNavigationBarView(frame: CGRectMake(0,0,SCREENWIDTH, 64), title:"卖票", searchClouse:{ _ in
+        searchBarView = GloableSearchNavigationBarView(frame: CGRectMake(0,0,SCREENWIDTH, 64), title:"挂票", searchClouse:{ _ in
             self.searchButtonPress()
         })
         self.view.addSubview(searchBarView)

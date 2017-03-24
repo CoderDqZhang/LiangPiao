@@ -107,7 +107,7 @@ class OrderDetailViewController: UIViewController {
     }
     
     func bindViewModel(){
-        if viewModel.model.payUrl == nil && viewModel.model.status == 0 {
+        if viewModel.model.payUrl == nil && Int(viewModel.model.status) == 0 {
             viewModel.requestPayUrl(self)
         }
         if viewModel.model.status >= 7 {
@@ -290,7 +290,7 @@ extension OrderDetailViewController : UITableViewDataSource {
                 cell.selectionStyle = .None
                 return cell
             default:
-                if viewModel.deverliyModel != nil {
+                if viewModel.deverliyModel != nil && viewModel.deverliyModel.traces.count > 0 {
                     let cell = tableView.dequeueReusableCellWithIdentifier("DeverliyTableViewCellDetail", forIndexPath: indexPath) as! DeverliyTableViewCell
                     viewModel.tableViewCellDeverliyTableViewCell(cell, indexPath: indexPath)
                     cell.selectionStyle = .None

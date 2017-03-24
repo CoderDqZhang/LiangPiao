@@ -81,7 +81,7 @@ class OrderStatusViewModel: NSObject {
                         self.configCell(cell as! ReciveAddressTableViewCell, indexPath: indexPath)
                     })
                 default:
-                    if self.deverliyModel != nil {
+                    if self.deverliyModel != nil && self.deverliyModel.traces.count > 0 {
                         return controller.tableView.fd_heightForCellWithIdentifier("DeverliyTableViewCellSellDetail", configuration: { (cell) in
                             self.configCellDeverliyTableViewCell(cell as! DeverliyTableViewCell, indexPath: indexPath)
                         })
@@ -107,7 +107,7 @@ class OrderStatusViewModel: NSObject {
     }
     
     func configCellDeverliyTableViewCell(cell:DeverliyTableViewCell, indexPath:NSIndexPath) {
-        if self.deverliyModel.traces.count > 0 {
+        if self.deverliyModel != nil && self.deverliyModel.traces.count > 0 {
             cell.setUpData(self.deverliyModel.traces[0])
         }
     }
@@ -129,9 +129,7 @@ class OrderStatusViewModel: NSObject {
     }
     
     func tableViewCellDeverliyTableViewCell(cell:DeverliyTableViewCell, indexPath:NSIndexPath) {
-        if self.deverliyModel != nil {
-            cell.setUpData(self.deverliyModel.traces[0])
-        }
+        self.configCellDeverliyTableViewCell(cell, indexPath: indexPath)
     }
     
     func tableViewCellReciveAddressTableViewCell(cell:ReciveAddressTableViewCell, indexPath:NSIndexPath) {
