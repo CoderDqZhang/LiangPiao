@@ -221,6 +221,9 @@
     return reverseString;
 }
 
+
+
+
 //+ (NSString *)md5:(NSString *)strSrc{
 //    //随机生成36为字符串
 //    CFUUIDRef identifier = CFUUIDCreate(NULL);

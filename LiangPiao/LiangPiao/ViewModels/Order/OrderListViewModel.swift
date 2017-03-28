@@ -63,6 +63,10 @@ class OrderListViewModel: NSObject {
                 controller.viewModel.model = selectOrder
                 NavigationPushView(controller, toConroller: controller)
             }
+        }else{
+            if self.controller != nil {
+                self.requestOrderList(self.controller, isNext: false)
+            }
         }
     }
     

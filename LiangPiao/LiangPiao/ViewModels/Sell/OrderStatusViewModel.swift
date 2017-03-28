@@ -18,6 +18,7 @@ class OrderStatusViewModel: NSObject {
     var deverliyModel:DeverliyModel!
     var controller:OrderStatusViewController!
     var selectIndexPath:NSIndexPath!
+    var templeTrace:Trace!
     var reloadeMySellOrderList:ReloadeMySellOrderList!
     
     override init() {
@@ -31,6 +32,17 @@ class OrderStatusViewModel: NSObject {
             ExpressDeliveryNet.shareInstance().requestExpressDelivreyNetOrder(dics as [NSObject : AnyObject], url: ExpressOrderHandleUrl).subscribeNext { (resultDic) in
                 self.deverliyModel = DeverliyModel.init(fromDictionary: resultDic as! NSDictionary)
                 self.deverliyModel.traces = self.deverliyModel.traces.reverse()
+                if self.deverliyModel.traces.count == 0 {
+                    var acceptionName = ""
+                    for name in deverliyDic.allKeys {
+                        if deverliyDic[name as! String] as! String == self.model.expressInfo.expressName as String {
+                            acceptionName = name as! String
+                        }
+                    }
+                    let dic:NSDictionary = ["AcceptStation":acceptionName,"AcceptTime":self.model.expressInfo.expressNum]
+                    self.templeTrace = Trace.init(fromDictionary: dic)
+                    self.deverliyModel.traces.append(self.templeTrace)
+                }
                 dispatch_async(dispatch_get_main_queue(), {
                     self.controller.tableView.reloadRowsAtIndexPaths([NSIndexPath.init(forRow: 2, inSection: 0)], withRowAnimation: .Automatic)
                 })
@@ -155,7 +167,13 @@ class OrderStatusViewModel: NSObject {
     func orderStatusTableViewDidSelect(tableView:UITableView, indexPath:NSIndexPath) {
         if indexPath.section == 0 && indexPath.row == 2 {
             let controllerVC = LogisticsTrackingViewController()
-            controllerVC.viewModel.deverliyModel = self.deverliyModel
+            let tempDeverliyModel = self.deverliyModel
+            if self.deverliyModel.traces.count == 1 {
+                if templeTrace != nil && self.deverliyModel.traces[0] == templeTrace {
+                    tempDeverliyModel.traces.removeAll()
+                }
+            }
+            controllerVC.viewModel.deverliyModel = tempDeverliyModel
             controllerVC.viewModel.model = self.model
             NavigationPushView(self.controller, toConroller: controllerVC)
         }

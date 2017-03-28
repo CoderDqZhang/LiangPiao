@@ -21,6 +21,8 @@ class DeverliyTypeTableViewCell: UITableViewCell {
     var infoLabel:UILabel!
     var timeLabel:UILabel!
     
+    var phoneStr:String = ""
+    
     var didMakeContraints:Bool = false
     
     var linLabel:GloabLineView!
@@ -96,6 +98,23 @@ class DeverliyTypeTableViewCell: UITableViewCell {
             self.leftLabel.hidden = true
             self.linLabel.hidden = true
         }
+        self.strWithPhoneNumber(trace.acceptStation).subscribeNext { (range) in
+            let str = NSMutableAttributedString.init(string: trace.acceptStation)
+            str.addAttribute(NSForegroundColorAttributeName, value: UIColor.init(hexString: App_Theme_4BD4C5_Color), range: range as! NSRange)
+            self.infoLabel.attributedText = str
+//            print(range)
+            self.phoneStr = trace.acceptStation.substringWithRange((range as! NSRange).location, end: (range as! NSRange).location + (range as! NSRange).length)
+            self.infoLabel.userInteractionEnabled = true
+            let singleTap = UITapGestureRecognizer.init(target: self, action: #selector(DeverliyTypeTableViewCell.singleTap(_:)))
+            singleTap.numberOfTapsRequired = 1
+            singleTap.numberOfTouchesRequired = 1
+            self.infoLabel.addGestureRecognizer(singleTap)
+            
+        }
+    }
+    
+    func singleTap(tap:UITapGestureRecognizer) {
+        AppCallViewShow(self.contentView, phone: self.phoneStr)
     }
     
     override func updateConstraints() {
@@ -136,6 +155,27 @@ class DeverliyTypeTableViewCell: UITableViewCell {
             
         }
         super.updateConstraints()
+    }
+    
+    
+    func strWithPhoneNumber(str:String) -> RACSignal{
+        return RACSignal.createSignal({ (subscriber) -> RACDisposable! in
+            do {
+                let regex = try NSRegularExpression.init(pattern: "\\d*", options: NSRegularExpressionOptions.CaseInsensitive)
+                regex.enumerateMatchesInString(str, options: NSMatchingOptions.ReportProgress, range: NSRange.init(location: 0, length: str.length), usingBlock: { (result, flags, stop) in
+                    if NSTextCheckingType.PhoneNumber == result!.resultType{
+                        subscriber.sendNext(result?.range)
+                        subscriber.sendCompleted()
+                    }
+                    if result!.range.length == 11 {
+                        subscriber.sendNext(result?.range)
+                        subscriber.sendCompleted()
+                    }
+                })
+            } catch  {
+            }
+            return nil
+        })
     }
     
     override func awakeFromNib() {

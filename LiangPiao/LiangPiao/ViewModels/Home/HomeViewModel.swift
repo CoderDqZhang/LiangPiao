@@ -109,6 +109,8 @@ class HomeViewModel: NSObject {
     }
     
     func navigationPushTicketPage(index:Int) {
+//        let controllerVC = BarCodeViewController()
+//        NavigationPushView(self.controller, toConroller: controllerVC)
         let ticketPage = TicketPageViewController()
         ticketPage.progressHeight = 0
         ticketPage.progressWidth = 0

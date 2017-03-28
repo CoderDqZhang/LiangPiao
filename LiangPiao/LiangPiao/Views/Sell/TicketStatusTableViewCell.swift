@@ -10,13 +10,13 @@
 import UIKit
 
 typealias TicketStatusTableViewCellClouse = (isSeate:Bool, isTicket:Bool) ->Void
-
+typealias TicketTicketSellClouse = (tap:UITapGestureRecognizer, label:UILabel) ->Void
 class TicketStatusTableViewCell: UITableViewCell {
 
     var ticketStatus:UIView!
     var isSeat:Bool = false
     var isTicket:Bool = false
-    
+    var ticketTicketSellClouse:TicketTicketSellClouse!
     var ticketStatusTableViewCellClouse:TicketStatusTableViewCellClouse!
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
@@ -31,7 +31,6 @@ class TicketStatusTableViewCell: UITableViewCell {
                 array.append("保证连坐")
                 array.append("期票预售")
                 typeArray.append(1)
-                
             }else{
                 array.append("期票预售")
             }
@@ -94,6 +93,16 @@ class TicketStatusTableViewCell: UITableViewCell {
     
     func singleTapGesture(tap:UITapGestureRecognizer){
         let label = tap.view as! UILabel
+        if label.text == "期票预售" && label.backgroundColor == UIColor.init(hexString: App_Theme_FFFFFF_Color) {
+            if self.ticketTicketSellClouse != nil {
+                self.ticketTicketSellClouse(tap:tap, label: label)
+                return
+            }
+        }
+        self.updataLabel(label)
+    }
+    
+    func updataLabel(label:UILabel){
         if label.backgroundColor == UIColor.init(hexString: App_Theme_FFFFFF_Color) {
             label.layer.cornerRadius = 2
             label.backgroundColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)

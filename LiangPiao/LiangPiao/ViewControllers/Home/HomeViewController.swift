@@ -40,6 +40,7 @@ class HomeViewController: BaseViewController {
         
     }
     
+    
     func setUpTableView() {
         tableView = UITableView(frame: CGRect.zero, style: .Grouped)
         tableView.delegate = self
@@ -105,17 +106,18 @@ class HomeViewController: BaseViewController {
     func cancelSearchTable() {
         self.searchNavigationBar.searchField.frame = CGRectMake(20, 27,SCREENWIDTH - 40, 30)
         self.searchNavigationBar.cancelButton.hidden = true
-        if #available(iOS 10.0, *) {
-            searchNavigationBar.backgroundColor = UIColor.init(displayP3Red: 75.0/255.0, green: 212.0/255.0, blue: 197.0/255.0, alpha: tableView.contentOffset.y/165)
-        } else {
-            searchNavigationBar.backgroundColor = UIColor.init(red: 75.0/255.0, green: 212.0/255.0, blue: 197.0/255.0, alpha: tableView.contentOffset.y/165)
-            // Fallback on earlier versions
-        }
+//        if #available(iOS 10.0, *) {
+//            searchNavigationBar.backgroundColor = UIColor.init(displayP3Red: 75.0/255.0, green: 212.0/255.0, blue: 197.0/255.0, alpha: 1)
+//        } else {
+//            searchNavigationBar.backgroundColor = UIColor.init(red: 75.0/255.0, green: 212.0/255.0, blue: 197.0/255.0, alpha: 1)
+//            // Fallback on earlier versions
+//        }
         if tableView.contentOffset.y > 165 {
             searchNavigationBar.searchField.hidden = false
         }else{
             searchNavigationBar.searchField.hidden = true
         }
+        searchNavigationBar.searchField.text = ""
         searchNavigationBar.searchField.resignFirstResponder()
         searchTableView.hidden = true
         self.tabBarController?.tabBar.hidden = false

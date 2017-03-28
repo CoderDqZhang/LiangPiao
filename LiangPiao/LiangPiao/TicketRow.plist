@@ -2,7 +2,7 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <array>
-	<string>随机分配</string>
+	<string>择优分配</string>
 	<string>1排</string>
 	<string>2排</string>
 	<string>3排</string>

@@ -1,18 +1,17 @@
 //
-//  UserAddressTableViewCell.swift
+//  LogisticsTableViewCell.swift
 //  LiangPiao
 //
-//  Created by Zhang on 2017/3/20.
+//  Created by Zhang on 2017/3/25.
 //  Copyright © 2017年 Zhang. All rights reserved.
 //
 
 import UIKit
 
-class UserAddressTableViewCell: UITableViewCell {
+class LogisticsTableViewCell: UITableViewCell {
 
     var titleInfo:UILabel!
     var deliveryType:UILabel!
-    var deliveryName:UILabel!
     var deliveryAddress:UILabel!
     
     var didMakeContraints:Bool = false
@@ -37,11 +36,6 @@ class UserAddressTableViewCell: UITableViewCell {
         deliveryType.textColor = UIColor.init(hexString: App_Theme_A2ABB5_Color)
         self.contentView.addSubview(deliveryType)
         
-        deliveryName = UILabel()
-        deliveryName.font = App_Theme_PinFan_R_13_Font
-        deliveryName.textColor = UIColor.init(hexString: App_Theme_A2ABB5_Color)
-        self.contentView.addSubview(deliveryName)
-        
         deliveryAddress = UILabel()
         deliveryAddress.font = App_Theme_PinFan_R_13_Font
         deliveryAddress.numberOfLines = 0
@@ -59,23 +53,10 @@ class UserAddressTableViewCell: UITableViewCell {
     }
     
     
-    func setUpData(model:OrderList, info:String) {
+    func setUpData(model:DeverliyModel, info:String) {
         titleInfo.text = info
-        if model.deliveryType == 1 || model.deliveryType == 4 {
-            deliveryType.text = "配送方式：快递到付"
-            deliveryName.text = "收货人：\(model.address.name) \(model.address.mobileNum)"
-            let str = "\(model.address.location)\(model.address.address)".stringByReplacingOccurrencesOfString(" ", withString: "")
-            deliveryAddress.text = "配送地址：\(str)"
-        }else if model.deliveryType == 2 {
-            deliveryType.text = "配送方式：现场取票"
-            deliveryName.text = "姓名：\(model.name)"
-            deliveryAddress.text = "电话：\(model.phone)"
-        }else {
-            deliveryType.text = "配送方式：上门自取"
-            deliveryName.text = "姓名：\(model.name)"
-            deliveryAddress.text = "电话：\(model.phone)"
-        }
-        deliveryAddress.numberOfLines = 0
+        deliveryType.text = "配送方式：快递到付"
+        deliveryAddress.text = "快递单号：\(model.logisticCode)"
     }
     
     override func updateConstraints() {
@@ -93,16 +74,10 @@ class UserAddressTableViewCell: UITableViewCell {
                 make.top.equalTo(self.titleInfo.snp_bottom).offset(8)
             })
             
-            deliveryName.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.right.equalTo(self.contentView.snp_right).offset(-15)
-                make.top.equalTo(self.deliveryType.snp_bottom).offset(2)
-            })
-            
             deliveryAddress.snp_makeConstraints(closure: { (make) in
                 make.left.equalTo(self.contentView.snp_left).offset(15)
                 make.right.equalTo(self.contentView.snp_right).offset(-15)
-                make.top.equalTo(self.deliveryName.snp_bottom).offset(2)
+                make.top.equalTo(self.deliveryType.snp_bottom).offset(2)
                 make.bottom.equalTo(self.contentView.snp_bottom).offset(-20)
             })
             
@@ -122,5 +97,5 @@ class UserAddressTableViewCell: UITableViewCell {
         
         // Configure the view for the selected state
     }
-
+    
 }

@@ -1,4 +1,4 @@
-//
+ //
 //  MySellConfimViewModel.swift
 //  LiangPiao
 //
@@ -378,6 +378,15 @@ class MySellConfimViewModel: NSObject {
             self.sellFormModel.seatType = isSeat ? "1" : "2"
             self.sellFormModel.sellCategoty = isTicket ? 1:0
         }
+        
+        cell.ticketTicketSellClouse = { tap, label in
+            UIAlertController.shwoAlertControl(self.controller, style: .Alert, title: "提示", message: "现票必须保证72小时内发货，期票发货时间需与买家商议。现票快递类违约不能付票，每张赔付50元，期票违约每张赔付100元.", cancel: "取消", doneTitle: "确定", cancelAction: {
+                
+                }, doneAction: {
+                    cell.updataLabel(label)
+            })
+        }
+        
     }
     
     func tableViewGloabTitleAndSwitchBarTableViewCell(cell:GloabTitleAndSwitchBarTableViewCell) {

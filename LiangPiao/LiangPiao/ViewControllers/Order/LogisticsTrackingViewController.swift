@@ -31,7 +31,7 @@ class LogisticsTrackingViewController: UIViewController {
         tableView.showsVerticalScrollIndicator = false
         tableView.dataSource = self
         tableView.keyboardDismissMode = .OnDrag
-        tableView.registerClass(UserAddressTableViewCell.self, forCellReuseIdentifier: "UserAddressTableViewCellLogis")
+        tableView.registerClass(LogisticsTableViewCell.self, forCellReuseIdentifier: "LogisticsTableViewCell")
         tableView.registerClass(DeverliyTypeTableViewCell.self, forCellReuseIdentifier: "DeverliyTypeTableViewCell")
         tableView.separatorStyle = .None
         self.view.addSubview(tableView)
@@ -100,7 +100,7 @@ extension LogisticsTrackingViewController : UITableViewDataSource {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         switch indexPath.section {
         case 0:
-            let cell = tableView.dequeueReusableCellWithIdentifier("UserAddressTableViewCellLogis", forIndexPath: indexPath) as! UserAddressTableViewCell
+            let cell = tableView.dequeueReusableCellWithIdentifier("LogisticsTableViewCell", forIndexPath: indexPath) as! LogisticsTableViewCell
             cell.selectionStyle = .None
             viewModel.tableViewCellUserAddressTableViewCell(cell, indexPath:indexPath)
             return cell

@@ -16,7 +16,7 @@ class MySellPagerViewController: TYTabButtonPagerController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.init(hexString: App_Theme_E9EBF2_Color)
-        self.navigationItem.title = "我的卖票"
+        self.navigationItem.title = "我的挂票"
         self.setUpNavigationItem()
         self.setUpPageViewControllerStyle()
         self.setUpView()

@@ -56,7 +56,7 @@ class ReciveAddressTableViewCell: UITableViewCell {
     
     func setUpData(model:OrderList) {
         if model.deliveryType == 1 || model.deliveryType == 4 {
-            self.deliveryType.text = "配送方式：快递"
+            self.deliveryType.text = "配送方式：快递到付"
             self.deliveryName.text = "收货人：\(model.address.name) \(model.address.mobileNum)"
             let str = "\(model.address.location)\(model.address.address)".stringByReplacingOccurrencesOfString(" ", withString: "")
             self.deliveryAddress.text = "配送地址：\(str)"

@@ -341,7 +341,7 @@ extension TicketConfirmViewController : UITableViewDataSource {
                 let cell = tableView.dequeueReusableCellWithIdentifier("DetailAddressTableViewCell", forIndexPath: indexPath) as! DetailAddressTableViewCell
                 cell.textView.delegate = self
                 cell.selectionStyle = .None
-                cell.setPlaceholerText("备注关于本次交易的特别说明")
+                cell.setPlaceholerText("备注：如配单、代发快递等")
                 return cell
             }
             

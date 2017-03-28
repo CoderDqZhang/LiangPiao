@@ -42,8 +42,8 @@ class LogisticsTrackingViewModel: NSObject {
     func tableViewHeightForRowAtIndexPath(tableView:UITableView, indexPath:NSIndexPath) -> CGFloat {
         switch indexPath.section {
         case 0:
-            return tableView.fd_heightForCellWithIdentifier("UserAddressTableViewCellLogis", configuration: { (cell) in
-                self.configCellReviceCell(cell as! UserAddressTableViewCell, indexPath: indexPath)
+            return tableView.fd_heightForCellWithIdentifier("LogisticsTableViewCell", configuration: { (cell) in
+                self.configCellReviceCell(cell as! LogisticsTableViewCell, indexPath: indexPath)
             })
         default:
             return tableView.fd_heightForCellWithIdentifier("DeverliyTypeTableViewCell", configuration: { (cell) in
@@ -61,11 +61,11 @@ class LogisticsTrackingViewModel: NSObject {
         return 10
     }
     
-    func configCellReviceCell(cell:UserAddressTableViewCell, indexPath:NSIndexPath) {
-        cell.setUpData(self.model, info: "由 \(self.userAddressInfoTitle()) 负责承运")
+    func configCellReviceCell(cell:LogisticsTableViewCell, indexPath:NSIndexPath) {
+        cell.setUpData(self.deverliyModel, info: "由 \(self.userAddressInfoTitle()) 负责承运")
     }
     
-    func tableViewCellUserAddressTableViewCell(cell:UserAddressTableViewCell, indexPath:NSIndexPath){
+    func tableViewCellUserAddressTableViewCell(cell:LogisticsTableViewCell, indexPath:NSIndexPath){
         self.configCellReviceCell(cell, indexPath: indexPath)
     }
     
@@ -84,5 +84,7 @@ class LogisticsTrackingViewModel: NSObject {
         }
         return str
     }
+    
+    
 }
 

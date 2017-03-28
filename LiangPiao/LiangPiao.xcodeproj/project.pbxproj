@@ -45,6 +45,7 @@
 		1F24DE931DD5A35900C6E8CA /* GlobalSearchTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F24DE921DD5A35900C6E8CA /* GlobalSearchTableView.swift */; };
 		1F24DE951DD5B9E100C6E8CA /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F24DE941DD5B9E100C6E8CA /* FavoriteViewController.swift */; };
 		1F24DE971DD5BA0A00C6E8CA /* FavoriteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F24DE961DD5BA0A00C6E8CA /* FavoriteViewModel.swift */; };
+		1F2A93AA1E8641D3002CC663 /* LogisticsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2A93A91E8641D3002CC663 /* LogisticsTableViewCell.swift */; };
 		1F3241931DF02614007BC078 /* FavoritesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3241921DF02614007BC078 /* FavoritesViewModel.swift */; };
 		1F3241951DF028E7007BC078 /* FavorityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3241941DF028E7007BC078 /* FavorityModel.swift */; };
 		1F36E1A71DF0509900565D1A /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F36E1A61DF0509900565D1A /* SearchViewModel.swift */; };
@@ -276,6 +277,7 @@
 		1FEE7EB91DF68ECB00479648 /* TopUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEE7EB81DF68ECB00479648 /* TopUpViewModel.swift */; };
 		1FEE7EBB1DF68EEE00479648 /* WithDrawViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEE7EBA1DF68EEE00479648 /* WithDrawViewModel.swift */; };
 		1FEE7EBD1DF6907C00479648 /* DetailAcountTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEE7EBC1DF6907C00479648 /* DetailAcountTableViewCell.swift */; };
+		1FF12D761E88C0A200F8C990 /* BarCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF12D751E88C0A200F8C990 /* BarCodeViewController.swift */; };
 		1FF2A5F61DE96C0700FC3909 /* UIViewController+TalKingData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF2A5F51DE96C0700FC3909 /* UIViewController+TalKingData.m */; };
 		1FF891B41E46F816006B7440 /* LiangPiaoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FF891B31E46F816006B7440 /* LiangPiaoUITests.swift */; };
 		FF939C055E3696DD0A65FE1D /* Pods_LiangPiao.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9F98174D1FB502062618746 /* Pods_LiangPiao.framework */; };
@@ -355,6 +357,7 @@
 		1F24DE921DD5A35900C6E8CA /* GlobalSearchTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalSearchTableView.swift; sourceTree = "<group>"; };
 		1F24DE941DD5B9E100C6E8CA /* FavoriteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
 		1F24DE961DD5BA0A00C6E8CA /* FavoriteViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteViewModel.swift; sourceTree = "<group>"; };
+		1F2A93A91E8641D3002CC663 /* LogisticsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogisticsTableViewCell.swift; sourceTree = "<group>"; };
 		1F3241921DF02614007BC078 /* FavoritesViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesViewModel.swift; sourceTree = "<group>"; };
 		1F3241941DF028E7007BC078 /* FavorityModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavorityModel.swift; sourceTree = "<group>"; };
 		1F36E1A61DF0509900565D1A /* SearchViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
@@ -658,6 +661,7 @@
 		1FEE7EB81DF68ECB00479648 /* TopUpViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopUpViewModel.swift; sourceTree = "<group>"; };
 		1FEE7EBA1DF68EEE00479648 /* WithDrawViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WithDrawViewModel.swift; sourceTree = "<group>"; };
 		1FEE7EBC1DF6907C00479648 /* DetailAcountTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailAcountTableViewCell.swift; sourceTree = "<group>"; };
+		1FF12D751E88C0A200F8C990 /* BarCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarCodeViewController.swift; sourceTree = "<group>"; };
 		1FF2A5F41DE96C0700FC3909 /* UIViewController+TalKingData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+TalKingData.h"; sourceTree = "<group>"; };
 		1FF2A5F51DE96C0700FC3909 /* UIViewController+TalKingData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+TalKingData.m"; sourceTree = "<group>"; };
 		1FF891B11E46F816006B7440 /* LiangPiaoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LiangPiaoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -749,6 +753,7 @@
 				1F3C7F571DFF8924009992AE /* OrderStatusViewController.swift */,
 				1F6E0A8C1E7F6F5E007773F7 /* DelivererPushViewController.swift */,
 				1F3F75B21E7FC15A005D3AC0 /* LogisticsTrackingViewController.swift */,
+				1FF12D751E88C0A200F8C990 /* BarCodeViewController.swift */,
 			);
 			path = Order;
 			sourceTree = "<group>";
@@ -779,6 +784,7 @@
 				1F6E0A8E1E7F6FAB007773F7 /* UserAddressTableViewCell.swift */,
 				1F3F75AE1E7FBB84005D3AC0 /* DeverliyTypeTableViewCell.swift */,
 				1F3F75B61E7FEB67005D3AC0 /* DeverliyTableViewCell.swift */,
+				1F2A93A91E8641D3002CC663 /* LogisticsTableViewCell.swift */,
 			);
 			path = Order;
 			sourceTree = "<group>";
@@ -1776,6 +1782,7 @@
 				1FBFC7E71DDABD48008D9CEC /* FMDatabaseAdditionsVariadic.swift in Sources */,
 				1FD881EA1DC8546500B2B702 /* SDCycleScrollView.m in Sources */,
 				1FD881B91DC7252800B2B702 /* UITableView+FDTemplateLayoutCell.m in Sources */,
+				1F2A93AA1E8641D3002CC663 /* LogisticsTableViewCell.swift in Sources */,
 				1F0EAB811DD1B4BE00D25B64 /* CountDown.m in Sources */,
 				1FBFC7E61DDABD48008D9CEC /* FMDatabase+InMemoryOnDiskIO.m in Sources */,
 				1F3F75B71E7FEB67005D3AC0 /* DeverliyTableViewCell.swift in Sources */,
@@ -1933,6 +1940,7 @@
 				1F0EAB7D1DD16D0E00D25B64 /* OrderDoneTableViewCell.swift in Sources */,
 				1F0EAB771DD0961D00D25B64 /* OrderHandleTableViewCell.swift in Sources */,
 				1F424C571DFE952100C5269B /* WithDreaViewModel.swift in Sources */,
+				1FF12D761E88C0A200F8C990 /* BarCodeViewController.swift in Sources */,
 				1F424C551DFE8A9D00C5269B /* WithDrawStatusViewController.swift in Sources */,
 				1F67D1121DCD854800378116 /* AddressViewModel.swift in Sources */,
 				1F90E6031E08E14500661165 /* TickeSellModel.swift in Sources */,

@@ -66,11 +66,11 @@
             </objects>
             <point key="canvasLocation" x="424" y="-1168"/>
         </scene>
-        <!--卖票-->
+        <!--挂票-->
         <scene sceneID="rgU-eA-OVJ">
             <objects>
                 <navigationController id="BQv-KB-VAv" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="卖票" image="Icon_Sale_Normal" selectedImage="Icon_Sale_Selected" id="bF5-IL-BOZ"/>
+                    <tabBarItem key="tabBarItem" title="挂票" image="Icon_Sale_Normal" selectedImage="Icon_Sale_Selected" id="bF5-IL-BOZ"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="QBX-Fz-Ul4">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -140,7 +140,7 @@
             </objects>
             <point key="canvasLocation" x="423" y="1057"/>
         </scene>
-        <!--卖票-->
+        <!--挂票-->
         <scene sceneID="W3N-os-cdY">
             <objects>
                 <viewController id="Tit-wN-Qd0" customClass="SellTicketsViewController" customModule="LiangPiao" customModuleProvider="target" sceneMemberID="viewController">
@@ -154,7 +154,7 @@
                         <color key="backgroundColor" red="0.96445959810000004" green="0.96848314999999996" blue="0.98080104589999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="挂票" id="lJt-yi-Jdo"/>
-                    <navigationItem key="navigationItem" title="卖票" id="mXO-DG-b49"/>
+                    <navigationItem key="navigationItem" title="挂票" id="mXO-DG-b49"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1BM-D4-kLX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -265,7 +265,7 @@ marketing - zhaoming</string>
             </objects>
             <point key="canvasLocation" x="1196.25" y="221.25"/>
         </scene>
-        <!--卖票-->
+        <!--挂票-->
         <scene sceneID="9sR-f2-yJg">
             <objects>
                 <viewController id="vhD-x6-s3Y" customClass="SellTicketsViewController" customModule="LiangPiao" customModuleProvider="target" sceneMemberID="viewController">
@@ -278,8 +278,8 @@ marketing - zhaoming</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.96445959810000004" green="0.96848314999999996" blue="0.98080104589999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="卖票" id="0x3-3V-jbE"/>
-                    <navigationItem key="navigationItem" title="卖票" id="s1b-t8-Cze"/>
+                    <tabBarItem key="tabBarItem" title="挂票" id="0x3-3V-jbE"/>
+                    <navigationItem key="navigationItem" title="挂票" id="s1b-t8-Cze"/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                 </viewController>

@@ -120,6 +120,7 @@ class SellTicketsViewController: BaseViewController {
         searchNavigationBar.searchField.hidden = false
         searchNavigationBar.searchField.resignFirstResponder()
         searchTableView.hidden = true
+        searchNavigationBar.searchField.text = ""
         self.tabBarController?.tabBar.hidden = false
     }
     
