@@ -39,7 +39,7 @@ class OrderStatusViewModel: NSObject {
                             acceptionName = name as! String
                         }
                     }
-                    let dic:NSDictionary = ["AcceptStation":acceptionName,"AcceptTime":self.model.expressInfo.expressNum]
+                    let dic:NSDictionary = ["AcceptStation":acceptionName,"AcceptTime":"物流编号：\(self.model.expressInfo.expressNum)"]
                     self.templeTrace = Trace.init(fromDictionary: dic)
                     self.deverliyModel.traces.append(self.templeTrace)
                 }
