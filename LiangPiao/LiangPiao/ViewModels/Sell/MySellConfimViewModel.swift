@@ -91,6 +91,7 @@ class MySellConfimViewModel: NSObject {
         sellFormModel.sellType = ticket.sellType == 1 ? "可以分开卖":"一起卖"
         sellFormModel.seatType = "\(ticket.seatType)"
         sellFormModel.ticketRegin = ticket.region == "" ? "择优分配" : ticket.region
+        sellFormModel.sellCategoty = ticket.sellCategory
         if ticket.region == "" {
            sellFormModel.ticketRow = "择优分配"
         }else{
