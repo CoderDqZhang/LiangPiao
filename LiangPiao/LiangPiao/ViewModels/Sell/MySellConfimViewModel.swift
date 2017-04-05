@@ -233,7 +233,14 @@ class MySellConfimViewModel: NSObject {
     
     func pushSellInfo(){
         self.much = "\(Double(self.sellFormModel.number) * Double(self.sellFormModel.price)!)"
-        NavigationPushView(self.controller, toConroller: SellInfoViewController())
+        let url = "\(TicketSellRegion)\(self.originTicket.id)/regions/"
+        BaseNetWorke.sharedInstance.getUrlWithString(url, parameters: nil).subscribeNext { (resultDic) in
+            print(resultDic)
+            if resultDic is [[String]] {
+                self.sellTicketModel.regionChoices = resultDic as! [[String]]
+            }
+            NavigationPushView(self.controller, toConroller: SellInfoViewController())
+        }
     }
     
     
