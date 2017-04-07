@@ -74,6 +74,7 @@ class MySellConfimViewModel: NSObject {
             }else{
                 self.visite = Visite.init()
             }
+            
         }
     }
     
@@ -84,6 +85,7 @@ class MySellConfimViewModel: NSObject {
             sellFormModel.id = "\(model.session.id)"
         }
         self.ticketOriginName = ticket.originalTicket.name
+        self.originTicket = ticket.originalTicket
         self.putUpModel = ticket
         sellFormModel.ticketPrice = "\(ticket.originalTicket.id)"
         sellFormModel.price = "\(ticket.price)"
@@ -233,7 +235,17 @@ class MySellConfimViewModel: NSObject {
     
     func pushSellInfo(){
         self.much = "\(Double(self.sellFormModel.number) * Double(self.sellFormModel.price)!)"
-        let url = "\(TicketSellRegion)\(self.originTicket.id)/regions/"
+        var id:Int
+        if self.putUpModel != nil && self.putUpModel.originalTicket != nil {
+            id = self.putUpModel.originalTicket.id != nil ? self.putUpModel.originalTicket.id : 0
+            if self.originTicket.id != nil {
+                id = self.originTicket.id
+            }
+        }else{
+            id = self.originTicket.id
+        }
+        
+        let url = "\(TicketSellRegion)\(id)/regions/"
         BaseNetWorke.sharedInstance.getUrlWithString(url, parameters: nil).subscribeNext { (resultDic) in
             print(resultDic)
             if resultDic is [[String]] {
