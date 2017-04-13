@@ -38,15 +38,15 @@ class LiangNomalRefreshHeader: MJRefreshHeader {
         self.loadImageView = loadImageView
         self.displayLink = CADisplayLink.init(target: self, selector: #selector(LiangNomalRefreshHeader.startAnimation))
         self.displayLink.frameInterval = 60
-        self.displayLink.paused = true
-        self.displayLink.addToRunLoop(NSRunLoop.currentRunLoop(), forMode: NSRunLoopCommonModes)
+        self.displayLink.isPaused = true
+        self.displayLink.add(to: RunLoop.current, forMode: RunLoopMode.commonModes)
     }
 
     deinit {
         self.displayLink.invalidate()
     }
     
-    func prepareImage(backImage:UIImage, loadImage:UIImage) {
+    func prepareImage(_ backImage:UIImage, loadImage:UIImage) {
         self.prepare()
         imageView.image = backImage
         loadImageView.image = loadImage
@@ -61,19 +61,19 @@ class LiangNomalRefreshHeader: MJRefreshHeader {
 //        imageView.image = UIImage.init(named: "加载动画背景")
     }
 
-    override func scrollViewPanStateDidChange(change: [NSObject : AnyObject]!) {
+    override func scrollViewPanStateDidChange(_ change: [AnyHashable: Any]!) {
         super.scrollViewPanStateDidChange(change)
     }
 
-    override func scrollViewContentSizeDidChange(change: [NSObject : AnyObject]!) {
+    override func scrollViewContentSizeDidChange(_ change: [AnyHashable: Any]!) {
         super.scrollViewContentSizeDidChange(change)
     }
 
-    override func scrollViewContentOffsetDidChange(change: [NSObject : AnyObject]!) {
+    override func scrollViewContentOffsetDidChange(_ change: [AnyHashable: Any]!) {
         super.scrollViewContentOffsetDidChange(change)
     }
 
-    override func setState(state:MJRefreshState) {
+    override func setState(_ state:MJRefreshState) {
 
         if state == oldState {
             return
@@ -82,17 +82,17 @@ class LiangNomalRefreshHeader: MJRefreshHeader {
 
         super.setState(state)
         switch state {
-        case .Idle:
-            self.displayLink.paused = true
+        case .idle:
+            self.displayLink.isPaused = true
             break
-        case .Pulling:
-            self.displayLink.paused = false
+        case .pulling:
+            self.displayLink.isPaused = false
             break
-        case .Refreshing:
-            self.displayLink.paused = false
+        case .refreshing:
+            self.displayLink.isPaused = false
             break
-        case .NoMoreData:
-            self.displayLink.paused = true
+        case .noMoreData:
+            self.displayLink.isPaused = true
             break
         default:
             break
@@ -100,18 +100,18 @@ class LiangNomalRefreshHeader: MJRefreshHeader {
     }
 
     func startAnimation() {
-        if self.loadImageView.layer.animationForKey("done") == nil {
+        if self.loadImageView.layer.animation(forKey: "done") == nil {
             let ani = CAKeyframeAnimation(keyPath: "transform.rotation.z")
             ani.keyTimes = [0,0.48,1]
             ani.timingFunctions = [CAMediaTimingFunction(controlPoints: 0.014,-0.003,0.726,0.306), CAMediaTimingFunction(controlPoints: 0.233,0.824,0.326,0.97)]
             ani.values = [0,3.543,6.283]
             ani.duration = 1
-            self.loadImageView.layer.addAnimation(ani, forKey: "done")
+            self.loadImageView.layer.add(ani, forKey: "done")
         }
     }
     
     func stopAnimation(){
         self.loadImageView.layer.removeAllAnimations()
-        self.displayLink.paused = true
+        self.displayLink.isPaused = true
     }
 }

@@ -47,7 +47,7 @@ class OrderMuchTableViewCell: UITableViewCell {
         self.updateConstraintsIfNeeded()
     }
     
-    func setData(model:OrderList){
+    func setData(_ model:OrderList){
         let much = "\(model.total)".muchType("\(model.total)")
         muchLabel.text = "\(much)"
     }
@@ -58,19 +58,19 @@ class OrderMuchTableViewCell: UITableViewCell {
     
     override func updateConstraints() {
         if !self.didMakeConstraints {
-            muchLabel.snp_makeConstraints(closure: { (make) in
-                make.right.equalTo(self.muchmLabel.snp_left).offset(-3)
-                make.centerY.equalTo(self.contentView.snp_centerY).offset(3)
+            muchLabel.snp.makeConstraints({ (make) in
+                make.right.equalTo(self.muchmLabel.snp.left).offset(-3)
+                make.centerY.equalTo(self.contentView.snp.centerY).offset(3)
             })
             
-            muchInfoLabel.snp_makeConstraints(closure: { (make) in
-                make.right.equalTo(self.muchLabel.snp_left).offset(-2)
-                make.centerY.equalTo(self.contentView.snp_centerY).offset(3)
+            muchInfoLabel.snp.makeConstraints({ (make) in
+                make.right.equalTo(self.muchLabel.snp.left).offset(-2)
+                make.centerY.equalTo(self.contentView.snp.centerY).offset(3)
             })
             
-            muchmLabel.snp_makeConstraints(closure: { (make) in
-                make.right.equalTo(self.contentView.snp_right).offset(-15)
-                make.centerY.equalTo(self.contentView.snp_centerY).offset(4)
+            muchmLabel.snp.makeConstraints({ (make) in
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
+                make.centerY.equalTo(self.contentView.snp.centerY).offset(4)
             })
             
             self.didMakeConstraints = true
@@ -83,7 +83,7 @@ class OrderMuchTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

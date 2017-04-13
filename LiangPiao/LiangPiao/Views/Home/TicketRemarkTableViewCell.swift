@@ -36,8 +36,8 @@ class TicketRemarkTableViewCell: UITableViewCell {
         self.updateConstraintsIfNeeded()
     }
     
-    func setData(model:OrderList){
-        messageLabel.text = "备注：\(model.message)"
+    func setData(_ model:OrderList){
+        messageLabel.text = "备注：\((model.message)!)"
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -47,18 +47,18 @@ class TicketRemarkTableViewCell: UITableViewCell {
     override func updateConstraints() {
         if !self.didMakeConstraints {
             
-            linLabel.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.right.equalTo(self.contentView.snp_right).offset(-15)
-                make.bottom.equalTo(self.contentView.snp_bottom).offset(0)
+            linLabel.snp.makeConstraints({ (make) in
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(0)
                 make.height.equalTo(0.5)
             })
             
-            messageLabel.snp_makeConstraints(closure: { (make) in
-                make.top.equalTo(self.contentView.snp_top).offset(20)
-                make.bottom.equalTo(self.contentView.snp_bottom).offset(-20)
-                make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.right.equalTo(self.contentView.snp_right).offset(-15)
+            messageLabel.snp.makeConstraints({ (make) in
+                make.top.equalTo(self.contentView.snp.top).offset(20)
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(-20)
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
             })
             
             self.didMakeConstraints = true
@@ -71,7 +71,7 @@ class TicketRemarkTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

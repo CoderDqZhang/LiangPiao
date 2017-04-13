@@ -23,20 +23,20 @@ class OrderListViewController: BaseViewController {
     }
 
     func setUpView() {
-        tableView = UITableView(frame: CGRectZero, style: .Grouped)
+        tableView = UITableView(frame: CGRect.zero, style: .grouped)
         tableView.backgroundColor = UIColor.init(hexString: App_Theme_E9EBF2_Color)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.emptyDataSetSource = self
         tableView.emptyDataSetDelegate = self
         tableView.showsVerticalScrollIndicator = false
-        tableView.separatorStyle = .None
-        tableView.registerClass(OrderNumberTableViewCell.self, forCellReuseIdentifier: "OrderNumberTableViewCell")
-        tableView.registerClass(OrderTicketInfoTableViewCell.self, forCellReuseIdentifier: "OrderTicketInfoTableViewCell")
-        tableView.registerClass(OrderHandleTableViewCell.self, forCellReuseIdentifier: "OrderHandleTableViewCell")
+        tableView.separatorStyle = .none
+        tableView.register(OrderNumberTableViewCell.self, forCellReuseIdentifier: "OrderNumberTableViewCell")
+        tableView.register(OrderTicketInfoTableViewCell.self, forCellReuseIdentifier: "OrderTicketInfoTableViewCell")
+        tableView.register(OrderHandleTableViewCell.self, forCellReuseIdentifier: "OrderHandleTableViewCell")
         self.view.addSubview(tableView)
         
-        tableView.snp_makeConstraints { (make) in
+        tableView.snp.makeConstraints { (make) in
             make.edges.equalTo(UIEdgeInsetsMake(0, 0, 0, 0))
         }
         self.setUpRefreshData()
@@ -49,9 +49,9 @@ class OrderListViewController: BaseViewController {
     
 
     func orderListView() -> UIView {
-        let orderListView = UIView(frame: CGRectMake(0,0,SCREENWIDTH,10))
+        let orderListView = UIView(frame: CGRect(x: 0,y: 0,width: SCREENWIDTH,height: 10))
         orderListView.backgroundColor = UIColor.init(hexString: App_Theme_E9EBF2_Color)
-        let imageView = UIImageView(frame:CGRectMake(0,0,SCREENWIDTH,4))
+        let imageView = UIImageView(frame:CGRect(x: 0,y: 0,width: SCREENWIDTH,height: 4))
         imageView.image = UIImage.init(named: "Sawtooth")//Pattern_Line
         orderListView.addSubview(imageView)
         
@@ -89,54 +89,54 @@ class OrderListViewController: BaseViewController {
 }
 
 extension OrderListViewController : UITableViewDelegate {
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         viewModel.tableViewDidSelectRowAtIndexPath(indexPath, controller:self)
     }
 }
 
 extension OrderListViewController : UITableViewDataSource {
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return viewModel.numberOfSectionsInTableView()
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.numbrOfRowInSection(section)
     }
     
-    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 14
     }
     
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0.0001
     }
     
-    func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         return self.orderListView()
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return viewModel.tableViewHeightForRow(indexPath)
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.row {
         case 0:
-            let cell = tableView.dequeueReusableCellWithIdentifier("OrderNumberTableViewCell", forIndexPath: indexPath) as! OrderNumberTableViewCell
-            cell.userInteractionEnabled = false
+            let cell = tableView.dequeueReusableCell(withIdentifier: "OrderNumberTableViewCell", for: indexPath) as! OrderNumberTableViewCell
+            cell.isUserInteractionEnabled = false
             viewModel.tableViewOrderCellIndexPath(indexPath, cell: cell)
-            cell.selectionStyle = .None
+            cell.selectionStyle = .none
             return cell
         case 1:
-            let cell = tableView.dequeueReusableCellWithIdentifier("OrderTicketInfoTableViewCell", forIndexPath: indexPath) as! OrderTicketInfoTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "OrderTicketInfoTableViewCell", for: indexPath) as! OrderTicketInfoTableViewCell
             viewModel.tableViewOrderTicketInfoCellIndexPath(indexPath,cell:cell)
-            cell.backgroundColor = UIColor.whiteColor()
-            cell.selectionStyle = .None
+            cell.backgroundColor = UIColor.white
+            cell.selectionStyle = .none
             return cell
         default:
-            let cell = tableView.dequeueReusableCellWithIdentifier("OrderHandleTableViewCell", forIndexPath: indexPath) as! OrderHandleTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "OrderHandleTableViewCell", for: indexPath) as! OrderHandleTableViewCell
             viewModel.tableViewOrderHandleCellIndexPath(indexPath, cell:cell, controller:self)
-            cell.selectionStyle = .None
+            cell.selectionStyle = .none
             return cell
         }
     }
@@ -144,21 +144,21 @@ extension OrderListViewController : UITableViewDataSource {
 
 extension OrderListViewController : DZNEmptyDataSetDelegate {
     
-    func emptyDataSetShouldAllowTouch(scrollView: UIScrollView!) -> Bool {
+    func emptyDataSetShouldAllowTouch(_ scrollView: UIScrollView!) -> Bool {
         return true
     }
-    func emptyDataSetDidTapView(scrollView: UIScrollView!) {
+    func emptyDataSetDidTap(_ scrollView: UIScrollView!) {
         viewModel.requestOrderList(self, isNext: false)
     }
 }
 
 extension OrderListViewController :DZNEmptyDataSetSource {
     
-    func backgroundColorForEmptyDataSet(scrollView: UIScrollView!) -> UIColor {
+    func backgroundColor(forEmptyDataSet scrollView: UIScrollView!) -> UIColor {
         return UIColor.init(hexString: App_Theme_F6F7FA_Color)
     }
     
-    func descriptionForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
+    func description(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
         let str = "暂时还没有订单"
         let attribute = NSMutableAttributedString(string: str)
         attribute.addAttributes([NSForegroundColorAttributeName:UIColor.init(hexString: App_Theme_DDE0E5_Color)], range: NSRange(location: 0, length: str.length))
@@ -166,15 +166,15 @@ extension OrderListViewController :DZNEmptyDataSetSource {
         return attribute
     }
     
-    func verticalOffsetForEmptyDataSet(scrollView: UIScrollView!) -> CGFloat {
+    func verticalOffset(forEmptyDataSet scrollView: UIScrollView!) -> CGFloat {
         return -70
     }
     
-    func spaceHeightForEmptyDataSet(scrollView: UIScrollView!) -> CGFloat {
+    func spaceHeight(forEmptyDataSet scrollView: UIScrollView!) -> CGFloat {
         return 27
     }
     
-    func imageForEmptyDataSet(scrollView: UIScrollView!) -> UIImage! {
-        return UIImage.init(named: "empty_order")?.imageWithRenderingMode(.AlwaysOriginal)
+    func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
+        return UIImage.init(named: "empty_order")?.withRenderingMode(.alwaysOriginal)
     }
 }

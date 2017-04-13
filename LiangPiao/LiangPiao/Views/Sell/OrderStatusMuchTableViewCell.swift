@@ -44,10 +44,10 @@ class OrderStatusMuchTableViewCell: UITableViewCell {
         self.updateConstraintsIfNeeded()
     }
     
-    func setData(model:OrderList){
+    func setData(_ model:OrderList){
         let muchs = model.total * 100
-        let much = "\(muchs)".muchType("\(muchs)")
-        muchLabel.text = "\(much)"
+        let much = "\(muchs)".muchType("\((muchs))")
+        muchLabel.text = "\((much))"
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -56,19 +56,19 @@ class OrderStatusMuchTableViewCell: UITableViewCell {
     
     override func updateConstraints() {
         if !self.didMakeConstraints {
-            muchLabel.snp_makeConstraints(closure: { (make) in
-                make.right.equalTo(self.muchmLabel.snp_left).offset(-6)
-                make.centerY.equalTo(self.contentView.snp_centerY).offset(3)
+            muchLabel.snp.makeConstraints({ (make) in
+                make.right.equalTo(self.muchmLabel.snp.left).offset(-6)
+                make.centerY.equalTo(self.contentView.snp.centerY).offset(3)
             })
             
-            muchInfoLabel.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.centerY.equalTo(self.contentView.snp_centerY).offset(3)
+            muchInfoLabel.snp.makeConstraints({ (make) in
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.centerY.equalTo(self.contentView.snp.centerY).offset(3)
             })
             
-            muchmLabel.snp_makeConstraints(closure: { (make) in
-                make.right.equalTo(self.contentView.snp_right).offset(-15)
-                make.centerY.equalTo(self.contentView.snp_centerY).offset(3.5)
+            muchmLabel.snp.makeConstraints({ (make) in
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
+                make.centerY.equalTo(self.contentView.snp.centerY).offset(3.5)
             })
             self.didMakeConstraints = true
         }
@@ -80,7 +80,7 @@ class OrderStatusMuchTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

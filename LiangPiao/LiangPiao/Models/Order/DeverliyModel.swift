@@ -74,12 +74,12 @@ class DeverliyModel : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        eBusinessID = aDecoder.decodeObjectForKey("EBusinessID") as? String
-        logisticCode = aDecoder.decodeObjectForKey("LogisticCode") as? String
-        shipperCode = aDecoder.decodeObjectForKey("ShipperCode") as? String
-        state = aDecoder.decodeObjectForKey("State") as? String
-        success = aDecoder.decodeObjectForKey("Success") as? Bool
-        traces = aDecoder.decodeObjectForKey("Traces") as? [Trace]
+        eBusinessID = aDecoder.decodeObject(forKey: "EBusinessID") as? String
+        logisticCode = aDecoder.decodeObject(forKey: "LogisticCode") as? String
+        shipperCode = aDecoder.decodeObject(forKey: "ShipperCode") as? String
+        state = aDecoder.decodeObject(forKey: "State") as? String
+        success = aDecoder.decodeObject(forKey: "Success") as? Bool
+        traces = aDecoder.decodeObject(forKey: "Traces") as? [Trace]
         
     }
     
@@ -87,25 +87,25 @@ class DeverliyModel : NSObject, NSCoding{
      * NSCoding required method.
      * Encodes mode properties into the decoder
      */
-    @objc func encodeWithCoder(aCoder: NSCoder)
+    @objc func encode(with aCoder: NSCoder)
     {
         if eBusinessID != nil{
-            aCoder.encodeObject(eBusinessID, forKey: "EBusinessID")
+            aCoder.encode(eBusinessID, forKey: "EBusinessID")
         }
         if logisticCode != nil{
-            aCoder.encodeObject(logisticCode, forKey: "LogisticCode")
+            aCoder.encode(logisticCode, forKey: "LogisticCode")
         }
         if shipperCode != nil{
-            aCoder.encodeObject(shipperCode, forKey: "ShipperCode")
+            aCoder.encode(shipperCode, forKey: "ShipperCode")
         }
         if state != nil{
-            aCoder.encodeObject(state, forKey: "State")
+            aCoder.encode(state, forKey: "State")
         }
         if success != nil{
-            aCoder.encodeObject(success, forKey: "Success")
+            aCoder.encode(success, forKey: "Success")
         }
         if traces != nil{
-            aCoder.encodeObject(traces, forKey: "Traces")
+            aCoder.encode(traces, forKey: "Traces")
         }
         
     }
@@ -147,8 +147,8 @@ class Trace : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        acceptStation = aDecoder.decodeObjectForKey("AcceptStation") as? String
-        acceptTime = aDecoder.decodeObjectForKey("AcceptTime") as? String
+        acceptStation = aDecoder.decodeObject(forKey: "AcceptStation") as? String
+        acceptTime = aDecoder.decodeObject(forKey: "AcceptTime") as? String
         
     }
     
@@ -156,13 +156,13 @@ class Trace : NSObject, NSCoding{
      * NSCoding required method.
      * Encodes mode properties into the decoder
      */
-    @objc func encodeWithCoder(aCoder: NSCoder)
+    @objc func encode(with aCoder: NSCoder)
     {
         if acceptStation != nil{
-            aCoder.encodeObject(acceptStation, forKey: "AcceptStation")
+            aCoder.encode(acceptStation, forKey: "AcceptStation")
         }
         if acceptTime != nil{
-            aCoder.encodeObject(acceptTime, forKey: "AcceptTime")
+            aCoder.encode(acceptTime, forKey: "AcceptTime")
         }
         
     }

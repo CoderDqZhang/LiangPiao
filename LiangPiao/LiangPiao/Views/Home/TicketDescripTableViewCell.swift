@@ -7,8 +7,21 @@
 //
 
 import UIKit
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
 
-typealias VenueMapClouse = (view:UIView) ->Void
+
+typealias VenueMapClouse = (_ view:UIView) ->Void
 
 class TicketDescripTableViewCell: UITableViewCell {
 
@@ -41,7 +54,7 @@ class TicketDescripTableViewCell: UITableViewCell {
         
         ticketTitle = UILabel()
         ticketTitle.text = "万有音乐系 陈粒《小梦大半》2016巡回演唱会"
-        UILabel.changeLineSpaceForLabel(ticketTitle, withSpace: TitleLineSpace)
+        UILabel.changeLineSpace(for: ticketTitle, withSpace: TitleLineSpace)
         ticketTitle.numberOfLines = 0
         ticketTitle.textColor = UIColor.init(hexString: App_Theme_384249_Color)
         ticketTitle.font = App_Theme_PinFan_R_15_Font
@@ -65,22 +78,22 @@ class TicketDescripTableViewCell: UITableViewCell {
         appTicketState.textColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
         appTicketState.font = App_Theme_PinFan_R_12_Font!
         appTicketState.numberOfLines = 0
-        appTicketState.userInteractionEnabled = true
-        UILabel.changeLineSpaceForLabel(appTicketState, withSpace: 3.0)
+        appTicketState.isUserInteractionEnabled = true
+        UILabel.changeLineSpace(for: appTicketState, withSpace: 3.0)
         self.contentView.addSubview(appTicketState)
         
-        lineLabel = GloabLineView(frame: CGRectMake(15, 139.5, SCREENWIDTH - 30, 0.5))
+        lineLabel = GloabLineView(frame: CGRect(x: 15, y: 139.5, width: SCREENWIDTH - 30, height: 0.5))
         self.contentView.addSubview(lineLabel)
         
         let image = UIImage.init(named: "Icon_Seat")
         seatImageView = UIImageView.init()
         seatImageView.image = image
-        seatImageView.userInteractionEnabled = true
+        seatImageView.isUserInteractionEnabled = true
         self.contentView.addSubview(seatImageView)
         
         venueTitle = UILabel.init()
         venueTitle.text = "查看座位图"
-        venueTitle.userInteractionEnabled = true
+        venueTitle.isUserInteractionEnabled = true
         venueTitle.font = App_Theme_PinFan_R_12_Font
         venueTitle.textColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
         self.contentView.addSubview(venueTitle)
@@ -94,36 +107,39 @@ class TicketDescripTableViewCell: UITableViewCell {
         self.updateConstraintsIfNeeded()
     }
     
-    func setHiddenLine(hidden:Bool){
-        lineLabel.hidden = hidden
+    func setHiddenLine(_ hidden:Bool){
+        lineLabel.isHidden = hidden
     }
     
-    func venueMapTap(tap:UITapGestureRecognizer){
+    func venueMapTap(_ tap:UITapGestureRecognizer){
         print(self.venueTitle.frame)
         if self.venueMapClouse != nil {
-            self.venueMapClouse(view:self.venueTitle)
+            self.venueMapClouse(self.venueTitle)
         }
     }
     
-    func setData(model:TicketShowModel, sessionModel:ShowSessionModel){
-        ticketPhoto.sd_setImageWithURL(NSURL.init(string: model.cover), placeholderImage: UIImage.init(named: "Feeds_Default_Cover")) { (image, error, cacheType, url) in
-            SaveImageTools.sharedInstance.saveImage("\(model.id).png", image: image!, path: "TicketShowImages")
+    func setData(_ model:TicketShowModel, sessionModel:ShowSessionModel){
+        ticketPhoto.sd_setImage(with: URL.init(string: model.cover), placeholderImage: UIImage.init(named: "Feeds_Default_Cover"), options: .retryFailed, progress: { (start, end, url) in
+            
+        }) { (image, error, cacheType, url) in
+            _ = SaveImageTools.sharedInstance.saveImage("\(model.id).png", image: image!, path: "TicketShowImages")
         }
+        
         ticketTitle.text = model.title
-        UILabel.changeLineSpaceForLabel(ticketTitle, withSpace: TitleLineSpace)
+        UILabel.changeLineSpace(for: ticketTitle, withSpace: TitleLineSpace)
         if model.sessionCount != nil {
-            ticketTime.text = "\(sessionModel.startTime)"
+            ticketTime.text = "\((sessionModel.startTime)!)"
         }else{
-            ticketTime.text = "\(sessionModel.name)"
+            ticketTime.text = "\((sessionModel.name)!)"
         }
         ticketLocation.text = model.venue.name
 
         if sessionModel.venueMap != "" {
-            seatImageView.hidden = false
-            venueTitle.hidden = false
+            seatImageView.isHidden = false
+            venueTitle.isHidden = false
         }else{
-            seatImageView.hidden = true
-            venueTitle.hidden = true
+            seatImageView.isHidden = true
+            venueTitle.isHidden = true
 
         }
         
@@ -136,13 +152,13 @@ class TicketDescripTableViewCell: UITableViewCell {
         
     }
     
-    func setUpTicketStatues(model:ShowSessionModel){
+    func setUpTicketStatues(_ model:ShowSessionModel){
         var statuesArray:[String] = []
         if model.minDiscount != "" && model.minDiscount != "0.0" && Double(model.minDiscount) < 1{
             statuesArray.append("\(Double(model.minDiscount)! * 10)折")
         }
         if model.ticketCount != 0 {
-            let str = model.ticketCount >= 20 ? "剩余\(model.ticketCount)张" : "最后\(model.ticketCount)张"
+            let str = model.ticketCount >= 20 ? "剩余\((model.ticketCount)!)张" : "最后\((model.ticketCount)!)张"
             statuesArray.append(str)
         }
         if model.ticketStatus == 0 {
@@ -157,14 +173,14 @@ class TicketDescripTableViewCell: UITableViewCell {
         }
     }
 
-    func setUpStatuesView(titles:[String], types:NSArray?){
+    func setUpStatuesView(_ titles:[String], types:NSArray?){
         if ticketStatusView == nil {
-            ticketStatusView = GlobalTicketStatus(frame: CGRectZero, titles: titles, types: types)
+            ticketStatusView = GlobalTicketStatus(frame: CGRect.zero, titles: titles, types: types)
             self.contentView.addSubview(ticketStatusView)
             
-            ticketStatusView.snp_makeConstraints(closure: { (make) in
-                make.bottom.equalTo(self.appTicketState.snp_top).offset(-7)
-                make.left.equalTo(self.ticketPhoto.snp_right).offset(12)
+            ticketStatusView.snp.makeConstraints({ (make) in
+                make.bottom.equalTo(self.appTicketState.snp.top).offset(-7)
+                make.left.equalTo(self.ticketPhoto.snp.right).offset(12)
                 make.height.equalTo(16)
             })
 
@@ -184,51 +200,51 @@ class TicketDescripTableViewCell: UITableViewCell {
     
     override func updateConstraints() {
         if !self.didMakeConstraints {
-            ticketPhoto.snp_makeConstraints(closure: { (make) in
-                make.top.equalTo(self.contentView.snp_top).offset(20)
-                make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.bottom.equalTo(self.contentView.snp_bottom).offset(-20)
+            ticketPhoto.snp.makeConstraints({ (make) in
+                make.top.equalTo(self.contentView.snp.top).offset(20)
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(-20)
                 make.width.equalTo(110)
             })
             
-            ticketTitle.snp_makeConstraints(closure: { (make) in
-                make.top.equalTo(self.contentView.snp_top).offset(17)
-                make.left.equalTo(self.ticketPhoto.snp_right).offset(12)
-                make.right.equalTo(self.contentView.snp_right).offset(-15)
+            ticketTitle.snp.makeConstraints({ (make) in
+                make.top.equalTo(self.contentView.snp.top).offset(17)
+                make.left.equalTo(self.ticketPhoto.snp.right).offset(12)
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
             })
             
-            ticketTime.snp_makeConstraints(closure: { (make) in
-                make.top.equalTo(self.ticketTitle.snp_bottom).offset(6)
-                make.left.equalTo(self.ticketPhoto.snp_right).offset(12)
-                make.right.equalTo(self.contentView.snp_right).offset(-15)
+            ticketTime.snp.makeConstraints({ (make) in
+                make.top.equalTo(self.ticketTitle.snp.bottom).offset(6)
+                make.left.equalTo(self.ticketPhoto.snp.right).offset(12)
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
             })
             
-            ticketLocation.snp_makeConstraints(closure: { (make) in
-                make.top.equalTo(self.ticketTime.snp_bottom).offset(1)
-                make.left.equalTo(self.ticketPhoto.snp_right).offset(12)
+            ticketLocation.snp.makeConstraints({ (make) in
+                make.top.equalTo(self.ticketTime.snp.bottom).offset(1)
+                make.left.equalTo(self.ticketPhoto.snp.right).offset(12)
             })
             
-            seatImageView.snp_makeConstraints(closure: { (make) in
-                make.top.equalTo(self.ticketTime.snp_bottom).offset(3)
-                make.left.equalTo(self.ticketLocation.snp_right).offset(14)
+            seatImageView.snp.makeConstraints({ (make) in
+                make.top.equalTo(self.ticketTime.snp.bottom).offset(3)
+                make.left.equalTo(self.ticketLocation.snp.right).offset(14)
             })
             
-            venueTitle.snp_makeConstraints(closure: { (make) in
-                make.top.equalTo(self.ticketTime.snp_bottom).offset(1)
-                make.left.equalTo(self.ticketLocation.snp_right).offset(34)
-//                make.right.equalTo(self.contentView.snp_right).offset(-15)
+            venueTitle.snp.makeConstraints({ (make) in
+                make.top.equalTo(self.ticketTime.snp.bottom).offset(1)
+                make.left.equalTo(self.ticketLocation.snp.right).offset(34)
+//                make.right.equalTo(self.contentView.snp.right).offset(-15)
             })
             
-            appTicketState.snp_makeConstraints(closure: { (make) in
-                make.bottom.equalTo(self.contentView.snp_bottom).offset(-17)
-                make.left.equalTo(self.ticketPhoto.snp_right).offset(11)
-                make.right.equalTo(self.contentView.snp_right).offset(-15)
+            appTicketState.snp.makeConstraints({ (make) in
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(-17)
+                make.left.equalTo(self.ticketPhoto.snp.right).offset(11)
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
             })
             
-            lineLabel.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.right.equalTo(self.contentView.snp_right).offset(-15)
-                make.bottom.equalTo(self.contentView.snp_bottom).offset(-0.5)
+            lineLabel.snp.makeConstraints({ (make) in
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(-0.5)
             })
             
             self.didMakeConstraints = true
@@ -236,7 +252,7 @@ class TicketDescripTableViewCell: UITableViewCell {
         super.updateConstraints()
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

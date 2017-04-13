@@ -13,10 +13,10 @@ class TabBarViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tabBar.backgroundImage = UIImage.init()
-        self.tabBar.backgroundColor = UIColor.whiteColor()
+        self.tabBar.backgroundColor = UIColor.white
         self.tabBar.shadowImage = UIImage.init()
         self.delegate = self
-        self.tabBar.addSubview(GloabLineView(frame: CGRectMake(0,0,SCREENWIDTH,0.5)))
+        self.tabBar.addSubview(GloabLineView(frame: CGRect(x: 0,y: 0,width: SCREENWIDTH,height: 0.5)))
         for viewController in (self.viewControllers)! {
             print(viewController)
             for controllerVC in (viewController as! UINavigationController).viewControllers {
@@ -25,13 +25,13 @@ class TabBarViewController: UITabBarController {
                 }
             }
         }
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(TabBarViewController.pushViewController(_:)), name: DidRegisterRemoteNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(TabBarViewController.pushUrlViewController(_:)), name: DidRegisterRemoteURLNotification, object: nil)
-//        self.tabBar.shadowImage = UIImage.init(color: UIColor.init(hexString: App_Theme_E9EBF2_Color), size: CGSizeMake(SCREENWIDTH, 0.2))
+        NotificationCenter.default.addObserver(self, selector: #selector(TabBarViewController.pushViewController(_:)), name: NSNotification.Name(rawValue: DidRegisterRemoteNotification), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(TabBarViewController.pushUrlViewController(_:)), name: NSNotification.Name(rawValue: DidRegisterRemoteURLNotification), object: nil)
+//        self.tabBar.shadowImage = UIImage.init(color: UIColor.init(hexString: App_Theme_E9EBF2_Color), size: CGSize.init(width: SCREENWIDTH, 0.2))
         // Do any additional setup after loading the view.
     }
     
-    func pushViewController(notifiation:NSNotification){
+    func pushViewController(_ notifiation:Foundation.Notification){
         let controllerVC = TicketDescriptionViewController()
         controllerVC.viewModel.requestNotificationUrl(notifiation.object as! String, controllerVC: controllerVC)
         for viewController in (self.viewControllers)! {
@@ -43,7 +43,7 @@ class TabBarViewController: UITabBarController {
         }
     }
     
-    func pushUrlViewController(notifiation:NSNotification) {
+    func pushUrlViewController(_ notifiation:Foundation.Notification) {
         let controllerVC = NotificationViewController()
         controllerVC.url = notifiation.object as! String
         for viewController in (self.viewControllers)! {
@@ -73,7 +73,7 @@ class TabBarViewController: UITabBarController {
 }
 
 extension TabBarViewController : UITabBarControllerDelegate {
-    func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         
     }
 }

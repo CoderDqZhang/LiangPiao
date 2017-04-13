@@ -7,9 +7,9 @@
 //
 
 import UIKit
-import ReactiveCocoa
+import ReactiveSwift
 
-typealias ToolViewSelectIndexPathRow = (indexPath:NSIndexPath, str:AnyObject) -> Void
+typealias ToolViewSelectIndexPathRow = (_ indexPath:IndexPath, _ str:AnyObject) -> Void
 
 class ToolView:UIView {
     
@@ -23,7 +23,7 @@ class ToolView:UIView {
         let image = UIImage.init(color: UIColor.init(hexString: App_Theme_384249_Color, andAlpha: 0.6), size: frame.size)
 
         let imageView = UIImageView(image: image)
-        imageView.frame = CGRectMake(0, 0, frame.size.width, frame.size.height)
+        imageView.frame = CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height)
         self.addSubview(imageView)
         self.backgroundColor = UIColor.init(red: 56.0/255.0, green: 66.0/255.0, blue: 73.0/255.0, alpha: 0.9)
         
@@ -44,7 +44,7 @@ class ToolView:UIView {
         
     }
     
-    func viewSignalTap(sender:UITapGestureRecognizer) {
+    func viewSignalTap(_ sender:UITapGestureRecognizer) {
         if toolViewSelectIndexPathRow != nil {
 //            self.toolViewSelectIndexPathRow(indexPath:NSIndexPath(forRow: 0, inSection: 0), str: "")
         }
@@ -55,45 +55,45 @@ class ToolView:UIView {
     }
     
     func setUpTableView(){
-        tableView = UITableView(frame: CGRectMake(0,0,SCREENWIDTH, CGFloat(6 * 50)), style: .Plain)
+        tableView = UITableView(frame: CGRect(x: 0,y: 0,width: SCREENWIDTH, height: CGFloat(6 * 50)), style: .plain)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.showsVerticalScrollIndicator = false
-        tableView.separatorStyle = .None
+        tableView.separatorStyle = .none
         self.addSubview(tableView)
     }
 }
 
 extension ToolView : UITableViewDelegate {
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 50
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if toolViewSelectIndexPathRow != nil {
             if indexPath.row == 0 {
-                self.toolViewSelectIndexPathRow(indexPath: indexPath, str: "")
+                self.toolViewSelectIndexPathRow(indexPath, "" as AnyObject)
             }else{
-                self.toolViewSelectIndexPathRow(indexPath: indexPath, str: dataArray[indexPath.row - 1])
+//                self.toolViewSelectIndexPathRow(indexPath, dataArray[indexPath.row - 1])
             }
         }
     }
 }
 
 extension ToolView : UITableViewDataSource {
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataArray.count + 1
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellIdenf = "ToolView"
-        var cell = tableView.dequeueReusableCellWithIdentifier(cellIdenf)
+        var cell = tableView.dequeueReusableCell(withIdentifier: cellIdenf)
         if cell == nil {
-            cell = UITableViewCell(style: .Default, reuseIdentifier: cellIdenf)
+            cell = UITableViewCell(style: .default, reuseIdentifier: cellIdenf)
         }
         let detailLabel = UILabel()
         if indexPath.row == 0 {
@@ -105,13 +105,13 @@ extension ToolView : UITableViewDataSource {
         }
         detailLabel.font = App_Theme_PinFan_R_12_Font
         cell?.contentView.addSubview(detailLabel)
-        detailLabel.snp_makeConstraints(closure: { (make) in
-            make.centerY.equalTo((cell?.contentView.snp_centerY)!).offset(0)
-            make.left.equalTo((cell?.contentView.snp_left)!).offset(25)
+        detailLabel.snp.makeConstraints({ (make) in
+            make.centerY.equalTo((cell?.contentView.snp.centerY)!).offset(0)
+            make.left.equalTo((cell?.contentView.snp.left)!).offset(25)
         })
-        cell?.selectionStyle = .None
+        cell?.selectionStyle = .none
         cell?.updateConstraintsIfNeeded()
-        let lineLabel = GloabLineView(frame: CGRectMake(15,49.5,SCREENWIDTH - 30, 0.5))
+        let lineLabel = GloabLineView(frame: CGRect(x: 15,y: 49.5,width: SCREENWIDTH - 30, height: 0.5))
         cell?.contentView.addSubview(lineLabel)
         return cell!
     }
@@ -128,8 +128,8 @@ enum TicketSortType {
     case noneType
 }
 
-typealias TicketToolsClouse = (tag:NSInteger) -> Void
-typealias TicketToolsSortClouse = (tag:NSInteger, type:TicketSortType) -> Void
+typealias TicketToolsClouse = (_ tag:NSInteger) -> Void
+typealias TicketToolsSortClouse = (_ tag:NSInteger, _ type:TicketSortType) -> Void
 class TicketToolsView: UIView {
     var toolsLabel:UILabel!
     var imageView:UIImageView!
@@ -137,10 +137,10 @@ class TicketToolsView: UIView {
     var ticketToolsClouse:TicketToolsClouse!
     var ticketToolsSortClouse:TicketToolsSortClouse!
     
-    var racDisposable: RACDisposable!
+    var racDisposable: Disposable!
     var ticketSortType:TicketSortType = .noneType
     
-    private var myContext = 0
+    fileprivate var myContext = 0
 
     init(frame:CGRect, title:String, image:UIImage?, type:TicketToolsViewType) {
         super.init(frame: frame)
@@ -155,16 +155,16 @@ class TicketToolsView: UIView {
             single.numberOfTapsRequired = 1
             single.numberOfTouchesRequired = 1
             self.addGestureRecognizer(single)
-            racDisposable = rac_observeKeyPath("isShow", options: .New, observer: self) { (object, objects, newValue, oldValue) in
-                self.startAnimation()
-            }
+//            racDisposable = rac_observeKeyPath("isShow", options: .New, observer: self) { (object, objects, newValue, oldValue) in
+//                self.startAnimation()
+//            }
         }else{
             let single = UITapGestureRecognizer(target: self, action: #selector(TicketToolsView.singlePress(_:)))
             single.numberOfTapsRequired = 1
             single.numberOfTouchesRequired = 1
             self.addGestureRecognizer(single)
-            racDisposable = rac_observeKeyPath("isShow", options: .New, observer: self) { (object, objects, newValue, oldValue) in
-            }
+//            racDisposable = rac_observeKeyPath("isShow", options: .New, observer: self) { (object, objects, newValue, oldValue) in
+//            }
         }
 
     }
@@ -172,13 +172,13 @@ class TicketToolsView: UIView {
         racDisposable = nil
     }
     
-    func singlePress(sender:UITapGestureRecognizer) {
+    func singlePress(_ sender:UITapGestureRecognizer) {
         if (ticketToolsClouse != nil) {
-            self.ticketToolsClouse(tag: (sender.view?.tag)!)
+            self.ticketToolsClouse((sender.view?.tag)!)
         }
     }
     
-    func pricePress(sender:UITapGestureRecognizer) {
+    func pricePress(_ sender:UITapGestureRecognizer) {
         if (ticketToolsSortClouse != nil) {
             if self.ticketSortType == .noneType || self.ticketSortType == .upType {
                 self.imageView.image = UIImage.init(named: "Icon_Ranking_03")
@@ -187,15 +187,15 @@ class TicketToolsView: UIView {
                 self.imageView.image = UIImage.init(named: "Icon_Ranking_02")
                 self.ticketSortType = .upType
             }
-            self.ticketToolsSortClouse(tag: (sender.view?.tag)!, type: self.ticketSortType)
+            self.ticketToolsSortClouse((sender.view?.tag)!, self.ticketSortType)
         }
     }
     
     
-    func setUpView(frame:CGRect, title:String, image:UIImage?, type:TicketToolsViewType) {
+    func setUpView(_ frame:CGRect, title:String, image:UIImage?, type:TicketToolsViewType) {
         toolsLabel = UILabel()
         toolsLabel.text = title
-        toolsLabel.userInteractionEnabled = true
+        toolsLabel.isUserInteractionEnabled = true
         toolsLabel.textColor = UIColor.init(hexString: App_Theme_8A96A2_Color)
         toolsLabel.font = App_Theme_PinFan_R_12_Font
         self.addSubview(toolsLabel)
@@ -203,38 +203,38 @@ class TicketToolsView: UIView {
         if image != nil {
             imageView = UIImageView()
             imageView.image = image
-            imageView.userInteractionEnabled = true
+            imageView.isUserInteractionEnabled = true
             self.addSubview(imageView)
         }
     
         switch type {
         case .left:
             self.tag = 1
-            toolsLabel.snp_makeConstraints(closure: { (make) in
-                make.centerY.equalTo(self.snp_centerY).offset(0)
-                make.left.equalTo(self.snp_left).offset(10)
+            toolsLabel.snp.makeConstraints({ (make) in
+                make.centerY.equalTo(self.snp.centerY).offset(0)
+                make.left.equalTo(self.snp.left).offset(10)
             })
-            imageView.snp_makeConstraints(closure: { (make) in
-                make.centerY.equalTo(self.snp_centerY).offset(1)
-                make.left.equalTo(self.toolsLabel.snp_right).offset(12)
+            imageView.snp.makeConstraints({ (make) in
+                make.centerY.equalTo(self.snp.centerY).offset(1)
+                make.left.equalTo(self.toolsLabel.snp.right).offset(12)
             })
         case .center:
             self.tag = 2
-            self.layer.borderColor = UIColor.init(hexString: App_Theme_E9EBF2_Color).CGColor
+            self.layer.borderColor = UIColor.init(hexString: App_Theme_E9EBF2_Color).cgColor
             self.layer.borderWidth = 0.5
-            toolsLabel.snp_makeConstraints(closure: { (make) in
-                make.centerY.equalTo(self.snp_centerY).offset(0)
-                make.centerX.equalTo(self.snp_centerX).offset(0)
+            toolsLabel.snp.makeConstraints({ (make) in
+                make.centerY.equalTo(self.snp.centerY).offset(0)
+                make.centerX.equalTo(self.snp.centerX).offset(0)
             })
         default:
             self.tag = 3
-            imageView.snp_makeConstraints(closure: { (make) in
-                make.centerY.equalTo(self.snp_centerY).offset(0)
-                make.right.equalTo(self.snp_right).offset(0)
+            imageView.snp.makeConstraints({ (make) in
+                make.centerY.equalTo(self.snp.centerY).offset(0)
+                make.right.equalTo(self.snp.right).offset(0)
             })
-            toolsLabel.snp_makeConstraints(closure: { (make) in
-                make.centerY.equalTo(self.snp_centerY).offset(0)
-                make.right.equalTo(self.imageView.snp_left).offset(-12)
+            toolsLabel.snp.makeConstraints({ (make) in
+                make.centerY.equalTo(self.snp.centerY).offset(0)
+                make.right.equalTo(self.imageView.snp.left).offset(-12)
             })
         }
     }
@@ -243,22 +243,22 @@ class TicketToolsView: UIView {
         //创建旋转动画
         let anim = CABasicAnimation(keyPath: "transform.rotation")
         //旋转角度
-        anim.toValue = 1 * M_PI
+        anim.toValue = 1 * Double.pi
         //旋转指定角度需要的时间
         anim.duration = 1
         //旋转重复次数
         anim.repeatCount = MAXFLOAT
         //动画执行完后不移除
-        anim.removedOnCompletion = true
+        anim.isRemovedOnCompletion = true
         //将动画添加到视图的laye上
-        imageView.layer.addAnimation(anim, forKey: nil)
+        imageView.layer.add(anim, forKey: nil)
         //取消动画
         imageView.layer.removeAllAnimations()
         //这个是旋转方向的动画
-        UIView.animateWithDuration(AnimationTime) { () -> Void in
+        UIView.animate(withDuration: AnimationTime, animations: { () -> Void in
             //指定旋转角度是180°
-            self.imageView.transform = CGAffineTransformRotate(self.imageView.transform, CGFloat(M_PI))
-        }
+            self.imageView.transform = self.imageView.transform.rotated(by: CGFloat(Double.pi))
+        }) 
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -267,8 +267,8 @@ class TicketToolsView: UIView {
 }
 
 let TicketToolsViewWidth = (SCREENWIDTH - 30)/3
-typealias TicketCellClouse = (tag:NSInteger) ->Void
-typealias TicketCellSortClouse = (tag:NSInteger, type:TicketSortType) ->Void
+typealias TicketCellClouse = (_ tag:NSInteger) ->Void
+typealias TicketCellSortClouse = (_ tag:NSInteger, _ type:TicketSortType) ->Void
 
 class TicketToolsTableViewCell: UITableViewCell {
 
@@ -291,10 +291,10 @@ class TicketToolsTableViewCell: UITableViewCell {
     }
     
     func setUpView() {
-        toolsView = UIView(frame: CGRectMake(0,0,SCREENWIDTH,42))
+        toolsView = UIView(frame: CGRect(x: 0,y: 0,width: SCREENWIDTH,height: 42))
         self.contentView.addSubview(toolsView)
         
-        nomalPriceTick = TicketToolsView(frame: CGRectMake(15, 0, TicketToolsViewWidth, 42), title: "票面原价", image: UIImage.init(named: "Icon_Selected_Form_Normal")!, type: .left)
+        nomalPriceTick = TicketToolsView(frame: CGRect(x: 15, y: 0, width: TicketToolsViewWidth, height: 42), title: "票面原价", image: UIImage.init(named: "Icon_Selected_Form_Normal")!, type: .left)
         nomalPriceTick.ticketToolsClouse = { tag in
             if self.nomalPriceTick.isShow {
                 self.nomalPriceTick.isShow = false
@@ -308,12 +308,12 @@ class TicketToolsTableViewCell: UITableViewCell {
                 self.sortPriceTick.isShow = false
             }
             if self.ticketCellClouse != nil {
-                self.ticketCellClouse(tag: tag)
+                self.ticketCellClouse(tag)
             }
         }
         toolsView.addSubview(nomalPriceTick)
         
-        rowTicket = TicketToolsView(frame: CGRectMake(TicketToolsViewWidth + 15, 0, TicketToolsViewWidth, 42), title: "座位", image: nil, type: .center)
+        rowTicket = TicketToolsView(frame: CGRect(x: TicketToolsViewWidth + 15, y: 0, width: TicketToolsViewWidth, height: 42), title: "座位", image: nil, type: .center)
         rowTicket.ticketToolsClouse = { tag in
             if self.rowTicket.isShow {
                 self.rowTicket.isShow = false
@@ -328,12 +328,12 @@ class TicketToolsTableViewCell: UITableViewCell {
             }
         
             if self.ticketCellClouse != nil {
-                self.ticketCellClouse(tag: tag)
+                self.ticketCellClouse(tag)
             }
         }
         toolsView.addSubview(rowTicket)
         
-        sortPriceTick = TicketToolsView(frame: CGRectMake(TicketToolsViewWidth * 2 + 15, 0, TicketToolsViewWidth, 42), title: "售价", image: UIImage.init(named: "Icon_Ranking")!, type: .right)
+        sortPriceTick = TicketToolsView(frame: CGRect(x: TicketToolsViewWidth * 2 + 15, y: 0, width: TicketToolsViewWidth, height: 42), title: "售价", image: UIImage.init(named: "Icon_Ranking")!, type: .right)
         sortPriceTick.ticketToolsSortClouse = { tag, type in
             if self.sortPriceTick.isShow {
                 self.sortPriceTick.isShow = false
@@ -347,39 +347,39 @@ class TicketToolsTableViewCell: UITableViewCell {
                 self.sortPriceTick.isShow = false
             }
             if self.ticketCellSortClouse != nil {
-                self.ticketCellSortClouse(tag: tag, type: type)
+                self.ticketCellSortClouse(tag,type)
             }
         }
         toolsView.addSubview(sortPriceTick)
         
-        lineLabel = GloabLineView(frame: CGRectMake(15, 41.5, SCREENWIDTH - 30, 0.5))
+        lineLabel = GloabLineView(frame: CGRect(x: 15, y: 41.5, width: SCREENWIDTH - 30, height: 0.5))
         toolsView.addSubview(lineLabel)
         
-        let signal = NSNotificationCenter.defaultCenter().rac_addObserverForName(ToolViewNotifacationName, object: nil)
-        signal.subscribeNext { (object) in
-            let str = object.object as! String
-            switch str {
-                case "100":
-                    self.nomalPriceTick.isShow = false
-                case "200":
-                    self.rowTicket.isShow = false
-                default :
-                    self.sortPriceTick.isShow = false
-            }
-        }
+//        let signal = NotificationCenter.default.rac_addObserverForName(ToolViewNotifacationName, object: nil)
+//        signal.observe { (object) in
+//            let str = object.object as! String
+//            switch str {
+//                case "100":
+//                    self.nomalPriceTick.isShow = false
+//                case "200":
+//                    self.rowTicket.isShow = false
+//                default :
+//                    self.sortPriceTick.isShow = false
+//            }
+//        }
         
         self.updateConstraintsIfNeeded()
         
-        toplineLabel = GloabLineView(frame: CGRectMake(15, 0, SCREENWIDTH - 30, 0.5))
+        toplineLabel = GloabLineView(frame: CGRect(x: 15, y: 0, width: SCREENWIDTH - 30, height: 0.5))
         self.contentView.addSubview(toplineLabel)
     }
     
     func setUpDescriptionView() -> UIView {
         
-        let toolsView = UIView(frame: CGRectMake(0,0,SCREENWIDTH,42))
-        let nomalPriceTick = TicketToolsView(frame: CGRectMake(15, 0, TicketToolsViewWidth, 41), title: "票面价格", image: UIImage.init(named: "Icon_Selected_Form_Normal")!, type: .left)
-        let rowTicket = TicketToolsView(frame: CGRectMake(TicketToolsViewWidth + 15, 1, TicketToolsViewWidth, 41), title: "座位", image: UIImage.init(named: "Icon_Selected_Form_Normal")!, type: .center)
-        let sortPriceTick = TicketToolsView(frame: CGRectMake(TicketToolsViewWidth * 2 + 15, 0, TicketToolsViewWidth, 41), title: "价格", image: UIImage.init(named: "Icon_Ranking")!, type: .right)
+        let toolsView = UIView(frame: CGRect(x: 0,y: 0,width: SCREENWIDTH,height: 42))
+        let nomalPriceTick = TicketToolsView(frame: CGRect(x: 15, y: 0, width: TicketToolsViewWidth, height: 41), title: "票面价格", image: UIImage.init(named: "Icon_Selected_Form_Normal")!, type: .left)
+        let rowTicket = TicketToolsView(frame: CGRect(x: TicketToolsViewWidth + 15, y: 1, width: TicketToolsViewWidth, height: 41), title: "座位", image: UIImage.init(named: "Icon_Selected_Form_Normal")!, type: .center)
+        let sortPriceTick = TicketToolsView(frame: CGRect(x: TicketToolsViewWidth * 2 + 15, y: 0, width: TicketToolsViewWidth, height: 41), title: "价格", image: UIImage.init(named: "Icon_Ranking")!, type: .right)
         nomalPriceTick.ticketToolsClouse = { tag in
             if nomalPriceTick.isShow {
                 nomalPriceTick.isShow = false
@@ -393,7 +393,7 @@ class TicketToolsTableViewCell: UITableViewCell {
                 sortPriceTick.isShow = false
             }
             if self.ticketCellClouse != nil {
-                self.ticketCellClouse(tag: tag)
+                self.ticketCellClouse(tag)
             }
         }
         toolsView.addSubview(nomalPriceTick)
@@ -413,7 +413,7 @@ class TicketToolsTableViewCell: UITableViewCell {
             }
             
             if self.ticketCellClouse != nil {
-                self.ticketCellClouse(tag: tag)
+                self.ticketCellClouse(tag)
             }
         }
         toolsView.addSubview(rowTicket)
@@ -432,36 +432,36 @@ class TicketToolsTableViewCell: UITableViewCell {
                 sortPriceTick.isShow = false
             }
             if self.ticketCellSortClouse != nil {
-                self.ticketCellSortClouse(tag: tag, type: type)
+                self.ticketCellSortClouse(tag,type)
             }
         }
         toolsView.addSubview(sortPriceTick)
         
         
-        let lineLabel = GloabLineView(frame: CGRectMake(15, 41.5, SCREENWIDTH - 30, 0.5))
+        let lineLabel = GloabLineView(frame: CGRect(x: 15, y: 41.5, width: SCREENWIDTH - 30, height: 0.5))
         toolsView.addSubview(lineLabel)
         
-        let signal = NSNotificationCenter.defaultCenter().rac_addObserverForName(ToolViewNotifacationName, object: nil)
-        signal.subscribeNext { (object) in
-            let str = object.object as! String
-            switch str {
-            case "100":
-                self.nomalPriceTick.isShow = false
-            case "200":
-                self.rowTicket.isShow = false
-            default :
-                self.sortPriceTick.isShow = false
-            }
-        }
+//        let signal = NotificationCenter.default.rac_addObserverForName(ToolViewNotifacationName, object: nil)
+//        signal.observe { (object) in
+//            let str = object.object as! String
+//            switch str {
+//            case "100":
+//                self.nomalPriceTick.isShow = false
+//            case "200":
+//                self.rowTicket.isShow = false
+//            default :
+//                self.sortPriceTick.isShow = false
+//            }
+//        }
         
-        let toplineLabel = GloabLineView(frame: CGRectMake(15, 0, SCREENWIDTH - 30, 0.5))
+        let toplineLabel = GloabLineView(frame: CGRect(x: 15, y: 0, width: SCREENWIDTH - 30, height: 0.5))
         self.contentView.addSubview(toplineLabel)
         
         return toolsView
     }
 
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: ToolViewNotifacationName, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: ToolViewNotifacationName), object: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -480,7 +480,7 @@ class TicketToolsTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

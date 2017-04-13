@@ -32,25 +32,25 @@ class DiscountViewController: UIViewController {
         label.text = "暂无优惠劵，敬请期待"
         label.textColor = UIColor.init(hexString: App_Theme_DDE0E5_Color)
         label.font = App_Theme_PinFan_R_16_Font
-        label.textAlignment = .Center
+        label.textAlignment = .center
         discountView.addSubview(label)
         
         self.view.addSubview(discountView)
         
-        imageView.snp_makeConstraints { (make) in
-            make.size.equalTo(CGSizeMake((image?.size.width)!, (image?.size.height)!))
-            make.centerX.equalTo(discountView.snp_centerX).offset(0)
-            make.top.equalTo(discountView.snp_top).offset(0)
+        imageView.snp.makeConstraints { (make) in
+            make.size.equalTo(CGSize.init(width: (image?.size.width)!, height: (image?.size.height)!))
+            make.centerX.equalTo(discountView.snp.centerX).offset(0)
+            make.top.equalTo(discountView.snp.top).offset(0)
         }
         
-        label.snp_makeConstraints { (make) in
-            make.top.equalTo(imageView.snp_bottom).offset(26)
-            make.centerX.equalTo(discountView.snp_centerX).offset(0)
+        label.snp.makeConstraints { (make) in
+            make.top.equalTo(imageView.snp.bottom).offset(26)
+            make.centerX.equalTo(discountView.snp.centerX).offset(0)
         }
         
-        discountView.snp_makeConstraints { (make) in
-            make.centerX.equalTo(self.view.snp_centerX).offset(0)
-            make.centerY.equalTo(self.view.snp_centerY).offset(-94)
+        discountView.snp.makeConstraints { (make) in
+            make.centerX.equalTo(self.view.snp.centerX).offset(0)
+            make.centerY.equalTo(self.view.snp.centerY).offset(-94)
         }
         
         

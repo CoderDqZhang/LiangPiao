@@ -36,51 +36,51 @@ class SpalshView: UIView {
         projectionImageView.image = UIImage.init(named: "splash_shadow")
         projectionView.addSubview(projectionImageView)
 //        projectionView.layer.addAnimation(self.projectionAnimation(), forKey: nil)
-        projectionView.layer.addAnimation(self.projectionAnimations(), forKey: nil)
+        projectionView.layer.add(self.projectionAnimations(), forKey: nil)
         
-        projectionView.hidden = true
+        projectionView.isHidden = true
         self.addSubview(self.projectionView)
 
         
-        projectionView.snp_makeConstraints { (make) in
+        projectionView.snp.makeConstraints { (make) in
             make.size.equalTo(CGSize.init(width: (splash_shadow?.size.width)! * 2, height: (splash_shadow?.size.height)!))
-            make.centerX.equalTo(self.snp_centerX).offset(45)
-            make.centerY.equalTo(self.snp_centerY).offset(-76)
+            make.centerX.equalTo(self.snp.centerX).offset(45)
+            make.centerY.equalTo(self.snp.centerY).offset(-76)
         }
         
-        projectionImageView.snp_makeConstraints { (make) in
+        projectionImageView.snp.makeConstraints { (make) in
             make.size.equalTo(CGSize.init(width: (splash_shadow?.size.width)!, height: (splash_shadow?.size.height)!))
-            make.top.equalTo(projectionView.snp_top).offset(0)
-            make.left.equalTo(projectionView.snp_left).offset(0)
+            make.top.equalTo(projectionView.snp.top).offset(0)
+            make.left.equalTo(projectionView.snp.left).offset(0)
         }
         
         logoView = UIView()
 //        logoView.backgroundColor = UIColor.grayColor()
-        logoView.layer.addAnimation(self.logAnimation(), forKey: nil)
-        logoView.layer.addAnimation(self.logAnimations(), forKey: nil)
+        logoView.layer.add(self.logAnimation(), forKey: nil)
+        logoView.layer.add(self.logAnimations(), forKey: nil)
         self.addSubview(logoView)
         
         logoImageView = UIImageView()
         logoImageView.image = image
         logoView.addSubview(logoImageView)
 
-        self.bringSubviewToFront(logoView)
+        self.bringSubview(toFront: logoView)
         
-        logoView.snp_makeConstraints { (make) in
+        logoView.snp.makeConstraints { (make) in
             make.size.equalTo(CGSize.init(width: (image?.size.width)! * 2, height: (image?.size.height)!))
-            make.centerX.equalTo(self.snp_centerX).offset(-((image?.size.width)!)/2 + 10)
-            make.centerY.equalTo(self.snp_centerY).offset(-80)
+            make.centerX.equalTo(self.snp.centerX).offset(-((image?.size.width)!)/2 + 10)
+            make.centerY.equalTo(self.snp.centerY).offset(-80)
         }
         
-        logoImageView.snp_makeConstraints { (make) in
+        logoImageView.snp.makeConstraints { (make) in
             make.size.equalTo(CGSize.init(width: (image?.size.width)!, height: (image?.size.height)!))
-            make.top.equalTo(logoView.snp_top).offset(0)
-            make.right.equalTo(logoView.snp_right).offset(0)
+            make.top.equalTo(logoView.snp.top).offset(0)
+            make.right.equalTo(logoView.snp.right).offset(0)
         }
         
         
         
-        NSTimer.YQ_scheduledTimerWithTimeInterval(1.65, closure: { 
+        _ = Timer.YQ_scheduledTimerWithTimeInterval(1.65, closure: {
 //            self.bringSubviewToFront(self.logoView)
 //            self.projectionView.hidden = false
             }, repeats: false)

@@ -267,7 +267,7 @@
         obj.frame = CGRectMake(x, y, w, h);
     }];
     
-    _scrollView.contentSize = CGSizeMake(_scrollView.subviews.count * _scrollView.frame.size.width, 0);
+    _scrollView.contentSize = CGSizeMake( _scrollView.subviews.count * _scrollView.frame.size.width, 0);
     _scrollView.contentOffset = CGPointMake(self.currentImageIndex * _scrollView.frame.size.width, 0);
     
     

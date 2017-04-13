@@ -53,7 +53,7 @@ class Banners : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        banners = aDecoder.decodeObjectForKey("banners") as? [Banner]
+        banners = aDecoder.decodeObject(forKey: "banners") as? [Banner]
         
     }
     
@@ -61,10 +61,10 @@ class Banners : NSObject, NSCoding{
      * NSCoding required method.
      * Encodes mode properties into the decoder
      */
-    @objc func encodeWithCoder(aCoder: NSCoder)
+    @objc func encode(with aCoder: NSCoder)
     {
         if banners != nil{
-            aCoder.encodeObject(banners, forKey: "banners")
+            aCoder.encode(banners, forKey: "banners")
         }
         
     }
@@ -84,7 +84,7 @@ import Foundation
 class Banner : NSObject, NSCoding{
     
     var bannerType : Int!
-    var id : Int!
+    var id : Int64!
     var image : String!
     var show : TicketShowModel!
     var url : String!
@@ -95,7 +95,7 @@ class Banner : NSObject, NSCoding{
      */
     init(fromDictionary dictionary: NSDictionary){
         bannerType = dictionary["banner_type"] as? Int
-        id = dictionary["id"] as? Int
+        id = dictionary["id"] as? Int64
         image = dictionary["image"] as? String
         if let showData = dictionary["show"] as? NSDictionary{
             show = TicketShowModel(fromDictionary: showData)
@@ -133,11 +133,11 @@ class Banner : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        bannerType = aDecoder.decodeObjectForKey("banner_type") as? Int
-        id = aDecoder.decodeObjectForKey("id") as? Int
-        image = aDecoder.decodeObjectForKey("image") as? String
-        show = aDecoder.decodeObjectForKey("show") as? TicketShowModel
-        url = aDecoder.decodeObjectForKey("url") as? String
+        bannerType = aDecoder.decodeObject(forKey: "banner_type") as? Int
+        id = aDecoder.decodeObject(forKey: "id") as? Int64
+        image = aDecoder.decodeObject(forKey: "image") as? String
+        show = aDecoder.decodeObject(forKey: "show") as? TicketShowModel
+        url = aDecoder.decodeObject(forKey: "url") as? String
         
     }
     
@@ -145,22 +145,22 @@ class Banner : NSObject, NSCoding{
      * NSCoding required method.
      * Encodes mode properties into the decoder
      */
-    @objc func encodeWithCoder(aCoder: NSCoder)
+    @objc func encode(with aCoder: NSCoder)
     {
         if bannerType != nil{
-            aCoder.encodeObject(bannerType, forKey: "banner_type")
+            aCoder.encode(bannerType, forKey: "banner_type")
         }
         if id != nil{
-            aCoder.encodeObject(id, forKey: "id")
+            aCoder.encode(id, forKey: "id")
         }
         if image != nil{
-            aCoder.encodeObject(image, forKey: "image")
+            aCoder.encode(image, forKey: "image")
         }
         if show != nil{
-            aCoder.encodeObject(show, forKey: "show")
+            aCoder.encode(show, forKey: "show")
         }
         if url != nil{
-            aCoder.encodeObject(url, forKey: "url")
+            aCoder.encode(url, forKey: "url")
         }
         
     }

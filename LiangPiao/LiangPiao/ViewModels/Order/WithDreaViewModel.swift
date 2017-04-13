@@ -19,15 +19,15 @@ class WithDreaViewModel: NSObject {
         return 2
     }
     
-    func numbrOfRowInSection(section:Int) ->Int {
+    func numbrOfRowInSection(_ section:Int) ->Int {
         return 1
     }
     
-    func cellTitle(indexPath:NSIndexPath) -> String {
+    func cellTitle(_ indexPath:IndexPath) -> String {
         return cellTitleStrs[indexPath.row + 1]
     }
     
-    func tableViewHeightForRow(indexPath:NSIndexPath) ->CGFloat {
+    func tableViewHeightForRow(_ indexPath:IndexPath) ->CGFloat {
         if indexPath.section == 0 {
             return 258
         }

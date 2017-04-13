@@ -7,7 +7,6 @@
 //
 
 #import "ExpressDeliveryNet.h"
-#import <ReactiveCocoa/ReactiveCocoa.h>
 #import <CommonCrypto/CommonDigest.h>
 
 @implementation ExpressDeliveryNet
@@ -21,56 +20,48 @@
     return expressDeliveryNet;
 }
 
-- (RACSignal *)requestExpressDelivreyNetOrder:(NSDictionary *)dic url:(NSString *)url
+- (void)requestExpressDelivreyNetOrder:(NSDictionary *)dic url:(NSString *)url clouse:(ExpressDeliveryClouse)clouse
 {
-    return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-        NSDictionary *headers = @{ @"content-type": @"application/x-www-form-urlencoded",
-                                   @"cache-control": @"no-cache",
-                                   @"postman-token": @"670bcadb-9b3e-74b1-1ea6-330c4492d1f9" };
-        
-        NSMutableData *postData = [[NSMutableData alloc] initWithData:[[NSString stringWithFormat:@"RequestType=%@",[dic objectForKey:@"RequestType"]]  dataUsingEncoding:NSUTF8StringEncoding]];
-        [postData appendData:[[NSString stringWithFormat:@"&DataType=%@",[dic objectForKey:@"DataType"]] dataUsingEncoding:NSUTF8StringEncoding]];
-        [postData appendData:[[NSString stringWithFormat:@"&EBusinessID=%@",[dic objectForKey:@"EBusinessID"]] dataUsingEncoding:NSUTF8StringEncoding]];
-        
-        NSDictionary *requestData = [dic objectForKey:@"RequestData"];
-        NSString *requestString = [self DataTOjsonString:requestData];
-
-        NSString *md5 = [self md5:[NSString stringWithFormat:@"%@%@",requestString,[dic objectForKey:@"key"]]];
-        NSString *dataSigin = [self urlString:[self base64EncodedString:md5]];
-        NSString *requestStr = [self urlString:requestString];
-        
-        [postData appendData:[[NSString stringWithFormat:@"&DataSign=%@", dataSigin] dataUsingEncoding:NSUTF8StringEncoding]];
-        [postData appendData:[[NSString stringWithFormat:@"&RequestData=%@",requestStr] dataUsingEncoding:NSUTF8StringEncoding]];
-        
-        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]
-                                                               cachePolicy:NSURLRequestUseProtocolCachePolicy
-                                                           timeoutInterval:10.0];
-        [request setHTTPMethod:@"POST"];
-        [request setAllHTTPHeaderFields:headers];
-        [request setHTTPBody:postData];
-        
-        NSURLSession *session = [NSURLSession sharedSession];
-        NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request
-                                                    completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                                                        if (error) {
-                                                            [subscriber sendNext:@{@"error":@"请求错误"}];
-                                                        } else {
-                                                            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
-                                                            if (httpResponse.statusCode == 200) {
-                                                                NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
-                                                                [subscriber sendNext: jsonDict];
-
-                                                            }else{
-                                                                [subscriber sendNext:@{@"error":@"请求错误"}];
-                                                            }
+    NSDictionary *headers = @{ @"content-type": @"application/x-www-form-urlencoded",
+                               @"cache-control": @"no-cache",
+                               @"postman-token": @"670bcadb-9b3e-74b1-1ea6-330c4492d1f9" };
+    
+    NSMutableData *postData = [[NSMutableData alloc] initWithData:[[NSString stringWithFormat:@"RequestType=%@",[dic objectForKey:@"RequestType"]]  dataUsingEncoding:NSUTF8StringEncoding]];
+    [postData appendData:[[NSString stringWithFormat:@"&DataType=%@",[dic objectForKey:@"DataType"]] dataUsingEncoding:NSUTF8StringEncoding]];
+    [postData appendData:[[NSString stringWithFormat:@"&EBusinessID=%@",[dic objectForKey:@"EBusinessID"]] dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    NSDictionary *requestData = [dic objectForKey:@"RequestData"];
+    NSString *requestString = [self DataTOjsonString:requestData];
+    
+    NSString *md5 = [self md5:[NSString stringWithFormat:@"%@%@",requestString,[dic objectForKey:@"key"]]];
+    NSString *dataSigin = [self urlString:[self base64EncodedString:md5]];
+    NSString *requestStr = [self urlString:requestString];
+    
+    [postData appendData:[[NSString stringWithFormat:@"&DataSign=%@", dataSigin] dataUsingEncoding:NSUTF8StringEncoding]];
+    [postData appendData:[[NSString stringWithFormat:@"&RequestData=%@",requestStr] dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]
+                                                           cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                       timeoutInterval:10.0];
+    [request setHTTPMethod:@"POST"];
+    [request setAllHTTPHeaderFields:headers];
+    [request setHTTPBody:postData];
+    
+    NSURLSession *session = [NSURLSession sharedSession];
+    NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:request
+                                                completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                                    if (error) {
+                                                    } else {
+                                                        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
+                                                        if (httpResponse.statusCode == 200) {
+                                                            NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
+                                                            clouse(jsonDict);
                                                             
+                                                        }else{
                                                         }
-                                                    }];
-        [dataTask resume];
-        return [RACDisposable disposableWithBlock:^{
-            
-        }];
-    }];
+                                                    }
+                                                }];
+    [dataTask resume];
 }
 
 -(NSString*)DataTOjsonString:(id)object

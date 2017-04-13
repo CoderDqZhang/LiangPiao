@@ -7,13 +7,13 @@
 
 import Foundation
 
-let kEncodeObjectPath_User_Address = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true).last?.stringByAppendingString("/UserAddress")
+let kEncodeObjectPath_User_Address = (NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true).last)! + "/UserAddress"
 
 class AddressModel : NSObject, NSCoding{
     
     var address : String!
     var defaultField : Bool!
-    var id : Int!
+    var id : Int64!
     var location : String!
     var mobileNum : String!
     var name : String!
@@ -25,7 +25,7 @@ class AddressModel : NSObject, NSCoding{
     init(fromDictionary dictionary: NSDictionary){
         address = dictionary["address"] as? String
         defaultField = dictionary["default"] as? Bool
-        id = dictionary["id"] as? Int
+        id = dictionary["id"] as? Int64
         location = dictionary["location"] as? String
         mobileNum = dictionary["mobile_num"] as? String
         name = dictionary["name"] as? String
@@ -64,12 +64,12 @@ class AddressModel : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        address = aDecoder.decodeObjectForKey("address") as? String
-        defaultField = aDecoder.decodeObjectForKey("default") as? Bool
-        id = aDecoder.decodeObjectForKey("id")as? Int
-        location = aDecoder.decodeObjectForKey("location") as? String
-        mobileNum = aDecoder.decodeObjectForKey("mobile_num") as? String
-        name = aDecoder.decodeObjectForKey("name") as? String
+        address = aDecoder.decodeObject(forKey: "address") as? String
+        defaultField = aDecoder.decodeObject(forKey: "default") as? Bool
+        id = aDecoder.decodeObject(forKey: "id")as? Int64
+        location = aDecoder.decodeObject(forKey: "location") as? String
+        mobileNum = aDecoder.decodeObject(forKey: "mobile_num") as? String
+        name = aDecoder.decodeObject(forKey: "name") as? String
         
     }
     
@@ -77,49 +77,49 @@ class AddressModel : NSObject, NSCoding{
      * NSCoding required method.
      * Encodes mode properties into the decoder
      */
-    @objc func encodeWithCoder(aCoder: NSCoder)
+    @objc func encode(with aCoder: NSCoder)
     {
         if address != nil{
-            aCoder.encodeObject(address, forKey: "address")
+            aCoder.encode(address, forKey: "address")
         }
         if defaultField != nil{
-            aCoder.encodeObject(defaultField, forKey: "default")
+            aCoder.encode(defaultField, forKey: "default")
         }
         if id != nil{
-            aCoder.encodeObject(id, forKey: "id")
+            aCoder.encode(id, forKey: "id")
         }
         if location != nil{
-            aCoder.encodeObject(location, forKey: "location")
+            aCoder.encode(location, forKey: "location")
         }
         if mobileNum != nil{
-            aCoder.encodeObject(mobileNum, forKey: "mobile_num")
+            aCoder.encode(mobileNum, forKey: "mobile_num")
         }
         if name != nil{
-            aCoder.encodeObject(name, forKey: "name")
+            aCoder.encode(name, forKey: "name")
         }
         
     }
     
     class func removeAddress(){
-        let fileManager = NSFileManager.defaultManager()
+        let fileManager = FileManager.default
         do{
-            try fileManager.removeItemAtPath(kEncodeObjectPath_User_Address!)
+            try fileManager.removeItem(atPath: kEncodeObjectPath_User_Address)
         }catch {
             
         }
     }
     
     class func haveAddress() -> Bool {
-        let fileManager = NSFileManager.defaultManager()
-        return fileManager.fileExistsAtPath(kEncodeObjectPath_User_Address!)
+        let fileManager = FileManager.default
+        return fileManager.fileExists(atPath: kEncodeObjectPath_User_Address)
     }
     
     class func unarchiveObjectWithFile() -> [AddressModel] {
-        return NSKeyedUnarchiver.unarchiveObjectWithFile(kEncodeObjectPath_User_Address!)! as! [AddressModel]
+        return NSKeyedUnarchiver.unarchiveObject(withFile: kEncodeObjectPath_User_Address)! as! [AddressModel]
     }
     
-    class func archiveRootObject(models:[AddressModel]){
-        NSKeyedArchiver.archiveRootObject(models, toFile: kEncodeObjectPath_User_Address!)
+    class func archiveRootObject(_ models:[AddressModel]){
+        NSKeyedArchiver.archiveRootObject(models, toFile: kEncodeObjectPath_User_Address)
     }
     
 }

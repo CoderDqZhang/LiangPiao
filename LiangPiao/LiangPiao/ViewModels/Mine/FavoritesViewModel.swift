@@ -19,23 +19,23 @@ class FavoritesViewModel: NSObject {
         return 1
     }
     
-    func numberOfRowsInSection(section:Int) ->Int {
+    func numberOfRowsInSection(_ section:Int) ->Int {
         if model != nil {
             return model.items.count
         }
         return 0
     }
     
-    func tableViewHeightForFooterInSection(section:Int) -> CGFloat {
+    func tableViewHeightForFooterInSection(_ section:Int) -> CGFloat {
         return 0.0001
     }
     
-    func tableViewHeightForRowAtIndexPath(indexPath:NSIndexPath) -> CGFloat
+    func tableViewHeightForRowAtIndexPath(_ indexPath:IndexPath) -> CGFloat
     {
         return 140
     }
     
-    func tableViewDidSelectRowAtIndexPath(indexPath:NSIndexPath, controller:FavoriteViewController) {
+    func tableViewDidSelectRowAtIndexPath(_ indexPath:IndexPath, controller:FavoriteViewController) {
          let homeTick = model.items[indexPath.row]
         if homeTick.show.sessionCount == 1 {
             let controllerVC = TicketDescriptionViewController()
@@ -48,38 +48,40 @@ class FavoritesViewModel: NSObject {
         }
     }
     
-    func cellData(cell:RecommendTableViewCell, indexPath:NSIndexPath) {
+    func cellData(_ cell:RecommendTableViewCell, indexPath:IndexPath) {
         if model != nil {
             let homeTick = model.items[indexPath.row]
             cell.setData(homeTick.show)
         }
     }
     
-    func requestFavoriteTicket(controller:FavoriteViewController, isNext:Bool){
+    func requestFavoriteTicket(_ controller:FavoriteViewController, isNext:Bool){
         var url = ""
         if isNext {
             if model.hasNext == false {
                 controller.tableView.mj_footer.endRefreshing()
                 return
             }
-            url = "\(TicketFavorite)?page=\(model.nextPage)"
+            url = "\(TicketFavorite)?page=\((model.nextPage)!)"
         }else{
             url = "\(TicketFavorite)"
         }
-        BaseNetWorke.sharedInstance.getUrlWithString(url, parameters: nil).subscribeNext { (resultDic) in
-            if isNext {
-                let tempModel = FavorityModel.init(fromDictionary: resultDic as! NSDictionary)
-                self.model.hasNext = tempModel.hasNext
-                self.model.items.appendContentsOf(tempModel.items)
-                controller.tableView.reloadData()
-            }else{
-                self.model = FavorityModel.init(fromDictionary: resultDic as! NSDictionary)
-                controller.tableView.reloadData()
-                if controller.tableView.mj_footer != nil && self.model.hasNext == true {
-                    controller.setUpLoadMoreData()
-                }
-                if controller.tableView.mj_header != nil {
-                    controller.tableView.mj_header.endRefreshing()
+        BaseNetWorke.sharedInstance.getUrlWithString(url, parameters: nil).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                if isNext {
+                    let tempModel = FavorityModel.init(fromDictionary: resultDic.value as! NSDictionary)
+                    self.model.hasNext = tempModel.hasNext
+                    self.model.items.append(contentsOf: tempModel.items)
+                    controller.tableView.reloadData()
+                }else{
+                    self.model = FavorityModel.init(fromDictionary: resultDic.value as! NSDictionary)
+                    controller.tableView.reloadData()
+                    if controller.tableView.mj_footer != nil && self.model.hasNext == true {
+                        controller.setUpLoadMoreData()
+                    }
+                    if controller.tableView.mj_header != nil {
+                        controller.tableView.mj_header.endRefreshing()
+                    }
                 }
             }
         }

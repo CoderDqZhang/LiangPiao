@@ -10,6 +10,7 @@ import UIKit
 import FDFullscreenPopGesture
 import SnapKit
 import MJRefresh
+import ReactiveSwift
 import ReactiveCocoa
 
 class HomeViewController: BaseViewController {
@@ -21,7 +22,7 @@ class HomeViewController: BaseViewController {
     var searchViewModel = SearchViewModel.shareInstance
     var homeRefreshView = LiangPiaoHomeRefreshHeader(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 88))
     
-    var searchNavigationBar = HomeSearchNavigationBar(frame: CGRectMake(0,0,SCREENWIDTH, 64),font:App_Theme_PinFan_L_12_Font)
+    var searchNavigationBar = HomeSearchNavigationBar(frame: CGRect(x: 0,y: 0,width: SCREENWIDTH, height: 64),font:App_Theme_PinFan_L_12_Font)
     let viewModel = HomeViewModel()
     
     override func viewDidLoad() {
@@ -29,12 +30,12 @@ class HomeViewController: BaseViewController {
         self.setSearchNavigatioBarClouse()
         self.setUpMJRefeshView()
         self.view.addSubview(searchNavigationBar)
-        searchNavigationBar.hidden = true
+        searchNavigationBar.isHidden = true
         self.bindViewModel()
         self.talKingDataPageName = "首页"
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.fd_prefersNavigationBarHidden = true
         self.navigationController?.setNavigationBarHidden(true, animated: true)
         
@@ -42,27 +43,27 @@ class HomeViewController: BaseViewController {
     
     
     func setUpTableView() {
-        tableView = UITableView(frame: CGRect.zero, style: .Grouped)
+        tableView = UITableView(frame: CGRect.zero, style: .grouped)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.showsVerticalScrollIndicator = false
-        tableView.keyboardDismissMode = .OnDrag
+        tableView.keyboardDismissMode = .onDrag
         tableView.backgroundColor = UIColor.init(hexString: App_Theme_E9EBF2_Color)
-        tableView.registerClass(HomeSearchTableViewCell.self, forCellReuseIdentifier: "HomeSearchTableViewCell")
-        tableView.registerClass(HomeToolsTableViewCell.self, forCellReuseIdentifier: "HomeToolsTableViewCell")
-        tableView.registerClass(HomeScrollerTableViewCell.self, forCellReuseIdentifier: "HomeScrollerTableViewCell")
-        tableView.registerClass(RecommendTableViewCell.self, forCellReuseIdentifier: "RecommendTableViewCell")
-        tableView.registerClass(AllTicketTableViewCell.self, forCellReuseIdentifier: "AllTicketTableViewCell")
-        tableView.separatorStyle = .None
+        tableView.register(HomeSearchTableViewCell.self, forCellReuseIdentifier: "HomeSearchTableViewCell")
+        tableView.register(HomeToolsTableViewCell.self, forCellReuseIdentifier: "HomeToolsTableViewCell")
+        tableView.register(HomeScrollerTableViewCell.self, forCellReuseIdentifier: "HomeScrollerTableViewCell")
+        tableView.register(RecommendTableViewCell.self, forCellReuseIdentifier: "RecommendTableViewCell")
+        tableView.register(AllTicketTableViewCell.self, forCellReuseIdentifier: "AllTicketTableViewCell")
+        tableView.separatorStyle = .none
         self.view.addSubview(tableView)
         
-        tableView.snp_makeConstraints { (make) in
+        tableView.snp.makeConstraints { (make) in
             make.edges.equalTo(UIEdgeInsetsMake(-20, 0, 0, 0))
         }
     }
     
     func setUpMJRefeshView(){
-        homeRefreshView.hidden = true
+        homeRefreshView.isHidden = true
         self.view.addSubview(homeRefreshView)
         self.tableView.mj_header = MJRefreshNormalHeader(refreshingBlock: {
             self.refreshHomeData()
@@ -71,12 +72,12 @@ class HomeViewController: BaseViewController {
     }
     
     func refreshHomeData(){
-        homeRefreshView.hidden = false
+        homeRefreshView.isHidden = false
         homeRefreshView.startAnimation()
     }
     
     func endRefreshView(){
-        homeRefreshView.hidden = true
+        homeRefreshView.isHidden = true
         homeRefreshView.stopAnimation()
     }
     
@@ -84,28 +85,30 @@ class HomeViewController: BaseViewController {
         viewModel.controller = self
         searchViewModel.controller = self
         viewModel.requestHotTicket(tableView)
-//        viewModel.requestBanner()
-        RACSignal.interval(1, onScheduler: RACScheduler.currentScheduler()).subscribeNext { (str) in
-            
-        }
-        let single = searchNavigationBar.searchField
-            .rac_textSignal()
-            .distinctUntilChanged()
-        single.throttle(0.1).subscribeNext { (str) in
+        viewModel.requestBanner()
+        
+        searchNavigationBar.searchField.reactive.continuousTextValues.observeValues { (value) in
             if self.searchTableView != nil {
-                self.searchViewModel.requestSearchTicket(str as! String, searchTable: self.searchTableView)
+                self.searchViewModel.requestSearchTicket(value!, searchTable: self.searchTableView)
+            }
+        }
+        
+        let result = searchNavigationBar.searchField.reactive.producer(forKeyPath: "text")
+        result.start { (value) in
+            if self.searchTableView != nil {
+                self.searchViewModel.requestSearchTicket(value.value as! String, searchTable: self.searchTableView)
             }
         }
         
         searchViewModel.searchViewModelClouse = { _ in
-            self.searchNavigationBar.searchField.hidden = false
+            self.searchNavigationBar.searchField.isHidden = false
             self.view.endEditing(true)
         }
     }
     
     func cancelSearchTable() {
-        self.searchNavigationBar.searchField.frame = CGRectMake(20, 27,SCREENWIDTH - 40, 30)
-        self.searchNavigationBar.cancelButton.hidden = true
+        self.searchNavigationBar.searchField.frame = CGRect(x: 20, y: 27,width: SCREENWIDTH - 40, height: 30)
+        self.searchNavigationBar.cancelButton.isHidden = true
 //        if #available(iOS 10.0, *) {
 //            searchNavigationBar.backgroundColor = UIColor.init(displayP3Red: 75.0/255.0, green: 212.0/255.0, blue: 197.0/255.0, alpha: 1)
 //        } else {
@@ -113,26 +116,26 @@ class HomeViewController: BaseViewController {
 //            // Fallback on earlier versions
 //        }
         if tableView.contentOffset.y > 165 {
-            searchNavigationBar.searchField.hidden = false
+            searchNavigationBar.searchField.isHidden = false
         }else{
-            searchNavigationBar.searchField.hidden = true
+            searchNavigationBar.searchField.isHidden = true
         }
         searchNavigationBar.searchField.text = ""
         searchNavigationBar.searchField.resignFirstResponder()
-        searchTableView.hidden = true
-        self.tabBarController?.tabBar.hidden = false
+        searchTableView.isHidden = true
+        self.tabBarController?.tabBar.isHidden = false
     }
     
     func setSearchNavigatioBarClouse(){
         searchNavigationBar.searchTextFieldBecomFirstRespoder = { _ in
-            self.searchViewModel.searchType = .TicketShowModel
+            self.searchViewModel.searchType = .ticketShowModel
             if self.searchTableView == nil {
-                self.searchTableView = GlobalSearchTableView(frame: CGRectMake(0, CGRectGetMaxY(self.searchNavigationBar.frame), SCREENWIDTH, SCREENHEIGHT - CGRectGetMaxY(self.searchNavigationBar.frame)))
+                self.searchTableView = GlobalSearchTableView(frame: CGRect(x: 0, y: self.searchNavigationBar.frame.maxY, width: SCREENWIDTH, height: SCREENHEIGHT - self.searchNavigationBar.frame.maxY))
                 self.view.addSubview(self.searchTableView)
             }else{
-                self.searchTableView.hidden = false
+                self.searchTableView.isHidden = false
             }
-            self.tabBarController?.tabBar.hidden = true
+            self.tabBarController?.tabBar.isHidden = true
         }
         searchNavigationBar.searchNavigationBarCancelClouse = { _ in
             self.cancelSearchTable()
@@ -141,105 +144,106 @@ class HomeViewController: BaseViewController {
     
     func searchViewController() {
         searchNavigationBar.backgroundColor = UIColor.init(red: 75.0/255.0, green: 212.0/255.0, blue: 197.0/255.0, alpha: 1)
-        searchNavigationBar.hidden = false
-        searchNavigationBar.searchField.hidden = false
+        searchNavigationBar.isHidden = false
+        searchNavigationBar.searchField.isHidden = false
         searchNavigationBar.searchField.becomeFirstResponder()
     }
     
-    func navigationPushTicketPage(index:NSInteger) {
+    func navigationPushTicketPage(_ index:NSInteger) {
         viewModel.navigationPushTicketPage(index)
     }
 }
 
 extension HomeViewController : UITableViewDelegate {
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return viewModel.tableViewHeightForRowAtIndexPath(indexPath)
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         viewModel.tableViewDidSelectRowAtIndexPath(indexPath)
     }
     
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView.contentOffset.y > 165 {
-            searchNavigationBar.searchField.hidden = false
-            searchNavigationBar.hidden = false
+            searchNavigationBar.searchField.isHidden = false
+            searchNavigationBar.isHidden = false
             searchNavigationBar.backgroundColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
-            if self.searchTableView == nil || self.searchTableView.hidden {
-                self.tabBarController?.tabBar.hidden = false
+            if self.searchTableView == nil || self.searchTableView.isHidden {
+                self.tabBarController?.tabBar.isHidden = false
             }else{
-                self.tabBarController?.tabBar.hidden = true
+                self.tabBarController?.tabBar.isHidden = true
             }
         }else{
-            if self.searchTableView == nil || self.searchTableView.hidden {
-                searchNavigationBar.searchField.hidden = true
-                searchNavigationBar.hidden = true
-                self.tabBarController?.tabBar.hidden = false
+            if self.searchTableView == nil || self.searchTableView.isHidden {
+                searchNavigationBar.searchField.isHidden = true
+                searchNavigationBar.isHidden = true
+                self.tabBarController?.tabBar.isHidden = false
             }else{
-                self.tabBarController?.tabBar.hidden = true
+                self.tabBarController?.tabBar.isHidden = true
             }
         }
         if cell != nil {
             if scrollView.contentOffset.y < 0 {
-                cell.cellBackView.frame = CGRectMake(0, scrollView.contentOffset.y, SCREENWIDTH, 255 - scrollView.contentOffset.y)
+                cell.cellBackView.frame = CGRect(x: 0, y: scrollView.contentOffset.y, width: SCREENWIDTH, height: 255 - scrollView.contentOffset.y)
             }
         }
     }
 }
 
 extension HomeViewController : UITableViewDataSource {
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.numberOfRowsInSection(section)
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return viewModel.numberOfSectionsInTableView()
     }
     
-    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return viewModel.tableViewHeightForFooterInSection(section)
     }
     
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0.0001
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         case 0:
             switch indexPath.row {
             case 0:
-                cell = tableView.dequeueReusableCellWithIdentifier("HomeSearchTableViewCell", forIndexPath: indexPath) as! HomeSearchTableViewCell
-                cell.location.setTitle(viewModel.locationStr, forState: .Normal)
+                cell = tableView.dequeueReusableCell(withIdentifier: "HomeSearchTableViewCell", for: indexPath) as! HomeSearchTableViewCell
+                cell.location.setTitle(viewModel.locationStr, for: UIControlState())
                 cell.homeSearchTableViewCellClouse = { _ in
                     self.searchViewController()
                 }
-                cell.location.rac_signalForControlEvents(.TouchUpInside).subscribeNext({ (action) in
-                    Tools.shareInstance.showMessage(KWINDOWDS(), msg: "更多城市正在开拓中...", autoHidder: true)
+                
+                cell.location.reactive.controlEvents(.touchUpInside).observe({ (action) in
+                    _ = Tools.shareInstance.showMessage(KWINDOWDS(), msg: "更多城市正在开拓中...", autoHidder: true)
 //                    self.viewModel.showLocationData()
                 })
-                cell.selectionStyle = .None
+                cell.selectionStyle = .none
                 return cell
             case 1:
-                let cell = tableView.dequeueReusableCellWithIdentifier("HomeToolsTableViewCell", forIndexPath: indexPath) as! HomeToolsTableViewCell
-                cell.selectionStyle = .None
+                let cell = tableView.dequeueReusableCell(withIdentifier: "HomeToolsTableViewCell", for: indexPath) as! HomeToolsTableViewCell
+                cell.selectionStyle = .none
                 cell.homeToolsClouse = { index in
                     self.navigationPushTicketPage(index)
                 }
                 return cell
             default:
-                let cell = tableView.dequeueReusableCellWithIdentifier("HomeScrollerTableViewCell", forIndexPath: indexPath) as! HomeScrollerTableViewCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: "HomeScrollerTableViewCell", for: indexPath) as! HomeScrollerTableViewCell
                 viewModel.tableViewHomeScrollerTableViewCell(cell, indexPath: indexPath)
-                cell.selectionStyle = .None
+                cell.selectionStyle = .none
                 return cell
             }
         default:
             switch indexPath.row {
             case 0:
                 let cellIdentifier = "RecommentDetailCell"
-                var cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier)
+                var cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier)
                 if cell == nil {
-                    cell = UITableViewCell(style: .Default, reuseIdentifier: cellIdentifier)
+                    cell = UITableViewCell(style: .default, reuseIdentifier: cellIdentifier)
                 }else{
                     for subView in (cell?.contentView.subviews)! {
                         subView.removeFromSuperview()
@@ -247,9 +251,9 @@ extension HomeViewController : UITableViewDataSource {
                 }
                 let recommentTitle = UILabel()
                 if IPHONE_VERSION >= 9 {
-                    recommentTitle.frame = CGRectMake((SCREENWIDTH - 56) / 2, 30, 56, 20)
+                    recommentTitle.frame = CGRect(x: (SCREENWIDTH - 56) / 2, y: 30, width: 56, height: 20)
                 }else{
-                    recommentTitle.frame = CGRectMake((SCREENWIDTH - 69) / 2, 30, 69, 20)
+                    recommentTitle.frame = CGRect(x: (SCREENWIDTH - 69) / 2, y: 30, width: 69, height: 20)
                 }
                
                 recommentTitle.textColor = UIColor.init(hexString: App_Theme_384249_Color)
@@ -257,21 +261,21 @@ extension HomeViewController : UITableViewDataSource {
                 recommentTitle.text = "近期热门"
                 cell?.contentView.addSubview(recommentTitle)
                 
-                let lineLabel = GloabLineView(frame: CGRectMake(CGRectGetMinX(recommentTitle.frame) - 50, 40, 30, 0.5))
+                let lineLabel = GloabLineView(frame: CGRect(x: recommentTitle.frame.minX - 50, y: 40, width: 30, height: 0.5))
                 lineLabel.setLineColor(UIColor.init(hexString: App_Theme_384249_Color))
                 cell?.contentView.addSubview(lineLabel)
-                let lineLabel1 = GloabLineView(frame: CGRectMake(CGRectGetMaxX(recommentTitle.frame) + 20, 40, 30, 0.5))
+                let lineLabel1 = GloabLineView(frame: CGRect(x: recommentTitle.frame.maxX + 20, y: 40, width: 30, height: 0.5))
                 lineLabel1.setLineColor(UIColor.init(hexString: App_Theme_384249_Color))
                 cell?.contentView.addSubview(lineLabel1)
-                cell!.selectionStyle = .None
+                cell!.selectionStyle = .none
                 return cell!
             case viewModel.numberOfRowsInSection(indexPath.section) - 1:
-                let cell = tableView.dequeueReusableCellWithIdentifier("AllTicketTableViewCell", forIndexPath: indexPath) as! AllTicketTableViewCell
-                cell.selectionStyle = .None
+                let cell = tableView.dequeueReusableCell(withIdentifier: "AllTicketTableViewCell", for: indexPath) as! AllTicketTableViewCell
+                cell.selectionStyle = .none
                 return cell
             default:
-                let cell = tableView.dequeueReusableCellWithIdentifier("RecommendTableViewCell", forIndexPath: indexPath) as! RecommendTableViewCell
-                cell.selectionStyle = .None
+                let cell = tableView.dequeueReusableCell(withIdentifier: "RecommendTableViewCell", for: indexPath) as! RecommendTableViewCell
+                cell.selectionStyle = .none
                 viewModel.cellData(cell, indexPath:indexPath)
                 return cell
             }

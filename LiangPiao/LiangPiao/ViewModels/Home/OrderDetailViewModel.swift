@@ -7,9 +7,8 @@
 //
 
 import UIKit
-import ReactiveCocoa
 
-typealias  OrderDetailViewMoedelClouse = (indexPath:NSIndexPath, model:OrderList) -> Void
+typealias  OrderDetailViewMoedelClouse = (_ indexPath:IndexPath, _ model:OrderList) -> Void
 class OrderDetailViewModel: NSObject {
 
     var aliPayurl:String = ""
@@ -17,7 +16,7 @@ class OrderDetailViewModel: NSObject {
     var ticketModel:TicketShowModel!
     var sesstionModel:ShowSessionModel!
     var controller:OrderDetailViewController!
-    var indexPath:NSIndexPath!
+    var indexPath:IndexPath!
     var deverliyModel:DeverliyModel!
     var isOrderConfim:Bool = false
     var templeTrace:Trace!
@@ -25,17 +24,17 @@ class OrderDetailViewModel: NSObject {
     
     override init() {
         super.init()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(OrderDetailViewModel.orderStatusChange(_:)), name: OrderStatuesChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(OrderDetailViewModel.orderStatusChange(_:)), name: NSNotification.Name(rawValue: OrderStatuesChange), object: nil)
         
     }
     
     func getDeverliyTrac(){
         if model.expressInfo != nil && model.expressInfo.expressName != nil && model.expressInfo.expressNum != nil {
-            let dics = ["RequestData":["LogisticCode":model.expressInfo.expressNum,"ShipperCode":model.expressInfo.expressName],"DataType":"2","RequestType":"1002","EBusinessID":ExpressDelivierEBusinessID,"key":ExpressDelivierKey]
+            let dics = ["RequestData":["LogisticCode":model.expressInfo.expressNum,"ShipperCode":model.expressInfo.expressName],"DataType":"2","RequestType":"1002","EBusinessID":ExpressDelivierEBusinessID,"key":ExpressDelivierKey] as [String : Any]
             
-            ExpressDeliveryNet.shareInstance().requestExpressDelivreyNetOrder(dics as [NSObject : AnyObject], url: ExpressOrderHandleUrl).subscribeNext { (resultDic) in
-                self.deverliyModel = DeverliyModel.init(fromDictionary: resultDic as! NSDictionary)
-                self.deverliyModel.traces = self.deverliyModel.traces.reverse()
+            ExpressDeliveryNet.shareInstance().requestExpressDelivreyNetOrder(dics as [AnyHashable: Any], url: ExpressOrderHandleUrl, clouse: { (resultDic) in
+                self.deverliyModel = DeverliyModel.init(fromDictionary: resultDic! as NSDictionary)
+                self.deverliyModel.traces = self.deverliyModel.traces.reversed()
                 if self.deverliyModel.traces.count == 0 {
                     var acceptionName = ""
                     for name in deverliyDic.allKeys {
@@ -43,18 +42,18 @@ class OrderDetailViewModel: NSObject {
                             acceptionName = name as! String
                         }
                     }
-                    let dic:NSDictionary = ["AcceptStation":acceptionName,"AcceptTime":"物流编号：\(self.model.expressInfo.expressNum)"]
+                    let dic:NSDictionary = ["AcceptStation":acceptionName,"AcceptTime":"物流编号：\((self.model.expressInfo.expressNum)!)"]
                     self.templeTrace = Trace.init(fromDictionary: dic)
                     self.deverliyModel.traces.append(self.templeTrace)
                 }
-                dispatch_async(dispatch_get_main_queue(), {
-                    self.controller.tableView.reloadRowsAtIndexPaths([NSIndexPath.init(forRow: 2, inSection: 0)], withRowAnimation: .Automatic)
+                DispatchQueue.main.async(execute: {
+                    self.controller.tableView.reloadRows(at: [IndexPath.init(row: 2, section: 0)], with: .automatic)
                 })
-            }
+            })
         }
     }
     
-    func orderStatusChange(object:NSNotification){
+    func orderStatusChange(_ object:Foundation.Notification){
         self.model.status = Int(object.object as! String)
         if self.model.status == 2 {
             self.model.statusDesc = "交易取消"
@@ -65,15 +64,15 @@ class OrderDetailViewModel: NSObject {
         controller.tableView.reloadData()
         
         if orderDetailViewMoedelClouse != nil {
-            self.orderDetailViewMoedelClouse(indexPath: self.indexPath, model: self.model)
+            self.orderDetailViewMoedelClouse(self.indexPath, self.model)
         }
     }
     
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
     
-    func tableViewHeiFootView(tableView:UITableView, section:Int) -> CGFloat {
+    func tableViewHeiFootView(_ tableView:UITableView, section:Int) -> CGFloat {
         switch section {
         case 1:
             return 118
@@ -82,7 +81,7 @@ class OrderDetailViewModel: NSObject {
         }
     }
     
-    func tableViewHeightForRowAtIndexPath(indexPath:NSIndexPath) -> CGFloat{
+    func tableViewHeightForRowAtIndexPath(_ indexPath:IndexPath) -> CGFloat{
         switch indexPath.section {
         case 0:
             if indexPath.row == 0 {
@@ -92,12 +91,12 @@ class OrderDetailViewModel: NSObject {
                     return 112
                 }
             }else if indexPath.row == 1{
-                return controller.tableView.fd_heightForCellWithIdentifier("ReciveAddressTableViewCell", configuration: { (cell) in
+                return controller.tableView.fd_heightForCell(withIdentifier: "ReciveAddressTableViewCell", configuration: { (cell) in
                     self.configCellReviceCell(cell as! ReciveAddressTableViewCell, indexPath: indexPath)
                 })
             }else{
                 if self.deverliyModel != nil && self.deverliyModel.traces.count > 0 {
-                    return controller.tableView.fd_heightForCellWithIdentifier("DeverliyTableViewCellDetail", configuration: { (cell) in
+                    return controller.tableView.fd_heightForCell(withIdentifier: "DeverliyTableViewCellDetail", configuration: { (cell) in
                         self.configCellDeverliyTableViewCell(cell as! DeverliyTableViewCell, indexPath: indexPath)
                     })
                 }
@@ -110,12 +109,12 @@ class OrderDetailViewModel: NSObject {
             }else if indexPath.row == 1 {
                 return 149
             }else if indexPath.row == 2 {
-                return controller.tableView.fd_heightForCellWithIdentifier("TicketLocationTableViewCell", configuration: { (cell) in
+                return controller.tableView.fd_heightForCell(withIdentifier: "TicketLocationTableViewCell", configuration: { (cell) in
                     self.configCellLocationCell(cell as! TicketLocationTableViewCell, indexPath: indexPath)
                 })
             }else if indexPath.row == 3 {
                 if self.viewModelHaveRemarkMessage() {
-                    return controller.tableView.fd_heightForCellWithIdentifier("TicketRemarkTableViewCell", configuration: { (cell) in
+                    return controller.tableView.fd_heightForCell(withIdentifier: "TicketRemarkTableViewCell", configuration: { (cell) in
                         self.configCellRemarkCell(cell as! TicketRemarkTableViewCell, indexPath: indexPath)
                     })
                 }
@@ -131,43 +130,43 @@ class OrderDetailViewModel: NSObject {
         }
     }
     
-    func configCellDeverliyTableViewCell(cell:DeverliyTableViewCell, indexPath:NSIndexPath) {
+    func configCellDeverliyTableViewCell(_ cell:DeverliyTableViewCell, indexPath:IndexPath) {
         if self.deverliyModel != nil && self.deverliyModel.traces.count > 0 {
             cell.setUpData(self.deverliyModel.traces[0])
         }
     }
     
-    func configCellRemarkCell(cell:TicketRemarkTableViewCell, indexPath:NSIndexPath) {
+    func configCellRemarkCell(_ cell:TicketRemarkTableViewCell, indexPath:IndexPath) {
         cell.setData(model)
     }
     
-    func configCellLocationCell(cell:TicketLocationTableViewCell, indexPath:NSIndexPath) {
+    func configCellLocationCell(_ cell:TicketLocationTableViewCell, indexPath:IndexPath) {
         cell.setData(model)
     }
     
-    func configCellWaitPay(cell:OrderWaitePayTableViewCell, indexPath:NSIndexPath) {
+    func configCellWaitPay(_ cell:OrderWaitePayTableViewCell, indexPath:IndexPath) {
         cell.setData(model)
     }
     
-    func configCellDone(cell:OrderDoneTableViewCell, indexPath:NSIndexPath) {
-        cell.setData("\(model.status)", statusType: "")
+    func configCellDone(_ cell:OrderDoneTableViewCell, indexPath:IndexPath) {
+        cell.setData("\((model.status)!)", statusType: "")
     }
     
-    func tableViewCellDeverliyTableViewCell(cell:DeverliyTableViewCell, indexPath:NSIndexPath) {
+    func tableViewCellDeverliyTableViewCell(_ cell:DeverliyTableViewCell, indexPath:IndexPath) {
         self.configCellDeverliyTableViewCell(cell, indexPath: indexPath)
     }
     
-    func configCellReviceCell(cell:ReciveAddressTableViewCell, indexPath:NSIndexPath) {
+    func configCellReviceCell(_ cell:ReciveAddressTableViewCell, indexPath:IndexPath) {
         cell.setUpData(model)
     }
     
-    func tableViewDidSelectRowAtIndexPath(indexPath: NSIndexPath, controller:OrderDetailViewController){
+    func tableViewDidSelectRowAtIndexPath(_ indexPath: IndexPath, controller:OrderDetailViewController){
         if indexPath.section == 0 && indexPath.row == 2 {
             let controllerVC = LogisticsTrackingViewController()
             let tempDeverliyModel = self.deverliyModel
             if self.deverliyModel.traces.count == 1 {
                 if templeTrace != nil && self.deverliyModel.traces[0] == templeTrace {
-                    tempDeverliyModel.traces.removeAll()
+                    tempDeverliyModel?.traces.removeAll()
                 }
             }
             controllerVC.viewModel.deverliyModel = tempDeverliyModel
@@ -183,7 +182,7 @@ class OrderDetailViewModel: NSObject {
         }
     }
     
-    func tableViewNumberRowInSection(tableView:UITableView, section:Int) ->Int {
+    func tableViewNumberRowInSection(_ tableView:UITableView, section:Int) ->Int {
         if section == 0 {
             return 3
         }
@@ -195,46 +194,46 @@ class OrderDetailViewModel: NSObject {
 
     }
     
-    func tableViewCellOrderWaitePayTableViewCell(cell:OrderWaitePayTableViewCell, indexPath:NSIndexPath) {
+    func tableViewCellOrderWaitePayTableViewCell(_ cell:OrderWaitePayTableViewCell, indexPath:IndexPath) {
         self.configCellWaitPay(cell, indexPath: indexPath)
     }
     
-    func tableViewCellOrderTicketRemarkTableViewCell(cell:TicketRemarkTableViewCell, indexPath:NSIndexPath) {
+    func tableViewCellOrderTicketRemarkTableViewCell(_ cell:TicketRemarkTableViewCell, indexPath:IndexPath) {
         self.configCellRemarkCell(cell, indexPath: indexPath)
     }
     
-    func tableViewCellTicketDetailInfoTableViewCell(cell:TicketDetailInfoTableViewCell){
+    func tableViewCellTicketDetailInfoTableViewCell(_ cell:TicketDetailInfoTableViewCell){
         cell.setData(model)
     }
     
-    func tableViewCellTicketLocationTableViewCell(cell:TicketLocationTableViewCell, indexPath:NSIndexPath){
-        cell.locationButton.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (action) in
+    func tableViewCellTicketLocationTableViewCell(_ cell:TicketLocationTableViewCell, indexPath:IndexPath){
+        cell.locationButton.reactive.controlEvents(.touchUpInside).observe { (action) in
             self.creatOptionMenu()
         }
         self.configCellLocationCell(cell, indexPath: indexPath)
     }
     
-    func tableViewCellOrderPayTableViewCell(cell:OrderPayTableViewCell) {
+    func tableViewCellOrderPayTableViewCell(_ cell:OrderPayTableViewCell) {
         cell.setData(model)
     }
     
-    func tableViewCellOrderMuchTableViewCell(cell:OrderStatusMuchTableViewCell){
+    func tableViewCellOrderMuchTableViewCell(_ cell:OrderStatusMuchTableViewCell){
         cell.setData(model)
     }
     
-    func tableViewCellOrderDoneTableViewCell(cell:OrderDoneTableViewCell, indexPath:NSIndexPath){
+    func tableViewCellOrderDoneTableViewCell(_ cell:OrderDoneTableViewCell, indexPath:IndexPath){
         self.configCellDone(cell, indexPath: indexPath)
     }
     
-    func tableViewCellReciveAddressTableViewCell(cell:ReciveAddressTableViewCell, indexPath:NSIndexPath) {
+    func tableViewCellReciveAddressTableViewCell(_ cell:ReciveAddressTableViewCell, indexPath:IndexPath) {
         self.configCellReviceCell(cell, indexPath: indexPath)
     }
     
-    func tableViewOrderCellIndexPath(indexPath:NSIndexPath, cell:OrderNumberTableViewCell) {
+    func tableViewOrderCellIndexPath(_ indexPath:IndexPath, cell:OrderNumberTableViewCell) {
         cell.setData(model)
     }
     
-    func requestPayModel(cnotroller:OrderDetailViewController){
+    func requestPayModel(_ cnotroller:OrderDetailViewController){
         if model.payType == 1 {
             if self.model.payUrl == nil || self.model.payUrl.alipay == "" {
                 MainThreadAlertShow("获取支付链接错误", view: KWINDOWDS())
@@ -259,34 +258,39 @@ class OrderDetailViewModel: NSObject {
             request.nonceStr = self.model.payUrl.wxpay.noncestr
             request.timeStamp = UInt32(self.model.payUrl.wxpay.timestamp)!
             request.sign = self.model.payUrl.wxpay.sign
-            WXApi.sendReq(request)
+            WXApi.send(request)
         }
     }
     
-    func requestPayUrl(controller:OrderDetailViewController) {
+    func requestPayUrl(_ controller:OrderDetailViewController) {
         self.controller = controller
-        let url = "\(OrderPayInfo)\(model.orderId)/"
-        BaseNetWorke.sharedInstance.getUrlWithString(url, parameters: nil).subscribeNext { (resultDic) in
-            let payUrl = PayUrl.init(fromDictionary: resultDic as! NSDictionary)
-            self.model.payUrl = payUrl
+        let url = "\(OrderPayInfo)\((model.orderId)!)/"
+        BaseNetWorke.sharedInstance.getUrlWithString(url, parameters: nil).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                let payUrl = PayUrl.init(fromDictionary: resultDic.value as! NSDictionary)
+                self.model.payUrl = payUrl
+            }
+            
         }
     }
     
-    func requestOrderStatusChange(controller:OrderDetailViewController){
+    func requestOrderStatusChange(_ controller:OrderDetailViewController){
         
-        UIAlertController.shwoAlertControl(controller, style: .Alert, title: "是否已经收到演出票", message: nil, cancel: "取消", doneTitle: "确认收货", cancelAction: {
+        UIAlertController.shwoAlertControl(controller, style: .alert, title: "是否已经收到演出票", message: nil, cancel: "取消", doneTitle: "确认收货", cancelAction: {
             
             }, doneAction: {
-                let url = "\(OrderChangeShatus)\(self.model.orderId)/"
+                let url = "\(OrderChangeShatus)\((self.model.orderId)!)/"
                 let parameters = ["status":"8"]
-                BaseNetWorke.sharedInstance.postUrlWithString(url, parameters: parameters).subscribeNext { (resultDic) in
-                    let tempModel = OrderList.init(fromDictionary: resultDic as! NSDictionary)
-                    self.model.status = tempModel.status
-                    self.model.statusDesc = tempModel.statusDesc
-                    controller.updateTableView(self.model.status)
-                    self.controller.tableView.reloadData()
-                    if self.orderDetailViewMoedelClouse != nil {
-                        self.orderDetailViewMoedelClouse(indexPath: self.indexPath, model: self.model)
+                BaseNetWorke.sharedInstance.postUrlWithString(url, parameters: parameters as AnyObject).observe { (resultDic) in
+                    if !resultDic.isCompleted {
+                        let tempModel = OrderList.init(fromDictionary: resultDic.value as! NSDictionary)
+                        self.model.status = tempModel.status
+                        self.model.statusDesc = tempModel.statusDesc
+                        controller.updateTableView(self.model.status)
+                        self.controller.tableView.reloadData()
+                        if self.orderDetailViewMoedelClouse != nil {
+                            self.orderDetailViewMoedelClouse(self.indexPath, self.model)
+                        }
                     }
                 }
         })
@@ -309,12 +313,12 @@ class OrderDetailViewModel: NSObject {
     }
     
     func creatOptionMenu(){
-        let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+        let optionMenu = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let geoC = CLGeocoder.init()
         var centerLat:CLLocationDegrees = 0.00
         var centerLng:CLLocationDegrees = 0.00
         let siteTitle = model.show.venue.address
-        geoC.geocodeAddressString(siteTitle) { (placemarks, errors) in
+        geoC.geocodeAddressString(siteTitle!) { (placemarks, errors) in
             if errors == nil {
                 let pl = placemarks?.first
                 centerLat = (pl?.location?.coordinate.latitude)!
@@ -322,48 +326,48 @@ class OrderDetailViewModel: NSObject {
             }
         }
         
-        if(SHARE_APPLICATION.canOpenURL(NSURL(string:"iosamap://")!) == true){
-            let gaodeAction = UIAlertAction(title: "高德地图", style: .Default, handler: {
+        if(SHARE_APPLICATION.canOpenURL(URL(string:"iosamap://")!) == true){
+            let gaodeAction = UIAlertAction(title: "高德地图", style: .default, handler: {
                 (alert: UIAlertAction!) -> Void in
                 let urlString = "iosamap://navi?sourceApplication=LiangPiao&backScheme=iosamap://&lat=\(centerLat)&lon=\(centerLng)&dev=0"
-                SHARE_APPLICATION.openURL(NSURL.init(string: urlString)!)
+                SHARE_APPLICATION.openURL(URL.init(string: urlString)!)
             })
             optionMenu.addAction(gaodeAction)
         }
         
-        if(SHARE_APPLICATION.canOpenURL(NSURL(string:"comgooglemaps://")!) == true){
-            let googleAction = UIAlertAction(title: "Google地图", style: .Default, handler: {
+        if(SHARE_APPLICATION.canOpenURL(URL(string:"comgooglemaps://")!) == true){
+            let googleAction = UIAlertAction(title: "Google地图", style: .default, handler: {
                 (alert: UIAlertAction!) -> Void in
-                SHARE_APPLICATION.openURL(NSURL.init(string: "comgooglemaps://?center=\(centerLat),\(centerLng)5&zoom=12")!)
+                SHARE_APPLICATION.openURL(URL.init(string: "comgooglemaps://?center=\(centerLat),\(centerLng)5&zoom=12")!)
             })
             optionMenu.addAction(googleAction)
         }
         
-        let appleAction = UIAlertAction(title: "苹果地图", style: .Default, handler: {
-            (alert: UIAlertAction!) -> Void in
-            let loc = CLLocationCoordinate2DMake(centerLat, centerLng)
-            let currentLocation = MKMapItem.mapItemForCurrentLocation()
-            let toLocation = MKMapItem(placemark:MKPlacemark(coordinate:loc,addressDictionary:nil))
-            toLocation.name = siteTitle
-            MKMapItem.openMapsWithItems([currentLocation,toLocation], launchOptions: [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving,MKLaunchOptionsShowsTrafficKey: NSNumber(bool: true)])
-            
-        })
-        optionMenu.addAction(appleAction)
+//        let appleAction = UIAlertAction(title: "苹果地图", style: .default, handler: {
+//            (alert: UIAlertAction!) -> Void in
+//            let loc = CLLocationCoordinate2DMake(centerLat, centerLng)
+//            let currentLocation = MKMapItem.mapItemForCurrentLocation()
+//            let toLocation = MKMapItem(placemark:MKPlacemark(coordinate:loc,addressDictionary:nil))
+//            toLocation.name = siteTitle
+//            MKMapItem.openMapsWithItems([currentLocation,toLocation], launchOptions: [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving,MKLaunchOptionsShowsTrafficKey: NSNumber(bool: true)])
+//            
+//        })
+//        optionMenu.addAction(appleAction)
         
-        if(SHARE_APPLICATION.canOpenURL(NSURL(string:"baidumap://map/")!) == true){
-            let baiduAction = UIAlertAction(title: "百度地图", style: .Default, handler: {
+        if(SHARE_APPLICATION.canOpenURL(URL(string:"baidumap://map/")!) == true){
+            let baiduAction = UIAlertAction(title: "百度地图", style: .default, handler: {
                 (alert: UIAlertAction!) -> Void in
                 let urlString = "baidumap://map/geocoder?location=\(centerLat),\(centerLng)&coord_type=gcj02&src=webapp.rgeo.yourCompanyName.yourAppName"
-                SHARE_APPLICATION.openURL(NSURL.init(string: urlString)!)
+                SHARE_APPLICATION.openURL(URL.init(string: urlString)!)
             })
             optionMenu.addAction(baiduAction)
         }
         
-        let cancelAction = UIAlertAction(title: "取消", style: .Cancel, handler: {
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: {
             (alert: UIAlertAction!) -> Void in
         })
         optionMenu.addAction(cancelAction)
-        controller.presentViewController(optionMenu, animated: true) {
+        controller.present(optionMenu, animated: true) {
             
         }
     }

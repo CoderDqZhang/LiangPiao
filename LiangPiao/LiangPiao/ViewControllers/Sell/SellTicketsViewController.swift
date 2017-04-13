@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import ReactiveCocoa
 import DZNEmptyDataSet
 
 class SellTicketsViewController: BaseViewController {
@@ -16,7 +15,7 @@ class SellTicketsViewController: BaseViewController {
     var searchTableView:GlobalSearchTableView!
     var searchViewModel = SearchViewModel.shareInstance
     var viewModel = SellViewModel()
-    var searchNavigationBar = HomeSearchNavigationBar(frame: CGRectMake(0,-64,SCREENWIDTH, 64),font:App_Theme_PinFan_L_12_Font)
+    var searchNavigationBar = HomeSearchNavigationBar(frame: CGRect(x: 0,y: -64,width: SCREENWIDTH, height: 64),font:App_Theme_PinFan_L_12_Font)
     var searchBarView:GloableSearchNavigationBarView!
     
     override func viewDidLoad() {
@@ -29,36 +28,36 @@ class SellTicketsViewController: BaseViewController {
         // Do any additional setup after loading the view.
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.fd_prefersNavigationBarHidden = true
         self.navigationController?.setNavigationBarHidden(true, animated: true)
-        if searchTableView == nil || searchTableView.hidden {
-            self.tabBarController?.tabBar.hidden = false
+        if searchTableView == nil || searchTableView.isHidden {
+            self.tabBarController?.tabBar.isHidden = false
         }else{
-            self.tabBarController?.tabBar.hidden = true
+            self.tabBarController?.tabBar.isHidden = true
         }
         
     }
     
     func setUpView() {
-        searchBarView = GloableSearchNavigationBarView(frame: CGRectMake(0,0,SCREENWIDTH, 64), title:"挂票", searchClouse:{ _ in
+        searchBarView = GloableSearchNavigationBarView(frame: CGRect(x: 0,y: 0,width: SCREENWIDTH, height: 64), title:"挂票", searchClouse:{ _ in
             self.searchButtonPress()
         })
         self.view.addSubview(searchBarView)
         
-        tableView = UITableView(frame: CGRect.zero, style: .Plain)
+        tableView = UITableView(frame: CGRect.zero, style: .plain)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.emptyDataSetSource = self
         tableView.emptyDataSetDelegate = self
         tableView.showsVerticalScrollIndicator = false
-        tableView.keyboardDismissMode = .OnDrag
+        tableView.keyboardDismissMode = .onDrag
         tableView.backgroundColor = UIColor.init(hexString: App_Theme_E9EBF2_Color)
-        tableView.registerClass(SellRecommondTableViewCell.self, forCellReuseIdentifier: "SellRecommondTableViewCell")
-        tableView.separatorStyle = .None
+        tableView.register(SellRecommondTableViewCell.self, forCellReuseIdentifier: "SellRecommondTableViewCell")
+        tableView.separatorStyle = .none
         self.view.addSubview(tableView)
         
-        tableView.snp_makeConstraints { (make) in
+        tableView.snp.makeConstraints { (make) in
             make.edges.equalTo(UIEdgeInsetsMake(64, 0, -44, 0))
         }
         self.setUpRefreshData()
@@ -76,7 +75,7 @@ class SellTicketsViewController: BaseViewController {
     }
     
     func searchButtonPress(){
-        UIView.animateWithDuration(AnimationTime, animations: {
+        UIView.animate(withDuration: AnimationTime, animations: {
             self.searchBarView.frame = CGRect.init(x: 0, y: -64, width: SCREENWIDTH, height: 64)
             self.searchNavigationBar.frame = CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 64)
             }, completion: { completion in
@@ -85,7 +84,7 @@ class SellTicketsViewController: BaseViewController {
     }
     
     func cancelButtonPress(){
-        UIView.animateWithDuration(AnimationTime, animations: {
+        UIView.animate(withDuration: AnimationTime, animations: {
             self.searchBarView.frame = CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 64)
             self.searchNavigationBar.frame = CGRect.init(x: 0, y: -64, width: SCREENWIDTH, height: 64)
             }, completion: { completion in
@@ -97,17 +96,19 @@ class SellTicketsViewController: BaseViewController {
         searchViewModel.controllerS = self
         viewModel.controller = self
         viewModel.requestHotTicket()
-        RACSignal.interval(1, onScheduler: RACScheduler.currentScheduler()).subscribeNext { (str) in
-            
-        }
-        let single = searchNavigationBar.searchField
-            .rac_textSignal()
-            .distinctUntilChanged()
-        single.throttle(0.1).subscribeNext { (str) in
+        searchNavigationBar.searchField.reactive.continuousTextValues.observeValues { (value) in
             if self.searchTableView != nil {
-                self.searchViewModel.requestSearchTicket(str as! String, searchTable: self.searchTableView)
+                self.searchViewModel.requestSearchTicket(value!, searchTable: self.searchTableView)
             }
         }
+        
+        let result = searchNavigationBar.searchField.reactive.producer(forKeyPath: "text")
+        result.start { (value) in
+            if self.searchTableView != nil {
+                self.searchViewModel.requestSearchTicket(value.value as! String, searchTable: self.searchTableView)
+            }
+        }
+
         searchViewModel.searchViewModelClouse = { _ in
             self.view.endEditing(true)
         }
@@ -115,25 +116,25 @@ class SellTicketsViewController: BaseViewController {
     
     func cancelSearchTable() {
         self.cancelButtonPress()
-        self.searchNavigationBar.searchField.frame = CGRectMake(20, 27,SCREENWIDTH - 40, 30)
-        self.searchNavigationBar.cancelButton.hidden = true
-        searchNavigationBar.searchField.hidden = false
+        self.searchNavigationBar.searchField.frame = CGRect(x: 20, y: 27,width: SCREENWIDTH - 40, height: 30)
+        self.searchNavigationBar.cancelButton.isHidden = true
+        searchNavigationBar.searchField.isHidden = false
         searchNavigationBar.searchField.resignFirstResponder()
-        searchTableView.hidden = true
+        searchTableView.isHidden = true
         searchNavigationBar.searchField.text = ""
-        self.tabBarController?.tabBar.hidden = false
+        self.tabBarController?.tabBar.isHidden = false
     }
     
     func setSearchNavigatioBarClouse(){
         searchNavigationBar.searchTextFieldBecomFirstRespoder = { _ in
-            self.searchViewModel.searchType = .TicketSell
+            self.searchViewModel.searchType = .ticketSell
             if self.searchTableView == nil {
-                self.searchTableView = GlobalSearchTableView(frame: CGRectMake(0, CGRectGetMaxY(self.searchNavigationBar.frame), SCREENWIDTH, SCREENHEIGHT - CGRectGetMaxY(self.searchNavigationBar.frame)))
+                self.searchTableView = GlobalSearchTableView(frame: CGRect(x: 0, y: self.searchNavigationBar.frame.maxY, width: SCREENWIDTH, height: SCREENHEIGHT - self.searchNavigationBar.frame.maxY))
                 self.view.addSubview(self.searchTableView)
             }else{
-                self.searchTableView.hidden = false
+                self.searchTableView.isHidden = false
             }
-            self.tabBarController?.tabBar.hidden = true
+            self.tabBarController?.tabBar.isHidden = true
         }
         searchNavigationBar.searchNavigationBarCancelClouse = { _ in
             self.cancelSearchTable()
@@ -142,8 +143,8 @@ class SellTicketsViewController: BaseViewController {
     
     func searchViewController() {
         searchNavigationBar.backgroundColor = UIColor.init(red: 75.0/255.0, green: 212.0/255.0, blue: 197.0/255.0, alpha: 1)
-        searchNavigationBar.hidden = false
-        searchNavigationBar.searchField.hidden = false
+        searchNavigationBar.isHidden = false
+        searchNavigationBar.searchField.isHidden = false
         searchNavigationBar.searchField.becomeFirstResponder()
     }
     
@@ -165,38 +166,38 @@ class SellTicketsViewController: BaseViewController {
 
 }
 extension SellTicketsViewController : UITableViewDelegate {
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return viewModel.tableViewHeightForRowAtIndexPath(indexPath)
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         viewModel.tableViewDidSelectRowAtIndexPath(indexPath)
     }
     
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
     }
 }
 
 extension SellTicketsViewController : UITableViewDataSource {
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.numberOfRowsInSection(section)
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return viewModel.numberOfSectionsInTableView()
     }
     
-    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0.0001
     }
     
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0.0001
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("SellRecommondTableViewCell", forIndexPath: indexPath) as! SellRecommondTableViewCell
-        cell.selectionStyle = .None
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SellRecommondTableViewCell", for: indexPath) as! SellRecommondTableViewCell
+        cell.selectionStyle = .none
         viewModel.tableViewtableViewSellRecommondTableViewCell(cell, indexPath: indexPath)
         return cell
     }
@@ -204,21 +205,21 @@ extension SellTicketsViewController : UITableViewDataSource {
 
 extension SellTicketsViewController : DZNEmptyDataSetDelegate {
     
-    func emptyDataSetShouldAllowTouch(scrollView: UIScrollView!) -> Bool {
+    func emptyDataSetShouldAllowTouch(_ scrollView: UIScrollView!) -> Bool {
         return true
     }
-    func emptyDataSetDidTapView(scrollView: UIScrollView!) {
+    func emptyDataSetDidTap(_ scrollView: UIScrollView!) {
         self.viewModel.requestHotTicket()
     }
 }
 
 extension SellTicketsViewController :DZNEmptyDataSetSource {
     
-    func backgroundColorForEmptyDataSet(scrollView: UIScrollView!) -> UIColor {
+    func backgroundColor(forEmptyDataSet scrollView: UIScrollView!) -> UIColor {
         return UIColor.init(hexString: App_Theme_F6F7FA_Color)
     }
     
-    func descriptionForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
+    func description(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
         let str = "点击屏幕，重新加载"
         let attribute = NSMutableAttributedString(string: str)
         attribute.addAttributes([NSForegroundColorAttributeName:UIColor.init(hexString: App_Theme_DDE0E5_Color)], range: NSRange(location: 0, length: str.length))
@@ -226,16 +227,16 @@ extension SellTicketsViewController :DZNEmptyDataSetSource {
         return attribute
     }
     
-    func verticalOffsetForEmptyDataSet(scrollView: UIScrollView!) -> CGFloat {
+    func verticalOffset(forEmptyDataSet scrollView: UIScrollView!) -> CGFloat {
         return -70
     }
     
-    func spaceHeightForEmptyDataSet(scrollView: UIScrollView!) -> CGFloat {
+    func spaceHeight(forEmptyDataSet scrollView: UIScrollView!) -> CGFloat {
         return 27
     }
     
-    func imageForEmptyDataSet(scrollView: UIScrollView!) -> UIImage! {
-        return UIImage.init(named: "empty_order")?.imageWithRenderingMode(.AlwaysOriginal)
+    func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
+        return UIImage.init(named: "empty_order")?.withRenderingMode(.alwaysOriginal)
     }
 }
 

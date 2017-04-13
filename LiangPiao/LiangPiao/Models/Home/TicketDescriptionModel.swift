@@ -62,9 +62,9 @@ class TicketDescriptionModel : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        session = aDecoder.decodeObjectForKey("session") as? ShowSessionModel
-        show = aDecoder.decodeObjectForKey("show") as? TicketShowModel
-        ticketList = aDecoder.decodeObjectForKey("ticket_list") as? [TicketList]
+        session = aDecoder.decodeObject(forKey: "session") as? ShowSessionModel
+        show = aDecoder.decodeObject(forKey: "show") as? TicketShowModel
+        ticketList = aDecoder.decodeObject(forKey: "ticket_list") as? [TicketList]
         
     }
     
@@ -72,16 +72,16 @@ class TicketDescriptionModel : NSObject, NSCoding{
      * NSCoding required method.
      * Encodes mode properties into the decoder
      */
-    @objc func encodeWithCoder(aCoder: NSCoder)
+    @objc func encode(with aCoder: NSCoder)
     {
         if session != nil{
-            aCoder.encodeObject(session, forKey: "session")
+            aCoder.encode(session, forKey: "session")
         }
         if show != nil{
-            aCoder.encodeObject(show, forKey: "show")
+            aCoder.encode(show, forKey: "show")
         }
         if ticketList != nil{
-            aCoder.encodeObject(ticketList, forKey: "ticket_list")
+            aCoder.encode(ticketList, forKey: "ticket_list")
         }
         
     }
@@ -90,7 +90,7 @@ class TicketDescriptionModel : NSObject, NSCoding{
 
 class Supplier : NSObject, NSCoding{
     
-    var id : Int!
+    var id : Int64!
     var mobileNum : String!
     var username : String!
     
@@ -99,7 +99,7 @@ class Supplier : NSObject, NSCoding{
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: NSDictionary){
-        id = dictionary["id"] as? Int
+        id = dictionary["id"] as? Int64
         mobileNum = dictionary["mobile_num"] as? String
         username = dictionary["username"] as? String
     }
@@ -128,9 +128,9 @@ class Supplier : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        id = aDecoder.decodeObjectForKey("id") as? Int
-        mobileNum = aDecoder.decodeObjectForKey("mobile_num") as? String
-        username = aDecoder.decodeObjectForKey("username") as? String
+        id = aDecoder.decodeObject(forKey: "id") as? Int64
+        mobileNum = aDecoder.decodeObject(forKey: "mobile_num") as? String
+        username = aDecoder.decodeObject(forKey: "username") as? String
         
     }
     
@@ -138,16 +138,16 @@ class Supplier : NSObject, NSCoding{
      * NSCoding required method.
      * Encodes mode properties into the decoder
      */
-    @objc func encodeWithCoder(aCoder: NSCoder)
+    @objc func encode(with aCoder: NSCoder)
     {
         if id != nil{
-            aCoder.encodeObject(id, forKey: "id")
+            aCoder.encode(id, forKey: "id")
         }
         if mobileNum != nil{
-            aCoder.encodeObject(mobileNum, forKey: "mobile_num")
+            aCoder.encode(mobileNum, forKey: "mobile_num")
         }
         if username != nil{
-            aCoder.encodeObject(username, forKey: "username")
+            aCoder.encode(username, forKey: "username")
         }
         
     }
@@ -160,7 +160,7 @@ class TicketList : NSObject, NSCoding{
     var deliveryPriceSf : Int!
     var deliveryType : String!
     var discount : String!
-    var id : Int!
+    var id : Int64!
     var originalTicket : OriginalTicket!
     var price : Int!
     var region : String!
@@ -190,7 +190,7 @@ class TicketList : NSObject, NSCoding{
         deliveryPriceSf = dictionary["delivery_price_sf"] as? Int
         deliveryType = dictionary["delivery_type"] as? String
         discount = dictionary["discount"] as? String
-        id = dictionary["id"] as? Int
+        id = dictionary["id"] as? Int64
         if let originalTicketData = dictionary["original_ticket"] as? NSDictionary{
             originalTicket = OriginalTicket(fromDictionary: originalTicketData)
         }
@@ -303,30 +303,30 @@ class TicketList : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        deliveryPrice = aDecoder.decodeObjectForKey("delivery_price") as? Int
-        deliveryPriceSf = aDecoder.decodeObjectForKey("delivery_price_sf") as? Int
-        deliveryType = aDecoder.decodeObjectForKey("delivery_type") as? String
-        discount = aDecoder.decodeObjectForKey("discount") as? String
-        id = aDecoder.decodeObjectForKey("id") as? Int
-        originalTicket = aDecoder.decodeObjectForKey("original_ticket") as? OriginalTicket
-        price = aDecoder.decodeObjectForKey("price") as? Int
-        region = aDecoder.decodeObjectForKey("region") as? String
-        remainCount = aDecoder.decodeObjectForKey("remain_count") as? Int
-        row = aDecoder.decodeObjectForKey("row") as? String
-        sceneGetTicketAddress = aDecoder.decodeObjectForKey("scene_get_ticket_address") as? String
-        sceneGetTicketDate = aDecoder.decodeObjectForKey("scene_get_ticket_date") as? String
-        sceneGetTicketPhone = aDecoder.decodeObjectForKey("scene_get_ticket_phone") as? String
-        seatType = aDecoder.decodeObjectForKey("seat_type") as? Int
-        selfGetTicketAddress = aDecoder.decodeObjectForKey("self_get_ticket_address") as? String
-        selfGetTicketDate = aDecoder.decodeObjectForKey("self_get_ticket_date") as? String
-        selfGetTicketPhone = aDecoder.decodeObjectForKey("self_get_ticket_phone") as? String
-        sellCategory = aDecoder.decodeObjectForKey("sell_category") as? Int
-        sellType = aDecoder.decodeObjectForKey("sell_type") as? Int
-        soldCount = aDecoder.decodeObjectForKey("sold_count") as? Int
-        status = aDecoder.decodeObjectForKey("status") as? Int
-        statusDesc = aDecoder.decodeObjectForKey("status_desc") as? String
-        supplier = aDecoder.decodeObjectForKey("supplier") as? Supplier
-        ticketCount = aDecoder.decodeObjectForKey("ticket_count") as? Int
+        deliveryPrice = aDecoder.decodeObject(forKey: "delivery_price") as? Int
+        deliveryPriceSf = aDecoder.decodeObject(forKey: "delivery_price_sf") as? Int
+        deliveryType = aDecoder.decodeObject(forKey: "delivery_type") as? String
+        discount = aDecoder.decodeObject(forKey: "discount") as? String
+        id = aDecoder.decodeObject(forKey: "id") as? Int64
+        originalTicket = aDecoder.decodeObject(forKey: "original_ticket") as? OriginalTicket
+        price = aDecoder.decodeObject(forKey: "price") as? Int
+        region = aDecoder.decodeObject(forKey: "region") as? String
+        remainCount = aDecoder.decodeObject(forKey: "remain_count") as? Int
+        row = aDecoder.decodeObject(forKey: "row") as? String
+        sceneGetTicketAddress = aDecoder.decodeObject(forKey: "scene_get_ticket_address") as? String
+        sceneGetTicketDate = aDecoder.decodeObject(forKey: "scene_get_ticket_date") as? String
+        sceneGetTicketPhone = aDecoder.decodeObject(forKey: "scene_get_ticket_phone") as? String
+        seatType = aDecoder.decodeObject(forKey: "seat_type") as? Int
+        selfGetTicketAddress = aDecoder.decodeObject(forKey: "self_get_ticket_address") as? String
+        selfGetTicketDate = aDecoder.decodeObject(forKey: "self_get_ticket_date") as? String
+        selfGetTicketPhone = aDecoder.decodeObject(forKey: "self_get_ticket_phone") as? String
+        sellCategory = aDecoder.decodeObject(forKey: "sell_category") as? Int
+        sellType = aDecoder.decodeObject(forKey: "sell_type") as? Int
+        soldCount = aDecoder.decodeObject(forKey: "sold_count") as? Int
+        status = aDecoder.decodeObject(forKey: "status") as? Int
+        statusDesc = aDecoder.decodeObject(forKey: "status_desc") as? String
+        supplier = aDecoder.decodeObject(forKey: "supplier") as? Supplier
+        ticketCount = aDecoder.decodeObject(forKey: "ticket_count") as? Int
         
     }
     
@@ -334,79 +334,79 @@ class TicketList : NSObject, NSCoding{
      * NSCoding required method.
      * Encodes mode properties into the decoder
      */
-    @objc func encodeWithCoder(aCoder: NSCoder)
+    @objc func encode(with aCoder: NSCoder)
     {
         if deliveryPrice != nil{
-            aCoder.encodeObject(deliveryPrice, forKey: "delivery_price")
+            aCoder.encode(deliveryPrice, forKey: "delivery_price")
         }
         if deliveryPriceSf != nil{
-            aCoder.encodeObject(deliveryPriceSf, forKey: "delivery_price_sf")
+            aCoder.encode(deliveryPriceSf, forKey: "delivery_price_sf")
         }
         if deliveryType != nil{
-            aCoder.encodeObject(deliveryType, forKey: "delivery_type")
+            aCoder.encode(deliveryType, forKey: "delivery_type")
         }
         if discount != nil{
-            aCoder.encodeObject(discount, forKey: "discount")
+            aCoder.encode(discount, forKey: "discount")
         }
         if id != nil{
-            aCoder.encodeObject(id, forKey: "id")
+            aCoder.encode(id, forKey: "id")
         }
         if originalTicket != nil{
-            aCoder.encodeObject(originalTicket, forKey: "original_ticket")
+            aCoder.encode(originalTicket, forKey: "original_ticket")
         }
         if price != nil{
-            aCoder.encodeObject(price, forKey: "price")
+            aCoder.encode(price, forKey: "price")
         }
         if region != nil{
-            aCoder.encodeObject(region, forKey: "region")
+            aCoder.encode(region, forKey: "region")
         }
         if remainCount != nil{
-            aCoder.encodeObject(remainCount, forKey: "remain_count")
+            aCoder.encode(remainCount, forKey: "remain_count")
         }
         if row != nil{
-            aCoder.encodeObject(row, forKey: "row")
+            aCoder.encode(row, forKey: "row")
         }
         if sceneGetTicketAddress != nil{
-            aCoder.encodeObject(sceneGetTicketAddress, forKey: "scene_get_ticket_address")
+            aCoder.encode(sceneGetTicketAddress, forKey: "scene_get_ticket_address")
         }
         if sceneGetTicketDate != nil{
-            aCoder.encodeObject(sceneGetTicketDate, forKey: "scene_get_ticket_date")
+            aCoder.encode(sceneGetTicketDate, forKey: "scene_get_ticket_date")
         }
         if sceneGetTicketPhone != nil{
-            aCoder.encodeObject(sceneGetTicketPhone, forKey: "scene_get_ticket_phone")
+            aCoder.encode(sceneGetTicketPhone, forKey: "scene_get_ticket_phone")
         }
         if seatType != nil{
-            aCoder.encodeObject(seatType, forKey: "seat_type")
+            aCoder.encode(seatType, forKey: "seat_type")
         }
         if selfGetTicketAddress != nil{
-            aCoder.encodeObject(selfGetTicketAddress, forKey: "self_get_ticket_address")
+            aCoder.encode(selfGetTicketAddress, forKey: "self_get_ticket_address")
         }
         if selfGetTicketDate != nil{
-            aCoder.encodeObject(selfGetTicketDate, forKey: "self_get_ticket_date")
+            aCoder.encode(selfGetTicketDate, forKey: "self_get_ticket_date")
         }
         if selfGetTicketPhone != nil{
-            aCoder.encodeObject(selfGetTicketPhone, forKey: "self_get_ticket_phone")
+            aCoder.encode(selfGetTicketPhone, forKey: "self_get_ticket_phone")
         }
         if sellCategory != nil{
-            aCoder.encodeObject(sellCategory, forKey: "sell_category")
+            aCoder.encode(sellCategory, forKey: "sell_category")
         }
         if sellType != nil{
-            aCoder.encodeObject(sellType, forKey: "sell_type")
+            aCoder.encode(sellType, forKey: "sell_type")
         }
         if soldCount != nil{
-            aCoder.encodeObject(soldCount, forKey: "sold_count")
+            aCoder.encode(soldCount, forKey: "sold_count")
         }
         if status != nil{
-            aCoder.encodeObject(status, forKey: "status")
+            aCoder.encode(status, forKey: "status")
         }
         if statusDesc != nil{
-            aCoder.encodeObject(statusDesc, forKey: "status_desc")
+            aCoder.encode(statusDesc, forKey: "status_desc")
         }
         if supplier != nil{
-            aCoder.encodeObject(supplier, forKey: "supplier")
+            aCoder.encode(supplier, forKey: "supplier")
         }
         if ticketCount != nil{
-            aCoder.encodeObject(ticketCount, forKey: "ticket_count")
+            aCoder.encode(ticketCount, forKey: "ticket_count")
         }
         
     }
@@ -415,7 +415,7 @@ class TicketList : NSObject, NSCoding{
 
 class OriginalTicket : NSObject, NSCoding{
     
-    var id : Int!
+    var id : Int64!
     var name : String!
     var price : Int!
     
@@ -424,7 +424,7 @@ class OriginalTicket : NSObject, NSCoding{
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: NSDictionary){
-        id = dictionary["id"] as? Int
+        id = dictionary["id"] as? Int64
         name = dictionary["name"] as? String
         price = dictionary["price"] as? Int
     }
@@ -453,9 +453,9 @@ class OriginalTicket : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        id = aDecoder.decodeObjectForKey("id") as? Int
-        name = aDecoder.decodeObjectForKey("name") as? String
-        price = aDecoder.decodeObjectForKey("price") as? Int
+        id = aDecoder.decodeObject(forKey: "id") as? Int64
+        name = aDecoder.decodeObject(forKey: "name") as? String
+        price = aDecoder.decodeObject(forKey: "price") as? Int
         
     }
     
@@ -463,16 +463,16 @@ class OriginalTicket : NSObject, NSCoding{
      * NSCoding required method.
      * Encodes mode properties into the decoder
      */
-    @objc func encodeWithCoder(aCoder: NSCoder)
+    @objc func encode(with aCoder: NSCoder)
     {
         if id != nil{
-            aCoder.encodeObject(id, forKey: "id")
+            aCoder.encode(id, forKey: "id")
         }
         if name != nil{
-            aCoder.encodeObject(name, forKey: "name")
+            aCoder.encode(name, forKey: "name")
         }
         if price != nil{
-            aCoder.encodeObject(price, forKey: "price")
+            aCoder.encode(price, forKey: "price")
         }
         
     }

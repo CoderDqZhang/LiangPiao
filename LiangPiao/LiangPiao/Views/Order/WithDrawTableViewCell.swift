@@ -33,7 +33,7 @@ class WithDrawTableViewCell: UITableViewCell {
         
         self.contentView.addSubview(muchTextField)
         
-        topUpButton = CustomButton.init(frame: CGRectZero, title: "全部提现", tag: nil, titleFont: App_Theme_PinFan_R_12_Font!, type: .withNoBoarder, pressClouse: { (tag) in
+        topUpButton = CustomButton.init(frame: CGRect.zero, title: "全部提现", tag: nil, titleFont: App_Theme_PinFan_R_12_Font!, type: .withNoBoarder, pressClouse: { (tag) in
             if self.withDrawTableViewCellClouse != nil {
                 self.withDrawTableViewCellClouse()
             }
@@ -43,7 +43,7 @@ class WithDrawTableViewCell: UITableViewCell {
         self.updateConstraintsIfNeeded()
     }
     
-    func setPlachText(text:String){
+    func setPlachText(_ text:String){
         let text = "最多可提：\(text)元"
         muchTextField.placeholder = text
         muchTextField.tintColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
@@ -54,22 +54,22 @@ class WithDrawTableViewCell: UITableViewCell {
     
     override func updateConstraints() {
         if !self.didMakeConstraints {
-            muchLabel.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.centerY.equalTo(self.contentView.snp_centerY).offset(0)
+            muchLabel.snp.makeConstraints({ (make) in
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.centerY.equalTo(self.contentView.snp.centerY).offset(0)
                 make.width.equalTo(66)
             })
             
-            muchTextField.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.muchLabel.snp_right).offset(28)
-                make.right.equalTo(self.topUpButton.snp_left).offset(-7)
-                make.centerY.equalTo(self.contentView.snp_centerY).offset(0)
+            muchTextField.snp.makeConstraints({ (make) in
+                make.left.equalTo(self.muchLabel.snp.right).offset(28)
+                make.right.equalTo(self.topUpButton.snp.left).offset(-7)
+                make.centerY.equalTo(self.contentView.snp.centerY).offset(0)
             })
             
-            topUpButton.snp_makeConstraints(closure: { (make) in
-                make.right.equalTo(self.contentView.snp_right).offset(-15)
+            topUpButton.snp.makeConstraints({ (make) in
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
                 make.height.equalTo(49)
-                make.centerY.equalTo(self.contentView.snp_centerY).offset(0)
+                make.centerY.equalTo(self.contentView.snp.centerY).offset(0)
             })
             
             self.didMakeConstraints = true
@@ -86,7 +86,7 @@ class WithDrawTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

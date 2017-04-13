@@ -29,22 +29,22 @@ class OrderStatusViewController: UIViewController {
     }
     
     func setUpView(){
-        tableView = UITableView(frame: CGRectZero, style: .Grouped)
+        tableView = UITableView(frame: CGRect.zero, style: .grouped)
         tableView.backgroundColor = UIColor.init(hexString: App_Theme_E9EBF2_Color)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.showsVerticalScrollIndicator = false
-        tableView.keyboardDismissMode = .OnDrag
-        tableView.separatorStyle = .None
-        tableView.registerClass(ReciveAddressTableViewCell.self, forCellReuseIdentifier: "ReciveAddressTableViewCell")
-        tableView.registerClass(OrderTicketInfoTableViewCell.self, forCellReuseIdentifier: "OrderTicketInfoTableViewCell")
-        tableView.registerClass(OrderNumberTableViewCell.self, forCellReuseIdentifier: "OrderNumberTableViewCell")
-        tableView.registerClass(OrderStatusTableViewCell.self, forCellReuseIdentifier: "OrderStatusTableViewCell")
-        tableView.registerClass(OrderStatusMuchTableViewCell.self, forCellReuseIdentifier: "OrderStatusMuchTableViewCell")
-        tableView.registerClass(DeverliyTableViewCell.self, forCellReuseIdentifier: "DeverliyTableViewCellSellDetail")
-        tableView.registerClass(OrderPayTableViewCell.self, forCellReuseIdentifier: "OrderPayTableViewCell")
+        tableView.keyboardDismissMode = .onDrag
+        tableView.separatorStyle = .none
+        tableView.register(ReciveAddressTableViewCell.self, forCellReuseIdentifier: "ReciveAddressTableViewCell")
+        tableView.register(OrderTicketInfoTableViewCell.self, forCellReuseIdentifier: "OrderTicketInfoTableViewCell")
+        tableView.register(OrderNumberTableViewCell.self, forCellReuseIdentifier: "OrderNumberTableViewCell")
+        tableView.register(OrderStatusTableViewCell.self, forCellReuseIdentifier: "OrderStatusTableViewCell")
+        tableView.register(OrderStatusMuchTableViewCell.self, forCellReuseIdentifier: "OrderStatusMuchTableViewCell")
+        tableView.register(DeverliyTableViewCell.self, forCellReuseIdentifier: "DeverliyTableViewCellSellDetail")
+        tableView.register(OrderPayTableViewCell.self, forCellReuseIdentifier: "OrderPayTableViewCell")
         self.view.addSubview(tableView)
-        tableView.snp_makeConstraints { (make) in
+        tableView.snp.makeConstraints { (make) in
             make.edges.equalTo(UIEdgeInsetsMake(0, 0, 0, 0))
         }
         
@@ -61,10 +61,10 @@ class OrderStatusViewController: UIViewController {
     func bindViewModel(){
         viewModel.controller = self
     }
-    func updateTableView(status:Int) {
+    func updateTableView(_ status:Int) {
         if status == 3 {
             if payView != nil {
-                payView.hidden = false
+                payView.isHidden = false
             }else{
                 payView = GloableBottomButtonView.init(frame: nil, title: "立即发货", tag: 1, action: { (tag) in
                     if self.viewModel.model.status == 3 {
@@ -77,43 +77,43 @@ class OrderStatusViewController: UIViewController {
             if status == 3 {
                 payView.updateButtonTitle("立即发货")
             }
-            tableView.snp_remakeConstraints(closure: { (make) in
-                make.top.equalTo(self.view.snp_top).offset(0)
-                make.left.equalTo(self.view.snp_left).offset(0)
-                make.right.equalTo(self.view.snp_right).offset(0)
-                make.bottom.equalTo(self.view.snp_bottom).offset(-49)
+            tableView.snp.remakeConstraints({ (make) in
+                make.top.equalTo(self.view.snp.top).offset(0)
+                make.left.equalTo(self.view.snp.left).offset(0)
+                make.right.equalTo(self.view.snp.right).offset(0)
+                make.bottom.equalTo(self.view.snp.bottom).offset(-49)
             })
         }else{
             self.viewModel.getDeverliyTrac()
             if payView != nil {
-                payView.hidden = true
+                payView.isHidden = true
             }
-            tableView.snp_remakeConstraints { (make) in
-                make.top.equalTo(self.view.snp_top).offset(0)
-                make.left.equalTo(self.view.snp_left).offset(0)
-                make.right.equalTo(self.view.snp_right).offset(0)
-                make.bottom.equalTo(self.view.snp_bottom).offset(0)
+            tableView.snp.remakeConstraints { (make) in
+                make.top.equalTo(self.view.snp.top).offset(0)
+                make.left.equalTo(self.view.snp.left).offset(0)
+                make.right.equalTo(self.view.snp.right).offset(0)
+                make.bottom.equalTo(self.view.snp.bottom).offset(0)
             }
         }
     }
     
     func widthDrawFooterView() -> UIView{
-        let footView = UIView(frame: CGRectMake(0,0,SCREENWIDTH,100))
+        let footView = UIView(frame: CGRect(x: 0,y: 0,width: SCREENWIDTH,height: 100))
         footView.backgroundColor = UIColor.init(hexString: App_Theme_E9EBF2_Color)
-        let imageView = UIImageView(frame:CGRectMake(0,-0.5,SCREENWIDTH,4))
+        let imageView = UIImageView(frame:CGRect(x: 0,y: -0.5,width: SCREENWIDTH,height: 4))
         imageView.image = UIImage.init(named: "Sawtooth")//Pattern_Line
         footView.addSubview(imageView)
-        let service = self.createLabel(CGRectMake(15,20,SCREENWIDTH - 30,14), text: "订单时间：\(viewModel.model.created)")
+        let service = self.createLabel(CGRect(x: 15,y: 20,width: SCREENWIDTH - 30,height: 14), text: "订单时间：\((viewModel.model.created)!)")
         footView.addSubview(service)
-        let servicePhone = self.createLabel(CGRectMake(15,36,SCREENWIDTH - 30,14), text: "客服电话：400-873-8011")
+        let servicePhone = self.createLabel(CGRect(x: 15,y: 36,width: SCREENWIDTH - 30,height: 14), text: "客服电话：400-873-8011")
         footView.addSubview(servicePhone)
-        let serviceTime = self.createLabel(CGRectMake(15,52,SCREENWIDTH - 30,14), text: "客服工作时间：周一至周六 09:00-21:00")
+        let serviceTime = self.createLabel(CGRect(x: 15,y: 52,width: SCREENWIDTH - 30,height: 14), text: "客服工作时间：周一至周六 09:00-21:00")
         footView.addSubview(serviceTime)
         
         return footView
     }
     
-    func createLabel(frame:CGRect, text:String) -> UILabel {
+    func createLabel(_ frame:CGRect, text:String) -> UILabel {
         let label = UILabel(frame: frame)
         label.text = text
         label.font = App_Theme_PinFan_R_12_Font
@@ -140,29 +140,29 @@ class OrderStatusViewController: UIViewController {
 }
 
 extension OrderStatusViewController : UITableViewDelegate {
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         viewModel.orderStatusTableViewDidSelect(tableView, indexPath: indexPath)
     }
     
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
     }
 }
 
 extension OrderStatusViewController : UITableViewDataSource {
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return viewModel.numberOfSection()
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.numbrOfRowInSection(section)
     }
     
-    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return viewModel.tableViewFooterViewHeight(section)
     }
     
-    func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         if !viewModel.isCancel() {
             if section == 1 {
                 return self.widthDrawFooterView()
@@ -173,39 +173,39 @@ extension OrderStatusViewController : UITableViewDataSource {
         return self.widthDrawFooterView()
     }
     
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0.00001
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return viewModel.tableViewHeightForRow(indexPath)
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if !viewModel.isCancel() {
             switch indexPath.section {
             case 0:
                 switch indexPath.row {
                 case 0:
-                    let cell = tableView.dequeueReusableCellWithIdentifier("OrderStatusTableViewCell", forIndexPath: indexPath) as! OrderStatusTableViewCell
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "OrderStatusTableViewCell", for: indexPath) as! OrderStatusTableViewCell
                     viewModel.tableViewCellOrderStatusTableViewCell(cell, indexPath: indexPath)
-                    cell.selectionStyle = .None
+                    cell.selectionStyle = .none
                     return cell
                 case 1:
-                    let cell = tableView.dequeueReusableCellWithIdentifier("ReciveAddressTableViewCell", forIndexPath: indexPath) as! ReciveAddressTableViewCell
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "ReciveAddressTableViewCell", for: indexPath) as! ReciveAddressTableViewCell
                     viewModel.tableViewCellReciveAddressTableViewCell(cell, indexPath: indexPath)
-                    cell.selectionStyle = .None
+                    cell.selectionStyle = .none
                     return cell
                 default:
                     if viewModel.deverliyModel != nil && viewModel.deverliyModel.traces.count > 0 {
-                        let cell = tableView.dequeueReusableCellWithIdentifier("DeverliyTableViewCellSellDetail", forIndexPath: indexPath) as! DeverliyTableViewCell
+                        let cell = tableView.dequeueReusableCell(withIdentifier: "DeverliyTableViewCellSellDetail", for: indexPath) as! DeverliyTableViewCell
                         viewModel.tableViewCellDeverliyTableViewCell(cell, indexPath: indexPath)
-                        cell.selectionStyle = .None
+                        cell.selectionStyle = .none
                         return cell
                     }else{
-                        var cell = tableView.dequeueReusableCellWithIdentifier("defaultCell")
+                        var cell = tableView.dequeueReusableCell(withIdentifier: "defaultCell")
                         if cell == nil {
-                            cell = UITableViewCell.init(style: UITableViewCellStyle.Default, reuseIdentifier: "defaultCell")
+                            cell = UITableViewCell.init(style: UITableViewCellStyle.default, reuseIdentifier: "defaultCell")
                         }
                         return cell!
                     }
@@ -213,66 +213,66 @@ extension OrderStatusViewController : UITableViewDataSource {
             default:
                 switch indexPath.row {
                 case 0:
-                    let cell = tableView.dequeueReusableCellWithIdentifier("OrderNumberTableViewCell", forIndexPath: indexPath) as! OrderNumberTableViewCell
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "OrderNumberTableViewCell", for: indexPath) as! OrderNumberTableViewCell
                     viewModel.tableViewCellOrderNumberTableViewCell(cell, indexPath:indexPath)
-                    cell.selectionStyle = .None
+                    cell.selectionStyle = .none
                     return cell
                 case 1:
-                    let cell = tableView.dequeueReusableCellWithIdentifier("OrderTicketInfoTableViewCell", forIndexPath: indexPath) as! OrderTicketInfoTableViewCell
-                    cell.selectionStyle = .None
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "OrderTicketInfoTableViewCell", for: indexPath) as! OrderTicketInfoTableViewCell
+                    cell.selectionStyle = .none
                     viewModel.tableViewCellOrderTicketInfoTableViewCell(cell, indexPath:indexPath)
-                    cell.backgroundColor = UIColor.whiteColor()
+                    cell.backgroundColor = UIColor.white
                     let lineLabel = GloabLineView.init(frame: CGRect.init(x: 15, y: 0, width: SCREENWIDTH - 30, height: 0.5))
                     cell.contentView.addSubview(lineLabel)
-                    lineLabel.snp_makeConstraints { (make) in
-                        make.left.equalTo(cell.contentView.snp_left).offset(15)
-                        make.right.equalTo(cell.contentView.snp_right).offset(-15)
-                        make.bottom.equalTo(cell.contentView.snp_bottom).offset(0)
+                    lineLabel.snp.makeConstraints { (make) in
+                        make.left.equalTo(cell.contentView.snp.left).offset(15)
+                        make.right.equalTo(cell.contentView.snp.right).offset(-15)
+                        make.bottom.equalTo(cell.contentView.snp.bottom).offset(0)
                         make.height.equalTo(0.5)
                     }
                     return cell
                 case 2:
-                    let cell = tableView.dequeueReusableCellWithIdentifier("OrderPayTableViewCell", forIndexPath: indexPath) as! OrderPayTableViewCell
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "OrderPayTableViewCell", for: indexPath) as! OrderPayTableViewCell
                     viewModel.tableViewCellOrderPayTableViewCell(cell, indexPath:indexPath)
-                    cell.selectionStyle = .None
+                    cell.selectionStyle = .none
                     return cell
                 default:
-                    let cell = tableView.dequeueReusableCellWithIdentifier("OrderStatusMuchTableViewCell", forIndexPath: indexPath) as! OrderStatusMuchTableViewCell
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "OrderStatusMuchTableViewCell", for: indexPath) as! OrderStatusMuchTableViewCell
                         viewModel.tableViewCellOrderMuchTableViewCell(cell, indexPath:indexPath)
-                    cell.selectionStyle = .None
+                    cell.selectionStyle = .none
                     return cell
                 }
             }
         }else{
             switch indexPath.row {
             case 0:
-                let cell = tableView.dequeueReusableCellWithIdentifier("OrderNumberTableViewCell", forIndexPath: indexPath) as! OrderNumberTableViewCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: "OrderNumberTableViewCell", for: indexPath) as! OrderNumberTableViewCell
                 viewModel.tableViewCellOrderNumberTableViewCell(cell, indexPath:indexPath)
-                cell.selectionStyle = .None
+                cell.selectionStyle = .none
                 return cell
             case 1:
-                let cell = tableView.dequeueReusableCellWithIdentifier("OrderTicketInfoTableViewCell", forIndexPath: indexPath) as! OrderTicketInfoTableViewCell
-                cell.selectionStyle = .None
+                let cell = tableView.dequeueReusableCell(withIdentifier: "OrderTicketInfoTableViewCell", for: indexPath) as! OrderTicketInfoTableViewCell
+                cell.selectionStyle = .none
                 viewModel.tableViewCellOrderTicketInfoTableViewCell(cell, indexPath:indexPath)
                 let lineLabel = GloabLineView.init(frame: CGRect.init(x: 15, y: 0, width: SCREENWIDTH - 30, height: 0.5))
                 cell.contentView.addSubview(lineLabel)
-                lineLabel.snp_makeConstraints { (make) in
-                    make.left.equalTo(cell.contentView.snp_left).offset(15)
-                    make.right.equalTo(cell.contentView.snp_right).offset(-15)
-                    make.bottom.equalTo(cell.contentView.snp_bottom).offset(0)
+                lineLabel.snp.makeConstraints { (make) in
+                    make.left.equalTo(cell.contentView.snp.left).offset(15)
+                    make.right.equalTo(cell.contentView.snp.right).offset(-15)
+                    make.bottom.equalTo(cell.contentView.snp.bottom).offset(0)
                     make.height.equalTo(0.5)
                 }
-                cell.backgroundColor = UIColor.whiteColor()
+                cell.backgroundColor = UIColor.white
                 return cell
             case 2:
-                let cell = tableView.dequeueReusableCellWithIdentifier("OrderPayTableViewCell", forIndexPath: indexPath) as! OrderPayTableViewCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: "OrderPayTableViewCell", for: indexPath) as! OrderPayTableViewCell
                 viewModel.tableViewCellOrderPayTableViewCell(cell, indexPath:indexPath)
-                cell.selectionStyle = .None
+                cell.selectionStyle = .none
                 return cell
             default:
-                let cell = tableView.dequeueReusableCellWithIdentifier("OrderStatusMuchTableViewCell", forIndexPath: indexPath) as! OrderStatusMuchTableViewCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: "OrderStatusMuchTableViewCell", for: indexPath) as! OrderStatusMuchTableViewCell
                 viewModel.tableViewCellOrderMuchTableViewCell(cell, indexPath:indexPath)
-                cell.selectionStyle = .None
+                cell.selectionStyle = .none
                 return cell
             }
         }

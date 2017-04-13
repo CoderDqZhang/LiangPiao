@@ -17,7 +17,7 @@ class BaseTicketsPageViewController: UIViewController {
         super.viewDidLoad()
         self.setUpView()
         self.setUpNavigationItem()
-        self.view.backgroundColor = UIColor.whiteColor()
+        self.view.backgroundColor = UIColor.white
         // Do any additional setup after loading the view.
     }
 
@@ -29,20 +29,20 @@ class BaseTicketsPageViewController: UIViewController {
     func setUpNavigationItem() {
         self.setNavigationItemBack()
 //        let filtterItem = UIBarButtonItem(image: UIImage.init(named: "Icon_Filter_Normal")?.imageWithRenderingMode(.AlwaysOriginal), landscapeImagePhone: nil, style: .Plain, target: self, action: #selector(TicketPageViewController.filterPress(_:)))
-        let searchItem = UIBarButtonItem(image: UIImage.init(named: "Icon_Search_Normal")?.imageWithRenderingMode(.AlwaysOriginal), landscapeImagePhone: nil, style: .Plain, target: self, action: #selector(TicketPageViewController.searchPress(_:)))
+        let searchItem = UIBarButtonItem(image: UIImage.init(named: "Icon_Search_Normal")?.withRenderingMode(.alwaysOriginal), landscapeImagePhone: nil, style: .plain, target: self, action: #selector(TicketPageViewController.searchPress(_:)))
         self.navigationItem.rightBarButtonItems = [searchItem]
     }
     
     func setUpView(){
-        tableView = UITableView(frame: CGRectZero, style: .Plain)
+        tableView = UITableView(frame: CGRect.zero, style: .plain)
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.separatorStyle = .None
-        tableView.registerClass(RecommendTableViewCell.self, forCellReuseIdentifier: "RecommendTableViewCell")
-        tableView.backgroundColor = UIColor.whiteColor()
+        tableView.separatorStyle = .none
+        tableView.register(RecommendTableViewCell.self, forCellReuseIdentifier: "RecommendTableViewCell")
+        tableView.backgroundColor = UIColor.white
         self.view.addSubview(tableView)
         
-        tableView.snp_makeConstraints { (make) in
+        tableView.snp.makeConstraints { (make) in
             make.edges.equalTo(UIEdgeInsetsMake(0, 0, 0, 0))
         }
         self.setUpRefreshView()
@@ -60,12 +60,12 @@ class BaseTicketsPageViewController: UIViewController {
         })
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         print(TicketCategoryViewModel.sharedInstance.selectIdex)
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         print(TicketCategoryViewModel.sharedInstance.selectIdex)
     }
@@ -83,39 +83,39 @@ class BaseTicketsPageViewController: UIViewController {
 }
 
 extension BaseTicketsPageViewController : UITableViewDelegate {
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 140
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         TicketCategoryViewModel.sharedInstance.tableViewDidSelectRowAtIndexPath(indexPath, controller: self)
     }
 }
 
 extension BaseTicketsPageViewController : UITableViewDataSource {
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return TicketCategoryViewModel.sharedInstance.numberOfRowsInSection()
         
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0.0001
     }
     
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0.00001
     }
     
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("RecommendTableViewCell", forIndexPath: indexPath) as! RecommendTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "RecommendTableViewCell", for: indexPath) as! RecommendTableViewCell
         TicketCategoryViewModel.sharedInstance.tableViewCellForRowAtIndexPath(cell, indexPath: indexPath)
-        cell.selectionStyle = .None
+        cell.selectionStyle = .none
         return cell
     }
     

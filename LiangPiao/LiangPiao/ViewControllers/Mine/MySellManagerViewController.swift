@@ -30,20 +30,20 @@ class MySellManagerViewController: UIViewController {
     
     
     func setUpView() {
-        tableView = UITableView(frame: CGRectZero, style: .Grouped)
+        tableView = UITableView(frame: CGRect.zero, style: .grouped)
         tableView.backgroundColor = UIColor.init(hexString: App_Theme_E9EBF2_Color)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.emptyDataSetSource = self
         tableView.emptyDataSetDelegate = self
         tableView.showsVerticalScrollIndicator = false
-        tableView.keyboardDismissMode = .OnDrag
-        tableView.separatorStyle = .None
-        tableView.registerClass(OrderManagerTableViewCell.self, forCellReuseIdentifier: "OrderManagerTableViewCell")
-        tableView.registerClass(MySellManagerMuchTableViewCell.self, forCellReuseIdentifier: "MySellManagerMuchTableViewCell")
-        tableView.registerClass(MySellAttentionTableViewCell.self, forCellReuseIdentifier: "MySellAttentionTableViewCell")
+        tableView.keyboardDismissMode = .onDrag
+        tableView.separatorStyle = .none
+        tableView.register(OrderManagerTableViewCell.self, forCellReuseIdentifier: "OrderManagerTableViewCell")
+        tableView.register(MySellManagerMuchTableViewCell.self, forCellReuseIdentifier: "MySellManagerMuchTableViewCell")
+        tableView.register(MySellAttentionTableViewCell.self, forCellReuseIdentifier: "MySellAttentionTableViewCell")
         self.view.addSubview(tableView)
-        tableView.snp_makeConstraints { (make) in
+        tableView.snp.makeConstraints { (make) in
             make.edges.equalTo(UIEdgeInsetsMake(0, 0, 0, 0))
         }
         
@@ -62,9 +62,9 @@ class MySellManagerViewController: UIViewController {
     }
     
     func mySellOrderManagerListView() -> UIView {
-        let orderListView = UIView(frame: CGRectMake(0,0,SCREENWIDTH,10))
+        let orderListView = UIView(frame: CGRect(x: 0,y: 0,width: SCREENWIDTH,height: 10))
         orderListView.backgroundColor = UIColor.init(hexString: App_Theme_E9EBF2_Color)
-        let imageView = UIImageView(frame:CGRectMake(0,0,SCREENWIDTH,4))
+        let imageView = UIImageView(frame:CGRect(x: 0,y: 0,width: SCREENWIDTH,height: 4))
         imageView.image = UIImage.init(named: "Sawtooth")//Pattern_Line
         orderListView.addSubview(imageView)
         
@@ -79,61 +79,61 @@ class MySellManagerViewController: UIViewController {
 }
 
 extension MySellManagerViewController : UITableViewDelegate {
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         viewModel.mySellOrderManagerTableViewDidSelect(indexPath, controller: self.viewModel.controller)
     }
     
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
     }
 }
 
 extension MySellManagerViewController : UITableViewDataSource {
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return viewModel.mySellOrderManagerNumberOfSection()
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.mySellOrderManagerNumbrOfRowInSection(section)
     }
     
-    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 14
     }
     
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0.0001
     }
     
-    func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         return self.mySellOrderManagerListView()
     }
     
-    func tableView(tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
-        view.tintColor = UIColor.whiteColor()
+    func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
+        view.tintColor = UIColor.white
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return viewModel.mySellOrderManagerTableViewHeightForRow(indexPath)
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.row {
         case 0:
-            let cell = tableView.dequeueReusableCellWithIdentifier("OrderManagerTableViewCell", forIndexPath: indexPath) as! OrderManagerTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "OrderManagerTableViewCell", for: indexPath) as! OrderManagerTableViewCell
             viewModel.tableViewCellOrderManagerTableViewCell(cell, indexPath: indexPath)
-            cell.selectionStyle = .None
+            cell.selectionStyle = .none
             return cell
         case 1:
-            let cell = tableView.dequeueReusableCellWithIdentifier("MySellManagerMuchTableViewCell", forIndexPath: indexPath) as! MySellManagerMuchTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "MySellManagerMuchTableViewCell", for: indexPath) as! MySellManagerMuchTableViewCell
             viewModel.tableViewCellMySellManagerMuchTableViewCell(cell, indexPath: indexPath)
-            cell.selectionStyle = .None
-            cell.backgroundColor = UIColor.whiteColor()
+            cell.selectionStyle = .none
+            cell.backgroundColor = UIColor.white
             return cell
         default:
-            let cell = tableView.dequeueReusableCellWithIdentifier("MySellAttentionTableViewCell", forIndexPath: indexPath) as! MySellAttentionTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "MySellAttentionTableViewCell", for: indexPath) as! MySellAttentionTableViewCell
             viewModel.tableViewCellMySellAttentionTableViewCell(cell, indexPath: indexPath)
-            cell.selectionStyle = .None
+            cell.selectionStyle = .none
             return cell
         }
     }
@@ -142,7 +142,7 @@ extension MySellManagerViewController : UITableViewDataSource {
 
 extension MySellManagerViewController : DZNEmptyDataSetDelegate {
     
-    func emptyDataSetShouldAllowTouch(scrollView: UIScrollView!) -> Bool {
+    func emptyDataSetShouldAllowTouch(_ scrollView: UIScrollView!) -> Bool {
         return true
     }
     
@@ -150,11 +150,11 @@ extension MySellManagerViewController : DZNEmptyDataSetDelegate {
 
 extension MySellManagerViewController :DZNEmptyDataSetSource {
     
-    func backgroundColorForEmptyDataSet(scrollView: UIScrollView!) -> UIColor {
+    func backgroundColor(forEmptyDataSet scrollView: UIScrollView!) -> UIColor {
         return UIColor.init(hexString: App_Theme_F6F7FA_Color)
     }
     
-    func descriptionForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
+    func description(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
         let str = "您暂未挂票，在挂票页可以上票哦~"
         let attribute = NSMutableAttributedString(string: str)
         attribute.addAttributes([NSForegroundColorAttributeName:UIColor.init(hexString: App_Theme_DDE0E5_Color)], range: NSRange(location: 0, length: str.length))
@@ -162,15 +162,15 @@ extension MySellManagerViewController :DZNEmptyDataSetSource {
         return attribute
     }
     
-    func verticalOffsetForEmptyDataSet(scrollView: UIScrollView!) -> CGFloat {
+    func verticalOffset(forEmptyDataSet scrollView: UIScrollView!) -> CGFloat {
         return -70
     }
     
-    func spaceHeightForEmptyDataSet(scrollView: UIScrollView!) -> CGFloat {
+    func spaceHeight(forEmptyDataSet scrollView: UIScrollView!) -> CGFloat {
         return 27
     }
     
-    func imageForEmptyDataSet(scrollView: UIScrollView!) -> UIImage! {
-        return UIImage.init(named: "empty_order")?.imageWithRenderingMode(.AlwaysOriginal)
+    func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
+        return UIImage.init(named: "empty_order")?.withRenderingMode(.alwaysOriginal)
     }
 }

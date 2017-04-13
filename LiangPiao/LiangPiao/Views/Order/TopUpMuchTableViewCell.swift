@@ -29,11 +29,11 @@ class TopUpMuchTableViewCell: UITableViewCell {
         
         muchTextField = UITextField()
         let text = "0.00"
-        muchTextField.keyboardType = .NumberPad
+        muchTextField.keyboardType = .numberPad
         muchTextField.placeholder = text
         muchTextField.tintColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
         muchTextField.font = App_Theme_PinFan_R_28_Font
-        muchTextField.textAlignment = .Right
+        muchTextField.textAlignment = .right
         muchTextField.textColor = UIColor.init(hexString: App_Theme_384249_Color)
         muchTextField.attributedPlaceholder = NSAttributedString.init(string: text, attributes: [NSFontAttributeName:App_Theme_PinFan_R_28_Font!,NSForegroundColorAttributeName:UIColor.init(hexString: App_Theme_DDE0E5_Color)])
         self.contentView.addSubview(muchTextField)
@@ -46,16 +46,16 @@ class TopUpMuchTableViewCell: UITableViewCell {
     
     override func updateConstraints() {
         if !self.didMakeConstraints {
-            muchLabel.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.centerY.equalTo(self.contentView.snp_centerY).offset(0)
+            muchLabel.snp.makeConstraints({ (make) in
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.centerY.equalTo(self.contentView.snp.centerY).offset(0)
                 make.width.equalTo(95)
             })
             
-            muchTextField.snp_makeConstraints(closure: { (make) in
-                make.right.equalTo(self.contentView.snp_right).offset(-15)
+            muchTextField.snp.makeConstraints({ (make) in
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
                 make.height.equalTo(34)
-                make.centerY.equalTo(self.contentView.snp_centerY).offset(0)
+                make.centerY.equalTo(self.contentView.snp.centerY).offset(0)
             })
         
             self.didMakeConstraints = true
@@ -72,7 +72,7 @@ class TopUpMuchTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

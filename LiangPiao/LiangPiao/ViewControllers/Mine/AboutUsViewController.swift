@@ -23,10 +23,10 @@ class AboutUsViewController: UIViewController {
     
     func setUpView(){
         let leftImage = UIImage.init(named: "Icon_Back_Normal")
-        let backButton = UIButton(type: .Custom)
-        backButton.frame = CGRectMake(15, 20, 40, 40)
-        backButton.addTarget(self, action: #selector(UIViewController.backBtnPress(_:)), forControlEvents: .TouchUpInside)
-        backButton.setImage(leftImage, forState: .Normal)
+        let backButton = UIButton(type: .custom)
+        backButton.frame = CGRect(x: 15, y: 20, width: 40, height: 40)
+        backButton.addTarget(self, action: #selector(UIViewController.backBtnPress(_:)), for: .touchUpInside)
+        backButton.setImage(leftImage, for: UIControlState())
         self.view.addSubview(backButton)
         
         
@@ -36,34 +36,34 @@ class AboutUsViewController: UIViewController {
         paragraph.lineSpacing = 5
         attribute.addAttributes([NSParagraphStyleAttributeName:paragraph], range: NSRange.init(location: 0, length: str.length))
         deverloperLabel.attributedText = attribute
-        deverloperLabel.textAlignment = .Center
-        deverloperLabel.textColor = UIColor.whiteColor()
-        deverloperLabel.editable = false
+        deverloperLabel.textAlignment = .center
+        deverloperLabel.textColor = UIColor.white
+        deverloperLabel.isEditable = false
         
-        let version = NSBundle.mainBundle().objectForInfoDictionaryKey("CFBundleShortVersionString") as! String
+        let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
         versionLabel.text = "Version \(version)"
         
         protoclBtn.layer.cornerRadius = 2
         protoclBtn.layer.masksToBounds = true
-        protoclBtn.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (action) in
+        protoclBtn.reactive.controlEvents(.touchUpInside).observe { (action) in
             NavigationPushView(self, toConroller: UserProtocolViewController())
         }
         
         if IPHONE4 {
-            logoImage.snp_updateConstraints(closure: { (make) in
-                make.top.equalTo(self.view.snp_top).offset(74)
+            logoImage.snp.updateConstraints({ (make) in
+                make.top.equalTo(self.view.snp.top).offset(74)
             })
-            versionLabel.snp_updateConstraints(closure: { (make) in
-                make.top.equalTo(self.logoImage.snp_bottom).offset(30)
+            versionLabel.snp.updateConstraints({ (make) in
+                make.top.equalTo(self.logoImage.snp.bottom).offset(30)
             })
         }else if IPHONE5 {
-            logoImage.snp_updateConstraints(closure: { (make) in
-                make.top.equalTo(self.view.snp_top).offset(94)
+            logoImage.snp.updateConstraints({ (make) in
+                make.top.equalTo(self.view.snp.top).offset(94)
             })
         }
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(true, animated: true)
     }

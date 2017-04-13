@@ -26,31 +26,31 @@ class MyTicketPutUpViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.fd_fullscreenPopGestureRecognizer.enabled = true
+        self.navigationController?.fd_fullscreenPopGestureRecognizer.isEnabled = true
     }
     
     func setUpView() {
         
-        tableView = UITableView(frame: CGRectZero, style: .Plain)
-        tableView.backgroundColor = UIColor.whiteColor()
+        tableView = UITableView(frame: CGRect.zero, style: .plain)
+        tableView.backgroundColor = UIColor.white
         tableView.delegate = self
         tableView.dataSource = self
         tableView.showsVerticalScrollIndicator = false
-        tableView.separatorStyle = .None
-        tableView.keyboardDismissMode = .OnDrag
-        tableView.registerClass(PickUpTickeTableViewCell.self, forCellReuseIdentifier: "PickUpTickeTableViewCell")
-        tableView.registerClass(PicketUpSessionTableViewCell.self, forCellReuseIdentifier: "PicketUpSessionTableViewCell")
-        tableView.registerClass(TiketPickeUpInfoTableViewCell.self, forCellReuseIdentifier: "TiketPickeUpInfoTableViewCell")
-        tableView.registerClass(TicketToolsTableViewCell.self, forCellReuseIdentifier: "TicketToolsTableViewCell")
-        tableView.registerClass(TicketMapTableViewCell.self, forCellReuseIdentifier: "TicketMapTableViewCell")
-        tableView.registerClass(NoneTicketTableViewCell.self, forCellReuseIdentifier: "NoneTicketTableViewCell")
+        tableView.separatorStyle = .none
+        tableView.keyboardDismissMode = .onDrag
+        tableView.register(PickUpTickeTableViewCell.self, forCellReuseIdentifier: "PickUpTickeTableViewCell")
+        tableView.register(PicketUpSessionTableViewCell.self, forCellReuseIdentifier: "PicketUpSessionTableViewCell")
+        tableView.register(TiketPickeUpInfoTableViewCell.self, forCellReuseIdentifier: "TiketPickeUpInfoTableViewCell")
+        tableView.register(TicketToolsTableViewCell.self, forCellReuseIdentifier: "TicketToolsTableViewCell")
+        tableView.register(TicketMapTableViewCell.self, forCellReuseIdentifier: "TicketMapTableViewCell")
+        tableView.register(NoneTicketTableViewCell.self, forCellReuseIdentifier: "NoneTicketTableViewCell")
         self.view.addSubview(tableView)
         
-        ticketToolsView = UIView(frame: CGRectMake(0,-2,SCREENWIDTH,42))
-        ticketToolsView.hidden = true
-        ticketToolsView.backgroundColor = UIColor.whiteColor()
+        ticketToolsView = UIView(frame: CGRect(x: 0,y: -2,width: SCREENWIDTH,height: 42))
+        ticketToolsView.isHidden = true
+        ticketToolsView.backgroundColor = UIColor.white
         self.view.addSubview(ticketToolsView)
         
         bottomView = GloableBottomButtonView(frame: nil, title: "继续挂票", tag: 1) { (tag) in
@@ -63,11 +63,11 @@ class MyTicketPutUpViewController: UIViewController {
         }
         self.view.addSubview(bottomView)
         
-        tableView.snp_makeConstraints { (make) in
-            make.top.equalTo(self.view.snp_top).offset(0)
-            make.left.equalTo(self.view.snp_left).offset(0)
-            make.right.equalTo(self.view.snp_right).offset(0)
-            make.bottom.equalTo(self.view.snp_bottom).offset(-bottomView.frame.size.height)
+        tableView.snp.makeConstraints { (make) in
+            make.top.equalTo(self.view.snp.top).offset(0)
+            make.left.equalTo(self.view.snp.left).offset(0)
+            make.right.equalTo(self.view.snp.right).offset(0)
+            make.bottom.equalTo(self.view.snp.bottom).offset(-bottomView.frame.size.height)
         }
     }
     
@@ -78,7 +78,7 @@ class MyTicketPutUpViewController: UIViewController {
                 return
             }
         }
-        self.navigationController?.popToRootViewControllerAnimated(true)
+        self.navigationController?.popToRootViewController(animated: true)
     }
     
     func bindeViewModel(){
@@ -98,7 +98,7 @@ class MyTicketPutUpViewController: UIViewController {
         
     }
     
-    func shareItemPress(sender:UIBarButtonItem) {
+    func shareItemPress(_ sender:UIBarButtonItem) {
         
     }
     
@@ -107,7 +107,7 @@ class MyTicketPutUpViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func isShowTicketNavigationBar(isShowTicket:Bool) {
+    func isShowTicketNavigationBar(_ isShowTicket:Bool) {
         self.navigationItem.title = "我的挂票"
     }
     
@@ -120,13 +120,13 @@ class MyTicketPutUpViewController: UIViewController {
      // Pass the selected object to the new view controller.
      }
      */
-    func ticketToolsViewShow(tag:NSInteger, frame:CGRect) {
+    func ticketToolsViewShow(_ tag:NSInteger, frame:CGRect) {
         self.isShowTicketNavigationBar(true)
         switch tag {
         case 1:
             if self.view.viewWithTag(200) != nil { self.view.viewWithTag(200)?.removeFromSuperview()}
             if self.view.viewWithTag(100) == nil {
-                let ticketPrice = ToolView(frame: CGRectMake(0, frame.origin.y + 42, SCREENWIDTH, SCREENHEIGHT), data: viewModel.ticketPriceArray)
+                let ticketPrice = ToolView(frame: CGRect(x: 0, y: frame.origin.y + 42, width: SCREENWIDTH, height: SCREENHEIGHT), data: viewModel.ticketPriceArray)
                 ticketPrice.tag = 100
                 ticketPrice.toolViewSelectIndexPathRow = { indexPath, str in
                     self.view.viewWithTag(100)?.removeFromSuperview()
@@ -147,7 +147,7 @@ class MyTicketPutUpViewController: UIViewController {
         case 2:
             if self.view.viewWithTag(100) != nil { self.view.viewWithTag(100)?.removeFromSuperview()}
             if self.view.viewWithTag(200) == nil {
-                let ticketRow = ToolView(frame: CGRectMake(0, frame.origin.y + 42, SCREENWIDTH, SCREENHEIGHT), data: viewModel.ticketRowArray)
+                let ticketRow = ToolView(frame: CGRect(x: 0, y: frame.origin.y + 42, width: SCREENWIDTH, height: SCREENHEIGHT), data: viewModel.ticketRowArray)
                 ticketRow.tag = 200
                 ticketRow.toolViewSelectIndexPathRow = { indexPath, str in
                     self.view.viewWithTag(200)?.removeFromSuperview()
@@ -170,7 +170,7 @@ class MyTicketPutUpViewController: UIViewController {
         }
     }
     
-    func ticketToolsViewSortPrice(type:TicketSortType){
+    func ticketToolsViewSortPrice(_ type:TicketSortType){
         if self.view.viewWithTag(100) != nil { self.view.viewWithTag(100)?.removeFromSuperview()}
         if self.view.viewWithTag(200) != nil { self.view.viewWithTag(200)?.removeFromSuperview()}
         viewModel.sortTicket(type)
@@ -181,10 +181,10 @@ class MyTicketPutUpViewController: UIViewController {
         if self.view.viewWithTag(200) != nil { self.view.viewWithTag(200)?.removeFromSuperview()}
     }
     
-    func updateTicketViewFrame(tag:NSInteger){
-        let rectInTableView = tableView.rectForRowAtIndexPath(NSIndexPath.init(forRow: 3, inSection: 0))
-        let rect = tableView.convertRect(rectInTableView, toView: tableView.superview)
-        if !ticketToolsView.hidden {
+    func updateTicketViewFrame(_ tag:NSInteger){
+        let rectInTableView = tableView.rectForRow(at: IndexPath.init(row: 3, section: 0))
+        let rect = tableView.convert(rectInTableView, to: tableView.superview)
+        if !ticketToolsView.isHidden {
             self.view.viewWithTag(tag)?.frame.origin.y = 42
         }else if rect.origin.y > 0 {
             self.view.viewWithTag(tag)?.frame.origin.y = rect.origin.y + 42
@@ -195,15 +195,15 @@ class MyTicketPutUpViewController: UIViewController {
 }
 
 extension MyTicketPutUpViewController : UITableViewDelegate {
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return viewModel.tableViewHeight(indexPath.row)
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         viewModel.tableViewDidSelectRowAtIndexPath(indexPath)
     }
     
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if self.view.viewWithTag(100) != nil {
             self.updateTicketViewFrame(100)
         }else if self.view.viewWithTag(200) != nil {
@@ -211,7 +211,7 @@ extension MyTicketPutUpViewController : UITableViewDelegate {
         }
         
         if scrollView.contentOffset.y > viewModel.tableViewHeight(0) + viewModel.tableViewHeight(1) {
-            ticketToolsView.hidden = false
+            ticketToolsView.isHidden = false
             if ticketToolsView.viewWithTag(1000) == nil {
                 let ticketView = cell.setUpDescriptionView()
                 ticketView.tag = 1000
@@ -220,47 +220,47 @@ extension MyTicketPutUpViewController : UITableViewDelegate {
                 ticketToolsView.addSubview(lineLabel)
             }
         }else{
-            ticketToolsView.hidden = true
+            ticketToolsView.isHidden = true
         }
     }
 }
 
 extension MyTicketPutUpViewController : UITableViewDataSource {
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.tableViewnumberOfRowsInSection(section)
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return viewModel.numberOfSectionsInTableView()
     }
     
-    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0.00001
     }
     
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0.0001
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.row {
         case 0:
-            let cell = tableView.dequeueReusableCellWithIdentifier("PickUpTickeTableViewCell", forIndexPath: indexPath) as! PickUpTickeTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "PickUpTickeTableViewCell", for: indexPath) as! PickUpTickeTableViewCell
             viewModel.tableViewCellPickUpTickeTableViewCell(cell)
-            cell.selectionStyle = .None
+            cell.selectionStyle = .none
             return cell
         case 1:
-            let cell = tableView.dequeueReusableCellWithIdentifier("PicketUpSessionTableViewCell", forIndexPath: indexPath) as! PicketUpSessionTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "PicketUpSessionTableViewCell", for: indexPath) as! PicketUpSessionTableViewCell
             viewModel.tableViewCellPicketUpSessionTableViewCell(cell)
-            cell.selectionStyle = .None
+            cell.selectionStyle = .none
             return cell
         case 2:
-            cell = tableView.dequeueReusableCellWithIdentifier("TicketToolsTableViewCell", forIndexPath: indexPath) as! TicketToolsTableViewCell
-            cell.selectionStyle = .None
+            cell = tableView.dequeueReusableCell(withIdentifier: "TicketToolsTableViewCell", for: indexPath) as! TicketToolsTableViewCell
+            cell.selectionStyle = .none
             cell.ticketCellClouse = { tag in
-                let rectInTableView = tableView.rectForRowAtIndexPath(indexPath)
-                let rect = tableView.convertRect(rectInTableView, toView: tableView.superview)
-                if !self.ticketToolsView.hidden {
+                let rectInTableView = tableView.rectForRow(at: indexPath)
+                let rect = tableView.convert(rectInTableView, to: tableView.superview)
+                if !self.ticketToolsView.isHidden {
                     self.ticketToolsViewShow(tag, frame: self.ticketToolsView.frame)
                 }else{
                     self.ticketToolsViewShow(tag, frame: rect)
@@ -271,9 +271,9 @@ extension MyTicketPutUpViewController : UITableViewDataSource {
             }
             return cell
         default:
-            let cell = tableView.dequeueReusableCellWithIdentifier("TiketPickeUpInfoTableViewCell", forIndexPath: indexPath) as! TiketPickeUpInfoTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "TiketPickeUpInfoTableViewCell", for: indexPath) as! TiketPickeUpInfoTableViewCell
             viewModel.tableViewCellTickerInfoTableViewCell(cell, indexPath: indexPath)
-            cell.selectionStyle = .None
+            cell.selectionStyle = .none
             return cell
         }
         

@@ -20,7 +20,7 @@ class TopUpViewModel: NSObject {
         return 2
     }
     
-    func numbrOfRowInSection(section:Int) ->Int {
+    func numbrOfRowInSection(_ section:Int) ->Int {
         switch section {
         case 0:
             if !WXApi.isWXAppInstalled() {
@@ -32,10 +32,10 @@ class TopUpViewModel: NSObject {
         }
     }
     
-    func tableViewDidSelect(indexPath:NSIndexPath, controller:TopUpViewController) {
+    func tableViewDidSelect(_ indexPath:IndexPath, controller:TopUpViewController) {
         if indexPath.section == 0 && indexPath.row != 0 {
             for index in 1...self.numbrOfRowInSection(0) - 1 {
-                let cell = controller.tableView.cellForRowAtIndexPath(NSIndexPath.init(forRow: index, inSection: 0)) as! TopUpTypeTableViewCell
+                let cell = controller.tableView.cellForRow(at: IndexPath.init(row: index, section: 0)) as! TopUpTypeTableViewCell
                 if index == indexPath.row {
                     cell.updataSelectImage(true)
                 }else{
@@ -45,11 +45,11 @@ class TopUpViewModel: NSObject {
         }
     }
     
-    func tableViewHeightForRow(indexPath:NSIndexPath) ->CGFloat {
+    func tableViewHeightForRow(_ indexPath:IndexPath) ->CGFloat {
         return CGFloat(titleCellHeight[indexPath.section][indexPath.row])
     }
     
-    func tableViewTopUpTypeTableViewCell(cell:TopUpTypeTableViewCell, indexPath:NSIndexPath){
+    func tableViewTopUpTypeTableViewCell(_ cell:TopUpTypeTableViewCell, indexPath:IndexPath){
         if WXApi.isWXAppInstalled() {
             switch indexPath.row {
             case 1:

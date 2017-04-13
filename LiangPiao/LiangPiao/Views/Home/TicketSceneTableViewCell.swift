@@ -46,7 +46,7 @@ class TicketSceneTableViewCell: UITableViewCell {
         timeTitle.font = App_Theme_PinFan_R_15_Font
         self.contentView.addSubview(timeTitle)
 
-        lineLabel = GloabLineView(frame: CGRectMake(15, self.contentView.bounds.size.height - 0.5, SCREENWIDTH - 30, 0.5))
+        lineLabel = GloabLineView(frame: CGRect(x: 15, y: self.contentView.bounds.size.height - 0.5, width: SCREENWIDTH - 30, height: 0.5))
         self.contentView.addSubview(lineLabel)
         
         self.updateConstraintsIfNeeded()
@@ -56,15 +56,15 @@ class TicketSceneTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setData(model:ShowSessionModel) {
+    func setData(_ model:ShowSessionModel) {
         if model.ticketStatus != 0 || model.minPrice == 0 {
             let mMuch = model.ticketCount == 0 ? "暂时缺票" : "元起"
             ticketmMuch.text = mMuch
-            let much = mMuch == "暂时缺票" ? "" : "\(model.minPrice)"
+            let much = mMuch == "暂时缺票" ? "" : "\((model.minPrice)!)"
             ticketMuch.text = much
         }else{
             ticketmMuch.text = "元起"
-            ticketMuch.text = "\(model.minPrice)"
+            ticketMuch.text = "\((model.minPrice)!)"
         }
         timeTitle.text = model.name
         
@@ -72,33 +72,33 @@ class TicketSceneTableViewCell: UITableViewCell {
     
     override func updateConstraints() {
         if !self.didMakeContraints {
-            timeImageView.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.centerY.equalTo(self.contentView.snp_centerY).offset(0)
-                make.size.equalTo(CGSizeMake(24, 24))
+            timeImageView.snp.makeConstraints({ (make) in
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.centerY.equalTo(self.contentView.snp.centerY).offset(0)
+                make.size.equalTo(CGSize.init(width: 24, height: 24))
             })
             
-            ticketmMuch.snp_makeConstraints(closure: { (make) in
-                make.right.equalTo(self.contentView.snp_right).offset(-15)
-                make.centerY.equalTo(self.contentView.snp_centerY).offset(3)
+            ticketmMuch.snp.makeConstraints({ (make) in
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
+                make.centerY.equalTo(self.contentView.snp.centerY).offset(3)
                 make.height.equalTo(14)
             })
             
-            ticketMuch.snp_makeConstraints(closure: { (make) in
-                make.right.equalTo(self.ticketmMuch.snp_left).offset(-4)
-                make.centerY.equalTo(self.contentView.snp_centerY).offset(0)
+            ticketMuch.snp.makeConstraints({ (make) in
+                make.right.equalTo(self.ticketmMuch.snp.left).offset(-4)
+                make.centerY.equalTo(self.contentView.snp.centerY).offset(0)
             })
             
-            timeTitle.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.timeImageView.snp_right).offset(8)
-                make.right.lessThanOrEqualTo(self.ticketMuch.snp_left).offset(-10)
-                make.centerY.equalTo(self.contentView.snp_centerY).offset(0)
+            timeTitle.snp.makeConstraints({ (make) in
+                make.left.equalTo(self.timeImageView.snp.right).offset(8)
+                make.right.lessThanOrEqualTo(self.ticketMuch.snp.left).offset(-10)
+                make.centerY.equalTo(self.contentView.snp.centerY).offset(0)
             })
             
-            lineLabel.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.right.equalTo(self.contentView.snp_right).offset(-15)
-                make.bottom.equalTo(self.contentView.snp_bottom).offset(-0.5)
+            lineLabel.snp.makeConstraints({ (make) in
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(-0.5)
             })
             self.didMakeContraints = true
             
@@ -111,7 +111,7 @@ class TicketSceneTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

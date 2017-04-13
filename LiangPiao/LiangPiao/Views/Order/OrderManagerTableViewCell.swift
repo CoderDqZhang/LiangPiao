@@ -8,8 +8,8 @@
 
 import UIKit
 enum TicketImageViewsType {
-    case OneImage
-    case TwoOrMore
+    case oneImage
+    case twoOrMore
 }
 
 class TicketImageViews: UIView {
@@ -29,20 +29,22 @@ class TicketImageViews: UIView {
         self.setImage(imageViewSplash1)
         self.setImage(imageViewSplash2)
         if imageUrl != nil {
-            imageView.sd_setImageWithURL(NSURL.init(string: imageUrl!), placeholderImage: UIImage.init(named: "Feeds_Default_Cover")) { (image, error, cacheType, url) in
-                if type == nil || type == .OneImage {
-                    self.imageViewSplash1.hidden = true
-                    self.imageViewSplash2.hidden = true
+            imageView.sd_setImage(with: URL.init(string: imageUrl!), placeholderImage: UIImage.init(named: "Feeds_Default_Cover"), options: .retryFailed, progress: { (start, end, rul) in
+                
+            }, completed: { (image, error, cacheType, url) in
+                if type == nil || type == .oneImage {
+                    self.imageViewSplash1.isHidden = true
+                    self.imageViewSplash2.isHidden = true
                 }
-                if type == .TwoOrMore {
-                    self.imageViewSplash1.hidden = false
-                    self.imageViewSplash2.hidden = false
+                if type == .twoOrMore {
+                    self.imageViewSplash1.isHidden = false
+                    self.imageViewSplash2.isHidden = false
                     self.imageViewSplash1.image = image
                     self.imageViewSplash1.alpha = 0.2
                     self.imageViewSplash2.image = image
                     self.imageViewSplash2.alpha = 0.4
                 }
-            }
+            })
         }else{
             let image = UIImage.init(named: "Feeds_Default_Cover")
             imageView.image = image
@@ -50,36 +52,37 @@ class TicketImageViews: UIView {
             self.imageViewSplash1.alpha = 0.2
             self.imageViewSplash2.image = image
             self.imageViewSplash2.alpha = 0.4
-            if type == nil || type == .OneImage {
-                self.imageViewSplash1.hidden = true
-                self.imageViewSplash2.hidden = true
+            if type == nil || type == .oneImage {
+                self.imageViewSplash1.isHidden = true
+                self.imageViewSplash2.isHidden = true
             }
-            if type == .TwoOrMore {
-                self.imageViewSplash1.hidden = false
-                self.imageViewSplash2.hidden = false
+            if type == .twoOrMore {
+                self.imageViewSplash1.isHidden = false
+                self.imageViewSplash2.isHidden = false
             }
         }
     }
     
-    func setImageType(imageUrl:String,type:TicketImageViewsType?){
-        imageView.sd_setImageWithURL(NSURL.init(string: imageUrl), placeholderImage: UIImage.init(named: "Feeds_Default_Cover")) { (image, error, cacheType, url) in
-            if type == nil || type == .OneImage {
-                self.imageViewSplash1.hidden = true
-                self.imageViewSplash2.hidden = true
+    func setImageType(_ imageUrl:String,type:TicketImageViewsType?){
+        imageView.sd_setImage(with: URL.init(string: imageUrl), placeholderImage: UIImage.init(named: "Feeds_Default_Cover"), options: .retryFailed, progress: { (start, end, rul) in
+            
+        }, completed: { (image, error, cacheType, url) in
+            if type == nil || type == .oneImage {
+                self.imageViewSplash1.isHidden = true
+                self.imageViewSplash2.isHidden = true
             }
-            if type == .TwoOrMore {
-                self.imageViewSplash1.hidden = false
-                self.imageViewSplash2.hidden = false
+            if type == .twoOrMore {
+                self.imageViewSplash1.isHidden = false
+                self.imageViewSplash2.isHidden = false
                 self.imageViewSplash1.image = image
                 self.imageViewSplash1.alpha = 0.2
                 self.imageViewSplash2.image = image
                 self.imageViewSplash2.alpha = 0.4
             }
-        }
-
+        })
     }
     
-    func setImage(image:UIImageView){
+    func setImage(_ image:UIImageView){
         image.layer.cornerRadius = 3.0
         image.layer.masksToBounds = true
     }
@@ -105,17 +108,17 @@ class OrderManagerTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.backgroundColor = UIColor.whiteColor()
+        self.backgroundColor = UIColor.white
         self.setUpView()
     }
     
     func setUpView() {
-        ticketPhoto = TicketImageViews(imageUrl: nil, frame: CGRect.init(x: 15, y: 22, width: 82, height: 118), type: .OneImage)
+        ticketPhoto = TicketImageViews(imageUrl: nil, frame: CGRect.init(x: 15, y: 22, width: 82, height: 118), type: .oneImage)
         self.contentView.addSubview(ticketPhoto)
         
         ticketTitle = UILabel()
         ticketTitle.text = "刘若英“Renext”世界巡回演唱会北京站预售"
-        UILabel.changeLineSpaceForLabel(ticketTitle, withSpace: TitleLineSpace)
+        UILabel.changeLineSpace(for: ticketTitle, withSpace: TitleLineSpace)
         ticketTitle.textColor = UIColor.init(hexString: App_Theme_384249_Color)
         ticketTitle.font = App_Theme_PinFan_R_15_Font
         ticketTitle.numberOfLines = 0
@@ -149,67 +152,67 @@ class OrderManagerTableViewCell: UITableViewCell {
         
     }
     
-    func setData(title:String, cover:String, session:String, much:String, remainCount:String, soldCount:String, isMoreTicket:Bool){
+    func setData(_ title:String, cover:String, session:String, much:String, remainCount:String, soldCount:String, isMoreTicket:Bool){
         
         ticketTitle.text = title
-        UILabel.changeLineSpaceForLabel(ticketTitle, withSpace: TitleLineSpace)
+        UILabel.changeLineSpace(for: ticketTitle, withSpace: TitleLineSpace)
         ticketTime.text = "场次：\(session)"
         ticketMuch.text = "票面：\(much)"
         ticketSelledNumber.text = "在售：\(remainCount)   已售：\(soldCount)"
         if isMoreTicket {
-            ticketRow.hidden = true
-            ticketMuch.snp_remakeConstraints(closure: { (make) in
-                make.bottom.equalTo(self.ticketSelledNumber.snp_top).offset(-2)
-                make.left.equalTo(self.ticketPhoto.snp_right).offset(12)
-                make.right.equalTo(self.contentView.snp_right).offset(-15)
+            ticketRow.isHidden = true
+            ticketMuch.snp.remakeConstraints({ (make) in
+                make.bottom.equalTo(self.ticketSelledNumber.snp.top).offset(-2)
+                make.left.equalTo(self.ticketPhoto.snp.right).offset(12)
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
             })
-            ticketPhoto.setImageType(cover, type: .TwoOrMore)
+            ticketPhoto.setImageType(cover, type: .twoOrMore)
         }else{
-            ticketRow.hidden = false
-            ticketMuch.snp_remakeConstraints(closure: { (make) in
-                make.bottom.equalTo(self.ticketRow.snp_top).offset(-2)
-                make.left.equalTo(self.ticketPhoto.snp_right).offset(12)
-                make.right.equalTo(self.contentView.snp_right).offset(-15)
+            ticketRow.isHidden = false
+            ticketMuch.snp.remakeConstraints({ (make) in
+                make.bottom.equalTo(self.ticketRow.snp.top).offset(-2)
+                make.left.equalTo(self.ticketPhoto.snp.right).offset(12)
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
             })
-            ticketPhoto.setImageType(cover, type: .OneImage)
+            ticketPhoto.setImageType(cover, type: .oneImage)
         }
     }
     
     override func updateConstraints() {
         if !self.didMakeConstraints {
-            ticketPhoto.snp_makeConstraints(closure: { (make) in
-                make.top.equalTo(self.contentView.snp_top).offset(22)
-                make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.size.equalTo(CGSizeMake(82, 118))
+            ticketPhoto.snp.makeConstraints({ (make) in
+                make.top.equalTo(self.contentView.snp.top).offset(22)
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.size.equalTo(CGSize.init(width: 82, height: 118))
             })
             
-            ticketTitle.snp_makeConstraints(closure: { (make) in
-                make.top.equalTo(self.contentView.snp_top).offset(27)
-                make.left.equalTo(self.ticketPhoto.snp_right).offset(12)
-                make.right.equalTo(self.contentView.snp_right).offset(-15)
+            ticketTitle.snp.makeConstraints({ (make) in
+                make.top.equalTo(self.contentView.snp.top).offset(27)
+                make.left.equalTo(self.ticketPhoto.snp.right).offset(12)
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
             })
             
-            ticketTime.snp_makeConstraints(closure: { (make) in
-                make.bottom.equalTo(self.ticketMuch.snp_top).offset(-2)
-                make.left.equalTo(self.ticketPhoto.snp_right).offset(12)
-                make.right.equalTo(self.contentView.snp_right).offset(-15)
+            ticketTime.snp.makeConstraints({ (make) in
+                make.bottom.equalTo(self.ticketMuch.snp.top).offset(-2)
+                make.left.equalTo(self.ticketPhoto.snp.right).offset(12)
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
             })
             
-            ticketMuch.snp_makeConstraints(closure: { (make) in
-                make.bottom.equalTo(self.ticketRow.snp_top).offset(-2)
-                make.left.equalTo(self.ticketPhoto.snp_right).offset(12)
-                make.right.equalTo(self.contentView.snp_right).offset(-15)
+            ticketMuch.snp.makeConstraints({ (make) in
+                make.bottom.equalTo(self.ticketRow.snp.top).offset(-2)
+                make.left.equalTo(self.ticketPhoto.snp.right).offset(12)
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
             })
             
-            ticketRow.snp_makeConstraints(closure: { (make) in
-                make.bottom.equalTo(self.ticketSelledNumber.snp_top).offset(-2)
-                make.left.equalTo(self.ticketPhoto.snp_right).offset(12)
-                make.right.equalTo(self.contentView.snp_right).offset(-15)
+            ticketRow.snp.makeConstraints({ (make) in
+                make.bottom.equalTo(self.ticketSelledNumber.snp.top).offset(-2)
+                make.left.equalTo(self.ticketPhoto.snp.right).offset(12)
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
             })
             
-            ticketSelledNumber.snp_makeConstraints(closure: { (make) in
-                make.bottom.equalTo(self.contentView.snp_bottom).offset(-20)
-                make.left.equalTo(self.ticketPhoto.snp_right).offset(12)
+            ticketSelledNumber.snp.makeConstraints({ (make) in
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(-20)
+                make.left.equalTo(self.ticketPhoto.snp.right).offset(12)
             })
             
             self.didMakeConstraints = true
@@ -226,7 +229,7 @@ class OrderManagerTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

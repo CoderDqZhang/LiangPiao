@@ -41,15 +41,15 @@ class NoneTicketTableViewCell: UITableViewCell {
     
     override func updateConstraints() {
         if !self.didMakeConstraints {
-            noneImageView.snp_makeConstraints(closure: { (make) in
-                make.size.equalTo(CGSizeMake(58, 63))
-                make.centerX.equalTo(self.contentView.snp_centerX).offset(0)
-                make.centerY.equalTo(self.contentView.snp_centerY).offset(-25)
+            noneImageView.snp.makeConstraints({ (make) in
+                make.size.equalTo(CGSize.init(width: 58, height: 63))
+                make.centerX.equalTo(self.contentView.snp.centerX).offset(0)
+                make.centerY.equalTo(self.contentView.snp.centerY).offset(-25)
             })
             
-            noneTitle.snp_makeConstraints(closure: { (make) in
-                make.top.equalTo(self.noneImageView.snp_bottom).offset(22)
-                make.centerX.equalTo(self.contentView.snp_centerX).offset(0)
+            noneTitle.snp.makeConstraints({ (make) in
+                make.top.equalTo(self.noneImageView.snp.bottom).offset(22)
+                make.centerX.equalTo(self.contentView.snp.centerX).offset(0)
             })
             
             self.didMakeConstraints = true
@@ -61,7 +61,7 @@ class NoneTicketTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

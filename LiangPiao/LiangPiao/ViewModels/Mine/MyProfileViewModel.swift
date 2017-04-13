@@ -16,7 +16,7 @@ class MyProfileViewModel: NSObject {
     }
     
     
-    func uploadPhototImage(image:UIImage){
+    func uploadPhototImage(_ image:UIImage){
         
     }
     
@@ -24,7 +24,7 @@ class MyProfileViewModel: NSObject {
         return 2
     }
     
-    func numbrOfRowInSection(section:Int) ->Int {
+    func numbrOfRowInSection(_ section:Int) ->Int {
         switch section {
         case 0:
             return 1
@@ -33,7 +33,7 @@ class MyProfileViewModel: NSObject {
         }
     }
     
-    func tableViewHeightForRow(indexPath:NSIndexPath) ->CGFloat {
+    func tableViewHeightForRow(_ indexPath:IndexPath) ->CGFloat {
         switch indexPath.section {
         case 0:
             return 100
@@ -42,7 +42,7 @@ class MyProfileViewModel: NSObject {
         }
     }
     
-    func cellTitle(indexPath:NSIndexPath) -> String {
+    func cellTitle(_ indexPath:IndexPath) -> String {
         if indexPath.section == 1 {
             return titleLabel[indexPath.row]
         }else{
@@ -50,7 +50,7 @@ class MyProfileViewModel: NSObject {
         }
     }
     
-    func cellDetail(indexPath:NSIndexPath) -> String {
+    func cellDetail(_ indexPath:IndexPath) -> String {
         if indexPath.section == 1 {
             return titleLabel[indexPath.row]
         }else{
@@ -58,8 +58,8 @@ class MyProfileViewModel: NSObject {
         }
     }
     
-    func updateCellString(tableView:UITableView ,string:String, tag:NSInteger) {
-        let cell = tableView.cellForRowAtIndexPath(NSIndexPath.init(forRow: tag, inSection: 1)) as! GloabTitleAndDetailImageCell
+    func updateCellString(_ tableView:UITableView ,string:String, tag:NSInteger) {
+        let cell = tableView.cellForRow(at: IndexPath.init(row: tag, section: 1)) as! GloabTitleAndDetailImageCell
         switch tag {
         case 1:
             let gender = string == "男" ? 1 : 2
@@ -70,20 +70,20 @@ class MyProfileViewModel: NSObject {
         cell.detailLabel.text = string            
     }
     
-    func tableViewGloabTitleAndFieldCellData(cell:GloabTitleAndFieldCell, indexPath:NSIndexPath) {
+    func tableViewGloabTitleAndFieldCellData(_ cell:GloabTitleAndFieldCell, indexPath:IndexPath) {
         if indexPath.row == 0 {
             cell.setData(self.cellTitle(indexPath), detail: UserInfoModel.shareInstance().username)
             cell.setTextFieldText(UserInfoModel.shareInstance().username)
-            cell.textField.rac_textSignal().subscribeNext({ (str) in
-                UserInfoModel.shareInstance().username = str as! String
+            cell.textField.reactive.continuousTextValues.observeValues({ (str) in
+                UserInfoModel.shareInstance().username = str!
             })
         }else{
             cell.setData(self.cellTitle(indexPath), detail: UserInfoModel.shareInstance().phone)
-            cell.textField.enabled = false
+            cell.textField.isEnabled = false
         }
     }
     
-    func tableViewGloabTitleAndDetailImageCellData(cell:GloabTitleAndDetailImageCell, indexPath:NSIndexPath) {
+    func tableViewGloabTitleAndDetailImageCellData(_ cell:GloabTitleAndDetailImageCell, indexPath:IndexPath) {
         switch indexPath.row {
         case 1:
             let str = UserInfoModel.shareInstance().gender == 1 ? "男" : "女"
@@ -93,25 +93,27 @@ class MyProfileViewModel: NSObject {
         }
     }
     
-    func uploadImage(image:UIImage) {
+    func uploadImage(_ image:UIImage) {
         let fileUrl = SaveImageTools.sharedInstance.getCachesDirectory("photoImage.png", path: "headerImage")
         BaseNetWorke.sharedInstance.uploadDataFile(UserAvatar, filePath: fileUrl,name: "avatar")
-            .subscribeNext { (resultDic) in
-                if (resultDic as! NSDictionary).objectForKey("fail") != nil {
-                    print("请求失败")
-                }else{
-                    UserInfoModel.shareInstance().avatar = (resultDic as! NSDictionary).objectForKey("avatar") as! String
-                    UserInfoModel.shareInstance().update()
-                    Notification(LoginStatuesChange, value: nil)
+            .observe { (resultDic) in
+                if !resultDic.isCompleted {
+                    if (resultDic.value as! NSDictionary).object(forKey: "fail") != nil {
+                        print("请求失败")
+                    }else{
+                        UserInfoModel.shareInstance().avatar = (resultDic.value as! NSDictionary).object(forKey: "avatar") as! String
+                        UserInfoModel.shareInstance().update()
+                        Notification(LoginStatuesChange, value: nil)
+                    }
                 }
         }
     }
     
-    func changeUserInfoData(controller:MyProfileViewController){
-        let parameters = ["username":UserInfoModel.shareInstance().username,"gender":UserInfoModel.shareInstance().gender]
-        BaseNetWorke.sharedInstance.postUrlWithString(UserInfoChange, parameters: parameters).subscribeNext { (resultDic) in
+    func changeUserInfoData(_ controller:MyProfileViewController){
+        let parameters = ["username":UserInfoModel.shareInstance().username,"gender":UserInfoModel.shareInstance().gender] as [String : Any]
+        BaseNetWorke.sharedInstance.postUrlWithString(UserInfoChange, parameters: parameters as AnyObject).observe { (resultDic) in
             UserInfoModel.shareInstance().update()
-            controller.navigationController?.popViewControllerAnimated(true)
+            controller.navigationController?.popViewController(animated: true)
         }
     }
 }

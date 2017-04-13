@@ -63,10 +63,10 @@ class  FavorityModel : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        hasNext = aDecoder.decodeObjectForKey("has_next") as? Bool
-        items = aDecoder.decodeObjectForKey("items") as? [Item]
-        nextPage = aDecoder.decodeObjectForKey("next_page") as? Int
-        total = aDecoder.decodeObjectForKey("total") as? Int
+        hasNext = aDecoder.decodeObject(forKey: "has_next") as? Bool
+        items = aDecoder.decodeObject(forKey: "items") as? [Item]
+        nextPage = aDecoder.decodeObject(forKey: "next_page") as? Int
+        total = aDecoder.decodeObject(forKey: "total") as? Int
         
     }
     
@@ -74,19 +74,19 @@ class  FavorityModel : NSObject, NSCoding{
      * NSCoding required method.
      * Encodes mode properties into the decoder
      */
-    @objc func encodeWithCoder(aCoder: NSCoder)
+    @objc func encode(with aCoder: NSCoder)
     {
         if hasNext != nil{
-            aCoder.encodeObject(hasNext, forKey: "has_next")
+            aCoder.encode(hasNext, forKey: "has_next")
         }
         if items != nil{
-            aCoder.encodeObject(items, forKey: "items")
+            aCoder.encode(items, forKey: "items")
         }
         if nextPage != nil{
-            aCoder.encodeObject(nextPage, forKey: "next_page")
+            aCoder.encode(nextPage, forKey: "next_page")
         }
         if total != nil{
-            aCoder.encodeObject(total, forKey: "total")
+            aCoder.encode(total, forKey: "total")
         }
         
     }
@@ -135,9 +135,9 @@ class Item : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        created = aDecoder.decodeObjectForKey("created") as? String
-        id = aDecoder.decodeObjectForKey("id")as? Int
-        show = aDecoder.decodeObjectForKey("show") as? TicketShowModel
+        created = aDecoder.decodeObject(forKey: "created") as? String
+        id = aDecoder.decodeObject(forKey: "id")as? Int
+        show = aDecoder.decodeObject(forKey: "show") as? TicketShowModel
         
     }
     
@@ -145,16 +145,16 @@ class Item : NSObject, NSCoding{
      * NSCoding required method.
      * Encodes mode properties into the decoder
      */
-    @objc func encodeWithCoder(aCoder: NSCoder)
+    @objc func encode(with aCoder: NSCoder)
     {
         if created != nil{
-            aCoder.encodeObject(created, forKey: "created")
+            aCoder.encode(created, forKey: "created")
         }
         if id != nil{
-            aCoder.encodeObject(id, forKey: "id")
+            aCoder.encode(id, forKey: "id")
         }
         if show != nil{
-            aCoder.encodeObject(show, forKey: "show")
+            aCoder.encode(show, forKey: "show")
         }
         
     }

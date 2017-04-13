@@ -28,15 +28,15 @@ class MyProfileViewController: UIViewController {
     
     func setNavigationItem() {
         self.setNavigationItemBack()
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "保存", style: .Plain, target: self, action: #selector(MyProfileViewController.saveItemPress(_:)))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "保存", style: .plain, target: self, action: #selector(MyProfileViewController.saveItemPress(_:)))
     }
     
-    func saveItemPress(sender:UIBarButtonItem) {
+    func saveItemPress(_ sender:UIBarButtonItem) {
         Notification(LoginStatuesChange, value: nil);
         viewModel.changeUserInfoData(self)
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         self.view.endEditing(true)
         if sexPickerView != nil {
             sexPickerView.remove()
@@ -44,23 +44,23 @@ class MyProfileViewController: UIViewController {
     }
     
     func setUpView() {
-        tableView = UITableView(frame: CGRectZero, style: .Grouped)
+        tableView = UITableView(frame: CGRect.zero, style: .grouped)
         tableView.backgroundColor = UIColor.init(hexString: App_Theme_E9EBF2_Color)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.showsVerticalScrollIndicator = false
-        tableView.keyboardDismissMode = .OnDrag
-        tableView.separatorStyle = .None
-        tableView.registerClass(ProfileImageTableViewCell.self, forCellReuseIdentifier: "ProfileImageTableViewCell")
-        tableView.registerClass(GloabTitleAndFieldCell.self, forCellReuseIdentifier: "GloabTitleAndFieldCell")
-        tableView.registerClass(GloabTitleAndDetailImageCell.self, forCellReuseIdentifier: "GloabTitleAndDetailImageCell")
+        tableView.keyboardDismissMode = .onDrag
+        tableView.separatorStyle = .none
+        tableView.register(ProfileImageTableViewCell.self, forCellReuseIdentifier: "ProfileImageTableViewCell")
+        tableView.register(GloabTitleAndFieldCell.self, forCellReuseIdentifier: "GloabTitleAndFieldCell")
+        tableView.register(GloabTitleAndDetailImageCell.self, forCellReuseIdentifier: "GloabTitleAndDetailImageCell")
         self.view.addSubview(tableView)
-        tableView.snp_makeConstraints { (make) in
+        tableView.snp.makeConstraints { (make) in
             make.edges.equalTo(UIEdgeInsetsMake(0, 0, 0, 0))
         }
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
@@ -83,12 +83,12 @@ class MyProfileViewController: UIViewController {
     */
     func showSexPickerView(){
         if sexPickerView == nil {
-            sexPickerView = ZHPickView(pickviewWithArray: ["男","女"], isHaveNavControler: false)
-            sexPickerView.setPickViewColer(UIColor.whiteColor())
-            sexPickerView.setPickViewColer(UIColor.whiteColor())
-            sexPickerView.setTintColor(UIColor.whiteColor())
+            sexPickerView = ZHPickView(pickviewWith: ["男","女"], isHaveNavControler: false)
+            sexPickerView.setPickViewColer(UIColor.white)
+            sexPickerView.setPickViewColer(UIColor.white)
+            sexPickerView.setTintColor(UIColor.white)
             sexPickerView.tag = 1
-            sexPickerView.setToolbarTintColor(UIColor.whiteColor())
+            sexPickerView.setToolbarTintColor(UIColor.white)
             sexPickerView.setTintFont(App_Theme_PinFan_R_13_Font, color: UIColor.init(hexString: App_Theme_384249_Color))
             sexPickerView.delegate = self
         }
@@ -97,17 +97,17 @@ class MyProfileViewController: UIViewController {
     }
     
     func presentImagePickerView(){
-        let controller = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
-        let cancel = UIAlertAction(title: "取消", style: .Cancel) { (cancelAction) in
+        let controller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let cancel = UIAlertAction(title: "取消", style: .cancel) { (cancelAction) in
             
         }
-        if (UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)){
-            let cameraAction = UIAlertAction(title: "拍照", style: .Default) { (cancelAction) in
+        if (UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera)){
+            let cameraAction = UIAlertAction(title: "拍照", style: .default) { (cancelAction) in
                 let imagePicker = UIImagePickerController()
                 imagePicker.allowsEditing = true
-                imagePicker.sourceType = .Camera
+                imagePicker.sourceType = .camera
                 imagePicker.delegate = self
-                self.presentViewController(imagePicker, animated: true) {
+                self.present(imagePicker, animated: true) {
                     
                 }
             }
@@ -115,18 +115,18 @@ class MyProfileViewController: UIViewController {
         }
 
         
-        let album = UIAlertAction(title: "相册", style: .Default) { (cancelAction) in
+        let album = UIAlertAction(title: "相册", style: .default) { (cancelAction) in
             let imagePicker = UIImagePickerController()
             imagePicker.allowsEditing = true
-            imagePicker.sourceType = .PhotoLibrary
+            imagePicker.sourceType = .photoLibrary
             imagePicker.delegate = self
-            self.presentViewController(imagePicker, animated: true) {
+            self.present(imagePicker, animated: true) {
                 
             }
         }
         controller.addAction(cancel)
         controller.addAction(album)
-        self.presentViewController(controller, animated: true) { 
+        self.present(controller, animated: true) { 
             
         }
         
@@ -135,7 +135,7 @@ class MyProfileViewController: UIViewController {
 }
 
 extension MyProfileViewController : UITableViewDelegate {
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.view.endEditing(true)
         if indexPath.section == 0 {
             self.presentImagePickerView()
@@ -151,62 +151,62 @@ extension MyProfileViewController : UITableViewDelegate {
 }
 
 extension MyProfileViewController : UITableViewDataSource {
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return viewModel.numberOfSection()
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.numbrOfRowInSection(section)
     }
     
-    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 10
     }
     
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0.0001
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return viewModel.tableViewHeightForRow(indexPath)
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         case 0:
-            let cell = tableView.dequeueReusableCellWithIdentifier("ProfileImageTableViewCell", forIndexPath: indexPath) as! ProfileImageTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ProfileImageTableViewCell", for: indexPath) as! ProfileImageTableViewCell
             let image = SaveImageTools.sharedInstance.LoadImage("photoImage.png", path: "headerImage") == nil ? UIImage.init(named: "Icon_Camera") : SaveImageTools.sharedInstance.LoadImage("photoImage.png", path: "headerImage")
             if SaveImageTools.sharedInstance.LoadImage("photoImage.png", path: "headerImage") == nil && UserInfoModel.shareInstance().avatar != "" {
-                SDWebImageManager.sharedManager().loadImageWithURL(NSURL.init(string: UserInfoModel.shareInstance().avatar), options: .RetryFailed, progress: { (star, end, url) in
+                SDWebImageManager.shared().loadImage(with: URL.init(string: UserInfoModel.shareInstance().avatar), options: .retryFailed, progress: { (star, end, url) in
                     
                 }) { (image, data, error, cache, finish, url) in
                     if error == nil {
-                        SaveImageTools.sharedInstance.saveImage("photoImage.png", image: image!, path: "headerImage")
+                        _ = SaveImageTools.sharedInstance.saveImage("photoImage.png", image: image!, path: "headerImage")
                     }
                 }
             }
-            cell.photoImageView.setImage(image, forState: .Normal)
-            cell.selectionStyle = .None
+            cell.photoImageView.setImage(image, for: UIControlState())
+            cell.selectionStyle = .none
             return cell
         default:
             switch indexPath.row {
             case 0,2:
-                let cell = tableView.dequeueReusableCellWithIdentifier("GloabTitleAndFieldCell", forIndexPath: indexPath) as! GloabTitleAndFieldCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: "GloabTitleAndFieldCell", for: indexPath) as! GloabTitleAndFieldCell
                 viewModel.tableViewGloabTitleAndFieldCellData(cell, indexPath: indexPath)
                 cell.textField.textColor = UIColor.init(hexString: App_Theme_8A96A2_Color)
-                cell.textField.returnKeyType = .Done
-                cell.textField.textAlignment = .Right
+                cell.textField.returnKeyType = .done
+                cell.textField.textAlignment = .right
                 cell.textField.tag = indexPath.row
                 cell.textField.delegate = self
-                cell.selectionStyle = .None
+                cell.selectionStyle = .none
                 if indexPath.row == 4 {
                     cell.hideLineLabel()
                 }
                 return cell
             default:
-                let cell = tableView.dequeueReusableCellWithIdentifier("GloabTitleAndDetailImageCell", forIndexPath: indexPath) as! GloabTitleAndDetailImageCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: "GloabTitleAndDetailImageCell", for: indexPath) as! GloabTitleAndDetailImageCell
                 viewModel.tableViewGloabTitleAndDetailImageCellData(cell, indexPath: indexPath)
-                cell.selectionStyle = .None
+                cell.selectionStyle = .none
                 return cell
             }
             
@@ -215,33 +215,33 @@ extension MyProfileViewController : UITableViewDataSource {
 }
 
 extension MyProfileViewController : ZHPickViewDelegate {
-    func toobarDonBtnHaveClick(pickView: ZHPickView!, resultString: String!) {
+    func toobarDonBtnHaveClick(_ pickView: ZHPickView!, resultString: String!) {
         if resultString != nil {
             viewModel.updateCellString(tableView, string: resultString, tag: pickView.tag)
         }
         if pickView.tag == 3 {
-            let cell = tableView.cellForRowAtIndexPath(NSIndexPath.init(forRow: 4, inSection: 1)) as! GloabTitleAndFieldCell
+            let cell = tableView.cellForRow(at: IndexPath.init(row: 4, section: 1)) as! GloabTitleAndFieldCell
             cell.textField.becomeFirstResponder()
         }else{
-            self.tableView(tableView, didSelectRowAtIndexPath: NSIndexPath.init(forRow: pickView.tag + 1, inSection: 1))
+            self.tableView(self.tableView, didSelectRowAt: IndexPath.init(row: pickView.tag + 1, section: 1))
         }
     }
 }
 
 extension MyProfileViewController : UIImagePickerControllerDelegate {
-    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
-        picker.dismissViewControllerAnimated(true) { 
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true) { 
             
         }
     }
     
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         let image = info[UIImagePickerControllerEditedImage] as! UIImage
-        SaveImageTools.sharedInstance.saveImage("photoImage.png", image: image, path: "headerImage")
+        _ = SaveImageTools.sharedInstance.saveImage("photoImage.png", image: image, path: "headerImage")
         viewModel.uploadImage(image)
-        self.tableView.reloadRowsAtIndexPaths([NSIndexPath.init(forRow: 0, inSection: 0)], withRowAnimation: .Automatic)
+        self.tableView.reloadRows(at: [IndexPath.init(row: 0, section: 0)], with: .automatic)
         self.tableView.reloadData()
-        picker.dismissViewControllerAnimated(true, completion: nil)
+        picker.dismiss(animated: true, completion: nil)
     }
 }
 
@@ -250,17 +250,17 @@ extension MyProfileViewController : UINavigationControllerDelegate {
 }
 
 extension MyProfileViewController : UITextFieldDelegate {
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.endEditing(true)
         if textField.tag == 0 {
-            self.tableView(tableView, didSelectRowAtIndexPath: NSIndexPath.init(forRow: 1, inSection: 1))
+            self.tableView(tableView, didSelectRowAt: IndexPath.init(row: 1, section: 1))
         }else{
             self.view.endEditing(true)
         }
         return false
     }
     
-    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         return true
     }
 }

@@ -14,7 +14,7 @@ enum TicketSessionType {
     case sessionSelect
 }
 
-typealias TicketSessionClouse = (tag:NSInteger) -> Void
+typealias TicketSessionClouse = (_ tag:NSInteger) -> Void
 
 class TicketSession: UIView {
     var label = UILabel()
@@ -36,35 +36,35 @@ class TicketSession: UIView {
         label.font = App_Theme_PinFan_R_12_Font
         label.numberOfLines = 0
         label.frame = CGRect.init(x: 8, y: 0, width: frame.size.width - 16, height: frame.size.height)
-        label.textAlignment = .Left
+        label.textAlignment = .left
         self.addSubview(label)
         
         self.upDataType(type)
     }
     
-    func upDataType(type:NSInteger){
+    func upDataType(_ type:NSInteger){
         switch type {
         case 1:
             let color = UIColor.init(hexString: App_Theme_4BD4C5_Color)
-            label.textColor = UIColor.whiteColor()
+            label.textColor = UIColor.white
             self.backgroundColor = color
-            self.layer.borderColor = color.CGColor
+            self.layer.borderColor = color?.cgColor
         case 2:
             let color = UIColor.init(hexString: App_Theme_556169_Color)
             label.textColor = color
-            self.backgroundColor = UIColor.whiteColor()
-            self.layer.borderColor = color.CGColor
+            self.backgroundColor = UIColor.white
+            self.layer.borderColor = color?.cgColor
         default:
             let color = UIColor.init(hexString: App_Theme_DDE0E5_Color)
             label.textColor = color
-            self.backgroundColor = UIColor.whiteColor()
-            self.layer.borderColor = color.CGColor
+            self.backgroundColor = UIColor.white
+            self.layer.borderColor = color?.cgColor
         }
     }
     
-    func singTapPress(sender:UITapGestureRecognizer) {
+    func singTapPress(_ sender:UITapGestureRecognizer) {
         if self.clouse != nil {
-            self.clouse!(tag: (sender.view?.tag)!)
+            self.clouse!((sender.view?.tag)!)
         }
     }
     
@@ -76,7 +76,7 @@ class TicketSession: UIView {
 let SESSIONWIDTH:CGFloat = 139
 let SESSIONHEIGHT:CGFloat = 50
 
-typealias PicketUpSessionClouse = (tag:NSInteger) -> Void
+typealias PicketUpSessionClouse = (_ tag:NSInteger) -> Void
 
 class PicketUpSessionTableViewCell: UITableViewCell {
 
@@ -87,7 +87,7 @@ class PicketUpSessionTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
     
-    func updateSession(tag:Int){
+    func updateSession(_ tag:Int){
         for index in 0...sessionTitle.count - 1 {
             let sesstionTag = scrollerView.viewWithTag(tag) as! TicketSession
             if sesstionTag.type != 0 {
@@ -106,7 +106,7 @@ class PicketUpSessionTableViewCell: UITableViewCell {
         self.updateConstraintsIfNeeded()
     }
     
-    func setUpDataAarray(title:NSArray, selectArray:NSArray) {
+    func setUpDataAarray(_ title:NSArray, selectArray:NSArray) {
         if scrollerView == nil {
             sessionTitle = title
             scrollerView = UIScrollView.init(frame: CGRect.init(x: 15, y: 0, width: SCREENWIDTH - 30, height: 90))
@@ -115,17 +115,17 @@ class PicketUpSessionTableViewCell: UITableViewCell {
                 let sessionView = TicketSession.init(frame: CGRect.init(x: OriginX, y: 20, width: SESSIONWIDTH, height: SESSIONHEIGHT), title: sessionTitle[index] as! String, tag: index + 10, clouse: { (tag) in
                     self.updateSession(tag)
                     if self.picketUpSessionClouse != nil {
-                        self.picketUpSessionClouse(tag: tag - 10)
+                        self.picketUpSessionClouse(tag - 10)
                     }
-                    }, type: selectArray.objectAtIndex(index) as! Int)
-                OriginX = CGRectGetMaxX(sessionView.frame) + 10
+                    }, type: selectArray.object(at: index) as! Int)
+                OriginX = sessionView.frame.maxX + 10
                 scrollerView.addSubview(sessionView)
                 if Int(selectArray[index] as! NSNumber) == 1 {
                     sessionView.upDataType(1)
                 }
             }
             scrollerView.showsHorizontalScrollIndicator = false
-            scrollerView.contentSize = CGSizeMake(OriginX, 90)
+            scrollerView.contentSize = CGSize(width: OriginX, height: 90)
             self.contentView.addSubview(scrollerView)
         }
     }
@@ -140,7 +140,7 @@ class PicketUpSessionTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

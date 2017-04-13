@@ -23,7 +23,6 @@
  *
  *  @param string 输入字符串
  *
- *  @return
  */
 + (BOOL)isWeixinNum:(NSString *)string;
 /**
@@ -31,7 +30,6 @@
  *
  *  @param mobile 输入字符串
  *
- *  @return
  */
 + (BOOL) isValidateMobile:(NSString *)mobile;
 /**
@@ -39,7 +37,6 @@
  *
  *  @param str 输入字符串
  *
- *  @return
  */
 + (BOOL)IsChinese:(NSString *)str;
 /**
@@ -47,7 +44,6 @@
  *
  *  @param IDNumber 输入字符串
  *
- *  @return
  */
 + (BOOL)isCorrect:(NSString *)IDNumber;
 /**
@@ -55,25 +51,19 @@
  *
  *  @param email 输入字符串
  *
- *  @return
  */
 + (BOOL) validateEmail:(NSString *)email;
 
 /**
  *  检测是否包含特殊字符
  *
- *  @param string
  *
- *  @return
  */
 + (BOOL)isHaveSpecialCharacters:(NSString *)string;
 
 /**
  *  md5加密
  *
- *  @param string
- *
- *  @return
  */
 + (NSString *)md5:(NSString *)str;
 

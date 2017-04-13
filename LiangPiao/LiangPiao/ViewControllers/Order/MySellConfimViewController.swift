@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import ReactiveCocoa
 
 class MySellConfimViewController: UIViewController {
     
@@ -19,7 +18,7 @@ class MySellConfimViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "挂票"
-        self.view.backgroundColor = UIColor.whiteColor()
+        self.view.backgroundColor = UIColor.white
         self.setNavigationItem()
         self.bindViewModel()
         self.talKingDataPageName = "挂票"
@@ -32,35 +31,35 @@ class MySellConfimViewController: UIViewController {
     
     func setUpView() {
         
-        tableView = UITableView(frame: CGRectZero, style: .Grouped)
-        tableView.backgroundColor = UIColor.whiteColor()
+        tableView = UITableView(frame: CGRect.zero, style: .grouped)
+        tableView.backgroundColor = UIColor.white
         tableView.delegate = self
         tableView.dataSource = self
         tableView.showsVerticalScrollIndicator = false
-        tableView.keyboardDismissMode = .OnDrag
-        tableView.registerClass(MySellConfimHeaderTableViewCell.self, forCellReuseIdentifier: "MySellConfimHeaderTableViewCell")
-        tableView.registerClass(GloabTitleNumberCountTableViewCell.self, forCellReuseIdentifier: "GloabTitleNumberCountTableViewCell")
-        tableView.registerClass(MySellTicketTableViewCell.self, forCellReuseIdentifier: "MySellTicketTableViewCell")
-        tableView.registerClass(MySellTicketMuchTableViewCell.self, forCellReuseIdentifier: "MySellTicketMuchTableViewCell")
-        tableView.separatorStyle = .None
+        tableView.keyboardDismissMode = .onDrag
+        tableView.register(MySellConfimHeaderTableViewCell.self, forCellReuseIdentifier: "MySellConfimHeaderTableViewCell")
+        tableView.register(GloabTitleNumberCountTableViewCell.self, forCellReuseIdentifier: "GloabTitleNumberCountTableViewCell")
+        tableView.register(MySellTicketTableViewCell.self, forCellReuseIdentifier: "MySellTicketTableViewCell")
+        tableView.register(MySellTicketMuchTableViewCell.self, forCellReuseIdentifier: "MySellTicketMuchTableViewCell")
+        tableView.separatorStyle = .none
         self.view.addSubview(tableView)
         
-        tableView.snp_makeConstraints { (make) in
-            make.top.equalTo(self.view.snp_top).offset(0)
-            make.left.equalTo(self.view.snp_left).offset(0)
-            make.right.equalTo(self.view.snp_right).offset(0)
-            make.bottom.equalTo(self.view.snp_bottom).offset(-44)
+        tableView.snp.makeConstraints { (make) in
+            make.top.equalTo(self.view.snp.top).offset(0)
+            make.left.equalTo(self.view.snp.left).offset(0)
+            make.right.equalTo(self.view.snp.right).offset(0)
+            make.bottom.equalTo(self.view.snp.bottom).offset(-44)
         }
         
         bottomButton = GloableBottomButtonView.init(frame: nil, title: "继续", tag: nil, action: { (tag) in
             self.viewModel.pushSellInfo()
         })
         if !self.viewModel.isChange {
-            self.bottomButton.button.enabled = false
+            self.bottomButton.button.isEnabled = false
             self.bottomButton.button.buttonSetThemColor(App_Theme_DDE0E5_Color, selectColor: App_Theme_DDE0E5_Color, size: CGSize.init(width: SCREENWIDTH, height: 49))
             self.bottomButton.button.backgroundColor = UIColor.init(hexString: App_Theme_DDE0E5_Color)
         }else{
-            self.bottomButton.button.enabled = true
+            self.bottomButton.button.isEnabled = true
             self.bottomButton.button.buttonSetThemColor(App_Theme_4BD4C5_Color, selectColor: App_Theme_40C6B7_Color, size: CGSize.init(width: SCREENWIDTH, height: 49))
         }
         
@@ -70,7 +69,7 @@ class MySellConfimViewController: UIViewController {
     
     func setNavigationItem(){
         self.setNavigationItemBack()
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "卖票须知", style: .Plain, target: self, action: #selector(MySellConfimViewController.rightItemPress))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "卖票须知", style: .plain, target: self, action: #selector(MySellConfimViewController.rightItemPress))
     }
     
     func rightItemPress(){
@@ -95,19 +94,19 @@ class MySellConfimViewController: UIViewController {
 }
 
 extension MySellConfimViewController : UITableViewDelegate {
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return viewModel.tableViewHeightForFooterInSection(section)
     }
     
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0.0001
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return viewModel.tableViewHeightForRowAtIndexPath(indexPath)
     }
 }
@@ -115,31 +114,31 @@ extension MySellConfimViewController : UITableViewDelegate {
 extension MySellConfimViewController : UITableViewDataSource {
     
 
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.tableViewNumberOfRowsInSection(section)
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.row{
         case 0:
-            let cell = tableView.dequeueReusableCellWithIdentifier("MySellConfimHeaderTableViewCell", forIndexPath: indexPath) as! MySellConfimHeaderTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "MySellConfimHeaderTableViewCell", for: indexPath) as! MySellConfimHeaderTableViewCell
             viewModel.tableViewMySellConfimHeaderTableViewCell(cell, indexPath: indexPath)
-            cell.selectionStyle = .None
+            cell.selectionStyle = .none
             return cell
         case 1:
-            let cell = tableView.dequeueReusableCellWithIdentifier("MySellTicketTableViewCell", forIndexPath: indexPath) as! MySellTicketTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "MySellTicketTableViewCell", for: indexPath) as! MySellTicketTableViewCell
             viewModel.tableViewCellMySellTicketTableViewCell(cell, indexPath: indexPath)
-            cell.selectionStyle = .None
+            cell.selectionStyle = .none
             return cell
         case 2:
-            let cell = tableView.dequeueReusableCellWithIdentifier("GloabTitleNumberCountTableViewCell", forIndexPath: indexPath) as! GloabTitleNumberCountTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "GloabTitleNumberCountTableViewCell", for: indexPath) as! GloabTitleNumberCountTableViewCell
             viewModel.tableViewCellGloabTitleNumberCountTableViewCell(cell, indexPath: indexPath)
-            cell.selectionStyle = .None
+            cell.selectionStyle = .none
             return cell
         default:
-            let cell = tableView.dequeueReusableCellWithIdentifier("MySellTicketMuchTableViewCell", forIndexPath: indexPath) as! MySellTicketMuchTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "MySellTicketMuchTableViewCell", for: indexPath) as! MySellTicketMuchTableViewCell
             viewModel.tableViewCellMySellTicketMuchTableViewCell(cell, indexPath:indexPath)
-            cell.selectionStyle = .None
+            cell.selectionStyle = .none
             return cell
         }
     }

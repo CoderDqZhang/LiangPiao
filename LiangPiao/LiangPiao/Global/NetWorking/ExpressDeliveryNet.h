@@ -9,10 +9,12 @@
 #import <Foundation/Foundation.h>
 #import <ReactiveCocoa/ReactiveCocoa.h>
 
+typedef void(^ExpressDeliveryClouse)(NSDictionary *resultDic);
+
 @interface ExpressDeliveryNet : NSObject
 
 + (instancetype)shareInstance;
 
-- (RACSignal *)requestExpressDelivreyNetOrder:(NSDictionary *)dic url:(NSString *)url;
+- (void)requestExpressDelivreyNetOrder:(NSDictionary *)dic url:(NSString *)url clouse:(ExpressDeliveryClouse)clouse;
 
 @end

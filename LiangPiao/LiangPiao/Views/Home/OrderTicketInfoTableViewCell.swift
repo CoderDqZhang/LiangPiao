@@ -36,10 +36,10 @@ class OrderTicketInfoTableViewCell: UITableViewCell {
         
         ticketTitle = UILabel()
         ticketTitle.text = "万有音乐系 陈粒《小梦大半》2016巡回演唱会"
-        UILabel.changeLineSpaceForLabel(ticketTitle, withSpace: TitleLineSpace)
+        UILabel.changeLineSpace(for: ticketTitle, withSpace: TitleLineSpace)
         ticketTitle.textColor = UIColor.init(hexString: App_Theme_384249_Color)
         ticketTitle.font = App_Theme_PinFan_R_15_Font
-        UILabel.changeLineSpaceForLabel(ticketTitle, withSpace: TitleLineSpace)
+        UILabel.changeLineSpace(for: ticketTitle, withSpace: TitleLineSpace)
         ticketTitle.numberOfLines = 0
         self.contentView.addSubview(ticketTitle)
         
@@ -71,95 +71,102 @@ class OrderTicketInfoTableViewCell: UITableViewCell {
         
     }
     
-    func setData(model:OrderList){
+    func setData(_ model:OrderList){
         if model.status == 0 {
-            ticketPhoto.snp_updateConstraints(closure: { (make) in
-                make.bottom.equalTo(self.contentView.snp_bottom).offset(-18)
+            ticketPhoto.snp.updateConstraints({ (make) in
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(-18)
             })
-            ticketAllMuch.snp_updateConstraints(closure: { (make) in
-                make.bottom.equalTo(self.contentView.snp_bottom).offset(-18)
+            ticketAllMuch.snp.updateConstraints({ (make) in
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(-18)
             })
         }else{
-            ticketPhoto.snp_updateConstraints(closure: { (make) in
-                make.bottom.equalTo(self.contentView.snp_bottom).offset(-30)
+            ticketPhoto.snp.updateConstraints({ (make) in
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(-30)
             })
-            ticketAllMuch.snp_updateConstraints(closure: { (make) in
-                make.bottom.equalTo(self.contentView.snp_bottom).offset(-30)
+            ticketAllMuch.snp.updateConstraints({ (make) in
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(-30)
             })
         }
-        ticketPhoto.sd_setImageWithURL(NSURL.init(string: model.show.cover), placeholderImage: UIImage.init(named: "Feeds_Default_Cover")) { (image, error, cacheType, url) in
+
+        ticketPhoto.sd_setImage(with: URL.init(string: model.show.cover), placeholderImage: UIImage.init(named: "Feeds_Default_Cover"), options: .retryFailed, progress: { (start, end, url) in
+            
+        }) { (image, error, cacheType, url) in
+            
         }
         ticketTitle.text = model.show.title
-        UILabel.changeLineSpaceForLabel(ticketTitle, withSpace: TitleLineSpace)
-        ticketTime.text = "时间：\(model.session.startTime)"
-        ticketMuch.text = "票面：\(model.ticket.originalTicket.name) x \(model.remainCount)"
+        UILabel.changeLineSpace(for: ticketTitle, withSpace: TitleLineSpace)
+        ticketTime.text = "时间：\((model.session.startTime)!)"
+        ticketMuch.text = "票面：\((model.ticket.originalTicket.name)!) x \((model.remainCount)!)"
         if model.ticket.region == "" {
             ticketRow.text = "座位：择优分配"
         }else{
-            let row = model.ticket.row == "" ? "择优分配":"\(model.ticket.row)排"
-            ticketRow.text = "座位：\(model.ticket.region) \(row)"
+            let row = model.ticket.row == "" ? "择优分配":"\((model.ticket.row)!)排"
+            ticketRow.text = "座位：\((model.ticket.region)!) \(row)"
         }
-        ticketAllMuch.text = "实付金额：\(model.total)"
+        ticketAllMuch.text = "实付金额：\((model.total)!)"
     }
     
-    func setSellData(model:OrderList){
-        ticketPhoto.snp_updateConstraints(closure: { (make) in
-            make.bottom.equalTo(self.contentView.snp_bottom).offset(-19)
+    func setSellData(_ model:OrderList){
+        ticketPhoto.snp.updateConstraints({ (make) in
+            make.bottom.equalTo(self.contentView.snp.bottom).offset(-19)
         })
-        ticketAllMuch.snp_updateConstraints(closure: { (make) in
-            make.bottom.equalTo(self.contentView.snp_bottom).offset(-19)
+        ticketAllMuch.snp.updateConstraints({ (make) in
+            make.bottom.equalTo(self.contentView.snp.bottom).offset(-19)
         })
-        ticketPhoto.sd_setImageWithURL(NSURL.init(string: model.show.cover), placeholderImage: UIImage.init(named: "Feeds_Default_Cover")) { (image, error, cacheType, url) in
+        ticketPhoto.sd_setImage(with: URL.init(string: model.show.cover), placeholderImage: UIImage.init(named: "Feeds_Default_Cover"), options: .retryFailed, progress: { (start, end, url) in
+            
+        }) { (image, error, cacheType, url) in
+            
         }
         ticketTitle.text = model.show.title
-        UILabel.changeLineSpaceForLabel(ticketTitle, withSpace: TitleLineSpace)
-        ticketTime.text = "时间：\(model.session.startTime)"
-        ticketMuch.text = "票面：\(model.ticket.originalTicket.name)"
+        UILabel.changeLineSpace(for: ticketTitle, withSpace: TitleLineSpace)
+        ticketTime.text = "时间：\((model.session.startTime)!)"
+        ticketMuch.text = "票面：\((model.ticket.originalTicket.name)!)"
         if model.ticket.region == "" {
             ticketAllMuch.text = "座位：择优分配"
         }else{
-            let row = model.ticket.row == "" ? "择优分配":"\(model.ticket.row)排"
-            ticketAllMuch.text = "座位：\(model.ticket.region) \(row)"
+            let row = model.ticket.row == "" ? "择优分配":"\((model.ticket.row)!)排"
+            ticketAllMuch.text = "座位：\((model.ticket.region)!) \(row)"
         }
-        ticketRow.text = "数量：\(model.remainCount)"
+        ticketRow.text = "数量：\((model.remainCount)!)"
         
         self.updateConstraintsIfNeeded()
     }
     
     override func updateConstraints() {
         if !self.didMakeConstraints {
-            ticketPhoto.snp_makeConstraints(closure: { (make) in
-                make.top.equalTo(self.contentView.snp_top).offset(20)
-                make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.bottom.equalTo(self.contentView.snp_bottom).offset(-20)
+            ticketPhoto.snp.makeConstraints({ (make) in
+                make.top.equalTo(self.contentView.snp.top).offset(20)
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(-20)
                 make.width.equalTo(82)
             })
             
-            ticketTitle.snp_makeConstraints(closure: { (make) in
-                make.top.equalTo(self.contentView.snp_top).offset(17)
-                make.left.equalTo(self.ticketPhoto.snp_right).offset(12)
-                make.right.equalTo(self.contentView.snp_right).offset(-15)
+            ticketTitle.snp.makeConstraints({ (make) in
+                make.top.equalTo(self.contentView.snp.top).offset(17)
+                make.left.equalTo(self.ticketPhoto.snp.right).offset(12)
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
             })
             
-            ticketTime.snp_makeConstraints(closure: { (make) in
-                make.bottom.equalTo(self.ticketMuch.snp_top).offset(-2)
-                make.left.equalTo(self.ticketPhoto.snp_right).offset(12)
-                make.right.equalTo(self.contentView.snp_right).offset(-15)
+            ticketTime.snp.makeConstraints({ (make) in
+                make.bottom.equalTo(self.ticketMuch.snp.top).offset(-2)
+                make.left.equalTo(self.ticketPhoto.snp.right).offset(12)
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
             })
             
-            ticketMuch.snp_makeConstraints(closure: { (make) in
-                make.bottom.equalTo(self.ticketRow.snp_top).offset(-2)
-                make.left.equalTo(self.ticketPhoto.snp_right).offset(12)
+            ticketMuch.snp.makeConstraints({ (make) in
+                make.bottom.equalTo(self.ticketRow.snp.top).offset(-2)
+                make.left.equalTo(self.ticketPhoto.snp.right).offset(12)
             })
             
-            ticketRow.snp_makeConstraints(closure: { (make) in
-                make.bottom.equalTo(self.ticketAllMuch.snp_top).offset(-2)
-                make.left.equalTo(self.ticketPhoto.snp_right).offset(12)
+            ticketRow.snp.makeConstraints({ (make) in
+                make.bottom.equalTo(self.ticketAllMuch.snp.top).offset(-2)
+                make.left.equalTo(self.ticketPhoto.snp.right).offset(12)
             })
             
-            ticketAllMuch.snp_makeConstraints(closure: { (make) in
-                make.bottom.equalTo(self.contentView.snp_bottom).offset(-18)
-                make.left.equalTo(self.ticketPhoto.snp_right).offset(12)
+            ticketAllMuch.snp.makeConstraints({ (make) in
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(-18)
+                make.left.equalTo(self.ticketPhoto.snp.right).offset(12)
             })
             
             self.didMakeConstraints = true
@@ -176,7 +183,7 @@ class OrderTicketInfoTableViewCell: UITableViewCell {
         // Initialization code
     }
     
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         
         // Configure the view for the selected state

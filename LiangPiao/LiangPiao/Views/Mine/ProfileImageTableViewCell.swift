@@ -29,12 +29,12 @@ class ProfileImageTableViewCell: UITableViewCell {
         nameAndePhone.textColor = UIColor.init(hexString: App_Theme_384249_Color)
         self.contentView.addSubview(nameAndePhone)
         
-        photoImageView = UIButton(type: .Custom)
+        photoImageView = UIButton(type: .custom)
         photoImageView.layer.cornerRadius = 28
-        photoImageView.userInteractionEnabled = false
+        photoImageView.isUserInteractionEnabled = false
         photoImageView.layer.masksToBounds = true
         photoImageView.backgroundColor = UIColor.init(hexString: App_Theme_E9EBF2_Color)
-        photoImageView.setImage(UIImage.init(named: "Icon_Camera"), forState: .Normal)
+        photoImageView.setImage(UIImage.init(named: "Icon_Camera"), for: UIControlState())
         self.contentView.addSubview(photoImageView)
         
         detailImage = UIImageView()
@@ -44,27 +44,27 @@ class ProfileImageTableViewCell: UITableViewCell {
         self.updateConstraintsIfNeeded()
     }
     
-    func setData(namePhone:String, photoImage:UIImage) {
+    func setData(_ namePhone:String, photoImage:UIImage) {
         nameAndePhone.text = namePhone
     }
     
     override func updateConstraints() {
         if !self.didMakeConstraints {
             
-            nameAndePhone.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.centerY.equalTo(self.contentView.snp_centerY).offset(0)
+            nameAndePhone.snp.makeConstraints({ (make) in
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.centerY.equalTo(self.contentView.snp.centerY).offset(0)
             })
             
-            photoImageView.snp_makeConstraints(closure: { (make) in
-                make.right.equalTo(self.detailImage.snp_left).offset(-14)
-                make.centerY.equalTo(self.contentView.snp_centerY).offset(0)
-                make.size.equalTo(CGSizeMake(56, 56))
+            photoImageView.snp.makeConstraints({ (make) in
+                make.right.equalTo(self.detailImage.snp.left).offset(-14)
+                make.centerY.equalTo(self.contentView.snp.centerY).offset(0)
+                make.size.equalTo(CGSize.init(width: 56, height: 56))
             })
             
-            detailImage.snp_makeConstraints(closure: { (make) in
-                make.right.equalTo(self.contentView.snp_right).offset(-15)
-                make.centerY.equalTo(self.contentView.snp_centerY).offset(0)
+            detailImage.snp.makeConstraints({ (make) in
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
+                make.centerY.equalTo(self.contentView.snp.centerY).offset(0)
             })
             
             self.didMakeConstraints = true
@@ -81,7 +81,7 @@ class ProfileImageTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

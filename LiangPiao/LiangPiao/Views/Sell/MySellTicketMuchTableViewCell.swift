@@ -40,7 +40,7 @@ class MySellTicketMuchTableViewCell: UITableViewCell {
         let placeholder = NSMutableAttributedString.init(string: "0")
         placeholder.addAttributes([NSForegroundColorAttributeName:UIColor.init(hexString: App_Theme_DDE0E5_Color)], range: NSRange.init(location: 0, length: 1))
         placeholder.addAttributes([NSFontAttributeName:App_Theme_PinFan_R_30_Font!], range: NSRange.init(location: 0, length: 1))
-        muchTextField.keyboardType = .NumberPad
+        muchTextField.keyboardType = .numberPad
         muchTextField.attributedPlaceholder = placeholder
         muchTextField.textColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
         muchTextField.tintColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
@@ -74,30 +74,30 @@ class MySellTicketMuchTableViewCell: UITableViewCell {
     override func updateConstraints() {
         if !self.didMakeContraints {
             
-            ticketTitle.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.top.equalTo(self.contentView.snp_top).offset(21)
+            ticketTitle.snp.makeConstraints({ (make) in
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.top.equalTo(self.contentView.snp.top).offset(21)
             })
             
-//            button.snp_makeConstraints { (make) in
-//                make.right.equalTo(self.contentView.snp_right).offset(-15)
-//                make.top.equalTo(self.contentView.snp_top).offset(15)
+//            button.snp.makeConstraints { (make) in
+//                make.right.equalTo(self.contentView.snp.right).offset(-15)
+//                make.top.equalTo(self.contentView.snp.top).offset(15)
 //            }
             
-            muchTextField.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.right.equalTo(self.contentView.snp_right).offset(-15)
-                make.top.equalTo(self.ticketTitle.snp_bottom).offset(20)
+            muchTextField.snp.makeConstraints({ (make) in
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
+                make.top.equalTo(self.ticketTitle.snp.bottom).offset(20)
             })
             
-            instroduct.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.top.equalTo(self.muchTextField.snp_bottom).offset(20)
+            instroduct.snp.makeConstraints({ (make) in
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.top.equalTo(self.muchTextField.snp.bottom).offset(20)
             })
             
-//            muchIntroduct.snp_makeConstraints(closure: { (make) in
-//                make.left.equalTo(self.contentView.snp_left).offset(15)
-//                make.top.equalTo(self.instroduct.snp_bottom).offset(2)
+//            muchIntroduct.snp.makeConstraints({ (make) in
+//                make.left.equalTo(self.contentView.snp.left).offset(15)
+//                make.top.equalTo(self.instroduct.snp.bottom).offset(2)
 //            })
             
             self.didMakeContraints = true
@@ -111,7 +111,7 @@ class MySellTicketMuchTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

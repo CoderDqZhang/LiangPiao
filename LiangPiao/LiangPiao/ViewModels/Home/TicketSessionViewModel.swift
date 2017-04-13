@@ -23,11 +23,11 @@ class TicketSessionViewModel: NSObject {
         return 2
     }
     
-    func numberOfRowsInSection(section:Int) ->Int {
+    func numberOfRowsInSection(_ section:Int) ->Int {
         return models.count
     }
     
-    func tableViewHeightForFooterInSection(section:Int) -> CGFloat {
+    func tableViewHeightForFooterInSection(_ section:Int) -> CGFloat {
         switch section {
         case 1:
             return 0.0001
@@ -36,7 +36,7 @@ class TicketSessionViewModel: NSObject {
         }
     }
     
-    func tableViewHeightForRowAtIndexPath(indexPath:NSIndexPath) -> CGFloat
+    func tableViewHeightForRowAtIndexPath(_ indexPath:IndexPath) -> CGFloat
     {
         switch indexPath.row {
         case 0:
@@ -46,19 +46,21 @@ class TicketSessionViewModel: NSObject {
         }
     }
     
-    func requestTicketSession(tableView:UITableView){
-        let url = "\(TickeSession)\(model.id)/session"
-        BaseNetWorke.sharedInstance.getUrlWithString(url, parameters: nil).subscribeNext { (resultDic) in
-            let resultModels =  NSMutableArray.mj_objectArrayWithKeyValuesArray(resultDic)
-            self.models = resultModels.mutableCopy() as! NSMutableArray
-            tableView.reloadData()
+    func requestTicketSession(_ tableView:UITableView){
+        let url = "\(TickeSession)\((model.id)!)/session"
+        BaseNetWorke.sharedInstance.getUrlWithString(url, parameters: nil).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                let resultModels =  NSMutableArray.mj_objectArray(withKeyValuesArray: resultDic.value)
+                self.models = resultModels?.mutableCopy() as! NSMutableArray
+                tableView.reloadData()
+            }
         }
     }
     
-    func didSelectRowAtIndexPath(indexPath:NSIndexPath) {
+    func didSelectRowAtIndexPath(_ indexPath:IndexPath) {
         if isSellType {
             let controllerVC = MySellConfimViewController()
-            model.session = ShowSessionModel.init(fromDictionary: self.models.objectAtIndex(indexPath.row) as! NSDictionary)
+            model.session = ShowSessionModel.init(fromDictionary: self.models.object(at: indexPath.row) as! NSDictionary)
             controllerVC.viewModel.isChange = false
             controllerVC.viewModel.isSellTicketView = true
             controllerVC.viewModel.model = model
@@ -67,13 +69,13 @@ class TicketSessionViewModel: NSObject {
         }else{
             let controllerVC = TicketDescriptionViewController()
             controllerVC.viewModel.ticketModel = model
-            controllerVC.viewModel.ticketModel.session = ShowSessionModel.init(fromDictionary: self.models.objectAtIndex(indexPath.row) as! NSDictionary)
+            controllerVC.viewModel.ticketModel.session = ShowSessionModel.init(fromDictionary: self.models.object(at: indexPath.row) as! NSDictionary)
             NavigationPushView(self.controller, toConroller: controllerVC)
         }
     }
     
-    func cellForRowAtIndexPath(indexPath:NSIndexPath,cell:TicketSceneTableViewCell){
-        let model = ShowSessionModel.init(fromDictionary: models.objectAtIndex(indexPath.row) as! NSDictionary)
+    func cellForRowAtIndexPath(_ indexPath:IndexPath,cell:TicketSceneTableViewCell){
+        let model = ShowSessionModel.init(fromDictionary: models.object(at: indexPath.row) as! NSDictionary)
         cell.setData(model)
     }
 }

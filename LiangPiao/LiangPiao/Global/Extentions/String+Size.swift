@@ -45,19 +45,19 @@ extension String{
     //MARK:获得string内容高度
      var length: Int { return self.characters.count }
     
-    func heightWithConstrainedWidth(textStr:String,font:UIFont,width:CGFloat) -> CGFloat {
-        let normalText: NSString = textStr
-        let size = CGSizeMake(width,1000)
-        let dic = NSDictionary(object: font, forKey: NSFontAttributeName)
-        let stringSize = normalText.boundingRectWithSize(size, options: .UsesLineFragmentOrigin, attributes: dic as? [String : AnyObject], context:nil).size
+    func heightWithConstrainedWidth(_ textStr:String,font:UIFont,width:CGFloat) -> CGFloat {
+        let normalText: NSString = textStr as NSString
+        let size = CGSize(width: width,height: 1000)
+        let dic = NSDictionary(object: font, forKey: NSFontAttributeName as NSCopying)
+        let stringSize = normalText.boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: dic as? [String : AnyObject], context:nil).size
         return stringSize.height
     }
     
-    func widthWithConstrainedHeight(textStr:String,font:UIFont,height:CGFloat) -> CGFloat {
-        let normalText: NSString = textStr
-        let size = CGSizeMake(1000, height)
-        let dic = NSDictionary(object: font, forKey: NSFontAttributeName)
-        let stringSize = normalText.boundingRectWithSize(size, options: .UsesLineFragmentOrigin, attributes: dic as? [String : AnyObject], context:nil).size
+    func widthWithConstrainedHeight(_ textStr:String,font:UIFont,height:CGFloat) -> CGFloat {
+        let normalText: NSString = textStr as NSString
+        let size = CGSize(width: 1000, height: height)
+        let dic = NSDictionary(object: font, forKey: NSFontAttributeName as NSCopying)
+        let stringSize = normalText.boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: dic as? [String : AnyObject], context:nil).size
         return stringSize.width
     }
     
@@ -65,31 +65,31 @@ extension String{
         return (self as NSString).floatValue
     }
     
-    func addEncoding(st : String ) ->String? {
+    func addEncoding(_ st : String ) ->String? {
         if #available(iOS 8.0, OSX 10.9, *) {
-            return st.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())
+            return st.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
         }
         else {
-            return  st.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)
+            return  st.addingPercentEscapes(using: String.Encoding.utf8)
         }
     }
     
-    func phoneType(st: String) -> String {
+    func phoneType(_ st: String) -> String {
         let temp = NSMutableString.init(string: st)
         if temp.length == 11 {
-            temp.insertString("-", atIndex: 3)
-            temp.insertString("-", atIndex: 8)
+            temp.insert("-", at: 3)
+            temp.insert("-", at: 8)
         }else{
-            temp.insertString("-", atIndex: 3)
-            temp.insertString("-", atIndex: 7)
+            temp.insert("-", at: 3)
+            temp.insert("-", at: 7)
         }
         return temp as String
     }
     
-    func muchType(str:String) -> String {
-        let doubleStr = Double(str)
+    func muchType(_ str:String) -> String {
+        let doubleStr = Double("\((str))")
         var str = ""
-        if doubleStr! % 10 == 0 {
+        if doubleStr!.truncatingRemainder(dividingBy: 10) == 0 {
             str = "\(doubleStr! / 100)0"
         }else{
             str = "\(doubleStr! / 100)"
@@ -98,39 +98,39 @@ extension String{
     }
     
     func md5() ->String!{
-        let str = self.cStringUsingEncoding(NSUTF8StringEncoding)
-        let strLen = CUnsignedInt(self.lengthOfBytesUsingEncoding(NSUTF8StringEncoding))
+        let str = self.cString(using: String.Encoding.utf8)
+        let strLen = CUnsignedInt(self.lengthOfBytes(using: String.Encoding.utf8))
         let digestLen = Int(CC_MD5_DIGEST_LENGTH)
-        let result = UnsafeMutablePointer<CUnsignedChar>.alloc(digestLen)
+        let result = UnsafeMutablePointer<CUnsignedChar>.allocate(capacity: digestLen)
         CC_MD5(str!, strLen, result)
         let hash = NSMutableString()
         for i in 0 ..< digestLen {
             hash.appendFormat("%02x", result[i])
         }
-        result.destroy()
+        result.deinitialize()
         return String(format: hash as String)
     }
     
     func toBase64() -> String? {
-        guard let data = self.dataUsingEncoding(NSUTF8StringEncoding) else {
+        guard let data = self.data(using: String.Encoding.utf8) else {
             return nil
         }
         
-        return data.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+        return data.base64EncodedString(options: NSData.Base64EncodingOptions(rawValue: 0))
     }
     
-    func dataTojsonString(object:AnyObject) -> String{
+    func dataTojsonString(_ object:AnyObject) -> String{
         var str = ""
         do {
-            let jsonData = try NSJSONSerialization.dataWithJSONObject(object, options: NSJSONWritingOptions.PrettyPrinted)
-             str = String.init(data: jsonData, encoding: NSUTF8StringEncoding)!
+            let jsonData = try JSONSerialization.data(withJSONObject: object, options: JSONSerialization.WritingOptions.prettyPrinted)
+             str = String.init(data: jsonData, encoding: String.Encoding.utf8)!
         } catch {
             
         }
         return str
     }
     
-    func substringWithRange(start: Int, end: Int) -> String
+    func substringWithRange(_ start: Int, end: Int) -> String
     {
         if (start < 0 || start > self.characters.count)
         {
@@ -142,11 +142,11 @@ extension String{
             print("end index \(end) out of bounds")
             return ""
         }
-        let range = Range(start: self.startIndex.advancedBy(start), end: self.startIndex.advancedBy(end))
-        return self.substringWithRange(range)
+        let range = (self.characters.index(self.startIndex, offsetBy: start) ..< self.characters.index(self.startIndex, offsetBy: end))
+        return self.substring(with: range)
     }
     
-    func substringWithRange(start: Int, location: Int) -> String
+    func substringWithRange(_ start: Int, location: Int) -> String
     {
         if (start < 0 || start > self.characters.count)
         {
@@ -158,8 +158,8 @@ extension String{
             print("end index \(start + location) out of bounds")
             return ""
         }
-        let range = Range(start: self.startIndex.advancedBy(start), end: self.startIndex.advancedBy(start + location))
-        return self.substringWithRange(range)
+        let range = (self.characters.index(self.startIndex, offsetBy: start) ..< self.characters.index(self.startIndex, offsetBy: start + location))
+        return self.substring(with: range)
     }
     
 //    var sha1: String! {

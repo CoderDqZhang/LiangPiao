@@ -27,27 +27,27 @@ class AllTicketTableViewCell: UITableViewCell {
         titleLabel.textColor = UIColor.init(hexString: App_Theme_8A96A2_Color)
         self.contentView.addSubview(titleLabel)
         
-        lineLable = GloabLineView(frame: CGRectMake(15,0,SCREENWIDTH - 30, 0.5))
+        lineLable = GloabLineView(frame: CGRect(x: 15,y: 0,width: SCREENWIDTH - 30, height: 0.5))
         self.contentView.addSubview(lineLable)
         
         self.updateConstraintsIfNeeded()
     }
     
     func hideLineLabel() {
-        self.lineLable.hidden = true
+        self.lineLable.isHidden = true
     }
     
     override func updateConstraints() {
         if !self.didMakeConstraints {
-            titleLabel.snp_makeConstraints(closure: { (make) in
-                make.centerX.equalTo(self.contentView.snp_centerX).offset(0)
-                make.centerY.equalTo(self.contentView.snp_centerY).offset(0)
+            titleLabel.snp.makeConstraints({ (make) in
+                make.centerX.equalTo(self.contentView.snp.centerX).offset(0)
+                make.centerY.equalTo(self.contentView.snp.centerY).offset(0)
             })
             
-            lineLable.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.right.equalTo(self.contentView.snp_right).offset(-15)
-                make.bottom.equalTo(self.contentView.snp_bottom).offset(-0.5)
+            lineLable.snp.makeConstraints({ (make) in
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(-0.5)
             })
             
             self.didMakeConstraints = true
@@ -64,7 +64,7 @@ class AllTicketTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

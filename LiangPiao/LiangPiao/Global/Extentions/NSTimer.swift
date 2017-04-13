@@ -9,14 +9,14 @@
 import Foundation
 public typealias TimerExcuteClosure = @convention(block)()->()
 
-extension NSTimer{
-    public class func YQ_scheduledTimerWithTimeInterval(ti:NSTimeInterval, closure:TimerExcuteClosure, repeats yesOrNo: Bool) -> NSTimer{
-        return self.scheduledTimerWithTimeInterval(ti, target: self, selector: #selector(NSTimer.excuteTimerClosure(_:)), userInfo: unsafeBitCast(closure, AnyObject.self), repeats: true)
+extension Timer{
+    public class func YQ_scheduledTimerWithTimeInterval(_ ti:TimeInterval, closure:TimerExcuteClosure, repeats yesOrNo: Bool) -> Timer{
+        return self.scheduledTimer(timeInterval: ti, target: self, selector: #selector(Timer.excuteTimerClosure(_:)), userInfo: unsafeBitCast(closure, to: AnyObject.self), repeats: true)
     }
     
-    class func excuteTimerClosure(timer: NSTimer)
+    class func excuteTimerClosure(_ timer: Timer)
     {
-        let closure = unsafeBitCast(timer.userInfo, TimerExcuteClosure.self)
+        let closure = unsafeBitCast(timer.userInfo, to: TimerExcuteClosure.self)
         closure()
     }
 }

@@ -36,7 +36,7 @@ class TicketLocationTableViewCell: UITableViewCell {
         detailAddress.numberOfLines = 0
         self.contentView.addSubview(detailAddress)
         
-        locationButton = UIButton(type: .Custom)
+        locationButton = UIButton(type: .custom)
         locationButton.buttonSetImage(UIImage.init(named: "Order_Address_Location")!, sImage: UIImage.init(named: "Order_Address_Location_Pressed")!)
         self.contentView.addSubview(locationButton)
         
@@ -47,10 +47,10 @@ class TicketLocationTableViewCell: UITableViewCell {
         self.updateConstraintsIfNeeded()
     }
     
-    func setData(model:OrderList){
+    func setData(_ model:OrderList){
         addressLabel.text = model.show.venue.name
         detailAddress.text = model.show.venue.address
-        UILabel.changeLineSpaceForLabel(detailAddress, withSpace: 2.0)
+        UILabel.changeLineSpace(for: detailAddress, withSpace: 2.0)
 
     }
     
@@ -60,29 +60,29 @@ class TicketLocationTableViewCell: UITableViewCell {
     
     override func updateConstraints() {
         if !self.didMakeConstraints {
-            addressLabel.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.top.equalTo(self.contentView.snp_top).offset(20)
+            addressLabel.snp.makeConstraints({ (make) in
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.top.equalTo(self.contentView.snp.top).offset(20)
             })
             
-            detailAddress.snp_makeConstraints(closure: { (make) in
-                make.top.equalTo(self.addressLabel.snp_bottom).offset(3)
-                make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.right.equalTo(self.locationButton.snp_left).offset(-20)
-                make.bottom.equalTo(self.contentView.snp_bottom).offset(-20)
+            detailAddress.snp.makeConstraints({ (make) in
+                make.top.equalTo(self.addressLabel.snp.bottom).offset(3)
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.right.equalTo(self.locationButton.snp.left).offset(-20)
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(-20)
             })
             
-            locationButton.snp_makeConstraints(closure: { (make) in
-                make.right.equalTo(self.contentView.snp_right).offset(-15)
-                make.centerY.equalTo(self.contentView.snp_centerY).offset(0)
+            locationButton.snp.makeConstraints({ (make) in
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
+                make.centerY.equalTo(self.contentView.snp.centerY).offset(0)
                 make.height.equalTo(37)
                 make.width.equalTo(37)
             })
             
-            linLabel.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.right.equalTo(self.contentView.snp_right).offset(-15)
-                make.bottom.equalTo(self.contentView.snp_bottom).offset(-0.5)
+            linLabel.snp.makeConstraints({ (make) in
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(-0.5)
                 make.height.equalTo(0.5)
             })
 
@@ -96,7 +96,7 @@ class TicketLocationTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

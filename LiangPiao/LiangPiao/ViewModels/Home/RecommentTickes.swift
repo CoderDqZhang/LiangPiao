@@ -66,10 +66,10 @@ class RecommentTickes : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        hasNext = aDecoder.decodeObjectForKey("has_next") as? Bool
-        nextStart = aDecoder.decodeObjectForKey("next_start") as? Int
-        nextPage = aDecoder.decodeObjectForKey("next_page") as? Int
-        showList = aDecoder.decodeObjectForKey("show_list") as? [TicketShowModel]
+        hasNext = aDecoder.decodeObject(forKey: "has_next") as? Bool
+        nextStart = aDecoder.decodeObject(forKey: "next_start") as? Int
+        nextPage = aDecoder.decodeObject(forKey: "next_page") as? Int
+        showList = aDecoder.decodeObject(forKey: "show_list") as? [TicketShowModel]
         
     }
     
@@ -77,16 +77,16 @@ class RecommentTickes : NSObject, NSCoding{
      * NSCoding required method.
      * Encodes mode properties into the decoder
      */
-    @objc func encodeWithCoder(aCoder: NSCoder)
+    @objc func encode(with aCoder: NSCoder)
     {
         if hasNext != nil{
-            aCoder.encodeObject(hasNext, forKey: "has_next")
+            aCoder.encode(hasNext, forKey: "has_next")
         }
         if nextStart != nil{
-            aCoder.encodeObject(nextStart, forKey: "next_start")
+            aCoder.encode(nextStart, forKey: "next_start")
         }
         if showList != nil{
-            aCoder.encodeObject(showList, forKey: "show_list")
+            aCoder.encode(showList, forKey: "show_list")
         }
         
     }

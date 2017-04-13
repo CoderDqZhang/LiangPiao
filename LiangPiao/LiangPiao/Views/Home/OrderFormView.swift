@@ -17,7 +17,7 @@ class ConfirmView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = UIColor.whiteColor()
+        self.backgroundColor = UIColor.white
         self.setUpView()
     }
     
@@ -41,36 +41,36 @@ class ConfirmView: UIView {
         
         self.addSubview(muchLabel)
         
-        payButton = UIButton(type: .Custom)
-        payButton.setTitle("提交订单", forState: .Normal)
+        payButton = UIButton(type: .custom)
+        payButton.setTitle("提交订单", for: UIControlState())
         payButton.backgroundColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
         payButton.titleLabel?.font = App_Theme_PinFan_R_15_Font
-        payButton.frame = CGRectMake(SCREENWIDTH - 120, 0, 120, 49)
+        payButton.frame = CGRect(x: SCREENWIDTH - 120, y: 0, width: 120, height: 49)
         self.addSubview(payButton)
         
         self.updateConstraintsIfNeeded()
     }
     
-    func setMuchLabelText(text:String){
+    func setMuchLabelText(_ text:String){
         muchLabel.text = text
         self.updateConstraintsIfNeeded()
     }
     
     override func updateConstraints() {
         if !self.didMakeConstraints {
-            muchInfoLabel.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.snp_left).offset(15)
-                make.top.equalTo(self.snp_top).offset(18)
+            muchInfoLabel.snp.makeConstraints({ (make) in
+                make.left.equalTo(self.snp.left).offset(15)
+                make.top.equalTo(self.snp.top).offset(18)
             })
-            muchLabel.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.muchInfoLabel.snp_right).offset(4)
-                make.top.equalTo(self.snp_top).offset(15)
+            muchLabel.snp.makeConstraints({ (make) in
+                make.left.equalTo(self.muchInfoLabel.snp.right).offset(4)
+                make.top.equalTo(self.snp.top).offset(15)
             })
             
-            muchmLabel.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.muchLabel.snp_right).offset(4)
-                make.top.equalTo(self.snp_top).offset(21)
-                //                make.centerY.equalTo(self.snp_centerY).offset(0)
+            muchmLabel.snp.makeConstraints({ (make) in
+                make.left.equalTo(self.muchLabel.snp.right).offset(4)
+                make.top.equalTo(self.snp.top).offset(21)
+                //                make.centerY.equalTo(self.snp.centerY).offset(0)
             })
             
             self.didMakeConstraints = true

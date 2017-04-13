@@ -429,7 +429,7 @@
 		1F67D10F1DCD816E00378116 /* AddAddressViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddAddressViewController.swift; sourceTree = "<group>"; };
 		1F67D1111DCD854800378116 /* AddressViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressViewModel.swift; sourceTree = "<group>"; };
 		1F67D1131DCD867A00378116 /* AddressTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressTableViewCell.swift; sourceTree = "<group>"; };
-		1F67D1151DCDB56A00378116 /* DetailAddressTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailAddressTableViewCell.swift; sourceTree = "<group>"; };
+		1F67D1151DCDB56A00378116 /* DetailAddressTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DetailAddressTableViewCell.swift; path = ../../ViewModels/Mine/DetailAddressTableViewCell.swift; sourceTree = "<group>"; };
 		1F6BB9711DD954B300893932 /* AlipaySDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AlipaySDK.bundle; sourceTree = "<group>"; };
 		1F6BB9721DD954B300893932 /* AlipaySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlipaySDK.framework; sourceTree = "<group>"; };
 		1F6BB9751DD954CE00893932 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
@@ -761,6 +761,7 @@
 		1F0EAB691DD0922600D25B64 /* Order */ = {
 			isa = PBXGroup;
 			children = (
+				1F67D1151DCDB56A00378116 /* DetailAddressTableViewCell.swift */,
 				1F0EAB741DD095E900D25B64 /* OrderNumberTableViewCell.swift */,
 				1F0EAB761DD0961D00D25B64 /* OrderHandleTableViewCell.swift */,
 				1F0EAB821DD1B53200D25B64 /* OrderCountDownView.swift */,
@@ -1343,7 +1344,6 @@
 			isa = PBXGroup;
 			children = (
 				1F67D1111DCD854800378116 /* AddressViewModel.swift */,
-				1F67D1151DCDB56A00378116 /* DetailAddressTableViewCell.swift */,
 				1F0EAB841DD1C88C00D25B64 /* MineViewModel.swift */,
 				1F3241921DF02614007BC078 /* FavoritesViewModel.swift */,
 				1F0EAB8C1DD1DD3C00D25B64 /* MyProfileViewModel.swift */,
@@ -1618,12 +1618,13 @@
 					1FA431C11E1A2D26003E9F08 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = 77L324L35A;
+						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 					};
 					1FD244C11DC2F92E00AFD3BC = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = 77L324L35A;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -2058,7 +2059,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.liangpiao.liangpiao.LiangPiaoPush;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = "";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -2073,7 +2074,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.liangpiao.liangpiao.LiangPiaoPush;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = "";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -2206,7 +2207,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "LiangPiao/Global/Catagory/LiangPiao-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -2246,7 +2247,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "LiangPiao/Global/Catagory/LiangPiao-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

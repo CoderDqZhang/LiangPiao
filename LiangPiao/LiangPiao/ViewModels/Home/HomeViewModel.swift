@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import ReactiveCocoa
 import MJExtension
 import MapKit
 import Alamofire
@@ -24,7 +23,7 @@ class HomeViewModel: NSObject {
     
     override init() {
         super.init()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HomeViewModel.userDidTakeScreenshot(_:)), name: UIApplicationUserDidTakeScreenshotNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(HomeViewModel.userDidTakeScreenshot(_:)), name: NSNotification.Name.UIApplicationUserDidTakeScreenshot, object: nil)
         //self.setUpLocationManager()
     }
     
@@ -33,22 +32,22 @@ class HomeViewModel: NSObject {
         locationManager.locationTimeout = 2
         locationManager.reGeocodeTimeout = 2
         locationManager.delegate = self
-        locationManager.requestLocationWithReGeocode(true) { (location, regeo, error) in
+        locationManager.requestLocation(withReGeocode: true) { (location, regeo, error) in
             if error != nil {
                 return;
             }
             if (regeo != nil) {
-                self.locationStr = (regeo.city as NSString).substringToIndex(2)
-                UserDefaultsSetSynchronize(self.locationStr, key: "location")
-                self.controller.tableView.reloadSections(NSIndexSet.init(index: 0), withRowAnimation: .Automatic)
+//                self.locationStr = (regeo?.city! as String).substring(to: 2)
+//                UserDefaultsSetSynchronize(self.locationStr as AnyObject, key: "location")
+//                self.controller.tableView.reloadSections(NSIndexSet.init(index: 0) as IndexSet, with: .automatic)
             }
         }
     }
     
-    func userDidTakeScreenshot(notifiation:NSNotification){
+    func userDidTakeScreenshot(_ notifiation:Foundation.Notification){
         let image = KWINDOWDS().screenshot()
         KWINDOWDS().currentViewController()?.view.endEditing(true)
-        SaveImageTools.sharedInstance.saveImage("ScreenShotImage.png", image: image, path: "ScreenShot")
+        _ = SaveImageTools.sharedInstance.saveImage("ScreenShotImage.png", image: image!, path: "ScreenShot")
         if KWINDOWDS().viewWithTag(10000) != nil {
             KWINDOWDS().viewWithTag(10000)?.removeFromSuperview()
         }
@@ -60,7 +59,7 @@ class HomeViewModel: NSObject {
         return 2
     }
     
-    func numberOfRowsInSection(section:Int) ->Int {
+    func numberOfRowsInSection(_ section:Int) ->Int {
         switch section {
         case 0:
             if self.banner != nil && self.banner.banners.count > 0 {
@@ -75,7 +74,7 @@ class HomeViewModel: NSObject {
         }
     }
     
-    func tableViewHeightForFooterInSection(section:Int) -> CGFloat {
+    func tableViewHeightForFooterInSection(_ section:Int) -> CGFloat {
         switch section {
         case 1:
             return 0.0001
@@ -84,7 +83,7 @@ class HomeViewModel: NSObject {
         }
     }
     
-    func tableViewHeightForRowAtIndexPath(indexPath:NSIndexPath) -> CGFloat
+    func tableViewHeightForRowAtIndexPath(_ indexPath:IndexPath) -> CGFloat
     {
         switch indexPath.section {
         case 0:
@@ -108,7 +107,7 @@ class HomeViewModel: NSObject {
         }
     }
     
-    func navigationPushTicketPage(index:Int) {
+    func navigationPushTicketPage(_ index:Int) {
 //        let controllerVC = BarCodeViewController()
 //        NavigationPushView(self.controller, toConroller: controllerVC)
         let ticketPage = TicketPageViewController()
@@ -139,7 +138,7 @@ class HomeViewModel: NSObject {
         NavigationPushView(controller, toConroller: ticketPage)
     }
     
-    func tableViewDidSelectRowAtIndexPath(indexPath:NSIndexPath) {
+    func tableViewDidSelectRowAtIndexPath(_ indexPath:IndexPath) {
         switch indexPath.section {
         case 0:
             break;
@@ -150,13 +149,13 @@ class HomeViewModel: NSObject {
             case self.numberOfRowsInSection(indexPath.section) - 1:
                 self.navigationPushTicketPage(4)
             default:
-                let model = TicketShowModel.init(fromDictionary: models.objectAtIndex(indexPath.row - 1) as! NSDictionary)
+                let model = TicketShowModel.init(fromDictionary: models.object(at: indexPath.row - 1) as! NSDictionary)
                 self.pushTicketDetail(model)
             }
         }
     }
     
-    func pushTicketDetail(model:TicketShowModel){
+    func pushTicketDetail(_ model:TicketShowModel){
         if model.sessionCount == 1 {
             let controllerVC = TicketDescriptionViewController()
             controllerVC.viewModel.ticketModel = model
@@ -168,15 +167,15 @@ class HomeViewModel: NSObject {
         }
     }
     
-    func cellData(cell:RecommendTableViewCell, indexPath:NSIndexPath) {
-        let model = TicketShowModel.init(fromDictionary: models.objectAtIndex(indexPath.row - 1) as! NSDictionary)
+    func cellData(_ cell:RecommendTableViewCell, indexPath:IndexPath) {
+        let model = TicketShowModel.init(fromDictionary: models.object(at: indexPath.row - 1) as! NSDictionary)
         cell.setData(model)
     }
     
-    func tableViewHomeScrollerTableViewCell(cell:HomeScrollerTableViewCell, indexPath:NSIndexPath) {
+    func tableViewHomeScrollerTableViewCell(_ cell:HomeScrollerTableViewCell, indexPath:IndexPath) {
         let imageUrls = NSMutableArray()
         for banner in self.banner.banners {
-            imageUrls.addObject(banner.image)
+            imageUrls.add(banner.image)
         }
         cell.setcycleScrollerViewData(imageUrls.mutableCopy() as! NSArray)
         cell.cyCleScrollerViewClouse = { index in
@@ -191,19 +190,24 @@ class HomeViewModel: NSObject {
         }
     }
     
-    func requestHotTicket(tableView:UITableView){
+    func requestHotTicket(_ tableView:UITableView){
         
-        BaseNetWorke.sharedInstance.getUrlWithString(TickeHot, parameters: nil).subscribeNext { (resultDic) in
-            if resultDic is NSDictionary {
-                
-            }else{
-                let resultModels =  NSMutableArray.mj_objectArrayWithKeyValuesArray(resultDic)
-                self.models = resultModels.mutableCopy() as! NSMutableArray
-                tableView.reloadSections(NSIndexSet.init(index: 1), withRowAnimation: .Automatic)
-            }
-            if tableView.mj_header != nil {
-                tableView.mj_header.endRefreshing()
-                self.controller.endRefreshView()
+        BaseNetWorke.sharedInstance.getUrlWithString(TickeHot, parameters: nil).observe { (resultDic) in
+            print(resultDic)
+            if !resultDic.isCompleted {
+                if resultDic.event.value is NSDictionary {
+                    
+                }else{
+                    let resultModels =  NSMutableArray.mj_objectArray(withKeyValuesArray: resultDic.event.value)
+                    if resultModels != nil {
+                        self.models = resultModels!
+                    }
+                    tableView.reloadSections(NSIndexSet.init(index: 1) as IndexSet, with: .automatic)
+                }
+                if tableView.mj_header != nil {
+                    tableView.mj_header.endRefreshing()
+                    self.controller.endRefreshView()
+                }
             }
         }
     }
@@ -211,17 +215,20 @@ class HomeViewModel: NSObject {
     
     
     func requestBanner(){
-        BaseNetWorke.sharedInstance.getUrlWithString(HomeBanner, parameters: nil).subscribeNext { (resultDic) in
-            self.banner = Banners.init(fromDictionary: resultDic as! NSDictionary)
-            self.controller.tableView.reloadSections(NSIndexSet.init(index: 0), withRowAnimation: .Automatic)
+        BaseNetWorke.sharedInstance.getUrlWithString(HomeBanner, parameters: nil).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                self.banner = Banners.init(fromDictionary: resultDic.value as! NSDictionary)
+                self.controller.tableView.reloadSections(NSIndexSet.init(index: 0) as IndexSet, with: .automatic)
+            }
+            
         }
     }
     
     func showLoacationAlert(){
-        UIAlertController.shwoAlertControl(controller, style: .Alert, title: "定位服务未开启", message: "请在手机设置中开启定位服务以便更好为您服务", cancel: "知道了", doneTitle: "开启定位", cancelAction: { 
+        UIAlertController.shwoAlertControl(controller, style: .alert, title: "定位服务未开启", message: "请在手机设置中开启定位服务以便更好为您服务", cancel: "知道了", doneTitle: "开启定位", cancelAction: { 
             
             }, doneAction: {
-                let url = NSURL.init(string: "prefs:root=LOCATION_SERVICES")
+                let url = URL.init(string: "prefs:root=LOCATION_SERVICES")
                 if SHARE_APPLICATION.canOpenURL(url!) {
                     SHARE_APPLICATION.canOpenURL(url!)
                 }
@@ -229,65 +236,65 @@ class HomeViewModel: NSObject {
     }
     
     func showLocationData(){
-        let alertSheet = UIAlertController.init(title: "城市选择", message: nil, preferredStyle: .ActionSheet)
-        alertSheet.addAction(UIAlertAction.init(title: "取消", style: .Cancel, handler: { (cancelAction) in
+        let alertSheet = UIAlertController.init(title: "城市选择", message: nil, preferredStyle: .actionSheet)
+        alertSheet.addAction(UIAlertAction.init(title: "取消", style: .cancel, handler: { (cancelAction) in
             
         }))
-        alertSheet.addAction(UIAlertAction.init(title: "北京", style: .Default, handler: { (defaultAction) in
+        alertSheet.addAction(UIAlertAction.init(title: "北京", style: .default, handler: { (defaultAction) in
             
         }))
-        alertSheet.addAction(UIAlertAction.init(title: "天津", style: .Default, handler: { (defaultAction) in
+        alertSheet.addAction(UIAlertAction.init(title: "天津", style: .default, handler: { (defaultAction) in
             
         }))
-        alertSheet.addAction(UIAlertAction.init(title: "上海", style: .Default, handler: { (defaultAction) in
+        alertSheet.addAction(UIAlertAction.init(title: "上海", style: .default, handler: { (defaultAction) in
             
         }))
-        alertSheet.addAction(UIAlertAction.init(title: "武汉", style: .Default, handler: { (defaultAction) in
+        alertSheet.addAction(UIAlertAction.init(title: "武汉", style: .default, handler: { (defaultAction) in
             
         }))
-        controller.presentViewController(alertSheet, animated: true) { 
+        controller.present(alertSheet, animated: true) { 
             
         }
     }
 }
 
 extension HomeViewModel : AMapLocationManagerDelegate {
-    func amapLocationManager(manager: AMapLocationManager!, didFailWithError error: NSError!) {
+    private  func amapLocationManager(_ manager: AMapLocationManager!, didFailWithError error: NSError!) {
         print(error)
     }
     
-    func amapLocationManager(manager: AMapLocationManager!, didUpdateLocation location: CLLocation!) {
+    func amapLocationManager(_ manager: AMapLocationManager!, didUpdate location: CLLocation!) {
         print(location)
         
     }
     
-    func amapLocationManager(manager: AMapLocationManager!, didExitRegion region: AMapLocationRegion!) {
+    func amapLocationManager(_ manager: AMapLocationManager!, didExitRegion region: AMapLocationRegion!) {
         print(region)
     }
     
-    func amapLocationManager(manager: AMapLocationManager!, didUpdateLocation location: CLLocation!, reGeocode: AMapLocationReGeocode!) {
+    func amapLocationManager(_ manager: AMapLocationManager!, didUpdate location: CLLocation!, reGeocode: AMapLocationReGeocode!) {
         
     }
     
-    func amapLocationManager(manager: AMapLocationManager!, didStartMonitoringForRegion region: AMapLocationRegion!) {
+    func amapLocationManager(_ manager: AMapLocationManager!, didStartMonitoringFor region: AMapLocationRegion!) {
         
     }
     
-    func amapLocationManager(manager: AMapLocationManager!, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
-        if status == .AuthorizedWhenInUse || status == .AuthorizedAlways {
+    func amapLocationManager(_ manager: AMapLocationManager!, didChange status: CLAuthorizationStatus) {
+        if status == .authorizedWhenInUse || status == .authorizedAlways {
             if locationStr == "北京" {
-                manager.requestLocationWithReGeocode(true, completionBlock: { (lcation, regencode, error) in
+                manager.requestLocation(withReGeocode: true, completionBlock: { (lcation, regencode, error) in
                     if error != nil {
                         return
                     }
                     if regencode != nil {
-                        self.locationStr = (regencode.city as NSString).substringToIndex(2)
-                        UserDefaultsSetSynchronize(self.locationStr, key: "location")
-                        self.controller.tableView.reloadSections(NSIndexSet.init(index: 0), withRowAnimation: .Automatic)
+//                        self.locationStr = NSString(regencode?.city!).substring(to: 2)
+//                        UserDefaultsSetSynchronize(self.locationStr as AnyObject, key: "location")
+//                        self.controller.tableView.reloadSections(NSIndexSet.init(index: 0) as IndexSet, with: .automatic)
                     }
                 })
             }
-        }else if status == .NotDetermined {
+        }else if status == .notDetermined {
             self.showLoacationAlert()
         }else {
             

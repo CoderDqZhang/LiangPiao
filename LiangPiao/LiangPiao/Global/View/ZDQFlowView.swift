@@ -9,16 +9,16 @@
 import UIKit
 
 protocol ZDQFlowViewDelegate {
-    func flowViewDidSelectItem(flowView:ZDQFlowView, selectItem:NSInteger) -> Void
+    func flowViewDidSelectItem(_ flowView:ZDQFlowView, selectItem:NSInteger) -> Void
 }
 
 protocol ZDQFlowViewDataSource {
     
-    func numberOfFlowViewItemCount(flowView:ZDQFlowView) -> NSInteger
+    func numberOfFlowViewItemCount(_ flowView:ZDQFlowView) -> NSInteger
     
-    func numberOfFlowViewItem(flowView:ZDQFlowView, index:NSInteger) -> ZDQFlowViewItem
+    func numberOfFlowViewItem(_ flowView:ZDQFlowView, index:NSInteger) -> ZDQFlowViewItem
     
-    func flowViewItemSize(flowView:ZDQFlowView) -> CGSize
+    func flowViewItemSize(_ flowView:ZDQFlowView) -> CGSize
 }
 
 
@@ -38,7 +38,7 @@ class ZDQFlowView: UIView {
         
     }
     //MARK: ===============
-    func setDataSource(dataSource:ZDQFlowViewDataSource) {
+    func setDataSource(_ dataSource:ZDQFlowViewDataSource) {
         self.dataSource = dataSource
         self.reloadData()
     }

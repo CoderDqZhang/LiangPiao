@@ -23,63 +23,63 @@ class OrderCountDownView: UIView {
         
     }
     
-    func setUpDate(dateString:String){
+    func setUpDate(_ dateString:String){
 //        let date = NSDate.init()
 //        let zone = NSTimeZone.systemTimeZone()
 //        let interval:Double = Double(zone.secondsFromGMTForDate(date))
 //        let nowData = date.dateByAddingTimeInterval(interval)
-        let startLongLong:Int64 = self.countDownLabel.longLongFromDate(NSDate.init()) / 1000 * 1000
+        let startLongLong:Int64 = self.countDownLabel.longLong(from: Date.init()) / 1000 * 1000
         let secondeLongLong = 9 * 60 + 59
         let secontrong = dateString
-        let dateFormatter = NSDateFormatter.init()
+        let dateFormatter = DateFormatter.init()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        let newDate = dateFormatter.dateFromString(secontrong)
-        let finish:Int64 = self.countDownLabel.longLongFromDate(newDate) / 1000 * 1000
-        let finishLongLong =  secondeLongLong * 1000 + finish
+        let newDate = dateFormatter.date(from: secontrong)
+        let finish:Int64 = self.countDownLabel.longLong(from: newDate) / 1000 * 1000
+        let finishLongLong =  (secondeLongLong * 1000 + finish)
 
         self.startLongLongStartStamp(startLongLong, longlongFinishStamp: finishLongLong)
     }
     
     func setUpView() {
-        minuteLabel = self.createLabel(CGRectMake(0, 0, 13, 15), backGroundColor: UIColor.init(hexString: App_Theme_8A96A2_Color), textColor: UIColor.init(hexString: App_Theme_FFFFFF_Color))
+        minuteLabel = self.createLabel(CGRect(x: 0, y: 0, width: 13, height: 15), backGroundColor: UIColor.init(hexString: App_Theme_8A96A2_Color), textColor: UIColor.init(hexString: App_Theme_FFFFFF_Color))
         self.addSubview(minuteLabel)
         
-        minutesLabel = self.createLabel(CGRectMake(CGRectGetMaxX(minuteLabel.frame) + 5, 0, 13, 15), backGroundColor: UIColor.init(hexString: App_Theme_8A96A2_Color), textColor: UIColor.init(hexString: App_Theme_FFFFFF_Color))
+        minutesLabel = self.createLabel(CGRect(x: minuteLabel.frame.maxX + 5, y: 0, width: 13, height: 15), backGroundColor: UIColor.init(hexString: App_Theme_8A96A2_Color), textColor: UIColor.init(hexString: App_Theme_FFFFFF_Color))
         self.addSubview(minutesLabel)
         
-        timeLabel = self.createLabel(CGRectMake(CGRectGetMaxX(minutesLabel.frame) + 5, -1, 2, 15), backGroundColor: UIColor.init(hexString: App_Theme_8A96A2_Color), textColor: UIColor.init(hexString: App_Theme_FFFFFF_Color))
+        timeLabel = self.createLabel(CGRect(x: minutesLabel.frame.maxX + 5, y: -1, width: 2, height: 15), backGroundColor: UIColor.init(hexString: App_Theme_8A96A2_Color), textColor: UIColor.init(hexString: App_Theme_FFFFFF_Color))
         timeLabel.text = ":"
         timeLabel.textColor = UIColor.init(hexString: App_Theme_8A96A2_Color)
-        timeLabel.backgroundColor = UIColor.clearColor()
+        timeLabel.backgroundColor = UIColor.clear
         self.addSubview(timeLabel)
         
-        secondeLabel = self.createLabel(CGRectMake(CGRectGetMaxX(timeLabel.frame) + 5, 0, 13, 15), backGroundColor: UIColor.init(hexString: App_Theme_8A96A2_Color), textColor: UIColor.init(hexString: App_Theme_FFFFFF_Color))
+        secondeLabel = self.createLabel(CGRect(x: timeLabel.frame.maxX + 5, y: 0, width: 13, height: 15), backGroundColor: UIColor.init(hexString: App_Theme_8A96A2_Color), textColor: UIColor.init(hexString: App_Theme_FFFFFF_Color))
         self.addSubview(secondeLabel)
         
-        secondesLabel = self.createLabel(CGRectMake(CGRectGetMaxX(secondeLabel.frame) + 5, 0, 13, 15), backGroundColor: UIColor.init(hexString: App_Theme_8A96A2_Color), textColor: UIColor.init(hexString: App_Theme_FFFFFF_Color))
+        secondesLabel = self.createLabel(CGRect(x: secondeLabel.frame.maxX + 5, y: 0, width: 13, height: 15), backGroundColor: UIColor.init(hexString: App_Theme_8A96A2_Color), textColor: UIColor.init(hexString: App_Theme_FFFFFF_Color))
         self.addSubview(secondesLabel)
         
         self.updateConstraintsIfNeeded()
     }
     
-    func createLabel(frame:CGRect, backGroundColor:UIColor, textColor:UIColor) -> UILabel {
+    func createLabel(_ frame:CGRect, backGroundColor:UIColor, textColor:UIColor) -> UILabel {
         let label = UILabel(frame: frame)
         label.backgroundColor = backGroundColor
         label.layer.cornerRadius = 2.0
         label.layer.masksToBounds = true
         label.textColor = textColor
         label.font = App_Theme_PinFan_R_11_Font
-        label.textAlignment = .Center
+        label.textAlignment = .center
         return label
     }
     
-    func startLongLongStartStamp(strtLL:Int64 , longlongFinishStamp:Int64 ) {
-        countDownLabel.countDownWithStratTimeStamp(strtLL, finishTimeStamp: longlongFinishStamp) { (day, hour, minute, second) in
+    func startLongLongStartStamp(_ strtLL:Int64 , longlongFinishStamp:Int64 ) {
+        countDownLabel.countDown(withStratTimeStamp: strtLL, finishTimeStamp: longlongFinishStamp) { (day, hour, minute, second) in
             self.refreshView(day, hour: hour, minute: minute, secondes: second)
         }
     }
     
-    func refreshView(day:NSInteger, hour:NSInteger, minute:NSInteger, secondes:NSInteger) {
+    func refreshView(_ day:NSInteger, hour:NSInteger, minute:NSInteger, secondes:NSInteger) {
         if minute > 10 {
             minuteLabel.text = "\(minute/10)"
             minutesLabel.text = "\(minute%10)"

@@ -28,30 +28,30 @@ class MyWallHeaderTableViewCell: UITableViewCell {
     func setUpView() {
         
         cellBackView = UIImageView()
-        cellBackView.image = UIImage.init(color: UIColor.init(hexString: App_Theme_4BD4C5_Color), size: CGSizeMake(SCREENWIDTH, 190))
+        cellBackView.image = UIImage.init(color: UIColor.init(hexString: App_Theme_4BD4C5_Color), size: CGSize(width: SCREENWIDTH, height: 190))
         self.contentView.addSubview(cellBackView)
         
         muchLabel = UILabel()
         muchLabel.text = "0.00"
         muchLabel.font = App_Theme_PinFan_R_50_Font
-        muchLabel.textAlignment = .Center
-        muchLabel.textColor = UIColor.whiteColor()
+        muchLabel.textAlignment = .center
+        muchLabel.textColor = UIColor.white
         self.contentView.addSubview(muchLabel)
         
         muchmLable = UILabel()
         muchmLable.text = "账户余额 ( 元 ) "
         muchmLable.font = App_Theme_PinFan_M_14_Font
-        muchmLable.textAlignment = .Center
-        muchmLable.textColor = UIColor.whiteColor()
+        muchmLable.textAlignment = .center
+        muchmLable.textColor = UIColor.white
         self.contentView.addSubview(muchmLable)
         
-        let image = UIImage.init(named: "Btn_W_More")?.imageWithRenderingMode(.AlwaysOriginal)
-        let selectImage = UIImage.init(named: "Btn_More_W_Pressed")?.imageWithRenderingMode(.AlwaysOriginal)
-        detailBtn = UIButton(type: .Custom)
+        let image = UIImage.init(named: "Btn_W_More")?.withRenderingMode(.alwaysOriginal)
+        let selectImage = UIImage.init(named: "Btn_More_W_Pressed")?.withRenderingMode(.alwaysOriginal)
+        detailBtn = UIButton(type: .custom)
         detailBtn.titleLabel?.font = App_Theme_PinFan_R_12_Font
-        detailBtn.setTitle("明细", forState: .Normal)
+        detailBtn.setTitle("明细", for: UIControlState())
         let stringWidth = detailBtn.titleLabel?.text?.widthWithConstrainedHeight((detailBtn.titleLabel?.text)!, font: App_Theme_PinFan_R_12_Font!, height: 20)
-        detailBtn.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (action) in
+        detailBtn.reactive.controlEvents(.touchUpInside).observe { (action) in
             if self.myWallHeaderTableViewCellClouse != nil {
                 self.myWallHeaderTableViewCellClouse()
             }
@@ -68,19 +68,19 @@ class MyWallHeaderTableViewCell: UITableViewCell {
     
     override func updateConstraints() {
         if !self.didMakeConstraints {
-            muchmLable.snp_makeConstraints(closure: { (make) in
-                make.top.equalTo(self.contentView.snp_top).offset(39)
-                make.centerX.equalTo(self.contentView.snp_centerX).offset(0)
+            muchmLable.snp.makeConstraints({ (make) in
+                make.top.equalTo(self.contentView.snp.top).offset(39)
+                make.centerX.equalTo(self.contentView.snp.centerX).offset(0)
             })
             
-            muchLabel.snp_makeConstraints(closure: { (make) in
-                make.top.equalTo(self.muchmLable.snp_bottom).offset(10)
-                make.centerX.equalTo(self.contentView.snp_centerX).offset(0)
+            muchLabel.snp.makeConstraints({ (make) in
+                make.top.equalTo(self.muchmLable.snp.bottom).offset(10)
+                make.centerX.equalTo(self.contentView.snp.centerX).offset(0)
             })
             
-            detailBtn.snp_makeConstraints(closure: { (make) in
-                make.top.equalTo(self.contentView.snp_top).offset(83)
-                make.left.equalTo(self.muchLabel.snp_right).offset(0)
+            detailBtn.snp.makeConstraints({ (make) in
+                make.top.equalTo(self.contentView.snp.top).offset(83)
+                make.left.equalTo(self.muchLabel.snp.right).offset(0)
                 make.size.equalTo(CGSize.init(width: 50, height: 50))
             })
             
@@ -89,7 +89,7 @@ class MyWallHeaderTableViewCell: UITableViewCell {
         super.updateConstraints()
     }
     
-    func setBlance(text:String) {
+    func setBlance(_ text:String) {
         muchLabel.text = text
     }
     
@@ -102,7 +102,7 @@ class MyWallHeaderTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

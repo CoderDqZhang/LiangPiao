@@ -35,7 +35,7 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.whiteColor()
+        self.view.backgroundColor = UIColor.white
         self.setUpView()
         self.setupForDismissKeyboard()
         self.setUpNavigationItem()
@@ -50,65 +50,66 @@ class LoginViewController: UIViewController {
     func setUpView() {
         timeDownLabel = CountDown()
         
-        lineLabel = GloabLineView(frame: CGRectMake(15,0,SCREENWIDTH - 30, 0.5))
+        lineLabel = GloabLineView(frame: CGRect(x: 15,y: 0,width: SCREENWIDTH - 30, height: 0.5))
         self.view.addSubview(lineLabel)
         
-        lineLabel1 = GloabLineView(frame: CGRectMake(15,0,SCREENWIDTH - 30, 0.5))
+        lineLabel1 = GloabLineView(frame: CGRect(x: 15,y: 0,width: SCREENWIDTH - 30, height: 0.5))
         self.view.addSubview(lineLabel1)
         
-        confimCodeField = self.createTextFiled(CGRectZero)
+        confimCodeField = self.createTextFiled(CGRect.zero)
         confimCodeField.delegate = self
         confimCodeField.placeholder = "验证码"
         confimCodeField.textColor = UIColor.init(hexString: App_Theme_384249_Color)
         confimCodeField.font = App_Theme_PinFan_R_14_Font
-        confimCodeField.rac_textSignal().subscribeNext { (action) in
-            self.loginForm.code = action as! String
+        confimCodeField.reactive.continuousTextValues.observeValues { (str) in
+            self.loginForm.code = str!
         }
-        confimCodeField.keyboardType = .PhonePad
+        confimCodeField.keyboardType = .phonePad
         self.view.addSubview(confimCodeField)
         
-        phontTextField = self.createTextFiled(CGRectZero)
+        phontTextField = self.createTextFiled(CGRect.zero)
         phontTextField.delegate = self
         phontTextField.tag = 1
         phontTextField.textColor = UIColor.init(hexString: App_Theme_384249_Color)
-        phontTextField.keyboardType = .PhonePad
+        phontTextField.keyboardType = .phonePad
         phontTextField.placeholder = "请输入手机号"
         phontTextField.font = App_Theme_PinFan_R_14_Font
-        phontTextField.rac_textSignal().subscribeNext { (action) in
-            self.loginForm.phone = action as! String
+        phontTextField.reactive.continuousTextValues.observeValues { (action) in
+            self.loginForm.phone = action!
             if self.senderCode != nil {
                 if self.loginForm.phone.length == 11 {
-                    self.senderCode.enabled = true
+                    self.senderCode.isEnabled = true
                     self.senderCode.backgroundColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
                 }else{
-                    self.senderCode.enabled = false
+                    self.senderCode.isEnabled = false
                     self.senderCode.backgroundColor = UIColor.init(hexString: App_Theme_DDE0E5_Color)
                 }
             }
         }
         self.view.addSubview(phontTextField)
         
-        senderCode = UIButton(type: .Custom)
+        senderCode = UIButton(type: .custom)
         senderCode.backgroundColor = UIColor.init(hexString: App_Theme_DDE0E5_Color)
-        senderCode.setTitle("发验证码", forState: .Normal)
+        senderCode.setTitle("发验证码", for: UIControlState())
         senderCode.titleLabel?.font = App_Theme_PinFan_R_12_Font
-        senderCode.enabled = false
+        senderCode.isEnabled = false
         senderCode.layer.cornerRadius = 2.0
         senderCode.layer.masksToBounds = true
-        senderCode.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (action) in
+        
+        senderCode.reactive.controlEvents(.touchUpInside).observe { (action) in
             self.viewModel.requestLoginCode(self.loginForm.phone, controller: self)
         }
         self.view.addSubview(senderCode)
         
-        loginButton = UIButton(type: .Custom)
+        loginButton = UIButton(type: .custom)
         loginButton.buttonSetThemColor(App_Theme_4BD4C5_Color, selectColor: App_Theme_40C6B7_Color, size:CGSize.init(width: SCREENWIDTH - 30, height: 49))
-        loginButton.setTitle("立即登录", forState: .Normal)
+        loginButton.setTitle("立即登录", for: UIControlState())
         loginButton.titleLabel?.font = App_Theme_PinFan_M_15_Font
-        loginButton.enabled = true
+        loginButton.isEnabled = true
         loginButton.layer.cornerRadius = 2.0
         loginButton.layer.masksToBounds = true
-        loginButton.setTitleColor(UIColor.init(hexString: App_Theme_FFFFFF_Color), forState: .Normal)
-        loginButton.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (action) in
+        loginButton.setTitleColor(UIColor.init(hexString: App_Theme_FFFFFF_Color), for: UIControlState())
+        loginButton.reactive.controlEvents(.touchUpInside).observe { (action) in
             self.viewModel.requestLogin(self.loginForm, controller: self)
         }
         self.view.addSubview(loginButton)
@@ -131,23 +132,23 @@ class LoginViewController: UIViewController {
 
     }
     
-    func startWithStartDate(date:NSDate, finishDate:NSDate){
-        UserDefaultsSetSynchronize("true", key: "isLoginTime")
-        UserDefaultsSetSynchronize("nil", key: "isLoginEnterBack")
-        UserDefaultsSetSynchronize(0, key: "backGroundTime")
-        timeDownLabel.countDownWithStratDate(date, finishDate: finishDate) { (day, hours, minutes, seconds) in
+    func startWithStartDate(_ date:Date, finishDate:Date){
+        UserDefaultsSetSynchronize("true" as AnyObject, key: "isLoginTime")
+        UserDefaultsSetSynchronize("nil" as AnyObject, key: "isLoginEnterBack")
+        UserDefaultsSetSynchronize(0 as AnyObject, key: "backGroundTime")
+        timeDownLabel.countDown(withStratDate: date, finish: finishDate) { (day, hours, minutes, seconds) in
             var totoalSecod = day*24*60*60+hours*60*60+minutes*60+seconds
             if UserDefaultsGetSynchronize("isLoginEnterBack") as! String != "nil"{
                 totoalSecod = totoalSecod - (UserDefaultsGetSynchronize("backGroundTime") as! Int)
             }
             if totoalSecod == 0 {
-                UserDefaultsSetSynchronize(0, key: "backGroundTime")
-                self.senderCode.enabled = true
-                self.senderCode.setTitle("发验证码", forState: .Normal)
+                UserDefaultsSetSynchronize(0 as AnyObject, key: "backGroundTime")
+                self.senderCode.isEnabled = true
+                self.senderCode.setTitle("发验证码", for: .normal)
             }else{
-                self.senderCode.enabled = false
+                self.senderCode.isEnabled = false
                 self.senderCode.backgroundColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
-                self.senderCode.setTitle("\(totoalSecod)s", forState: .Normal)
+                self.senderCode.setTitle("\(totoalSecod)s", for: .normal)
             }
         }
     }
@@ -157,7 +158,7 @@ class LoginViewController: UIViewController {
         self.setNavigationItemBack()
     }
 
-    func createLabel(frame:CGRect, text:String) ->UILabel {
+    func createLabel(_ frame:CGRect, text:String) ->UILabel {
         let label = UILabel(frame: frame)
         label.textColor = UIColor.init(hexString: App_Theme_8A96A2_Color)
         label.font = App_Theme_PinFan_R_14_Font
@@ -165,7 +166,7 @@ class LoginViewController: UIViewController {
         return label
     }
     
-    func createTextFiled(frame:CGRect) -> UITextField {
+    func createTextFiled(_ frame:CGRect) -> UITextField {
         let textField = UITextField(frame: frame)
         textField.font = App_Theme_PinFan_R_14_Font
         textField.tintColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
@@ -174,54 +175,54 @@ class LoginViewController: UIViewController {
     
     func makeConstraints(){
     
-        phontTextField.snp_makeConstraints { (make) in
-            make.top.equalTo(self.view.snp_top).offset(49)
-            make.left.equalTo(self.view.snp_left).offset(15)
-            make.right.equalTo(self.senderCode.snp_left).offset(-10)
+        phontTextField.snp.makeConstraints { (make) in
+            make.top.equalTo(self.view.snp.top).offset(49)
+            make.left.equalTo(self.view.snp.left).offset(15)
+            make.right.equalTo(self.senderCode.snp.left).offset(-10)
             make.height.equalTo(20)
         }
         
-        senderCode.snp_makeConstraints { (make) in
-            make.top.equalTo(self.view.snp_top).offset(45)
-            make.right.equalTo(self.view.snp_right).offset(-15)
-            make.size.equalTo(CGSizeMake(70, 29))
+        senderCode.snp.makeConstraints { (make) in
+            make.top.equalTo(self.view.snp.top).offset(45)
+            make.right.equalTo(self.view.snp.right).offset(-15)
+            make.size.equalTo(CGSize.init(width: 70, height: 29))
         }
         
-        lineLabel.snp_makeConstraints { (make) in
-            make.top.equalTo(self.phontTextField.snp_bottom).offset(20)
-            make.left.equalTo(self.view.snp_left).offset(15)
-            make.right.equalTo(self.view.snp_right).offset(-15)
+        lineLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(self.phontTextField.snp.bottom).offset(20)
+            make.left.equalTo(self.view.snp.left).offset(15)
+            make.right.equalTo(self.view.snp.right).offset(-15)
         }
         
-        confimCodeField.snp_makeConstraints { (make) in
-            make.top.equalTo(self.lineLabel.snp_bottom).offset(17)
-            make.left.equalTo(self.view.snp_left).offset(15)
-            make.right.equalTo(self.view.snp_right).offset(-15)
+        confimCodeField.snp.makeConstraints { (make) in
+            make.top.equalTo(self.lineLabel.snp.bottom).offset(17)
+            make.left.equalTo(self.view.snp.left).offset(15)
+            make.right.equalTo(self.view.snp.right).offset(-15)
             make.height.equalTo(20)
         }
         
-        lineLabel1.snp_makeConstraints { (make) in
-            make.top.equalTo(self.confimCodeField.snp_bottom).offset(20)
-            make.left.equalTo(self.view.snp_left).offset(15)
-            make.right.equalTo(self.view.snp_right).offset(-15)
+        lineLabel1.snp.makeConstraints { (make) in
+            make.top.equalTo(self.confimCodeField.snp.bottom).offset(20)
+            make.left.equalTo(self.view.snp.left).offset(15)
+            make.right.equalTo(self.view.snp.right).offset(-15)
         }
         
-        loginButton.snp_makeConstraints { (make) in
-            make.top.equalTo(self.lineLabel1.snp_bottom).offset(28)
-            make.left.equalTo(self.view.snp_left).offset(15)
-            make.right.equalTo(self.view.snp_right).offset(-15)
+        loginButton.snp.makeConstraints { (make) in
+            make.top.equalTo(self.lineLabel1.snp.bottom).offset(28)
+            make.left.equalTo(self.view.snp.left).offset(15)
+            make.right.equalTo(self.view.snp.right).offset(-15)
             make.height.equalTo(49)
         }
         
-        comfigLabel.snp_makeConstraints { (make) in
-            make.top.equalTo(self.loginButton.snp_bottom).offset(24)
-            make.left.equalTo(self.view.snp_left).offset(15)
+        comfigLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(self.loginButton.snp.bottom).offset(24)
+            make.left.equalTo(self.view.snp.left).offset(15)
             make.height.equalTo(17)
         }
         
-        proBtn.snp_makeConstraints { (make) in
-            make.top.equalTo(self.loginButton.snp_bottom).offset(24)
-            make.left.equalTo(self.comfigLabel.snp_right).offset(2)
+        proBtn.snp.makeConstraints { (make) in
+            make.top.equalTo(self.loginButton.snp.bottom).offset(24)
+            make.left.equalTo(self.comfigLabel.snp.right).offset(2)
             make.height.equalTo(17)
         }
         
@@ -245,7 +246,7 @@ class LoginViewController: UIViewController {
 }
 
 extension LoginViewController : UITextFieldDelegate {
-    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if string != "" {
             if textField.tag == 1 {
                 phoneStr = ((textField.text)! + string)

@@ -45,30 +45,30 @@ class OrderWaitePayTableViewCell: UITableViewCell {
         orderTime.font = App_Theme_PinFan_R_11_Font
         self.contentView.addSubview(orderTime)
     
-        orderCountDownView = OrderCountDownView(frame: CGRectMake(91, 66, 68, 15))
+        orderCountDownView = OrderCountDownView(frame: CGRect(x: 91, y: 66, width: 68, height: 15))
         self.contentView.addSubview(orderCountDownView)
         
         self.updateConstraintsIfNeeded()
     }
     
-    func setData(model:OrderList) {
+    func setData(_ model:OrderList) {
         orderStatusWait.text = model.statusDesc
         if model.status == 0 {
             orderTime.text = "剩余支付时间:"
             orderTime.font = App_Theme_PinFan_R_11_Font
-            orderCountDownView.setUpDate("\(model.created)")
+            orderCountDownView.setUpDate("\((model.created)!)")
         }else if model.status == 2 {
             orderTime.text = "感谢您的购买，因未在规定时间内付款，故该订单已取消"
             orderTime.font = App_Theme_PinFan_R_12_Font
-            orderCountDownView.hidden = true
+            orderCountDownView.isHidden = true
         }else if model.status == 5 {
             orderTime.text = "感谢您的购买，但由于其他原因，订单已被卖家取消"
             orderTime.font = App_Theme_PinFan_R_12_Font
-            orderCountDownView.hidden = true
+            orderCountDownView.isHidden = true
         }else if model.status == 1 {
             orderTime.text = "订单已被取消，如需帮助请致电客服"
             orderTime.font = App_Theme_PinFan_R_12_Font
-            orderCountDownView.hidden = true
+            orderCountDownView.isHidden = true
         }
     }
     
@@ -79,14 +79,14 @@ class OrderWaitePayTableViewCell: UITableViewCell {
     override func updateConstraints() {
         if !self.didMakeConstraints {
             
-            orderStatusWait.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.top.equalTo(self.contentView.snp_top).offset(42)
+            orderStatusWait.snp.makeConstraints({ (make) in
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.top.equalTo(self.contentView.snp.top).offset(42)
             })
             
-            orderTime.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.top.equalTo(self.orderStatusWait.snp_bottom).offset(6)
+            orderTime.snp.makeConstraints({ (make) in
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.top.equalTo(self.orderStatusWait.snp.bottom).offset(6)
             })
             
             self.didMakeConstraints = true
@@ -99,7 +99,7 @@ class OrderWaitePayTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

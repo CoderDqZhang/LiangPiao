@@ -17,7 +17,7 @@ class MySellIntrouductTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.backgroundColor = UIColor.whiteColor()
+        self.backgroundColor = UIColor.white
         self.setUpView()
     }
     
@@ -33,7 +33,7 @@ class MySellIntrouductTableViewCell: UITableViewCell {
         ticketMuch.numberOfLines = 0
         ticketMuch.textColor = UIColor.init(hexString: App_Theme_8A96A2_Color)
         ticketMuch.font = App_Theme_PinFan_R_13_Font
-        let strArray = str.componentsSeparatedByString(" ")
+        let strArray = str.components(separatedBy: " ")
         let attributed = NSMutableAttributedString.init(string: ticketMuch.text!)
         attributed.addAttributes([NSForegroundColorAttributeName:UIColor.init(hexString: App_Theme_4BD4C5_Color)], range: NSRange.init(location: strArray[0].length + 1, length: strArray[1].length))
         attributed.addAttributes([NSForegroundColorAttributeName:UIColor.init(hexString: App_Theme_4BD4C5_Color)], range: NSRange.init(location: strArray[0].length + strArray[1].length + strArray[2].length + 3, length: strArray[3].length))
@@ -47,17 +47,17 @@ class MySellIntrouductTableViewCell: UITableViewCell {
     
     override func updateConstraints() {
         if !self.didMakeConstraints {
-            attentionLineView.snp_makeConstraints(closure: { (make) in
-                make.top.equalTo(self.contentView.snp_top).offset(26)
-                make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.right.equalTo(self.contentView.snp_right).offset(-15)
+            attentionLineView.snp.makeConstraints({ (make) in
+                make.top.equalTo(self.contentView.snp.top).offset(26)
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
                 make.height.equalTo(4)
             })
             
-            ticketMuch.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.right.equalTo(self.contentView.snp_right).offset(-15)
-                make.bottom.equalTo(self.contentView.snp_bottom).offset(-24)
+            ticketMuch.snp.makeConstraints({ (make) in
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(-24)
             })
             
             self.didMakeConstraints = true
@@ -74,7 +74,7 @@ class MySellIntrouductTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

@@ -9,12 +9,12 @@
 import Foundation
 import UIKit
 
-let SCREENWIDTH = UIScreen.mainScreen().bounds.size.width
-let SCREENHEIGHT = UIScreen.mainScreen().bounds.size.height
+let SCREENWIDTH = UIScreen.main.bounds.size.width
+let SCREENHEIGHT = UIScreen.main.bounds.size.height
 
-let IPHONE_VERSION = UIDevice.currentDevice().systemVersion.floatValue
-let IPHONE_VERSION_LAST9 = UIDevice.currentDevice().systemVersion.floatValue >= 9 ? 1:0
-let IPHONE_VERSION_LAST10 = UIDevice.currentDevice().systemVersion.floatValue >= 10 ? 1:0
+let IPHONE_VERSION = UIDevice.current.systemVersion.floatValue
+let IPHONE_VERSION_LAST9 = UIDevice.current.systemVersion.floatValue >= 9 ? 1:0
+let IPHONE_VERSION_LAST10 = UIDevice.current.systemVersion.floatValue >= 10 ? 1:0
 
 
 let IPHONE4 = SCREENHEIGHT == 480 ? true:false
@@ -68,78 +68,78 @@ let deverliyDic:NSDictionary = ["顺丰":"SF","EMS":"EMS","圆通":"YTO","中通
 
 
 func KWINDOWDS() -> UIWindow{
-    let window = UIApplication.sharedApplication().keyWindow
+    let window = UIApplication.shared.keyWindow
     return window!
 }
 
-let SHARE_APPLICATION = UIApplication.sharedApplication()
+let SHARE_APPLICATION = UIApplication.shared
 
 
-func AppCallViewShow(view:UIView, phone:String) {
-    UIAlertController.shwoAlertControl(view.findViewController()!, style: .Alert, title: nil, message: phone, cancel: "取消", doneTitle: "确定", cancelAction: {
+func AppCallViewShow(_ view:UIView, phone:String) {
+    UIAlertController.shwoAlertControl(view.findViewController()!, style: .alert, title: nil, message: phone, cancel: "取消", doneTitle: "确定", cancelAction: {
         
         }, doneAction: {
-           UIApplication.sharedApplication().openURL(NSURL.init(string: "tel:\(phone)")!)
+           UIApplication.shared.openURL(URL.init(string: "tel:\(phone)")!)
     })
 }
 
-func UserDefaultsSetSynchronize(value:AnyObject,key:String) {
-    NSUserDefaults.standardUserDefaults().setObject(value, forKey: key)
-    NSUserDefaults.standardUserDefaults().synchronize()
+func UserDefaultsSetSynchronize(_ value:AnyObject,key:String) {
+    UserDefaults.standard.set(value, forKey: key)
+    UserDefaults.standard.synchronize()
 }
 
-func UserDefaultsGetSynchronize(key:String) -> AnyObject{
-    if NSUserDefaults.standardUserDefaults().objectForKey(key) == nil {
-        return "nil"
+func UserDefaultsGetSynchronize(_ key:String) -> AnyObject{
+    if UserDefaults.standard.object(forKey: key) == nil {
+        return "nil" as AnyObject
     }
-    return NSUserDefaults.standardUserDefaults().objectForKey(key)!
+    return UserDefaults.standard.object(forKey: key)! as AnyObject
 }
 
-func Storyboard(name:String,controllerid:String) -> UIViewController{
-    return UIStoryboard.init(name: name, bundle: nil).instantiateViewControllerWithIdentifier(controllerid)
+func Storyboard(_ name:String,controllerid:String) -> UIViewController{
+    return UIStoryboard.init(name: name, bundle: nil).instantiateViewController(withIdentifier: controllerid)
 }
 
-func Notification(name:String,value:String?) {
-    NSNotificationCenter.defaultCenter().postNotificationName(name, object: value)
+func Notification(_ name:String,value:String?) {
+    NotificationCenter.default.post(name: Foundation.Notification.Name(rawValue: name), object: value)
 }
 
 
-func NavigationPushView(formviewController:UIViewController, toConroller:UIViewController) {
+func NavigationPushView(_ formviewController:UIViewController, toConroller:UIViewController) {
     toConroller.hidesBottomBarWhenPushed = true
     formviewController.navigationController?.pushViewController(toConroller, animated: true)
 }
 
-func MainThreadAlertShow(msg:String,view:UIView){
-    dispatch_async(dispatch_get_main_queue(), {
-        Tools.shareInstance.showMessage(view, msg: msg, autoHidder: true)
+func MainThreadAlertShow(_ msg:String,view:UIView){
+    DispatchQueue.main.async(execute: {
+        _ = Tools.shareInstance.showMessage(view, msg: msg, autoHidder: true)
     })
 }
 
-func MainThreanShowErrorMessage(error:AnyObject){
+func MainThreanShowErrorMessage(_ error:AnyObject){
     if error is NSDictionary {
-        dispatch_async(dispatch_get_main_queue(), {
-            Tools.shareInstance.showErrorMessage(error)
+        DispatchQueue.main.async(execute: {
+            _ = Tools.shareInstance.showErrorMessage(error)
         })
     }
 }
 
-func MainThreanShowNetWorkError(error:AnyObject){
-    dispatch_async(dispatch_get_main_queue(), {
-        Tools.shareInstance.showNetWorkError(error)
+func MainThreanShowNetWorkError(_ error:AnyObject){
+    DispatchQueue.main.async(execute: {
+        _ = Tools.shareInstance.showNetWorkError(error)
     })
 }
 
-func GloableSetEvent(trackEvent:String, lable:String?, parameters:NSDictionary?) {
+func GloableSetEvent(_ trackEvent:String, lable:String?, parameters:NSDictionary?) {
     if lable == nil {
         TalkingData.trackEvent(trackEvent)
     }else if parameters == nil {
         TalkingData.trackEvent(trackEvent, label: lable)
     }else{
-        TalkingData.trackEvent(trackEvent, label: lable, parameters: parameters as! [NSObject:AnyObject])
+        TalkingData.trackEvent(trackEvent, label: lable, parameters: parameters as! [AnyHashable: Any])
     }
 }
 
-func MainThreseanShowAliPayError(error:String) {
+func MainThreseanShowAliPayError(_ error:String) {
     var aliPayError = ""
     switch error {
     case "4000":
@@ -155,8 +155,8 @@ func MainThreseanShowAliPayError(error:String) {
     default:
         break
     }
-    dispatch_async(dispatch_get_main_queue(), {
-        Tools.shareInstance.showAliPathError(aliPayError)
+    DispatchQueue.main.async(execute: {
+        _ = Tools.shareInstance.showAliPathError(aliPayError)
     })
 }
 

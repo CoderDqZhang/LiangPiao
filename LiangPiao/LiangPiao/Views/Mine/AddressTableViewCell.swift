@@ -42,21 +42,21 @@ class AddressTableViewCell: UITableViewCell {
         isNomalLabel.text = "默认地址"
         isNomalLabel.layer.cornerRadius = 1.0
         isNomalLabel.layer.masksToBounds = true
-        isNomalLabel.textAlignment = .Center
+        isNomalLabel.textAlignment = .center
         isNomalLabel.backgroundColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
         isNomalLabel.font = App_Theme_PinFan_L_11_Font
         isNomalLabel.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
         self.contentView.addSubview(isNomalLabel)
         
-        lineLabel = GloabLineView(frame: CGRectMake(15,0,SCREENWIDTH - 30, 0.5))
+        lineLabel = GloabLineView(frame: CGRect(x: 15,y: 0,width: SCREENWIDTH - 30, height: 0.5))
         self.contentView.addSubview(lineLabel)
         
         self.updateConstraintsIfNeeded()
     }
     
-    func setData(model:AddressModel) {
-        nameAndePhone.text = "\(model.name) \(model.mobileNum)"
-        let str = "\(model.location)\(model.address)".stringByReplacingOccurrencesOfString(" ", withString: "")
+    func setData(_ model:AddressModel) {
+        nameAndePhone.text = "\((model.name)!) \((model.mobileNum)!)"
+        let str = "\((model.location)!)\((model.address)!)".replacingOccurrences(of: " ", with: "")
         addressDetail.text = str
         let attributedString = NSMutableAttributedString(string: addressDetail.text!)
         let paragraphStyle = NSMutableParagraphStyle()
@@ -64,50 +64,50 @@ class AddressTableViewCell: UITableViewCell {
         attributedString.addAttribute(NSParagraphStyleAttributeName, value: paragraphStyle, range: NSRange(location: 0, length: addressDetail.text!.length))
         addressDetail.attributedText = attributedString
         if (model.defaultField != nil) && model.defaultField == true {
-           isNomalLabel.hidden = false
+           isNomalLabel.isHidden = false
         }else{
-            isNomalLabel.hidden = true
+            isNomalLabel.isHidden = true
         }
     }
 
-    func updateSelectImage(isSelect:Bool) {
+    func updateSelectImage(_ isSelect:Bool) {
         if isSelect {
-            selectImage.hidden = false
+            selectImage.isHidden = false
         }else{
-            selectImage.hidden = true
+            selectImage.isHidden = true
         }
     }
     
     override func updateConstraints() {
         if !self.didMakeConstraints {
             
-            nameAndePhone.snp_makeConstraints(closure: { (make) in
-                make.top.equalTo(self.contentView.snp_top).offset(16)
-                make.left.equalTo(self.contentView.snp_left).offset(15)
+            nameAndePhone.snp.makeConstraints({ (make) in
+                make.top.equalTo(self.contentView.snp.top).offset(16)
+                make.left.equalTo(self.contentView.snp.left).offset(15)
             })
             
-            addressDetail.snp_makeConstraints(closure: { (make) in
-                make.top.equalTo(self.nameAndePhone.snp_bottom).offset(6)
-                make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.right.equalTo(self.contentView.snp_right).offset(-70)
-                make.bottom.equalTo(self.contentView.snp_bottom).offset(-16)
+            addressDetail.snp.makeConstraints({ (make) in
+                make.top.equalTo(self.nameAndePhone.snp.bottom).offset(6)
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.right.equalTo(self.contentView.snp.right).offset(-70)
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(-16)
             })
             
-            isNomalLabel.snp_makeConstraints(closure: { (make) in
-                make.top.equalTo(self.contentView.snp_top).offset(16)
-                make.left.equalTo(self.nameAndePhone.snp_right).offset(14)
-                make.size.equalTo(CGSizeMake(54, 16))
+            isNomalLabel.snp.makeConstraints({ (make) in
+                make.top.equalTo(self.contentView.snp.top).offset(16)
+                make.left.equalTo(self.nameAndePhone.snp.right).offset(14)
+                make.size.equalTo(CGSize.init(width: 54, height: 16))
             })
             
-            selectImage.snp_makeConstraints(closure: { (make) in
-                make.centerY.equalTo(self.contentView.snp_centerY).offset(0)
-                make.right.equalTo(self.contentView.snp_right).offset(-15)
+            selectImage.snp.makeConstraints({ (make) in
+                make.centerY.equalTo(self.contentView.snp.centerY).offset(0)
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
             })
             
-            lineLabel.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.right.equalTo(self.contentView.snp_right).offset(-15)
-                make.bottom.equalTo(self.contentView.snp_bottom).offset(-0.5)
+            lineLabel.snp.makeConstraints({ (make) in
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(-0.5)
             })
             
             self.didMakeConstraints = true
@@ -124,7 +124,7 @@ class AddressTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

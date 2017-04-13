@@ -9,7 +9,7 @@ import Foundation
 
 class TicketCategorys : NSObject, NSCoding{
     
-    var id : Int!
+    var id : Int64!
     var name : String!
     var showCount : Int!
     
@@ -18,7 +18,7 @@ class TicketCategorys : NSObject, NSCoding{
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: NSDictionary){
-        id = dictionary["id"]as? Int
+        id = dictionary["id"]as? Int64
         name = dictionary["name"] as? String
         showCount = dictionary["show_count"] as? Int
     }
@@ -47,9 +47,9 @@ class TicketCategorys : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        id = aDecoder.decodeObjectForKey("id") as? Int
-        name = aDecoder.decodeObjectForKey("name") as? String
-        showCount = aDecoder.decodeObjectForKey("show_count") as? Int
+        id = aDecoder.decodeObject(forKey: "id") as? Int64
+        name = aDecoder.decodeObject(forKey: "name") as? String
+        showCount = aDecoder.decodeObject(forKey: "show_count") as? Int
         
     }
     
@@ -57,16 +57,16 @@ class TicketCategorys : NSObject, NSCoding{
      * NSCoding required method.
      * Encodes mode properties into the decoder
      */
-    @objc func encodeWithCoder(aCoder: NSCoder)
+    @objc func encode(with aCoder: NSCoder)
     {
         if id != nil{
-            aCoder.encodeObject(id, forKey: "id")
+            aCoder.encode(id, forKey: "id")
         }
         if name != nil{
-            aCoder.encodeObject(name, forKey: "name")
+            aCoder.encode(name, forKey: "name")
         }
         if showCount != nil{
-            aCoder.encodeObject(showCount, forKey: "show_count")
+            aCoder.encode(showCount, forKey: "show_count")
         }
         
     }

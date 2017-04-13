@@ -17,29 +17,29 @@ class SellViewModel: NSObject {
         
     }
     
-    func tableViewHeightForRowAtIndexPath(indexPath:NSIndexPath) -> CGFloat{
+    func tableViewHeightForRowAtIndexPath(_ indexPath:IndexPath) -> CGFloat{
         return 140
     }
     
-    func tableViewDidSelectRowAtIndexPath(indexPath:NSIndexPath) {
+    func tableViewDidSelectRowAtIndexPath(_ indexPath:IndexPath) {
         if UserInfoModel.isLoggedIn() {
             if UserInfoModel.shareInstance().role == "supplier" {
                 self.pushSellViewController(indexPath)
             }else{
-                BaseNetWorke.sharedInstance.getUrlWithString(UserInfoChange, parameters: nil).subscribeNext({ (resultDic) in
+                BaseNetWorke.sharedInstance.getUrlWithString(UserInfoChange, parameters: nil).observe({ (resultDic) in
                     print("dic")
-                    let model = UserInfoModel.mj_objectWithKeyValues(resultDic)
-                    UserInfoModel.shareInstance().avatar = model.avatar
-                    UserInfoModel.shareInstance().username = model.username
-                    UserInfoModel.shareInstance().id = model.id
-                    UserInfoModel.shareInstance().gender = model.gender
+                    let model = UserInfoModel.mj_object(withKeyValues: resultDic)
+                    UserInfoModel.shareInstance().avatar = model?.avatar
+                    UserInfoModel.shareInstance().username = model?.username
+                    UserInfoModel.shareInstance().id = model?.id
+                    UserInfoModel.shareInstance().gender = (model?.gender)!
                     UserInfoModel.shareInstance().phone = UserInfoModel.shareInstance().phone
-                    UserInfoModel.shareInstance().role = model.role
-                    model.saveOrUpdate()
+                    UserInfoModel.shareInstance().role = model?.role
+                    model?.saveOrUpdate()
                     if UserInfoModel.shareInstance().role == "supplier" {
                         self.pushSellViewController(indexPath)
                     }else{
-                        UIAlertController.shwoAlertControl(self.controller, style: .Alert, title: "您还非商家哦，可联系客服400-873-8011", message: nil, cancel: "取消", doneTitle: "联系客服", cancelAction: {
+                        UIAlertController.shwoAlertControl(self.controller, style: .alert, title: "您还非商家哦，可联系客服400-873-8011", message: nil, cancel: "取消", doneTitle: "联系客服", cancelAction: {
                             
                             }, doneAction: {
                                 AppCallViewShow(self.controller.view, phone: "400-873-8011")
@@ -53,8 +53,8 @@ class SellViewModel: NSObject {
         
     }
     
-    func pushSellViewController(indexPath:NSIndexPath){
-        let model = TicketShowModel.init(fromDictionary: self.models.objectAtIndex(indexPath.row) as! NSDictionary)
+    func pushSellViewController(_ indexPath:IndexPath){
+        let model = TicketShowModel.init(fromDictionary: self.models.object(at: indexPath.row) as! NSDictionary)
         if model.sessionCount != 1 {
             let controllerVC = TicketSceneViewController()
             controllerVC.viewModel.model = model
@@ -70,7 +70,7 @@ class SellViewModel: NSObject {
         }
     }
     
-    func numberOfRowsInSection(section:Int) -> Int {
+    func numberOfRowsInSection(_ section:Int) -> Int {
         return models.count
     }
     
@@ -78,18 +78,20 @@ class SellViewModel: NSObject {
         return 1
     }
     
-    func tableViewtableViewSellRecommondTableViewCell(cell:SellRecommondTableViewCell, indexPath:NSIndexPath) {
-        let model = self.models.objectAtIndex(indexPath.row)
+    func tableViewtableViewSellRecommondTableViewCell(_ cell:SellRecommondTableViewCell, indexPath:IndexPath) {
+        let model = self.models.object(at: indexPath.row)
         cell.setData(TicketShowModel.init(fromDictionary: model as! NSDictionary))
     }
     
     func requestHotTicket(){
-        BaseNetWorke.sharedInstance.getUrlWithString(HotSellURl, parameters: nil).subscribeNext { (resultDic) in
-            let resultModels =  NSMutableArray.mj_objectArrayWithKeyValuesArray(resultDic)
-            self.models = resultModels.mutableCopy() as! NSMutableArray
-            self.controller.tableView.reloadData()
-            if self.controller.tableView.mj_header != nil {
-                self.controller.tableView.mj_header.endRefreshing()
+        BaseNetWorke.sharedInstance.getUrlWithString(HotSellURl, parameters: nil).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                let resultModels =  NSMutableArray.mj_objectArray(withKeyValuesArray: resultDic.value)
+                self.models = resultModels?.mutableCopy() as! NSMutableArray
+                self.controller.tableView.reloadData()
+                if self.controller.tableView.mj_header != nil {
+                    self.controller.tableView.mj_header.endRefreshing()
+                }
             }
         }
     }

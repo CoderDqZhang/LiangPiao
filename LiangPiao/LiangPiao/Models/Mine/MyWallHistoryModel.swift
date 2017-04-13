@@ -63,10 +63,10 @@ class MyWallHistoryModel : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        hasNext = aDecoder.decodeObjectForKey("has_next") as? Bool
-        hisList = aDecoder.decodeObjectForKey("his_list") as? [HisList]
-        nextPage = aDecoder.decodeObjectForKey("next_page") as? Int
-        total = aDecoder.decodeObjectForKey("total") as? Int
+        hasNext = aDecoder.decodeObject(forKey: "has_next") as? Bool
+        hisList = aDecoder.decodeObject(forKey: "his_list") as? [HisList]
+        nextPage = aDecoder.decodeObject(forKey: "next_page") as? Int
+        total = aDecoder.decodeObject(forKey: "total") as? Int
         
     }
     
@@ -74,19 +74,19 @@ class MyWallHistoryModel : NSObject, NSCoding{
      * NSCoding required method.
      * Encodes mode properties into the decoder
      */
-    @objc func encodeWithCoder(aCoder: NSCoder)
+    @objc func encode(with aCoder: NSCoder)
     {
         if hasNext != nil{
-            aCoder.encodeObject(hasNext, forKey: "has_next")
+            aCoder.encode(hasNext, forKey: "has_next")
         }
         if hisList != nil{
-            aCoder.encodeObject(hisList, forKey: "his_list")
+            aCoder.encode(hisList, forKey: "his_list")
         }
         if nextPage != nil{
-            aCoder.encodeObject(nextPage, forKey: "next_page")
+            aCoder.encode(nextPage, forKey: "next_page")
         }
         if total != nil{
-            aCoder.encodeObject(total, forKey: "total")
+            aCoder.encode(total, forKey: "total")
         }
         
     }
@@ -142,11 +142,11 @@ class HisList : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        amount = aDecoder.decodeObjectForKey("amount") as? Int
-        balance = aDecoder.decodeObjectForKey("balance") as? Int
-        created = aDecoder.decodeObjectForKey("created") as? String
-        desc = aDecoder.decodeObjectForKey("desc") as? String
-        optionDesc = aDecoder.decodeObjectForKey("option_desc") as? String
+        amount = aDecoder.decodeObject(forKey: "amount") as? Int
+        balance = aDecoder.decodeObject(forKey: "balance") as? Int
+        created = aDecoder.decodeObject(forKey: "created") as? String
+        desc = aDecoder.decodeObject(forKey: "desc") as? String
+        optionDesc = aDecoder.decodeObject(forKey: "option_desc") as? String
         
     }
     
@@ -154,22 +154,22 @@ class HisList : NSObject, NSCoding{
      * NSCoding required method.
      * Encodes mode properties into the decoder
      */
-    @objc func encodeWithCoder(aCoder: NSCoder)
+    @objc func encode(with aCoder: NSCoder)
     {
         if amount != nil{
-            aCoder.encodeObject(amount, forKey: "amount")
+            aCoder.encode(amount, forKey: "amount")
         }
         if balance != nil{
-            aCoder.encodeObject(balance, forKey: "balance")
+            aCoder.encode(balance, forKey: "balance")
         }
         if created != nil{
-            aCoder.encodeObject(created, forKey: "created")
+            aCoder.encode(created, forKey: "created")
         }
         if desc != nil{
-            aCoder.encodeObject(desc, forKey: "desc")
+            aCoder.encode(desc, forKey: "desc")
         }
         if optionDesc != nil{
-            aCoder.encodeObject(optionDesc, forKey: "option_desc")
+            aCoder.encode(optionDesc, forKey: "option_desc")
         }
         
     }

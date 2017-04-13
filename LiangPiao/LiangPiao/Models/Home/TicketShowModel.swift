@@ -20,7 +20,7 @@ class Venue : NSObject, NSCoding{
     
     var address : String!
     var city : String!
-    var id : Int!
+    var id : Int64!
     var image : String!
     var name : String!
     var phone : String!
@@ -33,7 +33,7 @@ class Venue : NSObject, NSCoding{
     init(fromDictionary dictionary: NSDictionary){
         address = dictionary["address"] as? String
         city = dictionary["city"] as? String
-        id = dictionary["id"] as? Int
+        id = dictionary["id"] as? Int64
         image = dictionary["image"] as? String
         name = dictionary["name"] as? String
         phone = dictionary["phone"] as? String
@@ -53,7 +53,7 @@ class Venue : NSObject, NSCoding{
             dictionary["city"] = city
         }
         if id != nil{
-            dictionary["id"] = id as? AnyObject
+            dictionary["id"] = id
         }
         if image != nil{
             dictionary["image"] = image
@@ -76,13 +76,13 @@ class Venue : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        address = aDecoder.decodeObjectForKey("address") as? String
-        city = aDecoder.decodeObjectForKey("city") as? String
-        id = aDecoder.decodeObjectForKey("id") as? Int
-        image = aDecoder.decodeObjectForKey("image") as? String
-        name = aDecoder.decodeObjectForKey("name") as? String
-        phone = aDecoder.decodeObjectForKey("phone") as? String
-        regions = aDecoder.decodeObjectForKey("regions") as? String
+        address = aDecoder.decodeObject(forKey: "address") as? String
+        city = aDecoder.decodeObject(forKey: "city") as? String
+        id = aDecoder.decodeObject(forKey: "id") as? Int64
+        image = aDecoder.decodeObject(forKey: "image") as? String
+        name = aDecoder.decodeObject(forKey: "name") as? String
+        phone = aDecoder.decodeObject(forKey: "phone") as? String
+        regions = aDecoder.decodeObject(forKey: "regions") as? String
         
     }
     
@@ -90,28 +90,28 @@ class Venue : NSObject, NSCoding{
      * NSCoding required method.
      * Encodes mode properties into the decoder
      */
-    @objc func encodeWithCoder(aCoder: NSCoder)
+    @objc func encode(with aCoder: NSCoder)
     {
         if address != nil{
-            aCoder.encodeObject(address, forKey: "address")
+            aCoder.encode(address, forKey: "address")
         }
         if city != nil{
-            aCoder.encodeObject(city, forKey: "city")
+            aCoder.encode(city, forKey: "city")
         }
         if id != nil{
-            aCoder.encodeObject(id as? AnyObject, forKey: "id")
+            aCoder.encode(id, forKey: "id")
         }
         if image != nil{
-            aCoder.encodeObject(image, forKey: "image")
+            aCoder.encode(image, forKey: "image")
         }
         if name != nil{
-            aCoder.encodeObject(name, forKey: "name")
+            aCoder.encode(name, forKey: "name")
         }
         if phone != nil{
-            aCoder.encodeObject(phone, forKey: "phone")
+            aCoder.encode(phone, forKey: "phone")
         }
         if regions != nil{
-            aCoder.encodeObject(regions, forKey: "regions")
+            aCoder.encode(regions, forKey: "regions")
         }
         
     }
@@ -120,7 +120,7 @@ class Venue : NSObject, NSCoding{
 
 class Category : NSObject, NSCoding{
     
-    var id : Int!
+    var id : Int64!
     var name : String!
     
     
@@ -128,7 +128,7 @@ class Category : NSObject, NSCoding{
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: NSDictionary){
-        id = dictionary["id"] as? Int
+        id = dictionary["id"] as? Int64
         name = dictionary["name"] as? String
     }
     
@@ -153,8 +153,8 @@ class Category : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        id = aDecoder.decodeObjectForKey("id") as? Int
-        name = aDecoder.decodeObjectForKey("name") as? String
+        id = aDecoder.decodeObject(forKey: "id") as? Int64
+        name = aDecoder.decodeObject(forKey: "name") as? String
         
     }
     
@@ -162,13 +162,13 @@ class Category : NSObject, NSCoding{
      * NSCoding required method.
      * Encodes mode properties into the decoder
      */
-    @objc func encodeWithCoder(aCoder: NSCoder)
+    @objc func encode(with aCoder: NSCoder)
     {
         if id != nil{
-            aCoder.encodeObject(id, forKey: "id")
+            aCoder.encode(id, forKey: "id")
         }
         if name != nil{
-            aCoder.encodeObject(name, forKey: "name")
+            aCoder.encode(name, forKey: "name")
         }
     }
     
@@ -179,7 +179,7 @@ class TicketShowModel : NSObject, NSCoding{
     var category : Category!
     var city : String!
     var cover : String!
-    var id : Int!
+    var id : Int64!
     var minDiscount : String!
     var minPrice : Int!
     var maxPrice : Int!
@@ -203,7 +203,7 @@ class TicketShowModel : NSObject, NSCoding{
         }
         city = dictionary["city"] as? String
         cover = dictionary["cover"] as? String
-        id = dictionary["id"] as! Int
+        id = dictionary["id"] as! Int64
         minDiscount = dictionary["min_discount"] as? String
         minPrice = dictionary["min_price"] as? Int
         maxPrice = dictionary["max_price"] as? Int
@@ -295,22 +295,22 @@ class TicketShowModel : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        category = aDecoder.decodeObjectForKey("category") as? Category
-        city = aDecoder.decodeObjectForKey("city") as? String
-        cover = aDecoder.decodeObjectForKey("cover") as? String
-        id = aDecoder.decodeObjectForKey("id") as? Int
-        isFavorite = aDecoder.decodeObjectForKey("is_favorite") as? Bool
-        minDiscount = aDecoder.decodeObjectForKey("min_discount") as? String
-        minPrice = aDecoder.decodeObjectForKey("min_price") as? Int
-        maxPrice = aDecoder.decodeObjectForKey("max_price") as? Int
-        session = aDecoder.decodeObjectForKey("session") as? ShowSessionModel
-        sessionList = aDecoder.decodeObjectForKey("session_list") as? [ShowSessionModel]
-        sessionCount = aDecoder.decodeObjectForKey("session_count") as? Int
-        showDate = aDecoder.decodeObjectForKey("show_date") as? String
-        remainCount = aDecoder.decodeObjectForKey("ticket_count") as? Int
-        ticketStatus = aDecoder.decodeObjectForKey("ticket_status") as? Int
-        title = aDecoder.decodeObjectForKey("title") as? String
-        venue = aDecoder.decodeObjectForKey("venue") as? Venue
+        category = aDecoder.decodeObject(forKey: "category") as? Category
+        city = aDecoder.decodeObject(forKey: "city") as? String
+        cover = aDecoder.decodeObject(forKey: "cover") as? String
+        id = aDecoder.decodeObject(forKey: "id") as? Int64
+        isFavorite = aDecoder.decodeObject(forKey: "is_favorite") as? Bool
+        minDiscount = aDecoder.decodeObject(forKey: "min_discount") as? String
+        minPrice = aDecoder.decodeObject(forKey: "min_price") as? Int
+        maxPrice = aDecoder.decodeObject(forKey: "max_price") as? Int
+        session = aDecoder.decodeObject(forKey: "session") as? ShowSessionModel
+        sessionList = aDecoder.decodeObject(forKey: "session_list") as? [ShowSessionModel]
+        sessionCount = aDecoder.decodeObject(forKey: "session_count") as? Int
+        showDate = aDecoder.decodeObject(forKey: "show_date") as? String
+        remainCount = aDecoder.decodeObject(forKey: "ticket_count") as? Int
+        ticketStatus = aDecoder.decodeObject(forKey: "ticket_status") as? Int
+        title = aDecoder.decodeObject(forKey: "title") as? String
+        venue = aDecoder.decodeObject(forKey: "venue") as? Venue
         
     }
     
@@ -318,55 +318,55 @@ class TicketShowModel : NSObject, NSCoding{
      * NSCoding required method.
      * Encodes mode properties into the decoder
      */
-    @objc func encodeWithCoder(aCoder: NSCoder)
+    @objc func encode(with aCoder: NSCoder)
     {
         if category != nil{
-            aCoder.encodeObject(category, forKey: "category")
+            aCoder.encode(category, forKey: "category")
         }
         if city != nil{
-            aCoder.encodeObject(city, forKey: "city")
+            aCoder.encode(city, forKey: "city")
         }
         if cover != nil{
-            aCoder.encodeObject(cover, forKey: "cover")
+            aCoder.encode(cover, forKey: "cover")
         }
         if id != nil{
-            aCoder.encodeObject(id, forKey: "id")
+            aCoder.encode(id, forKey: "id")
         }
         if maxPrice != nil{
-            aCoder.encodeObject(maxPrice, forKey: "max_price")
+            aCoder.encode(maxPrice, forKey: "max_price")
         }
         if isFavorite != nil{
-            aCoder.encodeObject(isFavorite, forKey: "is_favorite")
+            aCoder.encode(isFavorite, forKey: "is_favorite")
         }
         if minDiscount != nil{
-            aCoder.encodeObject(minDiscount, forKey: "min_discount")
+            aCoder.encode(minDiscount, forKey: "min_discount")
         }
         if minPrice != nil{
-            aCoder.encodeObject(minPrice, forKey: "min_price")
+            aCoder.encode(minPrice, forKey: "min_price")
         }
         if session != nil{
-            aCoder.encodeObject(session, forKey: "session")
+            aCoder.encode(session, forKey: "session")
         }
         if sessionList != nil{
-            aCoder.encodeObject(sessionList, forKey: "session_list")
+            aCoder.encode(sessionList, forKey: "session_list")
         }
         if sessionCount != nil{
-            aCoder.encodeObject(sessionCount, forKey: "session_count")
+            aCoder.encode(sessionCount, forKey: "session_count")
         }
         if showDate != nil{
-            aCoder.encodeObject(showDate, forKey: "show_date")
+            aCoder.encode(showDate, forKey: "show_date")
         }
         if remainCount != nil{
-            aCoder.encodeObject(remainCount, forKey: "ticket_count")
+            aCoder.encode(remainCount, forKey: "ticket_count")
         }
         if ticketStatus != nil{
-            aCoder.encodeObject(ticketStatus, forKey: "ticket_status")
+            aCoder.encode(ticketStatus, forKey: "ticket_status")
         }
         if title != nil{
-            aCoder.encodeObject(title, forKey: "title")
+            aCoder.encode(title, forKey: "title")
         }
         if venue != nil{
-            aCoder.encodeObject(venue, forKey: "venue")
+            aCoder.encode(venue, forKey: "venue")
         }
         
     }

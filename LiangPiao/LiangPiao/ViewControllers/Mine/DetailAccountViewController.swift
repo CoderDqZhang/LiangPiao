@@ -18,7 +18,7 @@ class DetailAccountViewController: UIViewController {
         super.viewDidLoad()
         self.navigationItem.title = "明细"
         self.talKingDataPageName = "明细"
-        self.view.backgroundColor = UIColor.whiteColor()
+        self.view.backgroundColor = UIColor.white
         self.setUpNavigationItem()
         self.bindViewModel()
 //        self.setUpView()
@@ -26,18 +26,18 @@ class DetailAccountViewController: UIViewController {
     }
 
     func setUpView() {
-        tableView = UITableView(frame: CGRectZero, style: .Plain)
-        tableView.backgroundColor = UIColor.whiteColor()
+        tableView = UITableView(frame: CGRect.zero, style: .plain)
+        tableView.backgroundColor = UIColor.white
         tableView.delegate = self
         tableView.dataSource = self
         tableView.emptyDataSetDelegate = self
         tableView.emptyDataSetSource = self
         tableView.showsVerticalScrollIndicator = false
-        tableView.keyboardDismissMode = .OnDrag
-        tableView.separatorStyle = .None
-        tableView.registerClass(DetailAcountTableViewCell.self, forCellReuseIdentifier: "DetailAcountTableViewCell")
+        tableView.keyboardDismissMode = .onDrag
+        tableView.separatorStyle = .none
+        tableView.register(DetailAcountTableViewCell.self, forCellReuseIdentifier: "DetailAcountTableViewCell")
         self.view.addSubview(tableView)
-        tableView.snp_makeConstraints { (make) in
+        tableView.snp.makeConstraints { (make) in
             make.edges.equalTo(UIEdgeInsetsMake(0, 0, 0, 0))
         }
         self.setUpRefreshData()       
@@ -83,50 +83,50 @@ class DetailAccountViewController: UIViewController {
 }
 
 extension DetailAccountViewController : UITableViewDelegate {
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 //        viewModel.mySellOrderTableViewDidSelect(indexPath, controller: self.viewModel.controller)
     }
     
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
     }
 }
 
 extension DetailAccountViewController : UITableViewDataSource {
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return viewModel.numberOfSection()
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.numbrOfRowInSection(section)
     }
 
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return viewModel.tableViewHeightForRow(indexPath)
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("DetailAcountTableViewCell", forIndexPath: indexPath) as! DetailAcountTableViewCell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "DetailAcountTableViewCell", for: indexPath) as! DetailAcountTableViewCell
         viewModel.tableViewDetailAcountTableViewCell(cell, indexPath: indexPath)
-        cell.selectionStyle = .None
+        cell.selectionStyle = .none
         return cell
     }
 }
 
 extension DetailAccountViewController : DZNEmptyDataSetDelegate {
     
-    func emptyDataSetShouldAllowTouch(scrollView: UIScrollView!) -> Bool {
+    func emptyDataSetShouldAllowTouch(_ scrollView: UIScrollView!) -> Bool {
         return true
     }
 }
 
 extension DetailAccountViewController :DZNEmptyDataSetSource {
     
-    func backgroundColorForEmptyDataSet(scrollView: UIScrollView!) -> UIColor {
+    func backgroundColor(forEmptyDataSet scrollView: UIScrollView!) -> UIColor {
         return UIColor.init(hexString: App_Theme_F6F7FA_Color)
     }
     
-    func descriptionForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
+    func description(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
         let str = "还没有交易明细哦"
         let attribute = NSMutableAttributedString(string: str)
         attribute.addAttributes([NSForegroundColorAttributeName:UIColor.init(hexString: App_Theme_DDE0E5_Color)], range: NSRange(location: 0, length: str.length))
@@ -134,16 +134,16 @@ extension DetailAccountViewController :DZNEmptyDataSetSource {
         return attribute
     }
     
-    func verticalOffsetForEmptyDataSet(scrollView: UIScrollView!) -> CGFloat {
+    func verticalOffset(forEmptyDataSet scrollView: UIScrollView!) -> CGFloat {
         return -70
     }
     
-    func spaceHeightForEmptyDataSet(scrollView: UIScrollView!) -> CGFloat {
+    func spaceHeight(forEmptyDataSet scrollView: UIScrollView!) -> CGFloat {
         return 27
     }
     
-    func imageForEmptyDataSet(scrollView: UIScrollView!) -> UIImage! {
-        return UIImage.init(named: "Icon_Detail")?.imageWithRenderingMode(.AlwaysOriginal)
+    func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
+        return UIImage.init(named: "Icon_Detail")?.withRenderingMode(.alwaysOriginal)
     }
 }
 

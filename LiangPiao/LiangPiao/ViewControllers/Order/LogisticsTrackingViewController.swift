@@ -16,7 +16,7 @@ class LogisticsTrackingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = viewModel.controllerTitle()
-        self.view.backgroundColor = UIColor.whiteColor()
+        self.view.backgroundColor = UIColor.white
         self.setNavigationItemBack()
         self.setupForDismissKeyboard()
         self.setUpView()
@@ -25,21 +25,21 @@ class LogisticsTrackingViewController: UIViewController {
     
     func setUpView() {
         viewModel.controller = self
-        tableView = UITableView(frame: CGRectZero, style: .Grouped)
+        tableView = UITableView(frame: CGRect.zero, style: .grouped)
         tableView.backgroundColor = UIColor.init(hexString: App_Theme_E9EBF2_Color)
         tableView.delegate = self
         tableView.showsVerticalScrollIndicator = false
         tableView.dataSource = self
-        tableView.keyboardDismissMode = .OnDrag
-        tableView.registerClass(LogisticsTableViewCell.self, forCellReuseIdentifier: "LogisticsTableViewCell")
-        tableView.registerClass(DeverliyTypeTableViewCell.self, forCellReuseIdentifier: "DeverliyTypeTableViewCell")
-        tableView.separatorStyle = .None
+        tableView.keyboardDismissMode = .onDrag
+        tableView.register(LogisticsTableViewCell.self, forCellReuseIdentifier: "LogisticsTableViewCell")
+        tableView.register(DeverliyTypeTableViewCell.self, forCellReuseIdentifier: "DeverliyTypeTableViewCell")
+        tableView.separatorStyle = .none
         self.view.addSubview(tableView)
-        tableView.snp_makeConstraints { (make) in
-            make.top.equalTo(self.view.snp_top).offset(0)
-            make.left.equalTo(self.view.snp_left).offset(0)
-            make.right.equalTo(self.view.snp_right).offset(0)
-            make.bottom.equalTo(self.view.snp_bottom).offset(0)
+        tableView.snp.makeConstraints { (make) in
+            make.top.equalTo(self.view.snp.top).offset(0)
+            make.left.equalTo(self.view.snp.left).offset(0)
+            make.right.equalTo(self.view.snp.right).offset(0)
+            make.bottom.equalTo(self.view.snp.bottom).offset(0)
         }
         self.bindViewModel()
     }
@@ -67,47 +67,47 @@ class LogisticsTrackingViewController: UIViewController {
 
 extension LogisticsTrackingViewController : UITableViewDelegate {
     
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0.00001
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return viewModel.tableViewHeightForRowAtIndexPath(tableView, indexPath:indexPath)
     }
     
-    func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
          return viewModel.estimatedHeightForRowAtIndexPath(indexPath)
     }
     
-    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return viewModel.tableViewHeiFootView(tableView, section: section)
     }
 }
 
 extension LogisticsTrackingViewController : UITableViewDataSource {
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.tableViewNumberRowInSection(section)
     }
     
-    func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         return nil
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         case 0:
-            let cell = tableView.dequeueReusableCellWithIdentifier("LogisticsTableViewCell", forIndexPath: indexPath) as! LogisticsTableViewCell
-            cell.selectionStyle = .None
+            let cell = tableView.dequeueReusableCell(withIdentifier: "LogisticsTableViewCell", for: indexPath) as! LogisticsTableViewCell
+            cell.selectionStyle = .none
             viewModel.tableViewCellUserAddressTableViewCell(cell, indexPath:indexPath)
             return cell
         default :
-            let cell = tableView.dequeueReusableCellWithIdentifier("DeverliyTypeTableViewCell", forIndexPath: indexPath) as! DeverliyTypeTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "DeverliyTypeTableViewCell", for: indexPath) as! DeverliyTypeTableViewCell
             viewModel.tableViewDeverliyTypeTableViewCell(cell, indexPath: indexPath)
-            cell.selectionStyle = .None
+            cell.selectionStyle = .none
             cell.layoutMargins = UIEdgeInsets.init();
             return cell
         }

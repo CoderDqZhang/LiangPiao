@@ -29,16 +29,16 @@ class WithDrawStatusViewController: UIViewController {
     }
 
     func setUpView(){
-        tableView = UITableView(frame: CGRectZero, style: .Grouped)
+        tableView = UITableView(frame: CGRect.zero, style: .grouped)
         tableView.backgroundColor = UIColor.init(hexString: App_Theme_E9EBF2_Color)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.showsVerticalScrollIndicator = false
-        tableView.keyboardDismissMode = .OnDrag
-        tableView.separatorStyle = .None
-        tableView.registerClass(WithDrawStatusHeaderCell.self, forCellReuseIdentifier: "WithDrawStatusHeaderCell")
+        tableView.keyboardDismissMode = .onDrag
+        tableView.separatorStyle = .none
+        tableView.register(WithDrawStatusHeaderCell.self, forCellReuseIdentifier: "WithDrawStatusHeaderCell")
         self.view.addSubview(tableView)
-        tableView.snp_makeConstraints { (make) in
+        tableView.snp.makeConstraints { (make) in
             make.edges.equalTo(UIEdgeInsetsMake(0, 0, 0, 0))
         }
         
@@ -55,9 +55,9 @@ class WithDrawStatusViewController: UIViewController {
     }
 
     func widthDrawFooterView() -> UIView{
-        let drawFooter = UIView(frame: CGRectMake(0,0,SCREENWIDTH,30))
+        let drawFooter = UIView(frame: CGRect(x: 0,y: 0,width: SCREENWIDTH,height: 30))
         drawFooter.backgroundColor = UIColor.init(hexString: App_Theme_E9EBF2_Color)
-        let imageView = UIImageView(frame:CGRectMake(0,0,SCREENWIDTH,4))
+        let imageView = UIImageView(frame:CGRect(x: 0,y: 0,width: SCREENWIDTH,height: 4))
         imageView.image = UIImage.init(named: "Sawtooth")//Pattern_Line
         drawFooter.addSubview(imageView)
         return drawFooter
@@ -76,62 +76,62 @@ class WithDrawStatusViewController: UIViewController {
 }
 
 extension WithDrawStatusViewController : UITableViewDelegate {
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //        viewModel.mySellOrderTableViewDidSelect(indexPath, controller: self.viewModel.controller)
     }
     
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
     }
 }
 
 extension WithDrawStatusViewController : UITableViewDataSource {
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return viewModel.numberOfSection()
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.numbrOfRowInSection(section)
     }
     
-    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         if section == 0 {
             return 30
         }
         return 0.000001
     }
     
-    func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         if section == 0 {
             return self.widthDrawFooterView()
         }
         return nil
     }
     
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0.00001
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return viewModel.tableViewHeightForRow(indexPath)
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         case 0:
-            let cell = tableView.dequeueReusableCellWithIdentifier("WithDrawStatusHeaderCell", forIndexPath: indexPath) as! WithDrawStatusHeaderCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "WithDrawStatusHeaderCell", for: indexPath) as! WithDrawStatusHeaderCell
             cell.setData(name, much: amount)
-            cell.selectionStyle = .None
+            cell.selectionStyle = .none
             return cell
         default:
             let cellIndef = "CleanTableViewCell"
-            var cell = tableView.dequeueReusableCellWithIdentifier(cellIndef)
+            var cell = tableView.dequeueReusableCell(withIdentifier: cellIndef)
             if cell == nil {
-                cell = UITableViewCell.init(style: .Default, reuseIdentifier: cellIndef)
+                cell = UITableViewCell.init(style: .default, reuseIdentifier: cellIndef)
                 let topUpButton = CustomButton.init(frame: CGRect.init(x: 15 , y: 0, width: SCREENWIDTH - 30, height: 49), title: "完成", tag: nil, titleFont: App_Theme_PinFan_M_15_Font!, type: .withBackBoarder) { (tag) in
                     for controller in (self.navigationController?.viewControllers)! {
                         if controller is MyWalletViewController {
-                            NSNotificationCenter.defaultCenter().postNotificationName(BlanceNumberChange, object: nil)
+                            NotificationCenter.default.post(name: Foundation.Notification.Name(rawValue: BlanceNumberChange), object: nil)
                             self.navigationController?.popToViewController(controller, animated: true)
                             break
                         }
@@ -139,8 +139,8 @@ extension WithDrawStatusViewController : UITableViewDataSource {
                 }
                 cell?.contentView.addSubview(topUpButton)
             }
-            cell?.backgroundColor = UIColor.clearColor()
-            cell?.contentView.backgroundColor = UIColor.clearColor()
+            cell?.backgroundColor = UIColor.clear
+            cell?.contentView.backgroundColor = UIColor.clear
             return cell!
         }
     }

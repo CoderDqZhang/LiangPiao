@@ -78,6 +78,7 @@
 #endif
         // Try '- sizeThatFits:' for frame layout.
         // Note: fitting height should not include separator view.
+        
         fittingHeight = [cell sizeThatFits:CGSizeMake(contentViewWidth, 0)].height;
         
         [self fd_debugLog:[NSString stringWithFormat:@"calculate using sizeThatFits - %@", @(fittingHeight)]];
@@ -210,6 +211,7 @@
     [templateHeaderFooterView removeConstraint:widthFenceConstraint];
     
     if (fittingHeight == 0) {
+        
         fittingHeight = [templateHeaderFooterView sizeThatFits:CGSizeMake(CGRectGetWidth(self.frame), 0)].height;
     }
     

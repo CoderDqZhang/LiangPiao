@@ -13,7 +13,7 @@ let imageSizeHeight:CGFloat = 34
 
 let margerSizeWidth:Int = Int(SCREENWIDTH - 44 - 250)/4
 
-typealias HomePageCenterClouse = (index:NSInteger) ->Void
+typealias HomePageCenterClouse = (_ index:NSInteger) ->Void
 
 class HomePageCenter: UIView {
     
@@ -28,18 +28,18 @@ class HomePageCenter: UIView {
             let imageView = UIImageView()
             imageView.image = titleArray[i].image
             imageView.tag = i
-            imageView.frame = CGRectMake(originX + 8, originY, imageSizeWidth, imageSizeHeight)
-            imageView.userInteractionEnabled = true
+            imageView.frame = CGRect(x: originX + 8, y: originY, width: imageSizeWidth, height: imageSizeHeight)
+            imageView.isUserInteractionEnabled = true
             
-            let titleLabel = UILabel(frame: CGRectMake(originX, CGRectGetMaxY(imageView.frame) + 7, 50, 17))
+            let titleLabel = UILabel(frame: CGRect(x: originX, y: imageView.frame.maxY + 7, width: 50, height: 17))
             titleLabel.text = titleArray[i].title
-            titleLabel.textAlignment = .Center
+            titleLabel.textAlignment = .center
             titleLabel.font = App_Theme_PinFan_R_12_Font
             titleLabel.textColor = UIColor.init(hexString: App_Theme_556169_Color)
             self.addSubview(titleLabel)
             
             
-            originX = CGRectGetMaxX(titleLabel.frame) + CGFloat(margerSizeWidth)
+            originX = titleLabel.frame.maxX + CGFloat(margerSizeWidth)
             let singleTap = UITapGestureRecognizer(target: self, action: #selector(HomePageCenter.singleTapPress(_:)))
             singleTap.numberOfTapsRequired = 1
             singleTap.numberOfTouchesRequired = 1
@@ -49,9 +49,9 @@ class HomePageCenter: UIView {
         }
     }
     
-    func singleTapPress(sender:UITapGestureRecognizer) {
+    func singleTapPress(_ sender:UITapGestureRecognizer) {
         if homePageCenterClouse != nil {
-            homePageCenterClouse(index: (sender.view?.tag)!)
+            homePageCenterClouse((sender.view?.tag)!)
         }
     }
     
@@ -61,7 +61,7 @@ class HomePageCenter: UIView {
     
 }
 
-typealias HomeToolsClouse = (index:NSInteger) -> Void
+typealias HomeToolsClouse = (_ index:NSInteger) -> Void
 
 class HomeToolsTableViewCell: UITableViewCell {
 
@@ -82,10 +82,10 @@ class HomeToolsTableViewCell: UITableViewCell {
             model.title = titles[i]
             homeModel.append(model)
         }
-        let centerView = HomePageCenter(frame: CGRectMake(22, 23, SCREENWIDTH - 44, 68), titleArray: homeModel)
+        let centerView = HomePageCenter(frame: CGRect(x: 22, y: 23, width: SCREENWIDTH - 44, height: 68), titleArray: homeModel)
         centerView.homePageCenterClouse = { index in
             if self.homeToolsClouse != nil {
-                self.homeToolsClouse(index:index)
+                self.homeToolsClouse(index)
             }
         }
         self.contentView.addSubview(centerView)
@@ -100,7 +100,7 @@ class HomeToolsTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

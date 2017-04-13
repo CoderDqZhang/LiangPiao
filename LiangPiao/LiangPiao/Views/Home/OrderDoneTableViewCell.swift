@@ -33,14 +33,14 @@ class OrderDoneTableViewCell: UITableViewCell {
         self.contentView.addSubview(flowView)
     }
     
-    func setData(status:String,statusType:String) {
+    func setData(_ status:String,statusType:String) {
         self.orderStatus = status
         self.statusType = statusType
         flowView.reloadData()
         self.updateConstraintsIfNeeded()
     }
     
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         
         // Configure the view for the selected state
@@ -49,11 +49,11 @@ class OrderDoneTableViewCell: UITableViewCell {
 }
 
 extension OrderDoneTableViewCell: ZDQFlowViewDataSource {
-    func numberOfFlowViewItemCount(flowView: ZDQFlowView) -> NSInteger {
+    func numberOfFlowViewItemCount(_ flowView: ZDQFlowView) -> NSInteger {
         return 4
     }
     
-    func numberOfFlowViewItem(flowView: ZDQFlowView, index: NSInteger) -> ZDQFlowViewItem {
+    func numberOfFlowViewItem(_ flowView: ZDQFlowView, index: NSInteger) -> ZDQFlowViewItem {
         let viewItem = ZDQFlowViewItem()
         if orderStatus == "0" {
             switch index {
@@ -126,7 +126,7 @@ extension OrderDoneTableViewCell: ZDQFlowViewDataSource {
         return viewItem
     }
     
-    func flowViewItemSize(flowView: ZDQFlowView) -> CGSize {
+    func flowViewItemSize(_ flowView: ZDQFlowView) -> CGSize {
         return CGSize(width: 45, height: 57)
     }
 }

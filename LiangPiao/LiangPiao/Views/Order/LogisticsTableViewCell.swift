@@ -42,7 +42,7 @@ class LogisticsTableViewCell: UITableViewCell {
         deliveryAddress.textColor = UIColor.init(hexString: App_Theme_A2ABB5_Color)
         self.contentView.addSubview(deliveryAddress)
         
-        linLabel = GloabLineView(frame: CGRectMake(15, 0, SCREENWIDTH - 30, 0.5))
+        linLabel = GloabLineView(frame: CGRect(x: 15, y: 0, width: SCREENWIDTH - 30, height: 0.5))
         self.contentView.addSubview(linLabel)
         
         self.updateConstraintsIfNeeded()
@@ -53,32 +53,32 @@ class LogisticsTableViewCell: UITableViewCell {
     }
     
     
-    func setUpData(model:DeverliyModel, info:String) {
+    func setUpData(_ model:DeverliyModel, info:String) {
         titleInfo.text = info
         deliveryType.text = "配送方式：快递到付"
-        deliveryAddress.text = "快递单号：\(model.logisticCode)"
+        deliveryAddress.text = "快递单号：\((model.logisticCode)!)"
     }
     
     override func updateConstraints() {
         if !self.didMakeContraints {
             
-            titleInfo.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.right.equalTo(self.contentView.snp_right).offset(-15)
-                make.top.equalTo(self.contentView.snp_top).offset(20)
+            titleInfo.snp.makeConstraints({ (make) in
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
+                make.top.equalTo(self.contentView.snp.top).offset(20)
             })
             
-            deliveryType.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.right.equalTo(self.contentView.snp_right).offset(-15)
-                make.top.equalTo(self.titleInfo.snp_bottom).offset(8)
+            deliveryType.snp.makeConstraints({ (make) in
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
+                make.top.equalTo(self.titleInfo.snp.bottom).offset(8)
             })
             
-            deliveryAddress.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.right.equalTo(self.contentView.snp_right).offset(-15)
-                make.top.equalTo(self.deliveryType.snp_bottom).offset(2)
-                make.bottom.equalTo(self.contentView.snp_bottom).offset(-20)
+            deliveryAddress.snp.makeConstraints({ (make) in
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
+                make.top.equalTo(self.deliveryType.snp.bottom).offset(2)
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(-20)
             })
             
             self.didMakeContraints = true
@@ -92,7 +92,7 @@ class LogisticsTableViewCell: UITableViewCell {
         // Initialization code
     }
     
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         
         // Configure the view for the selected state

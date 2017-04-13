@@ -48,9 +48,9 @@ class MyWallModel : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        balance = aDecoder.decodeObjectForKey("balance") as? Int
-        deposit = aDecoder.decodeObjectForKey("deposit") as? Int
-        pendingBalance = aDecoder.decodeObjectForKey("pending_balance") as? Int
+        balance = aDecoder.decodeObject(forKey: "balance") as? Int
+        deposit = aDecoder.decodeObject(forKey: "deposit") as? Int
+        pendingBalance = aDecoder.decodeObject(forKey: "pending_balance") as? Int
         
     }
     
@@ -58,16 +58,16 @@ class MyWallModel : NSObject, NSCoding{
      * NSCoding required method.
      * Encodes mode properties into the decoder
      */
-    @objc func encodeWithCoder(aCoder: NSCoder)
+    @objc func encode(with aCoder: NSCoder)
     {
         if balance != nil{
-            aCoder.encodeObject(balance, forKey: "balance")
+            aCoder.encode(balance, forKey: "balance")
         }
         if deposit != nil{
-            aCoder.encodeObject(deposit, forKey: "deposit")
+            aCoder.encode(deposit, forKey: "deposit")
         }
         if pendingBalance != nil{
-            aCoder.encodeObject(pendingBalance, forKey: "pending_balance")
+            aCoder.encode(pendingBalance, forKey: "pending_balance")
         }
         
     }

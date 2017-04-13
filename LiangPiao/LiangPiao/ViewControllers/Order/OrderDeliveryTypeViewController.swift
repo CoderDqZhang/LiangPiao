@@ -24,18 +24,18 @@ class OrderDeliveryTypeViewController: UIViewController {
     }
     
     func setUpView() {
-        tableView = UITableView(frame: CGRectZero, style: .Plain)
+        tableView = UITableView(frame: CGRect.zero, style: .plain)
         tableView.backgroundColor = UIColor.init(hexString: App_Theme_E9EBF2_Color)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.showsVerticalScrollIndicator = false
-        tableView.keyboardDismissMode = .OnDrag
-        tableView.separatorStyle = .None
-        tableView.registerClass(OrderExpressTableViewCell.self, forCellReuseIdentifier: "OrderExpressTableViewCell")
-        tableView.registerClass(GloabTextFieldCell.self, forCellReuseIdentifier: "GloabTextFieldCell")
-        tableView.registerClass(GloabTitleAndSwitchBarTableViewCell.self, forCellReuseIdentifier: "GloabTitleAndSwitchBarTableViewCell")
+        tableView.keyboardDismissMode = .onDrag
+        tableView.separatorStyle = .none
+        tableView.register(OrderExpressTableViewCell.self, forCellReuseIdentifier: "OrderExpressTableViewCell")
+        tableView.register(GloabTextFieldCell.self, forCellReuseIdentifier: "GloabTextFieldCell")
+        tableView.register(GloabTitleAndSwitchBarTableViewCell.self, forCellReuseIdentifier: "GloabTitleAndSwitchBarTableViewCell")
         self.view.addSubview(tableView)
-        tableView.snp_makeConstraints { (make) in
+        tableView.snp.makeConstraints { (make) in
             make.edges.equalTo(UIEdgeInsetsMake(0, 0, 0, 0))
         }
         
@@ -44,7 +44,7 @@ class OrderDeliveryTypeViewController: UIViewController {
         
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
@@ -66,7 +66,7 @@ class OrderDeliveryTypeViewController: UIViewController {
     
     func setUpNavigationItem(){
         self.setNavigationItemBack()
-        let saveItem = UIBarButtonItem.init(title: "保存", style: .Plain, target: self, action: #selector(OrderDeliveryTypeViewController.saveDeviliType))
+        let saveItem = UIBarButtonItem.init(title: "保存", style: .plain, target: self, action: #selector(OrderDeliveryTypeViewController.saveDeviliType))
         self.navigationItem.rightBarButtonItem = saveItem
     }
     
@@ -84,24 +84,24 @@ class OrderDeliveryTypeViewController: UIViewController {
      }
      */
     
-    func cellOrderExpressTableViewCell(tableView:UITableView,indexPath:NSIndexPath) -> OrderExpressTableViewCell{
-        let cell = tableView.dequeueReusableCellWithIdentifier("OrderExpressTableViewCell", forIndexPath: indexPath) as! OrderExpressTableViewCell
-        cell.selectionStyle = .None
+    func cellOrderExpressTableViewCell(_ tableView:UITableView,indexPath:IndexPath) -> OrderExpressTableViewCell{
+        let cell = tableView.dequeueReusableCell(withIdentifier: "OrderExpressTableViewCell", for: indexPath) as! OrderExpressTableViewCell
+        cell.selectionStyle = .none
         viewModel.talbleViewcellOrderExpressTableViewCell(cell, indexPath: indexPath)
         return cell
     }
     
-    func cellGloabTitleAndSwitchBarTableViewCell(tableView:UITableView,indexPath:NSIndexPath) -> GloabTitleAndSwitchBarTableViewCell{
-        let cell = tableView.dequeueReusableCellWithIdentifier("GloabTitleAndSwitchBarTableViewCell", forIndexPath: indexPath) as! GloabTitleAndSwitchBarTableViewCell
-        cell.selectionStyle = .None
+    func cellGloabTitleAndSwitchBarTableViewCell(_ tableView:UITableView,indexPath:IndexPath) -> GloabTitleAndSwitchBarTableViewCell{
+        let cell = tableView.dequeueReusableCell(withIdentifier: "GloabTitleAndSwitchBarTableViewCell", for: indexPath) as! GloabTitleAndSwitchBarTableViewCell
+        cell.selectionStyle = .none
         viewModel.talbleViewCellGloabTitleAndSwitchBarTableViewCell(cell, indexPath: indexPath, controller:self)
         cell.titleLabel.font = App_Theme_PinFan_R_14_Font
         return cell
     }
     
-    func cellGloabTextFieldCell(tableView:UITableView,indexPath:NSIndexPath) -> GloabTextFieldCell{
-        let cell = tableView.dequeueReusableCellWithIdentifier("GloabTextFieldCell", forIndexPath: indexPath) as! GloabTextFieldCell
-        cell.selectionStyle = .None
+    func cellGloabTextFieldCell(_ tableView:UITableView,indexPath:IndexPath) -> GloabTextFieldCell{
+        let cell = tableView.dequeueReusableCell(withIdentifier: "GloabTextFieldCell", for: indexPath) as! GloabTextFieldCell
+        cell.selectionStyle = .none
         cell.textField.textColor = UIColor.init(hexString: App_Theme_556169_Color)
         cell.textField.font = App_Theme_PinFan_R_13_Font
         viewModel.talbleViewCellGloabTextFieldCell(cell, indexPath: indexPath)
@@ -111,46 +111,46 @@ class OrderDeliveryTypeViewController: UIViewController {
 }
 
 extension OrderDeliveryTypeViewController : UITableViewDelegate {
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 //        viewModel.tableViewDidSelect(indexPath, controller: self)
     }
 }
 
 extension OrderDeliveryTypeViewController : UITableViewDataSource {
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return viewModel.numberOfSection()
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.numbrOfRowInSection(section)
     }
     
-    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0.000001
     }
     
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0.0001
     }
     
-    func tableView(tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
-        view.tintColor = UIColor.whiteColor()
+    func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
+        view.tintColor = UIColor.white
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return viewModel.tableViewHeightForRow(indexPath)
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch viewModel.type {
-        case .Nomal:
+        case .nomal:
             switch indexPath.row {
             case 0:
                 return cellGloabTitleAndSwitchBarTableViewCell(tableView, indexPath: indexPath)
             default:
                 return cellGloabTitleAndSwitchBarTableViewCell(tableView, indexPath: indexPath)
             }
-        case .All:
+        case .all:
             switch indexPath.row {
             case 0,1,5:
                 return cellGloabTitleAndSwitchBarTableViewCell(tableView, indexPath: indexPath)
@@ -158,7 +158,7 @@ extension OrderDeliveryTypeViewController : UITableViewDataSource {
                 return cellGloabTextFieldCell(tableView, indexPath: indexPath)
             }
         default:
-            if viewModel.type == .Visite {
+            if viewModel.type == .visite {
                 switch indexPath.row {
                 case 0,1,2:
                     return cellGloabTitleAndSwitchBarTableViewCell(tableView, indexPath: indexPath)

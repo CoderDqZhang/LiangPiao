@@ -13,17 +13,17 @@ extension UIViewController {
 
     func setNavigationItemBack(){
         let leftImage = UIImage.init(named: "Icon_Back_Normal")
-        let spacBarButton = UIBarButtonItem.init(barButtonSystemItem: .FixedSpace, target: nil, action: nil);
-        self.navigationItem.leftBarButtonItems = [spacBarButton,UIBarButtonItem(image: leftImage?.imageWithRenderingMode(.AlwaysOriginal), style: .Plain, target: self, action: #selector(UIViewController.backBtnPress(_:)))]
+        let spacBarButton = UIBarButtonItem.init(barButtonSystemItem: .fixedSpace, target: nil, action: nil);
+        self.navigationItem.leftBarButtonItems = [spacBarButton,UIBarButtonItem(image: leftImage?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(UIViewController.backBtnPress(_:)))]
     }
 
-    func backBtnPress(sender:UIButton){
+    func backBtnPress(_ sender:UIButton){
         self.view.endEditing(true)
-        self.navigationController?.popViewControllerAnimated(true)
+        self.navigationController?.popViewController(animated: true)
     }
     
     func setNavigationItemCleanButton(){
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem.init(title: nil, style: .Plain, target: nil, action: nil)
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem.init(title: nil, style: .plain, target: nil, action: nil)
     }
     
 }

@@ -9,8 +9,8 @@
 import UIKit
 
 enum SearchType {
-    case TicketShowModel
-    case TicketSell
+    case ticketShowModel
+    case ticketSell
 }
 typealias SearchViewModelClouse = () ->Void
 
@@ -21,14 +21,14 @@ class SearchViewModel: NSObject {
     var controller:HomeViewController!
     var controllerS:SellTicketsViewController!
     var searchViewModelClouse:SearchViewModelClouse!
-    var searchType:SearchType = .TicketShowModel
+    var searchType:SearchType = .ticketShowModel
     
-    private override init() {
+    fileprivate override init() {
         
     }
     
     func emptyPlachTextTitle() -> String {
-        if searchType == .TicketShowModel {
+        if searchType == .ticketShowModel {
             return "搜索你关注的演出"
         }
         return "搜索想转卖的演出"
@@ -40,8 +40,8 @@ class SearchViewModel: NSObject {
         return 1
     }
     
-    func searchTableNumberOfRowsInSection(section:Int) ->Int {
-        if searchType == .TicketShowModel {
+    func searchTableNumberOfRowsInSection(_ section:Int) ->Int {
+        if searchType == .ticketShowModel {
             if searchModel != nil {
                 return searchModel.showList.count
             }
@@ -53,17 +53,17 @@ class SearchViewModel: NSObject {
         return 0
     }
     
-    func searchTableTableViewHeightForFooterInSection(section:Int) -> CGFloat {
+    func searchTableTableViewHeightForFooterInSection(_ section:Int) -> CGFloat {
         return 0.0001
     }
     
-    func searchTableTableViewHeightForRowAtIndexPath(indexPath:NSIndexPath) -> CGFloat
+    func searchTableTableViewHeightForRowAtIndexPath(_ indexPath:IndexPath) -> CGFloat
     {
         return 140
     }
     
-    func searchTablaTableViewDidSelectRowAtIndexPath(indexPath:NSIndexPath ) {
-        if searchType == .TicketShowModel {
+    func searchTablaTableViewDidSelectRowAtIndexPath(_ indexPath:IndexPath ) {
+        if searchType == .ticketShowModel {
             let searchTicke = searchModel.showList[indexPath.row]
             GloableSetEvent("HomeSearch", lable: "HomeSearch", parameters: searchTicke.toDictionary())
             self.controller.view.endEditing(true)
@@ -95,7 +95,7 @@ class SearchViewModel: NSObject {
                         NavigationPushView(controllerS, toConroller: controllerVC)
                     }
                 }else{
-                    UIAlertController.shwoAlertControl(controller, style: .Alert, title: "您还非商家哦，可联系客服400-873-8011", message: nil, cancel: "取消", doneTitle: "联系客服", cancelAction: {
+                    UIAlertController.shwoAlertControl(controller, style: .alert, title: "您还非商家哦，可联系客服400-873-8011", message: nil, cancel: "取消", doneTitle: "联系客服", cancelAction: {
                         
                         }, doneAction: {
                             AppCallViewShow(self.controller.view, phone: "400-873-8011")
@@ -111,8 +111,8 @@ class SearchViewModel: NSObject {
         }
     }
     
-    func searchTableCellData(cell:RecommendTableViewCell, indexPath:NSIndexPath) {
-        if self.searchType == .TicketShowModel {
+    func searchTableCellData(_ cell:RecommendTableViewCell, indexPath:IndexPath) {
+        if self.searchType == .ticketShowModel {
             if searchModel != nil {
                 let searchTicke = searchModel.showList[indexPath.row]
                 cell.setData(searchTicke)
@@ -125,17 +125,17 @@ class SearchViewModel: NSObject {
         }
     }
     
-    func searchTableCellDatas(cell:SellRecommondTableViewCell, indexPath:NSIndexPath) {
+    func searchTableCellDatas(_ cell:SellRecommondTableViewCell, indexPath:IndexPath) {
         if sellSearchModel != nil {
             let searchTicke = sellSearchModel.showList[indexPath.row]
             cell.setData(searchTicke)
         }
     }
     
-    func requestSearchTicket(searchText:String, searchTable:GlobalSearchTableView) {
+    func requestSearchTicket(_ searchText:String, searchTable:GlobalSearchTableView) {
         var url = ""
         let str = searchText.addEncoding(searchText)
-        if self.searchType == .TicketShowModel {
+        if self.searchType == .ticketShowModel {
             if searchModel != nil && searchText == "" {
                 self.searchModel.showList.removeAll()
                 searchTable.tableView.reloadData()
@@ -149,13 +149,15 @@ class SearchViewModel: NSObject {
             url = "\(SearchSellURl)?kw=\((str)!)"
         }
         if searchText != "" {
-            BaseNetWorke.sharedInstance.getUrlWithString(url, parameters: nil).subscribeNext { (resultDic) in
-                if self.searchType == .TicketShowModel {
-                     self.searchModel = RecommentTickes.init(fromDictionary: resultDic as! NSDictionary)
-                }else{
-                    self.sellSearchModel = RecommentTickes.init(fromDictionary: resultDic as! NSDictionary)
+            BaseNetWorke.sharedInstance.getUrlWithString(url, parameters: nil).observe { (resultDic) in
+                if !resultDic.isCompleted {
+                    if self.searchType == .ticketShowModel {
+                        self.searchModel = RecommentTickes.init(fromDictionary: resultDic.value as! NSDictionary)
+                    }else{
+                        self.sellSearchModel = RecommentTickes.init(fromDictionary: resultDic.value as! NSDictionary)
+                    }
+                    searchTable.tableView.reloadData()
                 }
-                searchTable.tableView.reloadData()
             }
         }
     }

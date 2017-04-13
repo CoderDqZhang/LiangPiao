@@ -18,7 +18,8 @@
     static CGFloat padding = 4.0;
     
     UIFont *systemFont = font;
-    CGSize textSize = CGSizeMake(availableWidth - (2 * padding) - 26, CGFLOAT_MAX); // rough accessory size
+    CGSize textSize = CGSizeMake( availableWidth - (2 * padding) - 26, CGFLOAT_MAX); // rough accessory size
+//    [text boundingRectWithSize:<#(CGSize)#> options:<#(NSStringDrawingOptions)#> attributes:<#(nullable NSDictionary<NSString *,id> *)#> context:<#(nullable NSStringDrawingContext *)#>]
     CGSize sizeWithFont = [text sizeWithFont:systemFont constrainedToSize:textSize lineBreakMode:NSLineBreakByWordWrapping];
 #if defined(__LP64__) && __LP64__
     return ceil(sizeWithFont.height) + padding;
@@ -47,14 +48,14 @@
         paragraph.lineBreakMode = NSLineBreakByWordWrapping;
         NSDictionary *attributes = @{NSFontAttributeName: textFont,
                                      NSParagraphStyleAttributeName: paragraph};
-        textSize = [self boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX)
+        textSize = [self boundingRectWithSize:CGSizeMake( width, CGFLOAT_MAX)
                                       options:(NSStringDrawingUsesLineFragmentOrigin |
                                                NSStringDrawingTruncatesLastVisibleLine)
                                    attributes:attributes
                                       context:nil].size;
     } else {
         textSize = [self sizeWithFont:textFont
-                    constrainedToSize:CGSizeMake(width, CGFLOAT_MAX)
+                    constrainedToSize:CGSizeMake( width, CGFLOAT_MAX)
                         lineBreakMode:NSLineBreakByWordWrapping];
     }
 #else
@@ -62,7 +63,7 @@
     paragraph.lineBreakMode = NSLineBreakByWordWrapping;
     NSDictionary *attributes = @{NSFontAttributeName: textFont,
                                  NSParagraphStyleAttributeName: paragraph};
-    textSize = [self boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX)
+    textSize = [self boundingRectWithSize:CGSizeMake( width, CGFLOAT_MAX)
                                   options:(NSStringDrawingUsesLineFragmentOrigin |
                                            NSStringDrawingTruncatesLastVisibleLine)
                                attributes:attributes
@@ -90,14 +91,14 @@
         paragraph.lineBreakMode = NSLineBreakByWordWrapping;
         NSDictionary *attributes = @{NSFontAttributeName: textFont,
                                      NSParagraphStyleAttributeName: paragraph};
-        textSize = [self boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, height)
+        textSize = [self boundingRectWithSize:CGSizeMake( CGFLOAT_MAX, height)
                                       options:(NSStringDrawingUsesLineFragmentOrigin |
                                                NSStringDrawingTruncatesLastVisibleLine)
                                    attributes:attributes
                                       context:nil].size;
     } else {
         textSize = [self sizeWithFont:textFont
-                    constrainedToSize:CGSizeMake(CGFLOAT_MAX, height)
+                    constrainedToSize:CGSizeMake( CGFLOAT_MAX, height)
                         lineBreakMode:NSLineBreakByWordWrapping];
     }
 #else
@@ -105,7 +106,7 @@
     paragraph.lineBreakMode = NSLineBreakByWordWrapping;
     NSDictionary *attributes = @{NSFontAttributeName: textFont,
                                  NSParagraphStyleAttributeName: paragraph};
-    textSize = [self boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, height)
+    textSize = [self boundingRectWithSize:CGSizeMake( CGFLOAT_MAX, height)
                                   options:(NSStringDrawingUsesLineFragmentOrigin |
                                            NSStringDrawingTruncatesLastVisibleLine)
                                attributes:attributes
@@ -133,14 +134,14 @@
         paragraph.lineBreakMode = NSLineBreakByWordWrapping;
         NSDictionary *attributes = @{NSFontAttributeName: textFont,
                                      NSParagraphStyleAttributeName: paragraph};
-        textSize = [self boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX)
+        textSize = [self boundingRectWithSize:CGSizeMake( width, CGFLOAT_MAX)
                                       options:(NSStringDrawingUsesLineFragmentOrigin |
                                                NSStringDrawingTruncatesLastVisibleLine)
                                    attributes:attributes
                                       context:nil].size;
     } else {
         textSize = [self sizeWithFont:textFont
-                    constrainedToSize:CGSizeMake(width, CGFLOAT_MAX)
+                    constrainedToSize:CGSizeMake( width, CGFLOAT_MAX)
                         lineBreakMode:NSLineBreakByWordWrapping];
     }
 #else
@@ -148,14 +149,14 @@
     paragraph.lineBreakMode = NSLineBreakByWordWrapping;
     NSDictionary *attributes = @{NSFontAttributeName: textFont,
                                  NSParagraphStyleAttributeName: paragraph};
-    textSize = [self boundingRectWithSize:CGSizeMake(width, CGFLOAT_MAX)
+    textSize = [self boundingRectWithSize:CGSizeMake( width, CGFLOAT_MAX)
                                   options:(NSStringDrawingUsesLineFragmentOrigin |
                                            NSStringDrawingTruncatesLastVisibleLine)
                                attributes:attributes
                                   context:nil].size;
 #endif
     
-    return CGSizeMake(ceil(textSize.width), ceil(textSize.height));
+    return CGSizeMake( ceil(textSize.width), ceil(textSize.height));
 }
 
 /**
@@ -176,14 +177,14 @@
         paragraph.lineBreakMode = NSLineBreakByWordWrapping;
         NSDictionary *attributes = @{NSFontAttributeName: textFont,
                                      NSParagraphStyleAttributeName: paragraph};
-        textSize = [self boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, height)
+        textSize = [self boundingRectWithSize:CGSizeMake( CGFLOAT_MAX, height)
                                       options:(NSStringDrawingUsesLineFragmentOrigin |
                                                NSStringDrawingTruncatesLastVisibleLine)
                                    attributes:attributes
                                       context:nil].size;
     } else {
         textSize = [self sizeWithFont:textFont
-                    constrainedToSize:CGSizeMake(CGFLOAT_MAX, height)
+                    constrainedToSize:CGSizeMake( CGFLOAT_MAX, height)
                         lineBreakMode:NSLineBreakByWordWrapping];
     }
 #else
@@ -191,7 +192,7 @@
     paragraph.lineBreakMode = NSLineBreakByWordWrapping;
     NSDictionary *attributes = @{NSFontAttributeName: textFont,
                                  NSParagraphStyleAttributeName: paragraph};
-    textSize = [self boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, height)
+    textSize = [self boundingRectWithSize:CGSizeMake( CGFLOAT_MAX, height)
                                   options:(NSStringDrawingUsesLineFragmentOrigin |
                                            NSStringDrawingTruncatesLastVisibleLine)
                                attributes:attributes

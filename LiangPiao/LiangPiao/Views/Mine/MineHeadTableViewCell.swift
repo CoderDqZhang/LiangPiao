@@ -28,7 +28,7 @@ class MineHeadTableViewCell: UITableViewCell {
     func setUpView() {
         
         cellBackView = UIImageView()
-        cellBackView.image = UIImage.init(color: UIColor.init(hexString: App_Theme_4BD4C5_Color), size: CGSizeMake(SCREENWIDTH, 255))
+        cellBackView.image = UIImage.init(color: UIColor.init(hexString: App_Theme_4BD4C5_Color), size: CGSize(width: SCREENWIDTH, height: 255))
         self.contentView.addSubview(cellBackView)
         
         nameAndePhone = UILabel()
@@ -50,24 +50,24 @@ class MineHeadTableViewCell: UITableViewCell {
         
         editProfileImage = UIImageView()
         editProfileImage.image = UIImage.init(named: "Icon_Edit_Normal")
-        editProfileImage.hidden = true
+        editProfileImage.isHidden = true
         self.contentView.addSubview(editProfileImage)
         
         self.updateConstraintsIfNeeded()
     }
     
-    func setData(namePhone:String, photoImage:String, isLogin:Bool) {
+    func setData(_ namePhone:String, photoImage:String, isLogin:Bool) {
         nameAndePhone.text = namePhone
         if isLogin {
-            editProfileImage.hidden = false
+            editProfileImage.isHidden = false
             if SaveImageTools.sharedInstance.LoadImage("photoImage.png", path: "headerImage") == nil {
-                photoImageView.sd_setImageWithURL(NSURL.init(string: photoImage), placeholderImage: UIImage.init(named: "Avatar_Default"), options: .RetryFailed) { (image, error, cache, url) in
+                photoImageView.sd_setImage(with: URL.init(string: photoImage), placeholderImage: UIImage.init(named: "Avatar_Default"), options: .retryFailed) { (image, error, cache, url) in
                 }
             }else{
                 photoImageView.image = SaveImageTools.sharedInstance.LoadImage("photoImage.png", path: "headerImage")
             }
         }else{
-            editProfileImage.hidden = true
+            editProfileImage.isHidden = true
             photoImageView.image = UIImage.init(named: "Avatar_Default")
         }
         
@@ -75,28 +75,27 @@ class MineHeadTableViewCell: UITableViewCell {
     
     override func updateConstraints() {
         if !self.didMakeConstraints {
-            
-            nameAndePhone.snp_makeConstraints(closure: { (make) in
-                make.top.equalTo(self.photoImageView.snp_bottom).offset(20)
-                make.centerX.equalTo(self.contentView.snp_centerX).offset(0)
+            nameAndePhone.snp.makeConstraints({ (make) in
+                make.top.equalTo(self.photoImageView.snp.bottom).offset(20)
+                make.centerX.equalTo(self.contentView.snp.centerX).offset(0)
             })
             
-            photoImageView.snp_makeConstraints(closure: { (make) in
-                make.top.equalTo(self.contentView.snp_top).offset(67)
-                make.centerX.equalTo(self.contentView.snp_centerX).offset(0)
-                make.size.equalTo(CGSizeMake(100, 100))
+            photoImageView.snp.makeConstraints({ (make) in
+                make.top.equalTo(self.contentView.snp.top).offset(67)
+                make.centerX.equalTo(self.contentView.snp.centerX).offset(0)
+                make.size.equalTo(CGSize.init(width: 100, height: 100))
             })
             
-            defaultImage.snp_makeConstraints(closure: { (make) in
-                make.top.equalTo(self.contentView.snp_top).offset(64)
-                make.centerX.equalTo(self.contentView.snp_centerX).offset(0)
-                make.size.equalTo(CGSizeMake(106, 106))
+            defaultImage.snp.makeConstraints({ (make) in
+                make.top.equalTo(self.contentView.snp.top).offset(64)
+                make.centerX.equalTo(self.contentView.snp.centerX).offset(0)
+                make.size.equalTo(CGSize.init(width: 106, height: 106))
             })
             
-            editProfileImage.snp_makeConstraints(closure: { (make) in
-                make.top.equalTo(self.photoImageView.snp_top).offset(8)
-                make.left.equalTo(self.photoImageView.snp_left).offset(83)
-                make.size.equalTo(CGSizeMake(27, 27))
+            editProfileImage.snp.makeConstraints({ (make) in
+                make.top.equalTo(self.photoImageView.snp.top).offset(8)
+                make.left.equalTo(self.photoImageView.snp.left).offset(83)
+                make.size.equalTo(CGSize.init(width: 27, height: 27))
             })
             
             self.didMakeConstraints = true
@@ -113,7 +112,7 @@ class MineHeadTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

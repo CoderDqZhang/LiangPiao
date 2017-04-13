@@ -23,7 +23,7 @@ class BarCodeViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         
         // Set the captureDevice.
         
-        let videoCaptureDevice = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
+        let videoCaptureDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
         
         // Create input object.
         
@@ -54,7 +54,7 @@ class BarCodeViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
             
             // Send captured data to the delegate object via a serial queue.
             
-            metadataOutput.setMetadataObjectsDelegate(self, queue: dispatch_get_main_queue())
+            metadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
             
             // Set barcode type for which to scan: EAN-13.
             
@@ -76,18 +76,18 @@ class BarCodeViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         session.startRunning()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if (session?.running == false) {
+        if (session?.isRunning == false) {
             session.startRunning()
         }
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        if (session?.running == true) {
+        if (session?.isRunning == true) {
             session.stopRunning()
         }
     }
@@ -96,13 +96,13 @@ class BarCodeViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         
         // Let the user know that scanning isn't possible with the current device.
         
-        let alert = UIAlertController(title: "Can't Scan.", message: "Let's try a device equipped with a camera.", preferredStyle: .Alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
-        presentViewController(alert, animated: true, completion: nil)
+        let alert = UIAlertController(title: "Can't Scan.", message: "Let's try a device equipped with a camera.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
         session = nil
     }
     
-    func captureOutput(captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [AnyObject]!, fromConnection connection: AVCaptureConnection!) {
+    func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [Any]!, from connection: AVCaptureConnection!) {
         
         // Get the first object from the metadataObjects array.
         
@@ -129,39 +129,39 @@ class BarCodeViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         }
     }
     
-    func barcodeDetected(code: String) {
+    func barcodeDetected(_ code: String) {
         
         // Let the user know we've found something.
         
-        let alert = UIAlertController(title: "Found a Barcode!", message: code, preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "Search", style: UIAlertActionStyle.Destructive, handler: { action in
+        let alert = UIAlertController(title: "Found a Barcode!", message: code, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "Search", style: UIAlertActionStyle.destructive, handler: { action in
             
             // Remove the spaces.
             
-            let trimmedCode = code.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+//            let trimmedCode = code.trimmingCharacters(in: CharacterSet.whitespaces)
+//            
+//            // EAN or UPC?
+//            // Check for added "0" at beginning of code.
+//            
+//            var trimmedCodeString = "\(trimmedCode)"
+////            var trimmedCodeNoZero: String
+//            
+//            if trimmedCodeString.hasPrefix("0") && trimmedCodeString.characters.count > 1 {
+//                trimmedCodeString = String(trimmedCodeString.characters.dropFirst())
+//                
+//                // Send the doctored UPC to DataService.searchAPI()
+//                
+////                DataService.searchAPI(trimmedCodeNoZero)
+//            } else {
+//                
+//                // Send the doctored EAN to DataService.searchAPI()
+//                
+////                DataService.searchAPI(trimmedCodeString)
+//            }
             
-            // EAN or UPC?
-            // Check for added "0" at beginning of code.
-            
-            let trimmedCodeString = "\(trimmedCode)"
-            var trimmedCodeNoZero: String
-            
-            if trimmedCodeString.hasPrefix("0") && trimmedCodeString.characters.count > 1 {
-                trimmedCodeNoZero = String(trimmedCodeString.characters.dropFirst())
-                
-                // Send the doctored UPC to DataService.searchAPI()
-                
-//                DataService.searchAPI(trimmedCodeNoZero)
-            } else {
-                
-                // Send the doctored EAN to DataService.searchAPI()
-                
-//                DataService.searchAPI(trimmedCodeString)
-            }
-            
-            self.navigationController?.popViewControllerAnimated(true)
+            self.navigationController?.popViewController(animated: true)
         }))
         
-        self.presentViewController(alert, animated: true, completion: nil)
+        self.present(alert, animated: true, completion: nil)
     }
 }

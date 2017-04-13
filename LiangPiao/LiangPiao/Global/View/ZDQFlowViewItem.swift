@@ -32,7 +32,7 @@ class ZDQFlowViewItem: UIView {
         
         titleLabel = UILabel()
         titleLabel.font = App_Theme_PinFan_R_11_Font
-        titleLabel.textAlignment = .Center
+        titleLabel.textAlignment = .center
         titleLabel.frame = CGRect(x: -6, y: imageView.frame.maxY + 6, width: 57, height: 16)
         self.addSubview(titleLabel)
 
@@ -42,7 +42,7 @@ class ZDQFlowViewItem: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setData(title:String, type:ZDQFlowViewItemType){
+    func setData(_ title:String, type:ZDQFlowViewItemType){
         itemType = type
         switch type {
         case .itemDone:

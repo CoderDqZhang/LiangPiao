@@ -26,62 +26,62 @@ class MyWalletViewController: UIViewController {
     }
     
     func setUpView() {
-        tableView = UITableView(frame: CGRectZero, style: .Plain)
-        tableView.backgroundColor = UIColor.whiteColor()
+        tableView = UITableView(frame: CGRect.zero, style: .plain)
+        tableView.backgroundColor = UIColor.white
         tableView.delegate = self
         tableView.dataSource = self
         tableView.showsVerticalScrollIndicator = false
-        tableView.keyboardDismissMode = .OnDrag
-        tableView.separatorStyle = .None
-        tableView.registerClass(MyWallHeaderTableViewCell.self, forCellReuseIdentifier: "MyWallHeaderTableViewCell")
-        tableView.registerClass(MyWallToolsTableViewCell.self, forCellReuseIdentifier: "MyWallToolsTableViewCell")
+        tableView.keyboardDismissMode = .onDrag
+        tableView.separatorStyle = .none
+        tableView.register(MyWallHeaderTableViewCell.self, forCellReuseIdentifier: "MyWallHeaderTableViewCell")
+        tableView.register(MyWallToolsTableViewCell.self, forCellReuseIdentifier: "MyWallToolsTableViewCell")
         self.view.addSubview(tableView)
-        tableView.snp_makeConstraints { (make) in
+        tableView.snp.makeConstraints { (make) in
             make.edges.equalTo(UIEdgeInsetsMake(0, 0, 0, 0))
         }
         
         self.bindViewModel()
         
-//        let topUpButton = self.createButton(CGRect.init(x: SpaceTopUpAndWidth, y: SCREENHEIGHT - 79 - 64, width: TopUpAndWithdrawWidth, height: 49), title: "充值", backGroundColor: UIColor.whiteColor(), titleColor: UIColor.init(hexString: App_Theme_4BD4C5_Color))
-//        topUpButton.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (action) in
+//        let topUpButton = self.createButton(CGRect.init(x: SpaceTopUpAndWidth, y: SCREENHEIGHT - 79 - 64, width: TopUpAndWithdrawWidth, height: 49), title: "充值", backGroundColor: UIColor.white, titleColor: UIColor.init(hexString: App_Theme_4BD4C5_Color))
+//        topUpButton.reactive.controlEvents(.touchUpInside).observe { (action) in
 //            NavigationPushView(self, toConroller: TopUpViewController())
 //        }
 //        self.view.addSubview(topUpButton)
         
         let withdraw = CustomButton.init(frame: CGRect.init(x: SpaceTopUpAndWidth , y: SCREENHEIGHT - 79 - 64, width: SCREENWIDTH - SpaceTopUpAndWidth * 2, height: 49), title: "提现", tag: nil, titleFont: App_Theme_PinFan_M_15_Font!, type: .withBackBoarder) { (tag) in
             let controllerVC = WithDrawViewController()
-            controllerVC.viewModel.maxMuch = "\(self.viewModel.model.balance)".muchType("\(self.viewModel.model.balance)")
+            controllerVC.viewModel.maxMuch = "\(self.viewModel.model.balance)".muchType("\((self.viewModel.model.balance)!)")
             NavigationPushView(self, toConroller: controllerVC)
         }
         self.view.addSubview(withdraw)
             
-        let ruleButton = CustomButton.init(frame: CGRectZero, title: "查看规则说明", tag: nil, titleFont: App_Theme_PinFan_M_13_Font!, type: .withNoBoarder) { (tag) in
+        let ruleButton = CustomButton.init(frame: CGRect.zero, title: "查看规则说明", tag: nil, titleFont: App_Theme_PinFan_M_13_Font!, type: .withNoBoarder) { (tag) in
             KWINDOWDS().addSubview(GloableServiceView.init(title: "规则说明", message: self.viewModel.messageTitle()))
         }
         self.view.addSubview(ruleButton)
         
-        ruleButton.snp_makeConstraints { (make) in
-            make.centerX.equalTo(self.view.snp_centerX).offset(0)
-            make.bottom.equalTo(withdraw.snp_top).offset(-41)
+        ruleButton.snp.makeConstraints { (make) in
+            make.centerX.equalTo(self.view.snp.centerX).offset(0)
+            make.bottom.equalTo(withdraw.snp.top).offset(-41)
         }
         
     }
     
-    func createButton(frame:CGRect, title:String, backGroundColor:UIColor, titleColor:UIColor) ->UIButton {
-        let button = UIButton(type: .Custom)
+    func createButton(_ frame:CGRect, title:String, backGroundColor:UIColor, titleColor:UIColor) ->UIButton {
+        let button = UIButton(type: .custom)
         button.frame = frame
-        button.setTitle(title, forState: .Normal)
+        button.setTitle(title, for: UIControlState())
         if backGroundColor != UIColor.init(hexString: App_Theme_4BD4C5_Color) {
             button.layer.cornerRadius = 2.0
-            button.layer.borderColor = UIColor.init(hexString: App_Theme_4BD4C5_Color).CGColor
+            button.layer.borderColor = UIColor.init(hexString: App_Theme_4BD4C5_Color).cgColor
             button.layer.borderWidth = 1.0
         }
-        button.setTitleColor(titleColor, forState: .Normal)
+        button.setTitleColor(titleColor, for: UIControlState())
         button.buttonSetThemColor(App_Theme_4BD4C5_Color, selectColor: App_Theme_40C6B7_Color, size: CGSize.init(width: frame.size.width, height: frame.size.height))
         return button
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
@@ -115,60 +115,60 @@ class MyWalletViewController: UIViewController {
 }
 
 extension MyWalletViewController : UITableViewDelegate {
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         viewModel.tableViewDidSelect(indexPath, controller: self)
     }
     
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView.contentOffset.y < 0 {
-            let cell = tableView.cellForRowAtIndexPath(NSIndexPath.init(forRow: 0, inSection: 0)) as! MyWallHeaderTableViewCell
-            cell.cellBackView.frame = CGRectMake(0, scrollView.contentOffset.y, SCREENWIDTH, 190 - scrollView.contentOffset.y)
+            let cell = tableView.cellForRow(at: IndexPath.init(row: 0, section: 0)) as! MyWallHeaderTableViewCell
+            cell.cellBackView.frame = CGRect(x: 0, y: scrollView.contentOffset.y, width: SCREENWIDTH, height: 190 - scrollView.contentOffset.y)
         }
     }
 }
 
 extension MyWalletViewController : UITableViewDataSource {
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return viewModel.numberOfSection()
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.numbrOfRowInSection(section)
     }
     
-    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         if section == 0 {
             return 10
         }
         return 0.000001
     }
     
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0.0001
     }
     
-    func tableView(tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
-        view.tintColor = UIColor.whiteColor()
+    func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
+        view.tintColor = UIColor.white
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return viewModel.tableViewHeightForRow(indexPath)
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.row {
         case 0:
-            let cell = tableView.dequeueReusableCellWithIdentifier("MyWallHeaderTableViewCell", forIndexPath: indexPath) as! MyWallHeaderTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "MyWallHeaderTableViewCell", for: indexPath) as! MyWallHeaderTableViewCell
             viewModel.tableViewCellMyWallHeaderTableViewCell(cell)
             cell.myWallHeaderTableViewCellClouse = { _ in
                 NavigationPushView(self, toConroller: DetailAccountViewController())
             }
-            cell.selectionStyle = .None
+            cell.selectionStyle = .none
             return cell
         default:
-            let cell = tableView.dequeueReusableCellWithIdentifier("MyWallToolsTableViewCell", forIndexPath: indexPath) as! MyWallToolsTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "MyWallToolsTableViewCell", for: indexPath) as! MyWallToolsTableViewCell
             viewModel.tableViewCellMyWallToolsTableViewCell(cell)
-            cell.selectionStyle = .None
+            cell.selectionStyle = .none
             return cell
         }
     }

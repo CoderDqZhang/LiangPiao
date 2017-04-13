@@ -42,7 +42,7 @@ class MySellPagerViewController: TYTabButtonPagerController {
     }
     
     func setUpView(){
-        let lineView = GloabLineView(frame: CGRectMake(0, 40, SCREENWIDTH, 0.5))
+        let lineView = GloabLineView(frame: CGRect(x: 0, y: 40, width: SCREENWIDTH, height: 0.5))
         self.view.addSubview(lineView)
     }
     
@@ -58,15 +58,15 @@ class MySellPagerViewController: TYTabButtonPagerController {
         //        self.navigationItem.rightBarButtonItem = searchItem
     }
     
-    func pageViewControllerDidSelectIndexPath(index:Int) {
+    func pageViewControllerDidSelectIndexPath(_ index:Int) {
         self.index = index
     }
     
-    func filterPress(sender:UIBarButtonItem) {
+    func filterPress(_ sender:UIBarButtonItem) {
         
     }
     
-    func searchPress(sender:UIBarButtonItem) {
+    func searchPress(_ sender:UIBarButtonItem) {
         
     }
     
@@ -76,24 +76,24 @@ class MySellPagerViewController: TYTabButtonPagerController {
     }
     
     
-    override func setBarStyle(barStyle: TYPagerBarStyle) {
+    override func setBarStyle(_ barStyle: TYPagerBarStyle) {
         super.setBarStyle(barStyle)
     }
     
     // MARK: - TYTabButtonDelegate
-    override func pagerController(pagerController: TYTabPagerController!, configreCell cell: UICollectionViewCell!, forItemTitle title: String!, atIndexPath indexPath: NSIndexPath!) {
-        super.pagerController(pagerController, configreCell: cell, forItemTitle: title, atIndexPath: indexPath)
+    override func pagerController(_ pagerController: TYTabPagerController!, configreCell cell: UICollectionViewCell!, forItemTitle title: String!, at indexPath: IndexPath!) {
+        super.pagerController(pagerController, configreCell: cell, forItemTitle: title, at: indexPath)
     }
     
-    override func pagerController(pagerController: TYTabPagerController!, didScrollToTabPageIndex index: Int) {
+    override func pagerController(_ pagerController: TYTabPagerController!, didScrollToTabPageIndex index: Int) {
 //        viewModel.pagerControllerDidScrollToTabPageIndex(index)
     }
     
-    override func pagerController(pagerController: TYPagerController!, transitionFromIndex fromIndex: Int, toIndex: Int, animated: Bool) {
+    override func pagerController(_ pagerController: TYPagerController!, transitionFrom fromIndex: Int, to toIndex: Int, animated: Bool) {
         
     }
     
-    override func pagerController(pagerController: TYPagerController!, willAddViewController index: Int) {
+    override func pagerController(_ pagerController: TYPagerController!, willAddViewController index: Int) {
 //        viewModel.willAddViewController = index
     }
     
@@ -101,14 +101,15 @@ class MySellPagerViewController: TYTabButtonPagerController {
     override func numberOfControllersInPagerController() -> Int {
         return viewModel.numberOfControllersInPagerController()
     }
-    override func pagerController(pagerController: TYPagerController!, titleForIndex index: Int) -> String! {
+    override func pagerController(_ pagerController: TYPagerController!, titleFor index: Int) -> String! {
         return viewModel.pagerControllerTitleForIndex(index)
     }
     
-    override func pagerController(pagerController: TYPagerController!, numberForIndex index: Int) -> String! {
+    override func pagerController(_ pagerController: TYPagerController!, numberFor index: Int) -> String! {
         return "0"
     }
-    override func pagerController(pagerController: TYPagerController!, controllerForIndex index: Int) -> UIViewController! {
+    
+    override func pagerController(_ pagerController: TYPagerController!, controllerFor index: Int) -> UIViewController! {
         return viewModel.pagerControllerControllerForIndex(index)
     }
 }

@@ -38,7 +38,7 @@ class SellRecommondTableViewCell: UITableViewCell {
         
         ticketTitle = UILabel()
         ticketTitle.text = "万有音乐系 陈粒《小梦大半》2016巡回演唱会"
-        UILabel.changeLineSpaceForLabel(ticketTitle, withSpace: TitleLineSpace)
+        UILabel.changeLineSpace(for: ticketTitle, withSpace: TitleLineSpace)
         ticketTitle.numberOfLines = 0
         ticketTitle.textColor = UIColor.init(hexString: App_Theme_384249_Color)
         ticketTitle.font = App_Theme_PinFan_R_15_Font
@@ -68,42 +68,46 @@ class SellRecommondTableViewCell: UITableViewCell {
         ticketMuch.font = App_Theme_PinFan_R_18_Font
         self.contentView.addSubview(ticketMuch)
         
-        sellButton = UIButton(type: .Custom)
-        sellButton.setTitle("挂票", forState: .Normal)
-        sellButton.layer.borderColor = UIColor.init(hexString: App_Theme_4BD4C5_Color).CGColor
+        sellButton = UIButton(type: .custom)
+        sellButton.setTitle("挂票", for: UIControlState())
+        sellButton.layer.borderColor = UIColor.init(hexString: App_Theme_4BD4C5_Color).cgColor
         sellButton.titleLabel?.font = App_Theme_PinFan_R_12_Font
         sellButton.layer.cornerRadius = 2.0
         sellButton.layer.borderWidth = 1.0
         sellButton.layer.masksToBounds = true
-        sellButton.userInteractionEnabled = false
-        sellButton.setTitleColor(UIColor.init(hexString: App_Theme_4BD4C5_Color), forState: .Normal)
+        sellButton.isUserInteractionEnabled = false
+        sellButton.setTitleColor(UIColor.init(hexString: App_Theme_4BD4C5_Color), for: UIControlState())
         self.contentView.addSubview(sellButton)
         
-        let lineLabel = GloabLineView(frame: CGRectMake(15, 139.5, SCREENWIDTH - 30, 0.5))
+        let lineLabel = GloabLineView(frame: CGRect(x: 15, y: 139.5, width: SCREENWIDTH - 30, height: 0.5))
         self.contentView.addSubview(lineLabel)
         
         self.updateConstraintsIfNeeded()
         
     }
     
-    func setData(model:TicketShowModel) {
-        ticketPhoto.sd_setImageWithURL(NSURL.init(string: model.cover), placeholderImage: UIImage.init(named: "Feeds_Default_Cover")) { (image, error, cacheType, url) in
+    func setData(_ model:TicketShowModel) {
+
+        ticketPhoto.sd_setImage(with: URL.init(string: model.cover), placeholderImage: UIImage.init(named: "Feeds_Default_Cover"), options: .retryFailed, progress: { (start, end, url) in
+            
+        }) { (image, error, cacheType, url) in
+            
         }
         ticketTitle.text = model.title
-        UILabel.changeLineSpaceForLabel(ticketTitle, withSpace: TitleLineSpace)
-        UILabel.changeLineSpaceForLabel(ticketTitle, withSpace: TitleLineSpace)
+        UILabel.changeLineSpace(for: ticketTitle, withSpace: TitleLineSpace)
+        UILabel.changeLineSpace(for: ticketTitle, withSpace: TitleLineSpace)
         ticketLocation.text = model.venue.name
         ticketTime.text = model.showDate
         if model.maxPrice == nil  {
-            ticketMuch.text = "\(model.minPrice)"
+            ticketMuch.text = "\((model.minPrice)!)"
         }else{
             if model.minPrice == 0 && model.maxPrice == 0 {
                 ticketMuch.text = "0"
             }else{
                 if model.minPrice == model.maxPrice {
-                    ticketMuch.text = "\(model.minPrice)"
+                    ticketMuch.text = "\((model.minPrice)!)"
                 }else{
-                    ticketMuch.text = "\(model.minPrice)-\(model.maxPrice)"
+                    ticketMuch.text = "\((model.minPrice)!)-\((model.maxPrice)!)"
                 }
             }
         }        
@@ -111,47 +115,47 @@ class SellRecommondTableViewCell: UITableViewCell {
     
     override func updateConstraints() {
         if !self.didMakeConstraints {
-            ticketPhoto.snp_makeConstraints(closure: { (make) in
-                make.top.equalTo(self.contentView.snp_top).offset(15)
-                make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.bottom.equalTo(self.contentView.snp_bottom).offset(-15)
+            ticketPhoto.snp.makeConstraints({ (make) in
+                make.top.equalTo(self.contentView.snp.top).offset(15)
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(-15)
                 make.width.equalTo(82)
             })
             
-            ticketTitle.snp_makeConstraints(closure: { (make) in
-                make.top.equalTo(self.contentView.snp_top).offset(13)
-                make.left.equalTo(self.ticketPhoto.snp_right).offset(12)
-                make.right.equalTo(self.contentView.snp_right).offset(-15)
+            ticketTitle.snp.makeConstraints({ (make) in
+                make.top.equalTo(self.contentView.snp.top).offset(13)
+                make.left.equalTo(self.ticketPhoto.snp.right).offset(12)
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
             })
             
-            ticketTime.snp_makeConstraints(closure: { (make) in
-                make.top.equalTo(self.ticketTitle.snp_bottom).offset(6)
-                make.left.equalTo(self.ticketPhoto.snp_right).offset(12)
-                make.right.equalTo(self.contentView.snp_right).offset(-15)
+            ticketTime.snp.makeConstraints({ (make) in
+                make.top.equalTo(self.ticketTitle.snp.bottom).offset(6)
+                make.left.equalTo(self.ticketPhoto.snp.right).offset(12)
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
                 make.height.equalTo(14)
             })
             
-            ticketLocation.snp_makeConstraints(closure: { (make) in
-                make.top.equalTo(self.ticketTime.snp_bottom).offset(1)
-                make.left.equalTo(self.ticketPhoto.snp_right).offset(12)
-                make.right.equalTo(self.contentView.snp_right).offset(-15)
+            ticketLocation.snp.makeConstraints({ (make) in
+                make.top.equalTo(self.ticketTime.snp.bottom).offset(1)
+                make.left.equalTo(self.ticketPhoto.snp.right).offset(12)
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
                 make.height.equalTo(14)
             })
             
-            ticketmMuch.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.ticketMuch.snp_right).offset(4)
-                make.bottom.equalTo(self.contentView.snp_bottom).offset(-14)
+            ticketmMuch.snp.makeConstraints({ (make) in
+                make.left.equalTo(self.ticketMuch.snp.right).offset(4)
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(-14)
             })
             
-            ticketMuch.snp_makeConstraints(closure: { (make) in
-                make.bottom.equalTo(self.contentView.snp_bottom).offset(-11)
-                make.left.equalTo(self.ticketPhoto.snp_right).offset(12)
+            ticketMuch.snp.makeConstraints({ (make) in
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(-11)
+                make.left.equalTo(self.ticketPhoto.snp.right).offset(12)
             })
             
-            sellButton.snp_makeConstraints(closure: { (make) in
-                make.bottom.equalTo(self.contentView.snp_bottom).offset(-15)
-                make.right.equalTo(self.contentView.snp_right).offset(-15)
-                make.size.equalTo(CGSizeMake(50, 25))
+            sellButton.snp.makeConstraints({ (make) in
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(-15)
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
+                make.size.equalTo(CGSize.init(width: 50, height: 25))
             })
             
             self.didMakeConstraints = true
@@ -164,7 +168,7 @@ class SellRecommondTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

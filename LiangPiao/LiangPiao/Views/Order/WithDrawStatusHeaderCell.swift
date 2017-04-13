@@ -24,7 +24,7 @@ class WithDrawStatusHeaderCell: UITableViewCell {
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.backgroundColor = UIColor.whiteColor()
+        self.backgroundColor = UIColor.white
         self.setUpView()
     }
     
@@ -55,19 +55,19 @@ class WithDrawStatusHeaderCell: UITableViewCell {
     }
     
     func hiderLineLabel(){
-        lineLabel.hidden = true
+        lineLabel.isHidden = true
     }
     
-    func setData(title:String, much:String){
+    func setData(_ title:String, much:String){
         withDrawName.text = title
         withDrawMuch.text = much
         
     }
     
-    func setUpLabel(title:String) -> UILabel {
+    func setUpLabel(_ title:String) -> UILabel {
         let label = UILabel()
         label.text = title
-        label.textAlignment = .Center
+        label.textAlignment = .center
         label.textColor = UIColor.init(hexString: App_Theme_384249_Color)
         label.font = App_Theme_PinFan_R_12_Font
         return label
@@ -75,35 +75,35 @@ class WithDrawStatusHeaderCell: UITableViewCell {
     
     override func updateConstraints() {
         if !self.didMakeConstraints {
-            statuesImageView.snp_makeConstraints(closure: { (make) in
-                make.top.equalTo(self.contentView.snp_top).offset(43)
-                make.centerX.equalTo(self.contentView.snp_centerX).offset(0)
-                make.size.equalTo(CGSizeMake(58, 58))
+            statuesImageView.snp.makeConstraints({ (make) in
+                make.top.equalTo(self.contentView.snp.top).offset(43)
+                make.centerX.equalTo(self.contentView.snp.centerX).offset(0)
+                make.size.equalTo(CGSize.init(width: 58, height: 58))
             })
             
-            statuesDetail.snp_makeConstraints(closure: { (make) in
-                make.top.equalTo(self.statuesImageView.snp_bottom).offset(17)
-                make.centerX.equalTo(self.contentView.snp_centerX).offset(0)
+            statuesDetail.snp.makeConstraints({ (make) in
+                make.top.equalTo(self.statuesImageView.snp.bottom).offset(17)
+                make.centerX.equalTo(self.contentView.snp.centerX).offset(0)
             })
             
-            withDrawmName.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.bottom.equalTo(self.withDrawmMuch.snp_top).offset(-15)
+            withDrawmName.snp.makeConstraints({ (make) in
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.bottom.equalTo(self.withDrawmMuch.snp.top).offset(-15)
             })
             
-            withDrawName.snp_makeConstraints(closure: { (make) in
-                make.right.equalTo(self.contentView.snp_right).offset(-15)
-                make.bottom.equalTo(self.withDrawmMuch.snp_top).offset(-15)
+            withDrawName.snp.makeConstraints({ (make) in
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
+                make.bottom.equalTo(self.withDrawmMuch.snp.top).offset(-15)
             })
             
-            withDrawmMuch.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.bottom.equalTo(self.contentView.snp_bottom).offset(-28)
+            withDrawmMuch.snp.makeConstraints({ (make) in
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(-28)
             })
             
-            withDrawMuch.snp_makeConstraints(closure: { (make) in
-                make.right.equalTo(self.contentView.snp_right).offset(-15)
-                make.bottom.equalTo(self.contentView.snp_bottom).offset(-28)
+            withDrawMuch.snp.makeConstraints({ (make) in
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(-28)
             })
             
             self.didMakeConstraints = true
@@ -120,7 +120,7 @@ class WithDrawStatusHeaderCell: UITableViewCell {
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

@@ -38,9 +38,9 @@ class MySellTicketTableViewCell: UITableViewCell {
     override func updateConstraints() {
         if !self.didMakeContraints {
             
-            ticketTitle.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.top.equalTo(self.contentView.snp_top).offset(26)
+            ticketTitle.snp.makeConstraints({ (make) in
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.top.equalTo(self.contentView.snp.top).offset(26)
             })
             self.didMakeContraints = true
             
@@ -53,7 +53,7 @@ class MySellTicketTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

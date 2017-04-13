@@ -22,7 +22,7 @@ class TicketDetailInfoTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.backgroundColor = UIColor.whiteColor()
+        self.backgroundColor = UIColor.white
         self.setUpView()
     }
     
@@ -38,7 +38,7 @@ class TicketDetailInfoTableViewCell: UITableViewCell {
         ticketTitle.textColor = UIColor.init(hexString: App_Theme_556169_Color)
         ticketTitle.font = App_Theme_PinFan_R_14_Font
         ticketTitle.numberOfLines = 0
-        UILabel.changeLineSpaceForLabel(ticketTitle, withSpace: TitleLineSpace)
+        UILabel.changeLineSpace(for: ticketTitle, withSpace: TitleLineSpace)
         self.contentView.addSubview(ticketTitle)
         
         ticketTime = UILabel()
@@ -72,61 +72,64 @@ class TicketDetailInfoTableViewCell: UITableViewCell {
         
     }
     
-    func setData(model:OrderList){
-        ticketPhoto.sd_setImageWithURL(NSURL.init(string: model.show.cover), placeholderImage: UIImage.init(named: "Feeds_Default_Cover_02")) { (image, error, cacheType, url) in
+    func setData(_ model:OrderList){
+        ticketPhoto.sd_setImage(with: URL.init(string: model.show.cover), placeholderImage: UIImage.init(named: "Feeds_Default_Cover_02"), options: .retryFailed, progress: { (start, end, url) in
+            
+        }) { (image, error, cacheType, url) in
+            
         }
         ticketTitle.text = model.show.title
-        UILabel.changeLineSpaceForLabel(ticketTitle, withSpace: TitleLineSpace)
-        ticketTime.text = "时间：\(model.session.startTime)"
-        ticketMuch.text = "票面：\(model.ticket.originalTicket.name)"
-        ticketNumber.text = "数量：\(model.remainCount)"
+        UILabel.changeLineSpace(for: ticketTitle, withSpace: TitleLineSpace)
+        ticketTime.text = "时间：\((model.session.startTime)!)"
+        ticketMuch.text = "票面：\((model.ticket.originalTicket.name)!)"
+        ticketNumber.text = "数量：\((model.remainCount)!)"
         var str = ""
         if model.ticket.region == "" {
             str = "优先择座"
         }else if model.ticket.row == "" {
-            str = "\(model.ticket.region)"
+            str = "\((model.ticket.region)!)"
         }else {
-            str = "\(model.ticket.region) \(model.ticket.row)排"
+            str = "\((model.ticket.region)!) \((model.ticket.row)!)排"
         }
         ticketRow.text = "座位：\(str)"
     }
     
     override func updateConstraints() {
         if !self.didMakeConstraints {
-            ticketPhoto.snp_makeConstraints(closure: { (make) in
-                make.top.equalTo(self.contentView.snp_top).offset(20)
-                make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.bottom.equalTo(self.contentView.snp_bottom).offset(-20)
+            ticketPhoto.snp.makeConstraints({ (make) in
+                make.top.equalTo(self.contentView.snp.top).offset(20)
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(-20)
                 make.width.equalTo(82)
             })
             
-            ticketTitle.snp_makeConstraints(closure: { (make) in
-                make.top.equalTo(self.contentView.snp_top).offset(17)
-                make.left.equalTo(self.ticketPhoto.snp_right).offset(12)
-                make.right.equalTo(self.contentView.snp_right).offset(-15)
+            ticketTitle.snp.makeConstraints({ (make) in
+                make.top.equalTo(self.contentView.snp.top).offset(17)
+                make.left.equalTo(self.ticketPhoto.snp.right).offset(12)
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
             })
             
-            ticketTime.snp_makeConstraints(closure: { (make) in
-                make.bottom.equalTo(self.ticketMuch.snp_top).offset(-2)
-                make.left.equalTo(self.ticketPhoto.snp_right).offset(12)
-                make.right.equalTo(self.contentView.snp_right).offset(-15)
+            ticketTime.snp.makeConstraints({ (make) in
+                make.bottom.equalTo(self.ticketMuch.snp.top).offset(-2)
+                make.left.equalTo(self.ticketPhoto.snp.right).offset(12)
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
             })
             
-            ticketMuch.snp_makeConstraints(closure: { (make) in
-                make.bottom.equalTo(self.ticketNumber.snp_top).offset(-2)
-                make.left.equalTo(self.ticketPhoto.snp_right).offset(12)
-                make.right.equalTo(self.contentView.snp_right).offset(-15)
+            ticketMuch.snp.makeConstraints({ (make) in
+                make.bottom.equalTo(self.ticketNumber.snp.top).offset(-2)
+                make.left.equalTo(self.ticketPhoto.snp.right).offset(12)
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
             })
             
-            ticketNumber.snp_makeConstraints(closure: { (make) in
-                make.bottom.equalTo(self.ticketRow.snp_top).offset(-2)
-                make.left.equalTo(self.ticketPhoto.snp_right).offset(12)
-                make.right.equalTo(self.contentView.snp_right).offset(-15)
+            ticketNumber.snp.makeConstraints({ (make) in
+                make.bottom.equalTo(self.ticketRow.snp.top).offset(-2)
+                make.left.equalTo(self.ticketPhoto.snp.right).offset(12)
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
             })
             
-            ticketRow.snp_makeConstraints(closure: { (make) in
-                make.bottom.equalTo(self.contentView.snp_bottom).offset(-20)
-                make.left.equalTo(self.ticketPhoto.snp_right).offset(12)
+            ticketRow.snp.makeConstraints({ (make) in
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(-20)
+                make.left.equalTo(self.ticketPhoto.snp.right).offset(12)
             })
             
             self.didMakeConstraints = true
@@ -143,7 +146,7 @@ class TicketDetailInfoTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

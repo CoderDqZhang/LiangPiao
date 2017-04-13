@@ -16,7 +16,7 @@ class MyWallToolsTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.contentView.backgroundColor = UIColor.whiteColor()
+        self.contentView.backgroundColor = UIColor.white
         self.setUpView()
     }
     
@@ -28,7 +28,7 @@ class MyWallToolsTableViewCell: UITableViewCell {
         
         for index in 0...2 {
             let toolsView = self.createToolsView(CGRect.init(x: originX, y: 0, width: ToolsViewWidth, height: ToolsViewHeight), title: titles[index], detail: details[index], tag: index)
-            originX = CGRectGetMaxX(toolsView.frame)
+            originX = toolsView.frame.maxX
             if index != 2 {
                 let lineLabel = GloabLineView.init(frame: CGRect.init(x: originX, y: 16, width: 0.5, height: ToolsViewHeight - 32))
                 self.contentView.addSubview(lineLabel)
@@ -41,7 +41,7 @@ class MyWallToolsTableViewCell: UITableViewCell {
         
     }
     
-    func setData(blance:String, freeze:String, preString:String) {
+    func setData(_ blance:String, freeze:String, preString:String) {
         let blanceLabel = self.contentView.viewWithTag(0)?.viewWithTag(10) as! UILabel
         blanceLabel.text = blance
         
@@ -57,7 +57,7 @@ class MyWallToolsTableViewCell: UITableViewCell {
         super.updateConstraints()
     }
     
-    func createToolsView(frame:CGRect, title:String, detail:String, tag:NSInteger) ->UIView{
+    func createToolsView(_ frame:CGRect, title:String, detail:String, tag:NSInteger) ->UIView{
         let view = UIView(frame: frame)
         view.tag = tag
         let titleLabel = UILabel()
@@ -73,14 +73,14 @@ class MyWallToolsTableViewCell: UITableViewCell {
         detailLabel.tag = tag + 10
         view.addSubview(detailLabel)
         
-        titleLabel.snp_makeConstraints { (make) in
-            make.left.equalTo(view.snp_left).offset(20)
-            make.top.equalTo(view.snp_top).offset(23)
+        titleLabel.snp.makeConstraints { (make) in
+            make.left.equalTo(view.snp.left).offset(20)
+            make.top.equalTo(view.snp.top).offset(23)
         }
         
-        detailLabel.snp_makeConstraints { (make) in
-            make.left.equalTo(view.snp_left).offset(20)
-            make.top.equalTo(titleLabel.snp_bottom).offset(5)
+        detailLabel.snp.makeConstraints { (make) in
+            make.left.equalTo(view.snp.left).offset(20)
+            make.top.equalTo(titleLabel.snp.bottom).offset(5)
         }
         
         return view
@@ -95,7 +95,7 @@ class MyWallToolsTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

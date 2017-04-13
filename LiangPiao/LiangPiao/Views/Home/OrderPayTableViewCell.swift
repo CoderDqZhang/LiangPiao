@@ -24,42 +24,42 @@ class OrderPayTableViewCell: UITableViewCell {
     
     func setUpView() {
         
-        let receipts = self.createLabel(CGRectMake(15, 25, 50, 17), name:"代收票款")
+        let receipts = self.createLabel(CGRect(x: 15, y: 25, width: 50, height: 17), name:"代收票款")
         self.contentView.addSubview(receipts)
         
-        let discount = self.createLabel(CGRectMake(15, 57, 50, 17), name:"优惠券")
+        let discount = self.createLabel(CGRect(x: 15, y: 57, width: 50, height: 17), name:"优惠券")
         self.contentView.addSubview(discount)
         
-        let packing = self.createLabel(CGRectMake(15, 89, 50, 17), name:"配送费")
+        let packing = self.createLabel(CGRect(x: 15, y: 89, width: 50, height: 17), name:"配送费")
         self.contentView.addSubview(packing)
         
-        receiptsLabel = self.createLabel(CGRectMake(SCREENWIDTH - 180, 25, 165, 17),name: "360 元")
-        receiptsLabel.textAlignment = .Right
+        receiptsLabel = self.createLabel(CGRect(x: SCREENWIDTH - 180, y: 25, width: 165, height: 17),name: "360 元")
+        receiptsLabel.textAlignment = .right
         self.contentView.addSubview(receiptsLabel)
         
-        discountCoupon = self.createLabel(CGRectMake(SCREENWIDTH - 180, 57, 165, 17),name: "0.00 元")
-        discountCoupon.textAlignment = .Right
+        discountCoupon = self.createLabel(CGRect(x: SCREENWIDTH - 180, y: 57, width: 165, height: 17),name: "0.00 元")
+        discountCoupon.textAlignment = .right
         self.contentView.addSubview(discountCoupon)
         
-        packingFee = self.createLabel(CGRectMake(SCREENWIDTH - 180, 89, 165, 17),name: "8.00 元")
-        packingFee.textAlignment = .Right
+        packingFee = self.createLabel(CGRect(x: SCREENWIDTH - 180, y: 89, width: 165, height: 17),name: "8.00 元")
+        packingFee.textAlignment = .right
         self.contentView.addSubview(packingFee)
         
-        lineLabel = GloabLineView(frame: CGRectMake(15, 124.5, SCREENWIDTH - 30, 0.5))
+        lineLabel = GloabLineView(frame: CGRect(x: 15, y: 124.5, width: SCREENWIDTH - 30, height: 0.5))
         self.contentView.addSubview(lineLabel)
         
         self.updateConstraintsIfNeeded()
     }
     
-    func setData(model:OrderList) {
+    func setData(_ model:OrderList) {
         let doubleMuch = Double(Double(model.remainCount) * Double(model.ticket.price)) * 100
-        let much = "\(doubleMuch)".muchType("\(doubleMuch)")
-        let deliveryPrice = "\(model.deliveryPrice).00"
-        receiptsLabel.text = "\(much) 元"
-        packingFee.text = "\(deliveryPrice) 元"
+        let much = "\(doubleMuch)".muchType("\((doubleMuch))")
+        let deliveryPrice = "\(model.deliveryPrice)".muchType("\((model.deliveryPrice)!)")
+        receiptsLabel.text = "\((much)) 元"
+        packingFee.text = "\((deliveryPrice)) 元"
     }
     
-    func createLabel(frame:CGRect,name:String) -> UILabel {
+    func createLabel(_ frame:CGRect,name:String) -> UILabel {
         let label = UILabel(frame:frame)
         label.font = App_Theme_PinFan_R_12_Font
         label.textColor = UIColor.init(hexString: App_Theme_384249_Color)
@@ -83,7 +83,7 @@ class OrderPayTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

@@ -13,8 +13,7 @@ extension UIView {
     func findViewController()->UIViewController?{
         var next:UIView? = self
         repeat{
-            if let nextResponder = next?.nextResponder()
-                where nextResponder.isKindOfClass(UIViewController.self)
+            if let nextResponder = next?.next, nextResponder.isKind(of: UIViewController.self)
             {
                 return (nextResponder as! UIViewController)
             }

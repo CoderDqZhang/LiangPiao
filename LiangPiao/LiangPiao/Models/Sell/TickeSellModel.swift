@@ -68,13 +68,13 @@ class TickeSellModel : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        deliveryTypeChoices = aDecoder.decodeObjectForKey("delivery_type_choices") as? [[String]]
-        regionChoices = aDecoder.decodeObjectForKey("region_choices") as? [[String]]
-        row = aDecoder.decodeObjectForKey("row") as? [Int]
-        seatTypeChoices = aDecoder.decodeObjectForKey("seat_type_choices") as? [[String]]
-        sellCategoryChoices = aDecoder.decodeObjectForKey("sell_category_choices") as? [[String]]
-        sellTypeChoices = aDecoder.decodeObjectForKey("sell_type_choices") as? [[String]]
-        ticketChoices = aDecoder.decodeObjectForKey("ticket_choices") as? [[String]]
+        deliveryTypeChoices = aDecoder.decodeObject(forKey: "delivery_type_choices") as? [[String]]
+        regionChoices = aDecoder.decodeObject(forKey: "region_choices") as? [[String]]
+        row = aDecoder.decodeObject(forKey: "row") as? [Int]
+        seatTypeChoices = aDecoder.decodeObject(forKey: "seat_type_choices") as? [[String]]
+        sellCategoryChoices = aDecoder.decodeObject(forKey: "sell_category_choices") as? [[String]]
+        sellTypeChoices = aDecoder.decodeObject(forKey: "sell_type_choices") as? [[String]]
+        ticketChoices = aDecoder.decodeObject(forKey: "ticket_choices") as? [[String]]
         
     }
     
@@ -82,28 +82,28 @@ class TickeSellModel : NSObject, NSCoding{
      * NSCoding required method.
      * Encodes mode properties into the decoder
      */
-    @objc func encodeWithCoder(aCoder: NSCoder)
+    @objc func encode(with aCoder: NSCoder)
     {
         if deliveryTypeChoices != nil{
-            aCoder.encodeObject(deliveryTypeChoices, forKey: "delivery_type_choices")
+            aCoder.encode(deliveryTypeChoices, forKey: "delivery_type_choices")
         }
         if regionChoices != nil{
-            aCoder.encodeObject(regionChoices, forKey: "region_choices")
+            aCoder.encode(regionChoices, forKey: "region_choices")
         }
         if row != nil{
-            aCoder.encodeObject(row, forKey: "row")
+            aCoder.encode(row, forKey: "row")
         }
         if seatTypeChoices != nil{
-            aCoder.encodeObject(seatTypeChoices, forKey: "seat_type_choices")
+            aCoder.encode(seatTypeChoices, forKey: "seat_type_choices")
         }
         if sellCategoryChoices != nil{
-            aCoder.encodeObject(sellCategoryChoices, forKey: "sell_category_choices")
+            aCoder.encode(sellCategoryChoices, forKey: "sell_category_choices")
         }
         if sellTypeChoices != nil{
-            aCoder.encodeObject(sellTypeChoices, forKey: "sell_type_choices")
+            aCoder.encode(sellTypeChoices, forKey: "sell_type_choices")
         }
         if ticketChoices != nil{
-            aCoder.encodeObject(ticketChoices, forKey: "ticket_choices")
+            aCoder.encode(ticketChoices, forKey: "ticket_choices")
         }
         
     }

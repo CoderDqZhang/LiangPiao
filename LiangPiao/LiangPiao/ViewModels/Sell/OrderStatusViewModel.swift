@@ -8,7 +8,7 @@
 
 import UIKit
 
-typealias ReloadeMySellOrderList = (indexPath:NSIndexPath, model:OrderList) -> Void
+typealias ReloadeMySellOrderList = (_ indexPath:IndexPath, _ model:OrderList) -> Void
 
 class OrderStatusViewModel: NSObject {
 
@@ -17,7 +17,7 @@ class OrderStatusViewModel: NSObject {
     var model:OrderList!
     var deverliyModel:DeverliyModel!
     var controller:OrderStatusViewController!
-    var selectIndexPath:NSIndexPath!
+    var selectIndexPath:IndexPath!
     var templeTrace:Trace!
     var reloadeMySellOrderList:ReloadeMySellOrderList!
     
@@ -27,11 +27,11 @@ class OrderStatusViewModel: NSObject {
     
     func getDeverliyTrac(){
         if model.expressInfo != nil && model.expressInfo.expressName != nil && model.expressInfo.expressNum != nil {
-            let dics = ["RequestData":["LogisticCode":model.expressInfo.expressNum,"ShipperCode":model.expressInfo.expressName],"DataType":"2","RequestType":"1002","EBusinessID":ExpressDelivierEBusinessID,"key":ExpressDelivierKey]
+            let dics = ["RequestData":["LogisticCode":model.expressInfo.expressNum,"ShipperCode":model.expressInfo.expressName],"DataType":"2","RequestType":"1002","EBusinessID":ExpressDelivierEBusinessID,"key":ExpressDelivierKey] as [String : Any]
             
-            ExpressDeliveryNet.shareInstance().requestExpressDelivreyNetOrder(dics as [NSObject : AnyObject], url: ExpressOrderHandleUrl).subscribeNext { (resultDic) in
-                self.deverliyModel = DeverliyModel.init(fromDictionary: resultDic as! NSDictionary)
-                self.deverliyModel.traces = self.deverliyModel.traces.reverse()
+            ExpressDeliveryNet.shareInstance().requestExpressDelivreyNetOrder(dics as [AnyHashable: Any], url: ExpressOrderHandleUrl, clouse: { (resultDic) in
+                self.deverliyModel = DeverliyModel.init(fromDictionary: resultDic! as NSDictionary)
+                self.deverliyModel.traces = self.deverliyModel.traces.reversed()
                 if self.deverliyModel.traces.count == 0 {
                     var acceptionName = ""
                     for name in deverliyDic.allKeys {
@@ -39,14 +39,14 @@ class OrderStatusViewModel: NSObject {
                             acceptionName = name as! String
                         }
                     }
-                    let dic:NSDictionary = ["AcceptStation":acceptionName,"AcceptTime":"物流编号：\(self.model.expressInfo.expressNum)"]
+                    let dic:NSDictionary = ["AcceptStation":acceptionName,"AcceptTime":"物流编号：\((self.model.expressInfo.expressNum)!)"]
                     self.templeTrace = Trace.init(fromDictionary: dic)
                     self.deverliyModel.traces.append(self.templeTrace)
                 }
-                dispatch_async(dispatch_get_main_queue(), {
-                    self.controller.tableView.reloadRowsAtIndexPaths([NSIndexPath.init(forRow: 2, inSection: 0)], withRowAnimation: .Automatic)
+                DispatchQueue.main.async(execute: {
+                    self.controller.tableView.reloadRows(at: [IndexPath.init(row: 2, section: 0)], with: .automatic)
                 })
-            }
+            })
         }
     }
     
@@ -57,7 +57,7 @@ class OrderStatusViewModel: NSObject {
         return 1
     }
     
-    func numbrOfRowInSection(section:Int) ->Int {
+    func numbrOfRowInSection(_ section:Int) ->Int {
         if !isCancel() {
             switch section {
             case 0:
@@ -69,7 +69,7 @@ class OrderStatusViewModel: NSObject {
         return 4
     }
     
-    func tableViewFooterViewHeight(section:Int) ->CGFloat{
+    func tableViewFooterViewHeight(_ section:Int) ->CGFloat{
         if !isCancel() {
             switch section {
             case 0:
@@ -81,7 +81,7 @@ class OrderStatusViewModel: NSObject {
         return 100
     }
     
-    func tableViewHeightForRow(indexPath:NSIndexPath) ->CGFloat {
+    func tableViewHeightForRow(_ indexPath:IndexPath) ->CGFloat {
         if !isCancel() {
             switch indexPath.section {
             case 0:
@@ -89,12 +89,12 @@ class OrderStatusViewModel: NSObject {
                 case 0:
                     return 112
                 case 1:
-                    return controller.tableView.fd_heightForCellWithIdentifier("ReciveAddressTableViewCell", configuration: { (cell) in
+                    return controller.tableView.fd_heightForCell(withIdentifier: "ReciveAddressTableViewCell", configuration: { (cell) in
                         self.configCell(cell as! ReciveAddressTableViewCell, indexPath: indexPath)
                     })
                 default:
                     if self.deverliyModel != nil && self.deverliyModel.traces.count > 0 {
-                        return controller.tableView.fd_heightForCellWithIdentifier("DeverliyTableViewCellSellDetail", configuration: { (cell) in
+                        return controller.tableView.fd_heightForCell(withIdentifier: "DeverliyTableViewCellSellDetail", configuration: { (cell) in
                             self.configCellDeverliyTableViewCell(cell as! DeverliyTableViewCell, indexPath: indexPath)
                         })
                     }
@@ -118,13 +118,13 @@ class OrderStatusViewModel: NSObject {
         return CGFloat(cellCancelHeight[indexPath.row])
     }
     
-    func configCellDeverliyTableViewCell(cell:DeverliyTableViewCell, indexPath:NSIndexPath) {
+    func configCellDeverliyTableViewCell(_ cell:DeverliyTableViewCell, indexPath:IndexPath) {
         if self.deverliyModel != nil && self.deverliyModel.traces.count > 0 {
             cell.setUpData(self.deverliyModel.traces[0])
         }
     }
     
-    func configCell(cell:ReciveAddressTableViewCell, indexPath:NSIndexPath) {
+    func configCell(_ cell:ReciveAddressTableViewCell, indexPath:IndexPath) {
         cell.setUpData(model)
     }
     
@@ -136,41 +136,41 @@ class OrderStatusViewModel: NSObject {
         return ret
     }
     
-    func tableViewCellOrderStatusTableViewCell(cell:OrderStatusTableViewCell, indexPath:NSIndexPath) {
-        cell.setData("\(model.status)", statusType: "")
+    func tableViewCellOrderStatusTableViewCell(_ cell:OrderStatusTableViewCell, indexPath:IndexPath) {
+        cell.setData("\((model.status)!)", statusType: "")
     }
     
-    func tableViewCellDeverliyTableViewCell(cell:DeverliyTableViewCell, indexPath:NSIndexPath) {
+    func tableViewCellDeverliyTableViewCell(_ cell:DeverliyTableViewCell, indexPath:IndexPath) {
         self.configCellDeverliyTableViewCell(cell, indexPath: indexPath)
     }
     
-    func tableViewCellReciveAddressTableViewCell(cell:ReciveAddressTableViewCell, indexPath:NSIndexPath) {
+    func tableViewCellReciveAddressTableViewCell(_ cell:ReciveAddressTableViewCell, indexPath:IndexPath) {
         self.configCell(cell, indexPath: indexPath)
     }
     
-    func tableViewCellOrderTicketInfoTableViewCell(cell:OrderTicketInfoTableViewCell, indexPath:NSIndexPath){
+    func tableViewCellOrderTicketInfoTableViewCell(_ cell:OrderTicketInfoTableViewCell, indexPath:IndexPath){
         cell.setSellData(model)
     }
     
-    func tableViewCellOrderNumberTableViewCell(cell:OrderNumberTableViewCell, indexPath:NSIndexPath) {
+    func tableViewCellOrderNumberTableViewCell(_ cell:OrderNumberTableViewCell, indexPath:IndexPath) {
         cell.setSellData(model)
     }
     
-    func tableViewCellOrderPayTableViewCell(cell:OrderPayTableViewCell, indexPath:NSIndexPath) {
+    func tableViewCellOrderPayTableViewCell(_ cell:OrderPayTableViewCell, indexPath:IndexPath) {
         cell.setData(model)
     }
     
-    func tableViewCellOrderMuchTableViewCell(cell:OrderStatusMuchTableViewCell, indexPath:NSIndexPath) {
+    func tableViewCellOrderMuchTableViewCell(_ cell:OrderStatusMuchTableViewCell, indexPath:IndexPath) {
         cell.setData(model)
     }
     
-    func orderStatusTableViewDidSelect(tableView:UITableView, indexPath:NSIndexPath) {
+    func orderStatusTableViewDidSelect(_ tableView:UITableView, indexPath:IndexPath) {
         if indexPath.section == 0 && indexPath.row == 2 {
             let controllerVC = LogisticsTrackingViewController()
             let tempDeverliyModel = self.deverliyModel
             if self.deverliyModel.traces.count == 1 {
                 if templeTrace != nil && self.deverliyModel.traces[0] == templeTrace {
-                    tempDeverliyModel.traces.removeAll()
+                    tempDeverliyModel?.traces.removeAll()
                 }
             }
             controllerVC.viewModel.deverliyModel = tempDeverliyModel
@@ -187,7 +187,7 @@ class OrderStatusViewModel: NSObject {
             self.controller.tableView.reloadData()
             if self.reloadeMySellOrderList != nil {
                 self.controller.updateTableView(model.status)
-                self.reloadeMySellOrderList(indexPath: self.selectIndexPath, model: model)
+                self.reloadeMySellOrderList(self.selectIndexPath, model)
             }
         }
         NavigationPushView(self.controller, toConroller: deverliyController)

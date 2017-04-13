@@ -30,38 +30,38 @@ class OrderDetailViewController: UIViewController {
         
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if viewModel.isOrderConfim {
-            self.navigationController?.fd_fullscreenPopGestureRecognizer.enabled = false
+            self.navigationController?.fd_fullscreenPopGestureRecognizer.isEnabled = false
         }
     }
     
     
     func setUpView() {
         viewModel.controller = self
-        tableView = UITableView(frame: CGRectZero, style: .Grouped)
+        tableView = UITableView(frame: CGRect.zero, style: .grouped)
         tableView.backgroundColor = UIColor.init(hexString: App_Theme_E9EBF2_Color)
         tableView.delegate = self
         tableView.showsVerticalScrollIndicator = false
         tableView.dataSource = self
-        tableView.keyboardDismissMode = .OnDrag
-        tableView.registerClass(OrderNumberTableViewCell.self, forCellReuseIdentifier: "OrderNumberTableViewCell")
-        tableView.registerClass(TicketDetailInfoTableViewCell.self, forCellReuseIdentifier: "TicketDetailInfoTableViewCell")
-        tableView.registerClass(TicketLocationTableViewCell.self, forCellReuseIdentifier: "TicketLocationTableViewCell")
-        tableView.registerClass(OrderStatusMuchTableViewCell.self, forCellReuseIdentifier: "OrderStatusMuchTableViewCell")
-        tableView.registerClass(OrderPayTableViewCell.self, forCellReuseIdentifier: "OrderPayTableViewCell")
-        tableView.registerClass(OrderDoneTableViewCell.self, forCellReuseIdentifier: "OrderDoneTableViewCell")
-        tableView.registerClass(OrderWaitePayTableViewCell.self, forCellReuseIdentifier: "OrderWaitePayTableViewCell")
-        tableView.registerClass(ReciveAddressTableViewCell.self, forCellReuseIdentifier: "ReciveAddressTableViewCell")
-        tableView.registerClass(DeverliyTableViewCell.self, forCellReuseIdentifier: "DeverliyTableViewCellDetail")
-        tableView.registerClass(TicketRemarkTableViewCell.self, forCellReuseIdentifier: "TicketRemarkTableViewCell")
-        tableView.separatorStyle = .None
+        tableView.keyboardDismissMode = .onDrag
+        tableView.register(OrderNumberTableViewCell.self, forCellReuseIdentifier: "OrderNumberTableViewCell")
+        tableView.register(TicketDetailInfoTableViewCell.self, forCellReuseIdentifier: "TicketDetailInfoTableViewCell")
+        tableView.register(TicketLocationTableViewCell.self, forCellReuseIdentifier: "TicketLocationTableViewCell")
+        tableView.register(OrderStatusMuchTableViewCell.self, forCellReuseIdentifier: "OrderStatusMuchTableViewCell")
+        tableView.register(OrderPayTableViewCell.self, forCellReuseIdentifier: "OrderPayTableViewCell")
+        tableView.register(OrderDoneTableViewCell.self, forCellReuseIdentifier: "OrderDoneTableViewCell")
+        tableView.register(OrderWaitePayTableViewCell.self, forCellReuseIdentifier: "OrderWaitePayTableViewCell")
+        tableView.register(ReciveAddressTableViewCell.self, forCellReuseIdentifier: "ReciveAddressTableViewCell")
+        tableView.register(DeverliyTableViewCell.self, forCellReuseIdentifier: "DeverliyTableViewCellDetail")
+        tableView.register(TicketRemarkTableViewCell.self, forCellReuseIdentifier: "TicketRemarkTableViewCell")
+        tableView.separatorStyle = .none
         self.view.addSubview(tableView)
-        tableView.snp_makeConstraints { (make) in
-            make.top.equalTo(self.view.snp_top).offset(0)
-            make.left.equalTo(self.view.snp_left).offset(0)
-            make.right.equalTo(self.view.snp_right).offset(0)
+        tableView.snp.makeConstraints { (make) in
+            make.top.equalTo(self.view.snp.top).offset(0)
+            make.left.equalTo(self.view.snp.left).offset(0)
+            make.right.equalTo(self.view.snp.right).offset(0)
         }
         
         payView = GloableBottomButtonView.init(frame: nil, title: "立即付款", tag: 1, action: { (tag) in
@@ -80,15 +80,15 @@ class OrderDetailViewController: UIViewController {
         self.navigationItem.title =  "订单详情"
         self.setNavigationItemBack()
         if viewModel.model.deliveryType != 1 && self.viewModel.model.status != 0 {
-            self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "联系商家", style: .Plain, target: self, action: #selector(OrderDetailViewController.rightBarItemPress(_:)))
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "联系商家", style: .plain, target: self, action: #selector(OrderDetailViewController.rightBarItemPress(_:)))
         }
         
     }
     
-    override func backBtnPress(sender:UIButton){
+    override func backBtnPress(_ sender:UIButton){
         self.view.endEditing(true)
         if (self.navigationController?.viewControllers)!.count == 2 {
-            self.navigationController?.popViewControllerAnimated(true)
+            self.navigationController?.popViewController(animated: true)
         }else{
             for controller in (self.navigationController?.viewControllers)! {
                 if controller is TicketDescriptionViewController {
@@ -99,7 +99,7 @@ class OrderDetailViewController: UIViewController {
         }
     }
     
-    func rightBarItemPress(sender:UIBarButtonItem) {
+    func rightBarItemPress(_ sender:UIBarButtonItem) {
         if viewModel.model.ticket.supplier != nil
         {
             AppCallViewShow(self.view, phone: viewModel.model.ticket.supplier.mobileNum.phoneType(viewModel.model.ticket.supplier.mobileNum))
@@ -116,10 +116,10 @@ class OrderDetailViewController: UIViewController {
         self.updateTableView(viewModel.model.status)
     }
     
-    func updateTableView(status:Int) {
+    func updateTableView(_ status:Int) {
         if status == 0 || status == 7 || status == 100 {
             if payView != nil {
-                payView.hidden = false
+                payView.isHidden = false
             }else{
                 payView = GloableBottomButtonView.init(frame: nil, title: "立即付款", tag: 1, action: { (tag) in
                     if self.viewModel.model.status == 0 {
@@ -136,22 +136,22 @@ class OrderDetailViewController: UIViewController {
             if status == 100 || status == 0 {
                 payView.updateButtonTitle("立即付款")
             }
-            tableView.snp_remakeConstraints(closure: { (make) in
-                make.top.equalTo(self.view.snp_top).offset(0)
-                make.left.equalTo(self.view.snp_left).offset(0)
-                make.right.equalTo(self.view.snp_right).offset(0)
-                make.bottom.equalTo(self.view.snp_bottom).offset(-49)
+            tableView.snp.remakeConstraints({ (make) in
+                make.top.equalTo(self.view.snp.top).offset(0)
+                make.left.equalTo(self.view.snp.left).offset(0)
+                make.right.equalTo(self.view.snp.right).offset(0)
+                make.bottom.equalTo(self.view.snp.bottom).offset(-49)
             })
         }else{
             if payView != nil {
-                payView.hidden = true
+                payView.isHidden = true
                 
             }
-            tableView.snp_remakeConstraints { (make) in
-                make.top.equalTo(self.view.snp_top).offset(0)
-                make.left.equalTo(self.view.snp_left).offset(0)
-                make.right.equalTo(self.view.snp_right).offset(0)
-                make.bottom.equalTo(self.view.snp_bottom).offset(0)
+            tableView.snp.remakeConstraints { (make) in
+                make.top.equalTo(self.view.snp.top).offset(0)
+                make.left.equalTo(self.view.snp.left).offset(0)
+                make.right.equalTo(self.view.snp.right).offset(0)
+                make.bottom.equalTo(self.view.snp.bottom).offset(0)
             }
         }
     }
@@ -163,37 +163,35 @@ class OrderDetailViewController: UIViewController {
     }
     
     func tableOrderFooterView() -> UIView {
-        let orderConfirmView = UIView(frame: CGRectMake(0,0,SCREENWIDTH,12))
+        let orderConfirmView = UIView(frame: CGRect(x: 0,y: 0,width: SCREENWIDTH,height: 12))
         orderConfirmView.backgroundColor = UIColor.init(hexString: App_Theme_E9EBF2_Color)
         return orderConfirmView
     }
     
     
     func tableforFootView() -> UIView {
-        let footView = UIView(frame: CGRectMake(0,0,SCREENWIDTH,118))
+        let footView = UIView(frame: CGRect(x: 0,y: 0,width: SCREENWIDTH,height: 118))
         footView.backgroundColor = UIColor.init(hexString: App_Theme_E9EBF2_Color)
-        let imageView = UIImageView(frame:CGRectMake(0,-0.5,SCREENWIDTH,4))
+        let imageView = UIImageView(frame:CGRect(x: 0,y: -0.5,width: SCREENWIDTH,height: 4))
         imageView.image = UIImage.init(named: "Sawtooth")//Pattern_Line
         footView.addSubview(imageView)
-        let orderInfo = self.createLabel(CGRectMake(15,20,SCREENWIDTH - 30,14), text: "订单号：\(viewModel.model.id)")
-        footView.addSubview(orderInfo)
         
-        let service = self.createLabel(CGRectMake(15,36,SCREENWIDTH - 30,14), text: "订单时间：\(viewModel.model.created)")
+        let service = self.createLabel(CGRect(x: 15,y: 20,width: SCREENWIDTH - 30,height: 14), text: "订单时间：\((viewModel.model.created)!)")
         footView.addSubview(service)
         
         
-        let servicePhone = self.createLabel(CGRectMake(15,52,SCREENWIDTH - 30,14), text: "客服电话：400-873-8011")
+        let servicePhone = self.createLabel(CGRect(x: 15,y: 36,width: SCREENWIDTH - 30,height: 14), text: "客服电话：400-873-8011")
         footView.addSubview(servicePhone)
         
         
-        let serviceTime = self.createLabel(CGRectMake(15,68,SCREENWIDTH - 30,14), text: "客服工作时间：周一至周六 09:00-21:00")
+        let serviceTime = self.createLabel(CGRect(x: 15,y: 52,width: SCREENWIDTH - 30,height: 14), text: "客服工作时间：周一至周六 09:00-21:00")
         footView.addSubview(serviceTime)
         
         return footView
     }
 
     
-    func createLabel(frame:CGRect, text:String) -> UILabel {
+    func createLabel(_ frame:CGRect, text:String) -> UILabel {
         let label = UILabel(frame: frame)
         label.text = text
         label.font = App_Theme_PinFan_R_12_Font
@@ -210,40 +208,40 @@ class OrderDetailViewController: UIViewController {
     }
     */
     
-    func orderStatuesCell(tableView:UITableView, indexPath:NSIndexPath) -> OrderStatusMuchTableViewCell{
-        let cell = tableView.dequeueReusableCellWithIdentifier("OrderStatusMuchTableViewCell", forIndexPath: indexPath) as! OrderStatusMuchTableViewCell
+    func orderStatuesCell(_ tableView:UITableView, indexPath:IndexPath) -> OrderStatusMuchTableViewCell{
+        let cell = tableView.dequeueReusableCell(withIdentifier: "OrderStatusMuchTableViewCell", for: indexPath) as! OrderStatusMuchTableViewCell
         viewModel.tableViewCellOrderMuchTableViewCell(cell)
-        cell.selectionStyle = .None
+        cell.selectionStyle = .none
         return cell
     }
     
-    func orderPayCell(tableView:UITableView, indexPath:NSIndexPath) ->OrderPayTableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("OrderPayTableViewCell", forIndexPath: indexPath) as! OrderPayTableViewCell
+    func orderPayCell(_ tableView:UITableView, indexPath:IndexPath) ->OrderPayTableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "OrderPayTableViewCell", for: indexPath) as! OrderPayTableViewCell
         viewModel.tableViewCellOrderPayTableViewCell(cell)
-        cell.selectionStyle = .None
+        cell.selectionStyle = .none
         return cell
     }
 
 }
 
 extension OrderDetailViewController : UITableViewDelegate {
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         viewModel.tableViewDidSelectRowAtIndexPath(indexPath, controller:self)
     }
     
-    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return viewModel.tableViewHeiFootView(tableView, section: section)
     }
     
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0.00001
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return viewModel.tableViewHeightForRowAtIndexPath(indexPath)
     }
     
-    func tableView(tableView: UITableView, estimatedHeightForFooterInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, estimatedHeightForFooterInSection section: Int) -> CGFloat {
         return viewModel.tableViewHeiFootView(tableView, section: section)
     }
     
@@ -251,15 +249,15 @@ extension OrderDetailViewController : UITableViewDelegate {
 }
 
 extension OrderDetailViewController : UITableViewDataSource {
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.tableViewNumberRowInSection(tableView, section: section)
     }
     
-    func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         if section == 1 {
             return self.tableforFootView()
         }else if section == 0{
@@ -268,37 +266,37 @@ extension OrderDetailViewController : UITableViewDataSource {
         return nil
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         case 0:
             switch indexPath.row {
             case 0:
                 if viewModel.viewModelWailOrCancelStatus() {
-                    let cell = tableView.dequeueReusableCellWithIdentifier("OrderWaitePayTableViewCell", forIndexPath: indexPath) as! OrderWaitePayTableViewCell
-                    cell.selectionStyle = .None
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "OrderWaitePayTableViewCell", for: indexPath) as! OrderWaitePayTableViewCell
+                    cell.selectionStyle = .none
                     viewModel.tableViewCellOrderWaitePayTableViewCell(cell, indexPath:indexPath)
                     return cell
                 }else{
-                    let cell = tableView.dequeueReusableCellWithIdentifier("OrderDoneTableViewCell", forIndexPath: indexPath) as! OrderDoneTableViewCell
-                    cell.selectionStyle = .None
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "OrderDoneTableViewCell", for: indexPath) as! OrderDoneTableViewCell
+                    cell.selectionStyle = .none
                     viewModel.tableViewCellOrderDoneTableViewCell(cell, indexPath:indexPath)
                     return cell
                 }
             case 1:
-                let cell = tableView.dequeueReusableCellWithIdentifier("ReciveAddressTableViewCell", forIndexPath: indexPath) as! ReciveAddressTableViewCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: "ReciveAddressTableViewCell", for: indexPath) as! ReciveAddressTableViewCell
                 viewModel.tableViewCellReciveAddressTableViewCell(cell, indexPath: indexPath)
-                cell.selectionStyle = .None
+                cell.selectionStyle = .none
                 return cell
             default:
                 if viewModel.deverliyModel != nil && viewModel.deverliyModel.traces.count > 0 {
-                    let cell = tableView.dequeueReusableCellWithIdentifier("DeverliyTableViewCellDetail", forIndexPath: indexPath) as! DeverliyTableViewCell
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "DeverliyTableViewCellDetail", for: indexPath) as! DeverliyTableViewCell
                     viewModel.tableViewCellDeverliyTableViewCell(cell, indexPath: indexPath)
-                    cell.selectionStyle = .None
+                    cell.selectionStyle = .none
                     return cell
                 }else{
-                    var cell = tableView.dequeueReusableCellWithIdentifier("defaultCell")
+                    var cell = tableView.dequeueReusableCell(withIdentifier: "defaultCell")
                     if cell == nil {
-                        cell = UITableViewCell.init(style: UITableViewCellStyle.Default, reuseIdentifier: "defaultCell")
+                        cell = UITableViewCell.init(style: UITableViewCellStyle.default, reuseIdentifier: "defaultCell")
                     }
                     return cell!
                 }
@@ -306,28 +304,28 @@ extension OrderDetailViewController : UITableViewDataSource {
             }
          default :
             if indexPath.row == 0 {
-                let cell = tableView.dequeueReusableCellWithIdentifier("OrderNumberTableViewCell", forIndexPath: indexPath) as! OrderNumberTableViewCell
-                cell.userInteractionEnabled = false
+                let cell = tableView.dequeueReusableCell(withIdentifier: "OrderNumberTableViewCell", for: indexPath) as! OrderNumberTableViewCell
+                cell.isUserInteractionEnabled = false
                 viewModel.tableViewOrderCellIndexPath(indexPath, cell: cell)
-                cell.selectionStyle = .None
+                cell.selectionStyle = .none
                 return cell
             }else if indexPath.row == 1 {
-                let cell = tableView.dequeueReusableCellWithIdentifier("TicketDetailInfoTableViewCell", forIndexPath: indexPath) as! TicketDetailInfoTableViewCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: "TicketDetailInfoTableViewCell", for: indexPath) as! TicketDetailInfoTableViewCell
                 cell.ticketPhoto.image = UIImage.init(named: "Feeds_Default_Cover_02")
                 viewModel.tableViewCellTicketDetailInfoTableViewCell(cell)
-                cell.selectionStyle = .None
+                cell.selectionStyle = .none
                 return cell
             }else if indexPath.row == 2 {
-                let cell = tableView.dequeueReusableCellWithIdentifier("TicketLocationTableViewCell", forIndexPath: indexPath) as! TicketLocationTableViewCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: "TicketLocationTableViewCell", for: indexPath) as! TicketLocationTableViewCell
                 viewModel.tableViewCellTicketLocationTableViewCell(cell, indexPath:indexPath)
                 
-                cell.selectionStyle = .None
+                cell.selectionStyle = .none
                 return cell
             }else if indexPath.row == 3 {
                 if viewModel.viewModelHaveRemarkMessage() {
-                    let cell = tableView.dequeueReusableCellWithIdentifier("TicketRemarkTableViewCell", forIndexPath: indexPath) as! TicketRemarkTableViewCell
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "TicketRemarkTableViewCell", for: indexPath) as! TicketRemarkTableViewCell
                     viewModel.tableViewCellOrderTicketRemarkTableViewCell(cell, indexPath: indexPath)
-                    cell.selectionStyle = .None
+                    cell.selectionStyle = .none
                     return cell
                 }
                 return self.orderPayCell(tableView, indexPath: indexPath)

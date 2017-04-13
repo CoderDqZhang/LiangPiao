@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import ReactiveCocoa
 
 class TicketNumberTableViewCell: UITableViewCell {
 
@@ -32,14 +31,14 @@ class TicketNumberTableViewCell: UITableViewCell {
         ticketNumber.font = App_Theme_PinFan_R_13_Font!
         self.contentView.addSubview(ticketNumber)
         
-        numberTickView = NumberTickView.init(frame: CGRectMake(SCREENWIDTH - 128 - 15, 8, 128, 32), buttonWidth: 40, type: .Confirm)
-        numberTickView.backgroundColor = UIColor.whiteColor()
+        numberTickView = NumberTickView.init(frame: CGRect(x: SCREENWIDTH - 128 - 15, y: 8, width: 128, height: 32), buttonWidth: 40, type: .confirm)
+        numberTickView.backgroundColor = UIColor.white
         
         
         
         self.contentView.addSubview(numberTickView)
     
-        lineLable = GloabLineView(frame: CGRectMake(15,49,SCREENWIDTH - 30, 0.5))
+        lineLable = GloabLineView(frame: CGRect(x: 15,y: 49,width: SCREENWIDTH - 30, height: 0.5))
         self.contentView.addSubview(lineLable)
         
         self.updateConstraintsIfNeeded()
@@ -47,9 +46,9 @@ class TicketNumberTableViewCell: UITableViewCell {
     
     override func updateConstraints() {
         if !self.didMakeConstraints {
-            ticketNumber.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.centerY.equalTo(self.contentView.snp_centerY).offset(0)
+            ticketNumber.snp.makeConstraints({ (make) in
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.centerY.equalTo(self.contentView.snp.centerY).offset(0)
             })
             
             self.didMakeConstraints = true
@@ -62,7 +61,7 @@ class TicketNumberTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

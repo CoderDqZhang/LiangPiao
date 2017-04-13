@@ -383,8 +383,8 @@
         return CGSizeMake(_cellWidth, CGRectGetHeight(_collectionViewBar.frame));
     }else if(_tabDataSourceFlags.titleForIndex){
         NSString *title = [self.dataSource pagerController:self titleForIndex:indexPath.item];
-        CGFloat width = [self boundingSizeWithString:title font:_selectedTextFont constrainedToSize:CGSizeMake(300, 100)].width+_cellEdging*2;
-        return CGSizeMake(width, CGRectGetHeight(_collectionViewBar.frame));
+        CGFloat width = [self boundingSizeWithString:title font:_selectedTextFont constrainedToSize:CGSizeMake( 300, 100)].width+_cellEdging*2;
+        return CGSizeMake( width, CGRectGetHeight(_collectionViewBar.frame));
     }
     return CGSizeZero;
 }
@@ -407,7 +407,7 @@
     {
         //iOS 7
         CGRect frame = [string boundingRectWithSize:size options:NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:@{ NSFontAttributeName:font } context:nil];
-        textSize = CGSizeMake(frame.size.width, frame.size.height + 1);
+        textSize = CGSizeMake( frame.size.width, frame.size.height + 1);
     }
     
     return textSize;

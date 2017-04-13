@@ -74,7 +74,7 @@
 
         _scrollImageView.bounds = CGRectMake(0, 0, _scroll.frame.size.width, imageViewH);
         _scrollImageView.center = CGPointMake(_scroll.frame.size.width * 0.5, _scrollImageView.frame.size.height * 0.5);
-        _scroll.contentSize = CGSizeMake(0, _scrollImageView.bounds.size.height);
+        _scroll.contentSize = CGSizeMake( 0, _scrollImageView.bounds.size.height);
         
     } else {
         if (_scroll) [_scroll removeFromSuperview]; // 防止旋转时适配的scrollView的影响
@@ -153,7 +153,7 @@
         CGFloat contentH = MAX(_zoomingImageView.frame.size.height, self.frame.size.height);
         
         _zoomingImageView.center = CGPointMake(contentW * 0.5, contentH * 0.5);
-        _zoomingScroolView.contentSize = CGSizeMake(contentW, contentH);
+        _zoomingScroolView.contentSize = CGSizeMake( contentW, contentH);
 
         
         CGPoint offset = _zoomingScroolView.contentOffset;

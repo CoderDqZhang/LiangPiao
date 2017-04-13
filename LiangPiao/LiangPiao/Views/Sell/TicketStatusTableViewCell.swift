@@ -9,8 +9,8 @@
 
 import UIKit
 
-typealias TicketStatusTableViewCellClouse = (isSeate:Bool, isTicket:Bool) ->Void
-typealias TicketTicketSellClouse = (tap:UITapGestureRecognizer, label:UILabel) ->Void
+typealias TicketStatusTableViewCellClouse = (_ isSeate:Bool, _ isTicket:Bool) ->Void
+typealias TicketTicketSellClouse = (_ tap:UITapGestureRecognizer, _ label:UILabel) ->Void
 class TicketStatusTableViewCell: UITableViewCell {
 
     var ticketStatus:UIView!
@@ -23,7 +23,7 @@ class TicketStatusTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
     
-    func setTicketModel(model:SellFormModel){
+    func setTicketModel(_ model:SellFormModel){
         var array:[String]! = []
         var typeArray:[NSInteger]! = []
         if model.seatType == "1" {
@@ -54,30 +54,30 @@ class TicketStatusTableViewCell: UITableViewCell {
 
     }
     
-    func setUpLable(titles:[String], type:[NSInteger]){
+    func setUpLable(_ titles:[String], type:[NSInteger]){
         for index in 0...titles.count - 1 {
             let seatLabel = self.setUpLabel(CGRect.init(x: index * (66 + 10), y: 0, width: 66, height: 35), title: titles[index], tag: index, type: type[index])
             self.ticketStatus.addSubview(seatLabel)
         }
     }
     
-    func setUpLabel(frame:CGRect, title:String, tag:NSInteger,type:NSInteger) -> UILabel{
+    func setUpLabel(_ frame:CGRect, title:String, tag:NSInteger,type:NSInteger) -> UILabel{
         let label = UILabel.init(frame: frame)
         label.text = title
         label.font = App_Theme_PinFan_R_12_Font
         label.backgroundColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
-        label.layer.borderColor = UIColor.init(hexString: App_Theme_8A96A2_Color).CGColor
+        label.layer.borderColor = UIColor.init(hexString: App_Theme_8A96A2_Color).cgColor
         label.textColor = UIColor.init(hexString: App_Theme_8A96A2_Color)
         label.layer.borderWidth = 0.5
         label.layer.cornerRadius = 2
         label.layer.masksToBounds = true
-        label.textAlignment = .Center
-        label.userInteractionEnabled = true
+        label.textAlignment = .center
+        label.isUserInteractionEnabled = true
         if type == 1 {
             label.layer.cornerRadius = 2
             label.backgroundColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
-            label.layer.borderColor = UIColor.init(hexString: App_Theme_4BD4C5_Color).CGColor
-            label.textColor = UIColor.whiteColor()
+            label.layer.borderColor = UIColor.init(hexString: App_Theme_4BD4C5_Color).cgColor
+            label.textColor = UIColor.white
             if title == "保证连坐" {
                 isSeat = true
             }else{
@@ -91,23 +91,23 @@ class TicketStatusTableViewCell: UITableViewCell {
         return label
     }
     
-    func singleTapGesture(tap:UITapGestureRecognizer){
+    func singleTapGesture(_ tap:UITapGestureRecognizer){
         let label = tap.view as! UILabel
         if label.text == "期票预售" && label.backgroundColor == UIColor.init(hexString: App_Theme_FFFFFF_Color) {
             if self.ticketTicketSellClouse != nil {
-                self.ticketTicketSellClouse(tap:tap, label: label)
+                self.ticketTicketSellClouse(tap, label)
                 return
             }
         }
         self.updataLabel(label)
     }
     
-    func updataLabel(label:UILabel){
+    func updataLabel(_ label:UILabel){
         if label.backgroundColor == UIColor.init(hexString: App_Theme_FFFFFF_Color) {
             label.layer.cornerRadius = 2
             label.backgroundColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
-            label.layer.borderColor = UIColor.init(hexString: App_Theme_4BD4C5_Color).CGColor
-            label.textColor = UIColor.whiteColor()
+            label.layer.borderColor = UIColor.init(hexString: App_Theme_4BD4C5_Color).cgColor
+            label.textColor = UIColor.white
             if label.text == "保证连坐" {
                 isSeat = true
             }else{
@@ -116,7 +116,7 @@ class TicketStatusTableViewCell: UITableViewCell {
         }else{
             label.backgroundColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
             label.layer.cornerRadius = 2
-            label.layer.borderColor = UIColor.init(hexString: App_Theme_8A96A2_Color).CGColor
+            label.layer.borderColor = UIColor.init(hexString: App_Theme_8A96A2_Color).cgColor
             label.textColor = UIColor.init(hexString: App_Theme_8A96A2_Color)
             if label.text == "保证连坐" {
                 isSeat = false
@@ -125,7 +125,7 @@ class TicketStatusTableViewCell: UITableViewCell {
             }
         }
         if (self.ticketStatusTableViewCellClouse != nil) {
-            self.ticketStatusTableViewCellClouse(isSeate: isSeat,isTicket: isTicket)
+            self.ticketStatusTableViewCellClouse(isSeat, isTicket)
         }
     }
     
@@ -138,7 +138,7 @@ class TicketStatusTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

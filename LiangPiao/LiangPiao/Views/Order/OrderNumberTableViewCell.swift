@@ -34,13 +34,13 @@ class OrderNumberTableViewCell: UITableViewCell {
         orderStatus.font = App_Theme_PinFan_R_14_Font
         self.contentView.addSubview(orderStatus)
         
-        lineLabel = GloabLineView(frame: CGRectMake(15, self.contentView.bounds.size.height - 0.5, SCREENWIDTH - 30, 0.5))
+        lineLabel = GloabLineView(frame: CGRect(x: 15, y: self.contentView.bounds.size.height - 0.5, width: SCREENWIDTH - 30, height: 0.5))
         self.contentView.addSubview(lineLabel)
         
         self.updateConstraintsIfNeeded()
     }
     
-    func setData(model:OrderList) {
+    func setData(_ model:OrderList) {
         orderStatus.text = model.statusDesc
 
         if model.status == 0 || model.status == 7 || model.status == 3{
@@ -48,10 +48,10 @@ class OrderNumberTableViewCell: UITableViewCell {
         }else{
             orderStatus.textColor = UIColor.init(hexString: App_Theme_A2ABB5_Color)
         }
-        orderNumber.text = "订单号：\(model.id)"
+        orderNumber.text = "订单号：\((model.id)!)"
     }
     
-    func setSellData(model:OrderList) {
+    func setSellData(_ model:OrderList) {
         orderStatus.text = model.supplierStatusDesc
         
         if model.status == 0 || model.status == 7 || model.status == 3 {
@@ -59,7 +59,7 @@ class OrderNumberTableViewCell: UITableViewCell {
         }else{
             orderStatus.textColor = UIColor.init(hexString: App_Theme_A2ABB5_Color)
         }
-        orderNumber.text = "订单号：\(model.id)"
+        orderNumber.text = "订单号：\((model.id)!)"
     }
         
     required init?(coder aDecoder: NSCoder) {
@@ -69,20 +69,20 @@ class OrderNumberTableViewCell: UITableViewCell {
     override func updateConstraints() {
         if !self.didMakeContraints {
             
-            orderNumber.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.centerY.equalTo(self.contentView.snp_centerY).offset(0)
+            orderNumber.snp.makeConstraints({ (make) in
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.centerY.equalTo(self.contentView.snp.centerY).offset(0)
             })
             
-            orderStatus.snp_makeConstraints(closure: { (make) in
-                make.right.equalTo(self.contentView.snp_right).offset(-15)
-                make.centerY.equalTo(self.contentView.snp_centerY).offset(0)
+            orderStatus.snp.makeConstraints({ (make) in
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
+                make.centerY.equalTo(self.contentView.snp.centerY).offset(0)
             })
             
-            lineLabel.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.right.equalTo(self.contentView.snp_right).offset(-15)
-                make.bottom.equalTo(self.contentView.snp_bottom).offset(-0.5)
+            lineLabel.snp.makeConstraints({ (make) in
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(-0.5)
             })
             self.didMakeContraints = true
             
@@ -94,7 +94,7 @@ class OrderNumberTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

@@ -48,32 +48,32 @@ class OrderExpressTableViewCell: UITableViewCell {
     }
     
     func hiderLineLabel(){
-        lineLabel.hidden = true
+        lineLabel.isHidden = true
     }
     
-    func setData(title:String, detail:String, isSelect:Bool){
+    func setData(_ title:String, detail:String, isSelect:Bool){
         self.updataSwitchBar(isSelect)
     }
     
-    func updataSwitchBar(isSelect:Bool){
+    func updataSwitchBar(_ isSelect:Bool){
         switchBar.setOn(isSelect, animated: true)
     }
     
     override func updateConstraints() {
         if !self.didMakeConstraints {
-            titleLabel.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.top.equalTo(self.contentView.snp_top).offset(26)
+            titleLabel.snp.makeConstraints({ (make) in
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.top.equalTo(self.contentView.snp.top).offset(26)
             })
             
-            detailLabel.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.top.equalTo(self.titleLabel.snp_bottom).offset(4)
+            detailLabel.snp.makeConstraints({ (make) in
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.top.equalTo(self.titleLabel.snp.bottom).offset(4)
             })
             
-            switchBar.snp_makeConstraints(closure: { (make) in
-                make.right.equalTo(self.contentView.snp_right).offset(-15)
-                make.centerY.equalTo(self.contentView.snp_centerY).offset(0)
+            switchBar.snp.makeConstraints({ (make) in
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
+                make.centerY.equalTo(self.contentView.snp.centerY).offset(0)
             })
             
             self.didMakeConstraints = true
@@ -90,7 +90,7 @@ class OrderExpressTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

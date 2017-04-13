@@ -62,6 +62,7 @@ NSString * const ID = @"cycleCell";
         [self initialization];
         [self setupMainView];
     }
+    
     return self;
 }
 
@@ -69,6 +70,7 @@ NSString * const ID = @"cycleCell";
 {
     [self initialization];
     [self setupMainView];
+    [super awakeFromNib];
 }
 
 - (void)initialization

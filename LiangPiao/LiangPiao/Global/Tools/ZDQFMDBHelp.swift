@@ -15,31 +15,31 @@ class ZDQFMDBHelp: NSObject {
     static let shareInstand = ZDQFMDBHelp()
 
     var dbQueue:FMDatabaseQueue!
-    private override init() {
+    fileprivate override init() {
         
     }
     
-    func dbPathWithDirectoryName(directoryName:String?) ->String{
+    func dbPathWithDirectoryName(_ directoryName:String?) ->String{
         // 示例
-        var documentsFolder = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
-        let manager = NSFileManager.defaultManager()
+        var documentsFolder = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
+        let manager = FileManager.default
         if directoryName == nil || directoryName!.length == 0 {
-            documentsFolder = documentsFolder.stringByAppendingString("/LiangPiao")
+            documentsFolder = documentsFolder + "/LiangPiao"
         }else{
-            documentsFolder = documentsFolder.stringByAppendingString("/\(directoryName!)")
+            documentsFolder = documentsFolder + "/\(directoryName!)"
 
         }
         
-        let exit = manager.fileExistsAtPath(documentsFolder, isDirectory: nil)
+        let exit = manager.fileExists(atPath: documentsFolder, isDirectory: nil)
         if !exit {
             do {
-                try  manager.createDirectoryAtPath(directoryName!, withIntermediateDirectories: true, attributes: nil)
+                try  manager.createDirectory(atPath: directoryName!, withIntermediateDirectories: true, attributes: nil)
 
             } catch  {
                 print("创建文件夹失败")
             }
         }
-        let path = documentsFolder.stringByAppendingString("/LiangPiao.sqlite")
+        let path = documentsFolder + "/LiangPiao.sqlite"
 
         return path
     }

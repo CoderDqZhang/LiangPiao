@@ -28,7 +28,7 @@ class LiangPiaoHomeRefreshHeader: UIView {
     }
     
     func setUpView(){
-        self.backgroundColor = UIColor.clearColor()
+        self.backgroundColor = UIColor.clear
         imageView = UIImageView()
         self.imageView.frame = CGRect.init(x: self.center.x - 14, y: 49, width: 28, height: 28)
         self.addSubview(imageView)
@@ -40,8 +40,8 @@ class LiangPiaoHomeRefreshHeader: UIView {
         
         self.displayLink = CADisplayLink.init(target: self, selector: #selector(LiangNomalRefreshHeader.startAnimation))
         self.displayLink.frameInterval = 60
-        self.displayLink.paused = false
-        self.displayLink.addToRunLoop(NSRunLoop.currentRunLoop(), forMode: NSRunLoopCommonModes)
+        self.displayLink.isPaused = false
+        self.displayLink.add(to: RunLoop.current, forMode: RunLoopMode.commonModes)
 
     }
     
@@ -51,12 +51,12 @@ class LiangPiaoHomeRefreshHeader: UIView {
         ani.timingFunctions = [CAMediaTimingFunction(controlPoints: 0.014,-0.003,0.726,0.306), CAMediaTimingFunction(controlPoints: 0.233,0.824,0.326,0.97)]
         ani.values = [0,3.543,6.283]
         ani.duration = 1
-        self.loadImageView.layer.addAnimation(ani, forKey: nil)
+        self.loadImageView.layer.add(ani, forKey: nil)
     }
     
     func stopAnimation(){
         self.loadImageView.layer.removeAllAnimations()
-        self.displayLink.paused = true
+        self.displayLink.isPaused = true
     }
     
     /*

@@ -7,13 +7,14 @@
 //
 
 import UIKit
+import ReactiveCocoa
 
 class DeverliyForm : NSObject {
     var deverliyName:String = "SF"
     var deverliyNum:String = ""
 }
 
-typealias ReloadeMyOrderDeatail = (indexPath:NSIndexPath, model:OrderList) -> Void
+typealias ReloadeMyOrderDeatail = (_ indexPath:IndexPath, _ model:OrderList) -> Void
 
 class DeverliyPushViewModel: NSObject {
     
@@ -21,7 +22,7 @@ class DeverliyPushViewModel: NSObject {
     var model:OrderList!
     var deverliyType:ZHPickView!
     var form = DeverliyForm()
-    var indexPath:NSIndexPath!
+    var indexPath:IndexPath!
     var reloadeMyOrderDeatail:ReloadeMyOrderDeatail!
     
     override init() {
@@ -30,12 +31,12 @@ class DeverliyPushViewModel: NSObject {
     
     func showDeverliyTypePickerView(){
         if deverliyType == nil {
-            deverliyType = ZHPickView(pickviewWithArray: deverliyDic.allKeys, isHaveNavControler: false)
-            deverliyType.setPickViewColer(UIColor.whiteColor())
-            deverliyType.setPickViewColer(UIColor.whiteColor())
-            deverliyType.setTintColor(UIColor.whiteColor())
+            deverliyType = ZHPickView(pickviewWith: deverliyDic.allKeys, isHaveNavControler: false)
+            deverliyType.setPickViewColer(UIColor.white)
+            deverliyType.setPickViewColer(UIColor.white)
+            deverliyType.setTintColor(UIColor.white)
             deverliyType.tag = 0
-            deverliyType.setToolbarTintColor(UIColor.whiteColor())
+            deverliyType.setToolbarTintColor(UIColor.white)
             deverliyType.setTintFont(App_Theme_PinFan_R_13_Font, color: UIColor.init(hexString: App_Theme_384249_Color))
             deverliyType.delegate = self
         }
@@ -48,29 +49,34 @@ class DeverliyPushViewModel: NSObject {
     }
     
     func orderExpressRequest(){
-        let url = "\(OrderExpress)/\(model.orderId)/express/"
+        let url = "\(OrderExpress)/\((model.orderId)!)/express/"
         let parameters = [
             "express_name":self.form.deverliyName,
             "express_num":self.form.deverliyNum
         ]
-        BaseNetWorke.sharedInstance.postUrlWithString(url, parameters: parameters).subscribeNext { (resultDic) in
-            let url = "\(OrderChangeShatus)\(self.model.orderId)/"
-            let parameters = ["status":"7"]
-            BaseNetWorke.sharedInstance.postUrlWithString(url, parameters: parameters).subscribeNext { (resultDic) in
-                let tempModel = OrderList.init(fromDictionary: resultDic as! NSDictionary)
-                self.model.status = tempModel.status
-                self.model.statusDesc = tempModel.statusDesc
-                self.model.supplierStatusDesc = tempModel.supplierStatusDesc
-                if self.reloadeMyOrderDeatail != nil {
-                    self.reloadeMyOrderDeatail(indexPath: self.indexPath, model:self.model)
+        BaseNetWorke.sharedInstance.postUrlWithString(url, parameters: parameters as AnyObject).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                let url = "\(OrderChangeShatus)\((self.model.orderId)!)/"
+                let parameters = ["status":"7"]
+                BaseNetWorke.sharedInstance.postUrlWithString(url, parameters: parameters as AnyObject).observe { (resultDic) in
+                    if !resultDic.isCompleted {
+                        let tempModel = OrderList.init(fromDictionary: resultDic.value as! NSDictionary)
+                        self.model.status = tempModel.status
+                        self.model.statusDesc = tempModel.statusDesc
+                        self.model.supplierStatusDesc = tempModel.supplierStatusDesc
+                        if self.reloadeMyOrderDeatail != nil {
+                            self.reloadeMyOrderDeatail(self.indexPath, self.model)
+                        }
+                        
+                        self.controller.navigationController?.popViewController(animated: true)
+                    }
                 }
-                
-                self.controller.navigationController?.popViewControllerAnimated(true)
             }
+            
         }
     }
     
-    func tableViewNumberRowInSection(section:Int) ->Int {
+    func tableViewNumberRowInSection(_ section:Int) ->Int {
         switch section {
         case 0:
             return 1
@@ -79,10 +85,10 @@ class DeverliyPushViewModel: NSObject {
         }
     }
     
-    func tableViewHeightForRowAtIndexPath(indexPath:NSIndexPath) -> CGFloat {
+    func tableViewHeightForRowAtIndexPath(_ indexPath:IndexPath) -> CGFloat {
         switch indexPath.section {
         case 0:
-            return controller.tableView.fd_heightForCellWithIdentifier("UserAddressTableViewCell", configuration: { (cell) in
+            return controller.tableView.fd_heightForCell(withIdentifier: "UserAddressTableViewCell", configuration: { (cell) in
                 self.configCellReviceCell(cell as! UserAddressTableViewCell, indexPath: indexPath)
             })
         default:
@@ -90,15 +96,15 @@ class DeverliyPushViewModel: NSObject {
         }
     }
     
-    func tableViewHeiFootView(tableView:UITableView, section:Int) ->CGFloat{
+    func tableViewHeiFootView(_ tableView:UITableView, section:Int) ->CGFloat{
         return 10
     }
     
-    func configCellReviceCell(cell:UserAddressTableViewCell, indexPath:NSIndexPath) {
+    func configCellReviceCell(_ cell:UserAddressTableViewCell, indexPath:IndexPath) {
         cell.setUpData(self.model, info: "配送信息")
     }
     
-    func tableViewDidSelectRowAtIndexPath(indexPath:NSIndexPath, controller:DelivererPushViewController) {
+    func tableViewDidSelectRowAtIndexPath(_ indexPath:IndexPath, controller:DelivererPushViewController) {
         if indexPath.section == 1 {
             if indexPath.row == 0 {
                 self.showDeverliyTypePickerView()
@@ -106,25 +112,25 @@ class DeverliyPushViewModel: NSObject {
         }
     }
     
-    func tableViewCellUserAddressTableViewCell(cell:UserAddressTableViewCell, indexPath:NSIndexPath){
+    func tableViewCellUserAddressTableViewCell(_ cell:UserAddressTableViewCell, indexPath:IndexPath){
         self.configCellReviceCell(cell, indexPath: indexPath)
     }
     
-    func tableViewGloabTitleAndDetailImageCell(cell:GloabTitleAndDetailImageCell, indexPath:NSIndexPath) {
+    func tableViewGloabTitleAndDetailImageCell(_ cell:GloabTitleAndDetailImageCell, indexPath:IndexPath) {
         cell.setData("物流公司", detail: "顺丰")
     }
     
-    func tableViewCellGloabTitleAndTextFieldCell(cell:GloabTitleAndTextFieldCell, indexPath:NSIndexPath) {
+    func tableViewCellGloabTitleAndTextFieldCell(_ cell:GloabTitleAndTextFieldCell, indexPath:IndexPath) {
         cell.setData("快递单号", plachString: "填写快递单号", textFieldText: "")
-        cell.textField.rac_textSignal().subscribeNext { (resultStr) in
-            self.form.deverliyNum = resultStr as! String
+        cell.textField.reactive.continuousTextValues.observeValues { (resultStr) in
+            self.form.deverliyNum = resultStr!
         }
     }
 }
 
 extension DeverliyPushViewModel : ZHPickViewDelegate {
-    func toobarDonBtnHaveClick(pickView: ZHPickView!, resultString: String!) {
-        let cell = self.controller.tableView.cellForRowAtIndexPath(NSIndexPath.init(forRow: 0, inSection: 1)) as! GloabTitleAndDetailImageCell
+    func toobarDonBtnHaveClick(_ pickView: ZHPickView!, resultString: String!) {
+        let cell = self.controller.tableView.cellForRow(at: IndexPath.init(row: 0, section: 1)) as! GloabTitleAndDetailImageCell
         cell.setDetailText(resultString)
         form.deverliyName = deverliyDic[resultString] as! String
     }

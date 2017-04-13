@@ -42,15 +42,15 @@ class MySellConfimHeaderTableViewCell: UITableViewCell {
         ticketLoacation.font = App_Theme_PinFan_R_13_Font
         self.contentView.addSubview(ticketLoacation)
         
-        lineLabel = GloabLineView(frame: CGRectMake(15, self.contentView.bounds.size.height - 0.5, SCREENWIDTH - 30, 0.5))
+        lineLabel = GloabLineView(frame: CGRect(x: 15, y: self.contentView.bounds.size.height - 0.5, width: SCREENWIDTH - 30, height: 0.5))
         self.contentView.addSubview(lineLabel)
         
         self.updateConstraintsIfNeeded()
     }
     
-    func setUpData(model:TicketShowModel){
+    func setUpData(_ model:TicketShowModel){
         ticketTitle.text = model.title
-        UILabel.changeLineSpaceForLabel(ticketTitle, withSpace: TitleLineSpace)
+        UILabel.changeLineSpace(for: ticketTitle, withSpace: TitleLineSpace)
         ticketTime.text = model.session.startTime
         ticketLoacation.text = model.venue.name
     }
@@ -62,29 +62,29 @@ class MySellConfimHeaderTableViewCell: UITableViewCell {
     override func updateConstraints() {
         if !self.didMakeContraints {
         
-            ticketTitle.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.right.equalTo(self.contentView.snp_right).offset(-15)
-                make.top.equalTo(self.contentView.snp_top).offset(28)
+            ticketTitle.snp.makeConstraints({ (make) in
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
+                make.top.equalTo(self.contentView.snp.top).offset(28)
             })
             
-            ticketTime.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.right.equalTo(self.contentView.snp_right).offset(-15)
-                make.top.equalTo(self.ticketTitle.snp_bottom).offset(4)
+            ticketTime.snp.makeConstraints({ (make) in
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
+                make.top.equalTo(self.ticketTitle.snp.bottom).offset(4)
             })
             
-            ticketLoacation.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.right.equalTo(self.contentView.snp_right).offset(-15)
-                make.top.equalTo(self.ticketTime.snp_bottom).offset(1)
-                make.bottom.equalTo(self.contentView.snp_bottom).offset(-28)
+            ticketLoacation.snp.makeConstraints({ (make) in
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
+                make.top.equalTo(self.ticketTime.snp.bottom).offset(1)
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(-28)
             })
             
-            lineLabel.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.right.equalTo(self.contentView.snp_right).offset(-15)
-                make.bottom.equalTo(self.contentView.snp_bottom).offset(-0.5)
+            lineLabel.snp.makeConstraints({ (make) in
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(-0.5)
             })
             self.didMakeContraints = true
             
@@ -97,7 +97,7 @@ class MySellConfimHeaderTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

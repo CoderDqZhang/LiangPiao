@@ -59,59 +59,59 @@ class TickerInfoTableViewCell: UITableViewCell {
         ticketNowPriceInfo.textColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
         self.contentView.addSubview(ticketNowPriceInfo)
         
-        lineLabel = GloabLineView(frame: CGRectMake(15, 59.5, SCREENWIDTH - 30, 0.5))
+        lineLabel = GloabLineView(frame: CGRect(x: 15, y: 59.5, width: SCREENWIDTH - 30, height: 0.5))
         self.contentView.addSubview(lineLabel)
         self.updateConstraintsIfNeeded()
     }
     
     
-    func setData(model:TicketList) {
-        ticketNomalPrice.text = "\(model.originalTicket.name)"
+    func setData(_ model:TicketList) {
+        ticketNomalPrice.text = "\((model.originalTicket.name)!)"
         if model.region == "" {
             ticketRow.text = "择优分配"
         }else{
-            let row = model.row != "" ? "\(model.row)排" : "择优分配"
-            ticketRow.text = "\(model.region) \(row)"
+            let row = model.row != "" ? "\((model.row)!)排" : "择优分配"
+            ticketRow.text = "\((model.region)!) \(row)"
         }
-        ticketNowPrice.text = "\(model.price)"
+        ticketNowPrice.text = "\((model.price)!)"
         ticketDescirp.text = self.setUpTickeDelivery(model)
         self.setUpTicketStatues(model)
     }
     
-    func setUpTickeDelivery(model:TicketList) -> String{
+    func setUpTickeDelivery(_ model:TicketList) -> String{
         var delivery:String = ""
-        let typeArray = model.deliveryType.componentsSeparatedByString(",")
+        let typeArray = model.deliveryType.components(separatedBy: ",")
         if model.sellType == 2 {
-            delivery = delivery.stringByAppendingString("打包购买 ")
+            delivery = delivery + "打包购买 "
         }
         var express = false
         for str in typeArray {
             if (str == "1" || str == "4") && !express {
-               delivery = delivery.stringByAppendingString("快递 ")
+               delivery = delivery + "快递 "
                 express = true
             }else if str == "3"  {
-                delivery = delivery.stringByAppendingString("上门自取 ")
+                delivery = delivery + "上门自取 "
             }else if str == "2" {
-                delivery = delivery.stringByAppendingString("自取 ")
+                delivery = delivery + "自取 "
             }
         }
         if model.seatType == 1{
-            delivery = delivery.stringByAppendingString("连坐")
+            delivery = delivery + "连坐"
         }
         return delivery
     }
     
-    func setUpTicketStatues(model:TicketList){
+    func setUpTicketStatues(_ model:TicketList){
         var statuesArray:[String] = []
         let array = NSMutableArray()
         if model.sellCategory != nil && model.sellCategory == 1 {
             statuesArray.append("期票")
-            array.addObject(1)
+            array.add(1)
         }
         if model.remainCount != 0 {
-            let str = model.remainCount >= 20 ? "剩余\(model.remainCount)张" : "最后\(model.remainCount)张"
+            let str = model.remainCount >= 20 ? "剩余\((model.remainCount)!)张" : "最后\((model.remainCount)!)张"
             statuesArray.append(str)
-            array.addObject(0)
+            array.add(0)
         }
         if statuesArray.count > 0 {
             self.setUpStatuesView(statuesArray, types: array)
@@ -120,55 +120,55 @@ class TickerInfoTableViewCell: UITableViewCell {
         }
     }
     
-    func setUpStatuesView(titles:[String], types:NSArray?){
+    func setUpStatuesView(_ titles:[String], types:NSArray?){
         if ticketStatusView == nil {
-            ticketStatusView = GlobalTicketStatus(frame: CGRectZero, titles: titles, types: types)
+            ticketStatusView = GlobalTicketStatus(frame: CGRect.zero, titles: titles, types: types)
             self.contentView.addSubview(ticketStatusView)
             
-            ticketStatusView.snp_remakeConstraints(closure: { (make) in
-                make.right.equalTo(self.contentView.snp_right).offset(-(ticketStatusView.getMaxWidth() + 25))
-                make.top.equalTo(self.ticketNowPrice.snp_bottom).offset(3)
+            ticketStatusView.snp.remakeConstraints({ (make) in
+                make.right.equalTo(self.contentView.snp.right).offset(-(ticketStatusView.getMaxWidth() + 25))
+                make.top.equalTo(self.ticketNowPrice.snp.bottom).offset(3)
             })
         }else{
             ticketStatusView.setUpView(titles, types: types)
-            ticketStatusView.snp_remakeConstraints(closure: { (make) in
-                make.right.equalTo(self.contentView.snp_right).offset(-(ticketStatusView.getMaxWidth() + 25))
-                make.top.equalTo(self.ticketNowPrice.snp_bottom).offset(3)
+            ticketStatusView.snp.remakeConstraints({ (make) in
+                make.right.equalTo(self.contentView.snp.right).offset(-(ticketStatusView.getMaxWidth() + 25))
+                make.top.equalTo(self.ticketNowPrice.snp.bottom).offset(3)
             })
         }
     }
     
     override func updateConstraints() {
         if !self.didMakeConstraints {
-            ticketNomalPrice.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.contentView.snp_left).offset(25)
-                make.top.equalTo(self.contentView.snp_top).offset(15)
+            ticketNomalPrice.snp.makeConstraints({ (make) in
+                make.left.equalTo(self.contentView.snp.left).offset(25)
+                make.top.equalTo(self.contentView.snp.top).offset(15)
             })
             
-            ticketRow.snp_makeConstraints(closure: { (make) in
-                make.top.equalTo(self.contentView.snp_top).offset(15)
-                make.centerX.equalTo(self.contentView.snp_centerX).offset(0)
+            ticketRow.snp.makeConstraints({ (make) in
+                make.top.equalTo(self.contentView.snp.top).offset(15)
+                make.centerX.equalTo(self.contentView.snp.centerX).offset(0)
             })
             
-            ticketDescirp.snp_makeConstraints(closure: { (make) in
-                make.top.equalTo(self.ticketRow.snp_bottom).offset(5)
-                make.centerX.equalTo(self.contentView.snp_centerX).offset(0)
+            ticketDescirp.snp.makeConstraints({ (make) in
+                make.top.equalTo(self.ticketRow.snp.bottom).offset(5)
+                make.centerX.equalTo(self.contentView.snp.centerX).offset(0)
             })
             
-            ticketNowPrice.snp_makeConstraints(closure: { (make) in
-                make.right.equalTo(self.ticketNowPriceInfo.snp_left).offset(-2)
-                make.top.equalTo(self.contentView.snp_top).offset(14)
+            ticketNowPrice.snp.makeConstraints({ (make) in
+                make.right.equalTo(self.ticketNowPriceInfo.snp.left).offset(-2)
+                make.top.equalTo(self.contentView.snp.top).offset(14)
             })
             
-            ticketNowPriceInfo.snp_makeConstraints(closure: { (make) in
-                make.right.equalTo(self.contentView.snp_right).offset(-25)
-                make.top.equalTo(self.contentView.snp_top).offset(14.5)
+            ticketNowPriceInfo.snp.makeConstraints({ (make) in
+                make.right.equalTo(self.contentView.snp.right).offset(-25)
+                make.top.equalTo(self.contentView.snp.top).offset(14.5)
             })
             
-            lineLabel.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.right.equalTo(self.contentView.snp_right).offset(-15)
-                make.bottom.equalTo(self.contentView.snp_bottom).offset(-0.5)
+            lineLabel.snp.makeConstraints({ (make) in
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(-0.5)
             })
 
             self.didMakeConstraints = true
@@ -180,7 +180,7 @@ class TickerInfoTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

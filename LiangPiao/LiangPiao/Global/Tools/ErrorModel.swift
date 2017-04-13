@@ -42,8 +42,8 @@ class ErrorStatus : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        message = aDecoder.decodeObjectForKey("message") as? String
-        status = aDecoder.decodeObjectForKey("status") as? Int
+        message = aDecoder.decodeObject(forKey: "message") as? String
+        status = aDecoder.decodeObject(forKey: "status") as? Int
         
     }
     
@@ -51,13 +51,13 @@ class ErrorStatus : NSObject, NSCoding{
      * NSCoding required method.
      * Encodes mode properties into the decoder
      */
-    @objc func encodeWithCoder(aCoder: NSCoder)
+    @objc func encode(with aCoder: NSCoder)
     {
         if message != nil{
-            aCoder.encodeObject(message, forKey: "message")
+            aCoder.encode(message, forKey: "message")
         }
         if status != nil{
-            aCoder.encodeObject(status, forKey: "status")
+            aCoder.encode(status, forKey: "status")
         }
         
     }
@@ -109,8 +109,8 @@ class ErrorModel : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        code = aDecoder.decodeObjectForKey("code") as? Int
-        errors = aDecoder.decodeObjectForKey("errors") as? [Error]
+        code = aDecoder.decodeObject(forKey: "code") as? Int
+        errors = aDecoder.decodeObject(forKey: "errors") as? [Error]
         
     }
     
@@ -118,13 +118,13 @@ class ErrorModel : NSObject, NSCoding{
      * NSCoding required method.
      * Encodes mode properties into the decoder
      */
-    @objc func encodeWithCoder(aCoder: NSCoder)
+    @objc func encode(with aCoder: NSCoder)
     {
         if code != nil{
-            aCoder.encodeObject(code, forKey: "code")
+            aCoder.encode(code, forKey: "code")
         }
         if errors != nil{
-            aCoder.encodeObject(errors, forKey: "errors")
+            aCoder.encode(errors, forKey: "errors")
         }
         
     }
@@ -166,8 +166,8 @@ class Error : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        error = aDecoder.decodeObjectForKey("error") as? [String]
-        type = aDecoder.decodeObjectForKey("type") as? String
+        error = aDecoder.decodeObject(forKey: "error") as? [String]
+        type = aDecoder.decodeObject(forKey: "type") as? String
         
     }
     
@@ -175,13 +175,13 @@ class Error : NSObject, NSCoding{
      * NSCoding required method.
      * Encodes mode properties into the decoder
      */
-    @objc func encodeWithCoder(aCoder: NSCoder)
+    @objc func encode(with aCoder: NSCoder)
     {
         if error != nil{
-            aCoder.encodeObject(error, forKey: "error")
+            aCoder.encode(error, forKey: "error")
         }
         if type != nil{
-            aCoder.encodeObject(type, forKey: "type")
+            aCoder.encode(type, forKey: "type")
         }
         
     }

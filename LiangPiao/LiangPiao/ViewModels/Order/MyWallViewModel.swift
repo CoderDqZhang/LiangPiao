@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import ReactiveCocoa
 
 class MyWallViewModel: NSObject {
 
@@ -15,9 +14,9 @@ class MyWallViewModel: NSObject {
     var controller:MyWalletViewController!
     override init() {
         super.init()
-        NSNotificationCenter.defaultCenter().rac_addObserverForName(BlanceNumberChange, object: nil).subscribeNext { (object) in
-            self.requestMyWall()
-        }
+//        NotificationCenter.default.reactive.notifications(forName: Notification.Name(rawValue: BlanceNumberChange)).observe { (object) in
+//            self.requestMyWall()
+//        }
     }
     
     deinit {
@@ -28,7 +27,7 @@ class MyWallViewModel: NSObject {
         return "订单票款将于对方确认收货后立即结算至钱包账户\n 所有交易免佣金，仅含1%第三方支付平台交易手续费"
     }
     
-    func tableViewHeightForRow(indexPath:NSIndexPath) ->CGFloat {
+    func tableViewHeightForRow(_ indexPath:IndexPath) ->CGFloat {
         switch indexPath.row {
         case 0:
             return 190
@@ -37,7 +36,7 @@ class MyWallViewModel: NSObject {
         }
     }
     
-    func numbrOfRowInSection(section:Int) ->Int {
+    func numbrOfRowInSection(_ section:Int) ->Int {
         return 2
     }
     
@@ -45,45 +44,47 @@ class MyWallViewModel: NSObject {
         return 1
     }
     
-    func tableViewDidSelect(indexPath:NSIndexPath, controller:MyWalletViewController) {
+    func tableViewDidSelect(_ indexPath:IndexPath, controller:MyWalletViewController) {
         
     }
     
-    func tableViewCellMyWallHeaderTableViewCell(cell:MyWallHeaderTableViewCell){
+    func tableViewCellMyWallHeaderTableViewCell(_ cell:MyWallHeaderTableViewCell){
         if self.model != nil {
             if self.model.balance == 0 {
                 cell.setBlance("0.00")
             }else{
             
-                let str = "\(self.model.balance)".muchType("\(self.model.balance)")
+                let str = "\(self.model.balance)".muchType("\((self.model.balance)!)")
                 cell.setBlance("\(str)")
             }
         }
         
     }
     
-    func tableViewCellMyWallToolsTableViewCell(cell:MyWallToolsTableViewCell){
+    func tableViewCellMyWallToolsTableViewCell(_ cell:MyWallToolsTableViewCell){
         if self.model != nil {
             var blance:String = "0.00"
             var pendingBalance = "0.00"
             var deposit = "0.00"
             if self.model.balance != 0 {
-                blance = "\(self.model.balance)".muchType("\(self.model.balance)")
+                blance = "\(self.model.balance)".muchType("\((self.model.balance)!)")
             }
             if self.model.pendingBalance != 0 {
-                pendingBalance = "\(self.model.pendingBalance)".muchType("\(self.model.pendingBalance)")
+                pendingBalance = "\(self.model.pendingBalance)".muchType("\((self.model.pendingBalance)!)")
             }
             if self.model.deposit != 0 {
-                deposit = "\(self.model.deposit)".muchType("\(self.model.deposit)")
+                deposit = "\(self.model.deposit)".muchType("\((self.model.deposit)!)")
             }
             cell.setData(blance, freeze: deposit, preString: pendingBalance)
         }
     }
     
     func requestMyWall(){
-        BaseNetWorke.sharedInstance.getUrlWithString(WallBlance, parameters: nil).subscribeNext { (resultDic) in
-            self.model = MyWallModel.init(fromDictionary: resultDic as! NSDictionary)
-            self.controller.tableView.reloadData()
+        BaseNetWorke.sharedInstance.getUrlWithString(WallBlance, parameters: nil).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                self.model = MyWallModel.init(fromDictionary: resultDic.value as! NSDictionary)
+                self.controller.tableView.reloadData()
+            }
         }
     }
 }

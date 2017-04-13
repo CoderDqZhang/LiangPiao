@@ -47,7 +47,7 @@ class OrderConfirmAddressTableViewCell: UITableViewCell {
         detailImage.image = UIImage.init(named: "Btn_More")
         self.contentView.addSubview(detailImage)
         
-        lineLabel = GloabLineView(frame: CGRectMake(15, 0, SCREENWIDTH - 30, 0.5))
+        lineLabel = GloabLineView(frame: CGRect(x: 15, y: 0, width: SCREENWIDTH - 30, height: 0.5))
         self.contentView.addSubview(lineLabel)
         
         
@@ -67,18 +67,18 @@ class OrderConfirmAddressTableViewCell: UITableViewCell {
         self.updateConstraintsIfNeeded()
     }
     
-    func setData(model:AddressModel, type:AddAddressType) {
+    func setData(_ model:AddressModel, type:AddAddressType) {
         
         if type == .withNone {
-            orderName.hidden = true
-            orderAddress.hidden = true
-            orderAddAddress.hidden = false
+            orderName.isHidden = true
+            orderAddress.isHidden = true
+            orderAddAddress.isHidden = false
         }else{
-            orderName.hidden = false
-            orderAddress.hidden = false
-            orderAddAddress.hidden = true
-            orderName.text = "\(model.name) \(model.mobileNum)"
-            let str = "\(model.location)\(model.address)".stringByReplacingOccurrencesOfString(" ", withString: "")
+            orderName.isHidden = false
+            orderAddress.isHidden = false
+            orderAddAddress.isHidden = true
+            orderName.text = "\((model.name)!) \((model.mobileNum)!)"
+            let str = "\((model.location)!)\((model.address)!)".replacingOccurrences(of: " ", with: "")
             orderAddress.text = str
         }
         self.updateConstraintsIfNeeded()
@@ -91,31 +91,31 @@ class OrderConfirmAddressTableViewCell: UITableViewCell {
     override func updateConstraints() {
         if !self.didMakeConstraints {
         
-            orderAddAddress.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.contentView.snp_left).offset(15.5)
-                make.bottom.equalTo(self.contentView.snp_bottom).offset(-15)
+            orderAddAddress.snp.makeConstraints({ (make) in
+                make.left.equalTo(self.contentView.snp.left).offset(15.5)
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(-15)
             })
             
-            detailImage.snp_makeConstraints(closure: { (make) in
-                make.right.equalTo(self.contentView.snp_right).offset(-15)
-                make.centerY.equalTo(self.contentView.snp_centerY).offset(6)
+            detailImage.snp.makeConstraints({ (make) in
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
+                make.centerY.equalTo(self.contentView.snp.centerY).offset(6)
             })
             
-            orderName.snp_makeConstraints(closure: { (make) in
-                make.top.equalTo(self.contentView.snp_top).offset(25)
-                make.left.equalTo(self.contentView.snp_left).offset(15)
+            orderName.snp.makeConstraints({ (make) in
+                make.top.equalTo(self.contentView.snp.top).offset(25)
+                make.left.equalTo(self.contentView.snp.left).offset(15)
             })
             
-            orderAddress.snp_makeConstraints(closure: { (make) in
-                make.top.equalTo(self.orderName.snp_bottom).offset(1)
-                make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.bottom.equalTo(self.contentView.snp_bottom).offset(-15)
+            orderAddress.snp.makeConstraints({ (make) in
+                make.top.equalTo(self.orderName.snp.bottom).offset(1)
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(-15)
             })
             
-            lineLabel.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.bottom.equalTo(self.contentView.snp_bottom).offset(-0.5)
-                make.right.equalTo(self.contentView.snp_right).offset(-15)
+            lineLabel.snp.makeConstraints({ (make) in
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(-0.5)
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
             })
             self.didMakeConstraints = true
         }
@@ -127,7 +127,7 @@ class OrderConfirmAddressTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-    override func setSelected( selected: Bool, animated: Bool) {
+    override func setSelected( _ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

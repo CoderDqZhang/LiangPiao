@@ -12,23 +12,23 @@ import UIKit
 
 extension UIButton {
     
-    func buttonSetThemColor(bgColor:String, selectColor:String, size:CGSize) {
-        self.setBackgroundImage(UIImage.init(color: UIColor.init(hexString: bgColor), size: size), forState: .Normal)
-        self.setBackgroundImage(UIImage.init(color: UIColor.init(hexString: selectColor), size: size), forState: .Highlighted)
+    func buttonSetThemColor(_ bgColor:String, selectColor:String, size:CGSize) {
+        self.setBackgroundImage(UIImage.init(color: UIColor.init(hexString: bgColor), size: size), for: UIControlState())
+        self.setBackgroundImage(UIImage.init(color: UIColor.init(hexString: selectColor), size: size), for: .highlighted)
     }
     
-    func buttonSetTitleColor(nTitleColor:String, sTitleColor:String?) {
-        self.setTitleColor(UIColor.init(hexString: nTitleColor), forState: .Normal)
+    func buttonSetTitleColor(_ nTitleColor:String, sTitleColor:String?) {
+        self.setTitleColor(UIColor.init(hexString: nTitleColor), for: UIControlState())
         if sTitleColor == nil {
-            self.setTitleColor(UIColor.init(hexString: UIColor.init(hexString: App_Theme_40C6B7_Color)), forState: .Highlighted)
+            self.setTitleColor(UIColor.init(hexString: UIColor.init(hexString: App_Theme_40C6B7_Color)), for: .highlighted)
         }else{
-            self.setTitleColor(UIColor.init(hexString: sTitleColor), forState: .Highlighted)
+            self.setTitleColor(UIColor.init(hexString: sTitleColor), for: .highlighted)
         }
     }
     
-    func buttonSetImage(nImage:UIImage, sImage:UIImage) {
-        self.setImage(nImage, forState: .Normal)
-        self.setImage(sImage, forState: .Selected)
-        self.setImage(sImage, forState: .Highlighted)
+    func buttonSetImage(_ nImage:UIImage, sImage:UIImage) {
+        self.setImage(nImage, for: UIControlState())
+        self.setImage(sImage, for: .selected)
+        self.setImage(sImage, for: .highlighted)
     }
 }

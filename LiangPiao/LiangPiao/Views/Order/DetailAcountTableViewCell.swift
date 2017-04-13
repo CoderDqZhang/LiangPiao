@@ -41,17 +41,17 @@ class DetailAcountTableViewCell: UITableViewCell {
         timeLabel.text = "2016.12.18 20:25"
         self.contentView.addSubview(timeLabel)
         
-        linLabel = GloabLineView(frame: CGRectMake(15, 64.5, SCREENWIDTH - 30, 0.5))
+        linLabel = GloabLineView(frame: CGRect(x: 15, y: 64.5, width: SCREENWIDTH - 30, height: 0.5))
         self.contentView.addSubview(linLabel)
         
         self.updateConstraintsIfNeeded()
     }
 
-    func setData(model:HisList){
+    func setData(_ model:HisList){
         muchInfoLabel.text = model.desc
         timeLabel.text = model.created
-        let str = "\(model.amount)".muchType("\(model.amount)")
-        muchLabel.text = "\(model.optionDesc)\(str)"
+        let str = "\(model.amount)".muchType("\((model.amount)!)")
+        muchLabel.text = "\((model.optionDesc)!)\(str)"
         if model.optionDesc == "+" {
             muchLabel.textColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
         }else{
@@ -61,25 +61,25 @@ class DetailAcountTableViewCell: UITableViewCell {
     
     override func updateConstraints() {
         if !self.didMakeConstraints {
-            muchInfoLabel.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.top.equalTo(self.contentView.snp_top).offset(15)
+            muchInfoLabel.snp.makeConstraints({ (make) in
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.top.equalTo(self.contentView.snp.top).offset(15)
             })
             
-            timeLabel.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.top.equalTo(self.muchInfoLabel.snp_bottom).offset(2)
+            timeLabel.snp.makeConstraints({ (make) in
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.top.equalTo(self.muchInfoLabel.snp.bottom).offset(2)
             })
             
-            muchLabel.snp_makeConstraints(closure: { (make) in
-                make.right.equalTo(self.contentView.snp_right).offset(-15)
-                make.centerY.equalTo(self.contentView.snp_centerY).offset(-4)
+            muchLabel.snp.makeConstraints({ (make) in
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
+                make.centerY.equalTo(self.contentView.snp.centerY).offset(-4)
             })
             
-//            linLabel.snp_makeConstraints(closure: { (make) in
-//                make.left.equalTo(self.contentView.snp_left).offset(15)
-//                make.right.equalTo(self.contentView.snp_right).offset(-15)
-//                make.bottom.equalTo(self.contentView.snp_bottom).offset(0)
+//            linLabel.snp.makeConstraints({ (make) in
+//                make.left.equalTo(self.contentView.snp.left).offset(15)
+//                make.right.equalTo(self.contentView.snp.right).offset(-15)
+//                make.bottom.equalTo(self.contentView.snp.bottom).offset(0)
 //            })
             
             self.didMakeConstraints = true
@@ -96,7 +96,7 @@ class DetailAcountTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

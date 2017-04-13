@@ -8,8 +8,8 @@
 
 import UIKit
 
-typealias AddressTableViewSelect = (indexPath:NSIndexPath) -> Void
-typealias ReloadConfimAddress = (model:AddressModel) ->Void
+typealias AddressTableViewSelect = (_ indexPath:IndexPath) -> Void
+typealias ReloadConfimAddress = (_ model:AddressModel) ->Void
 
 class AddressViewModel: NSObject {
     
@@ -26,10 +26,10 @@ class AddressViewModel: NSObject {
     }
     static let shareInstance = AddressViewModel()
     
-    func configCell(cell:AddressTableViewCell,indexPath:NSIndexPath) {
+    func configCell(_ cell:AddressTableViewCell,indexPath:IndexPath) {
         if addressModels.count > 0 {
             if self.addressType == .addType {
-                let model = AddressModel.init(fromDictionary: addressModels.objectAtIndex(indexPath.row) as! NSDictionary)
+                let model = AddressModel.init(fromDictionary: addressModels.object(at: indexPath.row) as! NSDictionary)
                 if self.addOrEditModel != nil {
                     selectModel = self.addOrEditModel
                 }
@@ -44,58 +44,60 @@ class AddressViewModel: NSObject {
                 }
                 cell.setData(model)
             }else{
-                let model = AddressModel.init(fromDictionary: addressModels.objectAtIndex(indexPath.row) as! NSDictionary)
+                let model = AddressModel.init(fromDictionary: addressModels.object(at: indexPath.row) as! NSDictionary)
                 cell.updateSelectImage(false)
                 cell.setData(model)
             }
         }
     }
     
-    func tableViewHeightForRow(tableView:UITableView, indexPath:NSIndexPath) -> CGFloat {
-        return tableView.fd_heightForCellWithIdentifier("AddressTableViewCell", configuration: { (cell) in
+    func tableViewHeightForRow(_ tableView:UITableView, indexPath:IndexPath) -> CGFloat {
+        return tableView.fd_heightForCell(withIdentifier: "AddressTableViewCell", configuration: { (cell) in
             self.configCell(cell as! AddressTableViewCell, indexPath: indexPath)
         })
     }
 
-    func tableViewDidSelectIndexPath(tableView:UITableView, indexPath:NSIndexPath, controller:AddressViewController) {
+    func tableViewDidSelectIndexPath(_ tableView:UITableView, indexPath:IndexPath, controller:AddressViewController) {
         if self.addressType == .addType {
-            for i in 0...tableView.numberOfRowsInSection(0) - 1 {
+            for i in 0...tableView.numberOfRows(inSection: 0) - 1 {
                 if indexPath.row == i {
-                    let cell = tableView.cellForRowAtIndexPath(indexPath) as! AddressTableViewCell
+                    let cell = tableView.cellForRow(at: indexPath) as! AddressTableViewCell
                     cell.updateSelectImage(true)
                 }else{
-                    let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: i, inSection: indexPath.section)) as! AddressTableViewCell
+                    let cell = tableView.cellForRow(at: IndexPath(row: i, section: indexPath.section)) as! AddressTableViewCell
                     cell.updateSelectImage(false)
                 }
             }
             
             if self.addressTableViewSelect != nil {
-                self.addressTableViewSelect(indexPath:indexPath)
+                self.addressTableViewSelect(indexPath)
             }
         }else{
-            curentModel = AddressModel.init(fromDictionary: addressModels.objectAtIndex(indexPath.row) as! NSDictionary)
+            curentModel = AddressModel.init(fromDictionary: addressModels.object(at: indexPath.row) as! NSDictionary)
             controller.pushEditAddressViewController(curentModel)
         }
     }
     
-    func requestAddress(tableView:UITableView) {
-        BaseNetWorke.sharedInstance.getUrlWithString(AddAddress, parameters: nil).subscribeNext { (resultDic) in
-            let resultModels =  NSMutableArray.mj_objectArrayWithKeyValuesArray(resultDic)
-            self.addressModels = resultModels.mutableCopy() as! NSMutableArray
-            var addressModels:[AddressModel] = []
-            for model in resultModels {
-                addressModels.append(AddressModel.init(fromDictionary: model as! NSDictionary))
+    func requestAddress(_ tableView:UITableView) {
+        BaseNetWorke.sharedInstance.getUrlWithString(AddAddress, parameters: nil).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                let resultModels =  NSMutableArray.mj_objectArray(withKeyValuesArray: resultDic.value)
+                self.addressModels =  NSMutableArray.init(array: resultModels!)
+                var addressModels:[AddressModel] = []
+                for model in resultModels! {
+                    addressModels.append(AddressModel.init(fromDictionary: model as! NSDictionary))
+                }
+                AddressModel.archiveRootObject(addressModels)
+                tableView.reloadData()
             }
-            AddressModel.archiveRootObject(addressModels)
-            tableView.reloadData()
         }
     }
     
-    func tableViewNumberRowInSection(section:Int) -> Int {
+    func tableViewNumberRowInSection(_ section:Int) -> Int {
         return self.addressModels.count
     }
     
-    func tableViewConfigCell(indexPath:NSIndexPath)-> String{
+    func tableViewConfigCell(_ indexPath:IndexPath)-> String{
         switch indexPath.row{
         case 0:
             return "收货人"
@@ -106,48 +108,54 @@ class AddressViewModel: NSObject {
         }
     }
     
-    func addressConfigCell(cell:AddressTableViewCell,indexPath:NSIndexPath) {
-        cell.setData(self.addressModels.objectAtIndex(indexPath.row) as! AddressModel)
+    func addressConfigCell(_ cell:AddressTableViewCell,indexPath:IndexPath) {
+        cell.setData(self.addressModels.object(at: indexPath.row) as! AddressModel)
     }
     
-    func updateCellString(tableView:UITableView ,string:String, tag:NSInteger) {
-        let cell = tableView.cellForRowAtIndexPath(NSIndexPath.init(forRow: tag, inSection: 0)) as! GloabTitleAndDetailImageCell
+    func updateCellString(_ tableView:UITableView ,string:String, tag:NSInteger) {
+        let cell = tableView.cellForRow(at: IndexPath.init(row: tag, section: 0)) as! GloabTitleAndDetailImageCell
         cell.detailLabel.text = string
     }
     
-    func addressChange(controller:AddAddressViewController, type:AddAddressViewControllerType, model:AddressModel) {
-        if type == .EditType {
+    func addressChange(_ controller:AddAddressViewController, type:AddAddressViewControllerType, model:AddressModel) {
+        if type == .editType {
             let parameters = model.toDictionary()
-            let url = "\(EditAddress)\(model.id)/"
-            BaseNetWorke.sharedInstance.postUrlWithString(url, parameters: parameters).subscribeNext({ (resultDic) in
-                self.addOrEditModel = AddressModel.init(fromDictionary: resultDic as! NSDictionary)
-                if self.reloadConfimAddress != nil {
-                    self.reloadConfimAddress(model: self.addOrEditModel)
+            let url = "\(EditAddress)\((model.id)!)/"
+            BaseNetWorke.sharedInstance.postUrlWithString(url, parameters: parameters).observe({ (resultDic) in
+                if !resultDic.isCompleted {
+                    self.addOrEditModel = AddressModel.init(fromDictionary: resultDic.value as! NSDictionary)
+                    if self.reloadConfimAddress != nil {
+                        self.reloadConfimAddress( self.addOrEditModel)
+                    }
+                    controller.reloadAddressView()
+                    controller.navigationController?.popViewController(animated: true)
                 }
-                controller.reloadAddressView()
-                controller.navigationController?.popViewControllerAnimated(true)
             })
         }else{
             let parameters = model.toDictionary()
-            BaseNetWorke.sharedInstance.postUrlWithString(AddAddress, parameters: parameters).subscribeNext({ (resultDic) in
-                self.addOrEditModel = AddressModel.init(fromDictionary: resultDic as! NSDictionary)
-                if self.reloadConfimAddress != nil {
-                    self.reloadConfimAddress(model: self.addOrEditModel)
+            BaseNetWorke.sharedInstance.postUrlWithString(AddAddress, parameters: parameters).observe({ (resultDic) in
+                if !resultDic.isCompleted {
+                    self.addOrEditModel = AddressModel.init(fromDictionary: resultDic.value as! NSDictionary)
+                    if self.reloadConfimAddress != nil {
+                        self.reloadConfimAddress(self.addOrEditModel)
+                    }
+                    controller.reloadAddressView()
+                    controller.navigationController?.popViewController(animated: true)
                 }
-                controller.reloadAddressView()
-                controller.navigationController?.popViewControllerAnimated(true)
             })
         }
     }
     
-    func deleteAddress(controller:AddAddressViewController, model:AddressModel){
-        let url = "\(EditAddress)\(model.id)/"
-        BaseNetWorke.sharedInstance.deleteUrlWithString(url, parameters: nil).subscribeNext { (resultDic) in
-            if (resultDic is NSDictionary) && (resultDic as! NSDictionary).objectForKey("fail") != nil {
-                print("请求失败")
-            }else{
-                controller.reloadAddressView()
-                controller.navigationController?.popViewControllerAnimated(true)
+    func deleteAddress(_ controller:AddAddressViewController, model:AddressModel){
+        let url = "\(EditAddress)\((model.id)!)/"
+        BaseNetWorke.sharedInstance.deleteUrlWithString(url, parameters: nil).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                if (resultDic.value is NSDictionary) && (resultDic.value as! NSDictionary).object(forKey: "fail") != nil {
+                    print("请求失败")
+                }else{
+                    controller.reloadAddressView()
+                    controller.navigationController?.popViewController(animated: true)
+                }
             }
         }
     }

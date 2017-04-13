@@ -55,36 +55,36 @@ class MySellManagerMuchTableViewCell: UITableViewCell {
 //        handerButton.titleLabel?.font = App_Theme_PinFan_R_13_Font
 //        self.contentView.addSubview(handerButton)
         
-        linLabel = GloabLineView(frame: CGRectMake(15, 0, SCREENWIDTH - 30, 0.5))
+        linLabel = GloabLineView(frame: CGRect(x: 15, y: 0, width: SCREENWIDTH - 30, height: 0.5))
         self.contentView.addSubview(linLabel)
         
         self.updateConstraintsIfNeeded()
     }
     
-    func setMuchLabelText(text:String){
+    func setMuchLabelText(_ text:String){
         muchLabel.text = text
     }
     
     override func updateConstraints() {
         if !self.didMakeConstraints {
-            muchInfoLabel.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.snp_left).offset(15)
-                make.centerY.equalTo(self.contentView.snp_centerY).offset(1)
+            muchInfoLabel.snp.makeConstraints({ (make) in
+                make.left.equalTo(self.snp.left).offset(15)
+                make.centerY.equalTo(self.contentView.snp.centerY).offset(1)
             })
-            muchLabel.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.muchInfoLabel.snp_right).offset(6)
-                make.centerY.equalTo(self.contentView.snp_centerY).offset(0)
-            })
-            
-            muchmLabel.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.muchLabel.snp_right).offset(4)
-                make.centerY.equalTo(self.contentView.snp_centerY).offset(0.5)
+            muchLabel.snp.makeConstraints({ (make) in
+                make.left.equalTo(self.muchInfoLabel.snp.right).offset(6)
+                make.centerY.equalTo(self.contentView.snp.centerY).offset(0)
             })
             
-//            handerButton.snp_makeConstraints(closure: { (make) in
-//                make.right.equalTo(self.contentView.snp_right).offset(8)
-//                make.centerY.equalTo(self.contentView.snp_centerY).offset(0)
-//                make.size.equalTo(CGSizeMake(80, 30))
+            muchmLabel.snp.makeConstraints({ (make) in
+                make.left.equalTo(self.muchLabel.snp.right).offset(4)
+                make.centerY.equalTo(self.contentView.snp.centerY).offset(0.5)
+            })
+            
+//            handerButton.snp.makeConstraints({ (make) in
+//                make.right.equalTo(self.contentView.snp.right).offset(8)
+//                make.centerY.equalTo(self.contentView.snp.centerY).offset(0)
+//                make.size.equalTo(CGSize.init(width: 80, 30))
 //            })
             
             self.didMakeConstraints = true
@@ -97,7 +97,7 @@ class MySellManagerMuchTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

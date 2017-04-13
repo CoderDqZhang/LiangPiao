@@ -12,7 +12,7 @@ enum AddressType {
     case editType
 }
 
-typealias AddressInfoClouse = (model:AddressModel) -> Void
+typealias AddressInfoClouse = (_ model:AddressModel) -> Void
 typealias ReloadConfigTableView = () ->Void
 
 class AddressViewController: UIViewController {
@@ -39,21 +39,21 @@ class AddressViewController: UIViewController {
     }
     
     func setUpView() {
-        tableView = UITableView(frame: CGRectZero, style: .Plain)
+        tableView = UITableView(frame: CGRect.zero, style: .plain)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.showsVerticalScrollIndicator = false
-        tableView.keyboardDismissMode = .OnDrag
-        tableView.separatorStyle = .None
-        tableView.backgroundColor = UIColor.whiteColor()
-        tableView.registerClass(AddressTableViewCell.self, forCellReuseIdentifier: "AddressTableViewCell")
+        tableView.keyboardDismissMode = .onDrag
+        tableView.separatorStyle = .none
+        tableView.backgroundColor = UIColor.white
+        tableView.register(AddressTableViewCell.self, forCellReuseIdentifier: "AddressTableViewCell")
         self.view.addSubview(tableView)
-        tableView.snp_makeConstraints { (make) in
+        tableView.snp.makeConstraints { (make) in
             make.edges.equalTo(UIEdgeInsetsMake(0, 0, -49, 0))
         }
         
         addAddressView = AddAddressView()
-        addAddressView.addButton.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (action) in
+        addAddressView.addButton.reactive.controlEvents(.touchUpInside).observe { (action) in
             let editAddress = AddAddressViewController()
             editAddress.reloadAddressViewClouse = { _ in
                 self.reloadData()
@@ -62,49 +62,49 @@ class AddressViewController: UIViewController {
         }
         self.view.addSubview(addAddressView)
         
-        addAddressView.snp_makeConstraints { (make) in
-            make.bottom.equalTo(self.view.snp_bottom).offset(0)
-            make.left.equalTo(self.view.snp_left).offset(0)
-            make.right.equalTo(self.view.snp_right).offset(0)
+        addAddressView.snp.makeConstraints { (make) in
+            make.bottom.equalTo(self.view.snp.bottom).offset(0)
+            make.left.equalTo(self.view.snp.left).offset(0)
+            make.right.equalTo(self.view.snp.right).offset(0)
             make.height.equalTo(49)
         }
         
         self.bindViewModle()
     }
     
-    override func backBtnPress(sender: UIButton) {
+    override func backBtnPress(_ sender: UIButton) {
         if reloadConfigTableView != nil {
             reloadConfigTableView()
         }
-        self.navigationController?.popViewControllerAnimated(true)
+        self.navigationController?.popViewController(animated: true)
     }
 
     func bindViewModle(){
-        viewModel.rac_signalForSelector(#selector(AddressViewModel.tableViewDidSelectIndexPath(_:indexPath:controller:))).subscribeNext { (action) in
-        }
+//        viewModel.reactive.trigger(for: (#selector(AddressViewModel.tableViewDidSelectIndexPath(_:indexPath:controller:))).observe { (action) in
+//        }
         
         viewModel.addressTableViewSelect = { indexPath in
             if self.addressInfoClouse != nil {
-                self.addressInfoClouse(model: AddressModel.init(fromDictionary: self.viewModel.addressModels[indexPath.row] as! NSDictionary))
+                self.addressInfoClouse(AddressModel.init(fromDictionary: self.viewModel.addressModels[indexPath.row] as! NSDictionary))
             }
-            self.navigationController?.popViewControllerAnimated(true)
+            self.navigationController?.popViewController(animated: true)
         }
         viewModel.requestAddress(tableView)
         
         viewModel.reloadConfimAddress = { model in
             if self.addressInfoClouse != nil {
-                self.addressInfoClouse(model: model)
+                self.addressInfoClouse(model)
             }
         }
     }
     
-    func pushEditAddressViewController(model:AddressModel) {
+    func pushEditAddressViewController(_ model:AddressModel) {
         let editAddressView = AddAddressViewController()
         editAddressView.models = model
         editAddressView.reloadAddressViewClouse = { _ in
             self.reloadData()
         }
-        editAddressView.type = .EditType
+        editAddressView.type = .editType
         editAddressView.hidesBottomBarWhenPushed = true
         self.navigationController?.pushViewController(editAddressView, animated: true)
     }
@@ -132,36 +132,36 @@ class AddressViewController: UIViewController {
 }
 
 extension AddressViewController : UITableViewDelegate {
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         viewModel.tableViewDidSelectIndexPath(tableView, indexPath: indexPath, controller: self)
     }
     
-    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0.0001
     }
     
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0.00001
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return viewModel.tableViewHeightForRow(tableView,indexPath:indexPath)
     }
 }
 
 extension AddressViewController: UITableViewDataSource {
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.tableViewNumberRowInSection(section)
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("AddressTableViewCell", forIndexPath: indexPath) as! AddressTableViewCell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "AddressTableViewCell", for: indexPath) as! AddressTableViewCell
         viewModel.configCell(cell, indexPath: indexPath)
-        cell.selectionStyle = .None
+        cell.selectionStyle = .none
         return cell
     }
     

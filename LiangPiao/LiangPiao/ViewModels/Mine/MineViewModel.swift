@@ -7,22 +7,22 @@
 //
 
 import UIKit
-import ReactiveCocoa
+import ReactiveSwift
 
 typealias ReloadTableView = () ->Void
 
 class MineViewModel: NSObject {
 
-    var reloaTable:RACSignal!
+//    var reloaTable:SignalProducer!
     var reloadTableView:ReloadTableView!
     
     override init() {
         super.init()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MineViewModel.reloadTaleView), name: LoginStatuesChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(MineViewModel.reloadTaleView), name: NSNotification.Name(rawValue: LoginStatuesChange), object: nil)
     }
     
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
     // MARK: - Data
     
@@ -37,14 +37,14 @@ class MineViewModel: NSObject {
         return 2
     }
     
-    func numbrOfRowInSection(section:Int) ->Int {
+    func numbrOfRowInSection(_ section:Int) ->Int {
         if section == 0 {
             return 1
         }
         return 6
     }
     
-    func tableViewHeightForRow(indexPath:NSIndexPath) ->CGFloat {
+    func tableViewHeightForRow(_ indexPath:IndexPath) ->CGFloat {
         switch indexPath.section {
         case 0:
             return 255
@@ -58,7 +58,7 @@ class MineViewModel: NSObject {
         }
     }
     
-    func cellTitle(indexPathRow:Int) -> String {
+    func cellTitle(_ indexPathRow:Int) -> String {
         switch indexPathRow {
         case 0:
             return "我的钱包"
@@ -75,7 +75,7 @@ class MineViewModel: NSObject {
         }
     }
     
-    func cellImage(indexPathRow:Int) -> UIImage {
+    func cellImage(_ indexPathRow:Int) -> UIImage {
         switch indexPathRow {
         case 0:
             return UIImage.init(named: "Icon_Wallet")!
@@ -92,7 +92,7 @@ class MineViewModel: NSObject {
         }
     }
     
-    func tableViewDidSelect(indexPath:NSIndexPath, controller:MineViewController) {
+    func tableViewDidSelect(_ indexPath:IndexPath, controller:MineViewController) {
         switch indexPath.section {
         case 0:
             if UserInfoModel.isLoggedIn() {
@@ -130,7 +130,7 @@ class MineViewModel: NSObject {
     }
     
     
-    func navigationPushMysellPage(index:Int, controller:MineViewController) {
+    func navigationPushMysellPage(_ index:Int, controller:MineViewController) {
         let mySellPager = MySellPagerViewController()
         mySellPager.progressHeight = 0
         mySellPager.progressWidth = 0
@@ -145,7 +145,7 @@ class MineViewModel: NSObject {
         NavigationPushView(controller, toConroller: mySellPager)
     }
     
-    func tableViewPhotoCell(cell:MineHeadTableViewCell){
+    func tableViewPhotoCell(_ cell:MineHeadTableViewCell){
         if !UserInfoModel.isLoggedIn() {
             cell.setData("注册 / 登录", photoImage:"Avatar_Default", isLogin: false)
         }else{

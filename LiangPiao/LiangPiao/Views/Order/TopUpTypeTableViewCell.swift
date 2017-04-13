@@ -48,17 +48,17 @@ class TopUpTypeTableViewCell: UITableViewCell {
     }
     
     func hiderLineLabel(){
-        lineLabel.hidden = true
+        lineLabel.isHidden = true
     }
     
-    func setData(image:UIImage, title:String, detail:String, isSelect:Bool){
+    func setData(_ image:UIImage, title:String, detail:String, isSelect:Bool){
         touUpImage.image = image
         topUpTitle.text = title
         topUpDetail.text = detail
         self.updataSelectImage(isSelect)
     }
     
-    func updataSelectImage(isSelect:Bool){
+    func updataSelectImage(_ isSelect:Bool){
         if isSelect {
             touUpSelectImage.image = UIImage.init(named: "Checkbox_Selected")
         }else{
@@ -68,25 +68,25 @@ class TopUpTypeTableViewCell: UITableViewCell {
     
     override func updateConstraints() {
         if !self.didMakeConstraints {
-            touUpImage.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.centerY.equalTo(self.contentView.snp_centerY).offset(0)
-                make.size.equalTo(CGSizeMake(17, 16))
+            touUpImage.snp.makeConstraints({ (make) in
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.centerY.equalTo(self.contentView.snp.centerY).offset(0)
+                make.size.equalTo(CGSize.init(width: 17, height: 16))
             })
             
-            touUpSelectImage.snp_makeConstraints(closure: { (make) in
-                make.right.equalTo(self.contentView.snp_right).offset(-15)
-                make.centerY.equalTo(self.contentView.snp_centerY).offset(0)
+            touUpSelectImage.snp.makeConstraints({ (make) in
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
+                make.centerY.equalTo(self.contentView.snp.centerY).offset(0)
             })
             
-            topUpTitle.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.touUpImage.snp_right).offset(12)
-                make.top.equalTo(self.contentView.snp_top).offset(16)
+            topUpTitle.snp.makeConstraints({ (make) in
+                make.left.equalTo(self.touUpImage.snp.right).offset(12)
+                make.top.equalTo(self.contentView.snp.top).offset(16)
             })
             
-            topUpDetail.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.touUpImage.snp_right).offset(12)
-                make.top.equalTo(self.topUpTitle.snp_bottom).offset(2)
+            topUpDetail.snp.makeConstraints({ (make) in
+                make.left.equalTo(self.touUpImage.snp.right).offset(12)
+                make.top.equalTo(self.topUpTitle.snp.bottom).offset(2)
             })
             
             self.didMakeConstraints = true
@@ -103,7 +103,7 @@ class TopUpTypeTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

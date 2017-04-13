@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import ReactiveCocoa
+import ReactiveSwift
 
 class TicketConfirmViewController: UIViewController {
 
@@ -17,7 +17,7 @@ class TicketConfirmViewController: UIViewController {
     let viewModel = OrderConfirmViewModel()
     var expressage:ZHPickView!
     
-    var muchOfTicket:RACDisposable!
+    var muchOfTicket:Disposable!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,22 +35,22 @@ class TicketConfirmViewController: UIViewController {
     
     func showExpressagePickerView(){
         if expressage == nil {
-            let typeArray = viewModel.ticketModel.deliveryType.componentsSeparatedByString(",")
+            let typeArray = viewModel.ticketModel.deliveryType.components(separatedBy: ",")
             let array = NSMutableArray.init(array: [])
             for index in typeArray {
                 if index == "1" {
-                    array.addObject("普通快递（\(viewModel.ticketModel.deliveryPrice)元")
-                    array.addObject("顺丰快递（\(viewModel.ticketModel.deliveryPriceSf)元)")
+                    array.add("普通快递（\((viewModel.ticketModel.deliveryPrice)!)元")
+                    array.add("顺丰快递（\((viewModel.ticketModel.deliveryPriceSf)!)元)")
                 }else if index == "4" {
-                    array.addObject("快递到付")
+                    array.add("快递到付")
                 }
             }
-            expressage = ZHPickView(pickviewWithArray: array as [AnyObject], isHaveNavControler: false)
-            expressage.setPickViewColer(UIColor.whiteColor())
-            expressage.setPickViewColer(UIColor.whiteColor())
-            expressage.setTintColor(UIColor.whiteColor())
+            expressage = ZHPickView(pickviewWith: array as [AnyObject], isHaveNavControler: false)
+            expressage.setPickViewColer(UIColor.white)
+            expressage.setPickViewColer(UIColor.white)
+            expressage.setTintColor(UIColor.white)
             expressage.tag = 1
-            expressage.setToolbarTintColor(UIColor.whiteColor())
+            expressage.setToolbarTintColor(UIColor.white)
             expressage.setTintFont(App_Theme_PinFan_R_13_Font, color: UIColor.init(hexString: App_Theme_384249_Color))
             expressage.delegate = self
         }
@@ -61,40 +61,40 @@ class TicketConfirmViewController: UIViewController {
     func setUpView() {
         self.setNavigationItemBack()
         
-        orderConfirm = ConfirmView(frame: CGRectMake(0, SCREENHEIGHT - 49 - 64, SCREENHEIGHT, 49))
-        orderConfirm.payButton.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (action) in            
+        orderConfirm = ConfirmView(frame: CGRect(x: 0, y: SCREENHEIGHT - 49 - 64, width: SCREENHEIGHT, height: 49))
+        orderConfirm.payButton.reactive.controlEvents(.touchUpInside).observe { (action) in            
             self.viewModel.createOrder()
         }
         
-        muchOfTicket = viewModel.rac_observeKeyPath("muchOfTicketWithOther", options: .New, observer: self) { (object, objects, new, old) in
-            self.orderConfirm.setMuchLabelText(("\((object as? String)!)"))
+        viewModel.reactive.producer(forKeyPath: "muchOfTicketWithOther").start { (event) in
+            self.orderConfirm.setMuchLabelText(("\((event.value as? String)!)"))
         }
         
         self.view.addSubview(orderConfirm)
         
-        tableView = UITableView(frame: CGRectZero, style: .Grouped)
+        tableView = UITableView(frame: CGRect.zero, style: .grouped)
         tableView.backgroundColor = UIColor.init(hexString: App_Theme_E9EBF2_Color)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.showsVerticalScrollIndicator = false
-        tableView.keyboardDismissMode = .OnDrag
-        tableView.registerClass(DetailAddressTableViewCell.self, forCellReuseIdentifier: "DetailAddressTableViewCell")
-        tableView.registerClass(GloabTitleAndImageCell.self, forCellReuseIdentifier: "GloabTitleAndImageCell")
-        tableView.registerClass(GloabTitleAndDetailImageCell.self, forCellReuseIdentifier: "GloabTitleAndDetailImageCell")
-        tableView.registerClass(GloabTitleAndDetailCell.self, forCellReuseIdentifier: "GloabTitleAndDetailCell")
-        tableView.registerClass(CofimTicketTableViewCell.self, forCellReuseIdentifier: "CofimTicketTableViewCell")
-        tableView.registerClass(OrderConfirmAddressTableViewCell.self, forCellReuseIdentifier: "OrderConfirmAddressTableViewCell")
-        tableView.registerClass(GloabTextFieldCell.self, forCellReuseIdentifier: "GloabTextFieldCell")
-        tableView.registerClass(TicketNumberTableViewCell.self, forCellReuseIdentifier: "TicketNumberTableViewCell")
-        tableView.registerClass(ReciveTableViewCell.self, forCellReuseIdentifier: "ReciveTableViewCell")
-        tableView.separatorStyle = .None
+        tableView.keyboardDismissMode = .onDrag
+        tableView.register(DetailAddressTableViewCell.self, forCellReuseIdentifier: "DetailAddressTableViewCell")
+        tableView.register(GloabTitleAndImageCell.self, forCellReuseIdentifier: "GloabTitleAndImageCell")
+        tableView.register(GloabTitleAndDetailImageCell.self, forCellReuseIdentifier: "GloabTitleAndDetailImageCell")
+        tableView.register(GloabTitleAndDetailCell.self, forCellReuseIdentifier: "GloabTitleAndDetailCell")
+        tableView.register(CofimTicketTableViewCell.self, forCellReuseIdentifier: "CofimTicketTableViewCell")
+        tableView.register(OrderConfirmAddressTableViewCell.self, forCellReuseIdentifier: "OrderConfirmAddressTableViewCell")
+        tableView.register(GloabTextFieldCell.self, forCellReuseIdentifier: "GloabTextFieldCell")
+        tableView.register(TicketNumberTableViewCell.self, forCellReuseIdentifier: "TicketNumberTableViewCell")
+        tableView.register(ReciveTableViewCell.self, forCellReuseIdentifier: "ReciveTableViewCell")
+        tableView.separatorStyle = .none
         self.view.addSubview(tableView)
 
-        tableView.snp_makeConstraints { (make) in
-            make.top.equalTo(self.view.snp_top).offset(0)
-            make.left.equalTo(self.view.snp_left).offset(0)
-            make.right.equalTo(self.view.snp_right).offset(0)
-            make.bottom.equalTo(self.view.snp_bottom).offset(-49)
+        tableView.snp.makeConstraints { (make) in
+            make.top.equalTo(self.view.snp.top).offset(0)
+            make.left.equalTo(self.view.snp.left).offset(0)
+            make.right.equalTo(self.view.snp.right).offset(0)
+            make.bottom.equalTo(self.view.snp.bottom).offset(-49)
         }
         
     }
@@ -117,14 +117,14 @@ class TicketConfirmViewController: UIViewController {
                         controller.addressInfoClouse = { model in
                             self.viewModel.addressModel = model
                             self.viewModel.orderForme.addressId = model.id
-                            self.tableView.reloadRowsAtIndexPaths([NSIndexPath.init(forRow: 1, inSection: 0)], withRowAnimation: .Automatic)
-                            let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath.init(forRow: 1, inSection: 0)) as! OrderConfirmAddressTableViewCell
+                            self.tableView.reloadRows(at: [IndexPath.init(row: 1, section: 0)], with: .automatic)
+                            let cell = self.tableView.cellForRow(at: IndexPath.init(row: 1, section: 0)) as! OrderConfirmAddressTableViewCell
                             cell.setData(model, type: .withAddress)
                             
                         }
                         
                         controller.reloadConfigTableView = { _ in
-                            self.tableView.reloadRowsAtIndexPaths([NSIndexPath.init(forRow: 1, inSection: 0)], withRowAnimation: .Automatic)
+                            self.tableView.reloadRows(at: [IndexPath.init(row: 1, section: 0)], with: .automatic)
                         }
                         
                         controller.hidesBottomBarWhenPushed = true
@@ -164,32 +164,32 @@ class TicketConfirmViewController: UIViewController {
     }
     */
     func ticketIntrductView() -> UIView {
-        let ticketIntrductView = UIView(frame: CGRectMake(0,0,SCREENWIDTH,67))
+        let ticketIntrductView = UIView(frame: CGRect(x: 0,y: 0,width: SCREENWIDTH,height: 67))
         ticketIntrductView.backgroundColor = UIColor.init(hexString: App_Theme_E9EBF2_Color)
-        let imageView = UIImageView(frame:CGRectMake(0,0,SCREENWIDTH,4))
+        let imageView = UIImageView(frame:CGRect(x: 0,y: 0,width: SCREENWIDTH,height: 4))
         imageView.image = UIImage.init(named: "Sawtooth")//Pattern_Line
         ticketIntrductView.addSubview(imageView)
         
-        let label = self.createLabel(CGRectMake(15,20,200,17), text: "票品售出后不可退换，可转售")
+        let label = self.createLabel(CGRect(x: 15,y: 20,width: 200,height: 17), text: "票品售出后不可退换，可转售")
         ticketIntrductView.addSubview(label)
         return ticketIntrductView
     }
     
     func orderConfirmView() -> UIView {
-        let orderConfirmView = UIView(frame: CGRectMake(0,0,SCREENWIDTH,105))
+        let orderConfirmView = UIView(frame: CGRect(x: 0,y: 0,width: SCREENWIDTH,height: 105))
         orderConfirmView.backgroundColor = UIColor.init(hexString: App_Theme_E9EBF2_Color)
 //        let imageView = UIImageView(frame:CGRectMake(0,0,SCREENWIDTH,4))
 //        imageView.image = UIImage.init(named: "Pattern_Line")//Pattern_Line
 //        orderConfirmView.addSubview(imageView)
         
         if viewModel.formType != .withNomal {
-            let address = self.createLabel(CGRectMake(15,20,SCREENWIDTH - 30,17), text: "取票地点：\(viewModel.ticketModel.sceneGetTicketAddress)")
+            let address = self.createLabel(CGRect(x: 15,y: 20,width: SCREENWIDTH - 30,height: 17), text: "取票地点：\((viewModel.ticketModel.sceneGetTicketAddress)!)")
             orderConfirmView.addSubview(address)
             
-            let time = self.createLabel(CGRectMake(15,39,SCREENWIDTH - 30,17), text: "取票时间：\(viewModel.ticketModel.sceneGetTicketDate)")
+            let time = self.createLabel(CGRect(x: 15,y: 39,width: SCREENWIDTH - 30,height: 17), text: "取票时间：\((viewModel.ticketModel.sceneGetTicketDate)!)")
             orderConfirmView.addSubview(time)
             
-            let instroduct = self.createLabel(CGRectMake(15,58,SCREENWIDTH - 30,17), text: "客服热线：400-873-8011")
+            let instroduct = self.createLabel(CGRect(x: 15,y: 58,width: SCREENWIDTH - 30,height: 17), text: "客服热线：400-873-8011")
             orderConfirmView.addSubview(instroduct)
             
         }
@@ -200,7 +200,7 @@ class TicketConfirmViewController: UIViewController {
         self.tableView.reloadData()
     }
     
-    func createLabel(frame:CGRect, text:String) -> UILabel {
+    func createLabel(_ frame:CGRect, text:String) -> UILabel {
         let label = UILabel(frame: frame)
         label.text = text
         label.font = App_Theme_PinFan_R_12_Font
@@ -210,30 +210,30 @@ class TicketConfirmViewController: UIViewController {
 
 }
 extension TicketConfirmViewController : UITableViewDelegate {
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 3
     }
     
-    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return viewModel.tableViewHeightForFooterInSection(section)
     }
     
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0.0001
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return viewModel.tableViewHeightForRowAtIndexPath(tableView,indexPath:indexPath)
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         viewModel.tableViewDidSelect(tableView, indexPath:indexPath)
     }
 }
 
 extension TicketConfirmViewController : UITableViewDataSource {
     
-    func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         if section == 0 {
             return self.orderConfirmView()
         }else if section == 2 {
@@ -243,44 +243,44 @@ extension TicketConfirmViewController : UITableViewDataSource {
         }
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.tableViewNumberOfRowsInSection(section)
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         case 0:
             switch indexPath.row {
             case 0:
-                let cell = tableView.dequeueReusableCellWithIdentifier("ReciveTableViewCell", forIndexPath: indexPath) as! ReciveTableViewCell
-                cell.selectionStyle = .None
+                let cell = tableView.dequeueReusableCell(withIdentifier: "ReciveTableViewCell", for: indexPath) as! ReciveTableViewCell
+                cell.selectionStyle = .none
                 viewModel.tableViewCellReciveTableViewCell(cell)
                 return cell
             default:
                 if viewModel.formType == .withAddress {
-                    let cell = tableView.dequeueReusableCellWithIdentifier("GloabTextFieldCell", forIndexPath: indexPath) as! GloabTextFieldCell
-                    cell.selectionStyle = .None
+                    let cell = tableView.dequeueReusableCell(withIdentifier: "GloabTextFieldCell", for: indexPath) as! GloabTextFieldCell
+                    cell.selectionStyle = .none
                     cell.textField.delegate = self
                     cell.textField.tag = indexPath.row
                     if indexPath.row == 1 {
                         cell.setData(viewModel.configCellLabel(indexPath), detail: "取票人姓名")
-                        cell.textField.rac_textSignal().subscribeNext({ (action) in
-                            self.viewModel.orderForme.name = action as? String
+                        cell.textField.reactive.continuousTextValues.observeValues({ (text) in
+                            self.viewModel.orderForme.name = text!
                         })
-                        cell.textField.keyboardType = .NamePhonePad
-                        cell.textField.returnKeyType = .Next
+                        cell.textField.keyboardType = .namePhonePad
+                        cell.textField.returnKeyType = .next
                     }else{
                         cell.setData(viewModel.configCellLabel(indexPath), detail: "取票人手机号码")
-                        cell.textField.rac_textSignal().subscribeNext({ (action) in
-                            self.viewModel.orderForme.phone = action as? String
+                        cell.textField.reactive.continuousTextValues.observeValues({ (text) in
+                            self.viewModel.orderForme.phone = text!
                         })
-                        cell.textField.keyboardType = .PhonePad
+                        cell.textField.keyboardType = .phonePad
                         cell.hideLineLabel()
                     }
                     return cell
                 }else{
                     if indexPath.row == 1 {
-                        let cell = tableView.dequeueReusableCellWithIdentifier("OrderConfirmAddressTableViewCell", forIndexPath: indexPath) as! OrderConfirmAddressTableViewCell
+                        let cell = tableView.dequeueReusableCell(withIdentifier: "OrderConfirmAddressTableViewCell", for: indexPath) as! OrderConfirmAddressTableViewCell
                         if UserInfoModel.isLoggedIn() && AddressModel.haveAddress() {
                             let addressModels = AddressModel.unarchiveObjectWithFile()
                             if addressModels.count > 0 && !viewModel.isHaveModel {
@@ -291,15 +291,15 @@ extension TicketConfirmViewController : UITableViewDataSource {
                                 viewModel.isHaveModel = true
                             }
                         }
-                        cell.selectionStyle = .None
+                        cell.selectionStyle = .none
                         return cell
                     }else{
-                        let cell = tableView.dequeueReusableCellWithIdentifier("GloabTitleAndDetailImageCell", forIndexPath: indexPath) as! GloabTitleAndDetailImageCell
-                        cell.selectionStyle = .None
-                        let typeArray = viewModel.ticketModel.deliveryType.componentsSeparatedByString(",")
+                        let cell = tableView.dequeueReusableCell(withIdentifier: "GloabTitleAndDetailImageCell", for: indexPath) as! GloabTitleAndDetailImageCell
+                        cell.selectionStyle = .none
+                        let typeArray = viewModel.ticketModel.deliveryType.components(separatedBy: ",")
                         for index in typeArray {
                             if index == "1" {
-                                cell.setData(viewModel.configCellLabel(indexPath), detail: "普通快递（\(viewModel.ticketModel.deliveryPrice)元）")
+                                cell.setData(viewModel.configCellLabel(indexPath), detail: "普通快递（\((viewModel.ticketModel.deliveryPrice)!)元）")
                                 self.viewModel.delivityType = .delivityNomal
                                 break;
                             }else if index == "4" {
@@ -318,35 +318,35 @@ extension TicketConfirmViewController : UITableViewDataSource {
         case 1:
             switch indexPath.row {
             case 0:
-                let cell = tableView.dequeueReusableCellWithIdentifier("CofimTicketTableViewCell", forIndexPath: indexPath) as! CofimTicketTableViewCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: "CofimTicketTableViewCell", for: indexPath) as! CofimTicketTableViewCell
                 viewModel.tableViewCellCofimTicketTableViewCell(cell)
-                cell.selectionStyle = .None
+                cell.selectionStyle = .none
                 return cell
             case 1:
-                let cell = tableView.dequeueReusableCellWithIdentifier("TicketNumberTableViewCell", forIndexPath: indexPath) as! TicketNumberTableViewCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: "TicketNumberTableViewCell", for: indexPath) as! TicketNumberTableViewCell
                 viewModel.configCellTicketNumberTableViewCell(cell)
-                cell.selectionStyle = .None
+                cell.selectionStyle = .none
                 return cell
             case 2,4:
-                let cell = tableView.dequeueReusableCellWithIdentifier("GloabTitleAndDetailCell", forIndexPath: indexPath) as! GloabTitleAndDetailCell
-                cell.selectionStyle = .None
+                let cell = tableView.dequeueReusableCell(withIdentifier: "GloabTitleAndDetailCell", for: indexPath) as! GloabTitleAndDetailCell
+                cell.selectionStyle = .none
                 viewModel.tableViewCellGloabTitleAndDetailCell(cell, indexPath:indexPath)
                 return cell
             case 3:
-                let cell = tableView.dequeueReusableCellWithIdentifier("GloabTitleAndDetailImageCell", forIndexPath: indexPath) as! GloabTitleAndDetailImageCell
-                cell.selectionStyle = .None
+                let cell = tableView.dequeueReusableCell(withIdentifier: "GloabTitleAndDetailImageCell", for: indexPath) as! GloabTitleAndDetailImageCell
+                cell.selectionStyle = .none
                 cell.setData(viewModel.configCellLabel(indexPath), detail: "无可用")
                 return cell
             default:
-                let cell = tableView.dequeueReusableCellWithIdentifier("DetailAddressTableViewCell", forIndexPath: indexPath) as! DetailAddressTableViewCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: "DetailAddressTableViewCell", for: indexPath) as! DetailAddressTableViewCell
                 cell.textView.delegate = self
-                cell.selectionStyle = .None
+                cell.selectionStyle = .none
                 cell.setPlaceholerText("备注：如配单、代发快递等")
                 return cell
             }
             
         default:
-            let cell = tableView.dequeueReusableCellWithIdentifier("GloabTitleAndImageCell", forIndexPath: indexPath) as! GloabTitleAndImageCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "GloabTitleAndImageCell", for: indexPath) as! GloabTitleAndImageCell
             if WXApi.isWXAppInstalled() {
                 if indexPath.row == 1 {
                     cell.hideLineLabel()
@@ -369,14 +369,14 @@ extension TicketConfirmViewController : UITableViewDataSource {
                 cell.hideLineLabel()
             }
             
-            cell.selectionStyle = .None
+            cell.selectionStyle = .none
             
             return cell
         }
     }
 }
 extension TicketConfirmViewController : ZHPickViewDelegate {
-    func toobarDonBtnHaveClick(pickView: ZHPickView!, resultString: String!) {
+    func toobarDonBtnHaveClick(_ pickView: ZHPickView!, resultString: String!) {
         if resultString != nil {
             viewModel.updateCellString(tableView, string: resultString)
         }
@@ -384,14 +384,14 @@ extension TicketConfirmViewController : ZHPickViewDelegate {
 }
 
 extension TicketConfirmViewController : UITextFieldDelegate {
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
 
         return true
     }
 }
 
 extension TicketConfirmViewController : UITextViewDelegate {
-    func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         if text == "\n" {
             textView.resignFirstResponder()
         }

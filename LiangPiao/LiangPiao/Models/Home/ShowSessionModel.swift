@@ -11,7 +11,7 @@ import Foundation
 class ShowSessionModel : NSObject, NSCoding{
     
     var endTime : String!
-    var id : Int!
+    var id : Int64!
     var minDiscount : String!
     var minPrice : Int!
     var name : String!
@@ -29,7 +29,7 @@ class ShowSessionModel : NSObject, NSCoding{
      */
     init(fromDictionary dictionary: NSDictionary){
         endTime = dictionary["end_time"] as? String
-        id = dictionary["id"] as? Int
+        id = dictionary["id"] as? Int64
         minDiscount = dictionary["min_discount"] as? String
         minPrice = dictionary["min_price"] as? Int
         name = dictionary["name"] as? String
@@ -103,18 +103,18 @@ class ShowSessionModel : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        endTime = aDecoder.decodeObjectForKey("end_time") as? String
-        id = aDecoder.decodeObjectForKey("id") as? Int
-        minDiscount = aDecoder.decodeObjectForKey("min_discount") as? String
-        minPrice = aDecoder.decodeObjectForKey("min_price") as? Int
-        name = aDecoder.decodeObjectForKey("name") as? String
-        openRegions = aDecoder.decodeObjectForKey("open_regions") as? String
-        otherRegions = aDecoder.decodeObjectForKey("other_regions") as? String
-        startTime = aDecoder.decodeObjectForKey("start_time") as? String
-        ticketCount = aDecoder.decodeObjectForKey("ticket_count") as? Int
-        ticketList = aDecoder.decodeObjectForKey("ticket_list") as? [TicketList]
-        ticketStatus = aDecoder.decodeObjectForKey("ticket_status") as? Int
-        venueMap = aDecoder.decodeObjectForKey("venue_map") as? String
+        endTime = aDecoder.decodeObject(forKey: "end_time") as? String
+        id = aDecoder.decodeObject(forKey: "id") as? Int64
+        minDiscount = aDecoder.decodeObject(forKey: "min_discount") as? String
+        minPrice = aDecoder.decodeObject(forKey: "min_price") as? Int
+        name = aDecoder.decodeObject(forKey: "name") as? String
+        openRegions = aDecoder.decodeObject(forKey: "open_regions") as? String
+        otherRegions = aDecoder.decodeObject(forKey: "other_regions") as? String
+        startTime = aDecoder.decodeObject(forKey: "start_time") as? String
+        ticketCount = aDecoder.decodeObject(forKey: "ticket_count") as? Int
+        ticketList = aDecoder.decodeObject(forKey: "ticket_list") as? [TicketList]
+        ticketStatus = aDecoder.decodeObject(forKey: "ticket_status") as? Int
+        venueMap = aDecoder.decodeObject(forKey: "venue_map") as? String
 
         
     }
@@ -123,43 +123,43 @@ class ShowSessionModel : NSObject, NSCoding{
      * NSCoding required method.
      * Encodes mode properties into the decoder
      */
-    @objc func encodeWithCoder(aCoder: NSCoder)
+    @objc func encode(with aCoder: NSCoder)
     {
         if endTime != nil{
-            aCoder.encodeObject(endTime, forKey: "end_time")
+            aCoder.encode(endTime, forKey: "end_time")
         }
         if id != nil{
-            aCoder.encodeObject(id, forKey: "id")
+            aCoder.encode(id, forKey: "id")
         }
         if minDiscount != nil{
-            aCoder.encodeObject(minDiscount, forKey: "min_discount")
+            aCoder.encode(minDiscount, forKey: "min_discount")
         }
         if minPrice != nil{
-            aCoder.encodeObject(minPrice, forKey: "min_price")
+            aCoder.encode(minPrice, forKey: "min_price")
         }
         if name != nil{
-            aCoder.encodeObject(name, forKey: "name")
+            aCoder.encode(name, forKey: "name")
         }
         if openRegions != nil{
-            aCoder.encodeObject(openRegions, forKey: "open_regions")
+            aCoder.encode(openRegions, forKey: "open_regions")
         }
         if otherRegions != nil{
-            aCoder.encodeObject(otherRegions, forKey: "other_regions")
+            aCoder.encode(otherRegions, forKey: "other_regions")
         }
         if startTime != nil{
-            aCoder.encodeObject(startTime, forKey: "start_time")
+            aCoder.encode(startTime, forKey: "start_time")
         }
         if ticketCount != nil{
-            aCoder.encodeObject(ticketCount, forKey: "ticket_count")
+            aCoder.encode(ticketCount, forKey: "ticket_count")
         }
         if ticketList != nil{
-            aCoder.encodeObject(ticketList, forKey: "ticket_list")
+            aCoder.encode(ticketList, forKey: "ticket_list")
         }
         if ticketStatus != nil{
-            aCoder.encodeObject(ticketStatus, forKey: "ticket_status")
+            aCoder.encode(ticketStatus, forKey: "ticket_status")
         }
         if venueMap != nil{
-            aCoder.encodeObject(venueMap, forKey: "venue_map")
+            aCoder.encode(venueMap, forKey: "venue_map")
         }
         
     }

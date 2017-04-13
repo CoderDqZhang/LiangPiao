@@ -29,7 +29,7 @@ class MySellAttentionTableViewCell: UITableViewCell {
         attentionDec = UILabel()
         attentionDec.text = "售卖价格：售价过高，当前区域平均售价 680 元"
         attentionDec.textColor = UIColor.init(hexString: App_Theme_BBC1CB_Color)
-        let strArray = attentionDec.text?.componentsSeparatedByString(" ")
+        let strArray = attentionDec.text?.components(separatedBy: " ")
         let strAttribute = NSMutableAttributedString.init(string: attentionDec.text!)
         strAttribute.addAttributes([NSForegroundColorAttributeName:UIColor.init(hexString: App_Theme_4BD4C5_Color)], range: NSRange.init(location: strArray![0].length + 1, length: strArray![1].length))
 
@@ -49,28 +49,28 @@ class MySellAttentionTableViewCell: UITableViewCell {
         self.updateConstraintsIfNeeded()
     }
     
-    func setMuchLabelText(text:String){
+    func setMuchLabelText(_ text:String){
 //        muchLabel.text = text
     }
     
     override func updateConstraints() {
         if !self.didMakeConstraints {
             
-            attentionImageView.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.centerY.equalTo(self.contentView.snp_centerY).offset(2)
+            attentionImageView.snp.makeConstraints({ (make) in
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.centerY.equalTo(self.contentView.snp.centerY).offset(2)
             })
             
-            attentionDec.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.attentionImageView.snp_right).offset(8)
-                make.centerY.equalTo(self.contentView.snp_centerY).offset(2)
+            attentionDec.snp.makeConstraints({ (make) in
+                make.left.equalTo(self.attentionImageView.snp.right).offset(8)
+                make.centerY.equalTo(self.contentView.snp.centerY).offset(2)
             })
             
-            attentionLineView.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.contentView.snp_left).offset(15)
+            attentionLineView.snp.makeConstraints({ (make) in
+                make.left.equalTo(self.contentView.snp.left).offset(15)
                 make.height.equalTo(4)
-                make.top.equalTo(self.contentView.snp_top).offset(0)
-                make.right.equalTo(self.contentView.snp_right).offset(-15)
+                make.top.equalTo(self.contentView.snp.top).offset(0)
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
             })
             
             self.didMakeConstraints = true
@@ -83,7 +83,7 @@ class MySellAttentionTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

@@ -32,18 +32,19 @@ class TicketMapTableViewCell: UITableViewCell {
         self.updateConstraintsIfNeeded()
     }
     
-    func setData(imageUrl:String){
-        ticketMap.sd_setImageWithURL(NSURL.init(string: imageUrl), placeholderImage: UIImage.init(color: UIColor.init(hexString: App_Theme_F6F7FA_Color), size: CGSize.init(width: SCREENWIDTH, height: 170))) { (image, error, cacheType, url) in
-        }
+    func setData(_ imageUrl:String){
+//        ticketMap.sd_setImage(with: URL.init(string: imageUrl), placeholderImage: UIImage.init(color: UIColor.init(hexString: App_Theme_F6F7FA_Color), size: CGSize.init(width: SCREENWIDTH, height: 170))) { (image, error, cache, url) in
+//            
+//        }
     }
     
     override func updateConstraints() {
         if !self.didMakeConstraits {
-            ticketMap.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.contentView.snp_left).offset(0)
-                make.right.equalTo(self.contentView.snp_right).offset(0)
-                make.top.equalTo(self.contentView.snp_top).offset(0)
-                make.bottom.equalTo(self.contentView.snp_bottom).offset(-10)
+            ticketMap.snp.makeConstraints({ (make) in
+                make.left.equalTo(self.contentView.snp.left).offset(0)
+                make.right.equalTo(self.contentView.snp.right).offset(0)
+                make.top.equalTo(self.contentView.snp.top).offset(0)
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(-10)
             })
             
             self.didMakeConstraits = true
@@ -57,7 +58,7 @@ class TicketMapTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

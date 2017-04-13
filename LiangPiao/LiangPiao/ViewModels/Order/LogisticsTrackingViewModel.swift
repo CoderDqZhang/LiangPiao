@@ -21,7 +21,7 @@ class LogisticsTrackingViewModel: NSObject {
         return "物流追踪"
     }
     
-    func tableViewNumberRowInSection(section:Int) ->Int {
+    func tableViewNumberRowInSection(_ section:Int) ->Int {
         switch section {
         case 0:
             return 1
@@ -30,7 +30,7 @@ class LogisticsTrackingViewModel: NSObject {
         }
     }
     
-    func estimatedHeightForRowAtIndexPath(indexPath:NSIndexPath) -> CGFloat {
+    func estimatedHeightForRowAtIndexPath(_ indexPath:IndexPath) -> CGFloat {
         switch indexPath.section {
         case 0:
             return 124
@@ -39,37 +39,37 @@ class LogisticsTrackingViewModel: NSObject {
         }
     }
     
-    func tableViewHeightForRowAtIndexPath(tableView:UITableView, indexPath:NSIndexPath) -> CGFloat {
+    func tableViewHeightForRowAtIndexPath(_ tableView:UITableView, indexPath:IndexPath) -> CGFloat {
         switch indexPath.section {
         case 0:
-            return tableView.fd_heightForCellWithIdentifier("LogisticsTableViewCell", configuration: { (cell) in
+            return tableView.fd_heightForCell(withIdentifier: "LogisticsTableViewCell", configuration: { (cell) in
                 self.configCellReviceCell(cell as! LogisticsTableViewCell, indexPath: indexPath)
             })
         default:
-            return tableView.fd_heightForCellWithIdentifier("DeverliyTypeTableViewCell", configuration: { (cell) in
+            return tableView.fd_heightForCell(withIdentifier: "DeverliyTypeTableViewCell", configuration: { (cell) in
                 self.configCellDeverliyTypeTableViewCell(cell as! DeverliyTypeTableViewCell, indexPath: indexPath)
             })
         }
     }
     
-    func configCellDeverliyTypeTableViewCell(cell:DeverliyTypeTableViewCell, indexPath:NSIndexPath) {
-        let type:DeverliyTypeTableViewCellType = indexPath.row == 0 ? .Doing : indexPath.row < self.deverliyModel.traces.count ? .Done : .None
+    func configCellDeverliyTypeTableViewCell(_ cell:DeverliyTypeTableViewCell, indexPath:IndexPath) {
+        let type:DeverliyTypeTableViewCellType = indexPath.row == 0 ? .doing : indexPath.row < self.deverliyModel.traces.count ? .done : .none
         cell.setUpData(self.deverliyModel.traces[indexPath.row], type: type)
     }
     
-    func tableViewHeiFootView(tableView:UITableView, section:Int) ->CGFloat{
+    func tableViewHeiFootView(_ tableView:UITableView, section:Int) ->CGFloat{
         return 10
     }
     
-    func configCellReviceCell(cell:LogisticsTableViewCell, indexPath:NSIndexPath) {
+    func configCellReviceCell(_ cell:LogisticsTableViewCell, indexPath:IndexPath) {
         cell.setUpData(self.deverliyModel, info: "由 \(self.userAddressInfoTitle()) 负责承运")
     }
     
-    func tableViewCellUserAddressTableViewCell(cell:LogisticsTableViewCell, indexPath:NSIndexPath){
+    func tableViewCellUserAddressTableViewCell(_ cell:LogisticsTableViewCell, indexPath:IndexPath){
         self.configCellReviceCell(cell, indexPath: indexPath)
     }
     
-    func tableViewDeverliyTypeTableViewCell(cell:DeverliyTypeTableViewCell, indexPath:NSIndexPath) {
+    func tableViewDeverliyTypeTableViewCell(_ cell:DeverliyTypeTableViewCell, indexPath:IndexPath) {
         self.configCellDeverliyTypeTableViewCell(cell, indexPath: indexPath)
     }
     

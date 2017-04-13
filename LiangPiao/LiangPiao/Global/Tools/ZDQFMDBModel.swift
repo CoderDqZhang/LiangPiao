@@ -14,14 +14,14 @@ class ZDQFMDBModel: NSObject {
     func getAllPropertys()->[String]{
         
         var result = [String]()
-        let count = UnsafeMutablePointer<UInt32>.alloc(0)
+        let count = UnsafeMutablePointer<UInt32>.allocate(capacity: 0)
         let buff = class_copyPropertyList(object_getClass(self), count)
         let countInt = Int(count[0])
         
         for i in 0 ..< countInt {
-            let temp = buff[i]
+            let temp = buff?[i]
             let tempPro = property_getName(temp)
-            let proper = String.init(UTF8String: tempPro)
+            let proper = String.init(validatingUTF8: tempPro!)
             result.append(proper!)
             
         }

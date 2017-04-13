@@ -22,7 +22,7 @@ class MySellServiceTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.backgroundColor = UIColor.whiteColor()
+        self.backgroundColor = UIColor.white
         self.setUpView()
     }
     
@@ -33,7 +33,7 @@ class MySellServiceTableViewCell: UITableViewCell {
         
         muchLabel = UILabel()
         muchLabel.text = "交易手续费：00.00 元"
-        UILabel.changeLineSpaceForLabel(muchLabel, withSpace: 3.0)
+        UILabel.changeLineSpace(for: muchLabel, withSpace: 3.0)
         muchLabel.textColor = UIColor.init(hexString: App_Theme_384249_Color)
         muchLabel.font = App_Theme_PinFan_R_13_Font
         muchLabel.numberOfLines = 0
@@ -57,40 +57,40 @@ class MySellServiceTableViewCell: UITableViewCell {
     }
     
 
-    func setData(much:String, servicemuch:String, sevicep:String, type:NSInteger){
+    func setData(_ much:String, servicemuch:String, sevicep:String, type:NSInteger){
         muchLabel.text = much
         seveiceMuch.text = servicemuch
         serviceP.text = sevicep
-        UILabel.changeLineSpaceForLabel(serviceP, withSpace: 2.0)
+        UILabel.changeLineSpace(for: serviceP, withSpace: 2.0)
         switch type {
         case 0:
-            muchLabel.snp_remakeConstraints(closure: { (make) in
-                make.top.equalTo(self.contentView.snp_top).offset(26)
-                make.left.equalTo(self.contentView.snp_left).offset(15)
+            muchLabel.snp.remakeConstraints({ (make) in
+                make.top.equalTo(self.contentView.snp.top).offset(26)
+                make.left.equalTo(self.contentView.snp.left).offset(15)
             })
-            seveiceImage.snp_remakeConstraints(closure: { (make) in
-                make.top.equalTo(self.contentView.snp_top).offset(26)
-                make.left.equalTo(self.seveiceMuch.snp_right).offset(8)
-                make.size.equalTo(CGSizeMake(15, 15))
+            seveiceImage.snp.remakeConstraints({ (make) in
+                make.top.equalTo(self.contentView.snp.top).offset(26)
+                make.left.equalTo(self.seveiceMuch.snp.right).offset(8)
+                make.size.equalTo(CGSize.init(width: 15, height: 15))
             })
-            seveiceMuch.snp_remakeConstraints(closure: { (make) in
-                make.top.equalTo(self.contentView.snp_top).offset(26)
-                make.left.equalTo(self.muchLabel.snp_right).offset(20)
+            seveiceMuch.snp.remakeConstraints({ (make) in
+                make.top.equalTo(self.contentView.snp.top).offset(26)
+                make.left.equalTo(self.muchLabel.snp.right).offset(20)
             })
-            let strArray = much.componentsSeparatedByString(" ")
+            let strArray = much.components(separatedBy: " ")
             let strribute = NSMutableAttributedString.init(string: much)
             strribute.addAttributes([NSForegroundColorAttributeName:UIColor.init(hexString: App_Theme_4BD4C5_Color)], range: NSRange.init(location: strArray[0].length + 1, length: strArray[1].length))
             muchLabel.attributedText = strribute
         default:
-            seveiceImage.snp_remakeConstraints(closure: { (make) in
-                make.top.equalTo(self.contentView.snp_top).offset(26)
-                make.left.equalTo(self.seveiceMuch.snp_right).offset(8)
-                make.size.equalTo(CGSizeMake(15, 15))
+            seveiceImage.snp.remakeConstraints({ (make) in
+                make.top.equalTo(self.contentView.snp.top).offset(26)
+                make.left.equalTo(self.seveiceMuch.snp.right).offset(8)
+                make.size.equalTo(CGSize.init(width: 15, height: 15))
             })
             
-            seveiceMuch.snp_remakeConstraints(closure: { (make) in
-                make.top.equalTo(self.contentView.snp_top).offset(26)
-                make.left.equalTo(self.muchLabel.snp_right).offset(20)
+            seveiceMuch.snp.remakeConstraints({ (make) in
+                make.top.equalTo(self.contentView.snp.top).offset(26)
+                make.left.equalTo(self.muchLabel.snp.right).offset(20)
             })
         }
         self.updateConstraintsIfNeeded()
@@ -100,27 +100,27 @@ class MySellServiceTableViewCell: UITableViewCell {
     override func updateConstraints() {
         if !self.didMakeConstraints {
             
-            muchLabel.snp_makeConstraints(closure: { (make) in
-                make.top.equalTo(self.contentView.snp_top).offset(26)
-                make.left.equalTo(self.contentView.snp_left).offset(15)
+            muchLabel.snp.makeConstraints({ (make) in
+                make.top.equalTo(self.contentView.snp.top).offset(26)
+                make.left.equalTo(self.contentView.snp.left).offset(15)
             })
             
-            seveiceImage.snp_makeConstraints(closure: { (make) in
-                make.top.equalTo(self.contentView.snp_top).offset(26)
-                make.left.equalTo(self.muchLabel.snp_right).offset(8)
-                make.size.equalTo(CGSizeMake(15, 15))
+            seveiceImage.snp.makeConstraints({ (make) in
+                make.top.equalTo(self.contentView.snp.top).offset(26)
+                make.left.equalTo(self.muchLabel.snp.right).offset(8)
+                make.size.equalTo(CGSize.init(width: 15, height: 15))
             })
             
-            seveiceMuch.snp_makeConstraints(closure: { (make) in
-                make.top.equalTo(self.contentView.snp_top).offset(26)
-                make.left.equalTo(self.seveiceImage.snp_right).offset(20)
+            seveiceMuch.snp.makeConstraints({ (make) in
+                make.top.equalTo(self.contentView.snp.top).offset(26)
+                make.left.equalTo(self.seveiceImage.snp.right).offset(20)
             })
             
-            serviceP.snp_makeConstraints(closure: { (make) in
-                make.top.equalTo(self.muchLabel.snp_bottom).offset(8)
-                make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.right.equalTo(self.contentView.snp_right).offset(-15)
-                make.bottom.equalTo(self.contentView.snp_bottom).offset(-26)
+            serviceP.snp.makeConstraints({ (make) in
+                make.top.equalTo(self.muchLabel.snp.bottom).offset(8)
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(-26)
             })
             
             self.didMakeConstraints = true
@@ -137,7 +137,7 @@ class MySellServiceTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

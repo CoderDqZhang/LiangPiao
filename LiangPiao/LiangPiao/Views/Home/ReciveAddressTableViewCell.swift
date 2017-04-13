@@ -45,7 +45,7 @@ class ReciveAddressTableViewCell: UITableViewCell {
         deliveryAddress.textColor = UIColor.init(hexString: App_Theme_384249_Color)
         self.contentView.addSubview(deliveryAddress)
         
-        linLabel = GloabLineView(frame: CGRectMake(15, 0, SCREENWIDTH - 30, 0.5))
+        linLabel = GloabLineView(frame: CGRect(x: 15, y: 0, width: SCREENWIDTH - 30, height: 0.5))
         self.contentView.addSubview(linLabel)
     }
     
@@ -54,20 +54,20 @@ class ReciveAddressTableViewCell: UITableViewCell {
     }
     
     
-    func setUpData(model:OrderList) {
+    func setUpData(_ model:OrderList) {
         if model.deliveryType == 1 || model.deliveryType == 4 {
             self.deliveryType.text = "配送方式：快递到付"
-            self.deliveryName.text = "收货人：\(model.address.name) \(model.address.mobileNum)"
-            let str = "\(model.address.location)\(model.address.address)".stringByReplacingOccurrencesOfString(" ", withString: "")
+            self.deliveryName.text = "收货人：\((model.address.name)!) \((model.address.mobileNum)!)"
+            let str = "\((model.address.location)!)\((model.address.address)!)".replacingOccurrences(of: " ", with: "")
             self.deliveryAddress.text = "配送地址：\(str)"
         }else if model.deliveryType == 2 {
             self.deliveryType.text = "配送方式：现场取票"
-            self.deliveryName.text = "姓名：\(model.name)"
-            self.deliveryAddress.text = "电话：\(model.phone)"
+            self.deliveryName.text = "姓名：\((model.name)!)"
+            self.deliveryAddress.text = "电话：\((model.phone)!)"
         }else {
             self.deliveryType.text = "配送方式：上门自取"
-            self.deliveryName.text = "姓名：\(model.name)"
-            self.deliveryAddress.text = "电话：\(model.phone)"
+            self.deliveryName.text = "姓名：\((model.name)!)"
+            self.deliveryAddress.text = "电话：\((model.phone)!)"
         }
         self.deliveryAddress.numberOfLines = 0
         self.updateConstraintsIfNeeded()
@@ -76,27 +76,27 @@ class ReciveAddressTableViewCell: UITableViewCell {
     override func updateConstraints() {
         if !self.didMakeContraints {
             
-            location.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.centerY.equalTo(self.contentView.snp_centerY).offset(0)
-                make.size.equalTo(CGSizeMake(21, 21))
+            location.snp.makeConstraints({ (make) in
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.centerY.equalTo(self.contentView.snp.centerY).offset(0)
+                make.size.equalTo(CGSize.init(width: 21, height: 21))
             })
             
-            deliveryType.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.location.snp_right).offset(17)
-                make.top.equalTo(self.contentView.snp_top).offset(20)
+            deliveryType.snp.makeConstraints({ (make) in
+                make.left.equalTo(self.location.snp.right).offset(17)
+                make.top.equalTo(self.contentView.snp.top).offset(20)
             })
             
-            deliveryName.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.location.snp_right).offset(17)
-                make.top.equalTo(self.deliveryType.snp_bottom).offset(6)
+            deliveryName.snp.makeConstraints({ (make) in
+                make.left.equalTo(self.location.snp.right).offset(17)
+                make.top.equalTo(self.deliveryType.snp.bottom).offset(6)
             })
             
-            deliveryAddress.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.location.snp_right).offset(17)
-                make.right.equalTo(self.contentView.snp_right).offset(-15)
-                make.top.equalTo(self.deliveryName.snp_bottom).offset(6)
-                make.bottom.equalTo(self.contentView.snp_bottom).offset(-20)
+            deliveryAddress.snp.makeConstraints({ (make) in
+                make.left.equalTo(self.location.snp.right).offset(17)
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
+                make.top.equalTo(self.deliveryName.snp.bottom).offset(6)
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(-20)
             })
             
             self.didMakeContraints = true
@@ -110,7 +110,7 @@ class ReciveAddressTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

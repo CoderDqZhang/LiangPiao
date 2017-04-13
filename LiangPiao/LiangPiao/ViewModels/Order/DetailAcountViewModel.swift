@@ -20,59 +20,61 @@ class DetailAcountViewModel: NSObject {
         return 1
     }
     
-    func numbrOfRowInSection(section:Int) ->Int {
+    func numbrOfRowInSection(_ section:Int) ->Int {
         if model != nil {
             return model.hisList.count
         }
         return 0
     }
     
-    func tableViewHeightForRow(indexPath:NSIndexPath) ->CGFloat {
+    func tableViewHeightForRow(_ indexPath:IndexPath) ->CGFloat {
         return 65
     }
     
-    func tableViewDetailAcountTableViewCell(cell:DetailAcountTableViewCell, indexPath:NSIndexPath) {
+    func tableViewDetailAcountTableViewCell(_ cell:DetailAcountTableViewCell, indexPath:IndexPath) {
         cell.setData(model.hisList[indexPath.row])
     }
     
-    func requestDetailAcount(isNext:Bool){
+    func requestDetailAcount(_ isNext:Bool){
         var url = ""
         if isNext {
             if model.hasNext == false {
                 self.controller.tableView.mj_footer.endRefreshing()
                 return
             }
-            url = "\(WallHistory)?page=\(model.nextPage)"
+            url = "\(WallHistory)?page=\((model.nextPage)!)"
         }else{
             url = WallHistory
         }
-        BaseNetWorke.sharedInstance.getUrlWithString(url, parameters: nil).subscribeNext { (resultDic) in
-            if self.controller.tableView == nil {
-                self.controller.setUpView()
-            }
-            if isNext {
-                let tempModel =  MyWallHistoryModel.init(fromDictionary: resultDic as! NSDictionary)
-                self.model.hasNext = tempModel.hasNext
-                self.model.nextPage = tempModel.nextPage
-                self.model.hisList.appendContentsOf(tempModel.hisList)
-                if (self.model.hasNext != nil) && self.model.hasNext == true {
-                    self.controller.tableView.mj_footer.endRefreshing()
-                }else{
-                    self.controller.tableView.mj_footer.endRefreshingWithNoMoreData()
+        BaseNetWorke.sharedInstance.getUrlWithString(url, parameters: nil).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                if self.controller.tableView == nil {
+                    self.controller.setUpView()
                 }
-            }else{
-                self.model =  MyWallHistoryModel.init(fromDictionary: resultDic as! NSDictionary)
-                if self.model.hasNext != nil && self.model.hasNext == true {
-                    if self.controller.tableView.mj_footer == nil {
-                        self.controller.setUpLoadMoreData()
+                if isNext {
+                    let tempModel =  MyWallHistoryModel.init(fromDictionary: resultDic.value as! NSDictionary)
+                    self.model.hasNext = tempModel.hasNext
+                    self.model.nextPage = tempModel.nextPage
+                    self.model.hisList.append(contentsOf: tempModel.hisList)
+                    if (self.model.hasNext != nil) && self.model.hasNext == true {
+                        self.controller.tableView.mj_footer.endRefreshing()
+                    }else{
+                        self.controller.tableView.mj_footer.endRefreshingWithNoMoreData()
+                    }
+                }else{
+                    self.model =  MyWallHistoryModel.init(fromDictionary: resultDic.value as! NSDictionary)
+                    if self.model.hasNext != nil && self.model.hasNext == true {
+                        if self.controller.tableView.mj_footer == nil {
+                            self.controller.setUpLoadMoreData()
+                        }
+                    }
+                    if self.controller.tableView.mj_header != nil {
+                        self.controller.tableView.mj_header.endRefreshing()
                     }
                 }
-                if self.controller.tableView.mj_header != nil {
-                    self.controller.tableView.mj_header.endRefreshing()
-                }
+                
+                self.controller.tableView.reloadData()
             }
-
-            self.controller.tableView.reloadData()
         }
     }
 }

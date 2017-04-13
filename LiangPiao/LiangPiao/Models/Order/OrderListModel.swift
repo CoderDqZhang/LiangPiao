@@ -68,13 +68,13 @@ class Wxpay : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        appid = aDecoder.decodeObjectForKey("appid") as? String
-        noncestr = aDecoder.decodeObjectForKey("noncestr") as? String
-        packageField = aDecoder.decodeObjectForKey("package") as? String
-        partnerid = aDecoder.decodeObjectForKey("partnerid") as? String
-        prepayid = aDecoder.decodeObjectForKey("prepayid") as? String
-        sign = aDecoder.decodeObjectForKey("sign") as? String
-        timestamp = aDecoder.decodeObjectForKey("timestamp") as? String
+        appid = aDecoder.decodeObject(forKey: "appid") as? String
+        noncestr = aDecoder.decodeObject(forKey: "noncestr") as? String
+        packageField = aDecoder.decodeObject(forKey: "package") as? String
+        partnerid = aDecoder.decodeObject(forKey: "partnerid") as? String
+        prepayid = aDecoder.decodeObject(forKey: "prepayid") as? String
+        sign = aDecoder.decodeObject(forKey: "sign") as? String
+        timestamp = aDecoder.decodeObject(forKey: "timestamp") as? String
         
     }
     
@@ -82,28 +82,28 @@ class Wxpay : NSObject, NSCoding{
      * NSCoding required method.
      * Encodes mode properties into the decoder
      */
-    @objc func encodeWithCoder(aCoder: NSCoder)
+    @objc func encode(with aCoder: NSCoder)
     {
         if appid != nil{
-            aCoder.encodeObject(appid, forKey: "appid")
+            aCoder.encode(appid, forKey: "appid")
         }
         if noncestr != nil{
-            aCoder.encodeObject(noncestr, forKey: "noncestr")
+            aCoder.encode(noncestr, forKey: "noncestr")
         }
         if packageField != nil{
-            aCoder.encodeObject(packageField, forKey: "package")
+            aCoder.encode(packageField, forKey: "package")
         }
         if partnerid != nil{
-            aCoder.encodeObject(partnerid, forKey: "partnerid")
+            aCoder.encode(partnerid, forKey: "partnerid")
         }
         if prepayid != nil{
-            aCoder.encodeObject(prepayid, forKey: "prepayid")
+            aCoder.encode(prepayid, forKey: "prepayid")
         }
         if sign != nil{
-            aCoder.encodeObject(sign, forKey: "sign")
+            aCoder.encode(sign, forKey: "sign")
         }
         if timestamp != nil{
-            aCoder.encodeObject(timestamp, forKey: "timestamp")
+            aCoder.encode(timestamp, forKey: "timestamp")
         }
         
     }
@@ -147,8 +147,8 @@ class PayUrl : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        alipay = aDecoder.decodeObjectForKey("alipay") as? String
-        wxpay = aDecoder.decodeObjectForKey("wxpay") as? Wxpay
+        alipay = aDecoder.decodeObject(forKey: "alipay") as? String
+        wxpay = aDecoder.decodeObject(forKey: "wxpay") as? Wxpay
         
     }
     
@@ -156,13 +156,13 @@ class PayUrl : NSObject, NSCoding{
      * NSCoding required method.
      * Encodes mode properties into the decoder
      */
-    @objc func encodeWithCoder(aCoder: NSCoder)
+    @objc func encode(with aCoder: NSCoder)
     {
         if alipay != nil{
-            aCoder.encodeObject(alipay, forKey: "alipay")
+            aCoder.encode(alipay, forKey: "alipay")
         }
         if wxpay != nil{
-            aCoder.encodeObject(wxpay, forKey: "wxpay")
+            aCoder.encode(wxpay, forKey: "wxpay")
         }
         
     }
@@ -176,7 +176,7 @@ class OrderList : NSObject, NSCoding{
     var deliveryPrice : Int!
     var deliveryType : Int!
     var expressInfo : ExpressInfo!
-    var id : Int!
+    var id : Int64!
     var message : String!
     var name : String!
     var orderId : String!
@@ -209,7 +209,7 @@ class OrderList : NSObject, NSCoding{
         if let expressInfoData = dictionary["express_info"] as? NSDictionary{
             expressInfo = ExpressInfo(fromDictionary: expressInfoData)
         }
-        id = dictionary["id"]as? Int
+        id = dictionary["id"]as? Int64
         message = dictionary["message"] as? String
         name = dictionary["name"] as? String
         orderId = dictionary["order_id"] as? String
@@ -321,29 +321,29 @@ class OrderList : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        address = aDecoder.decodeObjectForKey("address") as? AddressModel
-        created = aDecoder.decodeObjectForKey("created") as? String
-        deliveryPrice = aDecoder.decodeObjectForKey("delivery_price") as? Int
-        deliveryType = aDecoder.decodeObjectForKey("delivery_type") as? Int
-        expressInfo = aDecoder.decodeObjectForKey("express_info") as? ExpressInfo
-        id = aDecoder.decodeObjectForKey("id") as? Int
-        message = aDecoder.decodeObjectForKey("message") as? String
-        name = aDecoder.decodeObjectForKey("name") as? String
-        orderId = aDecoder.decodeObjectForKey("order_id") as? String
-        payDate = aDecoder.decodeObjectForKey("pay_date") as? String
-        payType = aDecoder.decodeObjectForKey("pay_type") as? Int
-        payUrl = aDecoder.decodeObjectForKey("pay_url") as? PayUrl
-        phone = aDecoder.decodeObjectForKey("phone") as? String
-        price = aDecoder.decodeObjectForKey("price") as? Int
-        reason = aDecoder.decodeObjectForKey("reason") as? String
-        session = aDecoder.decodeObjectForKey("session") as? ShowSessionModel
-        show = aDecoder.decodeObjectForKey("show") as? TicketShowModel
-        status = aDecoder.decodeObjectForKey("status") as? Int
-        statusDesc = aDecoder.decodeObjectForKey("status_desc") as? String
-        supplierStatusDesc = aDecoder.decodeObjectForKey("supplier_status_desc") as? String
-        ticket = aDecoder.decodeObjectForKey("ticket") as? TicketList
-        remainCount = aDecoder.decodeObjectForKey("ticket_count") as? Int
-        total = aDecoder.decodeObjectForKey("total") as? Int
+        address = aDecoder.decodeObject(forKey: "address") as? AddressModel
+        created = aDecoder.decodeObject(forKey: "created") as? String
+        deliveryPrice = aDecoder.decodeObject(forKey: "delivery_price") as? Int
+        deliveryType = aDecoder.decodeObject(forKey: "delivery_type") as? Int
+        expressInfo = aDecoder.decodeObject(forKey: "express_info") as? ExpressInfo
+        id = aDecoder.decodeObject(forKey: "id") as? Int64
+        message = aDecoder.decodeObject(forKey: "message") as? String
+        name = aDecoder.decodeObject(forKey: "name") as? String
+        orderId = aDecoder.decodeObject(forKey: "order_id") as? String
+        payDate = aDecoder.decodeObject(forKey: "pay_date") as? String
+        payType = aDecoder.decodeObject(forKey: "pay_type") as? Int
+        payUrl = aDecoder.decodeObject(forKey: "pay_url") as? PayUrl
+        phone = aDecoder.decodeObject(forKey: "phone") as? String
+        price = aDecoder.decodeObject(forKey: "price") as? Int
+        reason = aDecoder.decodeObject(forKey: "reason") as? String
+        session = aDecoder.decodeObject(forKey: "session") as? ShowSessionModel
+        show = aDecoder.decodeObject(forKey: "show") as? TicketShowModel
+        status = aDecoder.decodeObject(forKey: "status") as? Int
+        statusDesc = aDecoder.decodeObject(forKey: "status_desc") as? String
+        supplierStatusDesc = aDecoder.decodeObject(forKey: "supplier_status_desc") as? String
+        ticket = aDecoder.decodeObject(forKey: "ticket") as? TicketList
+        remainCount = aDecoder.decodeObject(forKey: "ticket_count") as? Int
+        total = aDecoder.decodeObject(forKey: "total") as? Int
         
     }
     
@@ -351,76 +351,76 @@ class OrderList : NSObject, NSCoding{
      * NSCoding required method.
      * Encodes mode properties into the decoder
      */
-    @objc func encodeWithCoder(aCoder: NSCoder)
+    @objc func encode(with aCoder: NSCoder)
     {
         if address != nil{
-            aCoder.encodeObject(address, forKey: "address")
+            aCoder.encode(address, forKey: "address")
         }
         if created != nil{
-            aCoder.encodeObject(created, forKey: "created")
+            aCoder.encode(created, forKey: "created")
         }
         if deliveryPrice != nil{
-            aCoder.encodeObject(deliveryPrice, forKey: "delivery_price")
+            aCoder.encode(deliveryPrice, forKey: "delivery_price")
         }
         if deliveryType != nil{
-            aCoder.encodeObject(deliveryType, forKey: "delivery_type")
+            aCoder.encode(deliveryType, forKey: "delivery_type")
         }
         if expressInfo != nil{
-            aCoder.encodeObject(expressInfo, forKey: "express_info")
+            aCoder.encode(expressInfo, forKey: "express_info")
         }
         if id != nil{
-            aCoder.encodeObject(id, forKey: "id")
+            aCoder.encode(id, forKey: "id")
         }
         if message != nil{
-            aCoder.encodeObject(message, forKey: "message")
+            aCoder.encode(message, forKey: "message")
         }
         if name != nil{
-            aCoder.encodeObject(name, forKey: "name")
+            aCoder.encode(name, forKey: "name")
         }
         if orderId != nil{
-            aCoder.encodeObject(orderId, forKey: "order_id")
+            aCoder.encode(orderId, forKey: "order_id")
         }
         if payDate != nil{
-            aCoder.encodeObject(payDate, forKey: "pay_date")
+            aCoder.encode(payDate, forKey: "pay_date")
         }
         if payType != nil{
-            aCoder.encodeObject(payType, forKey: "pay_type")
+            aCoder.encode(payType, forKey: "pay_type")
         }
         if payUrl != nil{
-            aCoder.encodeObject(payUrl, forKey: "pay_url")
+            aCoder.encode(payUrl, forKey: "pay_url")
         }
         if phone != nil{
-            aCoder.encodeObject(phone, forKey: "phone")
+            aCoder.encode(phone, forKey: "phone")
         }
         if price != nil{
-            aCoder.encodeObject(price, forKey: "price")
+            aCoder.encode(price, forKey: "price")
         }
         if reason != nil{
-            aCoder.encodeObject(reason, forKey: "reason")
+            aCoder.encode(reason, forKey: "reason")
         }
         if session != nil{
-            aCoder.encodeObject(session, forKey: "session")
+            aCoder.encode(session, forKey: "session")
         }
         if show != nil{
-            aCoder.encodeObject(show, forKey: "show")
+            aCoder.encode(show, forKey: "show")
         }
         if status != nil{
-            aCoder.encodeObject(status, forKey: "status")
+            aCoder.encode(status, forKey: "status")
         }
         if statusDesc != nil{
-            aCoder.encodeObject(statusDesc, forKey: "status_desc")
+            aCoder.encode(statusDesc, forKey: "status_desc")
         }
         if supplierStatusDesc != nil{
-            aCoder.encodeObject(supplierStatusDesc, forKey: "supplier_status_desc")
+            aCoder.encode(supplierStatusDesc, forKey: "supplier_status_desc")
         }
         if ticket != nil{
-            aCoder.encodeObject(ticket, forKey: "ticket")
+            aCoder.encode(ticket, forKey: "ticket")
         }
         if remainCount != nil{
-            aCoder.encodeObject(remainCount, forKey: "ticket_count")
+            aCoder.encode(remainCount, forKey: "ticket_count")
         }
         if total != nil{
-            aCoder.encodeObject(total, forKey: "total")
+            aCoder.encode(total, forKey: "total")
         }
         
     }
@@ -431,7 +431,7 @@ class ExpressInfo : NSObject, NSCoding{
     
     var expressName : String!
     var expressNum : String!
-    var id : Int!
+    var id : Int64!
     var orderId : String!
     
     
@@ -441,7 +441,7 @@ class ExpressInfo : NSObject, NSCoding{
     init(fromDictionary dictionary: NSDictionary){
         expressName = dictionary["express_name"] as? String
         expressNum = dictionary["express_num"] as? String
-        id = dictionary["id"] as? Int
+        id = dictionary["id"] as? Int64
         orderId = dictionary["order_id"] as? String
     }
     
@@ -472,10 +472,10 @@ class ExpressInfo : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        expressName = aDecoder.decodeObjectForKey("express_name") as? String
-        expressNum = aDecoder.decodeObjectForKey("express_num") as? String
-        id = aDecoder.decodeObjectForKey("id") as? Int
-        orderId = aDecoder.decodeObjectForKey("order_id") as? String
+        expressName = aDecoder.decodeObject(forKey: "express_name") as? String
+        expressNum = aDecoder.decodeObject(forKey: "express_num") as? String
+        id = aDecoder.decodeObject(forKey: "id") as? Int64
+        orderId = aDecoder.decodeObject(forKey: "order_id") as? String
         
     }
     
@@ -483,19 +483,19 @@ class ExpressInfo : NSObject, NSCoding{
      * NSCoding required method.
      * Encodes mode properties into the decoder
      */
-    @objc func encodeWithCoder(aCoder: NSCoder)
+    @objc func encode(with aCoder: NSCoder)
     {
         if expressName != nil{
-            aCoder.encodeObject(expressName, forKey: "express_name")
+            aCoder.encode(expressName, forKey: "express_name")
         }
         if expressNum != nil{
-            aCoder.encodeObject(expressNum, forKey: "express_num")
+            aCoder.encode(expressNum, forKey: "express_num")
         }
         if id != nil{
-            aCoder.encodeObject(id, forKey: "id")
+            aCoder.encode(id, forKey: "id")
         }
         if orderId != nil{
-            aCoder.encodeObject(orderId, forKey: "order_id")
+            aCoder.encode(orderId, forKey: "order_id")
         }
         
     }
@@ -557,10 +557,10 @@ class OrderListModel : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        hasNext = aDecoder.decodeObjectForKey("has_next") as? Bool
-        nextPage = aDecoder.decodeObjectForKey("next_page") as? Int
-        orderList = aDecoder.decodeObjectForKey("order_list") as? [OrderList]
-        total = aDecoder.decodeObjectForKey("total") as? Int
+        hasNext = aDecoder.decodeObject(forKey: "has_next") as? Bool
+        nextPage = aDecoder.decodeObject(forKey: "next_page") as? Int
+        orderList = aDecoder.decodeObject(forKey: "order_list") as? [OrderList]
+        total = aDecoder.decodeObject(forKey: "total") as? Int
         
     }
     
@@ -568,19 +568,19 @@ class OrderListModel : NSObject, NSCoding{
      * NSCoding required method.
      * Encodes mode properties into the decoder
      */
-    @objc func encodeWithCoder(aCoder: NSCoder)
+    @objc func encode(with aCoder: NSCoder)
     {
         if hasNext != nil{
-            aCoder.encodeObject(hasNext, forKey: "has_next")
+            aCoder.encode(hasNext, forKey: "has_next")
         }
         if nextPage != nil{
-            aCoder.encodeObject(nextPage, forKey: "next_page")
+            aCoder.encode(nextPage, forKey: "next_page")
         }
         if orderList != nil{
-            aCoder.encodeObject(orderList, forKey: "order_list")
+            aCoder.encode(orderList, forKey: "order_list")
         }
         if total != nil{
-            aCoder.encodeObject(total, forKey: "total")
+            aCoder.encode(total, forKey: "total")
         }
         
     }

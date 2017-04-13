@@ -15,13 +15,13 @@ let CustomViewFont = IPHONE_VERSION > 9 ? UIFont.init(name: ".SFUIText-Medium", 
 let TextLabelMarger:CGFloat = 20
 
 class HUDCustomView: UIView {
-    class func customViewWidthMessage(message:String) -> AnyObject {
-        let customView =  UIView(frame: CGRect.init(x: CGFloat(UIScreen.mainScreen().bounds.size.width - CustomViewWidth) / 2, y: (UIScreen.mainScreen().bounds.size.height - 60) / 2, width: CustomViewWidth, height: 60))
+    class func customViewWidthMessage(_ message:String) -> AnyObject {
+        let customView =  UIView(frame: CGRect.init(x: CGFloat(UIScreen.main.bounds.size.width - CustomViewWidth) / 2, y: (UIScreen.main.bounds.size.height - 60) / 2, width: CustomViewWidth, height: 60))
         let messageHeight = message.heightWithConstrainedWidth(message, font: CustomViewFont!, width: CustomViewWidth - TextLabelMarger * 2)
         var frame = customView.frame
         if messageHeight > 60 {
             frame.size.height = messageHeight
-            frame.origin.y = (UIScreen.mainScreen().bounds.size.height - messageHeight) / 2
+            frame.origin.y = (UIScreen.main.bounds.size.height - messageHeight) / 2
         }else{
             frame.size.height = 60;
         }
@@ -31,21 +31,21 @@ class HUDCustomView: UIView {
         return customView;
     }
     
-    class func setUpLabel(frame:CGRect, text:String) -> UILabel{
+    class func setUpLabel(_ frame:CGRect, text:String) -> UILabel{
         let textLabel = UILabel(frame: CGRect.init(x: 0, y: 0, width: CustomViewWidth - TextLabelMarger * 2, height: frame.size.height))
         textLabel.font = CustomViewFont
         textLabel.numberOfLines = 0
-        textLabel.textColor = UIColor.whiteColor()
+        textLabel.textColor = UIColor.white
         textLabel.text = text
-        textLabel.textAlignment = .Center
+        textLabel.textAlignment = .center
         return textLabel;
         
     }
     
-    class func getHudMinSize(msg:String) ->CGSize {
+    class func getHudMinSize(_ msg:String) ->CGSize {
         let minWidth = msg.widthWithConstrainedHeight(msg, font: CustomViewFont!, height: 14) + 67
         let minHeigth = msg.heightWithConstrainedWidth(msg, font: CustomViewFont!, width: minWidth) + 40
-        return CGSizeMake(minWidth, minHeigth)
+        return CGSize(width: minWidth, height: minHeigth)
     }
 }
 
@@ -58,24 +58,24 @@ class Tools: NSObject {
     
     static let shareInstance = Tools()
     
-    func showMessage(view:UIView, msg:String, autoHidder:Bool) -> MBProgressHUD {
-        let hud = MBProgressHUD.showHUDAddedTo(view, animated: true)
-        hud.mode = .CustomView
+    func showMessage(_ view:UIView, msg:String, autoHidder:Bool) -> MBProgressHUD {
+        let hud = MBProgressHUD.showAdded(to: view, animated: true)
+        hud.mode = .customView
         hud.bezelView.backgroundColor = UIColor.init(hexString: HUDBackGroudColor, andAlpha: 0.9)
         hud.bezelView.layer.cornerRadius = 12.0
         hud.label.numberOfLines = 0;
-        hud.label.textColor = UIColor.whiteColor()
+        hud.label.textColor = UIColor.white
         hud.label.font = CustomViewFont;
         hud.minSize = HUDCustomView.getHudMinSize(msg)
         hud.label.text = msg;
         hud.bezelView.layer.frame = CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: SCREENHEIGHT)
-        hud.hideAnimated(true, afterDelay: 2.0)
+        hud.hide(animated: true, afterDelay: 2.0)
         hud.removeFromSuperViewOnHide = true
         hud.margin = 10
         return hud
     }
     
-    func showErrorMessage(errorDic:AnyObject) ->MBProgressHUD? {
+    func showErrorMessage(_ errorDic:AnyObject) ->MBProgressHUD? {
         let errorModel = ErrorModel.init(fromDictionary: errorDic as! NSDictionary)
         var errorMsg:String = ""
         if errorModel.code != nil {
@@ -95,13 +95,13 @@ class Tools: NSObject {
         }
     }
     
-    func showNetWorkError(error:AnyObject) ->MBProgressHUD {
+    func showNetWorkError(_ error:AnyObject) ->MBProgressHUD {
         let netWorkError = (error as! NSError)
         print(netWorkError)
         return self.showMessage(KWINDOWDS(), msg:netWorkError.localizedDescription , autoHidder: true)
     }
     
-    func showAliPathError(error:String) ->MBProgressHUD {
+    func showAliPathError(_ error:String) ->MBProgressHUD {
         return self.showMessage(KWINDOWDS(), msg: error, autoHidder: true)
     }
 }

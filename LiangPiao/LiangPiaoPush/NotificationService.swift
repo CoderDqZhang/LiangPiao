@@ -9,17 +9,18 @@
 import UserNotifications
 import UIKit
 
-typealias completionHandler = (attach:UNNotificationAttachment) -> Void
+typealias completionHandler = (_ attach:UNNotificationAttachment) -> Void
 
-let kEncodeUserCachesDirectory = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.CachesDirectory, NSSearchPathDomainMask.UserDomainMask, true).first! as String
+let kEncodeUserCachesDirectory = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.cachesDirectory, FileManager.SearchPathDomainMask.userDomainMask, true).first! as String
 
 
+@available(iOSApplicationExtension 10.0, *)
 class NotificationService: UNNotificationServiceExtension {
 
     var contentHandler: ((UNNotificationContent) -> Void)?
     var bestAttemptContent: UNMutableNotificationContent?
 
-    override func didReceiveNotificationRequest(request: UNNotificationRequest, withContentHandler contentHandler: (UNNotificationContent) -> Void) {
+    override func didReceive(_ request: UNNotificationRequest, withContentHandler contentHandler: @escaping (UNNotificationContent) -> Void) {
         self.contentHandler = contentHandler
         bestAttemptContent = (request.content.mutableCopy() as? UNMutableNotificationContent)
     
@@ -30,7 +31,7 @@ class NotificationService: UNNotificationServiceExtension {
         self.bestAttemptContent!.body = "\((notiDict["alert"])!)"
         if dict!["type"] as! String != "operation" {
             let imageUrl = "\((dict!["imageAbsoluteString"])!)"
-            self.loadAttachmentForUrlString(imageUrl, type: "image") { (attach) in
+            self.loadAttachmentForUrlString(urlStr: imageUrl, type: "image") { (attach) in
                 self.bestAttemptContent!.attachments = [attach]
                 self.contentHandler!(self.bestAttemptContent!);
             }
@@ -47,24 +48,23 @@ class NotificationService: UNNotificationServiceExtension {
         }
     }
     
-    func loadAttachmentForUrlString(urlStr:String, type:String, completionHandle:completionHandler) {
-        let url = NSURL.init(string: urlStr.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!)
-
-        let config = NSURLSessionConfiguration.defaultSessionConfiguration()
-        let session = NSURLSession.init(configuration: config)
-        let fileExt = self.fileExtensionForMediaType(type)
-        let task = session.dataTaskWithURL(url!) { (data, response, error) in
+    func loadAttachmentForUrlString(urlStr:String, type:String, completionHandle:@escaping completionHandler) {
+        let url = NSURL.init(string: urlStr.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!)
+        let config = URLSessionConfiguration.default
+        let session = URLSession.init(configuration: config)
+        let fileExt = self.fileExtensionForMediaType(type: type)
+        let task = session.dataTask(with: url! as URL) { (data, response, error) in
             if error != nil {
                 print(error!.localizedDescription)
             }else{
-                let path = self.getCachesDirectoryUserInfoDocumetPathDocument("Public", document: "PushImages")
-                let saveName = path?.stringByAppendingString("/pushImage\(fileExt)")
+                let path = self.getCachesDirectoryUserInfoDocumetPathDocument(user: "Public", document: "PushImages")
+                let saveName = path?.appending("/pushImage\(fileExt)")
                 let image = UIImage.init(data: data!)
                 do {
-                    try  UIImageJPEGRepresentation(image!, 1)?.writeToFile(saveName!, options: .AtomicWrite)
+                    try UIImageJPEGRepresentation(image!, 1.0)?.write(to: NSURL.init(string: saveName!) as! URL, options: Data.WritingOptions.atomicWrite)
                     var attachment:UNNotificationAttachment
-                    try  attachment = UNNotificationAttachment.init(identifier: "remote-atta1", URL: NSURL.init(fileURLWithPath: saveName!), options: nil)
-                    completionHandle(attach: attachment)
+                    try  attachment = UNNotificationAttachment(identifier: "remote-atta1", url: NSURL.init(fileURLWithPath: saveName!) as URL, options: nil)
+                    completionHandle(attachment)
                 }catch{
                     
                 }
@@ -74,11 +74,12 @@ class NotificationService: UNNotificationServiceExtension {
     }
     
     func getCachesDirectoryUserInfoDocumetPathDocument(user:String, document:String) ->String? {
-        let manager = NSFileManager.defaultManager()
-        let path = kEncodeUserCachesDirectory.stringByAppendingString("/\(user)").stringByAppendingString("/\(document)")
-        if !manager.fileExistsAtPath(path) {
+        let manager = FileManager.default
+        let path = kEncodeUserCachesDirectory.appending("/\(user)").appending("/\(document)")
+//            kEncodeUserCachesDirectory.stringByAppendingFormat("/\(user)").stringByAppendingString("/\(document)")
+        if !manager.fileExists(atPath: path) {
             do {
-                try manager.createDirectoryAtPath(path, withIntermediateDirectories: true, attributes: nil)
+                try manager.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)
                 return path
             } catch {
                 print("创建失败")

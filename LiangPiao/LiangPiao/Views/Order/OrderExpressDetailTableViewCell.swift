@@ -36,18 +36,18 @@ class OrderExpressDetailTableViewCell: UITableViewCell {
     }
     
     func hiderLineLabel(){
-        lineLabel.hidden = true
+        lineLabel.isHidden = true
     }
     
-    func setData(detail:String){
+    func setData(_ detail:String){
         detailLabel.text = detail
     }
     
     override func updateConstraints() {
         if !self.didMakeConstraints {
-            detailLabel.snp_makeConstraints(closure: { (make) in
-                make.left.equalTo(self.contentView.snp_left).offset(15)
-                make.centerY.equalTo(self.contentView.snp_centerY).offset(0)
+            detailLabel.snp.makeConstraints({ (make) in
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.centerY.equalTo(self.contentView.snp.centerY).offset(0)
             })
             
             self.didMakeConstraints = true
@@ -64,7 +64,7 @@ class OrderExpressDetailTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

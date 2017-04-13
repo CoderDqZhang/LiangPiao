@@ -21,18 +21,18 @@ class MineViewController: BaseViewController {
     }
     
     func setUpView() {
-        tableView = UITableView(frame: CGRectZero, style: .Plain)
-        tableView.backgroundColor = UIColor.whiteColor()
+        tableView = UITableView(frame: CGRect.zero, style: .plain)
+        tableView.backgroundColor = UIColor.white
         tableView.delegate = self
         tableView.dataSource = self
         tableView.showsVerticalScrollIndicator = false
-        tableView.keyboardDismissMode = .OnDrag
-        tableView.separatorStyle = .None
-        tableView.registerClass(MineHeadTableViewCell.self, forCellReuseIdentifier: "MineHeadTableViewCell")
-        tableView.registerClass(GloabImageTitleAndImageCell.self, forCellReuseIdentifier: "GloabImageTitleAndImageCell")
-        tableView.registerClass(ServiceTableViewCell.self, forCellReuseIdentifier: "ServiceTableViewCell")
+        tableView.keyboardDismissMode = .onDrag
+        tableView.separatorStyle = .none
+        tableView.register(MineHeadTableViewCell.self, forCellReuseIdentifier: "MineHeadTableViewCell")
+        tableView.register(GloabImageTitleAndImageCell.self, forCellReuseIdentifier: "GloabImageTitleAndImageCell")
+        tableView.register(ServiceTableViewCell.self, forCellReuseIdentifier: "ServiceTableViewCell")
         self.view.addSubview(tableView)
-        tableView.snp_makeConstraints { (make) in
+        tableView.snp.makeConstraints { (make) in
             make.edges.equalTo(UIEdgeInsetsMake(-20, 0, 0, 0))
         }
         
@@ -40,7 +40,7 @@ class MineViewController: BaseViewController {
         
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.fd_prefersNavigationBarHidden = true
         self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
@@ -53,7 +53,7 @@ class MineViewController: BaseViewController {
 
     func bindViewModel(){
         viewModel.reloadTableView = { _ in
-            self.tableView.reloadRowsAtIndexPaths([NSIndexPath.init(forRow: 0, inSection: 0)], withRowAnimation: .Automatic)
+            self.tableView.reloadRows(at: [IndexPath.init(row: 0, section: 0)], with: .automatic)
         }
 
     }
@@ -70,64 +70,64 @@ class MineViewController: BaseViewController {
 }
 
 extension MineViewController : UITableViewDelegate {
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         viewModel.tableViewDidSelect(indexPath, controller: self)
     }
     
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if cell != nil {
             if scrollView.contentOffset.y < 0 {
-                cell.cellBackView.frame = CGRectMake(0, scrollView.contentOffset.y, SCREENWIDTH, 255 - scrollView.contentOffset.y)
+                cell.cellBackView.frame = CGRect(x: 0, y: scrollView.contentOffset.y, width: SCREENWIDTH, height: 255 - scrollView.contentOffset.y)
             }
         }
     }
 }
 
 extension MineViewController : UITableViewDataSource {
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return viewModel.numberOfSection()
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.numbrOfRowInSection(section)
     }
     
-    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         if section == 0 {
             return 10
         }
         return 0.000001
     }
     
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0.0001
     }
     
-    func tableView(tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
-        view.tintColor = UIColor.whiteColor()
+    func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
+        view.tintColor = UIColor.white
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return viewModel.tableViewHeightForRow(indexPath)
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         case 0:
-            cell = tableView.dequeueReusableCellWithIdentifier("MineHeadTableViewCell", forIndexPath: indexPath) as! MineHeadTableViewCell
+            cell = tableView.dequeueReusableCell(withIdentifier: "MineHeadTableViewCell", for: indexPath) as! MineHeadTableViewCell
             viewModel.tableViewPhotoCell(cell)
-            cell.selectionStyle = .None
+            cell.selectionStyle = .none
             return cell
         default:
             switch indexPath.row {
             case 5:
-                let cell = tableView.dequeueReusableCellWithIdentifier("ServiceTableViewCell", forIndexPath: indexPath) as! ServiceTableViewCell
-                cell.selectionStyle = .None
+                let cell = tableView.dequeueReusableCell(withIdentifier: "ServiceTableViewCell", for: indexPath) as! ServiceTableViewCell
+                cell.selectionStyle = .none
                 return cell
             default:
-                let cell = tableView.dequeueReusableCellWithIdentifier("GloabImageTitleAndImageCell", forIndexPath: indexPath) as! GloabImageTitleAndImageCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: "GloabImageTitleAndImageCell", for: indexPath) as! GloabImageTitleAndImageCell
                 cell.setData(viewModel.cellTitle(indexPath.row), infoImage: viewModel.cellImage(indexPath.row))
-                cell.selectionStyle = .None
+                cell.selectionStyle = .none
                 return cell
             }
         }

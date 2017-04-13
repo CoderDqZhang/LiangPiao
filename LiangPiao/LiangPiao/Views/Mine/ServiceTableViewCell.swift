@@ -19,7 +19,7 @@ class ServiceTableViewCell: UITableViewCell {
         self.setUpView()
         
         
-        self.backgroundColor = UIColor.whiteColor()
+        self.backgroundColor = UIColor.white
     }
     
     func setUpView() {
@@ -30,7 +30,7 @@ class ServiceTableViewCell: UITableViewCell {
         
         nameAndePhone = UILabel()
         nameAndePhone.numberOfLines = 0
-        nameAndePhone.userInteractionEnabled = true
+        nameAndePhone.isUserInteractionEnabled = true
         nameAndePhone.font = App_Theme_PinFan_R_14_Font
         nameAndePhone.addGestureRecognizer(sigleTap)
         nameAndePhone.textColor = UIColor.init(hexString: App_Theme_384249_Color)
@@ -46,26 +46,26 @@ class ServiceTableViewCell: UITableViewCell {
         paragraph.lineSpacing = 5
         attribute.addAttributes([NSParagraphStyleAttributeName:paragraph], range: NSRange.init(location: 0, length: str.length))
         nameAndePhone.attributedText = attribute
-        nameAndePhone.textAlignment = .Center
+        nameAndePhone.textAlignment = .center
         self.contentView.addSubview(nameAndePhone)
         
         self.updateConstraintsIfNeeded()
     }
     
-    func sigleTapPress(sender:UITapGestureRecognizer) {
+    func sigleTapPress(_ sender:UITapGestureRecognizer) {
         AppCallViewShow(self.contentView, phone: "400-873-8011")
     }
     
-    func setData(namePhone:String, photoImage:UIImage) {
+    func setData(_ namePhone:String, photoImage:UIImage) {
         nameAndePhone.text = namePhone
     }
     
     override func updateConstraints() {
         if !self.didMakeConstraints {
             
-            nameAndePhone.snp_makeConstraints(closure: { (make) in
-                make.centerX.equalTo(self.contentView.snp_centerX).offset(0)
-                make.bottom.equalTo(self.contentView.snp_bottom).offset(-40)
+            nameAndePhone.snp.makeConstraints({ (make) in
+                make.centerX.equalTo(self.contentView.snp.centerX).offset(0)
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(-40)
             })
             
             self.didMakeConstraints = true
@@ -82,7 +82,7 @@ class ServiceTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

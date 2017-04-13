@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ReactiveSwift
 
 typealias SearchNavigationBarCancelClouse = () ->Void
 typealias SearchTextFieldBecomFirstRespoder = () ->Void
@@ -23,43 +24,44 @@ class HomeSearchNavigationBar: UIView {
         self.setUpView(font)
     }
     
-    func setUpView(font:UIFont?) {
+    func setUpView(_ font:UIFont?) {
         let searchImage = UIImage.init(named: "Icon_Search")
         let leftImage = UIImageView(image: searchImage)
-        leftImage.frame  = CGRectMake(15, 15, (searchImage?.size.width)!, (searchImage?.size.height)!)
+        leftImage.frame  = CGRect(x: 15, y: 15, width: (searchImage?.size.width)!, height: (searchImage?.size.height)!)
         
-        cancelButton = UIButton(type: .Custom)
-        cancelButton.frame = CGRectMake(SCREENWIDTH - 64, 27,64, 30)
-        cancelButton.setTitle("取消", forState: .Normal)
+        cancelButton = UIButton(type: .custom)
+        cancelButton.frame = CGRect(x: SCREENWIDTH - 64, y: 27,width: 64, height: 30)
+        cancelButton.setTitle("取消", for: UIControlState())
         cancelButton.titleLabel?.font = App_Theme_PinFan_L_17_Font
-        cancelButton.hidden = true
-        cancelButton.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (action) in
+        cancelButton.isHidden = true
+//        cancelButton.
+        cancelButton.reactive.controlEvents(.touchUpInside).observe { (action) in
             if self.searchNavigationBarCancelClouse != nil{
                 self.searchNavigationBarCancelClouse()
             }
         }
         self.addSubview(cancelButton)
         
-        searchField = HomeBandSearchField(frame:CGRectMake(20, 27,SCREENWIDTH - 40, 30))
+        searchField = HomeBandSearchField(frame:CGRect(x: 20, y: 27,width: SCREENWIDTH - 40, height: 30))
         
         searchField.layer.cornerRadius = 4.0
-        searchField.drawPlaceholderInRect(CGRectMake(20, 0, searchField.frame.size.width, searchField.frame.size.height))
+        searchField.drawPlaceholder(in: CGRect(x: 20, y: 0, width: searchField.frame.size.width, height: searchField.frame.size.height))
         if font == nil {
             searchField.attributedPlaceholder = NSAttributedString.init(string: "搜索演出名称、演员...", attributes: [NSFontAttributeName:App_Theme_PinFan_L_14_Font!,NSForegroundColorAttributeName:UIColor.init(hexString: App_Theme_BBC1CB_Color)])
         }else{
             searchField.attributedPlaceholder = NSAttributedString.init(string: "搜索演出名称、演员...", attributes: [NSFontAttributeName:font!,NSForegroundColorAttributeName:UIColor.init(hexString: App_Theme_BBC1CB_Color)])
         }
         searchField.delegate = self
-        searchField.contentVerticalAlignment = UIControlContentVerticalAlignment.Center
+        searchField.contentVerticalAlignment = UIControlContentVerticalAlignment.center
         searchField.leftView = leftImage
         searchField.tintColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
-        searchField.backgroundColor = UIColor.whiteColor()
-        searchField.leftViewMode = .Always
-        searchField.returnKeyType = .Search
+        searchField.backgroundColor = UIColor.white
+        searchField.leftViewMode = .always
+        searchField.returnKeyType = .search
         searchField.font = App_Theme_PinFan_R_14_Font
         searchField.attributedPlaceholder = NSAttributedString.init(string: "搜索演出名称、演员...", attributes: [NSFontAttributeName:App_Theme_PinFan_L_14_Font!,NSForegroundColorAttributeName:UIColor.init(hexString: App_Theme_BBC1CB_Color)])
         searchField.textColor = UIColor.init(hexString: App_Theme_384249_Color)
-        searchField.clearButtonMode = .Always
+        searchField.clearButtonMode = .always
         self.addSubview(searchField)
         self.updateConstraintsIfNeeded()
     }
@@ -74,22 +76,22 @@ typealias GloableSearchBarClouse = () -> Void
 class GloableSearchNavigationBarView : UIView {
     var searchButton:UIButton!
     var titleLabel:UILabel!
-    init(frame:CGRect, title:String, searchClouse:GloableSearchBarClouse) {
+    init(frame:CGRect, title:String, searchClouse:  @escaping GloableSearchBarClouse) {
         super.init(frame: frame)
         self.backgroundColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
         
         titleLabel = UILabel(frame: CGRect.init(x: 50, y: 22, width: frame.size.width - 100, height: 40))
         titleLabel.text = title
-        titleLabel.textAlignment = .Center
+        titleLabel.textAlignment = .center
         titleLabel.font = App_Theme_PinFan_L_17_Font
         titleLabel.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
         self.addSubview(titleLabel)
         
-        searchButton = UIButton(type: .Custom)
-        searchButton.setImage(UIImage.init(named: "Icon_Search_W")?.imageWithRenderingMode(.AlwaysOriginal), forState: .Normal)
+        searchButton = UIButton(type: .custom)
+        searchButton.setImage(UIImage.init(named: "Icon_Search_W")?.withRenderingMode(.alwaysOriginal), for: UIControlState())
         searchButton.frame = CGRect.init(x: frame.size.width - 50, y: 22, width: 40, height: 40)
-        searchButton.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (action) in
-            searchClouse()
+        searchButton.reactive.controlEvents(.touchUpInside).observeValues { (button) in
+            _ = searchClouse()
         }
         self.addSubview(searchButton)
         
@@ -101,19 +103,19 @@ class GloableSearchNavigationBarView : UIView {
 }
 
 extension HomeSearchNavigationBar : UITextFieldDelegate {
-    func textFieldDidBeginEditing(textField: UITextField) {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
         if self.searchTextFieldBecomFirstRespoder != nil {
             self.searchTextFieldBecomFirstRespoder()
         }
-        textField.frame = CGRectMake(20, 27,SCREENWIDTH - 84, 30)
-        cancelButton.hidden = false
+        textField.frame = CGRect(x: 20, y: 27,width: SCREENWIDTH - 84, height: 30)
+        cancelButton.isHidden = false
     }
     
-    func textFieldDidEndEditing(textField: UITextField) {
+    func textFieldDidEndEditing(_ textField: UITextField) {
         
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
         return true
     }
@@ -129,12 +131,12 @@ class GloabLineView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame:frame)
-        lineLabel.frame = CGRectMake(0, 0, frame.size.width, frame.size.height)
+        lineLabel.frame = CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height)
         lineLabel.backgroundColor = UIColor.init(hexString: App_Theme_E9EBF2_Color)
         self.addSubview(lineLabel)
     }
     
-    func setLineColor(color:UIColor){
+    func setLineColor(_ color:UIColor){
         lineLabel.backgroundColor = color
     }
     
@@ -152,19 +154,19 @@ class GlobalNavigationBarView : UIView {
     init(frame:CGRect, title:String, detail:String) {
         super.init(frame:frame)
         let titleLabel:UILabel! = UILabel()
-        titleLabel.frame = CGRectMake(0, 5, frame.size.width, 18)
+        titleLabel.frame = CGRect(x: 0, y: 5, width: frame.size.width, height: 18)
         titleLabel.font = App_Theme_PinFan_R_13_Font
         titleLabel.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
-        titleLabel.textAlignment = .Center
+        titleLabel.textAlignment = .center
         titleLabel.text = title
         self.addSubview(titleLabel)
         
         let detailLabel:UILabel! = UILabel()
-        detailLabel.frame = CGRectMake(0, CGRectGetMaxY(titleLabel.frame) + 1, frame.size.width, 13)
+        detailLabel.frame = CGRect(x: 0, y: titleLabel.frame.maxY + 1, width: frame.size.width, height: 13)
         detailLabel.text = detail
         detailLabel.font = App_Theme_PinFan_R_11_Font
         detailLabel.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
-        detailLabel.textAlignment = .Center
+        detailLabel.textAlignment = .center
         self.addSubview(detailLabel)
         
         let singleTap = UITapGestureRecognizer(target: self, action: #selector(GlobalNavigationBarView.singleTapPress(_:)))
@@ -173,7 +175,7 @@ class GlobalNavigationBarView : UIView {
         self.addGestureRecognizer(singleTap)
     }
     
-    func singleTapPress(sender:UITapGestureRecognizer) {
+    func singleTapPress(_ sender:UITapGestureRecognizer) {
         if self.globalNavigationClouse != nil {
             self.globalNavigationClouse()
         }
@@ -192,10 +194,10 @@ class GlobalNavigationBarWithLabelView : UIView {
     init(frame:CGRect, title:String) {
         super.init(frame:frame)
         let titleLabel:UILabel! = UILabel()
-        titleLabel.frame = CGRectMake(0, 0, frame.size.width, frame.size.height)
+        titleLabel.frame = CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height)
         titleLabel.font = App_Theme_PinFan_L_17_Font
         titleLabel.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
-        titleLabel.textAlignment = .Center
+        titleLabel.textAlignment = .center
         titleLabel.text = title
         self.addSubview(titleLabel)
         
@@ -205,7 +207,7 @@ class GlobalNavigationBarWithLabelView : UIView {
         self.addGestureRecognizer(singleTap)
     }
     
-    func singleTapPress(sender:UITapGestureRecognizer) {
+    func singleTapPress(_ sender:UITapGestureRecognizer) {
         if self.globalNavigationClouse != nil {
             self.globalNavigationClouse()
         }
@@ -227,10 +229,10 @@ class GlobalTicketStatus : UIView {
     init(frame:CGRect, titles:[String], types:NSArray?) {
         super.init(frame:frame)
         self.setUpView(titles, types: types)
-        self.backgroundColor = UIColor.clearColor()
+        self.backgroundColor = UIColor.clear
     }
     
-    func setUpView(titles:[String], types:NSArray?){
+    func setUpView(_ titles:[String], types:NSArray?){
         for view in self.subviews {
             view.removeFromSuperview()
         }
@@ -238,23 +240,23 @@ class GlobalTicketStatus : UIView {
         var i = 1
         for str in titles {
             let stringWidth = str.widthWithConstrainedHeight(str, font: App_Theme_PinFan_R_10_Font!, height: 16)
-            let statusLabel = UILabel(frame: CGRectMake(originX, 0, CGFloat(Int(stringWidth)) + 6, 16))
+            let statusLabel = UILabel(frame: CGRect(x: originX, y: 0, width: CGFloat(Int(stringWidth)) + 6, height: 16))
             statusLabel.text = str
             statusLabel.tag = i
             i = i + 1
             statusLabel.font = App_Theme_PinFan_R_10_Font
             statusLabel.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
-            statusLabel.textAlignment = .Center
+            statusLabel.textAlignment = .center
             statusLabel.backgroundColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
             statusLabel.layer.cornerRadius = 1.5
             statusLabel.clipsToBounds = true
-            statusLabel.layer.borderColor = UIColor.init(hexString: App_Theme_4BD4C5_Color).CGColor
+            statusLabel.layer.borderColor = UIColor.init(hexString: App_Theme_4BD4C5_Color).cgColor
             statusLabel.layer.masksToBounds = true
-            originX = CGRectGetMaxX(statusLabel.frame) + 4
+            originX = statusLabel.frame.maxX + 4
             self.addSubview(statusLabel)
             
         }
-        viewWidth = CGRectGetMaxX((self.viewWithTag(titles.count)?.frame)!)
+        viewWidth = (self.viewWithTag(titles.count)?.frame)!.maxX
         if types != nil {
             for i in types! {
                 let label = self.viewWithTag(NSInteger(i as! NSNumber))
@@ -263,10 +265,10 @@ class GlobalTicketStatus : UIView {
         }
     }
     
-    func updateStatuesBgColor(types:NSArray?, bgColors:NSArray?){
+    func updateStatuesBgColor(_ types:NSArray?, bgColors:NSArray?){
         for i in types! {
             let label = self.viewWithTag(NSInteger(i as! NSNumber))
-            let bgStr = ((bgColors! as NSArray).objectAtIndex(Int(i as! NSNumber))  as! String)
+            let bgStr = ((bgColors! as NSArray).object(at: Int(i as! NSNumber))  as! String)
             label?.backgroundColor = UIColor.init(hexString: bgStr)
         }
     }
@@ -290,23 +292,23 @@ class AddAddressView: UIView {
     }
     
     func setUpButton() {
-        addButton = UIButton(type: .Custom)
-        addButton.setTitle("新增收货地址", forState: .Normal)
+        addButton = UIButton(type: .custom)
+        addButton.setTitle("新增收货地址", for: UIControlState())
         addButton.titleLabel?.font = App_Theme_PinFan_R_15_Font
-        addButton.setTitleColor(UIColor.init(hexString: App_Theme_FFFFFF_Color), forState: .Normal)
+        addButton.setTitleColor(UIColor.init(hexString: App_Theme_FFFFFF_Color), for: UIControlState())
         addButton.titleEdgeInsets = UIEdgeInsetsMake(0, 20, 0, 0)
-        addButton.setImage(UIImage.init(named: "Icon_Add"), forState: .Normal)
+        addButton.setImage(UIImage.init(named: "Icon_Add"), for: UIControlState())
         addButton.buttonSetThemColor(App_Theme_4BD4C5_Color, selectColor: App_Theme_40C6B7_Color, size:CGSize.init(width: SCREENWIDTH, height: 49))
         self.addSubview(addButton)
         self.updateConstraintsIfNeeded()
     }
     
     override func updateConstraints() {
-        addButton.snp_makeConstraints { (make) in
-            make.centerX.equalTo(self.snp_centerX).offset(-1)
-            make.centerY.equalTo(self.snp_centerY).offset(0)
-            make.left.equalTo(self.snp_left).offset(0)
-            make.right.equalTo(self.snp_right).offset(0)
+        addButton.snp.makeConstraints { (make) in
+            make.centerX.equalTo(self.snp.centerX).offset(-1)
+            make.centerY.equalTo(self.snp.centerY).offset(0)
+            make.left.equalTo(self.snp.left).offset(0)
+            make.right.equalTo(self.snp.right).offset(0)
         }
         super.updateConstraints()
     }
@@ -317,7 +319,7 @@ class AddAddressView: UIView {
 }
 
 
-typealias GloableBottomButtonViewClouse = (tag:NSInteger?) -> Void
+typealias GloableBottomButtonViewClouse = (_ tag:NSInteger?) -> Void
 
 class GloableBottomButtonView: UIView {
    
@@ -328,33 +330,34 @@ class GloableBottomButtonView: UIView {
         }else{
             super.init(frame: frame!)
         }
-        self.userInteractionEnabled = true
+        self.isUserInteractionEnabled = true
         self.setUpButton(title)
-        button.rac_signalForControlEvents(.TouchUpInside).throttle(0.5).subscribeNext { (btnTouchUp) in
+        button.reactive.controlEvents(.touchUpInside).observe { (button) in
             if action != nil {
-                action!(tag:self.button.tag)
+                action!(self.button.tag)
                 //self.button.enabled = false
             }
         }
-        button.snp_makeConstraints { (make) in
+
+        button.snp.makeConstraints { (make) in
             make.edges.equalTo(UIEdgeInsetsMake(0, 0, 0, 0))
         }
     }
     
-    func setUpButton(title:String) {
-        button = UIButton(type: .Custom)
-        button.setTitle(title, forState: .Normal)
+    func setUpButton(_ title:String) {
+        button = UIButton(type: .custom)
+        button.setTitle(title, for: UIControlState())
         button.buttonSetThemColor(App_Theme_4BD4C5_Color, selectColor: App_Theme_40C6B7_Color, size: CGSize.init(width: SCREENWIDTH, height: 49))
         button.titleLabel?.font = App_Theme_PinFan_R_15_Font
-        button.setTitleColor(UIColor.init(hexString: App_Theme_FFFFFF_Color), forState: .Normal)
-        button.titleLabel?.textAlignment = .Center
+        button.setTitleColor(UIColor.init(hexString: App_Theme_FFFFFF_Color), for: UIControlState())
+        button.titleLabel?.textAlignment = .center
         button.tag = 1
         self.addSubview(button)
         self.updateConstraintsIfNeeded()
     }
     
-    func updateButtonTitle(title:String) {
-        button.setTitle(title, forState: .Normal)
+    func updateButtonTitle(_ title:String) {
+        button.setTitle(title, for: UIControlState())
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -366,8 +369,8 @@ class GloableBottomButtonView: UIView {
 let NumberTickButtonHeight:CGFloat = 34
 
 enum NumberTickViewType {
-    case Sell
-    case Confirm
+    case sell
+    case confirm
 }
 
 class NumberTickView: UIView {
@@ -377,13 +380,13 @@ class NumberTickView: UIView {
     var number:NSInteger = 1
     init(frame:CGRect, buttonWidth:CGFloat, type:NumberTickViewType) {
         super.init(frame: frame)
-        if type == .Confirm {
+        if type == .confirm {
             self.layer.cornerRadius = 2.0
             self.layer.masksToBounds = true
-            downButton = UIButton(type: .Custom)
-            downButton.setImage(UIImage.init(named: "Icon_Reduce_Disable"), forState: .Normal)
-            downButton.frame = CGRectMake(0, 0, buttonWidth, frame.size.height)
-            downButton.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (object) in
+            downButton = UIButton(type: .custom)
+            downButton.setImage(UIImage.init(named: "Icon_Reduce_Disable"), for: UIControlState())
+            downButton.frame = CGRect(x: 0, y: 0, width: buttonWidth, height: frame.size.height)
+            downButton.reactive.controlEvents(.touchUpInside).observe { (object) in
                 if self.number > 1 {
                     self.number = self.number - 1
                     self.numberTextField.text = "\(self.number)"
@@ -393,14 +396,14 @@ class NumberTickView: UIView {
             downButton.backgroundColor = UIColor.init(hexString: App_Theme_F6F7FA_Color)
             self.addSubview(downButton)
             
-            upButton = UIButton(type: .Custom)
-            upButton.setImage(UIImage.init(named: "Icon_Add_Normal"), forState: .Normal)
-            upButton.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (object) in
+            upButton = UIButton(type: .custom)
+            upButton.setImage(UIImage.init(named: "Icon_Add_Normal"), for: UIControlState())
+            upButton.reactive.controlEvents(.touchUpInside).observe { (object) in
                 self.number = self.number + 1
                 self.numberTextField.text = "\(self.number)"
                 self.setNumberDownColor()
             }
-            upButton.frame = CGRectMake(self.frame.size.width - buttonWidth, 0, buttonWidth, frame.size.height)
+            upButton.frame = CGRect(x: self.frame.size.width - buttonWidth, y: 0, width: buttonWidth, height: frame.size.height)
             upButton.backgroundColor = UIColor.init(hexString: App_Theme_F6F7FA_Color)
             self.addSubview(upButton)
             
@@ -410,38 +413,38 @@ class NumberTickView: UIView {
             numberTextField.textColor = UIColor.init(hexString: App_Theme_556169_Color)
             
             let borderLeft = CALayer.init()
-            borderLeft.backgroundColor = UIColor.init(hexString: App_Theme_FFFFFF_Color).CGColor
+            borderLeft.backgroundColor = UIColor.init(hexString: App_Theme_FFFFFF_Color).cgColor
             borderLeft.frame = CGRect.init(x: 0, y: 0, width: 2, height: frame.size.height)
             numberTextField.layer.addSublayer(borderLeft)
             
             let borderRight = CALayer.init()
-            borderRight.backgroundColor = UIColor.init(hexString: App_Theme_FFFFFF_Color).CGColor
+            borderRight.backgroundColor = UIColor.init(hexString: App_Theme_FFFFFF_Color).cgColor
             borderRight.frame = CGRect.init(x: self.frame.size.width - 2 * buttonWidth, y: 0, width: 2, height: frame.size.height)
             numberTextField.layer.addSublayer(borderRight)
 
             numberTextField.backgroundColor = UIColor.init(hexString: App_Theme_F6F7FA_Color)
             numberTextField.font = App_Theme_PinFan_M_15_Font
-            numberTextField.frame = CGRectMake(buttonWidth, 0, self.frame.size.width - 2 * buttonWidth, frame.size.height)
-            numberTextField.rac_textSignal().subscribeNext({ (str) in
-                if str as! String == ""{
+            numberTextField.frame = CGRect(x: buttonWidth, y: 0, width: self.frame.size.width - 2 * buttonWidth, height: frame.size.height)
+            numberTextField.reactive.continuousTextValues.observeValues({ (str) in
+                if str! == ""{
                     self.number = 1
                     self.numberTextField.text = "1"
                 }else{
-                    self.number = NSInteger(str as! String)!
-                    self.numberTextField.text = str as? String
+                    self.number = NSInteger(str!)!
+                    self.numberTextField.text = str!
                 }
                 
             })
-            numberTextField.textAlignment = .Center
+            numberTextField.textAlignment = .center
             self.addSubview(numberTextField)
         }else{
             self.layer.cornerRadius = 3.0
-            self.layer.borderColor = UIColor.init(hexString: App_Theme_384249_Color).CGColor
+            self.layer.borderColor = UIColor.init(hexString: App_Theme_384249_Color).cgColor
             self.layer.borderWidth = 0.5
-            downButton = UIButton(type: .Custom)
-            downButton.setImage(UIImage.init(named: "Icon_Reduce_Disable"), forState: .Normal)
-            downButton.frame = CGRectMake(0, 0, buttonWidth, frame.size.height)
-            downButton.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (object) in
+            downButton = UIButton(type: .custom)
+            downButton.setImage(UIImage.init(named: "Icon_Reduce_Disable"), for: UIControlState())
+            downButton.frame = CGRect(x: 0, y: 0, width: buttonWidth, height: frame.size.height)
+            downButton.reactive.controlEvents(.touchUpInside).observe { (object) in
                 if self.number > 1 {
                     self.number = self.number - 1
                     self.numberTextField.text = "\(self.number)"
@@ -450,33 +453,33 @@ class NumberTickView: UIView {
             }
             self.addSubview(downButton)
             
-            upButton = UIButton(type: .Custom)
-            upButton.setImage(UIImage.init(named: "Icon_Add_Normal"), forState: .Normal)
-            upButton.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (object) in
+            upButton = UIButton(type: .custom)
+            upButton.setImage(UIImage.init(named: "Icon_Add_Normal"), for: UIControlState())
+            upButton.reactive.controlEvents(.touchUpInside).observe { (object) in
                 self.number = self.number + 1
                 self.numberTextField.text = "\(self.number)"
                 self.setNumberDownColor()
             }
-            upButton.frame = CGRectMake(self.frame.size.width - buttonWidth, 0, buttonWidth, frame.size.height)
+            upButton.frame = CGRect(x: self.frame.size.width - buttonWidth, y: 0, width: buttonWidth, height: frame.size.height)
             self.addSubview(upButton)
             numberTextField = UITextField()
             numberTextField.text = "\(self.number)"
             numberTextField.tintColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
             numberTextField.textColor = UIColor.init(hexString: App_Theme_384249_Color)
-            numberTextField.layer.borderColor = UIColor.init(hexString: App_Theme_384249_Color).CGColor
+            numberTextField.layer.borderColor = UIColor.init(hexString: App_Theme_384249_Color).cgColor
             numberTextField.layer.borderWidth = 0.5
             numberTextField.font = App_Theme_PinFan_M_15_Font
-            numberTextField.frame = CGRectMake(buttonWidth, 0, self.frame.size.width - 2 * buttonWidth, frame.size.height)
-            numberTextField.textAlignment = .Center
+            numberTextField.frame = CGRect(x: buttonWidth, y: 0, width: self.frame.size.width - 2 * buttonWidth, height: frame.size.height)
+            numberTextField.textAlignment = .center
             self.addSubview(numberTextField)
         }
     }
     
     func setNumberDownColor(){
         if self.number == 1 {
-            self.downButton.setImage(UIImage.init(named: "Icon_Reduce_Disable"), forState: .Normal)
+            self.downButton.setImage(UIImage.init(named: "Icon_Reduce_Disable"), for: UIControlState())
         }else{
-            self.downButton.setImage(UIImage.init(named: "Icon_Reduce_Normal"), forState: .Normal)
+            self.downButton.setImage(UIImage.init(named: "Icon_Reduce_Normal"), for: UIControlState())
         }
         
     }
@@ -498,11 +501,11 @@ class GloableServiceView: UIView, UIGestureRecognizerDelegate {
         super.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: SCREENHEIGHT))
         self.backgroundColor = UIColor.init(hexString: App_Theme_384249_Color, andAlpha: 0.5)
         detailView = UIView()
-        detailView.backgroundColor = UIColor.whiteColor()
+        detailView.backgroundColor = UIColor.white
         self.setUpTitleView(title!)
         let height = self.setUpDetailView(message!)
         
-        detailView.frame = CGRectMake(0, SCREENHEIGHT, SCREENWIDTH, height + 160)
+        detailView.frame = CGRect(x: 0, y: SCREENHEIGHT, width: SCREENWIDTH, height: height + 160)
 
         self.setUpCancelButton()
         self.addSubview(detailView)
@@ -511,70 +514,70 @@ class GloableServiceView: UIView, UIGestureRecognizerDelegate {
         singleTap.numberOfTouchesRequired = 1
         singleTap.delegate = self
         self.addGestureRecognizer(singleTap)
-        UIView.animateWithDuration(AnimationTime, animations: {
-            self.detailView.frame = CGRectMake(0, SCREENHEIGHT - height - 160, SCREENWIDTH, height + 160)
+        UIView.animate(withDuration: AnimationTime, animations: {
+            self.detailView.frame = CGRect(x: 0, y: SCREENHEIGHT - height - 160, width: SCREENWIDTH, height: height + 160)
             }, completion: { completion in
                 
         })
     }
     
-    func singleTapPress(sender:UITapGestureRecognizer){
+    func singleTapPress(_ sender:UITapGestureRecognizer){
         self.removwSelf()
     }
     
     func removwSelf(){
-        UIView.animateWithDuration(AnimationTime, animations: {
-            self.detailView.frame = CGRectMake(0, SCREENHEIGHT, SCREENWIDTH, self.height + 160)
+        UIView.animate(withDuration: AnimationTime, animations: {
+            self.detailView.frame = CGRect(x: 0, y: SCREENHEIGHT, width: SCREENWIDTH, height: self.height + 160)
             }, completion: { completion in
                 self.removeFromSuperview()
         })
     }
     
-    func setUpDetailView(message:String) -> CGFloat {
+    func setUpDetailView(_ message:String) -> CGFloat {
         let height = message.heightWithConstrainedWidth(message, font: App_Theme_PinFan_R_17_Font!, width: SCREENWIDTH - 30)
         detailLabel = UILabel()
         detailLabel.text = message
         detailLabel.numberOfLines = 0
         detailLabel.textColor = UIColor.init(hexString: App_Theme_556169_Color)
         detailLabel.font = App_Theme_PinFan_R_13_Font
-        UILabel.changeLineSpaceForLabel(detailLabel, withSpace: TitleLineSpace)
-        detailLabel.textAlignment = .Center
+        UILabel.changeLineSpace(for: detailLabel, withSpace: TitleLineSpace)
+        detailLabel.textAlignment = .center
         detailLabel.sizeToFit()
-        detailLabel.frame = CGRectMake(15, 96, SCREENWIDTH - 30, height)
+        detailLabel.frame = CGRect(x: 15, y: 96, width: SCREENWIDTH - 30, height: height)
         detailView.addSubview(detailLabel)
         self.height = height
         return height
     }
     
     func setUpCancelButton(){
-        cancelButton =  UIButton(type: .Custom)
-        cancelButton.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (action) in
+        cancelButton =  UIButton(type: .custom)
+        cancelButton.reactive.controlEvents(.touchUpInside).observe { (action) in
             self.removwSelf()
         }
         cancelButton.frame = CGRect.init(x: SCREENWIDTH - 50, y: 10, width: 40, height: 40)
-        cancelButton.setImage(UIImage.init(named: "Btn_Close"), forState: .Normal)
+        cancelButton.setImage(UIImage.init(named: "Btn_Close"), for: UIControlState())
         detailView.addSubview(cancelButton)
     }
     
-    func setUpTitleView(title:String){
+    func setUpTitleView(_ title:String){
         let recommentTitle = UILabel()
         let width = title.widthWithConstrainedHeight(title, font: App_Theme_PinFan_M_14_Font!, height: 20)
         if IPHONE_VERSION >= 9 {
-            recommentTitle.frame = CGRectMake((SCREENWIDTH - width) / 2, 48, width, 20)
+            recommentTitle.frame = CGRect(x: (SCREENWIDTH - width) / 2, y: 48, width: width, height: 20)
         }else{
-            recommentTitle.frame = CGRectMake((SCREENWIDTH - width) / 2, 48, width, 20)
+            recommentTitle.frame = CGRect(x: (SCREENWIDTH - width) / 2, y: 48, width: width, height: 20)
         }
         
         recommentTitle.textColor = UIColor.init(hexString: App_Theme_384249_Color)
         recommentTitle.font = App_Theme_PinFan_M_14_Font
         recommentTitle.text = title
-        recommentTitle.textAlignment = .Center
+        recommentTitle.textAlignment = .center
         detailView.addSubview(recommentTitle)
         
-        let lineLabel = GloabLineView(frame: CGRectMake(CGRectGetMinX(recommentTitle.frame) - 50, 58, 30, 0.5))
+        let lineLabel = GloabLineView(frame: CGRect(x: recommentTitle.frame.minX - 50, y: 58, width: 30, height: 0.5))
         lineLabel.setLineColor(UIColor.init(hexString: App_Theme_384249_Color))
         detailView.addSubview(lineLabel)
-        let lineLabel1 = GloabLineView(frame: CGRectMake(CGRectGetMaxX(recommentTitle.frame) + 20, 58, 30, 0.5))
+        let lineLabel1 = GloabLineView(frame: CGRect(x: recommentTitle.frame.maxX + 20, y: 58, width: 30, height: 0.5))
         lineLabel1.setLineColor(UIColor.init(hexString: App_Theme_384249_Color))
         detailView.addSubview(lineLabel1)
         
@@ -584,8 +587,8 @@ class GloableServiceView: UIView, UIGestureRecognizerDelegate {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool{
-        let touchPoint = touch.locationInView(self)
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool{
+        let touchPoint = touch.location(in: self)
         return touchPoint.y < SCREENHEIGHT - (self.height + 160) ? true : false
     }
 }
@@ -596,12 +599,12 @@ enum CustomButtonType {
     case withBackBoarder
     
 }
-typealias CustomButtonClouse = (tag:NSInteger) -> Void
+typealias CustomButtonClouse = (_ tag:NSInteger) -> Void
 class CustomButton: UIButton {
     
-    init(frame:CGRect, title:String, tag:NSInteger?, titleFont:UIFont, type:CustomButtonType, pressClouse:CustomButtonClouse) {
+    init(frame:CGRect, title:String, tag:NSInteger?, titleFont:UIFont, type:CustomButtonType, pressClouse:@escaping CustomButtonClouse) {
         super.init(frame: frame)
-        self.setTitle(title, forState: .Normal)
+        self.setTitle(title, for: UIControlState())
         self.titleLabel?.font = titleFont
         self.layer.masksToBounds = true
         self.frame = frame
@@ -618,11 +621,11 @@ class CustomButton: UIButton {
             self.layer.cornerRadius = 2.0
             self.setwithonBoarderButton()
         }
-        self.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (action) in
+        self.reactive.controlEvents(.touchUpInside).observe { (action) in
             if tag != nil {
                 self.tag = 1000
             }
-            pressClouse(tag:self.tag)
+            pressClouse(self.tag)
         }
     }
     
@@ -631,13 +634,13 @@ class CustomButton: UIButton {
     }
     
     func setWithBoarderButton(){
-        self.layer.borderColor = UIColor.init(hexString: App_Theme_4BD4C5_Color).CGColor
+        self.layer.borderColor = UIColor.init(hexString: App_Theme_4BD4C5_Color).cgColor
         self.layer.borderWidth = 1.0
         self.buttonSetTitleColor(App_Theme_4BD4C5_Color, sTitleColor: App_Theme_40C6B7_Color)
     }
     
     func setwithonBoarderButton(){
-        self.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        self.setTitleColor(UIColor.white, for: UIControlState())
         self.buttonSetThemColor(App_Theme_4BD4C5_Color, selectColor: App_Theme_40C6B7_Color, size: CGSize.init(width: self.frame.size.width, height: self.frame.size.height))
     }
     
@@ -654,7 +657,7 @@ enum GloableLabelType {
     case selectType
     case nomalType
 }
-typealias GloableTitleListClouse = (title:String, index:Int) -> Void
+typealias GloableTitleListClouse = (_ title:String, _ index:Int) -> Void
 class GloableTitleList: UIView {
     var maxHeight:CGFloat = 0
     var originX:CGFloat = 0
@@ -666,13 +669,13 @@ class GloableTitleList: UIView {
         super.init(frame: frame)
         titleCount = title.count
         for index in 0...title.count - 1 {
-            var labelFrame = CGRectZero
-            let str = title.objectAtIndex(index) as! String
+            var labelFrame = CGRect.zero
+            let str = title.object(at: index) as! String
             let strWidth = CGFloat(Int((str).widthWithConstrainedHeight(str , font: App_Theme_PinFan_R_13_Font!, height: 41) + 54))
             labelFrame = CGRect.init(x: originX, y: originY, width: strWidth, height: GloableTitleListLabelHeight)
-            if CGRectGetMaxX(labelFrame) > frame.size.width {
+            if labelFrame.maxX > frame.size.width {
                 originX = 0
-                originY = CGRectGetMaxY(labelFrame) + GloableTitleListLabelVSpace
+                originY = labelFrame.maxY + GloableTitleListLabelVSpace
                 labelFrame = CGRect.init(x: originX, y: originY, width: strWidth, height: GloableTitleListLabelHeight)
             }
             let label = self.createLabel(str, frame: labelFrame, type: .nomalType)
@@ -680,18 +683,18 @@ class GloableTitleList: UIView {
                 self.updateLabelType(label, type: .selectType)
             }
             label.tag = index + 100
-            originX = CGRectGetMaxX(label.frame) + GloableTitleListLabelHSpace
+            originX = label.frame.maxX + GloableTitleListLabelHSpace
             let singTap = UITapGestureRecognizer.init(target: self, action: #selector(GloableTitleList.tapGesture(_:)))
             singTap.numberOfTapsRequired = 1
             singTap.numberOfTouchesRequired = 1
-            label.userInteractionEnabled = true
+            label.isUserInteractionEnabled = true
             label.addGestureRecognizer(singTap)
             self.addSubview(label)
         }
-        maxHeight = CGRectGetMaxY((self.viewWithTag(title.count - 1 + 100)?.frame)!)
+        maxHeight = (self.viewWithTag(title.count - 1 + 100)?.frame)!.maxY
     }
     
-    func tapGesture(tap:UITapGestureRecognizer) {
+    func tapGesture(_ tap:UITapGestureRecognizer) {
         for index in 0...titleCount - 1 {
             let label = self.viewWithTag(index + 100) as! UILabel
             if index + 100 == tap.view?.tag {
@@ -702,33 +705,33 @@ class GloableTitleList: UIView {
         }
         if self.gloableTitleListClouse != nil {
             let label = self.viewWithTag((tap.view?.tag)!) as! UILabel
-            self.gloableTitleListClouse(title: label.text!, index:(tap.view?.tag)! - 100)
+            self.gloableTitleListClouse(label.text!, (tap.view?.tag)! - 100)
         }
     }
     
-    func createLabel(title:String, frame:CGRect, type:GloableLabelType) -> UILabel {
+    func createLabel(_ title:String, frame:CGRect, type:GloableLabelType) -> UILabel {
         let label = UILabel(frame: frame)
         label.text = title
-        label.textAlignment = .Center
+        label.textAlignment = .center
         label.layer.masksToBounds = true
         label.font = App_Theme_PinFan_R_13_Font
         self.updateLabelType(label, type: type)
         return label
     }
     
-    func updateLabelType(label:UILabel, type:GloableLabelType) {
+    func updateLabelType(_ label:UILabel, type:GloableLabelType) {
         if type == .nomalType {
-            label.backgroundColor = UIColor.whiteColor()
+            label.backgroundColor = UIColor.white
             label.layer.cornerRadius = 3.0
             label.layer.borderWidth = 0.5
             label.textColor = UIColor.init(hexString: App_Theme_556169_Color)
-            label.layer.borderColor = UIColor.init(hexString: App_Theme_556169_Color).CGColor
+            label.layer.borderColor = UIColor.init(hexString: App_Theme_556169_Color).cgColor
         }else{
             label.backgroundColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
             label.layer.cornerRadius = 3.0
             label.layer.borderWidth = 0.1
             label.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
-            label.layer.borderColor = UIColor.init(hexString: App_Theme_4BD4C5_Color).CGColor
+            label.layer.borderColor = UIColor.init(hexString: App_Theme_4BD4C5_Color).cgColor
         }
     }
     
@@ -766,12 +769,12 @@ class GloableShareView: UIView, UIGestureRecognizerDelegate, CAAnimationDelegate
         }
         self.backgroundColor = UIColor.init(hexString: App_Theme_384249_Color, andAlpha: 0.5)
         detailView = UIView()
-        detailView.backgroundColor = UIColor.whiteColor()
+        detailView.backgroundColor = UIColor.white
         self.setUpTitleView(title)
         
         self.setUpCancelButton()
         self.addShareButton()
-        detailView.frame = CGRectMake(0, SCREENHEIGHT, SCREENWIDTH, 188)
+        detailView.frame = CGRect(x: 0, y: SCREENHEIGHT, width: SCREENWIDTH, height: 188)
         self.addSubview(detailView)
         
         let singleTap = UITapGestureRecognizer(target: self, action: #selector(GloableServiceView.singleTapPress(_:)))
@@ -779,32 +782,32 @@ class GloableShareView: UIView, UIGestureRecognizerDelegate, CAAnimationDelegate
         singleTap.numberOfTouchesRequired = 1
         singleTap.delegate = self
         self.addGestureRecognizer(singleTap)
-        UIView.animateWithDuration(AnimationTime, animations: {
-            self.detailView.frame = CGRectMake(0, SCREENHEIGHT - 188, SCREENWIDTH, 188)
+        UIView.animate(withDuration: AnimationTime, animations: {
+            self.detailView.frame = CGRect(x: 0, y: SCREENHEIGHT - 188, width: SCREENWIDTH, height: 188)
             }, completion: { completion in
                 
         })
     }
     
-    func singleTapPress(sender:UITapGestureRecognizer){
+    func singleTapPress(_ sender:UITapGestureRecognizer){
         self.removwSelf()
     }
     
     func removwSelf(){
-        UIView.animateWithDuration(AnimationTime, animations: {
-            self.detailView.frame = CGRectMake(0, SCREENHEIGHT, SCREENWIDTH, 188)
+        UIView.animate(withDuration: AnimationTime, animations: {
+            self.detailView.frame = CGRect(x: 0, y: SCREENHEIGHT, width: SCREENWIDTH, height: 188)
             }, completion: { completion in
                 self.removeFromSuperview()
         })
     }
     
     func setUpCancelButton(){
-        cancelButton =  UIButton(type: .Custom)
-        cancelButton.rac_signalForControlEvents(.TouchUpInside).subscribeNext { (action) in
+        cancelButton =  UIButton(type: .custom)
+        cancelButton.reactive.controlEvents(.touchUpInside).observe { (action) in
             self.removwSelf()
         }
         cancelButton.frame = CGRect.init(x: SCREENWIDTH - 50, y: 10, width: 40, height: 40)
-        cancelButton.setImage(UIImage.init(named: "Btn_Close"), forState: .Normal)
+        cancelButton.setImage(UIImage.init(named: "Btn_Close"), for: UIControlState())
         detailView.addSubview(cancelButton)
     }
     
@@ -812,9 +815,9 @@ class GloableShareView: UIView, UIGestureRecognizerDelegate, CAAnimationDelegate
         shareView = UIView.init()
         var maxX:CGFloat = -16
         if WXApi.isWXAppInstalled() {
-            wxSession = UIButton(type: .Custom)
+            wxSession = UIButton(type: .custom)
             wxSession.buttonSetImage(UIImage.init(named: "Wechat_Normal")!, sImage: UIImage.init(named: "Wechat_Pressed")!)
-            wxSession.rac_signalForControlEvents(.TouchUpInside).subscribeNext({ (action) in
+            wxSession.reactive.controlEvents(.touchUpInside).observe({ (action) in
                 GloableSetEvent("shareTicket", lable: "WeChatSession", parameters: nil)
                 if self.shareImage == nil {
                     ShareTools.shareInstance.shareWeChatSession(self.shareModel.title, description: self.shareModel.venue.address, image: self.ticketImage, url: self.shareUrl)
@@ -824,20 +827,20 @@ class GloableShareView: UIView, UIGestureRecognizerDelegate, CAAnimationDelegate
                 self.removwSelf()
             })
             wxSession.tag = 100
-            wxSession.frame = CGRectMake(maxX + 16, 188, 50, 50)
+            wxSession.frame = CGRect(x: maxX + 16, y: 188, width: 50, height: 50)
             if #available(iOS 9.0, *) {
-                wxSession.layer.addAnimation(self.setUpAnimation(wxSession.layer.position.y - 98, velocity: 6.0), forKey: "wxSession")
+                wxSession.layer.add(self.setUpAnimation(wxSession.layer.position.y - 98, velocity: 6.0), forKey: "wxSession")
                 shareView.addSubview(wxSession)
             } else {
                 shareView.addSubview(wxSession)
                 // Fallback on earlier versions
             }
-            maxX = CGRectGetMaxX(wxSession.frame)
+            maxX = wxSession.frame.maxX
             
-            wxTimeLine = UIButton(type: .Custom)
+            wxTimeLine = UIButton(type: .custom)
             wxTimeLine.tag = 101
             wxTimeLine.buttonSetImage(UIImage.init(named: "Moment_Normal")!, sImage: UIImage.init(named: "Moment_Pressed")!)
-            wxTimeLine.rac_signalForControlEvents(.TouchUpInside).subscribeNext({ (action) in
+            wxTimeLine.reactive.controlEvents(.touchUpInside).observe({ (action) in
                 GloableSetEvent("shareTicket", lable: "WeChatTimeLine", parameters: nil)
                 if self.shareImage == nil {
                     ShareTools.shareInstance.shareWeChatTimeLine(self.shareModel.title, description: self.shareModel.venue.address, image: self.ticketImage, url: self.shareUrl)
@@ -846,23 +849,23 @@ class GloableShareView: UIView, UIGestureRecognizerDelegate, CAAnimationDelegate
                 }
                 self.removwSelf()
             })
-            wxTimeLine.frame = CGRectMake(maxX + 16, 188, 50, 50)
+            wxTimeLine.frame = CGRect(x: maxX + 16, y: 188, width: 50, height: 50)
             if #available(iOS 9.0, *) {
-                wxTimeLine.layer.addAnimation(self.setUpAnimation(wxTimeLine.layer.position.y - 98, velocity: 5.5), forKey: "wxTimeLine")
+                wxTimeLine.layer.add(self.setUpAnimation(wxTimeLine.layer.position.y - 98, velocity: 5.5), forKey: "wxTimeLine")
                 shareView.addSubview(wxTimeLine)
             } else {
                 shareView.addSubview(wxTimeLine)
                 // Fallback on earlier versions
             }
             shareView.addSubview(wxTimeLine)
-            maxX = CGRectGetMaxX(wxTimeLine.frame)
+            maxX = wxTimeLine.frame.maxX
         }
         
         if WeiboSDK.isWeiboAppInstalled() {
-            weiboTimeLine = UIButton(type: .Custom)
+            weiboTimeLine = UIButton(type: .custom)
             weiboTimeLine.tag = 102
             weiboTimeLine.buttonSetImage(UIImage.init(named: "Weibo_Normal")!, sImage: UIImage.init(named: "Weibo_Pressed")!)
-            weiboTimeLine.rac_signalForControlEvents(.TouchUpInside).subscribeNext({ (action) in
+            weiboTimeLine.reactive.controlEvents(.touchUpInside).observe({ (action) in
                 GloableSetEvent("shareTicket", lable: "weiboTimeLine", parameters: nil)
                 if self.shareImage == nil {
                     ShareTools.shareInstance.shareWeiboWebUrl("\(self.shareModel.title)--\(self.shareModel.venue.address)-\(self.shareUrl)", webTitle: self.shareModel.title, image: self.ticketImage, webDescription: self.shareModel.venue.address, webUrl: self.shareUrl)
@@ -870,24 +873,24 @@ class GloableShareView: UIView, UIGestureRecognizerDelegate, CAAnimationDelegate
                     ShareTools.shareInstance.shareWBScreenShotImag(self.shareImage, text: "良票")
                 }
             })
-            weiboTimeLine.frame = CGRectMake(maxX + 16, 188, 50, 50)
+            weiboTimeLine.frame = CGRect(x: maxX + 16, y: 188, width: 50, height: 50)
             if #available(iOS 9.0, *) {
-                weiboTimeLine.layer.addAnimation(self.setUpAnimation(weiboTimeLine.layer.position.y - 98, velocity: 5.0), forKey: "weiboTimeLine")
+                weiboTimeLine.layer.add(self.setUpAnimation(weiboTimeLine.layer.position.y - 98, velocity: 5.0), forKey: "weiboTimeLine")
                 shareView.addSubview(weiboTimeLine)
             } else {
                 shareView.addSubview(weiboTimeLine)
                 // Fallback on earlier versions
             }
             shareView.addSubview(weiboTimeLine)
-            maxX = CGRectGetMaxX(weiboTimeLine.frame)
+            maxX = weiboTimeLine.frame.maxX
         }
         
         if TencentOAuth.iphoneQQInstalled() {
-            qqSeession = UIButton(type: .Custom)
+            qqSeession = UIButton(type: .custom)
             qqSeession.tag = 103
             qqSeession.buttonSetImage(UIImage.init(named: "QQ_Normal")!, sImage: UIImage.init(named: "QQ_Pressed")!)
             shareView.addSubview(qqSeession)
-            qqSeession.rac_signalForControlEvents(.TouchUpInside).subscribeNext({ (action) in
+            qqSeession.reactive.controlEvents(.touchUpInside).observe({ (action) in
                 GloableSetEvent("shareTicket", lable: "qqSeession", parameters: nil)
                 if self.shareImage == nil {
                     ShareTools.shareInstance.shareQQSessionWebUrl("良票", webTitle: self.shareModel.title,imageUrl: "\(self.shareModel.cover)",  webDescription: self.shareModel.venue.address, webUrl: self.shareUrl)
@@ -896,23 +899,23 @@ class GloableShareView: UIView, UIGestureRecognizerDelegate, CAAnimationDelegate
                 }
                 self.removwSelf()
             })
-            qqSeession.frame = CGRectMake(maxX + 16, 188, 50, 50)
+            qqSeession.frame = CGRect(x: maxX + 16, y: 188, width: 50, height: 50)
             if #available(iOS 9.0, *) {
-                qqSeession.layer.addAnimation(self.setUpAnimation(qqSeession.layer.position.y - 98, velocity: 4.5), forKey: "qqSeession")
+                qqSeession.layer.add(self.setUpAnimation(qqSeession.layer.position.y - 98, velocity: 4.5), forKey: "qqSeession")
                 shareView.addSubview(qqSeession)
             } else {
                 shareView.addSubview(qqSeession)
                 // Fallback on earlier versions
             }
-            maxX = CGRectGetMaxX(qqSeession.frame)
+            maxX = qqSeession.frame.maxX
         }
         
         if TencentOAuth.iphoneQZoneInstalled() {
-            qqTimeLine = UIButton(type: .Custom)
+            qqTimeLine = UIButton(type: .custom)
             qqTimeLine.tag = 104
             qqTimeLine.buttonSetImage(UIImage.init(named: "QZone_Normal")!, sImage: UIImage.init(named: "QZone_Pressed")!)
-            qqTimeLine.frame = CGRectMake(maxX + 16, 90, 50, 50)
-            qqTimeLine.rac_signalForControlEvents(.TouchUpInside).subscribeNext({ (action) in
+            qqTimeLine.frame = CGRect(x: maxX + 16, y: 90, width: 50, height: 50)
+            qqTimeLine.reactive.controlEvents(.touchUpInside).observe({ (action) in
                 GloableSetEvent("shareTicket", lable: "qqTimeLine", parameters: nil)
                 if self.shareImage == nil {
                     ShareTools.shareInstance.shareQQTimeLineUrl("良票", webTitle: self.shareModel.title,imageUrl: "\(self.shareModel.cover)", webDescription: self.shareModel.venue.address, webUrl: self.shareUrl)
@@ -921,30 +924,30 @@ class GloableShareView: UIView, UIGestureRecognizerDelegate, CAAnimationDelegate
                 }
                 self.removwSelf()
             })
-            qqTimeLine.frame = CGRectMake(maxX + 16, 188, 50, 50)
+            qqTimeLine.frame = CGRect(x: maxX + 16, y: 188, width: 50, height: 50)
             if #available(iOS 9.0, *) {
-                qqTimeLine.layer.addAnimation(self.setUpAnimation(qqTimeLine.layer.position.y - 98, velocity: 4.0), forKey: "qqTimeLine")
+                qqTimeLine.layer.add(self.setUpAnimation(qqTimeLine.layer.position.y - 98, velocity: 4.0), forKey: "qqTimeLine")
                 shareView.addSubview(qqTimeLine)
             } else {
                 shareView.addSubview(qqTimeLine)
                 // Fallback on earlier versions
             }
             shareView.addSubview(qqTimeLine)
-            maxX = CGRectGetMaxX(qqTimeLine.frame)
+            maxX = qqTimeLine.frame.maxX
         }
         
-        shareView.frame = CGRectMake((SCREENWIDTH - maxX)/2, 0, maxX, 188)
+        shareView.frame = CGRect(x: (SCREENWIDTH - maxX)/2, y: 0, width: maxX, height: 188)
         self.detailView.addSubview(shareView)
     }
     
-    func setUpTitleView(title:String){
+    func setUpTitleView(_ title:String){
         let recommentTitle = UILabel()
         let width = title.widthWithConstrainedHeight(title, font: App_Theme_PinFan_M_13_Font!, height: 20)
-        recommentTitle.frame = CGRectMake((SCREENWIDTH - width) / 2, 45, width, 20)
+        recommentTitle.frame = CGRect(x: (SCREENWIDTH - width) / 2, y: 45, width: width, height: 20)
         recommentTitle.textColor = UIColor.init(hexString: App_Theme_A2ABB5_Color)
         recommentTitle.font = App_Theme_PinFan_M_13_Font
         recommentTitle.text = title
-        recommentTitle.textAlignment = .Center
+        recommentTitle.textAlignment = .center
         detailView.addSubview(recommentTitle)
     }
     
@@ -952,13 +955,13 @@ class GloableShareView: UIView, UIGestureRecognizerDelegate, CAAnimationDelegate
         fatalError("init(coder:) has not been implemented")
     }
     
-    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool{
-        let touchPoint = touch.locationInView(self)
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool{
+        let touchPoint = touch.location(in: self)
         return touchPoint.y < SCREENHEIGHT - (self.height + 160) ? true : false
     }
     
     @available(iOS 9.0, *)
-    func setUpAnimation(float:CGFloat,velocity:CGFloat) ->CASpringAnimation{
+    func setUpAnimation(_ float:CGFloat,velocity:CGFloat) ->CASpringAnimation{
         let ani = CASpringAnimation.init(keyPath: "position.y")
         ani.mass = 10.0; //质量，影响图层运动时的弹簧惯性，质量越大，弹簧拉伸和压缩的幅度越大
         ani.stiffness = 1000; //刚度系数(劲度系数/弹性系数)，刚度系数越大，形变产生的力就越大，运动越快
@@ -967,29 +970,29 @@ class GloableShareView: UIView, UIGestureRecognizerDelegate, CAAnimationDelegate
         ani.duration = ani.settlingDuration;
         ani.toValue = float
         ani.delegate = self
-        ani.removedOnCompletion = false
+        ani.isRemovedOnCompletion = false
         ani.fillMode = kCAFillModeForwards;
         ani.timingFunction = CAMediaTimingFunction.init(name: kCAMediaTimingFunctionEaseInEaseOut)
         return ani
     }
     
-    func animationDidStop(anim: CAAnimation, finished flag: Bool) {
+    func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
         if self.wxSession != nil {
-            if anim == self.wxSession.layer.animationForKey("wxSession") {
+            if anim == self.wxSession.layer.animation(forKey: "wxSession") {
                 var frame = self.wxSession.frame
                 frame.origin.y =  90
                 self.wxSession.frame = frame
             }
         }
         if self.wxTimeLine != nil {
-            if anim == self.wxTimeLine.layer.animationForKey("wxTimeLine") {
+            if anim == self.wxTimeLine.layer.animation(forKey: "wxTimeLine") {
                 var frame = self.wxTimeLine.frame
                 frame.origin.y =  90
                 self.wxTimeLine.frame = frame
             }
         }
         if self.weiboTimeLine != nil {
-            if anim == self.weiboTimeLine.layer.animationForKey("weiboTimeLine") {
+            if anim == self.weiboTimeLine.layer.animation(forKey: "weiboTimeLine") {
                 var frame = self.weiboTimeLine.frame
                 frame.origin.y =  90
                 self.weiboTimeLine.frame = frame
@@ -997,7 +1000,7 @@ class GloableShareView: UIView, UIGestureRecognizerDelegate, CAAnimationDelegate
         }
         
         if self.qqSeession != nil {
-            if anim == self.qqSeession.layer.animationForKey("qqSeession") {
+            if anim == self.qqSeession.layer.animation(forKey: "qqSeession") {
                 var frame = self.qqSeession.frame
                 frame.origin.y =  90
                 self.qqSeession.frame = frame
@@ -1005,7 +1008,7 @@ class GloableShareView: UIView, UIGestureRecognizerDelegate, CAAnimationDelegate
         }
         
         if self.qqTimeLine != nil {
-            if anim == self.qqTimeLine.layer.animationForKey("qqTimeLine") {
+            if anim == self.qqTimeLine.layer.animation(forKey: "qqTimeLine") {
                 var frame = self.qqTimeLine.frame
                 frame.origin.y =  90
                 self.qqTimeLine.frame = frame

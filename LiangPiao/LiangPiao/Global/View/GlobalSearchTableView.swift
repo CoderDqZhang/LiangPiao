@@ -8,7 +8,7 @@
 
 import UIKit
 import DZNEmptyDataSet
-typealias SearchDidSelectClouse = (indexPath:NSIndexPath) ->Void
+typealias SearchDidSelectClouse = (_ indexPath:IndexPath) ->Void
 class GlobalSearchTableView: UIView {
 
     var tableView:UITableView!
@@ -20,20 +20,20 @@ class GlobalSearchTableView: UIView {
     }
     
     func setUpView(){
-        tableView = UITableView(frame: CGRectZero, style: .Plain)
+        tableView = UITableView(frame: CGRect.zero, style: .plain)
         tableView.backgroundColor = UIColor.init(hexString: App_Theme_E9EBF2_Color)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.emptyDataSetSource = self
         tableView.emptyDataSetDelegate = self
         tableView.showsVerticalScrollIndicator = false
-        tableView.separatorStyle = .None
-        tableView.keyboardDismissMode = .OnDrag
-        tableView.registerClass(RecommendTableViewCell.self, forCellReuseIdentifier: "RecommendTableViewCell")
-        tableView.registerClass(SellRecommondTableViewCell.self, forCellReuseIdentifier: "SellRecommondTableViewCell")
+        tableView.separatorStyle = .none
+        tableView.keyboardDismissMode = .onDrag
+        tableView.register(RecommendTableViewCell.self, forCellReuseIdentifier: "RecommendTableViewCell")
+        tableView.register(SellRecommondTableViewCell.self, forCellReuseIdentifier: "SellRecommondTableViewCell")
         self.addSubview(tableView)
         
-        tableView.snp_makeConstraints { (make) in
+        tableView.snp.makeConstraints { (make) in
             make.edges.equalTo(UIEdgeInsetsMake(0, 0, 0, 0))
         }
         
@@ -44,14 +44,14 @@ class GlobalSearchTableView: UIView {
     }
 }
 extension GlobalSearchTableView : UITableViewDelegate {
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return viewModel.searchTableNumberOfSectionsInTableView()
     }
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return viewModel.searchTableTableViewHeightForRowAtIndexPath(indexPath)
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 //        if self.searchDidSelectClouse != nil {
 //            self.searchDidSelectClouse(indexPath:indexPath)
 //        }
@@ -59,20 +59,20 @@ extension GlobalSearchTableView : UITableViewDelegate {
     }
 }
 extension GlobalSearchTableView : UITableViewDataSource {
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.searchTableNumberOfRowsInSection(section)
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if viewModel.searchType == .TicketShowModel {
-            let cell = tableView.dequeueReusableCellWithIdentifier("RecommendTableViewCell", forIndexPath: indexPath) as! RecommendTableViewCell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if viewModel.searchType == .ticketShowModel {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "RecommendTableViewCell", for: indexPath) as! RecommendTableViewCell
             viewModel.searchTableCellData(cell, indexPath: indexPath)
-            cell.selectionStyle = .None
+            cell.selectionStyle = .none
             return cell
         }else{
-            let cell = tableView.dequeueReusableCellWithIdentifier("SellRecommondTableViewCell", forIndexPath: indexPath) as! SellRecommondTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "SellRecommondTableViewCell", for: indexPath) as! SellRecommondTableViewCell
             viewModel.searchTableCellDatas(cell, indexPath: indexPath)
-            cell.selectionStyle = .None
+            cell.selectionStyle = .none
             return cell
         }
     }
@@ -84,11 +84,11 @@ extension GlobalSearchTableView : DZNEmptyDataSetDelegate {
 
 extension GlobalSearchTableView :DZNEmptyDataSetSource {
     
-    func backgroundColorForEmptyDataSet(scrollView: UIScrollView!) -> UIColor {
+    func backgroundColor(forEmptyDataSet scrollView: UIScrollView!) -> UIColor {
         return UIColor.init(hexString: App_Theme_F6F7FA_Color)
     }
     
-    func descriptionForEmptyDataSet(scrollView: UIScrollView!) -> NSAttributedString! {
+    func description(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
         let str = viewModel.emptyPlachTextTitle()
         let attribute = NSMutableAttributedString(string: str)
         attribute.addAttributes([NSForegroundColorAttributeName:UIColor.init(hexString: App_Theme_DDE0E5_Color)], range: NSRange(location: 0, length: str.length))
@@ -96,19 +96,19 @@ extension GlobalSearchTableView :DZNEmptyDataSetSource {
         return attribute
     }
     
-    func offsetForEmptyDataSet(scrollView: UIScrollView!) -> CGPoint {
-        return CGPointMake(0, 64)
+    func offset(forEmptyDataSet scrollView: UIScrollView!) -> CGPoint {
+        return CGPoint(x: 0, y: 64)
     }
     
-    func verticalOffsetForEmptyDataSet(scrollView: UIScrollView!) -> CGFloat {
+    func verticalOffset(forEmptyDataSet scrollView: UIScrollView!) -> CGFloat {
         return -130
     }
     
-    func spaceHeightForEmptyDataSet(scrollView: UIScrollView!) -> CGFloat {
+    func spaceHeight(forEmptyDataSet scrollView: UIScrollView!) -> CGFloat {
         return 30
     }
     
-    func imageForEmptyDataSet(scrollView: UIScrollView!) -> UIImage! {
+    func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
         return UIImage.init(named: "Icon_Search_Empty")
     }
 }

@@ -24,17 +24,17 @@ class TopUpViewController: UIViewController {
     }
     
     func setUpView() {
-        tableView = UITableView(frame: CGRectZero, style: .Grouped)
+        tableView = UITableView(frame: CGRect.zero, style: .grouped)
         tableView.backgroundColor = UIColor.init(hexString: App_Theme_E9EBF2_Color)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.showsVerticalScrollIndicator = false
-        tableView.keyboardDismissMode = .OnDrag
-        tableView.separatorStyle = .None
-        tableView.registerClass(TopUpMuchTableViewCell.self, forCellReuseIdentifier: "TopUpMuchTableViewCell")
-        tableView.registerClass(TopUpTypeTableViewCell.self, forCellReuseIdentifier: "TopUpTypeTableViewCell")
+        tableView.keyboardDismissMode = .onDrag
+        tableView.separatorStyle = .none
+        tableView.register(TopUpMuchTableViewCell.self, forCellReuseIdentifier: "TopUpMuchTableViewCell")
+        tableView.register(TopUpTypeTableViewCell.self, forCellReuseIdentifier: "TopUpTypeTableViewCell")
         self.view.addSubview(tableView)
-        tableView.snp_makeConstraints { (make) in
+        tableView.snp.makeConstraints { (make) in
             make.edges.equalTo(UIEdgeInsetsMake(0, 0, 0, 0))
         }
         
@@ -70,73 +70,73 @@ class TopUpViewController: UIViewController {
 }
 
 extension TopUpViewController : UITableViewDelegate {
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         viewModel.tableViewDidSelect(indexPath, controller: self)
     }
     
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
     }
 }
 
 extension TopUpViewController : UITableViewDataSource {
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return viewModel.numberOfSection()
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.numbrOfRowInSection(section)
     }
     
-    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 30
     }
 
-    func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         return nil
     }
     
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0.00001
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return viewModel.tableViewHeightForRow(indexPath)
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         case 0:
             switch indexPath.row {
             case 0:
-                let cell = tableView.dequeueReusableCellWithIdentifier("TopUpMuchTableViewCell", forIndexPath: indexPath) as! TopUpMuchTableViewCell
-                cell.selectionStyle = .None
+                let cell = tableView.dequeueReusableCell(withIdentifier: "TopUpMuchTableViewCell", for: indexPath) as! TopUpMuchTableViewCell
+                cell.selectionStyle = .none
                 return cell
             default:
-                let cell = tableView.dequeueReusableCellWithIdentifier("TopUpTypeTableViewCell", forIndexPath: indexPath) as! TopUpTypeTableViewCell
-                cell.selectionStyle = .None
+                let cell = tableView.dequeueReusableCell(withIdentifier: "TopUpTypeTableViewCell", for: indexPath) as! TopUpTypeTableViewCell
+                cell.selectionStyle = .none
                 viewModel.tableViewTopUpTypeTableViewCell(cell, indexPath:indexPath)
                 return cell
             }
         default:
             let cellIndef = "CleanTableViewCell"
-            var cell = tableView.dequeueReusableCellWithIdentifier(cellIndef)
+            var cell = tableView.dequeueReusableCell(withIdentifier: cellIndef)
             if cell == nil {
-                cell = UITableViewCell.init(style: .Default, reuseIdentifier: cellIndef)
-                let topUpButton = UIButton(type: .Custom)
-                topUpButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
-                topUpButton.setTitle("充值", forState: .Normal)
+                cell = UITableViewCell.init(style: .default, reuseIdentifier: cellIndef)
+                let topUpButton = UIButton(type: .custom)
+                topUpButton.setTitleColor(UIColor.white, for: UIControlState())
+                topUpButton.setTitle("充值", for: UIControlState())
                 topUpButton.backgroundColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
                 topUpButton.layer.cornerRadius = 2.0
                 topUpButton.layer.masksToBounds = true
                 topUpButton.titleLabel?.font = App_Theme_PinFan_M_15_Font
                 cell?.contentView.addSubview(topUpButton)
-                topUpButton.snp_makeConstraints(closure: { (make) in
+                topUpButton.snp.makeConstraints({ (make) in
                     make.edges.equalTo(UIEdgeInsetsMake(0, 15, 0, -15))
                 })
             }
-            cell?.backgroundColor = UIColor.clearColor()
-            cell?.contentView.backgroundColor = UIColor.clearColor()
+            cell?.backgroundColor = UIColor.clear
+            cell?.contentView.backgroundColor = UIColor.clear
             
             return cell!
         }

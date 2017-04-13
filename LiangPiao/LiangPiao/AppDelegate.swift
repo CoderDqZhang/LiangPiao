@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WeiboSDKDelegate, JPUSHReg
     
     var wbtoken:String!
     
-    var backgroundTime:NSTimer!
+    var backgroundTime:Timer!
     
     var loginTime:Int = 0
     
@@ -31,12 +31,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WeiboSDKDelegate, JPUSHReg
         
         spalshView = SpalshView(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: SCREENHEIGHT))
         self.window!.addSubview(spalshView)
-        NSTimer.YQ_scheduledTimerWithTimeInterval(100, closure: { 
+        _ = Timer.YQ_scheduledTimerWithTimeInterval(100, closure: {
             self.spalshView.removeFromSuperview()
             }, repeats: false)
     }
     
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         if UserInfoModel.isLoggedIn() {
             if UserInfoModel.shareInstance().role == nil {
                 UserInfoModel.logout()
@@ -55,7 +55,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WeiboSDKDelegate, JPUSHReg
         WeiboSDK.registerApp(WeiboApiKey)
         WeiboSDK.enableDebugMode(true)
         TalkingData.setExceptionReportEnabled(true)
-        UIApplication.sharedApplication().setStatusBarHidden(false, withAnimation: .None)
+        UIApplication.shared.setStatusBarHidden(false, with: .none)
         
         self.window?.makeKeyAndVisible()
 //        self.addSplshView()
@@ -66,7 +66,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WeiboSDKDelegate, JPUSHReg
     
     func endBackGroundTask(){
         if self.backgroundTime != nil {
-            dispatch_async(dispatch_get_main_queue()) {
+            DispatchQueue.main.async {
                 self.backgroundTime.invalidate()
                 SHARE_APPLICATION.endBackgroundTask(self.backgroundTaskIdentifier)
                 self.backgroundTaskIdentifier = UIBackgroundTaskInvalid
@@ -75,46 +75,46 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WeiboSDKDelegate, JPUSHReg
     }
     
     
-    func addGaoDeMap(application:UIApplication) {
-        AMapServices.sharedServices().apiKey = GaoDeApiKey
+    func addGaoDeMap(_ application:UIApplication) {
+        AMapServices.shared().apiKey = GaoDeApiKey
     }
     
-    func addNotification(launchOptions:[NSObject : AnyObject]?,application:UIApplication){
+    func addNotification(_ launchOptions:[AnyHashable: Any]?,application:UIApplication){
         
-        if (UIDevice.currentDevice().systemVersion.floatValue >= 10.0) {
+        if (UIDevice.current.systemVersion.floatValue >= 10.0) {
             // 可以自定义 categories
             let entity = JPUSHRegisterEntity.init()
-            JPUSHService.registerForRemoteNotificationConfig(entity, delegate: self)
-        } else if (UIDevice.currentDevice().systemVersion.floatValue >= 8.0) {
-            JPUSHService.registerForRemoteNotificationTypes(UIUserNotificationType.Badge.rawValue | UIUserNotificationType.Badge.rawValue | UIUserNotificationType.Alert.rawValue , categories: nil)
+            JPUSHService.register(forRemoteNotificationConfig: entity, delegate: self)
+        } else if (UIDevice.current.systemVersion.floatValue >= 8.0) {
+            JPUSHService.register(forRemoteNotificationTypes: UIUserNotificationType.badge.rawValue | UIUserNotificationType.badge.rawValue | UIUserNotificationType.alert.rawValue , categories: nil)
         }else {
-            JPUSHService.registerForRemoteNotificationTypes(UIUserNotificationType.Badge.rawValue | UIUserNotificationType.Badge.rawValue | UIUserNotificationType.Alert.rawValue , categories: nil)
+            JPUSHService.register(forRemoteNotificationTypes: UIUserNotificationType.badge.rawValue | UIUserNotificationType.badge.rawValue | UIUserNotificationType.alert.rawValue , categories: nil)
         }
-        JPUSHService.setupWithOption(launchOptions, appKey: JPushApiKey, channel: "App Store", apsForProduction: true)
+        JPUSHService.setup(withOption: launchOptions, appKey: JPushApiKey, channel: "App Store", apsForProduction: true)
     }
     
     @available(iOS 10.0, *)
-    func jpushNotificationCenter(center: UNUserNotificationCenter!, willPresentNotification notification: UNNotification!, withCompletionHandler completionHandler: ((Int) -> Void)!) {        
+    func jpushNotificationCenter(_ center: UNUserNotificationCenter!, willPresent notification: UNNotification!, withCompletionHandler completionHandler: ((Int) -> Void)!) {        
         let userInfo = notification.request.content.userInfo as NSDictionary
         if notification.request.trigger is UNPushNotificationTrigger {
-            JPUSHService.handleRemoteNotification(userInfo as [NSObject : AnyObject])
+            JPUSHService.handleRemoteNotification(userInfo as! [AnyHashable: Any])
         }
-        completionHandler(Int(UIUserNotificationType.Sound.rawValue) | Int(UIUserNotificationType.Badge.rawValue) | Int(UIUserNotificationType.Alert.rawValue))
+        completionHandler(Int(UIUserNotificationType.sound.rawValue) | Int(UIUserNotificationType.badge.rawValue) | Int(UIUserNotificationType.alert.rawValue))
     }
     
     @available(iOS 10.0, *)
-    func jpushNotificationCenter(center: UNUserNotificationCenter!, didReceiveNotificationResponse response: UNNotificationResponse!, withCompletionHandler completionHandler: (() -> Void)!) {
+    func jpushNotificationCenter(_ center: UNUserNotificationCenter!, didReceive response: UNNotificationResponse!, withCompletionHandler completionHandler: (() -> Void)!) {
         let userInfo = response.notification.request.content.userInfo as NSDictionary
         if response.notification.request.trigger is UNPushNotificationTrigger {
-            JPUSHService.handleRemoteNotification(userInfo as [NSObject : AnyObject])
+            JPUSHService.handleRemoteNotification(userInfo as! [AnyHashable: Any])
         }
-        if userInfo.objectForKey("type") != nil {
-            if userInfo.objectForKey("type") as! String == "ticketDescrip" {
-                let url = "\(TickeSession)\((userInfo.objectForKey("show_id")!))/session/\((userInfo.objectForKey("session_id")!))"
-                NSNotificationCenter.defaultCenter().postNotificationName(DidRegisterRemoteNotification, object: url)
-            }else if userInfo.objectForKey("type") as! String == "operation" {
-                let url = "\((userInfo.objectForKey("url")!))"
-                NSNotificationCenter.defaultCenter().postNotificationName(DidRegisterRemoteURLNotification, object: url)
+        if userInfo.object(forKey: "type") != nil {
+            if userInfo.object(forKey: "type") as! String == "ticketDescrip" {
+                let url = "\(TickeSession)\((userInfo.object(forKey: "show_id")!))/session/\((userInfo.object(forKey: "session_id")!))"
+                NotificationCenter.default.post(name: Foundation.Notification.Name(rawValue: DidRegisterRemoteNotification), object: url)
+            }else if userInfo.object(forKey: "type") as! String == "operation" {
+                let url = "\((userInfo.object(forKey: "url")!))"
+                NotificationCenter.default.post(name: Foundation.Notification.Name(rawValue: DidRegisterRemoteURLNotification), object: url)
             }
         }
         completionHandler()
@@ -125,40 +125,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WeiboSDKDelegate, JPUSHReg
         Crashlytics.sharedInstance().setUserName(UserInfoModel.shareInstance().phone)
     }
 
-    func applicationWillResignActive(application: UIApplication) {
+    func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
     }
 
-    func applicationDidEnterBackground(application: UIApplication) {
+    func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-        self.backgroundTaskIdentifier = application.beginBackgroundTaskWithExpirationHandler({
+        self.backgroundTaskIdentifier = application.beginBackgroundTask(expirationHandler: {
             self.endBackGroundTask()
         })
         if UserDefaultsGetSynchronize("isLoginTime") as! String != "nil" {
             loginTime = UserDefaultsGetSynchronize("backGroundTime") as! Int
-            UserDefaultsSetSynchronize("true", key: "isLoginEnterBack")
-            self.backgroundTime = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(AppDelegate.timerMethod(_:)), userInfo: nil, repeats: true)
+            UserDefaultsSetSynchronize("true" as AnyObject, key: "isLoginEnterBack")
+            self.backgroundTime = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(AppDelegate.timerMethod(_:)), userInfo: nil, repeats: true)
         }else{
-            UserDefaultsSetSynchronize(0, key: "backGroundTime")
+            UserDefaultsSetSynchronize(0 as AnyObject, key: "backGroundTime")
         }
         
     }
     
-    func timerMethod(paramSender:NSTimer){
+    func timerMethod(_ paramSender:Timer){
         if loginTime > 59 {
             self.endBackGroundTask()
         }
         loginTime = loginTime + 1
-        UserDefaultsSetSynchronize(loginTime, key: "backGroundTime")
+        UserDefaultsSetSynchronize(loginTime as AnyObject, key: "backGroundTime")
     }
 
-    func applicationWillEnterForeground(application: UIApplication) {
+    func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
     }
 
-    func applicationDidBecomeActive(application: UIApplication) {
+    func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         SHARE_APPLICATION.applicationIconBadgeNumber = 0
         JPUSHService.setBadge(0)
@@ -166,104 +166,102 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WeiboSDKDelegate, JPUSHReg
         self.endBackGroundTask()
     }
 
-    func applicationWillTerminate(application: UIApplication) {
+    func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
     
-    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) {
         print(userInfo)
         JPUSHService.handleRemoteNotification(userInfo)
     }
     
-    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         //可以在这个方法里做一些后台操作（下载数据，更新UI等），记得修改Background Modes。
         if IPHONE_VERSION_LAST10 == 1 {
             JPUSHService.handleRemoteNotification(userInfo)
         }else{
-            if (userInfo as NSDictionary).objectForKey("type") != nil {
-                if (userInfo as NSDictionary).objectForKey("type") as! String == "ticketDescrip" {
-                    let url = "\(TickeSession)\(((userInfo as NSDictionary).objectForKey("show_id")!))/session/\(((userInfo as NSDictionary).objectForKey("session_id")!))"
-                    NSNotificationCenter.defaultCenter().postNotificationName(DidRegisterRemoteNotification, object: url)
-                }else if (userInfo as NSDictionary).objectForKey("type") as! String == "operation" {
-                    let url = "\(((userInfo as NSDictionary).objectForKey("url")!))"
-                    NSNotificationCenter.defaultCenter().postNotificationName(DidRegisterRemoteURLNotification, object: url)
+            if (userInfo as NSDictionary).object(forKey: "type") != nil {
+                if (userInfo as NSDictionary).object(forKey: "type") as! String == "ticketDescrip" {
+                    let url = "\(TickeSession)\(((userInfo as NSDictionary).object(forKey: "show_id")!))/session/\(((userInfo as NSDictionary).object(forKey: "session_id")!))"
+                    NotificationCenter.default.post(name: Foundation.Notification.Name(rawValue: DidRegisterRemoteNotification), object: url)
+                }else if (userInfo as NSDictionary).object(forKey: "type") as! String == "operation" {
+                    let url = "\(((userInfo as NSDictionary).object(forKey: "url")!))"
+                    NotificationCenter.default.post(name: Foundation.Notification.Name(rawValue: DidRegisterRemoteURLNotification), object: url)
                 }
             }
         }
-        completionHandler(.NewData)
+        completionHandler(.newData)
     }
     
-    func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         print("DEVICE TOKEN = \(deviceToken)")
-        NSNotificationCenter.defaultCenter().postNotificationName(DidRegisterRemoteDiviceToken, object: deviceToken)
+        NotificationCenter.default.post(name: Foundation.Notification.Name(rawValue: DidRegisterRemoteDiviceToken), object: deviceToken)
         JPUSHService.registerDeviceToken(deviceToken)
     }
     
-    func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
+    private func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
         print(error)
     }
     
     
-    func application(application: UIApplication, handleOpenURL url: NSURL) -> Bool {
+    func application(_ application: UIApplication, handleOpen url: URL) -> Bool {
         if url.host == "response_from_qq" {
-            return TencentOAuth.HandleOpenURL(url)
+            return TencentOAuth.handleOpen(url)
         }
         if url.host == "platformId=wechat" || url.host == "pay" {
-            return WXApi.handleOpenURL(url, delegate: self)
+            return WXApi.handleOpen(url, delegate: self)
         }
-        return WeiboSDK.handleOpenURL(url, delegate: self)
+        return WeiboSDK.handleOpen(url, delegate: self)
 //
     }
     
-    func application(app: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any]) -> Bool {
         if url.host == "safepay" {
-            AlipaySDK.defaultService().processOrderWithPaymentResult(url, standbyCallback: { (resultDic) in
-                if resultDic["resultStatus"] as! String == "9000" {
+            AlipaySDK.defaultService().processOrder(withPaymentResult: url, standbyCallback: { (resultDic) in
+                if resultDic?["resultStatus"] as! String == "9000" {
                     Notification(OrderStatuesChange, value: "3")
                 }else{
                     Notification(OrderStatuesChange, value: "100")
-                    MainThreseanShowAliPayError(resultDic["resultStatus"] as! String)
+                    MainThreseanShowAliPayError(resultDic?["resultStatus"] as! String)
                 }
             })
             return true
         }
         
         if url.host == "response_from_qq" {
-            return TencentOAuth.HandleOpenURL(url)
+            return TencentOAuth.handleOpen(url)
         }
         if url.host == "platformId=wechat" || url.host == "pay" {
-            return WXApi.handleOpenURL(url, delegate: self)
+            return WXApi.handleOpen(url, delegate: self)
         }
         
-        return WeiboSDK.handleOpenURL(url, delegate: self)
+        return WeiboSDK.handleOpen(url, delegate: self)
     }
     
-    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
+    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
         if url.host == "safepay" {
-            AlipaySDK.defaultService().processOrderWithPaymentResult(url, standbyCallback: { (resultDic) in
-                print(resultDic)
+            AlipaySDK.defaultService().processOrder(withPaymentResult: url, standbyCallback: { (resultDic) in
             })
             
             AlipaySDK.defaultService().processAuthResult(url, standbyCallback: { (resultDic) in
-                print(resultDic)
             })
             
             return true
         }
         if url.host == "response_from_qq" {
-            return TencentOAuth.HandleOpenURL(url)
+            return TencentOAuth.handleOpen(url)
         }
         if url.host == "platformId=wechat" || url.host == "pay" {
-            return WXApi.handleOpenURL(url, delegate: self)
+            return WXApi.handleOpen(url, delegate: self)
         }
-        return WeiboSDK.handleOpenURL(url, delegate: self)
+        return WeiboSDK.handleOpen(url, delegate: self)
     }
     //MARK: 微博SDKDelegate
-    func didReceiveWeiboRequest(request: WBBaseRequest!) {
+    func didReceiveWeiboRequest(_ request: WBBaseRequest!) {
         
     }
     
-    func didReceiveWeiboResponse(response: WBBaseResponse!) {
+    func didReceiveWeiboResponse(_ response: WBBaseResponse!) {
         if response is WBShareMessageToContactResponse {
             print(response.statusCode)
         }
@@ -271,11 +269,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WeiboSDKDelegate, JPUSHReg
 }
 
 extension AppDelegate : WXApiDelegate {
-    func onReq(req: BaseReq!) {
+    func onReq(_ req: BaseReq!) {
         
     }
     
-    func onResp(resp: BaseResp!) {
+    func onResp(_ resp: BaseResp!) {
         if resp is PayResp {
             switch resp.errCode {
             case 0:
@@ -305,16 +303,16 @@ extension AppDelegate : WXApiDelegate {
 
 extension AppDelegate : UNUserNotificationCenterDelegate {
     @available(iOS 10.0, *)
-    func userNotificationCenter(center: UNUserNotificationCenter, didReceiveNotificationResponse response: UNNotificationResponse, withCompletionHandler completionHandler: () -> Void) {
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         let categoryIdentifier = response.notification.request.content.categoryIdentifier
         print(categoryIdentifier)
         completionHandler()
     }
     
     @available(iOS 10.0, *)
-    func userNotificationCenter(center: UNUserNotificationCenter, willPresentNotification notification: UNNotification, withCompletionHandler completionHandler: (UNNotificationPresentationOptions) -> Void) {
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         //如果需要在应用在前台也展示通知
-        completionHandler([.Sound, .Alert, .Badge])
+        completionHandler([.sound, .alert, .badge])
     }
 }
 

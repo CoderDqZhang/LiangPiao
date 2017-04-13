@@ -18,9 +18,9 @@ class UserProtocolViewController: UIViewController {
         super.viewDidLoad()
         self.navigationItem.title =  "用户协议"
         self.setNavigationItemBack()
-        self.view.backgroundColor = UIColor.whiteColor()
+        self.view.backgroundColor = UIColor.white
         webView = WKWebView(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: SCREENHEIGHT - 64))
-        webView.loadRequest(NSURLRequest.init(URL: NSURL.init(string: UserProtocol)!))
+        webView.load(URLRequest.init(url: URL.init(string: UserProtocol)!))
         self.view.addSubview(webView)
         // Do any additional setup after loading the view.
     }

@@ -12,18 +12,18 @@ class ShareTools: NSObject, TencentSessionDelegate, TencentLoginDelegate {
     
     var tencentOAuth:TencentOAuth!
     
-    private override init() {
+    fileprivate override init() {
         
     }
     
     static let shareInstance = ShareTools()
     
-    func shareWeChatSession(title:String, description:String, image:UIImage, url:String?){
+    func shareWeChatSession(_ title:String, description:String, image:UIImage, url:String?){
         let req = self.setUpSendMessageToWXReq(title, description: description, image: image, url: url, type: 0)
-        WXApi.sendReq(req)
+        WXApi.send(req)
     }
     
-    func shareWeChatScreenShotImage(image:UIImage, type:Int32){
+    func shareWeChatScreenShotImage(_ image:UIImage, type:Int32){
         let message = WXMediaMessage.init()
         let img = image.compressImage(image, maxLength: 32)
         message.setThumbImage(UIImage.init(data:img!))
@@ -34,16 +34,16 @@ class ShareTools: NSObject, TencentSessionDelegate, TencentLoginDelegate {
         req.bText = false
         req.message = message
         req.scene = type
-        WXApi.sendReq(req)
+        WXApi.send(req)
     }
     
-    func shareWeChatTimeLine(title:String, description:String, image:UIImage, url:String?){
+    func shareWeChatTimeLine(_ title:String, description:String, image:UIImage, url:String?){
         let req = self.setUpSendMessageToWXReq(title, description: description, image: image, url: url, type: 1)
-        WXApi.sendReq(req)
+        WXApi.send(req)
     }
 
     
-    func setUpSendMessageToWXReq(title:String, description:String, image:UIImage, url:String?, type:Int32) ->SendMessageToWXReq {
+    func setUpSendMessageToWXReq(_ title:String, description:String, image:UIImage, url:String?, type:Int32) ->SendMessageToWXReq {
         let message = WXMediaMessage.init()
         message.title = title
         message.description = description
@@ -60,18 +60,18 @@ class ShareTools: NSObject, TencentSessionDelegate, TencentLoginDelegate {
         return req
     }
     
-    func shareWBScreenShotImag(image:UIImage,text:String) {
+    func shareWBScreenShotImag(_ image:UIImage,text:String) {
         let authRequest = WBAuthorizeRequest.request() as! WBAuthorizeRequest
         let message = WBMessageObject.init()
         message.text = text
         let imgObj = WBImageObject.init()
         imgObj.imageData = UIImagePNGRepresentation(image)
         message.imageObject = imgObj
-        let request = WBSendMessageToWeiboRequest.requestWithMessage(message, authInfo: authRequest, access_token: nil) as! WBSendMessageToWeiboRequest
-        WeiboSDK.sendRequest(request)
+        let request = WBSendMessageToWeiboRequest.request(withMessage: message, authInfo: authRequest, access_token: nil) as! WBSendMessageToWeiboRequest
+        WeiboSDK.send(request)
     }
     
-    func shareWeiboWebUrl(text:String, webTitle:String, image:UIImage ,webDescription:String, webUrl:String){
+    func shareWeiboWebUrl(_ text:String, webTitle:String, image:UIImage ,webDescription:String, webUrl:String){
         let authRequest = WBAuthorizeRequest.request() as! WBAuthorizeRequest
         authRequest.redirectURI = WeiboRedirectUrl
         authRequest.scope = "all"
@@ -80,39 +80,39 @@ class ShareTools: NSObject, TencentSessionDelegate, TencentLoginDelegate {
         let imgObj = WBImageObject.init()
         imgObj.imageData = UIImagePNGRepresentation(image)
         message.imageObject = imgObj
-        let request = WBSendMessageToWeiboRequest.requestWithMessage(message, authInfo: authRequest, access_token: nil) as! WBSendMessageToWeiboRequest
-        WeiboSDK.sendRequest(request)
+        let request = WBSendMessageToWeiboRequest.request(withMessage: message, authInfo: authRequest, access_token: nil) as! WBSendMessageToWeiboRequest
+        WeiboSDK.send(request)
     }
     
-    func shareQQScreenShotImage(image:UIImage,type:Int){
+    func shareQQScreenShotImage(_ image:UIImage,type:Int){
         self.tencentOAuth =  TencentOAuth.init(appId: QQAppID, andDelegate: nil)
         
         if type == 0 {
             let imageData = UIImagePNGRepresentation(image)
             let compress = image.compressImage(image, maxLength: 32)
-            let imgObj = QQApiImageObject.objectWithData(compress, previewImageData: imageData, title: "", description: "")
+            let imgObj = QQApiImageObject.object(with: compress, previewImageData: imageData, title: "", description: "")
             let req = SendMessageToQQReq.init(content: imgObj as! QQApiImageObject)
-            QQApiInterface.sendReq(req)
+            QQApiInterface.send(req)
         }else{
             let imageData = UIImagePNGRepresentation(image)
             let imgObj = QQApiImageArrayForQZoneObject.init(imageArrayData: [imageData!], title: "")
-            let req = SendMessageToQQReq.init(content: imgObj as QQApiImageArrayForQZoneObject)
-            QQApiInterface.SendReqToQZone(req)
+            let req = SendMessageToQQReq.init(content: imgObj!)
+            QQApiInterface.sendReq(toQZone: req)
         }
     }
     
     
-    func shareQQSessionWebUrl(text:String, webTitle:String, imageUrl:String,  webDescription:String, webUrl:String){
+    func shareQQSessionWebUrl(_ text:String, webTitle:String, imageUrl:String,  webDescription:String, webUrl:String){
         self.tencentOAuth =  TencentOAuth.init(appId: QQAppID, andDelegate: nil)
-        let newsObj = QQApiNewsObject.init(URL: NSURL.init(string: webUrl), title: webTitle, description: webDescription, previewImageURL: NSURL.init(string: imageUrl), targetContentType:QQApiURLTargetType(rawValue: UInt32(3)))
+        let newsObj = QQApiNewsObject.init(url: URL.init(string: webUrl), title: webTitle, description: webDescription, previewImageURL: URL.init(string: imageUrl), targetContentType: QQApiURLTargetType.init(3))
         let req = SendMessageToQQReq.init(content: newsObj)
-        print(QQApiInterface.sendReq(req))
+        print(QQApiInterface.send(req))
     }
     
-    func shareQQTimeLineUrl(text:String, webTitle:String,imageUrl:String,   webDescription:String, webUrl:String){
-        let newsObj = QQApiNewsObject.init(URL: NSURL.init(string: webUrl), title: webTitle, description: webDescription, previewImageURL: NSURL.init(string: imageUrl), targetContentType:QQApiURLTargetType(rawValue: UInt32(3)))
+    func shareQQTimeLineUrl(_ text:String, webTitle:String,imageUrl:String,   webDescription:String, webUrl:String){
+        let newsObj = QQApiNewsObject.init(url: URL.init(string: webUrl), title: webTitle, description: webDescription, previewImageURL: URL.init(string: imageUrl), targetContentType: QQApiURLTargetType.init(3))
         let req = SendMessageToQQReq.init(content: newsObj)
-        print(QQApiInterface.SendReqToQZone(req))
+        print(QQApiInterface.sendReq(toQZone: req))
     }
     
     //MARK: TencentSessionDelegate
@@ -120,7 +120,7 @@ class ShareTools: NSObject, TencentSessionDelegate, TencentLoginDelegate {
         
     }
     
-    func responseDidReceived(response: APIResponse!, forMessage message: String!) {
+    func responseDidReceived(_ response: APIResponse!, forMessage message: String!) {
         
     }
     
@@ -129,7 +129,7 @@ class ShareTools: NSObject, TencentSessionDelegate, TencentLoginDelegate {
         
     }
     
-    func tencentDidNotLogin(cancelled: Bool) {
+    func tencentDidNotLogin(_ cancelled: Bool) {
         
     }
     

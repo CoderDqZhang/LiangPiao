@@ -8,13 +8,13 @@
 
 import UIKit
 enum ReciveViewLabelType {
-    case Select
-    case Nomal
-    case Disable
+    case select
+    case nomal
+    case disable
 }
 
 let ReciveLabelWidth:CGFloat = (SCREENWIDTH - 54)/3
-typealias ReciveViewClouse = (tag:NSInteger) ->Void
+typealias ReciveViewClouse = (_ tag:NSInteger) ->Void
 
 class ReciveTableViewCell: UITableViewCell {
 
@@ -32,13 +32,13 @@ class ReciveTableViewCell: UITableViewCell {
     }
     
     func setUpView(){
-        express = self.crateLabel(CGRectMake(15, 26, ReciveLabelWidth, 50), tag: 1, titleString: "快递送票", type: .Disable)
+        express = self.crateLabel(CGRect(x: 15, y: 26, width: ReciveLabelWidth, height: 50), tag: 1, titleString: "快递送票", type: .disable)
         self.contentView.addSubview(express)
         
-        arrival = self.crateLabel(CGRectMake(CGRectGetMaxX(express.frame) + 12, 26, ReciveLabelWidth, 50), tag: 2, titleString: "现场取票", type: .Disable)
+        arrival = self.crateLabel(CGRect(x: express.frame.maxX + 12, y: 26, width: ReciveLabelWidth, height: 50), tag: 2, titleString: "现场取票", type: .disable)
         self.contentView.addSubview(arrival)
         
-        visit = self.crateLabel(CGRectMake(CGRectGetMaxX(arrival.frame) + 12, 26, ReciveLabelWidth, 50), tag: 3, titleString: "上门自取", type: .Disable)
+        visit = self.crateLabel(CGRect(x: arrival.frame.maxX + 12, y: 26, width: ReciveLabelWidth, height: 50), tag: 3, titleString: "上门自取", type: .disable)
         self.contentView.addSubview(visit)
         self.updateConstraintsIfNeeded()
 
@@ -55,30 +55,30 @@ class ReciveTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setData(model:TicketList){
+    func setData(_ model:TicketList){
         if selectEnabel.count == 0 {
-            let typeArray = model.deliveryType.componentsSeparatedByString(",")
+            let typeArray = model.deliveryType.components(separatedBy: ",")
             selectEnabel.removeAllObjects()
             for str in typeArray {
                 if str == "1" || str == "4" {
-                    selectEnabel.addObject("1")
-                    self.upDataLabelType(.Select, label: self.viewWithTag(1) as! UILabel)
+                    selectEnabel.add("1")
+                    self.upDataLabelType(.select, label: self.viewWithTag(1) as! UILabel)
                 }
                 else if str == "2" {
-                    selectEnabel.addObject("2")
+                    selectEnabel.add("2")
                     if selectEnabel.count == 1 {
-                        self.upDataLabelType(.Select, label: self.viewWithTag(2) as! UILabel)
+                        self.upDataLabelType(.select, label: self.viewWithTag(2) as! UILabel)
                         self.makeClouse(2)
                     }else{
-                        self.upDataLabelType(.Nomal, label: self.viewWithTag(2) as! UILabel)
+                        self.upDataLabelType(.nomal, label: self.viewWithTag(2) as! UILabel)
                     }
                 }else if str == "3" {
-                    selectEnabel.addObject("3")
+                    selectEnabel.add("3")
                     if selectEnabel.count == 1 {
-                        self.upDataLabelType(.Select, label: self.viewWithTag(3) as! UILabel)
+                        self.upDataLabelType(.select, label: self.viewWithTag(3) as! UILabel)
                         self.makeClouse(3)
                     }else{
-                        self.upDataLabelType(.Nomal, label: self.viewWithTag(3) as! UILabel)
+                        self.upDataLabelType(.nomal, label: self.viewWithTag(3) as! UILabel)
                     }
                 }
             }
@@ -91,17 +91,17 @@ class ReciveTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
     }
     
-    func crateLabel(frame:CGRect, tag:NSInteger, titleString:String, type:ReciveViewLabelType) -> UILabel {
+    func crateLabel(_ frame:CGRect, tag:NSInteger, titleString:String, type:ReciveViewLabelType) -> UILabel {
         let label = UILabel(frame: frame)
         label.tag = tag
         label.text = titleString
-        label.textAlignment = .Center
+        label.textAlignment = .center
         label.layer.cornerRadius = 2.0
         label.layer.masksToBounds = true
         label.font = App_Theme_PinFan_R_13_Font!
@@ -113,30 +113,30 @@ class ReciveTableViewCell: UITableViewCell {
         return label
     }
     
-    func upDataLabelType(type:ReciveViewLabelType, label:UILabel){
+    func upDataLabelType(_ type:ReciveViewLabelType, label:UILabel){
         switch type {
-        case .Select:
+        case .select:
             label.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
             label.backgroundColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
-            label.userInteractionEnabled = true
-            label.layer.borderColor = UIColor.init(hexString: App_Theme_4BD4C5_Color).CGColor
+            label.isUserInteractionEnabled = true
+            label.layer.borderColor = UIColor.init(hexString: App_Theme_4BD4C5_Color).cgColor
             break
-        case .Nomal:
+        case .nomal:
             label.textColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
-            label.layer.borderColor = UIColor.init(hexString: App_Theme_4BD4C5_Color).CGColor
-            label.userInteractionEnabled = true
+            label.layer.borderColor = UIColor.init(hexString: App_Theme_4BD4C5_Color).cgColor
+            label.isUserInteractionEnabled = true
             label.layer.borderWidth = 1
             break
         default:
             label.textColor = UIColor.init(hexString: App_Theme_DDE0E5_Color)
-            label.layer.borderColor = UIColor.init(hexString: App_Theme_DDE0E5_Color).CGColor
-            label.userInteractionEnabled = false
+            label.layer.borderColor = UIColor.init(hexString: App_Theme_DDE0E5_Color).cgColor
+            label.isUserInteractionEnabled = false
             label.layer.borderWidth = 1
             break
         }
     }
     
-    func selectView(tag:NSInteger){
+    func selectView(_ tag:NSInteger){
         let tagView = self.viewWithTag(tag) as! UILabel
         tagView.backgroundColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
         tagView.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
@@ -167,22 +167,22 @@ class ReciveTableViewCell: UITableViewCell {
         }
     }
     
-    func nomalView(tag:NSInteger) {
+    func nomalView(_ tag:NSInteger) {
         let tagView = self.viewWithTag(tag) as! UILabel
         tagView.textColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
-        tagView.layer.borderColor = UIColor.init(hexString: App_Theme_4BD4C5_Color).CGColor
+        tagView.layer.borderColor = UIColor.init(hexString: App_Theme_4BD4C5_Color).cgColor
         tagView.layer.borderWidth = 1.0
-        tagView.backgroundColor = UIColor.whiteColor()
+        tagView.backgroundColor = UIColor.white
     }
     
-    func makeClouse(tag:NSInteger){
+    func makeClouse(_ tag:NSInteger){
         selectTag = tag
         if self.reciveViewClouse != nil {
-            self.reciveViewClouse(tag: tag)
+            self.reciveViewClouse(tag)
         }
     }
     
-    func singleTapPress(sender:UITapGestureRecognizer) {
+    func singleTapPress(_ sender:UITapGestureRecognizer) {
         self.selectView((sender.view?.tag)!)
         self.makeClouse((sender.view?.tag)!)
     }

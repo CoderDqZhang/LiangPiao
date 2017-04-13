@@ -33,7 +33,7 @@ class DeverliyTableViewCell: UITableViewCell {
         leftLabel.backgroundColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
         leftLabel.layer.cornerRadius = 4.5
         leftLabel.layer.borderWidth = 1
-        leftLabel.layer.borderColor = UIColor.init(hexString: App_Theme_DDE0E5_Color).CGColor
+        leftLabel.layer.borderColor = UIColor.init(hexString: App_Theme_DDE0E5_Color).cgColor
         self.contentView.addSubview(leftLabel)
         
         infoTitle = UILabel()
@@ -61,7 +61,7 @@ class DeverliyTableViewCell: UITableViewCell {
     }
     
     
-    func setUpData(trac:Trace) {
+    func setUpData(_ trac:Trace) {
         self.infoTitle.text = "物流追踪"
         self.infoLabel.text = trac.acceptStation
         self.timeLabel.text = trac.acceptTime
@@ -70,35 +70,35 @@ class DeverliyTableViewCell: UITableViewCell {
     
     override func updateConstraints() {
         if !self.didMakeContraints {
-            leftLine.snp_makeConstraints(closure: { (make) in
-                make.top.equalTo(self.contentView.snp_top).offset(0)
-                make.bottom.equalTo(self.contentView.snp_bottom).offset(0)
-                make.left.equalTo(self.contentView.snp_left).offset(25)
+            leftLine.snp.makeConstraints({ (make) in
+                make.top.equalTo(self.contentView.snp.top).offset(0)
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(0)
+                make.left.equalTo(self.contentView.snp.left).offset(25)
                 make.width.equalTo(1)
             })
             
-            leftLabel.snp_makeConstraints(closure: { (make) in
-                make.centerY.equalTo(self.contentView.snp_centerY).offset(0)
-                make.left.equalTo(self.contentView.snp_left).offset(21)
+            leftLabel.snp.makeConstraints({ (make) in
+                make.centerY.equalTo(self.contentView.snp.centerY).offset(0)
+                make.left.equalTo(self.contentView.snp.left).offset(21)
                 make.size.equalTo(CGSize.init(width: 9, height: 9))
             })
             
-            infoTitle.snp_makeConstraints(closure: { (make) in
-                make.top.equalTo(self.contentView.snp_top).offset(10.5)
-                make.left.equalTo(self.contentView.snp_left).offset(53.5)
+            infoTitle.snp.makeConstraints({ (make) in
+                make.top.equalTo(self.contentView.snp.top).offset(10.5)
+                make.left.equalTo(self.contentView.snp.left).offset(53.5)
             })
             
-            infoLabel.snp_makeConstraints(closure: { (make) in
-                make.top.equalTo(self.infoTitle.snp_bottom).offset(6)
-                make.right.equalTo(self.contentView.snp_right).offset(-15)
-                make.left.equalTo(self.contentView.snp_left).offset(53.5)
+            infoLabel.snp.makeConstraints({ (make) in
+                make.top.equalTo(self.infoTitle.snp.bottom).offset(6)
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
+                make.left.equalTo(self.contentView.snp.left).offset(53.5)
             })
             
-            timeLabel.snp_makeConstraints(closure: { (make) in
-                make.top.equalTo(self.infoLabel.snp_bottom).offset(2)
-                make.left.equalTo(self.contentView.snp_left).offset(53.5)
-                make.right.lessThanOrEqualTo(self.contentView.snp_right).offset(-15)
-                make.bottom.equalTo(self.contentView.snp_bottom).offset(-20)
+            timeLabel.snp.makeConstraints({ (make) in
+                make.top.equalTo(self.infoLabel.snp.bottom).offset(2)
+                make.left.equalTo(self.contentView.snp.left).offset(53.5)
+                make.right.lessThanOrEqualTo(self.contentView.snp.right).offset(-15)
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(-20)
             })
             
             self.didMakeContraints = true
@@ -112,7 +112,7 @@ class DeverliyTableViewCell: UITableViewCell {
         // Initialization code
     }
     
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         
         // Configure the view for the selected state
