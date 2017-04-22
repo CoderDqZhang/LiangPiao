@@ -9,6 +9,10 @@
 import UIKit
 import ReactiveSwift
  
+ 
+ let TempTicketRowRegionsStr = "随机"
+ let TempCellStr = "请选择"
+ 
 typealias MySellConfimViewModelClouse = (_ ticket:TicketList, _ name:String) -> Void
 typealias MySellConfimViewModelAddClouse = (_ originTicket:OriginalTicket, _ ticket:TicketList, _ name:String) -> Void
 
@@ -17,7 +21,7 @@ class MySellConfimViewModel: NSObject {
     var controller:MySellConfimViewController!
     var infoController:SellInfoViewController!
     var tickeListView:GloableTitleList!
-    var deverliStr:String = "请选择"
+    var deverliStr:String = TempCellStr
     var ticketList = NSMutableArray()
     var model:TicketShowModel!
     var sellTicketModel:TickeSellModel!
@@ -59,18 +63,18 @@ class MySellConfimViewModel: NSObject {
             self.present = Present.init()
             self.visite = Visite.init()
         }else{
-            if sellFormModel.deverliExpress != "请选择" {
+            if sellFormModel.deverliExpress != TempCellStr {
                 self.express = Expressage.mj_object(withKeyValues: sellFormModel.deverliExpress)
             }else{
                 self.express = Expressage.init()
                 self.express.isSelect = true
             }
-            if sellFormModel.deverliPresnt != "请选择" {
+            if sellFormModel.deverliPresnt != TempCellStr {
                 self.present = Present.mj_object(withKeyValues: sellFormModel.deverliPresnt)
             }else{
                 self.present = Present.init()
             }
-            if sellFormModel.deverliVisite != "请选择" {
+            if sellFormModel.deverliVisite != TempCellStr {
                 self.visite = Visite.mj_object(withKeyValues: sellFormModel.deverliVisite)
             }else{
                 self.visite = Visite.init()
@@ -93,18 +97,18 @@ class MySellConfimViewModel: NSObject {
         sellFormModel.number = ticket.ticketCount
         sellFormModel.sellType = ticket.sellType == 1 ? "可以分开卖":"一起卖"
         sellFormModel.seatType = "\((ticket.seatType)!)"
-        sellFormModel.ticketRegin = ticket.region == "" ? "择优分配" : ticket.region
+        sellFormModel.ticketRegin = ticket.region == "" ? TempTicketRowRegionsStr : ticket.region
         sellFormModel.sellCategoty = ticket.sellCategory
         if ticket.region == "" {
-           sellFormModel.ticketRow = "择优分配"
+           sellFormModel.ticketRow = TempTicketRowRegionsStr
         }else{
-            sellFormModel.ticketRow = ticket.row == "" ? "则有分配" : "\((ticket.row)!)排"
+            sellFormModel.ticketRow = ticket.row == "" ? TempTicketRowRegionsStr : "\((ticket.row)!)排"
         }
         if ticket.deliveryType == "1" {
             self.express.isSelect = true
             sellFormModel.deverliExpress = NSString.dataTOjsonString(self.express.mj_keyValues())
         }else{
-            sellFormModel.deverliExpress = "请选择"
+            sellFormModel.deverliExpress = TempCellStr
             self.express = Expressage.init()
         }
         if ticket.sceneGetTicketAddress != "" {
@@ -114,7 +118,7 @@ class MySellConfimViewModel: NSObject {
             self.present.time = ticket.sceneGetTicketDate
             sellFormModel.deverliPresnt = NSString.dataTOjsonString(self.present.mj_keyValues())
         }else{
-            sellFormModel.deverliPresnt = "请选择"
+            sellFormModel.deverliPresnt = TempCellStr
             self.present = Present.init()
         }
         if ticket.selfGetTicketAddress != "" {
@@ -124,7 +128,7 @@ class MySellConfimViewModel: NSObject {
             self.visite.time = ticket.selfGetTicketDate
             sellFormModel.deverliPresnt = NSString.dataTOjsonString(self.visite.mj_keyValues())
         }else{
-            sellFormModel.deverliVisite = "请选择"
+            sellFormModel.deverliVisite = TempCellStr
             self.visite = Visite.init()
         }
     }
@@ -243,12 +247,16 @@ class MySellConfimViewModel: NSObject {
                 id = self.originTicket.id
             }
         }else{
-            id = self.originTicket.id
+            if self.originTicket.id != nil {
+                id = self.originTicket.id
+            }else{
+                id = Int64(0)
+                _ = Tools.shareInstance.showMessage(self.controller.view, msg: "获取票品id错误", autoHidder: true)
+            }
         }
         
         let url = "\(TicketSellRegion)\((id))/regions/"
         BaseNetWorke.sharedInstance.getUrlWithString(url, parameters: nil).observe { (resultDic) in
-            print(resultDic)
             if resultDic.isCompleted {
                 if resultDic.value is [[String]] {
                     self.sellTicketModel.regionChoices = resultDic.value as! [[String]]
@@ -264,27 +272,27 @@ class MySellConfimViewModel: NSObject {
     
     func getDeveliryStr() -> String{
         if self.sellFormModel.deverliPresnt == nil && self.sellFormModel.deverliExpress == nil && self.sellFormModel.deverliVisite == nil {
-            return "请选择"
+            return TempCellStr
         }else{
-            if self.sellFormModel.deverliPresnt == "请选择" && self.sellFormModel.deverliVisite == "请选择" && self.sellFormModel.deverliExpress == "请选择" {
+            if self.sellFormModel.deverliPresnt == TempCellStr && self.sellFormModel.deverliVisite == TempCellStr && self.sellFormModel.deverliExpress == TempCellStr {
                 return "快递到付"
             }
             deverliStr = ""
-            if self.sellFormModel.deverliExpress != nil && self.sellFormModel.deverliExpress != "请选择" {
+            if self.sellFormModel.deverliExpress != nil && self.sellFormModel.deverliExpress != TempCellStr {
                 let dic = NSString.data(toNSDiction: self.sellFormModel.deverliExpress)
                 self.express = Expressage.mj_object(withKeyValues: dic)
                 if self.express.isSelect {
                     self.deverliStr = self.deverliStr + "快递到付 "
                 }
             }
-            if self.sellFormModel.deverliPresnt != nil && self.sellFormModel.deverliPresnt != "请选择"{
+            if self.sellFormModel.deverliPresnt != nil && self.sellFormModel.deverliPresnt != TempCellStr {
                 let dic = NSString.data(toNSDiction: self.sellFormModel.deverliPresnt)
                 self.present = Present.mj_object(withKeyValues: dic)
                 if self.present.isSelect {
                     self.deverliStr = self.deverliStr + "现场取票 "
                 }
             }
-            if self.sellFormModel.deverliVisite != nil && self.sellFormModel.deverliVisite != "请选择"{
+            if self.sellFormModel.deverliVisite != nil && self.sellFormModel.deverliVisite != TempCellStr {
                 let dic = NSString.data(toNSDiction: self.sellFormModel.deverliVisite)
                 self.visite = Visite.mj_object(withKeyValues: dic)
                 if self.visite.isSelect {
@@ -479,7 +487,7 @@ class MySellConfimViewModel: NSObject {
             if !resultDic.isCompleted {
                 self.sellTicketModel = TickeSellModel.init(fromDictionary: resultDic.value as! NSDictionary)
                 if self.sellTicketModel.ticketChoices.count != 0 {
-                    let dic = ["id":self.sellTicketModel.ticketChoices[0][1],"name":self.sellTicketModel.ticketChoices[0][0],"price":"100"]
+                    let dic = ["id":Int64(self.sellTicketModel.ticketChoices[0][0])!,"name":self.sellTicketModel.ticketChoices[0][0],"price":100] as [String : Any]
                     self.originTicket = OriginalTicket.init(fromDictionary: dic as NSDictionary)
                     if self.sellTicketModel != nil {
                         self.getTickeList()
@@ -551,6 +559,14 @@ class MySellConfimViewModel: NSObject {
     }
     
     func postTicket(_ paramerts:NSDictionary){
+        if sellTicketModel.needDeposit {
+            UIAlertController.shwoAlertControl(self.infoController, style: .alert, title: "尚未缴纳押金，可联系客服400-873-8011", message: nil, cancel: "取消", doneTitle: "联系客服", cancelAction: {
+                
+            }, doneAction: { 
+                AppCallViewShow(self.controller.view, phone: "400-873-8011")
+            })
+            return
+        }
         let url = "\(SellTicket)\((model.id)!)/session/\((model.session.id)!)/ticket/"
         BaseNetWorke.sharedInstance.postUrlWithString(url, parameters: paramerts).observe { (resultDic) in
             if !resultDic.isCompleted {

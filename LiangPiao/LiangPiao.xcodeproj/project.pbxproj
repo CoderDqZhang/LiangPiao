@@ -138,6 +138,7 @@
 		1F6E0A8D1E7F6F5E007773F7 /* DelivererPushViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6E0A8C1E7F6F5E007773F7 /* DelivererPushViewController.swift */; };
 		1F6E0A8F1E7F6FAB007773F7 /* UserAddressTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6E0A8E1E7F6FAB007773F7 /* UserAddressTableViewCell.swift */; };
 		1F6E0A911E7F7A4D007773F7 /* DeverliyPushViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6E0A901E7F7A4D007773F7 /* DeverliyPushViewModel.swift */; };
+		1F7CF4731EA0741B00EF07A5 /* NSDate+LSCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F7CF4721EA0741B00EF07A5 /* NSDate+LSCore.m */; };
 		1F80A65C1DE6905400DA51AB /* ErrorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F80A65B1DE6905400DA51AB /* ErrorModel.swift */; };
 		1F8857301DFFA4220054367C /* ZDQFlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F88572E1DFFA4220054367C /* ZDQFlowView.swift */; };
 		1F8857311DFFA4220054367C /* ZDQFlowViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F88572F1DFFA4220054367C /* ZDQFlowViewItem.swift */; };
@@ -476,6 +477,8 @@
 		1F6E0A8E1E7F6FAB007773F7 /* UserAddressTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserAddressTableViewCell.swift; sourceTree = "<group>"; };
 		1F6E0A901E7F7A4D007773F7 /* DeverliyPushViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeverliyPushViewModel.swift; sourceTree = "<group>"; };
 		1F7AAF091E19F833004ABACC /* LiangPiao.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LiangPiao.entitlements; sourceTree = "<group>"; };
+		1F7CF4711EA0741B00EF07A5 /* NSDate+LSCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+LSCore.h"; sourceTree = "<group>"; };
+		1F7CF4721EA0741B00EF07A5 /* NSDate+LSCore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+LSCore.m"; sourceTree = "<group>"; };
 		1F80A65B1DE6905400DA51AB /* ErrorModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorModel.swift; sourceTree = "<group>"; };
 		1F88572E1DFFA4220054367C /* ZDQFlowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZDQFlowView.swift; sourceTree = "<group>"; };
 		1F88572F1DFFA4220054367C /* ZDQFlowViewItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZDQFlowViewItem.swift; sourceTree = "<group>"; };
@@ -1239,6 +1242,8 @@
 				1FBF86C21DDD47EF0057BB11 /* UILabel+ChangeLineSpaceAndWordSpace.m */,
 				1FF2A5F41DE96C0700FC3909 /* UIViewController+TalKingData.h */,
 				1FF2A5F51DE96C0700FC3909 /* UIViewController+TalKingData.m */,
+				1F7CF4711EA0741B00EF07A5 /* NSDate+LSCore.h */,
+				1F7CF4721EA0741B00EF07A5 /* NSDate+LSCore.m */,
 			);
 			path = Catagory;
 			sourceTree = "<group>";
@@ -1890,6 +1895,7 @@
 				1F62F25B1DC9C50300B591F1 /* HomeViewModel.swift in Sources */,
 				1F9A0C9E1DF937D6002F4C19 /* MySellConfimViewController.swift in Sources */,
 				1FC4FEED1DC8A32E00EBFD18 /* TYTabTitleViewCell.m in Sources */,
+				1F7CF4731EA0741B00EF07A5 /* NSDate+LSCore.m in Sources */,
 				1F889EE91DF6ABFA009717DB /* WithDrawTableViewCell.swift in Sources */,
 				1FAA85201DE5C3BC00F77835 /* Tools.swift in Sources */,
 				1F1FE8CC1DF00DDE0034268F /* DiscountViewController.swift in Sources */,

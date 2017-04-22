@@ -177,15 +177,17 @@ extension MyProfileViewController : UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "ProfileImageTableViewCell", for: indexPath) as! ProfileImageTableViewCell
             let image = SaveImageTools.sharedInstance.LoadImage("photoImage.png", path: "headerImage") == nil ? UIImage.init(named: "Icon_Camera") : SaveImageTools.sharedInstance.LoadImage("photoImage.png", path: "headerImage")
             if SaveImageTools.sharedInstance.LoadImage("photoImage.png", path: "headerImage") == nil && UserInfoModel.shareInstance().avatar != "" {
-                SDWebImageManager.shared().loadImage(with: URL.init(string: UserInfoModel.shareInstance().avatar), options: .retryFailed, progress: { (star, end, url) in
+                cell.photoImageView.sd_setImage(with: URL.init(string: UserInfoModel.shareInstance().avatar), placeholderImage: UIImage.init(named: "Icon_Camera"), options: .retryFailed, progress: { (start, end, url) in
                     
-                }) { (image, data, error, cache, finish, url) in
+                }, completed: { (image, error, chacheType, url) in
                     if error == nil {
                         _ = SaveImageTools.sharedInstance.saveImage("photoImage.png", image: image!, path: "headerImage")
                     }
-                }
+                })
+
+            }else{
+                cell.photoImageView.image = image
             }
-            cell.photoImageView.setImage(image, for: UIControlState())
             cell.selectionStyle = .none
             return cell
         default:

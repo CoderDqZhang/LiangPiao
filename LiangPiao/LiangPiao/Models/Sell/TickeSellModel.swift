@@ -12,6 +12,7 @@ class TickeSellModel : NSObject, NSCoding{
     
     var deliveryTypeChoices : [[String]]!
     var regionChoices : [[String]]!
+    var needDeposit : Bool!
     var row : [Int]!
     var seatTypeChoices : [[String]]!
     var sellCategoryChoices : [[String]]!
@@ -24,6 +25,7 @@ class TickeSellModel : NSObject, NSCoding{
      */
     init(fromDictionary dictionary: NSDictionary){
         deliveryTypeChoices = dictionary["delivery_type_choices"] as? [[String]]
+        needDeposit = dictionary["need_deposit"] as? Bool
         regionChoices = dictionary["region_choices"] as? [[String]]
         row = dictionary["row"] as? [Int]
         sellCategoryChoices = dictionary["sell_category_choices"] as? [[String]]
@@ -40,6 +42,9 @@ class TickeSellModel : NSObject, NSCoding{
         let dictionary = NSMutableDictionary()
         if deliveryTypeChoices != nil{
             dictionary["delivery_type_choices"] = deliveryTypeChoices
+        }
+        if needDeposit != nil{
+            dictionary["need_deposit"] = needDeposit
         }
         if regionChoices != nil{
             dictionary["region_choices"] = regionChoices
@@ -69,6 +74,7 @@ class TickeSellModel : NSObject, NSCoding{
     @objc required init(coder aDecoder: NSCoder)
     {
         deliveryTypeChoices = aDecoder.decodeObject(forKey: "delivery_type_choices") as? [[String]]
+        needDeposit = aDecoder.decodeObject(forKey: "need_deposit") as? Bool
         regionChoices = aDecoder.decodeObject(forKey: "region_choices") as? [[String]]
         row = aDecoder.decodeObject(forKey: "row") as? [Int]
         seatTypeChoices = aDecoder.decodeObject(forKey: "seat_type_choices") as? [[String]]
@@ -86,6 +92,9 @@ class TickeSellModel : NSObject, NSCoding{
     {
         if deliveryTypeChoices != nil{
             aCoder.encode(deliveryTypeChoices, forKey: "delivery_type_choices")
+        }
+        if needDeposit != nil{
+            aCoder.encode(needDeposit, forKey: "need_deposit")
         }
         if regionChoices != nil{
             aCoder.encode(regionChoices, forKey: "region_choices")

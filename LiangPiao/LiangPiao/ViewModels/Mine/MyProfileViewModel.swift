@@ -112,8 +112,11 @@ class MyProfileViewModel: NSObject {
     func changeUserInfoData(_ controller:MyProfileViewController){
         let parameters = ["username":UserInfoModel.shareInstance().username,"gender":UserInfoModel.shareInstance().gender] as [String : Any]
         BaseNetWorke.sharedInstance.postUrlWithString(UserInfoChange, parameters: parameters as AnyObject).observe { (resultDic) in
-            UserInfoModel.shareInstance().update()
-            controller.navigationController?.popViewController(animated: true)
+            if !resultDic.isCompleted {
+                UserInfoModel.shareInstance().update()
+                controller.navigationController?.popViewController(animated: true)
+            }
+            
         }
     }
 }

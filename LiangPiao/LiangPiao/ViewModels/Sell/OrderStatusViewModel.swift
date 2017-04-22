@@ -180,16 +180,33 @@ class OrderStatusViewModel: NSObject {
     }
     
     func requestOrderStatusChange(){
-        let deverliyController = DelivererPushViewController()
-        deverliyController.viewModel.model = self.model
-        deverliyController.viewModel.indexPath = self.selectIndexPath
-        deverliyController.viewModel.reloadeMyOrderDeatail = { indexPath, model in
-            self.controller.tableView.reloadData()
-            if self.reloadeMySellOrderList != nil {
-                self.controller.updateTableView(model.status)
-                self.reloadeMySellOrderList(self.selectIndexPath, model)
+        if (self.model.deliveryType == 4){
+            let deverliyController = DelivererPushViewController()
+            deverliyController.viewModel.model = self.model
+            deverliyController.viewModel.indexPath = self.selectIndexPath
+            deverliyController.viewModel.reloadeMyOrderDeatail = { indexPath, model in
+                self.controller.tableView.reloadData()
+                if self.reloadeMySellOrderList != nil {
+                    self.controller.updateTableView(model.status)
+                    self.reloadeMySellOrderList(self.selectIndexPath, model)
+                }
+            }
+            NavigationPushView(self.controller, toConroller: deverliyController)
+        }else{
+            let url = "\(OrderChangeShatus)\((self.model.orderId)!)/"
+            let parameters = ["status":"7"]
+            BaseNetWorke.sharedInstance.postUrlWithString(url, parameters: parameters as AnyObject).observe { (resultDic) in
+                if !resultDic.isCompleted {
+                    let tempModel = OrderList.init(fromDictionary: resultDic.value as! NSDictionary)
+                    self.model.status = tempModel.status
+                    self.model.statusDesc = tempModel.statusDesc
+                    self.model.supplierStatusDesc = tempModel.supplierStatusDesc
+                    self.controller.updateTableView(self.model.status)
+                    if self.reloadeMySellOrderList != nil {
+                        self.reloadeMySellOrderList(self.selectIndexPath, self.model)
+                    }
+                }
             }
         }
-        NavigationPushView(self.controller, toConroller: deverliyController)
     }
 }

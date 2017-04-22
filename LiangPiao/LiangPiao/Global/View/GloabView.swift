@@ -378,7 +378,9 @@ class NumberTickView: UIView {
     var upButton:UIButton!
     var numberTextField:UITextField!
     var number:NSInteger = 1
-    init(frame:CGRect, buttonWidth:CGFloat, type:NumberTickViewType) {
+    var remainCount:Int = 0
+    
+    init(frame:CGRect, buttonWidth:CGFloat, type:NumberTickViewType, remainCount:Int?) {
         super.init(frame: frame)
         if type == .confirm {
             self.layer.cornerRadius = 2.0
@@ -391,6 +393,7 @@ class NumberTickView: UIView {
                     self.number = self.number - 1
                     self.numberTextField.text = "\(self.number)"
                 }
+                self.setNumberUpColor()
                 self.setNumberDownColor()
             }
             downButton.backgroundColor = UIColor.init(hexString: App_Theme_F6F7FA_Color)
@@ -399,8 +402,11 @@ class NumberTickView: UIView {
             upButton = UIButton(type: .custom)
             upButton.setImage(UIImage.init(named: "Icon_Add_Normal"), for: UIControlState())
             upButton.reactive.controlEvents(.touchUpInside).observe { (object) in
-                self.number = self.number + 1
-                self.numberTextField.text = "\(self.number)"
+                if self.number < self.remainCount {
+                    self.number = self.number + 1
+                    self.numberTextField.text = "\(self.number)"
+                }
+                self.setNumberUpColor()
                 self.setNumberDownColor()
             }
             upButton.frame = CGRect(x: self.frame.size.width - buttonWidth, y: 0, width: buttonWidth, height: frame.size.height)
@@ -480,6 +486,15 @@ class NumberTickView: UIView {
             self.downButton.setImage(UIImage.init(named: "Icon_Reduce_Disable"), for: UIControlState())
         }else{
             self.downButton.setImage(UIImage.init(named: "Icon_Reduce_Normal"), for: UIControlState())
+        }
+        
+    }
+    
+    func setNumberUpColor(){
+        if self.number == self.remainCount {
+            self.upButton.setImage(UIImage.init(named: "Icon_Add_disable"), for: UIControlState())
+        }else{
+            self.upButton.setImage(UIImage.init(named: "Icon_Add_Normal"), for: UIControlState())
         }
         
     }

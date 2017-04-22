@@ -48,7 +48,7 @@ class MyWalletViewController: UIViewController {
 //        }
 //        self.view.addSubview(topUpButton)
         
-        let withdraw = CustomButton.init(frame: CGRect.init(x: SpaceTopUpAndWidth , y: SCREENHEIGHT - 79 - 64, width: SCREENWIDTH - SpaceTopUpAndWidth * 2, height: 49), title: "提现", tag: nil, titleFont: App_Theme_PinFan_M_15_Font!, type: .withBackBoarder) { (tag) in
+        let withdraw = CustomButton.init(frame: CGRect.init(x: SpaceTopUpAndWidth, y: SCREENHEIGHT - 79 - 64, width: SCREENWIDTH - SpaceTopUpAndWidth * 2, height: 49), title: "提现", tag: nil, titleFont: App_Theme_PinFan_M_15_Font!, type: .withBackBoarder) { (tag) in
             let controllerVC = WithDrawViewController()
             controllerVC.viewModel.maxMuch = "\(self.viewModel.model.balance)".muchType("\((self.viewModel.model.balance)!)")
             NavigationPushView(self, toConroller: controllerVC)
@@ -77,7 +77,7 @@ class MyWalletViewController: UIViewController {
             button.layer.borderWidth = 1.0
         }
         button.setTitleColor(titleColor, for: UIControlState())
-        button.buttonSetThemColor(App_Theme_4BD4C5_Color, selectColor: App_Theme_40C6B7_Color, size: CGSize.init(width: frame.size.width, height: frame.size.height))
+        button.buttonSetThemColor(App_Theme_FFFFFF_Color, selectColor: App_Theme_40C6B7_Color, size: CGSize.init(width: frame.size.width, height: frame.size.height))
         return button
     }
     

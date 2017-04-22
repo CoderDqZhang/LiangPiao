@@ -13,6 +13,7 @@ class PriceModel: NSObject {
     var maxPrice:Int = 0
 }
 
+
 class MySellViewModel: NSObject {
 
     var pageViewControllers:NSMutableArray!
@@ -88,14 +89,30 @@ class MySellViewModel: NSObject {
     
     func tableViewCellMySellOrderMuchTableViewCell(_ cell:MySellOrderMuchTableViewCell, indexPath:IndexPath) {
         cell.setSellData(orderListModel.orderList[indexPath.section])
-        cell.handerButton.reactive.controlEvents(.touchUpInside).observe { (action) in
-            let deverliyController = DelivererPushViewController()
-            deverliyController.viewModel.model = self.orderListModel.orderList[indexPath.section]
-            deverliyController.viewModel.indexPath = indexPath
-            deverliyController.viewModel.reloadeMyOrderDeatail = { indexPath, model in
-                self.mySellOrder.tableView.reloadSections(NSIndexSet.init(index: indexPath.section) as IndexSet, with: .automatic)
+        cell.handerButtonClouse = { _ in
+            let model = self.orderListModel.orderList[indexPath.section]
+            if (model.deliveryType == 4) {
+                let deverliyController = DelivererPushViewController()
+                deverliyController.viewModel.model = model
+                deverliyController.viewModel.indexPath = indexPath
+                deverliyController.viewModel.reloadeMyOrderDeatail = { indexPath, model in
+                    self.mySellOrder.tableView.reloadSections(NSIndexSet.init(index: indexPath.section) as IndexSet, with: .automatic)
+                }
+                NavigationPushView(self.controller, toConroller: deverliyController)
+            }else{
+                let url = "\(OrderChangeShatus)\((model.orderId)!)/"
+                let parameters = ["status":"7"]
+                BaseNetWorke.sharedInstance.postUrlWithString(url, parameters: parameters as AnyObject).observe { (resultDic) in
+                    if !resultDic.isCompleted {
+                        let tempModel = OrderList.init(fromDictionary: resultDic.value as! NSDictionary)
+                        model.status = tempModel.status
+                        model.statusDesc = tempModel.statusDesc
+                        model.supplierStatusDesc = tempModel.supplierStatusDesc
+                        self.orderListModel.orderList[indexPath.section] = model
+                        self.mySellOrder.tableView.reloadSections(NSIndexSet.init(index: indexPath.section) as IndexSet, with: .automatic)
+                    }
+                }
             }
-            NavigationPushView(self.controller, toConroller: deverliyController)
         }
     }
     

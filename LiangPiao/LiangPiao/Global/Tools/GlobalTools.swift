@@ -70,7 +70,7 @@ class SaveImageTools{
     
     func getCachesDirectoryUserInfoDocumetPathDocument(_ user:String, document:String) ->String? {
         let manager = FileManager.default
-        let path = (kEncodeUserCachesDirectory + "/\(user)") + "/\(document)"
+        let path = (kEncodeUserCachesDirectory + "/\(user)") + "\(document)"
         if !manager.fileExists(atPath: path) {
             do {
                 try manager.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)
@@ -95,12 +95,11 @@ class SaveImageTools{
             let imageData = UIImagePNGRepresentation(image)
             _ = self.saveSmallImage(name, image: image, path: path)
             do {
-                try imageData?.write(to: URL.init(string: saveName!)!, options: .atomic)
+                try imageData?.write(to: URL.init(fileURLWithPath: saveName!), options: .atomic)
                 return true
             } catch  {
                 return false
             }
-//            return ((imageData?.write(to: URL.init(string: saveName!)!, options: Data.WritingOptions.atomic)) != nil)
         }else{
             let saveFilePath = self.getCachesDirectoryUserInfoDocumetPathDocument("Public", document: path)
             if saveFilePath == nil {
@@ -146,7 +145,7 @@ class SaveImageTools{
             }
             let saveName = saveFilePath?.appendingFormat("/\(name)")
             do {
-                let data = try Data.init(contentsOf: URL.init(string: saveName!)!)
+                let data = try Data.init(contentsOf: URL.init(fileURLWithPath: saveName!), options: Data.ReadingOptions.dataReadingMapped)
                 return UIImage.init(data: data)
             } catch  {
                 return nil

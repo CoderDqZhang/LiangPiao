@@ -11,7 +11,7 @@ import UIKit
 class ProfileImageTableViewCell: UITableViewCell {
 
     var nameAndePhone:UILabel!
-    var photoImageView:UIButton!
+    var photoImageView:UIImageView!
     
     var detailImage:UIImageView!
     
@@ -29,12 +29,11 @@ class ProfileImageTableViewCell: UITableViewCell {
         nameAndePhone.textColor = UIColor.init(hexString: App_Theme_384249_Color)
         self.contentView.addSubview(nameAndePhone)
         
-        photoImageView = UIButton(type: .custom)
+        photoImageView = UIImageView()
         photoImageView.layer.cornerRadius = 28
         photoImageView.isUserInteractionEnabled = false
         photoImageView.layer.masksToBounds = true
         photoImageView.backgroundColor = UIColor.init(hexString: App_Theme_E9EBF2_Color)
-        photoImageView.setImage(UIImage.init(named: "Icon_Camera"), for: UIControlState())
         self.contentView.addSubview(photoImageView)
         
         detailImage = UIImageView()

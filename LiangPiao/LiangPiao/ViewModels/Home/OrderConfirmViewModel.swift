@@ -226,8 +226,10 @@ class OrderConfirmViewModel: NSObject {
     
     func configCellTicketNumberTableViewCell(_ cell:TicketNumberTableViewCell){
         var  cellDetail:GloabTitleAndDetailCell!
+        cell.numberTickView.remainCount = self.ticketModel.remainCount
         if self.ticketModel.sellType == 2 {
             cell.numberTickView.numberTextField.text = "\((self.ticketModel.remainCount)!)"
+            cell.numberTickView.upButton.setImage(UIImage.init(named: "Icon_Add_disable"), for: .normal)
             cell.numberTickView.upButton.isEnabled = false
         }
         cell.numberTickView.numberTextField.reactive.producer(forKeyPath: "text").start { (object) in
@@ -336,6 +338,22 @@ class OrderConfirmViewModel: NSObject {
     }
     
     func requestOrderPay(_ orderForm:OrderFormModel){
+        
+        let dates = NSDate.string(toDate: self.model.session.name.components(separatedBy: " ")[0])
+        let interval: TimeInterval = dates!.timeIntervalSince(NSDate.dateNow())
+        let days = (Int(interval)) / 86400
+        if days < 0 && orderForme.deliveryType == .expressage {
+            UIAlertController.shwoAlertControl(self.controller, style: .alert, title: "提示", message: "该票已不符合快递要求，可联系商家自取", cancel: "取消", doneTitle: "联系商家", cancelAction: { 
+                
+            }, doneAction: { 
+                if self.ticketModel.supplier != nil
+                {
+                    AppCallViewShow(self.controller.view, phone: self.ticketModel.supplier.mobileNum.phoneType(self.ticketModel.supplier.mobileNum))
+                }
+            })
+            return
+        }
+        
         var parameters:NSDictionary = NSDictionary()
         let pay_type = orderForm.payType == .weiChat ? "2" : "1"
         var delivery_type = ""

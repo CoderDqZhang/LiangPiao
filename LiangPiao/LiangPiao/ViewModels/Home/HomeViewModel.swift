@@ -198,7 +198,7 @@ class HomeViewModel: NSObject {
                 if resultDic.event.value is NSDictionary {
                     
                 }else{
-                    let resultModels =  NSMutableArray.mj_objectArray(withKeyValuesArray: resultDic.event.value)
+                    let resultModels =  NSMutableArray.mj_objectArray(withKeyValuesArray: resultDic.value)
                     if resultModels != nil {
                         self.models = resultModels!
                     }

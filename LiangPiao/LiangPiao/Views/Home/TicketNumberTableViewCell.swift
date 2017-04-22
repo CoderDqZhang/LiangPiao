@@ -31,10 +31,8 @@ class TicketNumberTableViewCell: UITableViewCell {
         ticketNumber.font = App_Theme_PinFan_R_13_Font!
         self.contentView.addSubview(ticketNumber)
         
-        numberTickView = NumberTickView.init(frame: CGRect(x: SCREENWIDTH - 128 - 15, y: 8, width: 128, height: 32), buttonWidth: 40, type: .confirm)
+        numberTickView = NumberTickView.init(frame: CGRect(x: SCREENWIDTH - 128 - 15, y: 8, width: 128, height: 32), buttonWidth: 40, type: .confirm, remainCount:nil)
         numberTickView.backgroundColor = UIColor.white
-        
-        
         
         self.contentView.addSubview(numberTickView)
     

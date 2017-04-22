@@ -62,6 +62,7 @@ class MineHeadTableViewCell: UITableViewCell {
             editProfileImage.isHidden = false
             if SaveImageTools.sharedInstance.LoadImage("photoImage.png", path: "headerImage") == nil {
                 photoImageView.sd_setImage(with: URL.init(string: photoImage), placeholderImage: UIImage.init(named: "Avatar_Default"), options: .retryFailed) { (image, error, cache, url) in
+                    _ = SaveImageTools.sharedInstance.saveImage("photoImage.png", image: image!, path: "headerImage")
                 }
             }else{
                 photoImageView.image = SaveImageTools.sharedInstance.LoadImage("photoImage.png", path: "headerImage")

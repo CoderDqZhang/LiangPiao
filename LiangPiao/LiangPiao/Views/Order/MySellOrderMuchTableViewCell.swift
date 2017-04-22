@@ -8,6 +8,8 @@
 
 import UIKit
 
+typealias HanderButtonClouse = () -> Void
+
 class MySellOrderMuchTableViewCell: UITableViewCell {
 
     var muchInfoLabel:UILabel!
@@ -15,6 +17,8 @@ class MySellOrderMuchTableViewCell: UITableViewCell {
     var muchmLabel:UILabel!
     var handerButton:UIButton!
     var linLabel:GloabLineView!
+    
+    var handerButtonClouse:HanderButtonClouse!
     
     var didMakeConstraints:Bool = false
     
@@ -47,6 +51,11 @@ class MySellOrderMuchTableViewCell: UITableViewCell {
         handerButton.setTitle("立即发货", for: UIControlState())
         handerButton.layer.masksToBounds = true
         handerButton.layer.cornerRadius = 2.0
+        handerButton.reactive.controlEvents(.touchUpInside).observe { (event) in
+            if (self.handerButtonClouse != nil){
+                self.handerButtonClouse()
+            }
+        }
         handerButton.backgroundColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
         handerButton.titleLabel?.font = App_Theme_PinFan_R_13_Font
         self.contentView.addSubview(handerButton)

@@ -132,7 +132,14 @@ extension TopUpViewController : UITableViewDataSource {
                 topUpButton.titleLabel?.font = App_Theme_PinFan_M_15_Font
                 cell?.contentView.addSubview(topUpButton)
                 topUpButton.snp.makeConstraints({ (make) in
-                    make.edges.equalTo(UIEdgeInsetsMake(0, 15, 0, -15))
+                    make.left.equalTo((cell?.contentView.snp.left)!).offset(15)
+                    make.right.equalTo((cell?.contentView.snp.right)!).offset(-15)
+                    make.top.equalTo((cell?.contentView.snp.top)!).offset(0)
+                    make.bottom.equalTo((cell?.contentView.snp.bottom)!).offset(0)
+                })
+                topUpButton.buttonSetThemColor(App_Theme_4BD4C5_Color, selectColor: App_Theme_40C6B7_Color, size: CGSize.init(width: SCREENWIDTH - 30, height: 49))
+                topUpButton.reactive.controlEvents(.touchUpInside).observe({ (event) in
+                    
                 })
             }
             cell?.backgroundColor = UIColor.clear

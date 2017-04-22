@@ -27,22 +27,29 @@ class SellViewModel: NSObject {
                 self.pushSellViewController(indexPath)
             }else{
                 BaseNetWorke.sharedInstance.getUrlWithString(UserInfoChange, parameters: nil).observe({ (resultDic) in
-                    print("dic")
-                    let model = UserInfoModel.mj_object(withKeyValues: resultDic)
-                    UserInfoModel.shareInstance().avatar = model?.avatar
-                    UserInfoModel.shareInstance().username = model?.username
-                    UserInfoModel.shareInstance().id = model?.id
-                    UserInfoModel.shareInstance().gender = (model?.gender)!
-                    UserInfoModel.shareInstance().phone = UserInfoModel.shareInstance().phone
-                    UserInfoModel.shareInstance().role = model?.role
-                    model?.saveOrUpdate()
-                    if UserInfoModel.shareInstance().role == "supplier" {
-                        self.pushSellViewController(indexPath)
+                    if !resultDic.isCompleted {
+                        let model = UserInfoModel.mj_object(withKeyValues: resultDic.value)
+                        UserInfoModel.shareInstance().avatar = model?.avatar
+                        UserInfoModel.shareInstance().username = model?.username
+                        UserInfoModel.shareInstance().id = model?.id
+                        UserInfoModel.shareInstance().gender = (model?.gender)!
+                        UserInfoModel.shareInstance().phone = UserInfoModel.shareInstance().phone
+                        UserInfoModel.shareInstance().role = model?.role
+                        model?.saveOrUpdate()
+                        if UserInfoModel.shareInstance().role == "supplier" {
+                            self.pushSellViewController(indexPath)
+                        }else{
+                            UIAlertController.shwoAlertControl(self.controller, style: .alert, title: "您还非商家哦，可联系客服400-873-8011", message: nil, cancel: "取消", doneTitle: "联系客服", cancelAction: {
+                                
+                            }, doneAction: {
+                                AppCallViewShow(self.controller.view, phone: "400-873-8011")
+                            })
+                        }
                     }else{
                         UIAlertController.shwoAlertControl(self.controller, style: .alert, title: "您还非商家哦，可联系客服400-873-8011", message: nil, cancel: "取消", doneTitle: "联系客服", cancelAction: {
                             
-                            }, doneAction: {
-                                AppCallViewShow(self.controller.view, phone: "400-873-8011")
+                        }, doneAction: {
+                            AppCallViewShow(self.controller.view, phone: "400-873-8011")
                         })
                     }
                 })
