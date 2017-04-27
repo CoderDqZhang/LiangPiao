@@ -96,9 +96,7 @@ class OrderDetailViewModel: NSObject {
                 })
             }else{
                 if self.deverliyModel != nil && self.deverliyModel.traces.count > 0 {
-                    return controller.tableView.fd_heightForCell(withIdentifier: "DeverliyTableViewCellDetail", configuration: { (cell) in
-                        self.configCellDeverliyTableViewCell(cell as! DeverliyTableViewCell, indexPath: indexPath)
-                    })
+                    return 49
                 }
                 return 0
             }

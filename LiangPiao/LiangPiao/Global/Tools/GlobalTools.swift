@@ -70,7 +70,7 @@ class SaveImageTools{
     
     func getCachesDirectoryUserInfoDocumetPathDocument(_ user:String, document:String) ->String? {
         let manager = FileManager.default
-        let path = (kEncodeUserCachesDirectory + "/\(user)") + "\(document)"
+        let path = (kEncodeUserCachesDirectory + "/\(user)") + "/\(document)"
         if !manager.fileExists(atPath: path) {
             do {
                 try manager.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)

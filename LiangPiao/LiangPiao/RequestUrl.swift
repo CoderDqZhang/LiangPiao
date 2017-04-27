@@ -11,9 +11,9 @@ import Foundation
 //https://itunes.apple.com/us/app/liang-piao-da-mai-yong-le/id1170039060?mt=8
 
 //测试服
-//let BaseStr = "liangpiao.me/"
+let BaseStr = "liangpiao.me/"
 //正式服
-let BaseStr = "niceticket.cc/"
+//let BaseStr = "niceticket.cc/"
 let BaseURL = "https://api.\(BaseStr)"
 
 
@@ -87,6 +87,9 @@ let OrderExpress = "\(BaseURL)supplier/order"
 //分享
 let ShareUrl = "http://www.\(BaseStr)show/"
 let UserProtocol = "http://www.\(BaseStr)protocol/"
+
+//充值
+let TopUpUrl = "\(BaseURL)account/recharge/"
 
 //TEST
 let ExpressDeliveryUrl = "http://testapi.kdniao.cc:8081/api/dist"

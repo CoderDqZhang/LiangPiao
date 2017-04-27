@@ -12,6 +12,7 @@ import ReactiveCocoa
 class DeverliyForm : NSObject {
     var deverliyName:String = "SF"
     var deverliyNum:String = ""
+    var image:UIImage!
 }
 
 typealias ReloadeMyOrderDeatail = (_ indexPath:IndexPath, _ model:OrderList) -> Void
@@ -23,6 +24,7 @@ class DeverliyPushViewModel: NSObject {
     var deverliyType:ZHPickView!
     var form = DeverliyForm()
     var indexPath:IndexPath!
+    var isUploadImage:Bool = false
     var reloadeMyOrderDeatail:ReloadeMyOrderDeatail!
     
     override init() {
@@ -44,18 +46,31 @@ class DeverliyPushViewModel: NSObject {
         deverliyType.show()
     }
     
+    func uploadImage(image:UIImage) {
+        self.form.image = image
+        isUploadImage = true
+        _ = SaveImageTools.sharedInstance.saveImage("\((self.model.orderId)!).png", image: self.form.image, path: "deverliyPush")
+        let cell = self.controller.tableView.cellForRow(at: IndexPath.init(row: 2, section: 1)) as! GloabTitleAndDetailImageCell
+        cell.setDetailText("重新上传")
+    }
+    
     func controllerTitle() -> String {
         return "发货"
     }
     
     func orderExpressRequest(){
         let url = "\(OrderExpress)/\((model.orderId)!)/express/"
+        let fileUrl = SaveImageTools.sharedInstance.getCachesDirectory("\((self.model.orderId)!).png", path: "deverliyPush")
         let parameters = [
             "express_name":self.form.deverliyName,
-            "express_num":self.form.deverliyNum
+            "express_num":self.form.deverliyNum,
         ]
-        BaseNetWorke.sharedInstance.postUrlWithString(url, parameters: parameters as AnyObject).observe { (resultDic) in
+        
+        let images = ["photo":fileUrl]
+        
+        BaseNetWorke.sharedInstance.uploadDataFile(url, parameters: parameters as NSDictionary, images: images as NSDictionary).observe { (resultDic) in
             if !resultDic.isCompleted {
+                print(resultDic.value)
                 let url = "\(OrderChangeShatus)\((self.model.orderId)!)/"
                 let parameters = ["status":"7"]
                 BaseNetWorke.sharedInstance.postUrlWithString(url, parameters: parameters as AnyObject).observe { (resultDic) in
@@ -72,8 +87,28 @@ class DeverliyPushViewModel: NSObject {
                     }
                 }
             }
-            
         }
+    
+//        BaseNetWorke.sharedInstance.postUrlWithString(url, parameters: parameters as AnyObject).observe { (resultDic) in
+//            if !resultDic.isCompleted {
+//                let url = "\(OrderChangeShatus)\((self.model.orderId)!)/"
+//                let parameters = ["status":"7"]
+//                BaseNetWorke.sharedInstance.postUrlWithString(url, parameters: parameters as AnyObject).observe { (resultDic) in
+//                    if !resultDic.isCompleted {
+//                        let tempModel = OrderList.init(fromDictionary: resultDic.value as! NSDictionary)
+//                        self.model.status = tempModel.status
+//                        self.model.statusDesc = tempModel.statusDesc
+//                        self.model.supplierStatusDesc = tempModel.supplierStatusDesc
+//                        if self.reloadeMyOrderDeatail != nil {
+//                            self.reloadeMyOrderDeatail(self.indexPath, self.model)
+//                        }
+//                        
+//                        self.controller.navigationController?.popViewController(animated: true)
+//                    }
+//                }
+//            }
+//            
+//        }
     }
     
     func tableViewNumberRowInSection(_ section:Int) ->Int {
@@ -81,7 +116,7 @@ class DeverliyPushViewModel: NSObject {
         case 0:
             return 1
         default:
-            return 2
+            return isUploadImage ? 4 : 3
         }
     }
     
@@ -92,6 +127,9 @@ class DeverliyPushViewModel: NSObject {
                 self.configCellReviceCell(cell as! UserAddressTableViewCell, indexPath: indexPath)
             })
         default:
+            if indexPath.row == 3 {
+                return 65
+            }
             return 49
         }
     }
@@ -117,7 +155,11 @@ class DeverliyPushViewModel: NSObject {
     }
     
     func tableViewGloabTitleAndDetailImageCell(_ cell:GloabTitleAndDetailImageCell, indexPath:IndexPath) {
-        cell.setData("物流公司", detail: "顺丰")
+        if indexPath.row == 0 {
+            cell.setData("物流公司", detail: "顺丰")
+        }else{
+            cell.setData("添加发货凭证", detail: isUploadImage ? "重新上传" : "点击上传照片")
+        }
     }
     
     func tableViewCellGloabTitleAndTextFieldCell(_ cell:GloabTitleAndTextFieldCell, indexPath:IndexPath) {
@@ -125,6 +167,10 @@ class DeverliyPushViewModel: NSObject {
         cell.textField.reactive.continuousTextValues.observeValues { (resultStr) in
             self.form.deverliyNum = resultStr!
         }
+    }
+    
+    func tableViewCellDeverliyImageTableViewCell(_ cell:DeverliyImageTableViewCell, indexPath:IndexPath) {
+        cell.setUpData(self.form.image)
     }
 }
 

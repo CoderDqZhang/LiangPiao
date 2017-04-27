@@ -128,8 +128,11 @@ class MyTicketPutUpViewModel: NSObject {
         if ticketShowModel.sessionCount != 1 {
             let ticketList = self.ticketShowModel.sessionList[self.selectSession].ticketList
             cell.setData((ticketList?[indexPath.row - 3])!)
-            if (temListArray[self.selectSession] as! NSObject) as! Decimal == 0 {
-                temListArray.replaceObject(at: self.selectSession, with: ticketList!)
+            if self.temListArray[self.selectSession] is [TicketList] {
+                
+            }else{
+                self.temListArray.replaceObject(at: self.selectSession, with: ticketList!)
+
             }
         }else{
             cell.setData(ticketShowModel.sessionList[0].ticketList[indexPath.row - 3])

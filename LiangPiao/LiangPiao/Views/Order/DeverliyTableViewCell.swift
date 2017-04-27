@@ -10,11 +10,10 @@ import UIKit
 
 class DeverliyTableViewCell: UITableViewCell {
 
-    var leftLine:UILabel!
-    var leftLabel:UILabel!
     var infoLabel:UILabel!
-    var infoTitle:UILabel!
-    var timeLabel:UILabel!
+    var titleImage:UIImageView!
+    var detailImage:UIImageView!
+    var linLabel:GloabLineView!
     
     var didMakeContraints:Bool = false
 
@@ -25,33 +24,22 @@ class DeverliyTableViewCell: UITableViewCell {
     
     func setUpView() {
         
-        leftLine = UILabel()
-        leftLine.backgroundColor = UIColor.init(hexString: App_Theme_DDE0E5_Color)
-        self.contentView.addSubview(leftLine)
-        
-        leftLabel = UILabel()
-        leftLabel.backgroundColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
-        leftLabel.layer.cornerRadius = 4.5
-        leftLabel.layer.borderWidth = 1
-        leftLabel.layer.borderColor = UIColor.init(hexString: App_Theme_DDE0E5_Color).cgColor
-        self.contentView.addSubview(leftLabel)
-        
-        infoTitle = UILabel()
-        infoTitle.font = App_Theme_PinFan_R_13_Font
-        infoTitle.textColor = UIColor.init(hexString: App_Theme_384249_Color)
-        self.contentView.addSubview(infoTitle)
-        
         infoLabel = UILabel()
         infoLabel.numberOfLines = 0
-        infoLabel.textColor = UIColor.init(hexString: App_Theme_A2ABB5_Color)
+        infoLabel.textColor = UIColor.init(hexString: App_Theme_384249_Color)
         infoLabel.font = App_Theme_PinFan_R_13_Font
         self.contentView.addSubview(infoLabel)
         
-        timeLabel = UILabel()
-        timeLabel.font = App_Theme_PinFan_R_13_Font
-        timeLabel.numberOfLines = 0
-        timeLabel.textColor = UIColor.init(hexString: App_Theme_A2ABB5_Color)
-        self.contentView.addSubview(timeLabel)
+        titleImage = UIImageView()
+        titleImage.image = UIImage.init(named: "Icon_Address")
+        self.contentView.addSubview(titleImage)
+        
+        detailImage = UIImageView()
+        detailImage.image = UIImage.init(named: "Btn_More")
+        self.contentView.addSubview(detailImage)
+        
+        linLabel = GloabLineView(frame: CGRect(x: 15, y: 0, width: SCREENWIDTH - 30, height: 0.5))
+        self.contentView.addSubview(linLabel)
         
         self.updateConstraintsIfNeeded()
     }
@@ -62,43 +50,27 @@ class DeverliyTableViewCell: UITableViewCell {
     
     
     func setUpData(_ trac:Trace) {
-        self.infoTitle.text = "物流追踪"
-        self.infoLabel.text = trac.acceptStation
-        self.timeLabel.text = trac.acceptTime
+        self.infoLabel.text = "物流追踪 \((trac.acceptStation)!)"
         
     }
     
     override func updateConstraints() {
         if !self.didMakeContraints {
-            leftLine.snp.makeConstraints({ (make) in
-                make.top.equalTo(self.contentView.snp.top).offset(0)
-                make.bottom.equalTo(self.contentView.snp.bottom).offset(0)
-                make.left.equalTo(self.contentView.snp.left).offset(25)
-                make.width.equalTo(1)
-            })
-            
-            leftLabel.snp.makeConstraints({ (make) in
-                make.centerY.equalTo(self.contentView.snp.centerY).offset(0)
-                make.left.equalTo(self.contentView.snp.left).offset(21)
-                make.size.equalTo(CGSize.init(width: 9, height: 9))
-            })
-            
-            infoTitle.snp.makeConstraints({ (make) in
-                make.top.equalTo(self.contentView.snp.top).offset(10.5)
-                make.left.equalTo(self.contentView.snp.left).offset(53.5)
-            })
-            
             infoLabel.snp.makeConstraints({ (make) in
-                make.top.equalTo(self.infoTitle.snp.bottom).offset(6)
-                make.right.equalTo(self.contentView.snp.right).offset(-15)
-                make.left.equalTo(self.contentView.snp.left).offset(53.5)
+                make.centerY.equalTo(self.contentView.snp.centerY).offset(0)
+                make.left.equalTo(self.titleImage.snp.right).offset(15)
+                make.right.equalTo(self.contentView.snp.right).offset(-35)
             })
             
-            timeLabel.snp.makeConstraints({ (make) in
-                make.top.equalTo(self.infoLabel.snp.bottom).offset(2)
-                make.left.equalTo(self.contentView.snp.left).offset(53.5)
-                make.right.lessThanOrEqualTo(self.contentView.snp.right).offset(-15)
-                make.bottom.equalTo(self.contentView.snp.bottom).offset(-20)
+            titleImage.snp.makeConstraints({ (make) in
+                make.left.equalTo(self.contentView.snp.left).offset(12)
+                make.size.equalTo(CGSize.init(width: 27, height: 27))
+                make.centerY.equalTo(self.contentView.snp.centerY).offset(0)
+            })
+            
+            detailImage.snp.makeConstraints({ (make) in
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
+                make.centerY.equalTo(self.contentView.snp.centerY).offset(0)
             })
             
             self.didMakeContraints = true

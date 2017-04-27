@@ -98,9 +98,9 @@ class OrderTicketInfoTableViewCell: UITableViewCell {
         ticketTime.text = "时间：\((model.session.startTime)!)"
         ticketMuch.text = "票面：\((model.ticket.originalTicket.name)!) x \((model.remainCount)!)"
         if model.ticket.region == "" {
-            ticketRow.text = "座位：择优分配"
+            ticketRow.text = "座位：随机"
         }else{
-            let row = model.ticket.row == "" ? "择优分配":"\((model.ticket.row)!)排"
+            let row = model.ticket.row == "" ? "随机":"\((model.ticket.row)!)排"
             ticketRow.text = "座位：\((model.ticket.region)!) \(row)"
         }
         ticketAllMuch.text = "实付金额：\((model.total)!)"
@@ -123,9 +123,9 @@ class OrderTicketInfoTableViewCell: UITableViewCell {
         ticketTime.text = "时间：\((model.session.startTime)!)"
         ticketMuch.text = "票面：\((model.ticket.originalTicket.name)!)"
         if model.ticket.region == "" {
-            ticketAllMuch.text = "座位：择优分配"
+            ticketAllMuch.text = "座位：随机"
         }else{
-            let row = model.ticket.row == "" ? "择优分配":"\((model.ticket.row)!)排"
+            let row = model.ticket.row == "" ? "随机":"\((model.ticket.row)!)排"
             ticketAllMuch.text = "座位：\((model.ticket.region)!) \(row)"
         }
         ticketRow.text = "数量：\((model.remainCount)!)"

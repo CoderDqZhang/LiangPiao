@@ -128,11 +128,14 @@ class BaseNetWorke {
         })
     }
     
-    
-    func uploadDataFile(_ url:String, filePath:String,name:String) ->Signal<Any, NSError> {
+    func uploadDevilyPushFile(_ url:String, paratemates:NSDictionary) ->Signal<Any, NSError> {
+        var allKey = paratemates.allKeys
+        var allValue = paratemates.allValues
         return Signal.init({ (subscriber) -> Disposable? in
             Alamofire.upload(multipartFormData: { (multipartFormData) in
-                multipartFormData.append(URL.init(fileURLWithPath: filePath), withName: "avatar")
+                for i in 0...allKey.count - 1 {
+                    multipartFormData.append(URL.init(fileURLWithPath: allValue[i] as! String), withName: allKey[i] as! String)
+                }
             }, usingThreshold: 1, to: url, method: .post, headers: [
                 "content-type": "multipart/form-data",
                 "cache-control": "no-cache"
@@ -155,38 +158,63 @@ class BaseNetWorke {
                 }
                 subscriber.sendCompleted()
             }
-//            Alamofire.upload(.POST, url, headers: [
-//                "content-type": "multipart/form-data",
-//                "cache-control": "no-cache"
-//                ], multipartFormData: { (multipartFormData) in
-//                multipartFormData.appendBodyPart(fileURL: NSURL.init(fileURLWithPath: filePath), name: "avatar")
-//                }, encodingCompletion: { (encodingResult) in
-//                    switch encodingResult {
-//                    case .Success(let upload, _, _):
-//                        upload.responseJSON { response in
-//                            if response.response?.statusCode == 200 || response.response?.statusCode == 201 {
-//                                subscriber.sendNext(response.result.value!)
-//                            }else{
-//                                subscriber.sendNext(["fail":"error"])
-//                            }
-////                            debugPrint(response)
-//                            subscriber.sendCompleted()
-//                        }
-//                    case .Failure(let encodingError):
-//                        subscriber.sendNext(["fail":"服务器请求失败"])
-//                        print(encodingError)
-//                        subscriber.sendCompleted()
-//                    }
-//                subscriber.sendCompleted()
-//            })
             return nil
         })
-        
+    
         // Alamofire 4
         
-//        Alamofire.upload(multipartFormData: <#T##(MultipartFormData) -> Void#>, usingThreshold: <#T##UInt64#>, to: <#T##URLConvertible#>, method: <#T##HTTPMethod#>, headers: <#T##HTTPHeaders?#>, encodingCompletion: { (SessionManager,.MultipartFormDataEncodingResult) in
-//            <#code#>
-//        })
+        //        Alamofire.upload(multipartFormData: <#T##(MultipartFormData) -> Void#>, usingThreshold: <#T##UInt64#>, to: <#T##URLConvertible#>, method: <#T##HTTPMethod#>, headers: <#T##HTTPHeaders?#>, encodingCompletion: { (SessionManager,.MultipartFormDataEncodingResult) in
+        //            <#code#>
+        //        })
+    }
+    
+    
+    func uploadDataFile(_ url:String, parameters:NSDictionary?, images:NSDictionary?) ->Signal<Any, NSError> {
+        return Signal.init({ (subscriber) -> Disposable? in
+            
+            Alamofire.upload(multipartFormData: { (multipartFormData) in
+                if parameters != nil {
+                    for i in 0...(parameters!).allValues.count - 1 {
+                        multipartFormData.append((parameters!.allValues[i] as! String).data(using: String.Encoding.utf8, allowLossyConversion: true)!, withName: parameters!.allKeys[i] as! String)
+                    }
+                }
+                
+                if images != nil {
+                    for j in 0...(images!).allValues.count - 1 {
+                        multipartFormData.append(URL.init(fileURLWithPath: images!.allValues[j]  as! String), withName: images!.allKeys[j] as! String)
+                    }
+                }
+                
+            }, usingThreshold: 1, to: url, method: .post, headers: [
+                "content-type": "multipart/form-data",
+                "cache-control": "no-cache"
+            ]) { (encodingResult) in
+                print(encodingResult)
+                switch encodingResult {
+                case .success(let upload, _, _):
+                    if parameters != nil {
+                        subscriber.send(value: ["success":"上传成功"])
+                        subscriber.sendCompleted()
+                        return
+                    }
+                    upload.responseJSON { response in
+                        if response.response?.statusCode == 200 || response.response?.statusCode == 201 {
+                            subscriber.send(value: response.result.value!)
+                        }else{
+                            subscriber.send(value: ["fail":"error"])
+                        }
+                        //                            debugPrint(response)
+                        subscriber.sendCompleted()
+                    }
+                case .failure(let encodingError):
+                    subscriber.send(value: ["fail":"服务器请求失败"])
+                    print(encodingError)
+                    subscriber.sendCompleted()
+                }
+                subscriber.sendCompleted()
+            }
+            return nil
+        })
     }
     
     ///

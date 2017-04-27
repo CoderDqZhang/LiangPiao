@@ -415,6 +415,7 @@ class NumberTickView: UIView {
             
             numberTextField = UITextField()
             numberTextField.text = "\(self.number)"
+            numberTextField.keyboardType = .numberPad
             numberTextField.tintColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
             numberTextField.textColor = UIColor.init(hexString: App_Theme_556169_Color)
             

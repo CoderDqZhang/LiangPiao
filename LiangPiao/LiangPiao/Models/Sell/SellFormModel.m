@@ -12,8 +12,8 @@
 
 - (instancetype)init{
     self = [super init];
-    self.ticketRow = @"择优分配";
-    self.ticketRegin = @"择优分配";
+    self.ticketRow = @"随机";
+    self.ticketRegin = @"随机";
     self.sellType = @"可以分开卖";
     self.seatType = @"1";
     self.ticketPrice = @"10";

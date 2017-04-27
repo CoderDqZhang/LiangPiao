@@ -46,7 +46,7 @@ class ToolView:UIView {
     
     func viewSignalTap(_ sender:UITapGestureRecognizer) {
         if toolViewSelectIndexPathRow != nil {
-//            self.toolViewSelectIndexPathRow(indexPath:NSIndexPath(forRow: 0, inSection: 0), str: "")
+            self.toolViewSelectIndexPathRow(IndexPath.init(row: 0, section: 0), "" as AnyObject)
         }
     }
     
@@ -78,7 +78,7 @@ extension ToolView : UITableViewDelegate {
             if indexPath.row == 0 {
                 self.toolViewSelectIndexPathRow(indexPath, "" as AnyObject)
             }else{
-//                self.toolViewSelectIndexPathRow(indexPath, dataArray[indexPath.row - 1])
+                self.toolViewSelectIndexPathRow(indexPath, dataArray.object(at: indexPath.row - 1) as AnyObject)
             }
         }
     }
@@ -155,6 +155,9 @@ class TicketToolsView: UIView {
             single.numberOfTapsRequired = 1
             single.numberOfTouchesRequired = 1
             self.addGestureRecognizer(single)
+            self.reactive.producer(forKeyPath: "isShow").start({ (isChange) in
+                self.startAnimation()
+            })
 //            racDisposable = rac_observeKeyPath("isShow", options: .New, observer: self) { (object, objects, newValue, oldValue) in
 //                self.startAnimation()
 //            }
@@ -355,18 +358,17 @@ class TicketToolsTableViewCell: UITableViewCell {
         lineLabel = GloabLineView(frame: CGRect(x: 15, y: 41.5, width: SCREENWIDTH - 30, height: 0.5))
         toolsView.addSubview(lineLabel)
         
-//        let signal = NotificationCenter.default.rac_addObserverForName(ToolViewNotifacationName, object: nil)
-//        signal.observe { (object) in
-//            let str = object.object as! String
-//            switch str {
-//                case "100":
-//                    self.nomalPriceTick.isShow = false
-//                case "200":
-//                    self.rowTicket.isShow = false
-//                default :
-//                    self.sortPriceTick.isShow = false
-//            }
-//        }
+        NotificationCenter.default.reactive.notifications(forName: NSNotification.Name.init(rawValue: ToolViewNotifacationName), object: nil).observe { (object) in
+            let str = object.value?.object as! String
+            switch str {
+            case "100":
+                self.nomalPriceTick.isShow = false
+            case "200":
+                self.rowTicket.isShow = false
+            default :
+                self.sortPriceTick.isShow = false
+            }
+        }
         
         self.updateConstraintsIfNeeded()
         
@@ -453,6 +455,17 @@ class TicketToolsTableViewCell: UITableViewCell {
 //                self.sortPriceTick.isShow = false
 //            }
 //        }
+        NotificationCenter.default.reactive.notifications(forName: NSNotification.Name.init(rawValue: ToolViewNotifacationName), object: nil).observe { (object) in
+            let str = object.value?.object as! String
+            switch str {
+            case "100":
+                self.nomalPriceTick.isShow = false
+            case "200":
+                self.rowTicket.isShow = false
+            default :
+                self.sortPriceTick.isShow = false
+            }
+        }
         
         let toplineLabel = GloabLineView(frame: CGRect(x: 15, y: 0, width: SCREENWIDTH - 30, height: 0.5))
         self.contentView.addSubview(toplineLabel)

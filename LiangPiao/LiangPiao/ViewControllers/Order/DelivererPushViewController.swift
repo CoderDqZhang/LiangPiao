@@ -20,6 +20,7 @@ class DelivererPushViewController: UIViewController {
         self.view.backgroundColor = UIColor.white
         self.setNavigationItemBack()
         self.setupForDismissKeyboard()
+        self.talKingDataPageName = "卖家发货"
         self.setUpView()
         // Do any additional setup after loading the view.
     }
@@ -35,6 +36,7 @@ class DelivererPushViewController: UIViewController {
         tableView.register(UserAddressTableViewCell.self, forCellReuseIdentifier: "UserAddressTableViewCell")
         tableView.register(GloabTitleAndDetailImageCell.self, forCellReuseIdentifier: "GloabTitleAndDetailImageCell")
         tableView.register(GloabTitleAndTextFieldCell.self, forCellReuseIdentifier: "GloabTitleAndTextFieldCell")
+        tableView.register(DeverliyImageTableViewCell.self, forCellReuseIdentifier: "DeverliyImageTableViewCell")
         tableView.separatorStyle = .none
         self.view.addSubview(tableView)
         tableView.snp.makeConstraints { (make) in
@@ -70,12 +72,72 @@ class DelivererPushViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    func presentImagePickerView(){
+        let controller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let cancel = UIAlertAction(title: "取消", style: .cancel) { (cancelAction) in
+            
+        }
+        if (UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera)){
+            let cameraAction = UIAlertAction(title: "拍照", style: .default) { (cancelAction) in
+                let imagePicker = UIImagePickerController()
+                imagePicker.allowsEditing = true
+                imagePicker.sourceType = .camera
+                imagePicker.delegate = self
+                self.present(imagePicker, animated: true) {
+                    
+                }
+            }
+            controller.addAction(cameraAction)
+        }
+        
+        
+        let album = UIAlertAction(title: "相册", style: .default) { (cancelAction) in
+            let imagePicker = UIImagePickerController()
+            imagePicker.allowsEditing = true
+            imagePicker.sourceType = .photoLibrary
+            imagePicker.delegate = self
+            self.present(imagePicker, animated: true) {
+                
+            }
+        }
+        controller.addAction(cancel)
+        controller.addAction(album)
+        self.present(controller, animated: true) {
+            
+        }
+        
+    }
 
 }
 
+extension DelivererPushViewController : UIImagePickerControllerDelegate {
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true) {
+            
+        }
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        let image = info[UIImagePickerControllerEditedImage] as! UIImage
+        viewModel.uploadImage(image: image)
+        self.tableView.reloadData()
+        picker.dismiss(animated: true, completion: nil)
+    }
+}
+
+extension DelivererPushViewController : UINavigationControllerDelegate {
+    
+}
+
+
 extension DelivererPushViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        viewModel.tableViewDidSelectRowAtIndexPath(indexPath, controller:self)
+        if indexPath.section == 1 && indexPath.row == 2 {
+            self.presentImagePickerView()
+        }else{
+            viewModel.tableViewDidSelectRowAtIndexPath(indexPath, controller:self)
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -113,15 +175,23 @@ extension DelivererPushViewController : UITableViewDataSource {
             return cell
         default :
             switch indexPath.row {
-            case 0:
+            case 0,2:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "GloabTitleAndDetailImageCell", for: indexPath) as! GloabTitleAndDetailImageCell
                 viewModel.tableViewGloabTitleAndDetailImageCell(cell, indexPath: indexPath)
+                if indexPath.row == 2 {
+                    cell.hideLineLabel()
+                }
                 cell.selectionStyle = .none
                 return cell
-            default:
+            case 1:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "GloabTitleAndTextFieldCell", for: indexPath) as! GloabTitleAndTextFieldCell
                 cell.textField.keyboardType = .numberPad
                 viewModel.tableViewCellGloabTitleAndTextFieldCell(cell, indexPath: indexPath)
+                cell.selectionStyle = .none
+                return cell
+            default:
+                let cell = tableView.dequeueReusableCell(withIdentifier: "DeverliyImageTableViewCell", for: indexPath) as! DeverliyImageTableViewCell
+                viewModel.tableViewCellDeverliyImageTableViewCell(cell, indexPath: indexPath)
                 cell.selectionStyle = .none
                 return cell
             }

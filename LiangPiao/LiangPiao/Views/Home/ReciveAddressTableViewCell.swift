@@ -99,6 +99,13 @@ class ReciveAddressTableViewCell: UITableViewCell {
                 make.bottom.equalTo(self.contentView.snp.bottom).offset(-20)
             })
             
+            linLabel.snp.makeConstraints({ (make) in
+                make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
+                make.height.equalTo(10)
+                make.bottom.equalTo(self.contentView.snp.bottom).offset(-10)
+            })
+            
             self.didMakeContraints = true
             
         }

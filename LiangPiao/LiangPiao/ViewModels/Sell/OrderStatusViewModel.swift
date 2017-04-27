@@ -30,22 +30,25 @@ class OrderStatusViewModel: NSObject {
             let dics = ["RequestData":["LogisticCode":model.expressInfo.expressNum,"ShipperCode":model.expressInfo.expressName],"DataType":"2","RequestType":"1002","EBusinessID":ExpressDelivierEBusinessID,"key":ExpressDelivierKey] as [String : Any]
             
             ExpressDeliveryNet.shareInstance().requestExpressDelivreyNetOrder(dics as [AnyHashable: Any], url: ExpressOrderHandleUrl, clouse: { (resultDic) in
-                self.deverliyModel = DeverliyModel.init(fromDictionary: resultDic! as NSDictionary)
-                self.deverliyModel.traces = self.deverliyModel.traces.reversed()
-                if self.deverliyModel.traces.count == 0 {
-                    var acceptionName = ""
-                    for name in deverliyDic.allKeys {
-                        if deverliyDic[name as! String] as! String == self.model.expressInfo.expressName as String {
-                            acceptionName = name as! String
+                if resultDic != nil {
+                    self.deverliyModel = DeverliyModel.init(fromDictionary: resultDic! as NSDictionary)
+                    self.deverliyModel.traces = self.deverliyModel.traces.reversed()
+                    if self.deverliyModel.traces.count == 0 {
+                        var acceptionName = ""
+                        for name in deverliyDic.allKeys {
+                            if deverliyDic[name as! String] as! String == self.model.expressInfo.expressName as String {
+                                acceptionName = name as! String
+                            }
                         }
+                        let dic:NSDictionary = ["AcceptStation":acceptionName,"AcceptTime":"物流编号：\((self.model.expressInfo.expressNum)!)"]
+                        self.templeTrace = Trace.init(fromDictionary: dic)
+                        self.deverliyModel.traces.append(self.templeTrace)
                     }
-                    let dic:NSDictionary = ["AcceptStation":acceptionName,"AcceptTime":"物流编号：\((self.model.expressInfo.expressNum)!)"]
-                    self.templeTrace = Trace.init(fromDictionary: dic)
-                    self.deverliyModel.traces.append(self.templeTrace)
+                    DispatchQueue.main.async(execute: {
+                        self.controller.tableView.reloadRows(at: [IndexPath.init(row: 2, section: 0)], with: .automatic)
+                    })
                 }
-                DispatchQueue.main.async(execute: {
-                    self.controller.tableView.reloadRows(at: [IndexPath.init(row: 2, section: 0)], with: .automatic)
-                })
+                
             })
         }
     }
@@ -94,9 +97,7 @@ class OrderStatusViewModel: NSObject {
                     })
                 default:
                     if self.deverliyModel != nil && self.deverliyModel.traces.count > 0 {
-                        return controller.tableView.fd_heightForCell(withIdentifier: "DeverliyTableViewCellSellDetail", configuration: { (cell) in
-                            self.configCellDeverliyTableViewCell(cell as! DeverliyTableViewCell, indexPath: indexPath)
-                        })
+                        return 49
                     }
                     return 0
             }

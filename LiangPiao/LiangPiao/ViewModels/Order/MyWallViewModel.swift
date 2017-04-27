@@ -87,4 +87,14 @@ class MyWallViewModel: NSObject {
             }
         }
     }
+    
+    func pushTopUpViewController() {
+        let controllerVC = TopUpViewController()
+        controllerVC.viewModel.myWall = self.model
+        controllerVC.viewModel.updateMyWall = { model in
+            self.model = model
+            self.controller.tableView.reloadData()
+        }
+        NavigationPushView(self.controller, toConroller: controllerVC)
+    }
 }

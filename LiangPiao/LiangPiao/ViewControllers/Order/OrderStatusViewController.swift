@@ -56,6 +56,15 @@ class OrderStatusViewController: UIViewController {
         self.view.addSubview(payView)
         self.updateTableView(self.viewModel.model.status)
         
+        
+        if self.viewModel.model.user != nil && self.viewModel.model.user.mobileNum != "" {
+            let rightBarItem = UIBarButtonItem.init(title: "联系买家", style: .plain, target: self, action: #selector(OrderStatusViewController.connectBuyer))
+            self.navigationItem.rightBarButtonItem = rightBarItem
+        }
+    }
+    
+    func connectBuyer(){
+        AppCallViewShow(self.view, phone: self.viewModel.model.user.mobileNum)
     }
     
     func bindViewModel(){

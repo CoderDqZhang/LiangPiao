@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class TopUpViewController: UIViewController {
 
     var tableView:UITableView!
@@ -43,10 +44,21 @@ class TopUpViewController: UIViewController {
     }
     
     func bindViewModel(){
+        viewModel.controller = self
         //        viewModel.reloadTableView = { _ in
         //            self.tableView.reloadRowsAtIndexPaths([NSIndexPath.init(forRow: 0, inSection: 0)], withRowAnimation: .Automatic)
         //        }
         
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        UserDefaultsSetSynchronize("topUp" as AnyObject, key: "PayType")
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        UserDefaultsSetSynchronize("payOrder" as AnyObject, key: "PayType")
     }
     
     func setUpNavigationItem(){
@@ -111,6 +123,10 @@ extension TopUpViewController : UITableViewDataSource {
             case 0:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "TopUpMuchTableViewCell", for: indexPath) as! TopUpMuchTableViewCell
                 cell.selectionStyle = .none
+                cell.muchTextField.keyboardType = .numbersAndPunctuation
+                cell.muchTextField.reactive.continuousTextValues.observeValues({ (text) in
+                    self.viewModel.topUpForm.amount = text
+                })
                 return cell
             default:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "TopUpTypeTableViewCell", for: indexPath) as! TopUpTypeTableViewCell
@@ -139,7 +155,7 @@ extension TopUpViewController : UITableViewDataSource {
                 })
                 topUpButton.buttonSetThemColor(App_Theme_4BD4C5_Color, selectColor: App_Theme_40C6B7_Color, size: CGSize.init(width: SCREENWIDTH - 30, height: 49))
                 topUpButton.reactive.controlEvents(.touchUpInside).observe({ (event) in
-                    
+                    self.viewModel.requestTopUp()
                 })
             }
             cell?.backgroundColor = UIColor.clear

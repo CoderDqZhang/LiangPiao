@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Foundation
 
 class Wxpay : NSObject, NSCoding{
     
@@ -169,6 +170,8 @@ class PayUrl : NSObject, NSCoding{
     
 }
 
+
+
 class OrderList : NSObject, NSCoding{
     
     var address : AddressModel!
@@ -194,6 +197,7 @@ class OrderList : NSObject, NSCoding{
     var ticket : TicketList!
     var remainCount : Int!
     var total : Int!
+    var user : OrderUser!
     
     
     /**
@@ -235,6 +239,9 @@ class OrderList : NSObject, NSCoding{
         }
         remainCount = dictionary["ticket_count"] as? Int
         total = dictionary["total"] as? Int
+        if let userData = dictionary["user"] as? NSDictionary{
+            user = OrderUser(fromDictionary: userData)
+        }
     }
     
     /**
@@ -312,6 +319,9 @@ class OrderList : NSObject, NSCoding{
         if total != nil{
             dictionary["total"] = total
         }
+        if user != nil{
+            dictionary["user"] = user.toDictionary()
+        }
         return dictionary
     }
     
@@ -344,6 +354,7 @@ class OrderList : NSObject, NSCoding{
         ticket = aDecoder.decodeObject(forKey: "ticket") as? TicketList
         remainCount = aDecoder.decodeObject(forKey: "ticket_count") as? Int
         total = aDecoder.decodeObject(forKey: "total") as? Int
+        user = aDecoder.decodeObject(forKey: "user") as? OrderUser
         
     }
     
@@ -422,6 +433,9 @@ class OrderList : NSObject, NSCoding{
         if total != nil{
             aCoder.encode(total, forKey: "total")
         }
+        if user != nil{
+            aCoder.encode(user, forKey: "user")
+        }
         
     }
     
@@ -433,6 +447,7 @@ class ExpressInfo : NSObject, NSCoding{
     var expressNum : String!
     var id : Int64!
     var orderId : String!
+    var photo : String!
     
     
     /**
@@ -443,6 +458,7 @@ class ExpressInfo : NSObject, NSCoding{
         expressNum = dictionary["express_num"] as? String
         id = dictionary["id"] as? Int64
         orderId = dictionary["order_id"] as? String
+        photo = dictionary["photo"] as? String
     }
     
     /**
@@ -463,6 +479,9 @@ class ExpressInfo : NSObject, NSCoding{
         if orderId != nil{
             dictionary["order_id"] = orderId
         }
+        if photo != nil{
+            dictionary["photo"] = photo
+        }
         return dictionary
     }
     
@@ -476,7 +495,7 @@ class ExpressInfo : NSObject, NSCoding{
         expressNum = aDecoder.decodeObject(forKey: "express_num") as? String
         id = aDecoder.decodeObject(forKey: "id") as? Int64
         orderId = aDecoder.decodeObject(forKey: "order_id") as? String
-        
+        photo = aDecoder.decodeObject(forKey: "photo") as? String
     }
     
     /**
@@ -497,7 +516,9 @@ class ExpressInfo : NSObject, NSCoding{
         if orderId != nil{
             aCoder.encode(orderId, forKey: "order_id")
         }
-        
+        if photo != nil{
+            aCoder.encode(photo, forKey: "photo")
+        }
     }
     
 }
@@ -585,4 +606,70 @@ class OrderListModel : NSObject, NSCoding{
         
     }
     
+}
+
+
+class OrderUser : NSObject, NSCoding{
+    
+    var id : Int64!
+    var mobileNum : String!
+    var username : String!
+    
+    
+    /**
+     * Instantiate the instance using the passed dictionary values to set the properties values
+     */
+    init(fromDictionary dictionary: NSDictionary){
+        id = dictionary["id"] as? Int64
+        mobileNum = dictionary["mobile_num"] as? String
+        username = dictionary["username"] as? String
+    }
+    
+    /**
+     * Returns all the available property values in the form of NSDictionary object where the key is the approperiate json key and the value is the value of the corresponding property
+     */
+    func toDictionary() -> NSDictionary
+    {
+        let dictionary = NSMutableDictionary()
+        if id != nil{
+            dictionary["id"] = id
+        }
+        if mobileNum != nil{
+            dictionary["mobile_num"] = mobileNum
+        }
+        if username != nil{
+            dictionary["username"] = username
+        }
+        return dictionary
+    }
+    
+    /**
+     * NSCoding required initializer.
+     * Fills the data from the passed decoder
+     */
+    @objc required init(coder aDecoder: NSCoder)
+    {
+        id = aDecoder.decodeObject(forKey: "id") as? Int64
+        mobileNum = aDecoder.decodeObject(forKey: "mobile_num") as? String
+        username = aDecoder.decodeObject(forKey: "username") as? String
+        
+    }
+    
+    /**
+     * NSCoding required method.
+     * Encodes mode properties into the decoder
+     */
+    @objc func encode(with aCoder: NSCoder)
+    {
+        if id != nil{
+            aCoder.encode(id, forKey: "id")
+        }
+        if mobileNum != nil{
+            aCoder.encode(mobileNum, forKey: "mobile_num")
+        }
+        if username != nil{
+            aCoder.encode(username, forKey: "username")
+        }
+        
+    }
 }

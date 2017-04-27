@@ -42,13 +42,13 @@ class MyWalletViewController: UIViewController {
         
         self.bindViewModel()
         
-//        let topUpButton = self.createButton(CGRect.init(x: SpaceTopUpAndWidth, y: SCREENHEIGHT - 79 - 64, width: TopUpAndWithdrawWidth, height: 49), title: "充值", backGroundColor: UIColor.white, titleColor: UIColor.init(hexString: App_Theme_4BD4C5_Color))
-//        topUpButton.reactive.controlEvents(.touchUpInside).observe { (action) in
-//            NavigationPushView(self, toConroller: TopUpViewController())
-//        }
-//        self.view.addSubview(topUpButton)
+        let topUpButton = self.createButton(CGRect.init(x: SpaceTopUpAndWidth, y: SCREENHEIGHT - 79 - 64, width: (SCREENWIDTH - 3 * SpaceTopUpAndWidth) / 2, height: 49), title: "充值", backGroundColor: UIColor.white, titleColor: UIColor.init(hexString: App_Theme_4BD4C5_Color))
+        topUpButton.reactive.controlEvents(.touchUpInside).observe { (action) in
+            self.viewModel.pushTopUpViewController()
+        }
+        self.view.addSubview(topUpButton)
         
-        let withdraw = CustomButton.init(frame: CGRect.init(x: SpaceTopUpAndWidth, y: SCREENHEIGHT - 79 - 64, width: SCREENWIDTH - SpaceTopUpAndWidth * 2, height: 49), title: "提现", tag: nil, titleFont: App_Theme_PinFan_M_15_Font!, type: .withBackBoarder) { (tag) in
+        let withdraw = CustomButton.init(frame: CGRect.init(x: SCREENWIDTH / 2 + SpaceTopUpAndWidth / 2, y: SCREENHEIGHT - 79 - 64, width: (SCREENWIDTH - 3 * SpaceTopUpAndWidth) / 2, height: 49), title: "提现", tag: nil, titleFont: App_Theme_PinFan_M_15_Font!, type: .withBackBoarder) { (tag) in
             let controllerVC = WithDrawViewController()
             controllerVC.viewModel.maxMuch = "\(self.viewModel.model.balance)".muchType("\((self.viewModel.model.balance)!)")
             NavigationPushView(self, toConroller: controllerVC)

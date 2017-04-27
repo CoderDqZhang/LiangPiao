@@ -53,6 +53,8 @@ let LoginStatuesChange = "LoginStatuesChange"
 
 let OrderStatuesChange = "OrderStatusChange"
 
+let UserTopUpWall = "UserTopUpWall"
+
 let BlanceNumberChange = "BlanceNumberChange"
 
 let SellTicketNumberChange = "SellTicketNumberChange"

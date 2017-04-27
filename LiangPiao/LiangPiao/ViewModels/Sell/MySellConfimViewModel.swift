@@ -257,7 +257,7 @@ class MySellConfimViewModel: NSObject {
         
         let url = "\(TicketSellRegion)\((id))/regions/"
         BaseNetWorke.sharedInstance.getUrlWithString(url, parameters: nil).observe { (resultDic) in
-            if resultDic.isCompleted {
+            if !resultDic.isCompleted {
                 if resultDic.value is [[String]] {
                     self.sellTicketModel.regionChoices = resultDic.value as! [[String]]
                 }
@@ -507,15 +507,16 @@ class MySellConfimViewModel: NSObject {
     func requestSellTicketPost(){
         var paramerts = NSMutableDictionary()
         var str = ""
-        if self.sellFormModel.ticketRegin != "择优分配" {
-            str = self.sellFormModel.ticketRow == "择优分配" ? "" : (self.sellFormModel.ticketRow as NSString).substring(to: self.sellFormModel.ticketRow.length - 1)
+        if self.sellFormModel.ticketRegin != "随机" {
+            str = self.sellFormModel.ticketRow == "随机" ? "" : (self.sellFormModel.ticketRow as NSString).substring(to: self.sellFormModel.ticketRow.length - 1)
         }else{
             str = "0"
         }
+        //涉及到兼容性版本...老版本为择优分配  现版本全部改成 随机
         paramerts = ["show_session_ticket":self.sellFormModel.ticketPrice,
                      "seat_type":self.sellFormModel.seatType,
                      "price":self.sellFormModel.price,
-                     "region":self.sellFormModel.ticketRegin,
+                     "region":self.sellFormModel.ticketRegin == "随机" ? "择优分配" : self.sellFormModel.ticketRegin,
                      "sell_type":self.sellFormModel.sellType == "可以分开卖" ? "1" : "2",
                      "ticket_count":self.sellFormModel.number == 0 ? 1:self.sellFormModel.number,
                      "sell_category":self.sellFormModel.sellCategoty == 1 ? "1":"0",
@@ -559,14 +560,14 @@ class MySellConfimViewModel: NSObject {
     }
     
     func postTicket(_ paramerts:NSDictionary){
-        if sellTicketModel.needDeposit {
-            UIAlertController.shwoAlertControl(self.infoController, style: .alert, title: "尚未缴纳押金，可联系客服400-873-8011", message: nil, cancel: "取消", doneTitle: "联系客服", cancelAction: {
-                
-            }, doneAction: { 
-                AppCallViewShow(self.controller.view, phone: "400-873-8011")
-            })
-            return
-        }
+//        if sellTicketModel.needDeposit {
+//            UIAlertController.shwoAlertControl(self.infoController, style: .alert, title: "尚未缴纳押金，可联系客服400-873-8011", message: nil, cancel: "取消", doneTitle: "联系客服", cancelAction: {
+//                
+//            }, doneAction: { 
+//                AppCallViewShow(self.controller.view, phone: "400-873-8011")
+//            })
+//            return
+//        }
         let url = "\(SellTicket)\((model.id)!)/session/\((model.session.id)!)/ticket/"
         BaseNetWorke.sharedInstance.postUrlWithString(url, parameters: paramerts).observe { (resultDic) in
             if !resultDic.isCompleted {

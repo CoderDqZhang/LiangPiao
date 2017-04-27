@@ -40,7 +40,7 @@ class MySellTicketMuchTableViewCell: UITableViewCell {
         let placeholder = NSMutableAttributedString.init(string: "0")
         placeholder.addAttributes([NSForegroundColorAttributeName:UIColor.init(hexString: App_Theme_DDE0E5_Color)], range: NSRange.init(location: 0, length: 1))
         placeholder.addAttributes([NSFontAttributeName:App_Theme_PinFan_R_30_Font!], range: NSRange.init(location: 0, length: 1))
-        muchTextField.keyboardType = .numberPad
+        muchTextField.keyboardType = .numbersAndPunctuation
         muchTextField.attributedPlaceholder = placeholder
         muchTextField.textColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
         muchTextField.tintColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
