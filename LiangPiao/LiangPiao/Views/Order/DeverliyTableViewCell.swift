@@ -25,7 +25,7 @@ class DeverliyTableViewCell: UITableViewCell {
     func setUpView() {
         
         infoLabel = UILabel()
-        infoLabel.numberOfLines = 0
+        infoLabel.numberOfLines = 1
         infoLabel.textColor = UIColor.init(hexString: App_Theme_384249_Color)
         infoLabel.font = App_Theme_PinFan_R_13_Font
         self.contentView.addSubview(infoLabel)
@@ -50,8 +50,13 @@ class DeverliyTableViewCell: UITableViewCell {
     
     
     func setUpData(_ trac:Trace) {
-        self.infoLabel.text = "物流追踪 \((trac.acceptStation)!)"
-        
+        for str in deverliyDic.allValues {
+            if str as! String == trac.acceptStation {
+                self.infoLabel.text = "物流追踪 \((trac.acceptStation)!) \((trac.acceptTime)!)"
+                return
+            }
+        }
+        self.infoLabel.text = "物流追踪 \((trac.acceptStation)!) \((trac.acceptTime))"
     }
     
     override func updateConstraints() {

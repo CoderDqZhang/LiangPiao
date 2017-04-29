@@ -19,6 +19,7 @@ class OrderDetailViewController: UIViewController {
     var tableView:UITableView!
     var orderType:OrderType = .orderWaitPay
     var payView:GloableBottomButtonView!
+    var reciveView:GloableBottomOrder!
     
     var viewModel:OrderDetailViewModel = OrderDetailViewModel()
     override func viewDidLoad() {
@@ -63,25 +64,49 @@ class OrderDetailViewController: UIViewController {
             make.left.equalTo(self.view.snp.left).offset(0)
             make.right.equalTo(self.view.snp.right).offset(0)
         }
-        
-        payView = GloableBottomButtonView.init(frame: nil, title: "立即付款", tag: 1, action: { (tag) in
-            if self.viewModel.model.status == 0 || self.viewModel.model.status == 100 {
-                self.viewModel.requestPayModel(self)
-            }else if self.viewModel.model.status == 7 {
-                self.viewModel.requestOrderStatusChange(self)
+        if self.viewModel.model.status == 7 {
+            let types = [CustomButtonType.withBackBoarder,CustomButtonType.withBoarder,self.viewModel.model.expressInfo.photo == "" ? CustomButtonType.widthDisbale : CustomButtonType.withBoarder]
+            let titles = ["确认收货","联系卖家","查看凭证"]
+            let frame = CGRect.init(x: 0, y: SCREENHEIGHT - 49 - 64, width: SCREENHEIGHT, height: 49)
+            reciveView = GloableBottomOrder.init(frame:frame
+, titles: titles, types: types, gloableBottomOrderClouse: { (tag) in
+        if tag == 1 {
+            self.viewModel.requestOrderStatusChange(self)
+        }else if tag == 2 {
+            if self.viewModel.model.ticket.supplier != nil
+            {
+                AppCallViewShow(self.view, phone: self.viewModel.model.ticket.supplier.mobileNum.phoneType(self.viewModel.model.ticket.supplier.mobileNum))
             }
-        })
-    
-        self.view.addSubview(payView)
+        }else{
+            if self.viewModel.model.expressInfo.photo == "" {
+                
+            }else{
+                self.viewModel.presentImageBrowse(self.reciveView)
+            }
+        }
+
+            })
+            self.view.addSubview(reciveView)
+        }else{
+            payView = GloableBottomButtonView.init(frame: nil, title: "立即付款", tag: 1, action: { (tag) in
+                if self.viewModel.model.status == 0 || self.viewModel.model.status == 100 {
+                    self.viewModel.requestPayModel(self)
+                }
+
+            })
+            self.view.addSubview(payView)
+
+        }
+        
         self.bindViewModel()
     }
     
     func setNavigationItem() {
         self.navigationItem.title =  "订单详情"
         self.setNavigationItemBack()
-        if viewModel.model.deliveryType != 1 && self.viewModel.model.status != 0 {
-            self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "联系商家", style: .plain, target: self, action: #selector(OrderDetailViewController.rightBarItemPress(_:)))
-        }
+//        if viewModel.model.deliveryType != 1 && self.viewModel.model.status != 0 {
+//            self.navigationItem.rightBarButtonItem = UIBarButtonItem.init(title: "联系商家", style: .plain, target: self, action: #selector(OrderDetailViewController.rightBarItemPress(_:)))
+//        }
         
     }
     
@@ -118,24 +143,55 @@ class OrderDetailViewController: UIViewController {
     
     func updateTableView(_ status:Int) {
         if status == 0 || status == 7 || status == 100 {
-            if payView != nil {
-                payView.isHidden = false
-            }else{
-                payView = GloableBottomButtonView.init(frame: nil, title: "立即付款", tag: 1, action: { (tag) in
-                    if self.viewModel.model.status == 0 {
-                        self.viewModel.requestPayModel(self)
-                    }else if self.viewModel.model.status == 7 {
-                        self.viewModel.requestOrderStatusChange(self)
-                    }
-                })
-                self.view.addSubview(payView)
-            }
             if status == 7 {
-                payView.updateButtonTitle("确认收货")
+                if reciveView != nil {
+                    reciveView.isHidden = false
+                }else{
+                    let types = [CustomButtonType.withBackBoarder,CustomButtonType.withBoarder,self.viewModel.model.expressInfo.photo == "" ? CustomButtonType.widthDisbale : CustomButtonType.withBoarder]
+                    let titles = ["确认收货","联系卖家","查看凭证"]
+                    let frame = CGRect.init(x: 0, y: SCREENHEIGHT - 49 - 64, width: SCREENHEIGHT, height: 49)
+                    reciveView = GloableBottomOrder.init(frame:frame
+                        , titles: titles, types: types, gloableBottomOrderClouse: { (tag) in
+                            if tag == 1 {
+                                self.viewModel.requestOrderStatusChange(self)
+                            }else if tag == 2 {
+                                if self.viewModel.model.ticket.supplier != nil
+                                {
+                                    AppCallViewShow(self.view, phone: self.viewModel.model.ticket.supplier.mobileNum.phoneType(self.viewModel.model.ticket.supplier.mobileNum))
+                                }
+                            }else{
+                                if self.viewModel.model.expressInfo.photo == "" {
+                                    
+                                }else{
+                                    self.viewModel.presentImageBrowse(self.reciveView)
+                                }
+                            }
+                            
+                    })
+                    self.view.addSubview(reciveView)
+                }
+                if payView != nil {
+                    payView.isHidden = true
+                }
+            }else{
+                if reciveView != nil {
+                    reciveView.isHidden = true
+                }
+                if payView != nil {
+                    payView.isHidden = false
+                }else{
+                    payView = GloableBottomButtonView.init(frame: nil, title: "立即付款", tag: 1, action: { (tag) in
+                        if self.viewModel.model.status == 0 {
+                            self.viewModel.requestPayModel(self)
+                        }
+                    })
+                    self.view.addSubview(payView)
+                }
+                if status == 100 || status == 0 {
+                    payView.updateButtonTitle("立即付款")
+                }
             }
-            if status == 100 || status == 0 {
-                payView.updateButtonTitle("立即付款")
-            }
+            
             tableView.snp.remakeConstraints({ (make) in
                 make.top.equalTo(self.view.snp.top).offset(0)
                 make.left.equalTo(self.view.snp.left).offset(0)

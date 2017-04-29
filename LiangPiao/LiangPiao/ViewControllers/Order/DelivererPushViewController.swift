@@ -126,11 +126,6 @@ extension DelivererPushViewController : UIImagePickerControllerDelegate {
     }
 }
 
-extension DelivererPushViewController : UINavigationControllerDelegate {
-    
-}
-
-
 extension DelivererPushViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 1 && indexPath.row == 2 {

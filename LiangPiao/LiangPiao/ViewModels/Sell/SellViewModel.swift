@@ -46,11 +46,11 @@ class SellViewModel: NSObject {
                             })
                         }
                     }else{
-                        UIAlertController.shwoAlertControl(self.controller, style: .alert, title: "您还非商家哦，可联系客服400-873-8011", message: nil, cancel: "取消", doneTitle: "联系客服", cancelAction: {
-                            
-                        }, doneAction: {
-                            AppCallViewShow(self.controller.view, phone: "400-873-8011")
-                        })
+//                        UIAlertController.shwoAlertControl(self.controller, style: .alert, title: "您还非商家哦，可联系客服400-873-8011", message: nil, cancel: "取消", doneTitle: "联系客服", cancelAction: {
+//                            
+//                        }, doneAction: {
+//                            AppCallViewShow(self.controller.view, phone: "400-873-8011")
+//                        })
                     }
                 })
             }

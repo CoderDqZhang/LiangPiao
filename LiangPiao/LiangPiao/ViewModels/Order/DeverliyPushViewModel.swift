@@ -70,7 +70,6 @@ class DeverliyPushViewModel: NSObject {
         
         BaseNetWorke.sharedInstance.uploadDataFile(url, parameters: parameters as NSDictionary, images: images as NSDictionary).observe { (resultDic) in
             if !resultDic.isCompleted {
-                print(resultDic.value)
                 let url = "\(OrderChangeShatus)\((self.model.orderId)!)/"
                 let parameters = ["status":"7"]
                 BaseNetWorke.sharedInstance.postUrlWithString(url, parameters: parameters as AnyObject).observe { (resultDic) in
@@ -88,27 +87,6 @@ class DeverliyPushViewModel: NSObject {
                 }
             }
         }
-    
-//        BaseNetWorke.sharedInstance.postUrlWithString(url, parameters: parameters as AnyObject).observe { (resultDic) in
-//            if !resultDic.isCompleted {
-//                let url = "\(OrderChangeShatus)\((self.model.orderId)!)/"
-//                let parameters = ["status":"7"]
-//                BaseNetWorke.sharedInstance.postUrlWithString(url, parameters: parameters as AnyObject).observe { (resultDic) in
-//                    if !resultDic.isCompleted {
-//                        let tempModel = OrderList.init(fromDictionary: resultDic.value as! NSDictionary)
-//                        self.model.status = tempModel.status
-//                        self.model.statusDesc = tempModel.statusDesc
-//                        self.model.supplierStatusDesc = tempModel.supplierStatusDesc
-//                        if self.reloadeMyOrderDeatail != nil {
-//                            self.reloadeMyOrderDeatail(self.indexPath, self.model)
-//                        }
-//                        
-//                        self.controller.navigationController?.popViewController(animated: true)
-//                    }
-//                }
-//            }
-//            
-//        }
     }
     
     func tableViewNumberRowInSection(_ section:Int) ->Int {

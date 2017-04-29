@@ -342,8 +342,8 @@ class OrderConfirmViewModel: NSObject {
         let dates = NSDate.string(toDate: self.model.session.name.components(separatedBy: " ")[0])
         let interval: TimeInterval = dates!.timeIntervalSince(NSDate.dateNow())
         let days = (Int(interval)) / 86400
-        if days < 0 && orderForme.deliveryType == .expressage {
-            UIAlertController.shwoAlertControl(self.controller, style: .alert, title: "提示", message: "该票已不符合快递要求，可联系商家自取", cancel: "取消", doneTitle: "联系商家", cancelAction: { 
+        if interval < 0 && days <= 0 && orderForme.deliveryType == .expressage {
+            UIAlertController.shwoAlertControl(self.controller, style: .alert, title: "该票已不符合快递要求，可联系商家自取", message: nil, cancel: "取消", doneTitle: "联系商家", cancelAction: {
                 
             }, doneAction: { 
                 if self.ticketModel.supplier != nil

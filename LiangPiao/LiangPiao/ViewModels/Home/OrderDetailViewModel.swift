@@ -22,6 +22,8 @@ class OrderDetailViewModel: NSObject {
     var templeTrace:Trace!
     var orderDetailViewMoedelClouse:OrderDetailViewMoedelClouse!
     
+    var plachImage:UIImage!
+    
     override init() {
         super.init()
         NotificationCenter.default.addObserver(self, selector: #selector(OrderDetailViewModel.orderStatusChange(_:)), name: NSNotification.Name(rawValue: OrderStatuesChange), object: nil)
@@ -42,7 +44,7 @@ class OrderDetailViewModel: NSObject {
                             acceptionName = name as! String
                         }
                     }
-                    let dic:NSDictionary = ["AcceptStation":acceptionName,"AcceptTime":"物流编号：\((self.model.expressInfo.expressNum)!)"]
+                    let dic:NSDictionary = ["AcceptStation":acceptionName,"AcceptTime":"\((self.model.expressInfo.expressNum)!)"]
                     self.templeTrace = Trace.init(fromDictionary: dic)
                     self.deverliyModel.traces.append(self.templeTrace)
                 }
@@ -368,5 +370,31 @@ class OrderDetailViewModel: NSObject {
         controller.present(optionMenu, animated: true) {
             
         }
+    }
+    //查看凭证
+    func presentImageBrowse(_ sourceView:UIView){
+        let photoBrowser = SDPhotoBrowser()
+        photoBrowser.delegate = self
+        photoBrowser.currentImageIndex = 0
+        photoBrowser.imageCount = 1
+        photoBrowser.backgroundColor = UIColor.white
+        photoBrowser.sourceImagesContainerView = sourceView
+        photoBrowser.imageBlock = { index in
+            
+        }
+        photoBrowser.show()
+    }
+}
+
+extension OrderDetailViewModel : SDPhotoBrowserDelegate {
+    func photoBrowser(_ browser: SDPhotoBrowser!, highQualityImageURLFor index: Int) -> URL! {
+        if self.model.expressInfo.photo != nil {
+            return URL.init(string: self.model.expressInfo.photo)
+        }
+        return URL.init(string: "")
+    }
+    
+    func photoBrowser(_ browser: SDPhotoBrowser!, placeholderImageFor index: Int) -> UIImage! {
+        return plachImage == nil ? UIImage.init(color: UIColor.init(hexString: App_Theme_F6F7FA_Color), size: CGSize.init(width: SCREENWIDTH, height: SCREENWIDTH * 170/375)) : plachImage
     }
 }

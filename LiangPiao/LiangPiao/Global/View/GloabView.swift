@@ -609,10 +609,41 @@ class GloableServiceView: UIView, UIGestureRecognizerDelegate {
     }
 }
 
+
+typealias GloableBottomOrderClouse = (_ tag:NSInteger) -> Void
+
+class GloableBottomOrder: UIView {
+    var linLable:GloabLineView!
+    
+    let buttonWidth:CGFloat = 73
+    let buttonHeight:CGFloat = 30
+    let buttonSpaceWidth:CGFloat = 10
+    var gloableBottomOrderClouse:GloableBottomOrderClouse!
+    init(frame:CGRect, titles:[String], types:[CustomButtonType],gloableBottomOrderClouse:@escaping GloableBottomOrderClouse) {
+        super.init(frame: frame)
+        self.backgroundColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
+        for i in 1...titles.count {
+            let frame = CGRect.init(x: SCREENWIDTH - (CGFloat(i) * (buttonWidth + buttonSpaceWidth)) - 5 , y: 9.5, width: buttonWidth, height: buttonHeight)
+            let customBtn = CustomButton.init(frame: frame, title: titles[i - 1], tag: i, titleFont: App_Theme_PinFan_R_13_Font!, type: types[i - 1], pressClouse: { (buttonTag) in
+                gloableBottomOrderClouse(buttonTag)
+            })
+            customBtn.tag = i
+            self.addSubview(customBtn)
+        }
+        linLable = GloabLineView.init(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 0.5))
+        self.addSubview(linLable)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
 enum CustomButtonType {
     case withNoBoarder
     case withBoarder
     case withBackBoarder
+    case widthDisbale
     
 }
 typealias CustomButtonClouse = (_ tag:NSInteger) -> Void
@@ -633,15 +664,18 @@ class CustomButton: UIButton {
         case .withBoarder:
             self.layer.cornerRadius = 2.0
             self.setWithBoarderButton()
-        default:
+        case .withBackBoarder:
             self.layer.cornerRadius = 2.0
             self.setwithonBoarderButton()
+        default:
+            self.layer.cornerRadius = 2.0
+            self.setWithDisbleBoarderButton()
         }
         self.reactive.controlEvents(.touchUpInside).observe { (action) in
             if tag != nil {
                 self.tag = 1000
             }
-            pressClouse(self.tag)
+            pressClouse(tag!)
         }
     }
     
@@ -653,6 +687,12 @@ class CustomButton: UIButton {
         self.layer.borderColor = UIColor.init(hexString: App_Theme_4BD4C5_Color).cgColor
         self.layer.borderWidth = 1.0
         self.buttonSetTitleColor(App_Theme_4BD4C5_Color, sTitleColor: App_Theme_40C6B7_Color)
+    }
+    
+    func setWithDisbleBoarderButton(){
+        self.layer.borderColor = UIColor.init(hexString: App_Theme_BBC1CB_Color).cgColor
+        self.layer.borderWidth = 1.0
+        self.buttonSetTitleColor(App_Theme_BBC1CB_Color, sTitleColor: App_Theme_BBC1CB_Color)
     }
     
     func setwithonBoarderButton(){

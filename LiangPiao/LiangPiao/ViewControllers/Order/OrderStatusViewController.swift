@@ -8,12 +8,12 @@
 
 import UIKit
 
-class OrderStatusViewController: UIViewController {
+class OrderStatusViewController: UIViewController, UINavigationControllerDelegate {
 
     var tableView:UITableView!
     var viewModel = OrderStatusViewModel()
-    var payView:GloableBottomButtonView!
-
+    var reciveView:GloableBottomOrder!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.bindViewModel()
@@ -47,20 +47,37 @@ class OrderStatusViewController: UIViewController {
         tableView.snp.makeConstraints { (make) in
             make.edges.equalTo(UIEdgeInsetsMake(0, 0, 0, 0))
         }
+        if self.viewModel.model.status == 3 {
+            let types = [CustomButtonType.withBackBoarder,CustomButtonType.withBoarder,CustomButtonType.withBoarder]
+            let titles = ["立即发货","联系买家",self.viewModel.model.expressInfo.photo != nil && self.viewModel.model.expressInfo.photo == "" ? "上传凭证":"查看凭证"]
+            let frame = CGRect.init(x: 0, y: SCREENHEIGHT - 49 - 64, width: SCREENHEIGHT, height: 49)
+            reciveView = GloableBottomOrder.init(frame:frame
+                , titles: titles, types: types, gloableBottomOrderClouse: { (tag) in
+                    if tag == 1 {
+                        self.viewModel.requestOrderStatusChange()
+                    }else if tag == 2 {
+                        if self.viewModel.model.ticket.supplier != nil
+                        {
+                            if self.viewModel.model.user != nil && self.viewModel.model.user.mobileNum != "" {
+                                AppCallViewShow(self.view, phone: self.viewModel.model.user.mobileNum)
+                            }
+                        }
+                    }else{
+                        if self.viewModel.model.expressInfo.photo == nil {
+                            self.viewModel.requestOrderStatusChange()
+                        }else if self.viewModel.model.expressInfo.photo != "" {
+                            self.viewModel.presentImageBrowse(self.reciveView)
+                        }else{
+                            self.presentImagePickerView()
+                        }
+                    }
+                    
+            })
+            self.view.addSubview(reciveView)
+        }
         
-        payView = GloableBottomButtonView.init(frame: nil, title: "立即发货", tag: 1, action: { (tag) in
-            if self.viewModel.model.status == 3 {
-                self.viewModel.requestOrderStatusChange()
-            }
-        })
-        self.view.addSubview(payView)
         self.updateTableView(self.viewModel.model.status)
         
-        
-        if self.viewModel.model.user != nil && self.viewModel.model.user.mobileNum != "" {
-            let rightBarItem = UIBarButtonItem.init(title: "联系买家", style: .plain, target: self, action: #selector(OrderStatusViewController.connectBuyer))
-            self.navigationItem.rightBarButtonItem = rightBarItem
-        }
     }
     
     func connectBuyer(){
@@ -72,20 +89,38 @@ class OrderStatusViewController: UIViewController {
     }
     func updateTableView(_ status:Int) {
         if status == 3 {
-            if payView != nil {
-                payView.isHidden = false
+            if reciveView != nil {
+                reciveView.isHidden = false
             }else{
-                payView = GloableBottomButtonView.init(frame: nil, title: "立即发货", tag: 1, action: { (tag) in
-                    if self.viewModel.model.status == 3 {
-                        self.viewModel.requestOrderStatusChange()
-                    }
+                let types = [CustomButtonType.withBackBoarder,CustomButtonType.withBoarder,CustomButtonType.withBoarder]
+                let titles = ["立即发货","联系买家",self.viewModel.model.expressInfo.photo != nil && self.viewModel.model.expressInfo.photo == "" ? "上传凭证":"查看凭证"]
+                let frame = CGRect.init(x: 0, y: SCREENHEIGHT - 49 - 64, width: SCREENHEIGHT, height: 49)
+                reciveView = GloableBottomOrder.init(frame:frame
+                    , titles: titles, types: types, gloableBottomOrderClouse: { (tag) in
+                        if tag == 1 {
+                            self.viewModel.requestOrderStatusChange()
+                        }else if tag == 2 {
+                            if self.viewModel.model.ticket.supplier != nil
+                            {
+                                if self.viewModel.model.user != nil && self.viewModel.model.user.mobileNum != "" {
+                                    AppCallViewShow(self.view, phone: self.viewModel.model.user.mobileNum)
+                                }
+                            }
+                        }else{
+                            if self.viewModel.model.expressInfo.photo == nil {
+                                self.viewModel.requestOrderStatusChange()
+                            }else if self.viewModel.model.expressInfo.photo != "" {
+                                self.viewModel.presentImageBrowse(self.reciveView)
+                            }else{
+                                self.presentImagePickerView()
+                            }
+                            
+                        }
+                        
                 })
-                self.view.addSubview(payView)
+                self.view.addSubview(reciveView)
             }
             
-            if status == 3 {
-                payView.updateButtonTitle("立即发货")
-            }
             tableView.snp.remakeConstraints({ (make) in
                 make.top.equalTo(self.view.snp.top).offset(0)
                 make.left.equalTo(self.view.snp.left).offset(0)
@@ -94,8 +129,8 @@ class OrderStatusViewController: UIViewController {
             })
         }else{
             self.viewModel.getDeverliyTrac()
-            if payView != nil {
-                payView.isHidden = true
+            if reciveView != nil {
+                reciveView.isHidden = true
             }
             tableView.snp.remakeConstraints { (make) in
                 make.top.equalTo(self.view.snp.top).offset(0)
@@ -146,6 +181,61 @@ class OrderStatusViewController: UIViewController {
     }
     */
 
+    func presentImagePickerView(){
+        let controller = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let cancel = UIAlertAction(title: "取消", style: .cancel) { (cancelAction) in
+            
+        }
+        if (UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera)){
+            let cameraAction = UIAlertAction(title: "拍照", style: .default) { (cancelAction) in
+                let imagePicker = UIImagePickerController()
+                imagePicker.allowsEditing = true
+                imagePicker.sourceType = .camera
+                imagePicker.delegate = self
+                self.present(imagePicker, animated: true) {
+                    
+                }
+            }
+            controller.addAction(cameraAction)
+        }
+        
+        
+        let album = UIAlertAction(title: "相册", style: .default) { (cancelAction) in
+            let imagePicker = UIImagePickerController()
+            imagePicker.allowsEditing = true
+            imagePicker.sourceType = .photoLibrary
+            imagePicker.delegate = self
+            self.present(imagePicker, animated: true) {
+                
+            }
+        }
+        controller.addAction(cancel)
+        controller.addAction(album)
+        self.present(controller, animated: true) {
+            
+        }
+        
+    }
+    
+}
+
+extension OrderStatusViewController : UIImagePickerControllerDelegate {
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true) {
+            
+        }
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        let image = info[UIImagePickerControllerEditedImage] as! UIImage
+        viewModel.uploadImage(image: image)
+        self.tableView.reloadData()
+        picker.dismiss(animated: true, completion: nil)
+    }
+}
+
+extension DelivererPushViewController : UINavigationControllerDelegate {
+    
 }
 
 extension OrderStatusViewController : UITableViewDelegate {
