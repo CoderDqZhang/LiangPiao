@@ -60,7 +60,7 @@ class MineHeadTableViewCell: UITableViewCell {
         nameAndePhone.text = namePhone
         if isLogin {
             editProfileImage.isHidden = false
-            if SaveImageTools.sharedInstance.LoadImage("photoImage.png", path: "headerImage") == nil {
+            if SaveImageTools.sharedInstance.LoadImage("photoImage.png", path: "headerImage", isSmall: false) == nil {
                 photoImageView.sd_setImage(with: URL.init(string: photoImage), placeholderImage: UIImage.init(named: "Avatar_Default"), options: .retryFailed) { (image, error, cache, url) in
                     if error == nil && image != nil && url != nil {
                         _ = SaveImageTools.sharedInstance.saveImage("photoImage.png", image: image!, path: "headerImage")
@@ -69,7 +69,7 @@ class MineHeadTableViewCell: UITableViewCell {
                     }
                 }
             }else{
-                photoImageView.image = SaveImageTools.sharedInstance.LoadImage("photoImage.png", path: "headerImage")
+                photoImageView.image = SaveImageTools.sharedInstance.LoadImage("photoImage.png", path: "headerImage", isSmall: false)
             }
         }else{
             editProfileImage.isHidden = true

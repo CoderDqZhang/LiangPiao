@@ -94,7 +94,7 @@ class MyProfileViewModel: NSObject {
     }
     
     func uploadImage(_ image:UIImage) {
-        let fileUrl = SaveImageTools.sharedInstance.getCachesDirectory("photoImage.png", path: "headerImage")
+        let fileUrl = SaveImageTools.sharedInstance.getCachesDirectory("photoImage.png", path: "headerImage", isSmall: false)
         BaseNetWorke.sharedInstance.uploadDataFile(UserAvatar, parameters: nil, images: [fileUrl:"avatar"])
             .observe { (resultDic) in
                 if !resultDic.isCompleted {

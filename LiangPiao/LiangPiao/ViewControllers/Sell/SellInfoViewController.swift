@@ -184,7 +184,7 @@ extension SellInfoViewController : UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        if section == 3 {
+        if section == 4 {
             return self.mySellConfimView()
         }
         return nil

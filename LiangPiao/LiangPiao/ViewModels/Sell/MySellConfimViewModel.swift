@@ -13,6 +13,8 @@ import ReactiveSwift
  let TempTicketRowRegionsStr = "随机"
  let TempCellStr = "请选择"
  
+ //sellCategory 1现票，0期票
+ 
 typealias MySellConfimViewModelClouse = (_ ticket:TicketList, _ name:String) -> Void
 typealias MySellConfimViewModelAddClouse = (_ originTicket:OriginalTicket, _ ticket:TicketList, _ name:String) -> Void
 
@@ -39,6 +41,9 @@ class MySellConfimViewModel: NSObject {
     var isSellTicketView:Bool = false
     var mySellConfimViewModelAddClouse:MySellConfimViewModelAddClouse!
     var mySellConfimViewModelClouse:MySellConfimViewModelClouse!
+    var mySellServiceTableViewCell:MySellServiceTableViewCell!
+    var despostiy:Int!
+    
     override init() {
         super.init()
         
@@ -204,6 +209,9 @@ class MySellConfimViewModel: NSObject {
             self.sellFormModel.number = 1
             cell.numberTickView.numberTextField.reactive.producer(forKeyPath: "text").start({ (text) in
                 self.sellFormModel.number = Int(text.value as! String)!
+                if self.mySellServiceTableViewCell != nil {
+                    self.reloadCell(self.mySellServiceTableViewCell)
+                }
             })
         }
     }
@@ -304,7 +312,7 @@ class MySellConfimViewModel: NSObject {
     }
     
     func sellInfoViewNumberSection() -> Int {
-        return 4
+        return 5
     }
     
     func sellInfoNumberRowSection(_ section:Int) ->Int {
@@ -326,9 +334,15 @@ class MySellConfimViewModel: NSObject {
             return 54
         case 2:
             return 70
-        default:
+        case 3:
             return infoController.tableView.fd_heightForCell(withIdentifier: "MySellServiceTableViewCell", configuration: { (cell) in
                 self.configMySellServiceCell(cell as! MySellServiceTableViewCell, indexPath:indexPath)
+            })
+        default:
+            return infoController.tableView.fd_heightForCell(withIdentifier: "MySellServiceTableViewCell", configuration: { (cell) in
+                if self.mySellServiceTableViewCell != nil {
+                    self.reloadCell(self.mySellServiceTableViewCell)
+                }
             })
         }
         
@@ -380,8 +394,10 @@ class MySellConfimViewModel: NSObject {
             }
         case 2:
             break
-        default:
+        case 3:
             KWINDOWDS().addSubview(GloableServiceView.init(title: "手续费说明", message: "所有交易免佣金，仅含1%第三方支付平台交易手续费\n结算票款时系统自动扣减手续费"))
+        default:
+            KWINDOWDS().addSubview(GloableServiceView.init(title: "押金说明", message: "挂票押金：现票50元/张，期票100元/张\n信誉商家缴纳1000元保证金后，挂票时免押金"))
         }
     }
     
@@ -409,6 +425,7 @@ class MySellConfimViewModel: NSObject {
         cell.ticketStatusTableViewCellClouse = { isSeat, isTicket in
             self.sellFormModel.seatType = isSeat ? "1" : "2"
             self.sellFormModel.sellCategoty = isTicket ? 1:0
+            self.reloadCell(self.mySellServiceTableViewCell)
         }
         
         cell.ticketTicketSellClouse = { tap, label in
@@ -477,8 +494,22 @@ class MySellConfimViewModel: NSObject {
         case 3:
             self.configMySellServiceCell(cell, indexPath: indexPath)
         default:
-            cell.setData("余额：00.00 元", servicemuch: "押金：50.00 元", sevicep: "保证金将于订单完成后直接返还至账户钱包中，挂单、删除或下架后押金亦退还至钱包中", type: 1)
+            self.reloadCell(cell)
         }
+    }
+    
+    func reloadCell(_ cell:MySellServiceTableViewCell){
+        self.mySellServiceTableViewCell = cell
+        let blance = "\(sellTicketModel.balance)".muchType("\((sellTicketModel.balance)!)")
+        let despostiy:Int
+        if self.sellFormModel.sellCategoty == 0 {
+            despostiy = self.sellFormModel.number * 50 * 100
+        }else{
+            despostiy = self.sellFormModel.number * 100 * 100
+        }
+        self.despostiy = despostiy
+        let much = "".muchType("\((self.despostiy)!)")
+        cell.setData("余额：\(blance) 元", servicemuch: "押金：\(much) 元", sevicep: "保证金将于订单完成后直接返还至账户钱包中，挂单删除或下架后押金亦退还至钱包中", type: 1)
     }
     
     func requestSellTicket(){
@@ -560,22 +591,33 @@ class MySellConfimViewModel: NSObject {
     }
     
     func postTicket(_ paramerts:NSDictionary){
-//        if sellTicketModel.needDeposit {
-//            UIAlertController.shwoAlertControl(self.infoController, style: .alert, title: "尚未缴纳押金，可联系客服400-873-8011", message: nil, cancel: "取消", doneTitle: "联系客服", cancelAction: {
-//                
-//            }, doneAction: { 
-//                AppCallViewShow(self.controller.view, phone: "400-873-8011")
-//            })
-//            return
-//        }
+        if CGFloat(self.despostiy) > CGFloat(self.sellTicketModel.balance) {
+            let blance = "\(sellTicketModel.balance)".muchType("\((sellTicketModel.balance)!)")
+            let str = "\(self.despostiy)".muchType("\((self.despostiy)!)")
+            UIAlertController.shwoAlertControl(self.infoController, style: .alert, title:"押金不足" , message: "本次挂票，需缴纳押金共 \(str) 元，当前余额 \(blance) 元不足，请充值", cancel: "稍等一会", doneTitle: "立即充值", cancelAction: {
+                
+            }, doneAction: {
+                let controllerVC = TopUpViewController()
+                controllerVC.viewModel.topUpNumber = "\(Int((CGFloat(self.despostiy) - CGFloat(self.sellTicketModel.balance))))".muchType("\(Int((CGFloat(self.despostiy) - CGFloat(self.sellTicketModel.balance))))")
+                controllerVC.viewModel.updateMySellConfirm = { amount in
+                    let balance = Int(self.sellTicketModel.balance) + amount
+                    self.sellTicketModel.balance = balance
+                    self.reloadCell(self.mySellServiceTableViewCell)
+                }
+                NavigationPushView(self.controller, toConroller: controllerVC)
+            })
+            return
+        }
         let url = "\(SellTicket)\((model.id)!)/session/\((model.session.id)!)/ticket/"
         BaseNetWorke.sharedInstance.postUrlWithString(url, parameters: paramerts).observe { (resultDic) in
             if !resultDic.isCompleted {
                 self.putUpModel = TicketList.init(fromDictionary: resultDic.value as! NSDictionary)
                 MainThreadAlertShow("挂票成功", view: KWINDOWDS())
+                self.sellTicketModel.balance = self.sellTicketModel.balance - self.despostiy
                 if self.isSellTicketView {
                     
                     self.showMyTicketPutUpViewController(self.model)
+                    
                     //                self.infoController.navigationController?.popViewControllerAnimated(true)
                 }else{
                     if self.mySellConfimViewModelAddClouse != nil {

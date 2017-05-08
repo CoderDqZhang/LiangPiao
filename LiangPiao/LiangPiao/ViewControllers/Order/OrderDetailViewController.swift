@@ -64,40 +64,7 @@ class OrderDetailViewController: UIViewController {
             make.left.equalTo(self.view.snp.left).offset(0)
             make.right.equalTo(self.view.snp.right).offset(0)
         }
-        if self.viewModel.model.status == 7 {
-            let types = [CustomButtonType.withBackBoarder,CustomButtonType.withBoarder,self.viewModel.model.expressInfo.photo == "" ? CustomButtonType.widthDisbale : CustomButtonType.withBoarder]
-            let titles = ["确认收货","联系卖家","查看凭证"]
-            let frame = CGRect.init(x: 0, y: SCREENHEIGHT - 49 - 64, width: SCREENHEIGHT, height: 49)
-            reciveView = GloableBottomOrder.init(frame:frame
-, titles: titles, types: types, gloableBottomOrderClouse: { (tag) in
-        if tag == 1 {
-            self.viewModel.requestOrderStatusChange(self)
-        }else if tag == 2 {
-            if self.viewModel.model.ticket.supplier != nil
-            {
-                AppCallViewShow(self.view, phone: self.viewModel.model.ticket.supplier.mobileNum.phoneType(self.viewModel.model.ticket.supplier.mobileNum))
-            }
-        }else{
-            if self.viewModel.model.expressInfo.photo == "" {
-                
-            }else{
-                self.viewModel.presentImageBrowse(self.reciveView)
-            }
-        }
-
-            })
-            self.view.addSubview(reciveView)
-        }else{
-            payView = GloableBottomButtonView.init(frame: nil, title: "立即付款", tag: 1, action: { (tag) in
-                if self.viewModel.model.status == 0 || self.viewModel.model.status == 100 {
-                    self.viewModel.requestPayModel(self)
-                }
-
-            })
-            self.view.addSubview(payView)
-
-        }
-        
+        self.updateTableView(self.viewModel.model.status)
         self.bindViewModel()
     }
     
@@ -142,74 +109,124 @@ class OrderDetailViewController: UIViewController {
     }
     
     func updateTableView(_ status:Int) {
-        if status == 0 || status == 7 || status == 100 {
-            if status == 7 {
-                if reciveView != nil {
-                    reciveView.isHidden = false
-                }else{
-                    let types = [CustomButtonType.withBackBoarder,CustomButtonType.withBoarder,self.viewModel.model.expressInfo.photo == "" ? CustomButtonType.widthDisbale : CustomButtonType.withBoarder]
-                    let titles = ["确认收货","联系卖家","查看凭证"]
-                    let frame = CGRect.init(x: 0, y: SCREENHEIGHT - 49 - 64, width: SCREENHEIGHT, height: 49)
-                    reciveView = GloableBottomOrder.init(frame:frame
-                        , titles: titles, types: types, gloableBottomOrderClouse: { (tag) in
-                            if tag == 1 {
-                                self.viewModel.requestOrderStatusChange(self)
-                            }else if tag == 2 {
-                                if self.viewModel.model.ticket.supplier != nil
-                                {
-                                    AppCallViewShow(self.view, phone: self.viewModel.model.ticket.supplier.mobileNum.phoneType(self.viewModel.model.ticket.supplier.mobileNum))
-                                }
-                            }else{
-                                if self.viewModel.model.expressInfo.photo == "" {
-                                    
-                                }else{
-                                    self.viewModel.presentImageBrowse(self.reciveView)
-                                }
-                            }
-                            
-                    })
-                    self.view.addSubview(reciveView)
-                }
-                if payView != nil {
-                    payView.isHidden = true
-                }
+//        if status != 2 && status !=   {
+        if status == 7 {
+            if reciveView != nil {
+                reciveView.isHidden = false
             }else{
-                if reciveView != nil {
-                    reciveView.isHidden = true
-                }
-                if payView != nil {
-                    payView.isHidden = false
-                }else{
-                    payView = GloableBottomButtonView.init(frame: nil, title: "立即付款", tag: 1, action: { (tag) in
-                        if self.viewModel.model.status == 0 {
-                            self.viewModel.requestPayModel(self)
+                let types = [CustomButtonType.withBackBoarder,CustomButtonType.withBoarder,self.viewModel.model.expressInfo.photo == nil || self.viewModel.model.expressInfo.photo == "" ? CustomButtonType.widthDisbale : CustomButtonType.withBoarder]
+                let titles = ["确认收货","联系卖家","查看凭证"]
+                let frame = CGRect.init(x: 0, y: SCREENHEIGHT - 49 - 64, width: SCREENHEIGHT, height: 49)
+                reciveView = GloableBottomOrder.init(frame:frame
+                    , titles: titles, types: types, gloableBottomOrderClouse: { (tag) in
+                        if tag == 1 {
+                            self.viewModel.requestOrderStatusChange(self)
+                        }else if tag == 2 {
+                            if self.viewModel.model.ticket.supplier != nil
+                            {
+                                AppCallViewShow(self.view, phone: self.viewModel.model.ticket.supplier.mobileNum.phoneType(self.viewModel.model.ticket.supplier.mobileNum))
+                            }
+                        }else{
+                            if self.viewModel.model.expressInfo.photo == nil || self.viewModel.model.expressInfo.photo == "" {
+                                _ = Tools.shareInstance.showMessage(KWINDOWDS(), msg: "请联系卖家上传凭证", autoHidder: true)
+                            }else{
+                                self.viewModel.presentImageBrowse(self.reciveView)
+                            }
                         }
-                    })
-                    self.view.addSubview(payView)
-                }
-                if status == 100 || status == 0 {
-                    payView.updateButtonTitle("立即付款")
-                }
+                        
+                })
+                self.view.addSubview(reciveView)
             }
-            
-            tableView.snp.remakeConstraints({ (make) in
-                make.top.equalTo(self.view.snp.top).offset(0)
-                make.left.equalTo(self.view.snp.left).offset(0)
-                make.right.equalTo(self.view.snp.right).offset(0)
-                make.bottom.equalTo(self.view.snp.bottom).offset(-49)
-            })
-        }else{
             if payView != nil {
                 payView.isHidden = true
-                
             }
-            tableView.snp.remakeConstraints { (make) in
-                make.top.equalTo(self.view.snp.top).offset(0)
-                make.left.equalTo(self.view.snp.left).offset(0)
-                make.right.equalTo(self.view.snp.right).offset(0)
-                make.bottom.equalTo(self.view.snp.bottom).offset(0)
+        } else if status == 0 {
+            if reciveView != nil {
+                reciveView.isHidden = true
+            }
+            if payView != nil {
+                payView.isHidden = false
+            }else{
+                payView = GloableBottomButtonView.init(frame: nil, title: "立即付款", tag: 1, action: { (tag) in
+                    if self.viewModel.model.status == 0 {
+                        self.viewModel.requestPayModel(self)
+                    }
+                })
+                self.view.addSubview(payView)
+            }
+            if status == 100 || status == 0 {
+                payView.updateButtonTitle("立即付款")
+            }
+        }else if 0 < status && status < 7{
+            if reciveView != nil {
+                reciveView.isHidden = false
+            }else{
+                let types = [CustomButtonType.withBoarder]
+                let titles = ["联系卖家"]
+                let frame = CGRect.init(x: 0, y: SCREENHEIGHT - 49 - 64, width: SCREENHEIGHT, height: 49)
+                reciveView = GloableBottomOrder.init(frame:frame
+                    , titles: titles, types: types, gloableBottomOrderClouse: { (tag) in
+                        if tag == 1 {
+                            if self.viewModel.model.ticket.supplier != nil
+                            {
+                                AppCallViewShow(self.view, phone: self.viewModel.model.ticket.supplier.mobileNum.phoneType(self.viewModel.model.ticket.supplier.mobileNum))
+                            }
+                        }
+                })
+                self.view.addSubview(reciveView)
+            }
+            if payView != nil {
+                payView.isHidden = true
+            }
+        }else if status > 7{
+            if reciveView != nil {
+                reciveView.isHidden = false
+            }else{
+                let types = [CustomButtonType.withBoarder,self.viewModel.model.expressInfo.photo == nil || self.viewModel.model.expressInfo.photo == "" ? CustomButtonType.widthDisbale : CustomButtonType.withBoarder]
+                let titles = ["联系卖家","查看凭证"]
+                let frame = CGRect.init(x: 0, y: SCREENHEIGHT - 49 - 64, width: SCREENHEIGHT, height: 49)
+                reciveView = GloableBottomOrder.init(frame:frame
+                    , titles: titles, types: types, gloableBottomOrderClouse: { (tag) in
+                        if tag == 1 {
+                            if self.viewModel.model.ticket.supplier != nil
+                            {
+                                AppCallViewShow(self.view, phone: self.viewModel.model.ticket.supplier.mobileNum.phoneType(self.viewModel.model.ticket.supplier.mobileNum))
+                            }
+                        }else {
+                            if self.viewModel.model.expressInfo.photo == nil || self.viewModel.model.expressInfo.photo == "" {
+                                _ = Tools.shareInstance.showMessage(KWINDOWDS(), msg: "请联系卖家上传凭证", autoHidder: true)
+                            }else{
+                                self.viewModel.presentImageBrowse(self.reciveView)
+                            }
+                        }
+                })
+                self.view.addSubview(reciveView)
+            }
+            if payView != nil {
+                payView.isHidden = true
             }
         }
+        
+        tableView.snp.remakeConstraints({ (make) in
+            make.top.equalTo(self.view.snp.top).offset(0)
+            make.left.equalTo(self.view.snp.left).offset(0)
+            make.right.equalTo(self.view.snp.right).offset(0)
+            make.bottom.equalTo(self.view.snp.bottom).offset(-49)
+        })
+//        }
+            
+//            else{
+//            if payView != nil {
+//                payView.isHidden = true
+//                
+//            }
+//            tableView.snp.remakeConstraints { (make) in
+//                make.top.equalTo(self.view.snp.top).offset(0)
+//                make.left.equalTo(self.view.snp.left).offset(0)
+//                make.right.equalTo(self.view.snp.right).offset(0)
+//                make.bottom.equalTo(self.view.snp.bottom).offset(0)
+//            }
+//        }
     }
     
     

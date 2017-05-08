@@ -225,15 +225,15 @@ class MyTicketPutUpViewModel: NSObject {
         }))
         //status 1 正常， 2 卖光了 0 下架
         if ticket.status != 2 {
-            if ticket.status == 0 {
+            if ticket.status == 0 || ticket.status == 1 {
                 alertController.addAction(UIAlertAction.init(title: "删除", style: .default, handler: { (up) in
                     self.requestDeleteTicket(ticket, indexPath:indexPath)
                 }))
             }
-            let str = ticket.status == 1 ? "下架":"上架"
-            alertController.addAction(UIAlertAction.init(title: str, style: .default, handler: { (up) in
-                self.requestTicketPutStatus(ticket, indexPath:indexPath)
-            }))
+//            let str = ticket.status == 1 ? "下架":"上架"
+//            alertController.addAction(UIAlertAction.init(title: str, style: .default, handler: { (up) in
+//                self.requestTicketPutStatus(ticket, indexPath:indexPath)
+//            }))
         
         }
         
@@ -490,23 +490,23 @@ class MyTicketPutUpViewModel: NSObject {
         }
     }
     
-    func requestTicketPutStatus(_ ticket:TicketList, indexPath:IndexPath){
-        let url = "\(SellTicketStatus)\((ticket.id)!)/"
-        BaseNetWorke.sharedInstance.putUrlWithString(url, parameters: nil).observe { (resultDic) in
-            if !resultDic.isCompleted {
-                ticket.status = ticket.status == 1 ? 0 : 1
-                ticket.statusDesc = ticket.status == 1 ? "已上线" : "已下线"
-                self.tempList[indexPath.row - 3] = ticket
-                if self.sesstionModels.count == 0 {
-                    self.ticketShowModel.sessionList[0].ticketList[indexPath.row - 3] = ticket
-                }else{
-                    self.ticketShowModel.sessionList[self.selectSession].ticketList[indexPath.row - 3] = ticket
-                }
-                self.controller.tableView.reloadRows(at: [indexPath], with: .automatic)
-                if self.myTicketPutUpViewModelClouse != nil {
-                    self.myTicketPutUpViewModelClouse(self.ticketShowModel)
-                }
-            }
-        }
-    }
+//    func requestTicketPutStatus(_ ticket:TicketList, indexPath:IndexPath){
+//        let url = "\(SellTicketStatus)\((ticket.id)!)/"
+//        BaseNetWorke.sharedInstance.putUrlWithString(url, parameters: nil).observe { (resultDic) in
+//            if !resultDic.isCompleted {
+//                ticket.status = ticket.status == 1 ? 0 : 1
+//                ticket.statusDesc = ticket.status == 1 ? "已上线" : "已下线"
+//                self.tempList[indexPath.row - 3] = ticket
+//                if self.sesstionModels.count == 0 {
+//                    self.ticketShowModel.sessionList[0].ticketList[indexPath.row - 3] = ticket
+//                }else{
+//                    self.ticketShowModel.sessionList[self.selectSession].ticketList[indexPath.row - 3] = ticket
+//                }
+//                self.controller.tableView.reloadRows(at: [indexPath], with: .automatic)
+//                if self.myTicketPutUpViewModelClouse != nil {
+//                    self.myTicketPutUpViewModelClouse(self.ticketShowModel)
+//                }
+//            }
+//        }
+//    }
 }

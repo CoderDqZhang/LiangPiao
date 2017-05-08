@@ -60,16 +60,23 @@ class DeverliyPushViewModel: NSObject {
     
     func orderExpressRequest(){
         let url = "\(OrderExpress)/\((model.orderId)!)/express/"
-        let fileUrl = SaveImageTools.sharedInstance.getCachesDirectory("\((self.model.orderId)!).png", path: "deverliyPush")
         let parameters = [
             "express_name":self.form.deverliyName,
             "express_num":self.form.deverliyNum,
         ]
+        let images:NSDictionary!
+        if SaveImageTools.sharedInstance.LoadImage("\((self.model.orderId)!).png", path: "deverliyPush", isSmall: true) != nil {
+            let fileUrl = SaveImageTools.sharedInstance.getCachesDirectory("\((self.model.orderId)!).png", path: "deverliyPush", isSmall:true)
+            images = ["photo":fileUrl]
+        }else{
+            images = nil
+        }
         
-        let images = ["photo":fileUrl]
-        
-        BaseNetWorke.sharedInstance.uploadDataFile(url, parameters: parameters as NSDictionary, images: images as NSDictionary).observe { (resultDic) in
+        BaseNetWorke.sharedInstance.uploadDataFile(url, parameters: parameters as NSDictionary, images: images).observe { (resultDic) in
             if !resultDic.isCompleted {
+                let expressInfo = ExpressInfo.init(fromDictionary: resultDic.value as! NSDictionary)
+                self.model.expressInfo = expressInfo
+                
                 let url = "\(OrderChangeShatus)\((self.model.orderId)!)/"
                 let parameters = ["status":"7"]
                 BaseNetWorke.sharedInstance.postUrlWithString(url, parameters: parameters as AnyObject).observe { (resultDic) in

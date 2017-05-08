@@ -9,7 +9,8 @@
 import UIKit
 
 class TickeSellModel : NSObject, NSCoding{
-    
+
+    var balance : Int!
     var deliveryTypeChoices : [[String]]!
     var regionChoices : [[String]]!
     var needDeposit : Bool!
@@ -24,6 +25,7 @@ class TickeSellModel : NSObject, NSCoding{
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: NSDictionary){
+        balance = dictionary["balance"] as? Int
         deliveryTypeChoices = dictionary["delivery_type_choices"] as? [[String]]
         needDeposit = dictionary["need_deposit"] as? Bool
         regionChoices = dictionary["region_choices"] as? [[String]]
@@ -40,6 +42,9 @@ class TickeSellModel : NSObject, NSCoding{
     func toDictionary() -> NSDictionary
     {
         let dictionary = NSMutableDictionary()
+        if balance != nil{
+            dictionary["balance"] = balance
+        }
         if deliveryTypeChoices != nil{
             dictionary["delivery_type_choices"] = deliveryTypeChoices
         }
@@ -73,6 +78,7 @@ class TickeSellModel : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
+        balance = aDecoder.decodeObject(forKey: "balance") as? Int
         deliveryTypeChoices = aDecoder.decodeObject(forKey: "delivery_type_choices") as? [[String]]
         needDeposit = aDecoder.decodeObject(forKey: "need_deposit") as? Bool
         regionChoices = aDecoder.decodeObject(forKey: "region_choices") as? [[String]]
@@ -90,6 +96,9 @@ class TickeSellModel : NSObject, NSCoding{
      */
     @objc func encode(with aCoder: NSCoder)
     {
+        if balance != nil{
+            aCoder.encode(balance, forKey: "balance")
+        }
         if deliveryTypeChoices != nil{
             aCoder.encode(deliveryTypeChoices, forKey: "delivery_type_choices")
         }

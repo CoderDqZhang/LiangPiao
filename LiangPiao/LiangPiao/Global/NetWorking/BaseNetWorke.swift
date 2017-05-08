@@ -192,26 +192,32 @@ class BaseNetWorke {
                 print(encodingResult)
                 switch encodingResult {
                 case .success(let upload, _, _):
-                    if parameters != nil {
-                        subscriber.send(value: ["success":"上传成功"])
-                        subscriber.sendCompleted()
-                        return
-                    }
-                    upload.responseJSON { response in
+                    upload.responseString(completionHandler: { (response) in
                         if response.response?.statusCode == 200 || response.response?.statusCode == 201 {
-                            subscriber.send(value: response.result.value!)
+                            let value = self.jsonStringToDic(response.result.value!)
+                            subscriber.send(value: value)
+//                            subscriber.send(value: self.jsonStringToDic(response.result.value!))
                         }else{
-                            subscriber.send(value: ["fail":"error"])
+                            _ = Tools.shareInstance.showMessage(KWINDOWDS(), msg: "上传失败", autoHidder: true)
                         }
                         //                            debugPrint(response)
-                        subscriber.sendCompleted()
-                    }
+//                        subscriber.sendCompleted()
+                    })
+//                    upload.responseJSON { response in
+//                        if response.response?.statusCode == 200 || response.response?.statusCode == 201 {
+//                            subscriber.send(value: response.result.value!)
+//                        }else{
+//                            _ = Tools.shareInstance.showMessage(KWINDOWDS(), msg: "上传失败", autoHidder: true)
+//                        }
+//                        //                            debugPrint(response)
+//                        subscriber.sendCompleted()
+//                    }
                 case .failure(let encodingError):
-                    subscriber.send(value: ["fail":"服务器请求失败"])
                     print(encodingError)
+                    _ = Tools.shareInstance.showMessage(KWINDOWDS(), msg: "上传失败", autoHidder: true)
                     subscriber.sendCompleted()
                 }
-                subscriber.sendCompleted()
+//                subscriber.sendCompleted()
             }
             return nil
         })
@@ -300,4 +306,11 @@ class BaseNetWorke {
 //            return nil
 //        })
 //    }
+    
+    func jsonStringToDic(_ dictionary_temp:String) ->NSDictionary {
+        let data = dictionary_temp.data(using: String.Encoding.utf8)! as NSData
+        let dictionary_temp_temp = try? JSONSerialization.jsonObject(with: data as Data, options: JSONSerialization.ReadingOptions.mutableContainers)
+        return dictionary_temp_temp as! NSDictionary
+        
+    }
 }

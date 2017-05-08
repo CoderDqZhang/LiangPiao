@@ -180,7 +180,7 @@ extension DelivererPushViewController : UITableViewDataSource {
                 return cell
             case 1:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "GloabTitleAndTextFieldCell", for: indexPath) as! GloabTitleAndTextFieldCell
-                cell.textField.keyboardType = .numberPad
+                cell.textField.keyboardType = .default
                 viewModel.tableViewCellGloabTitleAndTextFieldCell(cell, indexPath: indexPath)
                 cell.selectionStyle = .none
                 return cell

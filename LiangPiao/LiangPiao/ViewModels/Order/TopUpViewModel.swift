@@ -9,6 +9,7 @@
 import UIKit
 
 typealias UpdateMyWall = (_ model:MyWallModel) -> Void
+typealias UpdateMySellConfirm = (_ blance:Int) -> Void
 
 
 //1是支付宝 2是微信 3是小程序的微信
@@ -25,6 +26,9 @@ class TopUpViewModel: NSObject {
     var myWall:MyWallModel!
     var updateMyWall:UpdateMyWall!
     var controller:TopUpViewController!
+    var topUpNumber:String?
+    var updateMySellConfirm:UpdateMySellConfirm!
+    
     override init() {
         super.init()
         topUpForm.pay_type = !WXApi.isWXAppInstalled() ? 1 : 2
@@ -36,6 +40,10 @@ class TopUpViewModel: NSObject {
             if updateMyWall != nil {
                 self.myWall.balance = self.myWall.balance + Int(Float(self.topUpForm.amount)! * 100)
                 self.updateMyWall(self.myWall)
+                self.controller.navigationController?.popViewController(animated: true)
+            }else if updateMySellConfirm != nil {
+                
+                self.updateMySellConfirm(Int(Float(self.topUpForm.amount)! * 100))
                 self.controller.navigationController?.popViewController(animated: true)
             }
         }

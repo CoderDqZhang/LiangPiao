@@ -817,7 +817,7 @@ class GloableShareView: UIView, UIGestureRecognizerDelegate, CAAnimationDelegate
         shareImage = image
         self.tag = 10000
         if image == nil {
-            ticketImage = SaveImageTools.sharedInstance.LoadImage("\((model?.id)!).png", path: "TicketShowImages") != nil ? SaveImageTools.sharedInstance.LoadImage("\((model?.id)!).png", path: "TicketShowImages") : UIImage.init(named: "AboutUs_Logo")
+            ticketImage = SaveImageTools.sharedInstance.LoadImage("\((model?.id)!).png", path: "TicketShowImages", isSmall: false) != nil ? SaveImageTools.sharedInstance.LoadImage("\((model?.id)!).png", path: "TicketShowImages", isSmall: false) : UIImage.init(named: "AboutUs_Logo")
             shareModel = model
         }
         if url != nil {

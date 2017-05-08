@@ -123,7 +123,11 @@ extension TopUpViewController : UITableViewDataSource {
             case 0:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "TopUpMuchTableViewCell", for: indexPath) as! TopUpMuchTableViewCell
                 cell.selectionStyle = .none
-                cell.muchTextField.keyboardType = .numbersAndPunctuation
+                cell.muchTextField.keyboardType = .numberPad
+                if viewModel.topUpNumber != nil {
+                    cell.muchTextField.text = viewModel.topUpNumber
+                    self.viewModel.topUpForm.amount = viewModel.topUpNumber
+                }
                 cell.muchTextField.reactive.continuousTextValues.observeValues({ (text) in
                     self.viewModel.topUpForm.amount = text
                 })

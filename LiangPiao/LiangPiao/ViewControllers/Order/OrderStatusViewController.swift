@@ -48,14 +48,39 @@ class OrderStatusViewController: UIViewController, UINavigationControllerDelegat
             make.edges.equalTo(UIEdgeInsetsMake(0, 0, 0, 0))
         }
         if self.viewModel.model.status == 3 {
-            let types = [CustomButtonType.withBackBoarder,CustomButtonType.withBoarder,CustomButtonType.withBoarder]
-            let titles = ["立即发货","联系买家",self.viewModel.model.expressInfo.photo != nil && self.viewModel.model.expressInfo.photo == "" ? "上传凭证":"查看凭证"]
+            let types = [CustomButtonType.withBackBoarder,CustomButtonType.withBoarder]
+            let titles = ["立即发货","联系买家"]
             let frame = CGRect.init(x: 0, y: SCREENHEIGHT - 49 - 64, width: SCREENHEIGHT, height: 49)
             reciveView = GloableBottomOrder.init(frame:frame
                 , titles: titles, types: types, gloableBottomOrderClouse: { (tag) in
                     if tag == 1 {
                         self.viewModel.requestOrderStatusChange()
                     }else if tag == 2 {
+                        if self.viewModel.model.ticket.supplier != nil
+                        {
+                            if self.viewModel.model.user != nil && self.viewModel.model.user.mobileNum != "" {
+                                AppCallViewShow(self.view, phone: self.viewModel.model.user.mobileNum)
+                            }
+                        }
+                    }else{
+                        if self.viewModel.model.expressInfo.photo == nil {
+                            self.viewModel.requestOrderStatusChange()
+                        }else if self.viewModel.model.expressInfo.photo != "" {
+                            self.viewModel.presentImageBrowse(self.reciveView)
+                        }else{
+                            self.presentImagePickerView()
+                        }
+                    }
+                    
+            })
+            self.view.addSubview(reciveView)
+        }else{
+            let types = [CustomButtonType.withBoarder,CustomButtonType.withBoarder]
+            let titles = ["联系买家",self.viewModel.model.expressInfo.photo == nil || self.viewModel.model.expressInfo.photo == "" ? "上传凭证":"查看凭证"]
+            let frame = CGRect.init(x: 0, y: SCREENHEIGHT - 49 - 64, width: SCREENHEIGHT, height: 49)
+            reciveView = GloableBottomOrder.init(frame:frame
+                , titles: titles, types: types, gloableBottomOrderClouse: { (tag) in
+                    if tag == 1 {
                         if self.viewModel.model.ticket.supplier != nil
                         {
                             if self.viewModel.model.user != nil && self.viewModel.model.user.mobileNum != "" {
@@ -89,37 +114,24 @@ class OrderStatusViewController: UIViewController, UINavigationControllerDelegat
     }
     func updateTableView(_ status:Int) {
         if status == 3 {
-            if reciveView != nil {
-                reciveView.isHidden = false
-            }else{
-                let types = [CustomButtonType.withBackBoarder,CustomButtonType.withBoarder,CustomButtonType.withBoarder]
-                let titles = ["立即发货","联系买家",self.viewModel.model.expressInfo.photo != nil && self.viewModel.model.expressInfo.photo == "" ? "上传凭证":"查看凭证"]
-                let frame = CGRect.init(x: 0, y: SCREENHEIGHT - 49 - 64, width: SCREENHEIGHT, height: 49)
-                reciveView = GloableBottomOrder.init(frame:frame
-                    , titles: titles, types: types, gloableBottomOrderClouse: { (tag) in
-                        if tag == 1 {
-                            self.viewModel.requestOrderStatusChange()
-                        }else if tag == 2 {
-                            if self.viewModel.model.ticket.supplier != nil
-                            {
-                                if self.viewModel.model.user != nil && self.viewModel.model.user.mobileNum != "" {
-                                    AppCallViewShow(self.view, phone: self.viewModel.model.user.mobileNum)
-                                }
+            let types = [CustomButtonType.withBackBoarder,CustomButtonType.withBoarder,CustomButtonType.withBoarder]
+            let titles = ["立即发货","联系买家"]
+            let frame = CGRect.init(x: 0, y: SCREENHEIGHT - 49 - 64, width: SCREENHEIGHT, height: 49)
+            reciveView = GloableBottomOrder.init(frame:frame
+                , titles: titles, types: types, gloableBottomOrderClouse: { (tag) in
+                    if tag == 1 {
+                        self.viewModel.requestOrderStatusChange()
+                    }else if tag == 2 {
+                        if self.viewModel.model.ticket.supplier != nil
+                        {
+                            if self.viewModel.model.user != nil && self.viewModel.model.user.mobileNum != "" {
+                                AppCallViewShow(self.view, phone: self.viewModel.model.user.mobileNum)
                             }
-                        }else{
-                            if self.viewModel.model.expressInfo.photo == nil {
-                                self.viewModel.requestOrderStatusChange()
-                            }else if self.viewModel.model.expressInfo.photo != "" {
-                                self.viewModel.presentImageBrowse(self.reciveView)
-                            }else{
-                                self.presentImagePickerView()
-                            }
-                            
                         }
-                        
-                })
-                self.view.addSubview(reciveView)
-            }
+                    }
+                    
+            })
+            self.view.addSubview(reciveView)
             
             tableView.snp.remakeConstraints({ (make) in
                 make.top.equalTo(self.view.snp.top).offset(0)
@@ -128,16 +140,48 @@ class OrderStatusViewController: UIViewController, UINavigationControllerDelegat
                 make.bottom.equalTo(self.view.snp.bottom).offset(-49)
             })
         }else{
-            self.viewModel.getDeverliyTrac()
-            if reciveView != nil {
-                reciveView.isHidden = true
-            }
-            tableView.snp.remakeConstraints { (make) in
+            let types = [CustomButtonType.withBackBoarder,CustomButtonType.withBoarder,CustomButtonType.withBoarder]
+            let titles = ["联系买家",self.viewModel.model.expressInfo.photo == nil || self.viewModel.model.expressInfo.photo == "" ? "上传凭证":"查看凭证"]
+            let frame = CGRect.init(x: 0, y: SCREENHEIGHT - 49 - 64, width: SCREENHEIGHT, height: 49)
+            reciveView = GloableBottomOrder.init(frame:frame
+                , titles: titles, types: types, gloableBottomOrderClouse: { (tag) in
+                    if tag == 1 {
+                        if self.viewModel.model.ticket.supplier != nil
+                        {
+                            if self.viewModel.model.user != nil && self.viewModel.model.user.mobileNum != "" {
+                                AppCallViewShow(self.view, phone: self.viewModel.model.user.mobileNum)
+                            }
+                        }
+                    }else{
+                        if self.viewModel.model.expressInfo.photo == nil {
+                            self.viewModel.requestOrderStatusChange()
+                        }else if self.viewModel.model.expressInfo.photo != "" {
+                            self.viewModel.presentImageBrowse(self.reciveView)
+                        }else{
+                            self.presentImagePickerView()
+                        }
+                        
+                    }
+                    
+            })
+            self.view.addSubview(reciveView)
+            
+            tableView.snp.remakeConstraints({ (make) in
                 make.top.equalTo(self.view.snp.top).offset(0)
                 make.left.equalTo(self.view.snp.left).offset(0)
                 make.right.equalTo(self.view.snp.right).offset(0)
-                make.bottom.equalTo(self.view.snp.bottom).offset(0)
-            }
+                make.bottom.equalTo(self.view.snp.bottom).offset(-49)
+            })
+            self.viewModel.getDeverliyTrac()
+//            if reciveView != nil {
+//                reciveView.isHidden = true
+//            }
+//            tableView.snp.remakeConstraints { (make) in
+//                make.top.equalTo(self.view.snp.top).offset(0)
+//                make.left.equalTo(self.view.snp.left).offset(0)
+//                make.right.equalTo(self.view.snp.right).offset(0)
+//                make.bottom.equalTo(self.view.snp.bottom).offset(0)
+//            }
         }
     }
     

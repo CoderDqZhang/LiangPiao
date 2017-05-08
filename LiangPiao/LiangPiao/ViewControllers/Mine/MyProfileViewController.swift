@@ -175,8 +175,8 @@ extension MyProfileViewController : UITableViewDataSource {
         switch indexPath.section {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ProfileImageTableViewCell", for: indexPath) as! ProfileImageTableViewCell
-            let image = SaveImageTools.sharedInstance.LoadImage("photoImage.png", path: "headerImage") == nil ? UIImage.init(named: "Icon_Camera") : SaveImageTools.sharedInstance.LoadImage("photoImage.png", path: "headerImage")
-            if SaveImageTools.sharedInstance.LoadImage("photoImage.png", path: "headerImage") == nil && UserInfoModel.shareInstance().avatar != "" {
+            let image = SaveImageTools.sharedInstance.LoadImage("photoImage.png", path: "headerImage", isSmall: false) == nil ? UIImage.init(named: "Icon_Camera") : SaveImageTools.sharedInstance.LoadImage("photoImage.png", path: "headerImage", isSmall: false)
+            if SaveImageTools.sharedInstance.LoadImage("photoImage.png", path: "headerImage", isSmall: false) == nil && UserInfoModel.shareInstance().avatar != "" {
                 cell.photoImageView.sd_setImage(with: URL.init(string: UserInfoModel.shareInstance().avatar), placeholderImage: UIImage.init(named: "Icon_Camera"), options: .retryFailed, progress: { (start, end, url) in
                     
                 }, completed: { (image, error, chacheType, url) in

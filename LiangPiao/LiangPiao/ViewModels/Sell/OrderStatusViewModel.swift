@@ -215,7 +215,8 @@ class OrderStatusViewModel: NSObject {
     
     func uploadImage(image:UIImage) {
         let url = "\(OrderExpress)/\((model.orderId)!)/express/"
-        let fileUrl = SaveImageTools.sharedInstance.getCachesDirectory("\((self.model.orderId)!).png", path: "deverliyPush")
+        _ = SaveImageTools.sharedInstance.saveImage("\((self.model.orderId)!).png", image: image, path: "deverliyPush")
+        let fileUrl = SaveImageTools.sharedInstance.getCachesDirectory("\((self.model.orderId)!).png", path: "deverliyPush", isSmall:true)
         let parameters = [
             "express_name":self.model.expressInfo.expressName,
             "express_num":self.model.expressInfo.expressNum,
@@ -225,7 +226,9 @@ class OrderStatusViewModel: NSObject {
         
         BaseNetWorke.sharedInstance.uploadDataFile(url, parameters: parameters as NSDictionary, images: images as NSDictionary).observe { (resultDic) in
             if !resultDic.isCompleted {
-                
+                let expressInfo = ExpressInfo.init(fromDictionary: resultDic.value as! NSDictionary)
+                self.model.expressInfo = expressInfo
+                self.controller.updateTableView(self.model.status) 
             }
         }
     }

@@ -222,14 +222,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WeiboSDKDelegate, JPUSHReg
         if url.host == "safepay" {
             AlipaySDK.defaultService().processOrder(withPaymentResult: url, standbyCallback: { (resultDic) in
                 if resultDic?["resultStatus"] as! String == "9000" {
-                    if UserDefaultsGetSynchronize("payType") as! String == "payOrder" {
+                    if UserDefaultsGetSynchronize("PayType") as! String == "payOrder" {
                         Notification(OrderStatuesChange, value: "3")
                     }else{
                         Notification(UserTopUpWall, value: "3")
                     }
                     
                 }else{
-                    if UserDefaultsGetSynchronize("payType") as! String == "payOrder" {
+                    if UserDefaultsGetSynchronize("PayType") as! String == "payOrder" {
                         Notification(OrderStatuesChange, value: "100")
                     }else{
                         Notification(UserTopUpWall, value: "100")
@@ -289,14 +289,14 @@ extension AppDelegate : WXApiDelegate {
         if resp is PayResp {
             switch resp.errCode {
             case 0:
-                if UserDefaultsGetSynchronize("payType") as! String == "payOrder" {
+                if UserDefaultsGetSynchronize("PayType") as! String == "payOrder" {
                     Notification(OrderStatuesChange, value: "3")
                 }else{
                     Notification(UserTopUpWall, value: "3")
                 }
 //                print("展示成功页面")
             case -1:
-                if UserDefaultsGetSynchronize("payType") as! String == "payOrder" {
+                if UserDefaultsGetSynchronize("PayType") as! String == "payOrder" {
                     Notification(OrderStatuesChange, value: "100")
                 }else{
                     Notification(UserTopUpWall, value: "100")
@@ -304,7 +304,7 @@ extension AppDelegate : WXApiDelegate {
                 MainThreadAlertShow("微信支付错误", view: KWINDOWDS())
 //                print("可能的原因：签名错误、未注册APPID、项目设置APPID不正确、注册的APPID与设置的不匹配、其他异常等。")
             case -2:
-                if UserDefaultsGetSynchronize("payType") as! String == "payOrder" {
+                if UserDefaultsGetSynchronize("PayType") as! String == "payOrder" {
                     Notification(OrderStatuesChange, value: "100")
                 }else{
                     Notification(UserTopUpWall, value: "100")
