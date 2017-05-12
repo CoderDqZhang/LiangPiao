@@ -591,7 +591,7 @@ class MySellConfimViewModel: NSObject {
     }
     
     func postTicket(_ paramerts:NSDictionary){
-        if CGFloat(self.despostiy) > CGFloat(self.sellTicketModel.balance) {
+        if (CGFloat(self.despostiy) > CGFloat(self.sellTicketModel.balance) && sellTicketModel.needDeposit) {
             let blance = "\(sellTicketModel.balance)".muchType("\((sellTicketModel.balance)!)")
             let str = "\(self.despostiy)".muchType("\((self.despostiy)!)")
             UIAlertController.shwoAlertControl(self.infoController, style: .alert, title:"押金不足" , message: "本次挂票，需缴纳押金共 \(str) 元，当前余额 \(blance) 元不足，请充值", cancel: "稍等一会", doneTitle: "立即充值", cancelAction: {
