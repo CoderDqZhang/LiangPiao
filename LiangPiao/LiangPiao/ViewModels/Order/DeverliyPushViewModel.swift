@@ -8,6 +8,7 @@
 
 import UIKit
 import ReactiveCocoa
+import MBProgressHUD
 
 class DeverliyForm : NSObject {
     var deverliyName:String = "SF"
@@ -65,14 +66,17 @@ class DeverliyPushViewModel: NSObject {
             "express_num":self.form.deverliyNum,
         ]
         let images:NSDictionary!
+        var hud:MBProgressHUD? = nil
         if SaveImageTools.sharedInstance.LoadImage("\((self.model.orderId)!).png", path: "deverliyPush", isSmall: true) != nil {
             let fileUrl = SaveImageTools.sharedInstance.getCachesDirectory("\((self.model.orderId)!).png", path: "deverliyPush", isSmall:true)
             images = ["photo":fileUrl]
+            hud = Tools.shareInstance.showLoading(KWINDOWDS(), msg: nil)
+
         }else{
             images = nil
         }
         
-        BaseNetWorke.sharedInstance.uploadDataFile(url, parameters: parameters as NSDictionary, images: images).observe { (resultDic) in
+        BaseNetWorke.sharedInstance.uploadDataFile(url, parameters: parameters as NSDictionary, images: images, hud:hud).observe { (resultDic) in
             if !resultDic.isCompleted {
                 let expressInfo = ExpressInfo.init(fromDictionary: resultDic.value as! NSDictionary)
                 self.model.expressInfo = expressInfo
@@ -156,6 +160,23 @@ class DeverliyPushViewModel: NSObject {
     
     func tableViewCellDeverliyImageTableViewCell(_ cell:DeverliyImageTableViewCell, indexPath:IndexPath) {
         cell.setUpData(self.form.image)
+        cell.imageClouse = { _ in
+            self.presentImageBrowse(cell.imageView!)
+        }
+    }
+    
+    
+    func presentImageBrowse(_ sourceView:UIView){
+        let photoBrowser = SDPhotoBrowser()
+        photoBrowser.delegate = self
+        photoBrowser.currentImageIndex = 0
+        photoBrowser.imageCount = 1
+        photoBrowser.backgroundColor = UIColor.white
+        photoBrowser.sourceImagesContainerView = sourceView
+        photoBrowser.imageBlock = { index in
+            
+        }
+        photoBrowser.show()
     }
 }
 
@@ -164,5 +185,15 @@ extension DeverliyPushViewModel : ZHPickViewDelegate {
         let cell = self.controller.tableView.cellForRow(at: IndexPath.init(row: 0, section: 1)) as! GloabTitleAndDetailImageCell
         cell.setDetailText(resultString)
         form.deverliyName = deverliyDic[resultString] as! String
+    }
+}
+
+extension DeverliyPushViewModel : SDPhotoBrowserDelegate {
+    func photoBrowser(_ browser: SDPhotoBrowser!, highQualityImageURLFor index: Int) -> URL! {
+        return URL.init(string: "")
+    }
+    
+    func photoBrowser(_ browser: SDPhotoBrowser!, placeholderImageFor index: Int) -> UIImage! {
+        return SaveImageTools.sharedInstance.LoadImage("\((self.model.orderId)!).png", path: "deverliyPush", isSmall: false)
     }
 }

@@ -58,6 +58,24 @@ class Tools: NSObject {
     
     static let shareInstance = Tools()
     
+    func showLoading(_ view:UIView, msg:String?) -> MBProgressHUD {
+        let hud = MBProgressHUD.showAdded(to: view, animated: true)
+        hud.mode = .indeterminate
+        hud.bezelView.backgroundColor = UIColor.init(hexString: HUDBackGroudColor, andAlpha: 0.9)
+        hud.bezelView.layer.cornerRadius = 12.0
+        if msg != nil {
+            hud.label.text = msg
+            hud.label.numberOfLines = 0;
+            hud.label.textColor = UIColor.white
+            hud.label.font = CustomViewFont;
+        }
+        return hud
+    }
+    
+    func hiddenLoading(hud:MBProgressHUD) {
+        hud.hide(animated: true)
+    }
+    
     func showMessage(_ view:UIView, msg:String, autoHidder:Bool) -> MBProgressHUD {
         let hud = MBProgressHUD.showAdded(to: view, animated: true)
         hud.mode = .customView

@@ -111,32 +111,28 @@ class OrderDetailViewController: UIViewController {
     func updateTableView(_ status:Int) {
 //        if status != 2 && status !=   {
         if status == 7 {
-            if reciveView != nil {
-                reciveView.isHidden = false
-            }else{
-                let types = [CustomButtonType.withBackBoarder,CustomButtonType.withBoarder,self.viewModel.model.expressInfo.photo == nil || self.viewModel.model.expressInfo.photo == "" ? CustomButtonType.widthDisbale : CustomButtonType.withBoarder]
-                let titles = ["确认收货","联系卖家","查看凭证"]
-                let frame = CGRect.init(x: 0, y: SCREENHEIGHT - 49 - 64, width: SCREENHEIGHT, height: 49)
-                reciveView = GloableBottomOrder.init(frame:frame
-                    , titles: titles, types: types, gloableBottomOrderClouse: { (tag) in
-                        if tag == 1 {
-                            self.viewModel.requestOrderStatusChange(self)
-                        }else if tag == 2 {
-                            if self.viewModel.model.ticket.supplier != nil
-                            {
-                                AppCallViewShow(self.view, phone: self.viewModel.model.ticket.supplier.mobileNum.phoneType(self.viewModel.model.ticket.supplier.mobileNum))
-                            }
-                        }else{
-                            if self.viewModel.model.expressInfo.photo == nil || self.viewModel.model.expressInfo.photo == "" {
-                                _ = Tools.shareInstance.showMessage(KWINDOWDS(), msg: "请联系卖家上传凭证", autoHidder: true)
-                            }else{
-                                self.viewModel.presentImageBrowse(self.reciveView)
-                            }
+            let types = [CustomButtonType.withBackBoarder,CustomButtonType.withBoarder,self.viewModel.model.expressInfo.photo == nil || self.viewModel.model.expressInfo.photo == "" ? CustomButtonType.widthDisbale : CustomButtonType.withBoarder]
+            let titles = ["确认收货","联系卖家","查看凭证"]
+            let frame = CGRect.init(x: 0, y: SCREENHEIGHT - 49 - 64, width: SCREENHEIGHT, height: 49)
+            reciveView = GloableBottomOrder.init(frame:frame
+                , titles: titles, types: types, gloableBottomOrderClouse: { (tag) in
+                    if tag == 1 {
+                        self.viewModel.requestOrderStatusChange(self)
+                    }else if tag == 2 {
+                        if self.viewModel.model.ticket.supplier != nil
+                        {
+                            AppCallViewShow(self.view, phone: self.viewModel.model.ticket.supplier.mobileNum.phoneType(self.viewModel.model.ticket.supplier.mobileNum))
                         }
-                        
-                })
-                self.view.addSubview(reciveView)
-            }
+                    }else{
+                        if self.viewModel.model.expressInfo.photo == nil || self.viewModel.model.expressInfo.photo == "" {
+                            _ = Tools.shareInstance.showMessage(KWINDOWDS(), msg: "请联系卖家上传凭证", autoHidder: true)
+                        }else{
+                            self.viewModel.presentImageBrowse(self.reciveView)
+                        }
+                    }
+                    
+            })
+            self.view.addSubview(reciveView)
             if payView != nil {
                 payView.isHidden = true
             }
@@ -158,50 +154,45 @@ class OrderDetailViewController: UIViewController {
                 payView.updateButtonTitle("立即付款")
             }
         }else if 0 < status && status < 7{
-            if reciveView != nil {
-                reciveView.isHidden = false
-            }else{
-                let types = [CustomButtonType.withBoarder]
-                let titles = ["联系卖家"]
-                let frame = CGRect.init(x: 0, y: SCREENHEIGHT - 49 - 64, width: SCREENHEIGHT, height: 49)
-                reciveView = GloableBottomOrder.init(frame:frame
-                    , titles: titles, types: types, gloableBottomOrderClouse: { (tag) in
-                        if tag == 1 {
-                            if self.viewModel.model.ticket.supplier != nil
-                            {
-                                AppCallViewShow(self.view, phone: self.viewModel.model.ticket.supplier.mobileNum.phoneType(self.viewModel.model.ticket.supplier.mobileNum))
-                            }
-                        }
-                })
-                self.view.addSubview(reciveView)
-            }
             if payView != nil {
                 payView.isHidden = true
             }
-        }else if status > 7{
-            if reciveView != nil {
-                reciveView.isHidden = false
-            }else{
-                let types = [CustomButtonType.withBoarder,self.viewModel.model.expressInfo.photo == nil || self.viewModel.model.expressInfo.photo == "" ? CustomButtonType.widthDisbale : CustomButtonType.withBoarder]
-                let titles = ["联系卖家","查看凭证"]
-                let frame = CGRect.init(x: 0, y: SCREENHEIGHT - 49 - 64, width: SCREENHEIGHT, height: 49)
-                reciveView = GloableBottomOrder.init(frame:frame
-                    , titles: titles, types: types, gloableBottomOrderClouse: { (tag) in
-                        if tag == 1 {
-                            if self.viewModel.model.ticket.supplier != nil
-                            {
-                                AppCallViewShow(self.view, phone: self.viewModel.model.ticket.supplier.mobileNum.phoneType(self.viewModel.model.ticket.supplier.mobileNum))
-                            }
-                        }else {
-                            if self.viewModel.model.expressInfo.photo == nil || self.viewModel.model.expressInfo.photo == "" {
-                                _ = Tools.shareInstance.showMessage(KWINDOWDS(), msg: "请联系卖家上传凭证", autoHidder: true)
-                            }else{
-                                self.viewModel.presentImageBrowse(self.reciveView)
-                            }
+            let types = [CustomButtonType.withBoarder]
+            let titles = ["联系卖家"]
+            let frame = CGRect.init(x: 0, y: SCREENHEIGHT - 49 - 64, width: SCREENHEIGHT, height: 49)
+            reciveView = GloableBottomOrder.init(frame:frame
+                , titles: titles, types: types, gloableBottomOrderClouse: { (tag) in
+                    if tag == 1 {
+                        if self.viewModel.model.ticket.supplier != nil
+                        {
+                            AppCallViewShow(self.view, phone: self.viewModel.model.ticket.supplier.mobileNum.phoneType(self.viewModel.model.ticket.supplier.mobileNum))
                         }
-                })
-                self.view.addSubview(reciveView)
+                    }
+            })
+            self.view.addSubview(reciveView)
+        }else if status > 7{
+            if payView != nil {
+                payView.isHidden = true
             }
+            let types = [CustomButtonType.withBackBoarder,self.viewModel.model.expressInfo.photo == nil || self.viewModel.model.expressInfo.photo == "" ? CustomButtonType.widthDisbale : CustomButtonType.withBoarder]
+            let titles = ["联系卖家","查看凭证"]
+            let frame = CGRect.init(x: 0, y: SCREENHEIGHT - 49 - 64, width: SCREENHEIGHT, height: 49)
+            reciveView = GloableBottomOrder.init(frame:frame
+                , titles: titles, types: types, gloableBottomOrderClouse: { (tag) in
+                    if tag == 1 {
+                        if self.viewModel.model.ticket.supplier != nil
+                        {
+                            AppCallViewShow(self.view, phone: self.viewModel.model.ticket.supplier.mobileNum.phoneType(self.viewModel.model.ticket.supplier.mobileNum))
+                        }
+                    }else {
+                        if self.viewModel.model.expressInfo.photo == nil || self.viewModel.model.expressInfo.photo == "" {
+                            _ = Tools.shareInstance.showMessage(KWINDOWDS(), msg: "请联系卖家上传凭证", autoHidder: true)
+                        }else{
+                            self.viewModel.presentImageBrowse(self.reciveView)
+                        }
+                    }
+            })
+            self.view.addSubview(reciveView)
             if payView != nil {
                 payView.isHidden = true
             }

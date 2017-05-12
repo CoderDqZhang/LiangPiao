@@ -10,6 +10,7 @@ import UIKit
 import Alamofire
 import Result
 import ReactiveSwift
+import MBProgressHUD
 
 typealias SuccessClouse = (_ responseObject:AnyObject) -> Void
 typealias FailureClouse = (_ responseError:AnyObject) -> Void
@@ -169,7 +170,7 @@ class BaseNetWorke {
     }
     
     
-    func uploadDataFile(_ url:String, parameters:NSDictionary?, images:NSDictionary?) ->Signal<Any, NSError> {
+    func uploadDataFile(_ url:String, parameters:NSDictionary?, images:NSDictionary?, hud:MBProgressHUD?) ->Signal<Any, NSError> {
         return Signal.init({ (subscriber) -> Disposable? in
             
             Alamofire.upload(multipartFormData: { (multipartFormData) in
@@ -200,6 +201,9 @@ class BaseNetWorke {
                         }else{
                             _ = Tools.shareInstance.showMessage(KWINDOWDS(), msg: "上传失败", autoHidder: true)
                         }
+                        if hud != nil {
+                            Tools.shareInstance.hiddenLoading(hud: hud!)
+                        }
                         //                            debugPrint(response)
 //                        subscriber.sendCompleted()
                     })
@@ -214,6 +218,9 @@ class BaseNetWorke {
 //                    }
                 case .failure(let encodingError):
                     print(encodingError)
+                    if hud != nil {
+                        Tools.shareInstance.hiddenLoading(hud: hud!)
+                    }
                     _ = Tools.shareInstance.showMessage(KWINDOWDS(), msg: "上传失败", autoHidder: true)
                     subscriber.sendCompleted()
                 }

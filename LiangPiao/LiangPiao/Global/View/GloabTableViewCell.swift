@@ -581,11 +581,13 @@ class GloabTitleNumberCountTableViewCell: UITableViewCell {
         super.updateConstraints()
     }
     
-    func setText(_ title:String, textFieldText:String){
+    func setText(_ title:String, textFieldText:String, isChange:Bool){
+        
         titleLabel.text = title
         numberTickView.numberTextField.text = textFieldText
         numberTickView.number = Int(textFieldText)!
         numberTickView.setNumberDownColor()
+        numberTickView.setNumberUseType(isDisable: isChange)
     }
     
     override func awakeFromNib() {

@@ -30,7 +30,7 @@ class MySellTicketMuchTableViewCell: UITableViewCell {
         ticketTitle.font = App_Theme_PinFan_R_13_Font
         self.contentView.addSubview(ticketTitle)
         
-//        button = CustomButton.init(frame: CGRectZero, title: "使用建议价格", tag: nil, titleFont: App_Theme_PinFan_M_12_Font!, type: .withNoBoarder) { (tag) in
+//        button = CustomButton.init(frame: CGRectZero, title: "使用建议价格", tag: 1, titleFont: App_Theme_PinFan_M_12_Font!, type: .withNoBoarder) { (tag) in
 //            
 //        }
 //        self.contentView.addSubview(button)

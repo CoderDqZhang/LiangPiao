@@ -33,7 +33,7 @@ class WithDrawTableViewCell: UITableViewCell {
         
         self.contentView.addSubview(muchTextField)
         
-        topUpButton = CustomButton.init(frame: CGRect.zero, title: "全部提现", tag: nil, titleFont: App_Theme_PinFan_R_12_Font!, type: .withNoBoarder, pressClouse: { (tag) in
+        topUpButton = CustomButton.init(frame: CGRect.zero, title: "全部提现", tag: 1, titleFont: App_Theme_PinFan_R_12_Font!, type: .withNoBoarder, pressClouse: { (tag) in
             if self.withDrawTableViewCellClouse != nil {
                 self.withDrawTableViewCellClouse()
             }

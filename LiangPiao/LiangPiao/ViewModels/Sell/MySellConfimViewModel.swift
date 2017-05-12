@@ -99,7 +99,7 @@ class MySellConfimViewModel: NSObject {
         self.putUpModel = ticket
         sellFormModel.ticketPrice = "\((ticket.originalTicket.id)!)"
         sellFormModel.price = "\((ticket.price)!)"
-        sellFormModel.number = ticket.ticketCount
+        sellFormModel.number = ticket.remainCount
         sellFormModel.sellType = ticket.sellType == 1 ? "可以分开卖":"一起卖"
         sellFormModel.seatType = "\((ticket.seatType)!)"
         sellFormModel.ticketRegin = ticket.region == "" ? TempTicketRowRegionsStr : ticket.region
@@ -201,11 +201,11 @@ class MySellConfimViewModel: NSObject {
     }
     
     func tableViewCellGloabTitleNumberCountTableViewCell(_ cell:GloabTitleNumberCountTableViewCell, indexPath:IndexPath) {
-        cell.setText("售卖数量", textFieldText: "1")
         
         if isChange {
-            cell.setText("售卖数量", textFieldText: "\(sellFormModel.number)")
+            cell.setText("售卖数量", textFieldText: "\(sellFormModel.number)", isChange:self.isChange)
         }else{
+            cell.setText("售卖数量", textFieldText: "1", isChange: false)
             self.sellFormModel.number = 1
             cell.numberTickView.numberTextField.reactive.producer(forKeyPath: "text").start({ (text) in
                 self.sellFormModel.number = Int(text.value as! String)!

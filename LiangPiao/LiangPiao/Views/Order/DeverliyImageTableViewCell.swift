@@ -8,9 +8,12 @@
 
 import UIKit
 
+typealias ImageClouse = () ->Void
+
 class DeverliyImageTableViewCell: UITableViewCell {
 
     var deverliyImageView:UIImageView!
+    var imageClouse:ImageClouse!
     
     var didMakeContraints:Bool = false
     
@@ -22,6 +25,11 @@ class DeverliyImageTableViewCell: UITableViewCell {
     func setUpView() {
         
         deverliyImageView = UIImageView()
+        deverliyImageView.isUserInteractionEnabled = true
+        let sigleTap = UITapGestureRecognizer.init(target: self, action: #selector(DeverliyImageTableViewCell.imageTap))
+        sigleTap.numberOfTapsRequired = 1
+        sigleTap.numberOfTouchesRequired = 1
+        deverliyImageView.addGestureRecognizer(sigleTap)
         self.contentView.addSubview(deverliyImageView)
         self.updateConstraintsIfNeeded()
     }
@@ -33,6 +41,12 @@ class DeverliyImageTableViewCell: UITableViewCell {
     
     func setUpData(_ image:UIImage) {
         deverliyImageView.image = image
+    }
+    
+    func imageTap() {
+        if self.imageClouse != nil {
+            self.imageClouse()
+        }
     }
     
     override func updateConstraints() {

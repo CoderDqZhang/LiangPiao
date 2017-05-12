@@ -52,7 +52,7 @@ class DeverliyTableViewCell: UITableViewCell {
     func setUpData(_ trac:Trace) {
         for str in deverliyDic.allKeys {
             if str as! String == trac.acceptStation {
-                self.infoLabel.text = "物流追踪 \((trac.acceptStation)!) 单号：\((trac.acceptTime)!)"
+                self.infoLabel.text = "物流追踪  \((trac.acceptStation)!)  单号：\((trac.acceptTime)!)"
                 return
             }
         }

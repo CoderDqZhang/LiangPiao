@@ -48,14 +48,14 @@ class MyWalletViewController: UIViewController {
         }
         self.view.addSubview(topUpButton)
         
-        let withdraw = CustomButton.init(frame: CGRect.init(x: SCREENWIDTH / 2 + SpaceTopUpAndWidth / 2, y: SCREENHEIGHT - 79 - 64, width: (SCREENWIDTH - 3 * SpaceTopUpAndWidth) / 2, height: 49), title: "提现", tag: nil, titleFont: App_Theme_PinFan_M_15_Font!, type: .withBackBoarder) { (tag) in
+        let withdraw = CustomButton.init(frame: CGRect.init(x: SCREENWIDTH / 2 + SpaceTopUpAndWidth / 2, y: SCREENHEIGHT - 79 - 64, width: (SCREENWIDTH - 3 * SpaceTopUpAndWidth) / 2, height: 49), title: "提现", tag: 1, titleFont: App_Theme_PinFan_M_15_Font!, type: .withBackBoarder) { (tag) in
             let controllerVC = WithDrawViewController()
             controllerVC.viewModel.maxMuch = "\(self.viewModel.model.balance)".muchType("\((self.viewModel.model.balance)!)")
             NavigationPushView(self, toConroller: controllerVC)
         }
         self.view.addSubview(withdraw)
             
-        let ruleButton = CustomButton.init(frame: CGRect.zero, title: "查看规则说明", tag: nil, titleFont: App_Theme_PinFan_M_13_Font!, type: .withNoBoarder) { (tag) in
+        let ruleButton = CustomButton.init(frame: CGRect.zero, title: "查看规则说明", tag: 2, titleFont: App_Theme_PinFan_M_13_Font!, type: .withNoBoarder) { (tag) in
             KWINDOWDS().addSubview(GloableServiceView.init(title: "规则说明", message: self.viewModel.messageTitle()))
         }
         self.view.addSubview(ruleButton)

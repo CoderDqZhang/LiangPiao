@@ -128,7 +128,7 @@ extension WithDrawStatusViewController : UITableViewDataSource {
             var cell = tableView.dequeueReusableCell(withIdentifier: cellIndef)
             if cell == nil {
                 cell = UITableViewCell.init(style: .default, reuseIdentifier: cellIndef)
-                let topUpButton = CustomButton.init(frame: CGRect.init(x: 15 , y: 0, width: SCREENWIDTH - 30, height: 49), title: "完成", tag: nil, titleFont: App_Theme_PinFan_M_15_Font!, type: .withBackBoarder) { (tag) in
+                let topUpButton = CustomButton.init(frame: CGRect.init(x: 15 , y: 0, width: SCREENWIDTH - 30, height: 49), title: "完成", tag: 1, titleFont: App_Theme_PinFan_M_15_Font!, type: .withBackBoarder) { (tag) in
                     for controller in (self.navigationController?.viewControllers)! {
                         if controller is MyWalletViewController {
                             NotificationCenter.default.post(name: Foundation.Notification.Name(rawValue: BlanceNumberChange), object: nil)

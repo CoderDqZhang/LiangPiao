@@ -162,6 +162,7 @@ extension WithDrawViewController : UITableViewDataSource {
                 if indexPath.row == 0 {
                     if UserDefaultsGetSynchronize("aliPayCount") as! String != "nil" {
                         cell.textField.text = UserDefaultsGetSynchronize("aliPayCount") as? String
+                        self.viewModel.form.aliPayCount = (UserDefaultsGetSynchronize("aliPayCount") as? String)!
                     }
                     cell.textField.reactive.continuousTextValues.observeValues({ (str) in
                         self.viewModel.form.aliPayCount = str!
@@ -169,6 +170,7 @@ extension WithDrawViewController : UITableViewDataSource {
                 }else{
                     if UserDefaultsGetSynchronize("aliPayName") as! String != "nil" {
                         cell.textField.text = UserDefaultsGetSynchronize("aliPayName") as? String
+                        self.viewModel.form.aliPayName = (UserDefaultsGetSynchronize("aliPayName") as? String)!
                     }
                     cell.textField.reactive.continuousTextValues.observeValues({ (str) in
                         self.viewModel.form.aliPayName = str!
@@ -185,7 +187,7 @@ extension WithDrawViewController : UITableViewDataSource {
             var cell = tableView.dequeueReusableCell(withIdentifier: cellIndef)
             if cell == nil {
                 cell = UITableViewCell.init(style: .default, reuseIdentifier: cellIndef)
-                let topUpButton = CustomButton.init(frame: CGRect.init(x: 15 , y: 0, width: SCREENWIDTH - 30, height: 49), title: "提现", tag: nil, titleFont: App_Theme_PinFan_M_15_Font!, type: .withBackBoarder) { (tag) in
+                let topUpButton = CustomButton.init(frame: CGRect.init(x: 15 , y: 0, width: SCREENWIDTH - 30, height: 49), title: "提现", tag: 1, titleFont: App_Theme_PinFan_M_15_Font!, type: .withBackBoarder) { (tag) in
                     self.viewModel.requestWithDraw(self.viewModel.form)
                 }
                 cell?.contentView.addSubview(topUpButton)

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MBProgressHUD
 
 typealias ReloadeMySellOrderList = (_ indexPath:IndexPath, _ model:OrderList) -> Void
 
@@ -223,8 +224,8 @@ class OrderStatusViewModel: NSObject {
             ]
         
         let images = ["photo":fileUrl]
-        
-        BaseNetWorke.sharedInstance.uploadDataFile(url, parameters: parameters as NSDictionary, images: images as NSDictionary).observe { (resultDic) in
+        let hud = Tools.shareInstance.showLoading(KWINDOWDS(), msg: nil)
+        BaseNetWorke.sharedInstance.uploadDataFile(url, parameters: parameters as NSDictionary, images: images as NSDictionary, hud: hud).observe { (resultDic) in
             if !resultDic.isCompleted {
                 let expressInfo = ExpressInfo.init(fromDictionary: resultDic.value as! NSDictionary)
                 self.model.expressInfo = expressInfo

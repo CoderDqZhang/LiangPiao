@@ -373,6 +373,11 @@ enum NumberTickViewType {
     case confirm
 }
 
+enum NumberTicketViewUseType {
+    case disable
+    case use
+}
+
 class NumberTickView: UIView {
     var downButton:UIButton!
     var upButton:UIButton!
@@ -497,7 +502,19 @@ class NumberTickView: UIView {
         }else{
             self.upButton.setImage(UIImage.init(named: "Icon_Add_Normal"), for: UIControlState())
         }
-        
+    }
+    
+    func setNumberUseType(isDisable:Bool){
+        if isDisable {
+            downButton.setImage(UIImage.init(named: "Icon_Reduce_Disable"), for: UIControlState())
+            downButton.isEnabled = false
+            upButton.setImage(UIImage.init(named: "Icon_Add_Disable"), for: UIControlState.normal)
+            upButton.isEnabled = false
+            numberTextField.textColor = UIColor.init(hexString: App_Theme_DDE0E5_Color)
+            numberTextField.isEnabled = false
+            self.layer.borderColor = UIColor.init(hexString: App_Theme_DDE0E5_Color).cgColor
+            numberTextField.layer.borderColor = UIColor.init(hexString: App_Theme_DDE0E5_Color).cgColor
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {

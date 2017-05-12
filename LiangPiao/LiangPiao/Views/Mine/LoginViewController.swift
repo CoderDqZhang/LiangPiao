@@ -123,7 +123,7 @@ class LoginViewController: UIViewController {
         
         
         
-        proBtn = CustomButton.init(frame: CGRect.zero, title: "《良票用户协议》", tag: nil, titleFont: App_Theme_PinFan_R_12_Font!, type: .withNoBoarder, pressClouse: { (tag) in
+        proBtn = CustomButton.init(frame: CGRect.zero, title: "《良票用户协议》", tag: 1, titleFont: App_Theme_PinFan_R_12_Font!, type: .withNoBoarder, pressClouse: { (tag) in
             NavigationPushView(self, toConroller: UserProtocolViewController())
         })
         self.view.addSubview(proBtn)
