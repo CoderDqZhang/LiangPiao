@@ -184,7 +184,10 @@ extension SellInfoViewController : UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        if section == 4 {
+        if viewModel.sellTicketModel.needDeposit && section == 4 {
+            return self.mySellConfimView()
+        }
+        if !viewModel.sellTicketModel.needDeposit && section == 3  {
             return self.mySellConfimView()
         }
         return nil

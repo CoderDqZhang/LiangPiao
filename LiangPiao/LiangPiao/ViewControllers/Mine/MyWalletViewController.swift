@@ -76,6 +76,7 @@ class MyWalletViewController: UIViewController {
             button.layer.borderColor = UIColor.init(hexString: App_Theme_4BD4C5_Color).cgColor
             button.layer.borderWidth = 1.0
         }
+        button.titleLabel?.font = App_Theme_PinFan_M_15_Font
         button.setTitleColor(titleColor, for: UIControlState())
         button.buttonSetThemColor(App_Theme_FFFFFF_Color, selectColor: App_Theme_40C6B7_Color, size: CGSize.init(width: frame.size.width, height: frame.size.height))
         return button

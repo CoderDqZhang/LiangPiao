@@ -42,7 +42,7 @@ class MySellConfimViewModel: NSObject {
     var mySellConfimViewModelAddClouse:MySellConfimViewModelAddClouse!
     var mySellConfimViewModelClouse:MySellConfimViewModelClouse!
     var mySellServiceTableViewCell:MySellServiceTableViewCell!
-    var despostiy:Int!
+    var despostiy:Int = 0
     
     override init() {
         super.init()
@@ -312,7 +312,10 @@ class MySellConfimViewModel: NSObject {
     }
     
     func sellInfoViewNumberSection() -> Int {
-        return 5
+        if sellTicketModel.needDeposit {
+            return 5
+        }
+        return 4
     }
     
     func sellInfoNumberRowSection(_ section:Int) ->Int {
@@ -508,7 +511,7 @@ class MySellConfimViewModel: NSObject {
             despostiy = self.sellFormModel.number * 100 * 100
         }
         self.despostiy = despostiy
-        let much = "".muchType("\((self.despostiy)!)")
+        let much = "".muchType("\((self.despostiy))")
         cell.setData("余额：\(blance) 元", servicemuch: "押金：\(much) 元", sevicep: "保证金将于订单完成后直接返还至账户钱包中，挂单删除或下架后押金亦退还至钱包中", type: 1)
     }
     
@@ -591,9 +594,9 @@ class MySellConfimViewModel: NSObject {
     }
     
     func postTicket(_ paramerts:NSDictionary){
-        if (CGFloat(self.despostiy) > CGFloat(self.sellTicketModel.balance) && sellTicketModel.needDeposit) {
+        if (sellTicketModel.needDeposit && CGFloat(self.despostiy) > CGFloat(self.sellTicketModel.balance)) {
             let blance = "\(sellTicketModel.balance)".muchType("\((sellTicketModel.balance)!)")
-            let str = "\(self.despostiy)".muchType("\((self.despostiy)!)")
+            let str = "\(self.despostiy)".muchType("\((self.despostiy))")
             UIAlertController.shwoAlertControl(self.infoController, style: .alert, title:"押金不足" , message: "本次挂票，需缴纳押金共 \(str) 元，当前余额 \(blance) 元不足，请充值", cancel: "稍等一会", doneTitle: "立即充值", cancelAction: {
                 
             }, doneAction: {
@@ -613,7 +616,9 @@ class MySellConfimViewModel: NSObject {
             if !resultDic.isCompleted {
                 self.putUpModel = TicketList.init(fromDictionary: resultDic.value as! NSDictionary)
                 MainThreadAlertShow("挂票成功", view: KWINDOWDS())
-                self.sellTicketModel.balance = self.sellTicketModel.balance - self.despostiy
+                if self.sellTicketModel.needDeposit {
+                    self.sellTicketModel.balance = self.sellTicketModel.balance - self.despostiy
+                }
                 if self.isSellTicketView {
                     
                     self.showMyTicketPutUpViewController(self.model)
