@@ -18,6 +18,7 @@ import ReactiveSwift
 typealias MySellConfimViewModelClouse = (_ ticket:TicketList, _ name:String) -> Void
 typealias MySellConfimViewModelAddClouse = (_ originTicket:OriginalTicket, _ ticket:TicketList, _ name:String) -> Void
 
+
 class MySellConfimViewModel: NSObject {
     
     var controller:MySellConfimViewController!
@@ -67,6 +68,7 @@ class MySellConfimViewModel: NSObject {
             self.express = Expressage.init()
             self.present = Present.init()
             self.visite = Visite.init()
+            
         }else{
             if sellFormModel.deverliExpress != TempCellStr {
                 self.express = Expressage.mj_object(withKeyValues: sellFormModel.deverliExpress)
@@ -84,8 +86,8 @@ class MySellConfimViewModel: NSObject {
             }else{
                 self.visite = Visite.init()
             }
-            
         }
+        
     }
     
     func setUpChangeCellForm(_ ticket:TicketList){
@@ -140,15 +142,26 @@ class MySellConfimViewModel: NSObject {
     
     //MARK: MySellConfimViewController
     func setUpView(){
+        if sellFormModel.ticketPrice != nil {
+            self.originTicket = OriginalTicket.init(fromDictionary: ["id":"","name":"","price":""])
+            self.originTicket.id = Int64(sellFormModel.ticketPrice)
+            for index in 0...self.sellTicketModel.ticketChoices.count - 1 {
+                if (self.originTicket.id == Int64(self.sellTicketModel.ticketChoices[index][0])){
+                    self.originTicket.name = self.sellTicketModel.ticketChoices[index][1]
+                    selectIndex = index
+                    self.ticketOriginName = self.originTicket.name
+                    break
+                }
+            }
+        }else{
+            self.originTicket.name = self.sellTicketModel.ticketChoices[0][1]
+            self.originTicket.id = Int64(self.sellTicketModel.ticketChoices[0][0])
+            self.ticketOriginName = self.originTicket.name
+            self.sellFormModel.ticketPrice = self.sellTicketModel.ticketChoices[0][0]
+        }
         tickeListView = GloableTitleList.init(frame: CGRect.init(x: 15, y: 62, width: SCREENWIDTH - 30, height: 0), title: ticketList, selectIndex:selectIndex)
         tickeListView.frame = CGRect.init(x: 15, y: 62, width: SCREENWIDTH - 30, height: tickeListView.maxHeight)
-        if self.sellFormModel.ticketPrice == "10" {
-            self.sellFormModel.ticketPrice = self.sellTicketModel.ticketChoices[0][0]
-            if self.originTicket != nil {
-                self.originTicket.name = self.sellTicketModel.ticketChoices[0][1]
-                self.originTicket.id = Int64(self.sellTicketModel.ticketChoices[0][0])
-            }
-        }
+        
         tickeListView.gloableTitleListClouse = { title, index in
             self.sellFormModel.ticketPrice = self.sellTicketModel.ticketChoices[index][0]
             if self.originTicket != nil {
@@ -156,6 +169,8 @@ class MySellConfimViewModel: NSObject {
                 self.originTicket.id = Int64(self.sellTicketModel.ticketChoices[index][0])
             }
             self.ticketOriginName = self.sellTicketModel.ticketChoices[index][1]
+            print(self.sellTicketModel.ticketChoices[index][1])
+            print(Int64(self.sellTicketModel.ticketChoices[index][0]) ?? 00)
         }
     }
     
@@ -428,7 +443,9 @@ class MySellConfimViewModel: NSObject {
         cell.ticketStatusTableViewCellClouse = { isSeat, isTicket in
             self.sellFormModel.seatType = isSeat ? "1" : "2"
             self.sellFormModel.sellCategoty = isTicket ? 1:0
-            self.reloadCell(self.mySellServiceTableViewCell)
+            if self.mySellServiceTableViewCell != nil {
+                self.reloadCell(self.mySellServiceTableViewCell)
+            }
         }
         
         cell.ticketTicketSellClouse = { tap, label in
@@ -619,13 +636,20 @@ class MySellConfimViewModel: NSObject {
                 if self.sellTicketModel.needDeposit {
                     self.sellTicketModel.balance = self.sellTicketModel.balance - self.despostiy
                 }
-                if self.isSellTicketView {
-                    
+                
+                var controllerVC:MyTicketPutUpViewController?
+                for controllers in (self.controller.navigationController?.viewControllers)! {
+                    if controllers is MyTicketPutUpViewController {
+                        controllerVC = controllers as? MyTicketPutUpViewController
+                        break
+                    }
+                }
+                
+                if controllerVC == nil {
                     self.showMyTicketPutUpViewController(self.model)
-                    
-                    //                self.infoController.navigationController?.popViewControllerAnimated(true)
                 }else{
                     if self.mySellConfimViewModelAddClouse != nil {
+                        self.putUpModel.originalTicket = self.originTicket
                         self.mySellConfimViewModelAddClouse(self.originTicket, self.putUpModel, self.ticketOriginName)
                         for controllers in (self.controller.navigationController?.viewControllers)! {
                             if controllers is MyTicketPutUpViewController {
@@ -634,6 +658,13 @@ class MySellConfimViewModel: NSObject {
                         }
                     }
                 }
+                
+//                if self.isSellTicketView {
+//                    
+//                    //                self.infoController.navigationController?.popViewControllerAnimated(true)
+//                }else{
+//                    
+//                }
             }
         }
     }
@@ -647,7 +678,15 @@ class MySellConfimViewModel: NSObject {
                 for session in sessionList!{
                     sessions.append(ShowSessionModel.init(fromDictionary: session as! NSDictionary))
                 }
+//                var controllerVC:MyTicketPutUpViewController?
+//                for controllers in (self.controller.navigationController?.viewControllers)! {
+//                    if controllers is MyTicketPutUpViewController {
+//                        controllerVC = controllers as? MyTicketPutUpViewController
+//                        break
+//                    }
+//                }
                 model.sessionList = sessions
+                self.genderTicketShowModel(ticketShow: model)
                 let controllerVC = MyTicketPutUpViewController()
                 controllerVC.viewModel.ticketShowModel = model
                 controllerVC.viewModel.ticketSellCount = MySellViewModel.TicketShowModelSellCount(model)
@@ -663,8 +702,37 @@ class MySellConfimViewModel: NSObject {
                 controllerVC.viewModel.ticketSession = MySellViewModel.TicketShowModelSession(model)
                 controllerVC.viewModel.isSellTicketVC = true
                 NavigationPushView(self.controller, toConroller: controllerVC)
+//                if controllerVC == nil {
+//                    
+//                }else{
+//                    controllerVC?.viewModel.ticketShowModel = model
+//                    controllerVC?.viewModel.ticketSellCount = MySellViewModel.TicketShowModelSellCount(model)
+//                    controllerVC?.viewModel.ticketSoldCount = MySellViewModel.TicketShowModelSoldCount(model)
+//                    let priceModel = MySellViewModel.sellManagerMinMaxPrice(model)
+//                    var ticketMuch = ""
+//                    if priceModel.minPrice != priceModel.maxPrice {
+//                        ticketMuch = "\(priceModel.minPrice)-\(priceModel.maxPrice)"
+//                    }else{
+//                        ticketMuch = "\(priceModel.minPrice)"
+//                    }
+//                    controllerVC?.viewModel.ticketSoldMuch = ticketMuch
+//                    controllerVC?.viewModel.ticketSession = MySellViewModel.TicketShowModelSession(model)
+//                    controllerVC?.viewModel.isSellTicketVC = true
+//                    self.controller.navigationController?.popToViewController(controllerVC!, animated: true)
+//                }
             }
         }
+    }
+    
+    //处理售罄类的票
+    func genderTicketShowModel(ticketShow:TicketShowModel){
+        var ticketList:[TicketList] = []
+        for ticket in ticketShow.sessionList[0].ticketList {
+            if ticket.remainCount != 0 {
+                ticketList.append(ticket)
+            }
+        }
+        ticketShow.sessionList[0].ticketList = ticketList
     }
 }
 

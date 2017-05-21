@@ -127,7 +127,7 @@ class SellTicketsViewController: BaseViewController {
     
     func setSearchNavigatioBarClouse(){
         searchNavigationBar.searchTextFieldBecomFirstRespoder = { _ in
-            self.searchViewModel.searchType = .ticketSell
+            self.searchViewModel.searchType = .ticketSellHistory
             if self.searchTableView == nil {
                 self.searchTableView = GlobalSearchTableView(frame: CGRect(x: 0, y: self.searchNavigationBar.frame.maxY, width: SCREENWIDTH, height: SCREENHEIGHT - self.searchNavigationBar.frame.maxY))
                 self.view.addSubview(self.searchTableView)

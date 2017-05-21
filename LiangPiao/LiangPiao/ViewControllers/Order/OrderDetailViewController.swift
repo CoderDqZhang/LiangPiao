@@ -153,7 +153,7 @@ class OrderDetailViewController: UIViewController {
             if status == 100 || status == 0 {
                 payView.updateButtonTitle("立即付款")
             }
-        }else if 0 < status && status < 7{
+        }else if 3 < status && status < 7{
             if payView != nil {
                 payView.isHidden = true
             }
@@ -204,6 +204,14 @@ class OrderDetailViewController: UIViewController {
             make.right.equalTo(self.view.snp.right).offset(0)
             make.bottom.equalTo(self.view.snp.bottom).offset(-49)
         })
+        if status == 2 || status == 3 {
+            tableView.snp.remakeConstraints({ (make) in
+                make.top.equalTo(self.view.snp.top).offset(0)
+                make.left.equalTo(self.view.snp.left).offset(0)
+                make.right.equalTo(self.view.snp.right).offset(0)
+                make.bottom.equalTo(self.view.snp.bottom).offset(0)
+            })
+        }
 //        }
             
 //            else{

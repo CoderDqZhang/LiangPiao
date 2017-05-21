@@ -299,12 +299,15 @@ class MyTicketPutUpViewModel: NSObject {
                 self.ticketShowModel.sessionList[self.selectSession].ticketList = self.tempList
                 self.getPriceArray(self.tempList)
                 self.getRowArray(self.tempList)
-                let session = self.picketCell.viewWithTag(self.selectSession + 10) as! TicketSession
-                session.type = 2
-                self.picketCell.updateSession(self.selectSession + 10)
+                if self.tempList.count != 1 {
+                    let session = self.picketCell.viewWithTag(self.selectSession + 10) as! TicketSession
+                    session.type = 2
+                    self.picketCell.updateSession(self.selectSession + 10)
+                }
+                
                 self.controller.tableView.reloadData()
             }else{
-                ticketModel.originalTicket = self.tempList[0].originalTicket
+//                ticketModel.originalTicket = self.tempList[0].originalTicket
                 ticketModel.originalTicket.name = originName
                 self.tempList.append(ticketModel)
                 if self.sesstionModels.count == 0 {

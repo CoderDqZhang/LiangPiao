@@ -190,9 +190,25 @@ class TicketDescriptionViewModel: NSObject {
     }
     
     func tableViewDidSelectRowAtIndexPath(_ indexPath:IndexPath) {
+        
         if UserInfoModel.isLoggedIn() {
             if indexPath.row > 1 && self.model.ticketList.count > 0{
                 let ticketModel = self.model.ticketList[indexPath.row - 2]
+                //判断改票是否可以购买
+                let dates = NSDate.string(toDate: self.model.session.name.components(separatedBy: " ")[0])
+                let interval: TimeInterval = dates!.timeIntervalSince(NSDate.dateNow())
+                let days = (Int(interval)) / 86400
+                if interval < 0 && days <= 0 && (ticketModel.deliveryType == "4" || ticketModel.deliveryType == "1") {
+                    UIAlertController.shwoAlertControl(self.controller, style: .alert, title: "该票已不符合快递要求，可联系商家自取", message: nil, cancel: "取消", doneTitle: "联系商家", cancelAction: {
+                        
+                    }, doneAction: {
+                        if ticketModel.supplier != nil
+                        {
+                            AppCallViewShow(self.controller.view, phone: ticketModel.supplier.mobileNum.phoneType(ticketModel.supplier.mobileNum))
+                        }
+                    })
+                    return
+                }
                 if ticketModel.sellType == 2 {
                     UIAlertController.shwoAlertControl(self.controller, style: .alert, title: nil, message: "该票种须打包\((ticketModel.remainCount)!)张一起购买哦", cancel: "取消", doneTitle: "继续购买", cancelAction: {
                         

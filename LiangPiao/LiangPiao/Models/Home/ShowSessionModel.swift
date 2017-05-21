@@ -165,3 +165,77 @@ class ShowSessionModel : NSObject, NSCoding{
     }
     
 }
+
+let kEncodeObjectPath_Search_History = (NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true).last)! + "/\(SearchHistoryDataPath)"
+
+class SearchHistory : NSObject, NSCoding{
+
+    var sellSearchHistory : [String] = []
+    var showSearchHistory : [String] = []
+    
+    
+    fileprivate override init() {
+        
+    }
+    /**
+     * Instantiate the instance using the passed dictionary values to set the properties values
+     */
+    static let shareInstance = SearchHistory()
+    
+    init(fromDictionary dictionary: NSDictionary){
+        sellSearchHistory = (dictionary["sellSearchHistory"] as? [String])!
+        showSearchHistory = (dictionary["showSearchHistory"] as? [String])!
+    }
+    
+    /**
+     * Returns all the available property values in the form of NSDictionary object where the key is the approperiate json key and the value is the value of the corresponding property
+     */
+    func toDictionary() -> NSDictionary
+    {
+        let dictionary = NSMutableDictionary()
+        dictionary["sellSearchHistory"] = sellSearchHistory
+
+        dictionary["showSearchHistory"] = showSearchHistory
+
+        return dictionary
+    }
+    
+    /**
+     * NSCoding required initializer.
+     * Fills the data from the passed decoder
+     */
+    @objc required init(coder aDecoder: NSCoder)
+    {
+        sellSearchHistory = (aDecoder.decodeObject(forKey: "sellSearchHistory") as? [String])!
+        showSearchHistory = (aDecoder.decodeObject(forKey: "showSearchHistory") as? [String])!
+        
+    }
+    
+    /**
+     * NSCoding required method.
+     * Encodes mode properties into the decoder
+     */
+    @objc func encode(with aCoder: NSCoder)
+    {
+        aCoder.encode(sellSearchHistory, forKey: "sellSearchHistory")
+        aCoder.encode(showSearchHistory, forKey: "showSearchHistory")        
+    }
+    
+    //保存数据
+    func saveData(searchHistory:SearchHistory) {
+        NSKeyedArchiver.archiveRootObject(searchHistory, toFile: kEncodeObjectPath_Search_History)
+    }
+    
+    //读取数据
+    func loadData() -> SearchHistory{
+        if !FileManager.default.fileExists(atPath: kEncodeObjectPath_Search_History) {
+            FileManager.default.createFile(atPath: kEncodeObjectPath_Search_History, contents: nil, attributes: nil)
+            SearchHistory.shareInstance.sellSearchHistory = []
+            SearchHistory.shareInstance.showSearchHistory = []
+            SearchHistory.shareInstance.saveData(searchHistory: SearchHistory.shareInstance)
+            return SearchHistory.shareInstance
+        }
+        let shareInstance =  NSKeyedUnarchiver.unarchiveObject(withFile: kEncodeObjectPath_Search_History) as! SearchHistory
+        return shareInstance
+    }
+}

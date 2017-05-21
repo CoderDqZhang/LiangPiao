@@ -258,6 +258,7 @@
 		1FD881EA1DC8546500B2B702 /* SDCycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FD881E21DC8546500B2B702 /* SDCycleScrollView.m */; };
 		1FD881EB1DC8546500B2B702 /* UIView+SDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FD881E41DC8546500B2B702 /* UIView+SDExtension.m */; };
 		1FD881ED1DC854EE00B2B702 /* HomeScrollerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FD881EC1DC854EE00B2B702 /* HomeScrollerTableViewCell.swift */; };
+		1FE694441ECE9F12006F1DBC /* SearchHistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FE694431ECE9F12006F1DBC /* SearchHistoryTableViewCell.swift */; };
 		1FEC72E31E03CD1100F0D2C3 /* TicketRow.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1FEC72E21E03CD1100F0D2C3 /* TicketRow.plist */; };
 		1FEC72E61E03D00900F0D2C3 /* SellFormModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FEC72E51E03D00900F0D2C3 /* SellFormModel.m */; };
 		1FEE7E991DF51A1300479648 /* MySellOrderMuchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FEE7E981DF51A1300479648 /* MySellOrderMuchTableViewCell.swift */; };
@@ -644,6 +645,7 @@
 		1FD881E31DC8546500B2B702 /* UIView+SDExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+SDExtension.h"; sourceTree = "<group>"; };
 		1FD881E41DC8546500B2B702 /* UIView+SDExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SDExtension.m"; sourceTree = "<group>"; };
 		1FD881EC1DC854EE00B2B702 /* HomeScrollerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeScrollerTableViewCell.swift; sourceTree = "<group>"; };
+		1FE694431ECE9F12006F1DBC /* SearchHistoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchHistoryTableViewCell.swift; sourceTree = "<group>"; };
 		1FEC72E21E03CD1100F0D2C3 /* TicketRow.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = TicketRow.plist; sourceTree = "<group>"; };
 		1FEC72E41E03D00900F0D2C3 /* SellFormModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SellFormModel.h; sourceTree = "<group>"; };
 		1FEC72E51E03D00900F0D2C3 /* SellFormModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SellFormModel.m; sourceTree = "<group>"; };
@@ -1387,6 +1389,7 @@
 				1F0EAB641DD073B900D25B64 /* OrderWaitePayTableViewCell.swift */,
 				1F0EAB7C1DD16D0E00D25B64 /* OrderDoneTableViewCell.swift */,
 				1F0EAB7A1DD0AE2300D25B64 /* OrderPayTableViewCell.swift */,
+				1FE694431ECE9F12006F1DBC /* SearchHistoryTableViewCell.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -2012,6 +2015,7 @@
 				1FD881C11DC7410D00B2B702 /* AppThemeTool.swift in Sources */,
 				1FEE7E9B1DF53ADC00479648 /* OrderManagerTableViewCell.swift in Sources */,
 				1F1FE8CA1DEE830C0034268F /* NoneTicketTableViewCell.swift in Sources */,
+				1FE694441ECE9F12006F1DBC /* SearchHistoryTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

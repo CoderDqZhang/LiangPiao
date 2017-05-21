@@ -72,13 +72,19 @@ class MyTicketPutUpViewController: UIViewController {
     }
     
     func popSellTicketVC(){
+        var controllerVC:MySellConfimViewController?
         for controller in (self.navigationController?.viewControllers)! {
             if controller is MySellConfimViewController {
-                self.navigationController?.popToViewController(controller, animated: true)
-                return
+                controllerVC = controller as? MySellConfimViewController
+                break
             }
         }
-        self.navigationController?.popToRootViewController(animated: true)
+        if controllerVC != nil {
+            self.navigationController?.popToViewController(controllerVC!, animated: true)
+        }else{
+            let ret = self.viewModel.tempList.count == 0 ? true : false
+            self.viewModel.continuePutUpTicket(nil, isNoneTicket: ret)
+        }
     }
     
     func bindeViewModel(){

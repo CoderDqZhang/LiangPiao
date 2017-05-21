@@ -163,7 +163,7 @@ class MySellViewModel: NSObject {
     
     //MARK: MySellOrderMangerViewController
     func mySellOrderManagerTableViewDidSelect(_ indexPath:IndexPath, controller:MySellPagerViewController){
-        let model = TicketShowModel.init(fromDictionary: ticketShowModel[indexPath.section] as! NSDictionary)
+        let model = ticketShowModel[indexPath.section] as! TicketShowModel
         let controllerVC = MyTicketPutUpViewController()
         controllerVC.viewModel.ticketShowModel = model
         controllerVC.viewModel.ticketSellCount = MySellViewModel.TicketShowModelSellCount(model)
@@ -204,13 +204,13 @@ class MySellViewModel: NSObject {
     }
     
     func tableViewCellOrderManagerTableViewCell(_ cell:OrderManagerTableViewCell, indexPath:IndexPath) {
-        let model = TicketShowModel.init(fromDictionary: ticketShowModel[indexPath.section] as! NSDictionary)
+        let model = ticketShowModel[indexPath.section] as! TicketShowModel
         cell.setData(MySellViewModel.TicketShowModelTitle(model), cover: MySellViewModel.TicketShowModelCover(model), session: MySellViewModel.TicketShowModelSession(model), much: MySellViewModel.TicketShowModelTicketName(model), remainCount: MySellViewModel.TicketShowModelSellCount(model), soldCount: MySellViewModel.TicketShowModelSoldCount(model), isMoreTicket: self.TicketShowModelIsMoreTicket(model))
     }
     
     func tableViewCellMySellManagerMuchTableViewCell(_ cell:MySellManagerMuchTableViewCell, indexPath:IndexPath) {
         if ticketShowModel.count != 0 {
-            let model = TicketShowModel.init(fromDictionary: ticketShowModel[indexPath.section] as! NSDictionary)
+            let model = ticketShowModel[indexPath.section] as! TicketShowModel
             let priceModel = MySellViewModel.sellManagerMinMaxPrice(model)
             if priceModel.minPrice != priceModel.maxPrice {
                 cell.setMuchLabelText("\((priceModel.minPrice))-\((priceModel.maxPrice))")
@@ -235,7 +235,8 @@ class MySellViewModel: NSObject {
                 if self.mySellManager.tableView == nil {
                     self.mySellManager.setUpView()
                 }
-                self.ticketShowModel = NSMutableArray.mj_objectArray(withKeyValuesArray: resultDic.value)
+                self.ticketShowModel = self.genderTicketShowModel(ticketShow: NSMutableArray.mj_objectArray(withKeyValuesArray: resultDic.value))
+                
                 //            self.genderTicketShowModel(NSMutableArray.mj_objectArrayWithKeyValuesArray(resultDic))
                 if self.mySellManager.tableView.mj_header != nil {
                     self.mySellManager.tableView.mj_header.endRefreshing()
@@ -243,6 +244,27 @@ class MySellViewModel: NSObject {
                 self.mySellManager.tableView.reloadData()
             }
         }
+    }
+    
+    func genderTicketShowModel(ticketShow:NSMutableArray) -> NSMutableArray{
+        let tempArray = NSMutableArray.init()
+        for model in ticketShow {
+            let model = TicketShowModel.init(fromDictionary: model as! NSDictionary)
+            var sessions:[ShowSessionModel] = []
+            for session in model.sessionList {
+                var ticketList:[TicketList] = []
+                for ticket in session.ticketList {
+                    if ticket.remainCount != 0 {
+                        ticketList.append(ticket)
+                    }
+                }
+                session.ticketList = ticketList
+                sessions.append(session)
+            }
+            model.sessionList = sessions
+            tempArray.add(model)
+        }
+        return tempArray
     }
     
 //    func genderTicketShowModel(ticketShows:NSMutableArray){

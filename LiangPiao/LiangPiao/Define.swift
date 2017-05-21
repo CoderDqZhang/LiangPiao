@@ -26,6 +26,8 @@ let AnimationTime = 0.3
 
 let TitleLineSpace:Float = 3.0
 
+//搜索历史保存文件地址
+let SearchHistoryDataPath = "SearchHistory.data"
 
 let WeiXinPayStatues = "WeiXinPayStatuesChange"
 let AliPayStatues = "AliPayStatuesChange"

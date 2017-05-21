@@ -17,6 +17,7 @@ class GlobalSearchTableView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.setUpView()
+        
     }
     
     func setUpView(){
@@ -31,16 +32,22 @@ class GlobalSearchTableView: UIView {
         tableView.keyboardDismissMode = .onDrag
         tableView.register(RecommendTableViewCell.self, forCellReuseIdentifier: "RecommendTableViewCell")
         tableView.register(SellRecommondTableViewCell.self, forCellReuseIdentifier: "SellRecommondTableViewCell")
+        tableView.register(SearchHistoryTableViewCell.self, forCellReuseIdentifier: "SearchHistoryTableViewCell")
+
         self.addSubview(tableView)
         
         tableView.snp.makeConstraints { (make) in
             make.edges.equalTo(UIEdgeInsetsMake(0, 0, 0, 0))
         }
-        
+         self.bindViewModel()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func bindViewModel(){
+        viewModel.tableView = self.tableView
     }
 }
 extension GlobalSearchTableView : UITableViewDelegate {
@@ -52,10 +59,11 @@ extension GlobalSearchTableView : UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        if self.searchDidSelectClouse != nil {
-//            self.searchDidSelectClouse(indexPath:indexPath)
-//        }
+
         return viewModel.searchTablaTableViewDidSelectRowAtIndexPath(indexPath)
+    }
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return viewModel.searchTablaTableViewHeightForHeaderInSection(section)
     }
 }
 extension GlobalSearchTableView : UITableViewDataSource {
@@ -69,9 +77,14 @@ extension GlobalSearchTableView : UITableViewDataSource {
             viewModel.searchTableCellData(cell, indexPath: indexPath)
             cell.selectionStyle = .none
             return cell
-        }else{
+        }else if viewModel.searchType == .ticketSell{
             let cell = tableView.dequeueReusableCell(withIdentifier: "SellRecommondTableViewCell", for: indexPath) as! SellRecommondTableViewCell
             viewModel.searchTableCellDatas(cell, indexPath: indexPath)
+            cell.selectionStyle = .none
+            return cell
+        }else{
+            let cell = tableView.dequeueReusableCell(withIdentifier: "SearchHistoryTableViewCell", for: indexPath) as! SearchHistoryTableViewCell
+            viewModel.searchHistoryCell(cell, indexPath: indexPath)
             cell.selectionStyle = .none
             return cell
         }
