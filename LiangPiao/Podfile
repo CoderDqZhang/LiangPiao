@@ -26,6 +26,7 @@ target 'LiangPiao' do
     pod 'Crashlytics'
 #    pod 'HanekeSwift'
 #    pod "Qiniu", "~> 7.1"
+    pod 'JPush'
     pod 'MJRefresh'
     pod 'MJExtension'
     pod 'AMapLocation' #定位SDK

@@ -39,7 +39,7 @@ class MyTicketPutUpViewModel: NSObject {
     var ticketNumber:NSInteger = 0
     var ticketShowModel:TicketShowModel!
     var selectSession:NSInteger = 100
-    var tempList:[TicketList]!
+    var tempList:[TicketList] = []
     var sesstionModels = [ShowSessionModel]()
     var tempSessionModel = NSMutableArray()
     var temListArray = NSMutableArray()
@@ -268,7 +268,7 @@ class MyTicketPutUpViewModel: NSObject {
                 self.ticketShowModel.sessionList[self.selectSession].ticketList[indexPath.row - 3] = ticketModel
             }
             self.controller.tableView.reloadRows(at: [indexPath], with: .automatic)
-            if self.myTicketPutUpViewModelClouse != nil {
+            if self.myTicketPutUpViewModelClouse != nil && !self.isSellTicketVC {
                 self.myTicketPutUpViewModelClouse(self.ticketShowModel)
             }
         }
@@ -300,10 +300,11 @@ class MyTicketPutUpViewModel: NSObject {
                 self.getPriceArray(self.tempList)
                 self.getRowArray(self.tempList)
                 if self.tempList.count != 1 {
-                    let session = self.picketCell.viewWithTag(self.selectSession + 10) as! TicketSession
-                    session.type = 2
-                    self.picketCell.updateSession(self.selectSession + 10)
+                    
                 }
+                let session = self.picketCell.viewWithTag(self.selectSession + 10) as! TicketSession
+                session.type = 2
+                self.picketCell.updateSession(self.selectSession + 10)
                 
                 self.controller.tableView.reloadData()
             }else{
@@ -317,7 +318,7 @@ class MyTicketPutUpViewModel: NSObject {
                 }
                 self.controller.tableView.insertRows(at: [IndexPath.init(row: self.tempList.count + 2, section: 0)], with: .automatic)
             }
-            if self.myTicketPutUpViewModelClouse != nil {
+            if self.myTicketPutUpViewModelClouse != nil && !self.isSellTicketVC{
                 self.myTicketPutUpViewModelClouse(self.ticketShowModel)
             }
         }
@@ -486,7 +487,7 @@ class MyTicketPutUpViewModel: NSObject {
                         //                    }
                     }
                 }
-                if self.myTicketPutUpViewModelClouse != nil {
+                if self.myTicketPutUpViewModelClouse != nil && !self.isSellTicketVC{
                     self.myTicketPutUpViewModelClouse(self.ticketShowModel)
                 }
             }

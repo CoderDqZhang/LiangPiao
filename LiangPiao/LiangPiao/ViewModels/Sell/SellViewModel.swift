@@ -11,6 +11,7 @@ import UIKit
 class SellViewModel: NSObject {
 
     var controller:SellTicketsViewController!
+    var tempModels = NSMutableArray()
     var models = NSMutableArray()
     
     override init() {
@@ -61,12 +62,15 @@ class SellViewModel: NSObject {
     }
     
     func pushSellViewController(_ indexPath:IndexPath){
+        self.models.removeAllObjects()
+        self.models = self.tempModels
         let model = TicketShowModel.init(fromDictionary: self.models.object(at: indexPath.row) as! NSDictionary)
         if model.sessionCount != 1 {
-            let controllerVC = TicketSceneViewController()
-            controllerVC.viewModel.model = model
-            controllerVC.viewModel.isSellType = true
-            NavigationPushView(self.controller, toConroller: controllerVC)
+//            let controllerVC = TicketSceneViewController()
+//            controllerVC.viewModel.model = model
+//            controllerVC.viewModel.isSellType = true
+//            NavigationPushView(self.controller, toConroller: controllerVC)
+            self.showMyTicketPutUpViewController(model)
         }else{
             self.showMyTicketPutUpViewController(model)
             
@@ -74,7 +78,7 @@ class SellViewModel: NSObject {
     }
     
     func numberOfRowsInSection(_ section:Int) -> Int {
-        return models.count
+        return self.tempModels.count
     }
     
     func numberOfSectionsInTableView() -> Int {
@@ -82,7 +86,7 @@ class SellViewModel: NSObject {
     }
     
     func tableViewtableViewSellRecommondTableViewCell(_ cell:SellRecommondTableViewCell, indexPath:IndexPath) {
-        let model = self.models.object(at: indexPath.row)
+        let model = self.tempModels.object(at: indexPath.row)
         cell.setData(TicketShowModel.init(fromDictionary: model as! NSDictionary))
     }
     
@@ -91,6 +95,7 @@ class SellViewModel: NSObject {
             if !resultDic.isCompleted {
                 let resultModels =  NSMutableArray.mj_objectArray(withKeyValuesArray: resultDic.value)
                 self.models = resultModels?.mutableCopy() as! NSMutableArray
+                self.tempModels = self.models.mutableCopy() as! NSMutableArray
                 self.controller.tableView.reloadData()
                 if self.controller.tableView.mj_header != nil {
                     self.controller.tableView.mj_header.endRefreshing()
@@ -105,26 +110,22 @@ class SellViewModel: NSObject {
             if !resultDic.isCompleted {
                 let sessionList = NSMutableArray.mj_objectArray(withKeyValuesArray: (resultDic.value as! NSDictionary).object(forKey: "session_list"))
                 var sessions:[ShowSessionModel] = []
-                for session in sessionList!{
-                    sessions.append(ShowSessionModel.init(fromDictionary: session as! NSDictionary))
+                if (sessionList?.count)! > 0 {
+                    for session in sessionList!{
+                        sessions.append(ShowSessionModel.init(fromDictionary: session as! NSDictionary))
+                    }
+                }else{
+                    if model.session == nil {
+                        self.requestSessionList(model)
+                        return
+                    }
+                    sessions.append(model.session)
                 }
+                
                 model.sessionList = sessions
                 self.genderTicketShowModel(ticketShow: model)
                 if (sessions[0].ticketList.count > 0) {
-                    let controllerVC = MyTicketPutUpViewController()
-                    controllerVC.viewModel.ticketShowModel = model
-                    controllerVC.viewModel.ticketSellCount = MySellViewModel.TicketShowModelSellCount(model)
-                    controllerVC.viewModel.ticketSoldCount = MySellViewModel.TicketShowModelSoldCount(model)
-                    let priceModel = MySellViewModel.sellManagerMinMaxPrice(model)
-                    var ticketMuch = ""
-                    if priceModel.minPrice != priceModel.maxPrice {
-                        ticketMuch = "\(priceModel.minPrice)-\(priceModel.maxPrice)"
-                    }else{
-                        ticketMuch = "\(priceModel.minPrice)"
-                    }
-                    controllerVC.viewModel.ticketSoldMuch = ticketMuch
-                    controllerVC.viewModel.ticketSession = MySellViewModel.TicketShowModelSession(model)
-                    NavigationPushView(self.controller, toConroller: controllerVC)
+                    self.pushPutController(model, isNoneTicke: false)
                 }else{
                     self.pushMySellConfirmVC(model)
                 }
@@ -141,6 +142,42 @@ class SellViewModel: NSObject {
         controllerVC.viewModel.setUpViewModel()
         NavigationPushView(self.controller, toConroller: controllerVC)
     }
+    
+    func requestSessionList(_ model:TicketShowModel){
+        let url = "\(TickeSession)\((model.id)!)/session"
+        BaseNetWorke.sharedInstance.getUrlWithString(url, parameters: nil).observe { (resultDic) in
+            if !resultDic.isCompleted {
+                let resultModels =  NSMutableArray.mj_objectArray(withKeyValuesArray: resultDic.value)
+                self.models = resultModels?.mutableCopy() as! NSMutableArray
+                let session = ShowSessionModel.init(fromDictionary: self.models[0] as! NSDictionary)
+                var sessions:[ShowSessionModel] = []
+                sessions.append(session)
+                model.sessionList = sessions
+                self.pushPutController(model, isNoneTicke:true)
+            }
+        }
+    }
+    
+    func pushPutController(_ model:TicketShowModel, isNoneTicke:Bool){
+        let controllerVC = MyTicketPutUpViewController()
+        controllerVC.viewModel.ticketShowModel = model
+        if isNoneTicke {
+            controllerVC.viewModel.tempSelect = 0
+        }
+        controllerVC.viewModel.ticketSellCount = MySellViewModel.TicketShowModelSellCount(model)
+        controllerVC.viewModel.ticketSoldCount = MySellViewModel.TicketShowModelSoldCount(model)
+        let priceModel = MySellViewModel.sellManagerMinMaxPrice(model)
+        var ticketMuch = ""
+        if priceModel.minPrice != priceModel.maxPrice {
+            ticketMuch = "\(priceModel.minPrice)-\(priceModel.maxPrice)"
+        }else{
+            ticketMuch = "\(priceModel.minPrice)"
+        }
+        controllerVC.viewModel.ticketSoldMuch = ticketMuch
+        controllerVC.viewModel.ticketSession = MySellViewModel.TicketShowModelSession(model)
+        NavigationPushView(self.controller, toConroller: controllerVC)
+    }
+    
     
     func genderTicketShowModel(ticketShow:TicketShowModel){
         var ticketList:[TicketList] = []

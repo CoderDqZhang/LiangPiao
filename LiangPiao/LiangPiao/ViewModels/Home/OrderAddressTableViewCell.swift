@@ -109,6 +109,7 @@ class OrderConfirmAddressTableViewCell: UITableViewCell {
             orderAddress.snp.makeConstraints({ (make) in
                 make.top.equalTo(self.orderName.snp.bottom).offset(1)
                 make.left.equalTo(self.contentView.snp.left).offset(15)
+                make.right.equalTo(self.contentView.snp.right).offset(-15)
                 make.bottom.equalTo(self.contentView.snp.bottom).offset(-15)
             })
             

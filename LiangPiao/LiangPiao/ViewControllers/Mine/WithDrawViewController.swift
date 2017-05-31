@@ -138,6 +138,7 @@ extension WithDrawViewController : UITableViewDataSource {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "WithDrawTableViewCell", for: indexPath) as! WithDrawTableViewCell
                 cell.muchTextField.tag = indexPath.row
                 cell.muchTextField.delegate = self
+                cell.muchTextField.keyboardType = .numberPad
                 cell.setPlachText(viewModel.maxMuch)
                 cell.muchTextField.textColor = UIColor.init(hexString: App_Theme_384249_Color)
                 cell.muchTextField.reactive.continuousTextValues.observeValues({ (str) in

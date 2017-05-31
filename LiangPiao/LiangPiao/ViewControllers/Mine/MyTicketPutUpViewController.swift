@@ -8,8 +8,6 @@
 
 import UIKit
 
-
-
 class MyTicketPutUpViewController: UIViewController {
 
     var tableView:UITableView!
@@ -68,6 +66,22 @@ class MyTicketPutUpViewController: UIViewController {
             make.left.equalTo(self.view.snp.left).offset(0)
             make.right.equalTo(self.view.snp.right).offset(0)
             make.bottom.equalTo(self.view.snp.bottom).offset(-bottomView.frame.size.height)
+        }
+    }
+    
+    override func backBtnPress(_ sender:UIButton){
+        self.view.endEditing(true)
+        var controllerVC:MySellPagerViewController?
+        for controller in (self.navigationController?.viewControllers)! {
+            if controller is MySellPagerViewController {
+                controllerVC = controller as? MySellPagerViewController
+                break
+            }
+        }
+        if controllerVC != nil {
+            self.navigationController?.popToViewController(controllerVC!, animated: true)
+        }else{
+            self.navigationController?.popToRootViewController(animated: true)
         }
     }
     

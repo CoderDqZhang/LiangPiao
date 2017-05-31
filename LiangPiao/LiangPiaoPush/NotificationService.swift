@@ -61,7 +61,7 @@ class NotificationService: UNNotificationServiceExtension {
                 let saveName = path?.appending("/pushImage\(fileExt)")
                 let image = UIImage.init(data: data!)
                 do {
-                    try UIImageJPEGRepresentation(image!, 1.0)?.write(to: NSURL.init(string: saveName!) as! URL, options: Data.WritingOptions.atomicWrite)
+                    try UIImageJPEGRepresentation(image!, 1.0)?.write(to: NSURL.init(string: saveName!)! as URL, options: Data.WritingOptions.atomicWrite)
                     var attachment:UNNotificationAttachment
                     try  attachment = UNNotificationAttachment(identifier: "remote-atta1", url: NSURL.init(fileURLWithPath: saveName!) as URL, options: nil)
                     completionHandle(attachment)

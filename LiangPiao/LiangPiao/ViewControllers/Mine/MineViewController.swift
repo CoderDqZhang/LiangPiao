@@ -12,7 +12,9 @@ class MineViewController: BaseViewController {
 
     var tableView:UITableView!
     var cell:MineHeadTableViewCell!
+    
     let viewModel = MineViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUpView()
@@ -56,6 +58,7 @@ class MineViewController: BaseViewController {
             self.tableView.reloadRows(at: [IndexPath.init(row: 0, section: 0)], with: .automatic)
         }
 
+        viewModel.controller = self
     }
     /*
     // MARK: - Navigation
@@ -66,7 +69,17 @@ class MineViewController: BaseViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    
+    func createCustomLabel() -> UILabel{
+        let label = UILabel.init()
+        label.textColor = UIColor.init(hexString: App_Theme_FFFFFF_Color)
+        label.layer.cornerRadius = 10
+        label.layer.masksToBounds = true
+        label.font = App_Theme_PinFan_M_11_Font
+        label.textAlignment = .center
+        label.backgroundColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
+        return label
+    }
 }
 
 extension MineViewController : UITableViewDelegate {
@@ -126,7 +139,7 @@ extension MineViewController : UITableViewDataSource {
                 return cell
             default:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "GloabImageTitleAndImageCell", for: indexPath) as! GloabImageTitleAndImageCell
-                cell.setData(viewModel.cellTitle(indexPath.row), infoImage: viewModel.cellImage(indexPath.row))
+                viewModel.tableViewGloabImageTitleAndImageCell(cell, indexPath:indexPath)
                 cell.selectionStyle = .none
                 return cell
             }

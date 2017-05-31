@@ -448,14 +448,22 @@ class MySellConfimViewModel: NSObject {
             }
         }
         
-        cell.ticketTicketSellClouse = { tap, label in
-            UIAlertController.shwoAlertControl(self.controller, style: .alert, title: "提示", message: "现票必须保证72小时内发货，期票发货时间需与买家商议。现票快递类违约不能付票，每张赔付50元，期票违约每张赔付100元.", cancel: "取消", doneTitle: "确定", cancelAction: {
-                
+        if self.sellTicketModel.needDeposit && self.isChange{
+            cell.ticketTicketSellClouse = { tap, label in
+                UIAlertController.shwoAlertControl(self.controller, style: .alert, title: "该票绑定了押金，状态不可更改哦", message: nil, cancel: nil, doneTitle: "我知道了", cancelAction: {
+                    
+                }, doneAction: {
+                })
+            }
+        }else{
+            cell.ticketTicketSellClouse = { tap, label in
+                UIAlertController.shwoAlertControl(self.controller, style: .alert, title: "提示", message: "现票必须保证72小时内发货，期票发货时间需与买家商议。现票快递类违约不能付票，每张赔付50元，期票违约每张赔付100元.", cancel: "取消", doneTitle: "确定", cancelAction: {
+                    
                 }, doneAction: {
                     cell.updataLabel(label)
-            })
+                })
+            }
         }
-        
     }
     
     func tableViewGloabTitleAndSwitchBarTableViewCell(_ cell:GloabTitleAndSwitchBarTableViewCell) {
@@ -675,16 +683,13 @@ class MySellConfimViewModel: NSObject {
             if !resultDic.isCompleted {
                 let sessionList = NSMutableArray.mj_objectArray(withKeyValuesArray: (resultDic.value as! NSDictionary).object(forKey: "session_list"))
                 var sessions:[ShowSessionModel] = []
-                for session in sessionList!{
-                    sessions.append(ShowSessionModel.init(fromDictionary: session as! NSDictionary))
+                if (sessionList?.count)! > 0 {
+                    for session in sessionList!{
+                        sessions.append(ShowSessionModel.init(fromDictionary: session as! NSDictionary))
+                    }
+                }else{
+                    sessions.append(model.session)
                 }
-//                var controllerVC:MyTicketPutUpViewController?
-//                for controllers in (self.controller.navigationController?.viewControllers)! {
-//                    if controllers is MyTicketPutUpViewController {
-//                        controllerVC = controllers as? MyTicketPutUpViewController
-//                        break
-//                    }
-//                }
                 model.sessionList = sessions
                 self.genderTicketShowModel(ticketShow: model)
                 let controllerVC = MyTicketPutUpViewController()
@@ -727,9 +732,11 @@ class MySellConfimViewModel: NSObject {
     //处理售罄类的票
     func genderTicketShowModel(ticketShow:TicketShowModel){
         var ticketList:[TicketList] = []
-        for ticket in ticketShow.sessionList[0].ticketList {
-            if ticket.remainCount != 0 {
-                ticketList.append(ticket)
+        if ticketShow.sessionList.count != 0 {
+            for ticket in ticketShow.sessionList[0].ticketList {
+                if ticket.remainCount != 0 {
+                    ticketList.append(ticket)
+                }
             }
         }
         ticketShow.sessionList[0].ticketList = ticketList

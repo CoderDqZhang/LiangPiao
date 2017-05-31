@@ -8,6 +8,8 @@
 
 import UIKit
 
+typealias SearchHistoryTableViewCellClouse = (_ tag:NSInteger, _ text:String) -> Void
+
 class SearchHistoryTableViewCell: UITableViewCell {
 
     var searchTitle:UILabel!
@@ -15,6 +17,7 @@ class SearchHistoryTableViewCell: UITableViewCell {
     let detailImage = UIImageView()
     var lineLabel:GloabLineView!
     
+    var searchHistoryTableViewCellClouse:SearchHistoryTableViewCellClouse!
     var didMakeConstraints:Bool = false
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
@@ -40,16 +43,26 @@ class SearchHistoryTableViewCell: UITableViewCell {
         
         closeBtn = UIButton.init(type: .custom)
         closeBtn.setImage(UIImage.init(named: "Btn_Close_Normal"), for: .normal)
+        closeBtn.reactive.controlEvents(.touchUpInside).observe { (action) in
+            if self.searchHistoryTableViewCellClouse != nil {
+                self.searchHistoryTableViewCellClouse(self.closeBtn.tag, self.searchTitle.text!)
+            }
+        }
         self.contentView.addSubview(closeBtn)
         
         self.updateConstraintsIfNeeded()
     }
     
-    func setData(_ title:String) {
+    func setData(_ title:String, indexPath:IndexPath) {
         
         searchTitle.text = title
+        closeBtn.tag = indexPath.row
         self.updateConstraintsIfNeeded()
     }
+    
+//    func updateCellButtonTag(_ tag: NSInteger) {
+//        
+//    }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

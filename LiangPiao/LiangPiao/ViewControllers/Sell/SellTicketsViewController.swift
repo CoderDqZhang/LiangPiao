@@ -58,7 +58,11 @@ class SellTicketsViewController: BaseViewController {
         self.view.addSubview(tableView)
         
         tableView.snp.makeConstraints { (make) in
-            make.edges.equalTo(UIEdgeInsetsMake(64, 0, -44, 0))
+            make.top.equalTo(self.view.snp.top).offset(64)
+            make.left.equalTo(self.view.snp.left).offset(0)
+            make.right.equalTo(self.view.snp.right).offset(0)
+            make.bottom.equalTo(self.view.snp.bottom).offset(-49)
+//            make.edges.equalTo(UIEdgeInsetsMake(64, 0, -44, 0))
         }
         self.setUpRefreshData()
     }
@@ -79,6 +83,10 @@ class SellTicketsViewController: BaseViewController {
             self.searchBarView.frame = CGRect.init(x: 0, y: -64, width: SCREENWIDTH, height: 64)
             self.searchNavigationBar.frame = CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 64)
             }, completion: { completion in
+                self.searchViewModel.searchType = .ticketSellHistory
+                if self.searchTableView != nil {
+                    self.searchTableView.bindViewModel()
+                }
                 self.searchNavigationBar.searchField.becomeFirstResponder()
         })
     }
@@ -109,8 +117,14 @@ class SellTicketsViewController: BaseViewController {
             }
         }
 
+        //搜索按钮取消
         searchViewModel.searchViewModelClouse = { _ in
             self.view.endEditing(true)
+        }
+        
+        //搜索历史
+        searchViewModel.searchViewSellHistoryModelClouse = { str in
+            self.searchNavigationBar.searchField.text = str
         }
     }
     
@@ -127,7 +141,7 @@ class SellTicketsViewController: BaseViewController {
     
     func setSearchNavigatioBarClouse(){
         searchNavigationBar.searchTextFieldBecomFirstRespoder = { _ in
-            self.searchViewModel.searchType = .ticketSellHistory
+//            self.searchViewModel.searchType = .ticketSellHistory
             if self.searchTableView == nil {
                 self.searchTableView = GlobalSearchTableView(frame: CGRect(x: 0, y: self.searchNavigationBar.frame.maxY, width: SCREENWIDTH, height: SCREENHEIGHT - self.searchNavigationBar.frame.maxY))
                 self.view.addSubview(self.searchTableView)

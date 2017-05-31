@@ -64,8 +64,10 @@ class AddressViewModel: NSObject {
                     let cell = tableView.cellForRow(at: indexPath) as! AddressTableViewCell
                     cell.updateSelectImage(true)
                 }else{
-                    let cell = tableView.cellForRow(at: IndexPath(row: i, section: indexPath.section)) as! AddressTableViewCell
-                    cell.updateSelectImage(false)
+                    if tableView.cellForRow(at: IndexPath(row: i, section: indexPath.section)) != nil {
+                        let cell = tableView.cellForRow(at: IndexPath(row: i, section: indexPath.section)) as! AddressTableViewCell
+                        cell.updateSelectImage(false)
+                    }
                 }
             }
             

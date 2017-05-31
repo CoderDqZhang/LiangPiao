@@ -14,7 +14,11 @@ enum SearchType {
     case ticketShowHistory
     case ticketSellHistory
 }
+
 typealias SearchViewModelClouse = () ->Void
+typealias SearchViewShowHistoryModelClouse = (_ str:String) ->Void
+typealias SearchViewSellHistoryModelClouse = (_ str:String) ->Void
+
 
 class SearchViewModel: NSObject {
 
@@ -27,6 +31,9 @@ class SearchViewModel: NSObject {
     var searchStr:String = ""
     var searchHistory:SearchHistory!
     var tableView:UITableView!
+    var gloableTable:GlobalSearchTableView!
+    var searchViewShowHistoryModelClouse:SearchViewShowHistoryModelClouse!
+    var searchViewSellHistoryModelClouse:SearchViewSellHistoryModelClouse!
     
     fileprivate override init() {
         super.init()
@@ -41,12 +48,30 @@ class SearchViewModel: NSObject {
         
         if searchType == .ticketShowModel {
             var strings  = searchHistory.showSearchHistory
-            strings.append(self.searchStr)
-            searchHistory.showSearchHistory = strings
+            var ret:Bool = true
+            for str in strings {
+                if str == self.searchStr {
+                    ret = false
+                    break
+                }
+            }
+            if ret {
+                strings.append(self.searchStr)
+                searchHistory.showSearchHistory = strings
+            }
         }else if searchType == .ticketSell {
             var strings  = searchHistory.sellSearchHistory
-            strings.append(self.searchStr)
-            searchHistory.sellSearchHistory = strings
+            var ret:Bool = true
+            for str in strings {
+                if str == self.searchStr {
+                    ret = false
+                    break
+                }
+            }
+            if ret {
+                strings.append(self.searchStr)
+                searchHistory.sellSearchHistory = strings
+            }
         }
         SearchHistory.shareInstance.saveData(searchHistory: searchHistory)
     }
@@ -102,35 +127,38 @@ class SearchViewModel: NSObject {
     func searchTablaTableViewDidSelectRowAtIndexPath(_ indexPath:IndexPath ) {
         self.saveSearchHistory()
         if searchType == .ticketShowModel {
-            let searchTicke = searchModel.showList[indexPath.row]
-            GloableSetEvent("HomeSearch", lable: "HomeSearch", parameters: searchTicke.toDictionary())
-            self.controller.view.endEditing(true)
-            if searchTicke.sessionCount == 1 {
-                let controllerVC = TicketDescriptionViewController()
-                controllerVC.viewModel.ticketModel = searchTicke
-                NavigationPushView(controller, toConroller: controllerVC)
-            }else{
-                let controllerVC = TicketSceneViewController()
-                controllerVC.viewModel.model = searchTicke
-                NavigationPushView(controller, toConroller: controllerVC)
+            if searchModel != nil {
+                let searchTicke = searchModel.showList[indexPath.row]
+                GloableSetEvent("HomeSearch", lable: "HomeSearch", parameters: searchTicke.toDictionary())
+                self.controller.view.endEditing(true)
+                if searchTicke.sessionCount == 1 {
+                    let controllerVC = TicketDescriptionViewController()
+                    controllerVC.viewModel.ticketModel = searchTicke
+                    NavigationPushView(controller, toConroller: controllerVC)
+                }else{
+                    let controllerVC = TicketSceneViewController()
+                    controllerVC.viewModel.model = searchTicke
+                    NavigationPushView(controller, toConroller: controllerVC)
+                }
             }
-            
         }else if searchType == .ticketSell {
             if UserInfoModel.isLoggedIn() {
                 GloableSetEvent("SellSearch", lable: "SellSearch", parameters: sellSearchModel.showList[indexPath.row].toDictionary())
                 if UserInfoModel.shareInstance().role == "supplier" {
-                    let model = sellSearchModel.showList[indexPath.row]
-                    if model.sessionCount != 1 {
-                        let controllerVC = TicketSceneViewController()
-                        controllerVC.viewModel.model = model
-                        controllerVC.viewModel.isSellType = true
-                        NavigationPushView(controllerS, toConroller: controllerVC)
-                    }else{
-                        let controllerVC = MySellConfimViewController()
-                        controllerVC.viewModel.model = model
-                        controllerVC.viewModel.isChange = false
-                        controllerVC.viewModel.setUpViewModel()
-                        NavigationPushView(controllerS, toConroller: controllerVC)
+                    if sellSearchModel != nil {
+                        let model = sellSearchModel.showList[indexPath.row]
+                        if model.sessionCount != 1 {
+                            let controllerVC = TicketSceneViewController()
+                            controllerVC.viewModel.model = model
+                            controllerVC.viewModel.isSellType = true
+                            NavigationPushView(controllerS, toConroller: controllerVC)
+                        }else{
+                            let controllerVC = MySellConfimViewController()
+                            controllerVC.viewModel.model = model
+                            controllerVC.viewModel.isChange = false
+                            controllerVC.viewModel.setUpViewModel()
+                            NavigationPushView(controllerS, toConroller: controllerVC)
+                        }
                     }
                 }else{
                     UIAlertController.shwoAlertControl(controller, style: .alert, title: "您还非商家哦，可联系客服400-873-8011", message: nil, cancel: "取消", doneTitle: "联系客服", cancelAction: {
@@ -141,6 +169,14 @@ class SearchViewModel: NSObject {
                 }
             }else{
                 NavigationPushView(controllerS, toConroller: LoginViewController())
+            }
+        }else if searchType == .ticketShowHistory {
+            if searchViewShowHistoryModelClouse != nil {
+                searchViewShowHistoryModelClouse(searchHistory.showSearchHistory[indexPath.row])
+            }
+        }else if searchType == .ticketSellHistory {
+            if searchViewSellHistoryModelClouse != nil {
+                searchViewSellHistoryModelClouse(searchHistory.sellSearchHistory[indexPath.row])
             }
         }
         
@@ -166,19 +202,40 @@ class SearchViewModel: NSObject {
     }
     
     func searchHistoryCell(_ cell:SearchHistoryTableViewCell, indexPath:IndexPath) {
+        self.loadSearchHistory()
         if searchType == .ticketShowHistory {
-            cell.setData(self.searchHistory.showSearchHistory[indexPath.row])
+            cell.setData(self.searchHistory.showSearchHistory[indexPath.row], indexPath:indexPath)
         }else{
-            cell.setData(self.searchHistory.sellSearchHistory[indexPath.row])
+            cell.setData(self.searchHistory.sellSearchHistory[indexPath.row], indexPath:indexPath)
         }
-        cell.closeBtn.reactive.controlEvents(.touchUpInside).observe { (action) in
-            if self.searchType == .ticketShowHistory {
-                self.searchHistory.showSearchHistory.remove(at: indexPath.row)
+        cell.searchHistoryTableViewCellClouse = { tag, str in
+            self.loadSearchHistory()
+            var row:Int = 0
+            if self.searchType == .ticketShowHistory  {
+                if self.searchHistory.showSearchHistory.count > 0 {
+                    for index in  0...self.searchHistory.showSearchHistory.count - 1 {
+                        if str == self.searchHistory.showSearchHistory[index] {
+                            self.searchHistory.showSearchHistory.remove(at: index)
+                            row = index
+                            break
+                        }
+                    }
+                }
             }else if self.searchType == .ticketSellHistory {
-                self.searchHistory.sellSearchHistory.remove(at: indexPath.row)
+                if self.searchHistory.sellSearchHistory.count > 0 {
+                    for index in  0...self.searchHistory.sellSearchHistory.count - 1 {
+                        if str == self.searchHistory.sellSearchHistory[index] {
+                            self.searchHistory.sellSearchHistory.remove(at: index)
+                            row = index
+                            break
+                        }
+                    }
+                }
             }
             SearchHistory.shareInstance.saveData(searchHistory: self.searchHistory)
-            self.tableView.deleteRows(at: [indexPath], with: .fade)
+            self.tableView.beginUpdates()
+            self.tableView.deleteRows(at: [IndexPath.init(row: row, section: 0)], with: .fade)
+            self.tableView.endUpdates()
         }
     }
     
@@ -193,7 +250,7 @@ class SearchViewModel: NSObject {
         
         var url = ""
         let str = searchText.addEncoding(searchText)
-        self.searchStr = str!
+        self.searchStr = searchText
         if self.searchType == .ticketShowModel || self.searchType == .ticketShowHistory{
             if searchText == "" {
                 self.searchType = .ticketShowHistory

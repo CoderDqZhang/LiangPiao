@@ -82,16 +82,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WeiboSDKDelegate, JPUSHReg
         AMapServices.shared().apiKey = GaoDeApiKey
     }
     
+    func setJPushTag(){
+        if UserInfoModel.isLoggedIn() {
+            JPUSHService.setTags(nil, alias: UserInfoModel.shareInstance().phone, fetchCompletionHandle: { (id, tag, alias) in
+                print(id)
+                print(tag)
+                print(alias)
+            })
+      }
+    }
+    
     func addNotification(_ launchOptions:[AnyHashable: Any]?,application:UIApplication){
         
         if (UIDevice.current.systemVersion.floatValue >= 10.0) {
             // 可以自定义 categories
             let entity = JPUSHRegisterEntity.init()
+            entity.types = Int(UIUserNotificationType.sound.rawValue | UIUserNotificationType.badge.rawValue | UIUserNotificationType.alert.rawValue)
             JPUSHService.register(forRemoteNotificationConfig: entity, delegate: self)
+        
         } else if (UIDevice.current.systemVersion.floatValue >= 8.0) {
-            JPUSHService.register(forRemoteNotificationTypes: UIUserNotificationType.badge.rawValue | UIUserNotificationType.badge.rawValue | UIUserNotificationType.alert.rawValue , categories: nil)
+            JPUSHService.register(forRemoteNotificationTypes: UIUserNotificationType.sound.rawValue | UIUserNotificationType.badge.rawValue | UIUserNotificationType.alert.rawValue , categories: nil)
         }else {
-            JPUSHService.register(forRemoteNotificationTypes: UIUserNotificationType.badge.rawValue | UIUserNotificationType.badge.rawValue | UIUserNotificationType.alert.rawValue , categories: nil)
+            JPUSHService.register(forRemoteNotificationTypes: UIUserNotificationType.sound.rawValue | UIUserNotificationType.badge.rawValue | UIUserNotificationType.alert.rawValue , categories: nil)
         }
         JPUSHService.setup(withOption: launchOptions, appKey: JPushApiKey, channel: "App Store", apsForProduction: true)
     }
@@ -105,12 +117,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WeiboSDKDelegate, JPUSHReg
         completionHandler(Int(UIUserNotificationType.sound.rawValue) | Int(UIUserNotificationType.badge.rawValue) | Int(UIUserNotificationType.alert.rawValue))
     }
     
+    /*
+     userInfo 
+     {
+     "url" : "http:\/\/www.liangpiao.me\/show\/3535216740\/session\/3535216964\/",
+     "_j_business" : 1,
+     "_j_uid" : 9479888424,
+     "session_id" : 3535216964,
+     "show_id" : 3535216740,
+     "title" : "赶快来抢票",
+     "type" : "ticketDescrip",
+     "_j_msgid" : 2362856356,
+     "imageAbsoluteString" : "http:\/\/7xsatk.com1.z0.glb.clouddn.com\/507aa7a89b37541d8e34daa8ac7baf6c.jpg?imageMogr\/v2\/format\/jpg\/thumbnail\/277x373",
+     "aps" : {
+     "mutable-content" : 1,
+     "alert" : "「上海站」张学友《A CLASSIC TOUR》世界巡回演唱会",
+     "badge" : 1,
+     "sound" : "default"
+     }
+ */
     @available(iOS 10.0, *)
     func jpushNotificationCenter(_ center: UNUserNotificationCenter!, didReceive response: UNNotificationResponse!, withCompletionHandler completionHandler: (() -> Void)!) {
         let userInfo = response.notification.request.content.userInfo as NSDictionary
         if response.notification.request.trigger is UNPushNotificationTrigger {
             JPUSHService.handleRemoteNotification(userInfo as! [AnyHashable: Any])
         }
+        print("".dataTojsonString(userInfo))
         if userInfo.object(forKey: "type") != nil {
             if userInfo.object(forKey: "type") as! String == "ticketDescrip" {
                 let url = "\(TickeSession)\((userInfo.object(forKey: "show_id")!))/session/\((userInfo.object(forKey: "session_id")!))"
@@ -198,8 +230,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WeiboSDKDelegate, JPUSHReg
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         print("DEVICE TOKEN = \(deviceToken)")
+        let str = String.init(data: deviceToken, encoding: String.Encoding.utf8)
+        print(str)
         NotificationCenter.default.post(name: Foundation.Notification.Name(rawValue: DidRegisterRemoteDiviceToken), object: deviceToken)
         JPUSHService.registerDeviceToken(deviceToken)
+        self.setJPushTag()
     }
     
     private func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {

@@ -15,7 +15,10 @@ class MineViewModel: NSObject {
 
 //    var reloaTable:SignalProducer!
     var reloadTableView:ReloadTableView!
-    
+    var numberOfSell:Int = 0
+    var controller:MineViewController!
+    let cellTitle = ["我的钱包","我的卖票","想看的演出","地址管理","设置",""]
+    let cellImage = [UIImage.init(named: "Icon_Wallet")!,UIImage.init(named: "Icon_Sell")!,UIImage.init(named: "Icon_Favorite")!,UIImage.init(named: "Icon_Address")!,UIImage.init(named: "Icon_Settings")!,UIImage.init(named: "Icon_Settings")!]
     override init() {
         super.init()
         NotificationCenter.default.addObserver(self, selector: #selector(MineViewModel.reloadTaleView), name: NSNotification.Name(rawValue: LoginStatuesChange), object: nil)
@@ -58,37 +61,19 @@ class MineViewModel: NSObject {
         }
     }
     
-    func cellTitle(_ indexPathRow:Int) -> String {
-        switch indexPathRow {
-        case 0:
-            return "我的钱包"
-        case 1:
-            return "我的卖票"
-        case 2:
-            return "想看的演出"
-        case 3:
-            return "地址管理"
-        case 4:
-            return "设置"
-        default:
-            return ""
-        }
-    }
-    
-    func cellImage(_ indexPathRow:Int) -> UIImage {
-        switch indexPathRow {
-        case 0:
-            return UIImage.init(named: "Icon_Wallet")!
-        case 1:
-            return UIImage.init(named: "Icon_Sell")!
-        case 2:
-            return UIImage.init(named: "Icon_Favorite")!
-        case 3:
-            return UIImage.init(named: "Icon_Address")!
-        case 4:
-            return UIImage.init(named: "Icon_Settings")!
-        default:
-            return UIImage.init(named: "Icon_Settings")!
+    func tableViewGloabImageTitleAndImageCell(_ cell:GloabImageTitleAndImageCell,indexPath:IndexPath) {
+        cell.setData(self.cellTitle[indexPath.row], infoImage: self.cellImage[indexPath.row])
+        if indexPath.row == 1 && numberOfSell != 0 {
+            let label = controller.createCustomLabel()
+            label.text = "\(numberOfSell)"
+            let width = "\(numberOfSell)".widthWithConstrainedHeight("\(numberOfSell)", font: App_Theme_PinFan_M_11_Font!, height: 21) + 18
+            cell.contentView.addSubview(label)
+            label.snp.makeConstraints({ (make) in
+                make.centerY.equalTo(cell.contentView.snp.centerY).offset(0)
+                make.right.equalTo(cell.contentView.snp.right).offset(-39)
+                make.size.equalTo(CGSize.init(width: width, height: 21))
+            })
+            cell.contentView.updateConstraintsIfNeeded()
         }
     }
     

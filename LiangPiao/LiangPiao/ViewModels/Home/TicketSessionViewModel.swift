@@ -59,6 +59,7 @@ class TicketSessionViewModel: NSObject {
     
     func didSelectRowAtIndexPath(_ indexPath:IndexPath) {
         if isSellType {
+            model.session = ShowSessionModel.init(fromDictionary: self.models.object(at: indexPath.row) as! NSDictionary)
             self.showMyTicketPutUpViewController(model,indexPath: indexPath)
         }else{
             let controllerVC = TicketDescriptionViewController()
@@ -79,9 +80,14 @@ class TicketSessionViewModel: NSObject {
             if !resultDic.isCompleted {
                 let sessionList = NSMutableArray.mj_objectArray(withKeyValuesArray: (resultDic.value as! NSDictionary).object(forKey: "session_list"))
                 var sessions:[ShowSessionModel] = []
-                for session in sessionList!{
-                    sessions.append(ShowSessionModel.init(fromDictionary: session as! NSDictionary))
+                if (sessionList?.count)! > 0 {
+                    for session in sessionList!{
+                        sessions.append(ShowSessionModel.init(fromDictionary: session as! NSDictionary))
+                    }
+                }else{
+                    sessions.append(model.session)
                 }
+                
                 model.sessionList = sessions
                 self.genderTicketShowModel(ticketShow: model)
                 if (sessions[0].ticketList.count > 0) {

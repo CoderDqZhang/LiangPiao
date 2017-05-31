@@ -99,10 +99,14 @@ class HomeViewController: BaseViewController {
                 self.searchViewModel.requestSearchTicket(value.value as! String, searchTable: self.searchTableView)
             }
         }
-        
+        //取消按钮
         searchViewModel.searchViewModelClouse = { _ in
             self.searchNavigationBar.searchField.isHidden = false
             self.view.endEditing(true)
+        }
+        //搜索历史
+        searchViewModel.searchViewShowHistoryModelClouse = { str in
+            self.searchNavigationBar.searchField.text = str
         }
     }
     
@@ -128,7 +132,6 @@ class HomeViewController: BaseViewController {
     
     func setSearchNavigatioBarClouse(){
         searchNavigationBar.searchTextFieldBecomFirstRespoder = { _ in
-            self.searchViewModel.searchType = .ticketShowHistory
             if self.searchTableView == nil {
                 self.searchTableView = GlobalSearchTableView(frame: CGRect(x: 0, y: self.searchNavigationBar.frame.maxY, width: SCREENWIDTH, height: SCREENHEIGHT - self.searchNavigationBar.frame.maxY))
                 self.view.addSubview(self.searchTableView)
@@ -215,6 +218,10 @@ extension HomeViewController : UITableViewDataSource {
                 cell = tableView.dequeueReusableCell(withIdentifier: "HomeSearchTableViewCell", for: indexPath) as! HomeSearchTableViewCell
                 cell.location.setTitle(viewModel.locationStr, for: UIControlState())
                 cell.homeSearchTableViewCellClouse = { _ in
+                    self.searchViewModel.searchType = .ticketShowHistory
+                    if self.searchTableView != nil {
+                        self.searchTableView.bindViewModel()
+                    }
                     self.searchViewController()
                 }
                 

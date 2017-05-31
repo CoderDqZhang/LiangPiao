@@ -129,9 +129,7 @@
 		1F6BB9961DD964F900893932 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F6BB9951DD964F900893932 /* libsqlite3.0.tbd */; };
 		1F6BB9B81DD9974300893932 /* OrderAddressTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F6BB9B71DD9974300893932 /* OrderAddressTableViewCell.swift */; };
 		1F6BD0D31E29D2330068B733 /* WeiboSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1F6BD0CF1E29D2330068B733 /* WeiboSDK.bundle */; };
-		1F6BD0DF1E2A01020068B733 /* jpush-ios-3.0.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F6BD0DC1E2A01020068B733 /* jpush-ios-3.0.1.a */; };
 		1F6BD0E11E2A01C60068B733 /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F6BD0E01E2A01C60068B733 /* libicucore.tbd */; };
-		1F6BD0E51E2C8AA70068B733 /* jcore-ios-1.1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F6BD0E41E2C8AA70068B733 /* jcore-ios-1.1.0.a */; };
 		1F6BD0E71E2C94B80068B733 /* libWeiboSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F6BD0E61E2C94B80068B733 /* libWeiboSDK.a */; };
 		1F6BD0E91E2C94D60068B733 /* libTalkingData.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F6BD0E81E2C94D60068B733 /* libTalkingData.a */; };
 		1F6BD0EB1E2C94ED0068B733 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F6BD0EA1E2C94ED0068B733 /* libWeChatSDK.a */; };
@@ -466,11 +464,8 @@
 		1F6BD0CF1E29D2330068B733 /* WeiboSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = WeiboSDK.bundle; sourceTree = "<group>"; };
 		1F6BD0D01E29D2330068B733 /* WeiboSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeiboSDK.h; sourceTree = "<group>"; };
 		1F6BD0D11E29D2330068B733 /* WeiboUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeiboUser.h; sourceTree = "<group>"; };
-		1F6BD0DC1E2A01020068B733 /* jpush-ios-3.0.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "jpush-ios-3.0.1.a"; sourceTree = "<group>"; };
-		1F6BD0DD1E2A01020068B733 /* JPUSHService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPUSHService.h; sourceTree = "<group>"; };
 		1F6BD0E01E2A01C60068B733 /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
 		1F6BD0E21E2A01E10068B733 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		1F6BD0E41E2C8AA70068B733 /* jcore-ios-1.1.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "jcore-ios-1.1.0.a"; sourceTree = "<group>"; };
 		1F6BD0E61E2C94B80068B733 /* libWeiboSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeiboSDK.a; sourceTree = "<group>"; };
 		1F6BD0E81E2C94D60068B733 /* libTalkingData.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTalkingData.a; sourceTree = "<group>"; };
 		1F6BD0EA1E2C94ED0068B733 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
@@ -712,14 +707,12 @@
 				1F6BD0EB1E2C94ED0068B733 /* libWeChatSDK.a in Frameworks */,
 				1F6BB98A1DD9554700893932 /* CoreMotion.framework in Frameworks */,
 				1F6BB9961DD964F900893932 /* libsqlite3.0.tbd in Frameworks */,
-				1F6BD0DF1E2A01020068B733 /* jpush-ios-3.0.1.a in Frameworks */,
 				1FAFCA8B1E0D05390046DC9C /* TencentOpenAPI.framework in Frameworks */,
 				1F6BD0E71E2C94B80068B733 /* libWeiboSDK.a in Frameworks */,
 				1F6BB9801DD954F600893932 /* CoreText.framework in Frameworks */,
 				1F6BB97E1DD954EE00893932 /* QuartzCore.framework in Frameworks */,
 				1F6BB9761DD954CE00893932 /* libc++.tbd in Frameworks */,
 				FF939C055E3696DD0A65FE1D /* Pods_LiangPiao.framework in Frameworks */,
-				1F6BD0E51E2C8AA70068B733 /* jcore-ios-1.1.0.a in Frameworks */,
 				1F6BB9741DD954B300893932 /* AlipaySDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -963,16 +956,6 @@
 			path = libWeiboSDK;
 			sourceTree = "<group>";
 		};
-		1F6BD0DA1E2A01020068B733 /* Lib */ = {
-			isa = PBXGroup;
-			children = (
-				1F6BD0E41E2C8AA70068B733 /* jcore-ios-1.1.0.a */,
-				1F6BD0DC1E2A01020068B733 /* jpush-ios-3.0.1.a */,
-				1F6BD0DD1E2A01020068B733 /* JPUSHService.h */,
-			);
-			path = Lib;
-			sourceTree = "<group>";
-		};
 		1FA431C31E1A2D27003E9F08 /* LiangPiaoPush */ = {
 			isa = PBXGroup;
 			children = (
@@ -1149,7 +1132,6 @@
 		1FD244D81DC2FC8A00AFD3BC /* Uti */ = {
 			isa = PBXGroup;
 			children = (
-				1F6BD0DA1E2A01020068B733 /* Lib */,
 				1F6BD0C41E29D2330068B733 /* libWeiboSDK */,
 				1FAFCA871E0D052C0046DC9C /* QQ */,
 				1F0360921DE943C500594767 /* TalkingData */,

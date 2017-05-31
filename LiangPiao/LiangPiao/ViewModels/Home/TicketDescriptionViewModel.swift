@@ -88,7 +88,7 @@ class TicketDescriptionViewModel: NSObject {
         case 1:
             return 42
         default:
-            if self.model.ticketList.count == 0 {
+            if self.model != nil && self.model.ticketList != nil && self.model.ticketList.count == 0 {
                 return SCREENHEIGHT - 374
             }
             return 60

@@ -14,9 +14,7 @@ class MyWallViewModel: NSObject {
     var controller:MyWalletViewController!
     override init() {
         super.init()
-//        NotificationCenter.default.reactive.notifications(forName: Notification.Name(rawValue: BlanceNumberChange)).observe { (object) in
-//            self.requestMyWall()
-//        }
+        NotificationCenter.default.addObserver(self, selector: #selector(MyWallViewModel.requestMyWall), name: NSNotification.Name(rawValue: BlanceNumberChange), object: nil)
     }
     
     deinit {

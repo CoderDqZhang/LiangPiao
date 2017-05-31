@@ -48,6 +48,7 @@ class GlobalSearchTableView: UIView {
     
     func bindViewModel(){
         viewModel.tableView = self.tableView
+        viewModel.gloableTable = self
     }
 }
 extension GlobalSearchTableView : UITableViewDelegate {

@@ -122,6 +122,7 @@ class PicketUpSessionTableViewCell: UITableViewCell {
                 scrollerView.addSubview(sessionView)
                 if Int(selectArray[index] as! NSNumber) == 1 {
                     sessionView.upDataType(1)
+                    scrollerView.setContentOffset(CGPoint.init(x: CGFloat(index) * CGFloat(SESSIONWIDTH), y: 0), animated: true)
                 }
             }
             scrollerView.showsHorizontalScrollIndicator = false
