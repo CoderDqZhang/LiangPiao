@@ -46,6 +46,7 @@
 		1F24DE951DD5B9E100C6E8CA /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F24DE941DD5B9E100C6E8CA /* FavoriteViewController.swift */; };
 		1F24DE971DD5BA0A00C6E8CA /* FavoriteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F24DE961DD5BA0A00C6E8CA /* FavoriteViewModel.swift */; };
 		1F2A93AA1E8641D3002CC663 /* LogisticsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2A93A91E8641D3002CC663 /* LogisticsTableViewCell.swift */; };
+		1F2FCBDD1EE0028A001EAFA6 /* NetWorkingResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F2FCBDC1EE0028A001EAFA6 /* NetWorkingResponse.swift */; };
 		1F30B8C01EAF2FCC00847C7C /* DeverliyImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F30B8BF1EAF2FCC00847C7C /* DeverliyImageTableViewCell.swift */; };
 		1F3241931DF02614007BC078 /* FavoritesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3241921DF02614007BC078 /* FavoritesViewModel.swift */; };
 		1F3241951DF028E7007BC078 /* FavorityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F3241941DF028E7007BC078 /* FavorityModel.swift */; };
@@ -359,6 +360,7 @@
 		1F24DE941DD5B9E100C6E8CA /* FavoriteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
 		1F24DE961DD5BA0A00C6E8CA /* FavoriteViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteViewModel.swift; sourceTree = "<group>"; };
 		1F2A93A91E8641D3002CC663 /* LogisticsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogisticsTableViewCell.swift; sourceTree = "<group>"; };
+		1F2FCBDC1EE0028A001EAFA6 /* NetWorkingResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetWorkingResponse.swift; sourceTree = "<group>"; };
 		1F30B8BF1EAF2FCC00847C7C /* DeverliyImageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeverliyImageTableViewCell.swift; sourceTree = "<group>"; };
 		1F3241921DF02614007BC078 /* FavoritesViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesViewModel.swift; sourceTree = "<group>"; };
 		1F3241941DF028E7007BC078 /* FavorityModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavorityModel.swift; sourceTree = "<group>"; };
@@ -1269,6 +1271,7 @@
 			isa = PBXGroup;
 			children = (
 				1FD245891DC336B300AFD3BC /* BaseNetWorke.swift */,
+				1F2FCBDC1EE0028A001EAFA6 /* NetWorkingResponse.swift */,
 				1F6E0A891E7E6627007773F7 /* ExpressDeliveryNet.h */,
 				1F6E0A8A1E7E6627007773F7 /* ExpressDeliveryNet.m */,
 			);
@@ -1793,6 +1796,7 @@
 				1F62F2611DC9F1E600B591F1 /* TicketNumberTableViewCell.swift in Sources */,
 				1FB7B2961DCC2B5200945B70 /* UIImage+ImageEffects.m in Sources */,
 				1F451F0E1DF50DAD00441044 /* MySellViewModel.swift in Sources */,
+				1F2FCBDD1EE0028A001EAFA6 /* NetWorkingResponse.swift in Sources */,
 				1F24DE951DD5B9E100C6E8CA /* FavoriteViewController.swift in Sources */,
 				1FC3DDED1DE46DD700420A05 /* TicketSessionViewModel.swift in Sources */,
 				1FBFC7C51DDAAD2B008D9CEC /* LoginViewModel.swift in Sources */,

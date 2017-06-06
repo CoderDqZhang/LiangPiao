@@ -251,17 +251,22 @@ class MySellViewModel: NSObject {
         for model in ticketShow {
             let model = TicketShowModel.init(fromDictionary: model as! NSDictionary)
             var sessions:[ShowSessionModel] = []
+            var allTicket:Int = 0
             for session in model.sessionList {
                 var ticketList:[TicketList] = []
                 for ticket in session.ticketList {
                     if ticket.remainCount != 0 {
                         ticketList.append(ticket)
+                        allTicket = allTicket + ticket.remainCount
                     }
                 }
                 session.ticketList = ticketList
                 sessions.append(session)
             }
             model.sessionList = sessions
+            if allTicket == 0 {
+                continue
+            }
             tempArray.add(model)
         }
         return tempArray

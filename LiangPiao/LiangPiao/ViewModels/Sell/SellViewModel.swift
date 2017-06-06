@@ -63,7 +63,7 @@ class SellViewModel: NSObject {
     
     func pushSellViewController(_ indexPath:IndexPath){
         self.models.removeAllObjects()
-        self.models = self.tempModels
+        self.models = self.tempModels.mutableCopy() as! NSMutableArray
         let model = TicketShowModel.init(fromDictionary: self.models.object(at: indexPath.row) as! NSDictionary)
         if model.sessionCount != 1 {
 //            let controllerVC = TicketSceneViewController()
@@ -95,7 +95,7 @@ class SellViewModel: NSObject {
             if !resultDic.isCompleted {
                 let resultModels =  NSMutableArray.mj_objectArray(withKeyValuesArray: resultDic.value)
                 self.models = resultModels?.mutableCopy() as! NSMutableArray
-                self.tempModels = self.models.mutableCopy() as! NSMutableArray
+                self.tempModels = resultModels?.mutableCopy() as! NSMutableArray
                 self.controller.tableView.reloadData()
                 if self.controller.tableView.mj_header != nil {
                     self.controller.tableView.mj_header.endRefreshing()

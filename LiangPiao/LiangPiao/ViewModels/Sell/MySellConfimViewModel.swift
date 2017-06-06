@@ -61,6 +61,9 @@ class MySellConfimViewModel: NSObject {
     }
     
     func setUpViewModel(){
+        if model.session == nil {
+            model.session = model.sessionList[0]
+        }
         sellFormModel = SellFormModel.findFirst(byCriteria: "WHERE id = \((model.session.id)!)")
         if sellFormModel == nil {
             sellFormModel = SellFormModel.init()
@@ -91,6 +94,9 @@ class MySellConfimViewModel: NSObject {
     }
     
     func setUpChangeCellForm(_ ticket:TicketList){
+        if model.session == nil {
+            model.session = model.sessionList[0]
+        }
         sellFormModel = SellFormModel.findFirst(byCriteria: "WHERE id = \((model.session.id)!)")
         if sellFormModel == nil {
             sellFormModel = SellFormModel.init()
@@ -540,11 +546,13 @@ class MySellConfimViewModel: NSObject {
         cell.setData("余额：\(blance) 元", servicemuch: "押金：\(much) 元", sevicep: "保证金将于订单完成后直接返还至账户钱包中，挂单删除或下架后押金亦退还至钱包中", type: 1)
     }
     
+    //加载门票种类
     func requestSellTicket(){
         let url = "\(SellTicket)\((model.id)!)/session/\((model.session.id)!)/ticket/"
         BaseNetWorke.sharedInstance.getUrlWithString(url, parameters: nil).observe { (resultDic) in
             if !resultDic.isCompleted {
                 self.sellTicketModel = TickeSellModel.init(fromDictionary: resultDic.value as! NSDictionary)
+                //判断门票种类是否为单一
                 if self.sellTicketModel.ticketChoices.count != 0 {
                     let dic = ["id":Int64(self.sellTicketModel.ticketChoices[0][0])!,"name":self.sellTicketModel.ticketChoices[0][0],"price":100] as [String : Any]
                     self.originTicket = OriginalTicket.init(fromDictionary: dic as NSDictionary)

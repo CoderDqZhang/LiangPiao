@@ -251,14 +251,14 @@ class BaseNetWorke {
         
         Alamofire.request(url, method: methods, parameters: parameters as? [String: Any], encoding: JSONEncoding.default, headers: nil).responseJSON { (response) in
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
+            
+            NetWorkingResponse.sharedInstance.showNetWorkingResPonse(response as AnyObject)
             if response.result.error != nil{
                 failure(response.result.error! as AnyObject)
             }else{
                 if response.response?.statusCode == 200 || response.response?.statusCode == 201 {
-                    print(response.result.value ?? "")
                     success(response.result.value! as AnyObject)
                 }else{
-                    print(response.result.value ?? "")
                     failure(response.result.value! as AnyObject)
                 }
             }

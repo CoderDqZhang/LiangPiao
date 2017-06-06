@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit
 
 typealias  OrderDetailViewMoedelClouse = (_ indexPath:IndexPath, _ model:OrderList) -> Void
 class OrderDetailViewModel: NSObject {
@@ -343,16 +344,16 @@ class OrderDetailViewModel: NSObject {
             optionMenu.addAction(googleAction)
         }
         
-//        let appleAction = UIAlertAction(title: "苹果地图", style: .default, handler: {
-//            (alert: UIAlertAction!) -> Void in
-//            let loc = CLLocationCoordinate2DMake(centerLat, centerLng)
-//            let currentLocation = MKMapItem.mapItemForCurrentLocation()
-//            let toLocation = MKMapItem(placemark:MKPlacemark(coordinate:loc,addressDictionary:nil))
-//            toLocation.name = siteTitle
-//            MKMapItem.openMapsWithItems([currentLocation,toLocation], launchOptions: [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving,MKLaunchOptionsShowsTrafficKey: NSNumber(bool: true)])
-//            
-//        })
-//        optionMenu.addAction(appleAction)
+        let appleAction = UIAlertAction(title: "苹果地图", style: .default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            let loc = CLLocationCoordinate2DMake(centerLat, centerLng)
+            let currentLocation = MKMapItem.forCurrentLocation()
+            let toLocation = MKMapItem(placemark:MKPlacemark(coordinate:loc,addressDictionary:nil))
+            toLocation.name = siteTitle
+            _ = MKMapItem.openMaps(with: [currentLocation,toLocation], launchOptions: [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving,MKLaunchOptionsShowsTrafficKey: NSNumber(value: true)])
+            
+        })
+        optionMenu.addAction(appleAction)
         
         if(SHARE_APPLICATION.canOpenURL(URL(string:"baidumap://map/")!) == true){
             let baiduAction = UIAlertAction(title: "百度地图", style: .default, handler: {
