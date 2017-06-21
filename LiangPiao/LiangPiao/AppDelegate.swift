@@ -86,8 +86,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WeiboSDKDelegate, JPUSHReg
         if UserInfoModel.isLoggedIn() {
             JPUSHService.setTags(nil, alias: UserInfoModel.shareInstance().phone, fetchCompletionHandle: { (id, tag, alias) in
                 print(id)
-                print(tag)
-                print(alias)
             })
       }
     }
@@ -229,9 +227,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WeiboSDKDelegate, JPUSHReg
     }
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        print("DEVICE TOKEN = \(deviceToken)")
-        let str = String.init(data: deviceToken, encoding: String.Encoding.utf8)
-        print(str)
         NotificationCenter.default.post(name: Foundation.Notification.Name(rawValue: DidRegisterRemoteDiviceToken), object: deviceToken)
         JPUSHService.registerDeviceToken(deviceToken)
         self.setJPushTag()
