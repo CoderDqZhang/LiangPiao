@@ -12,7 +12,7 @@ import SnapKit
 class HomeBandSearchField: UITextField {
     
     override func drawPlaceholder(in rect: CGRect) {
-        super.drawPlaceholder(in: CGRect(x: 0, y: self.frame.height * 0.5 + 0.5, width: 0, height: 0))
+        super.drawPlaceholder(in: CGRect(x: 0, y: IPHONE_VERSION_LAST10 == 1 ? 10 : (self.frame.height * 0.5 + 0.5), width: 0, height: 0))
     }
     
     override func drawText(in rect: CGRect) {

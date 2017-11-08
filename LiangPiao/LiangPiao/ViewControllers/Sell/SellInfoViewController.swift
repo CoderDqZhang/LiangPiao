@@ -52,6 +52,10 @@ class SellInfoViewController: UIViewController {
         tableView.dataSource = self
         tableView.showsVerticalScrollIndicator = false
         tableView.keyboardDismissMode = .onDrag
+        tableView.contentInset.top = 0
+        tableView.estimatedRowHeight = 0;
+        tableView.estimatedSectionHeaderHeight = 0;
+        tableView.estimatedSectionFooterHeight = 0;
         tableView.register(GloabTitleAndDetailImageCell.self, forCellReuseIdentifier: "GloabTitleAndDetailImageCell")
         tableView.register(GloabTitleAndSwitchBarTableViewCell.self, forCellReuseIdentifier: "GloabTitleAndSwitchBarTableViewCell")
         tableView.register(MySellServiceTableViewCell.self, forCellReuseIdentifier: "MySellServiceTableViewCell")

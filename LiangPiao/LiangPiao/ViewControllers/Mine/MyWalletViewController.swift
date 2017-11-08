@@ -33,6 +33,10 @@ class MyWalletViewController: UIViewController {
         tableView.showsVerticalScrollIndicator = false
         tableView.keyboardDismissMode = .onDrag
         tableView.separatorStyle = .none
+        tableView.contentInset.top = 0
+        tableView.estimatedRowHeight = 0;
+        tableView.estimatedSectionHeaderHeight = 0;
+        tableView.estimatedSectionFooterHeight = 0;
         tableView.register(MyWallHeaderTableViewCell.self, forCellReuseIdentifier: "MyWallHeaderTableViewCell")
         tableView.register(MyWallToolsTableViewCell.self, forCellReuseIdentifier: "MyWallToolsTableViewCell")
         self.view.addSubview(tableView)

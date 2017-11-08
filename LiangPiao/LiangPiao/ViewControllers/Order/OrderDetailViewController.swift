@@ -46,6 +46,10 @@ class OrderDetailViewController: UIViewController {
         tableView.delegate = self
         tableView.showsVerticalScrollIndicator = false
         tableView.dataSource = self
+        tableView.contentInset.top = 0
+        tableView.estimatedRowHeight = 0;
+        tableView.estimatedSectionHeaderHeight = 0;
+        tableView.estimatedSectionFooterHeight = 0;
         tableView.keyboardDismissMode = .onDrag
         tableView.register(OrderNumberTableViewCell.self, forCellReuseIdentifier: "OrderNumberTableViewCell")
         tableView.register(TicketDetailInfoTableViewCell.self, forCellReuseIdentifier: "TicketDetailInfoTableViewCell")

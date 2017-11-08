@@ -46,6 +46,10 @@ class AddressViewController: UIViewController {
         tableView.keyboardDismissMode = .onDrag
         tableView.separatorStyle = .none
         tableView.backgroundColor = UIColor.white
+        tableView.contentInset.top = 0
+        tableView.estimatedRowHeight = 0;
+        tableView.estimatedSectionHeaderHeight = 0;
+        tableView.estimatedSectionFooterHeight = 0;
         tableView.register(AddressTableViewCell.self, forCellReuseIdentifier: "AddressTableViewCell")
         self.view.addSubview(tableView)
         tableView.snp.makeConstraints { (make) in

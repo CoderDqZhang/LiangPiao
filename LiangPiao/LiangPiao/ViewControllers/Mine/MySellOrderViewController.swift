@@ -35,6 +35,10 @@ class MySellOrderViewController: UIViewController {
         tableView.dataSource = self
         tableView.emptyDataSetDelegate = self
         tableView.emptyDataSetSource = self
+        tableView.contentInset.top = 0
+        tableView.estimatedRowHeight = 0;
+        tableView.estimatedSectionHeaderHeight = 0;
+        tableView.estimatedSectionFooterHeight = 0;
         tableView.showsVerticalScrollIndicator = false
         tableView.keyboardDismissMode = .onDrag
         tableView.separatorStyle = .none

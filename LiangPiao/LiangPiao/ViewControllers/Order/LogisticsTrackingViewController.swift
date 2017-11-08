@@ -31,6 +31,10 @@ class LogisticsTrackingViewController: UIViewController {
         tableView.showsVerticalScrollIndicator = false
         tableView.dataSource = self
         tableView.keyboardDismissMode = .onDrag
+        tableView.contentInset.top = 0
+        tableView.estimatedRowHeight = 0;
+        tableView.estimatedSectionHeaderHeight = 0;
+        tableView.estimatedSectionFooterHeight = 0;
         tableView.register(LogisticsTableViewCell.self, forCellReuseIdentifier: "LogisticsTableViewCell")
         tableView.register(DeverliyTypeTableViewCell.self, forCellReuseIdentifier: "DeverliyTypeTableViewCell")
         tableView.separatorStyle = .none

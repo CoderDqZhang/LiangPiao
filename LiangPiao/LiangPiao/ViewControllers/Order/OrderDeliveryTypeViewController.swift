@@ -31,6 +31,10 @@ class OrderDeliveryTypeViewController: UIViewController {
         tableView.showsVerticalScrollIndicator = false
         tableView.keyboardDismissMode = .onDrag
         tableView.separatorStyle = .none
+        tableView.contentInset.top = 0
+        tableView.estimatedRowHeight = 0;
+        tableView.estimatedSectionHeaderHeight = 0;
+        tableView.estimatedSectionFooterHeight = 0;
         tableView.register(OrderExpressTableViewCell.self, forCellReuseIdentifier: "OrderExpressTableViewCell")
         tableView.register(GloabTextFieldCell.self, forCellReuseIdentifier: "GloabTextFieldCell")
         tableView.register(GloabTitleAndSwitchBarTableViewCell.self, forCellReuseIdentifier: "GloabTitleAndSwitchBarTableViewCell")

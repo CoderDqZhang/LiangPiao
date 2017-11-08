@@ -37,6 +37,10 @@ class MySellConfimViewController: UIViewController {
         tableView.dataSource = self
         tableView.showsVerticalScrollIndicator = false
         tableView.keyboardDismissMode = .onDrag
+        tableView.contentInset.top = 0
+        tableView.estimatedRowHeight = 0;
+        tableView.estimatedSectionHeaderHeight = 0;
+        tableView.estimatedSectionFooterHeight = 0;
         tableView.register(MySellConfimHeaderTableViewCell.self, forCellReuseIdentifier: "MySellConfimHeaderTableViewCell")
         tableView.register(GloabTitleNumberCountTableViewCell.self, forCellReuseIdentifier: "GloabTitleNumberCountTableViewCell")
         tableView.register(MySellTicketTableViewCell.self, forCellReuseIdentifier: "MySellTicketTableViewCell")

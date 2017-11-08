@@ -41,6 +41,10 @@ class FavoriteViewController: UIViewController {
         tableView.emptyDataSetDelegate = self
         tableView.showsVerticalScrollIndicator = false
         tableView.separatorStyle = .none
+        tableView.contentInset.top = 0
+        tableView.estimatedRowHeight = 0;
+        tableView.estimatedSectionHeaderHeight = 0;
+        tableView.estimatedSectionFooterHeight = 0;
         tableView.register(RecommendTableViewCell.self, forCellReuseIdentifier: "RecommendTableViewCell")
         tableView.backgroundColor = UIColor.init(hexString: App_Theme_E9EBF2_Color)
         self.view.addSubview(tableView)

@@ -22,7 +22,7 @@ class HomeViewController: BaseViewController {
     var searchViewModel = SearchViewModel.shareInstance
     var homeRefreshView = LiangPiaoHomeRefreshHeader(frame: CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 88))
     
-    var searchNavigationBar = HomeSearchNavigationBar(frame: CGRect(x: 0,y: 0,width: SCREENWIDTH, height: 64),font:App_Theme_PinFan_L_12_Font)
+    var searchNavigationBar = HomeSearchNavigationBar(frame: CGRect(x: 0,y: 0,width: SCREENWIDTH, height: IPHONEX ? 88 : 64),font:App_Theme_PinFan_L_12_Font)
     let viewModel = HomeViewModel()
     
     override func viewDidLoad() {
@@ -48,6 +48,10 @@ class HomeViewController: BaseViewController {
         tableView.dataSource = self
         tableView.showsVerticalScrollIndicator = false
         tableView.keyboardDismissMode = .onDrag
+        tableView.contentInset.top = 0
+        tableView.estimatedRowHeight = 0;
+        tableView.estimatedSectionHeaderHeight = 0;
+        tableView.estimatedSectionFooterHeight = 0;
         tableView.backgroundColor = UIColor.init(hexString: App_Theme_E9EBF2_Color)
         tableView.register(HomeSearchTableViewCell.self, forCellReuseIdentifier: "HomeSearchTableViewCell")
         tableView.register(HomeToolsTableViewCell.self, forCellReuseIdentifier: "HomeToolsTableViewCell")
@@ -58,7 +62,7 @@ class HomeViewController: BaseViewController {
         self.view.addSubview(tableView)
         
         tableView.snp.makeConstraints { (make) in
-            make.edges.equalTo(UIEdgeInsetsMake(-20, 0, 0, 0))
+            make.edges.equalTo(UIEdgeInsetsMake(IPHONEX ? -50 : -30, 0, 0, 0))
         }
     }
     
@@ -111,7 +115,7 @@ class HomeViewController: BaseViewController {
     }
     
     func cancelSearchTable() {
-        self.searchNavigationBar.searchField.frame = CGRect(x: 20, y: 27,width: SCREENWIDTH - 40, height: 30)
+        self.searchNavigationBar.searchField.frame = CGRect(x: 20, y: IPHONEX ? 47 : 27,width: SCREENWIDTH - 40, height: 30)
         self.searchNavigationBar.cancelButton.isHidden = true
 //        if #available(iOS 10.0, *) {
 //            searchNavigationBar.backgroundColor = UIColor.init(displayP3Red: 75.0/255.0, green: 212.0/255.0, blue: 197.0/255.0, alpha: 1)

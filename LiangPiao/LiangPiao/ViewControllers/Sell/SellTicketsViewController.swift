@@ -15,7 +15,7 @@ class SellTicketsViewController: BaseViewController {
     var searchTableView:GlobalSearchTableView!
     var searchViewModel = SearchViewModel.shareInstance
     var viewModel = SellViewModel()
-    var searchNavigationBar = HomeSearchNavigationBar(frame: CGRect(x: 0,y: -64,width: SCREENWIDTH, height: 64),font:App_Theme_PinFan_L_12_Font)
+    var searchNavigationBar = HomeSearchNavigationBar(frame: CGRect(x: 0,y: IPHONEX ? -88 : -64,width: SCREENWIDTH, height: IPHONEX ? 88 : 64),font:App_Theme_PinFan_L_12_Font)
     var searchBarView:GloableSearchNavigationBarView!
     
     override func viewDidLoad() {
@@ -40,7 +40,7 @@ class SellTicketsViewController: BaseViewController {
     }
     
     func setUpView() {
-        searchBarView = GloableSearchNavigationBarView(frame: CGRect(x: 0,y: 0,width: SCREENWIDTH, height: 64), title:"挂票", searchClouse:{ _ in
+        searchBarView = GloableSearchNavigationBarView(frame: CGRect(x: 0,y: 0,width: SCREENWIDTH, height: IPHONEX ? 88 : 64), title:"挂票", searchClouse:{ _ in
             self.searchButtonPress()
         })
         self.view.addSubview(searchBarView)
@@ -52,13 +52,17 @@ class SellTicketsViewController: BaseViewController {
         tableView.emptyDataSetDelegate = self
         tableView.showsVerticalScrollIndicator = false
         tableView.keyboardDismissMode = .onDrag
+        tableView.contentInset.top = 0
+        tableView.estimatedRowHeight = 0;
+        tableView.estimatedSectionHeaderHeight = 0;
+        tableView.estimatedSectionFooterHeight = 0;
         tableView.backgroundColor = UIColor.init(hexString: App_Theme_E9EBF2_Color)
         tableView.register(SellRecommondTableViewCell.self, forCellReuseIdentifier: "SellRecommondTableViewCell")
         tableView.separatorStyle = .none
         self.view.addSubview(tableView)
         
         tableView.snp.makeConstraints { (make) in
-            make.top.equalTo(self.view.snp.top).offset(64)
+            make.top.equalTo(self.view.snp.top).offset(IPHONEX ? 88 : 64)
             make.left.equalTo(self.view.snp.left).offset(0)
             make.right.equalTo(self.view.snp.right).offset(0)
             make.bottom.equalTo(self.view.snp.bottom).offset(-49)
@@ -80,8 +84,8 @@ class SellTicketsViewController: BaseViewController {
     
     func searchButtonPress(){
         UIView.animate(withDuration: AnimationTime, animations: {
-            self.searchBarView.frame = CGRect.init(x: 0, y: -64, width: SCREENWIDTH, height: 64)
-            self.searchNavigationBar.frame = CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 64)
+            self.searchBarView.frame = CGRect.init(x: 0, y: IPHONEX ? -88 : -64, width: SCREENWIDTH, height: IPHONEX ? 88 : 64)
+            self.searchNavigationBar.frame = CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: IPHONEX ? 88 : 64)
             }, completion: { completion in
                 self.searchViewModel.searchType = .ticketSellHistory
                 if self.searchTableView != nil {
@@ -93,8 +97,8 @@ class SellTicketsViewController: BaseViewController {
     
     func cancelButtonPress(){
         UIView.animate(withDuration: AnimationTime, animations: {
-            self.searchBarView.frame = CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: 64)
-            self.searchNavigationBar.frame = CGRect.init(x: 0, y: -64, width: SCREENWIDTH, height: 64)
+            self.searchBarView.frame = CGRect.init(x: 0, y: 0, width: SCREENWIDTH, height: IPHONEX ? 88 : 64)
+            self.searchNavigationBar.frame = CGRect.init(x: 0, y: IPHONEX ? -88 : -64, width: SCREENWIDTH, height: IPHONEX ? 88 : 64)
             }, completion: { completion in
                 self.searchNavigationBar.searchField.resignFirstResponder()
         })
@@ -130,7 +134,7 @@ class SellTicketsViewController: BaseViewController {
     
     func cancelSearchTable() {
         self.cancelButtonPress()
-        self.searchNavigationBar.searchField.frame = CGRect(x: 20, y: 27,width: SCREENWIDTH - 40, height: 30)
+        self.searchNavigationBar.searchField.frame = CGRect(x: 20, y: IPHONEX ? 47 : 27,width: SCREENWIDTH - 40, height: 30)
         self.searchNavigationBar.cancelButton.isHidden = true
         searchNavigationBar.searchField.isHidden = false
         searchNavigationBar.searchField.resignFirstResponder()

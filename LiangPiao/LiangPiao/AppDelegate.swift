@@ -54,6 +54,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,WeiboSDKDelegate, JPUSHReg
         self.logUser()
         Crashlytics.sharedInstance().debugMode = true
         Fabric.with([Crashlytics.self])
+        
         WXApi.registerApp(WeiXinAppID)
         WeiboSDK.registerApp(WeiboApiKey)
         WeiboSDK.enableDebugMode(true)

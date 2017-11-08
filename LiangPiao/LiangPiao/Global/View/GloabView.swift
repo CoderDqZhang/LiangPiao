@@ -30,7 +30,7 @@ class HomeSearchNavigationBar: UIView {
         leftImage.frame  = CGRect(x: 15, y: 15, width: (searchImage?.size.width)!, height: (searchImage?.size.height)!)
         
         cancelButton = UIButton(type: .custom)
-        cancelButton.frame = CGRect(x: SCREENWIDTH - 64, y: 27,width: 64, height: 30)
+        cancelButton.frame = CGRect(x: SCREENWIDTH - 64, y: IPHONEX ? 47 : 27,width: 64, height: 30)
         cancelButton.setTitle("取消", for: UIControlState())
         cancelButton.titleLabel?.font = App_Theme_PinFan_L_17_Font
         cancelButton.isHidden = true
@@ -42,10 +42,10 @@ class HomeSearchNavigationBar: UIView {
         }
         self.addSubview(cancelButton)
         
-        searchField = HomeBandSearchField(frame:CGRect(x: 20, y: 27,width: SCREENWIDTH - 40, height: 30))
+        searchField = HomeBandSearchField(frame:CGRect(x: 20, y: IPHONEX ? 47 : 27,width: SCREENWIDTH - 40, height: 30))
         
         searchField.layer.cornerRadius = 4.0
-        searchField.drawPlaceholder(in: CGRect(x: 20, y: 0, width: searchField.frame.size.width, height: searchField.frame.size.height))
+        searchField.drawPlaceholder(in: CGRect(x: 20, y: -60, width: searchField.frame.size.width, height: searchField.frame.size.height))
         if font == nil {
             searchField.attributedPlaceholder = NSAttributedString.init(string: "搜索演出名称、演员...", attributes: [NSFontAttributeName:App_Theme_PinFan_L_14_Font!,NSForegroundColorAttributeName:UIColor.init(hexString: App_Theme_BBC1CB_Color)])
         }else{
@@ -80,7 +80,7 @@ class GloableSearchNavigationBarView : UIView {
         super.init(frame: frame)
         self.backgroundColor = UIColor.init(hexString: App_Theme_4BD4C5_Color)
         
-        titleLabel = UILabel(frame: CGRect.init(x: 50, y: 22, width: frame.size.width - 100, height: 40))
+        titleLabel = UILabel(frame: CGRect.init(x: 50, y: IPHONEX ? 47 : 27, width: frame.size.width - 100, height: 40))
         titleLabel.text = title
         titleLabel.textAlignment = .center
         titleLabel.font = App_Theme_PinFan_L_17_Font
@@ -89,7 +89,7 @@ class GloableSearchNavigationBarView : UIView {
         
         searchButton = UIButton(type: .custom)
         searchButton.setImage(UIImage.init(named: "Icon_Search_W")?.withRenderingMode(.alwaysOriginal), for: UIControlState())
-        searchButton.frame = CGRect.init(x: frame.size.width - 50, y: 22, width: 40, height: 40)
+        searchButton.frame = CGRect.init(x: frame.size.width - 50, y: IPHONEX ? 47 : 27, width: 40, height: 40)
         searchButton.reactive.controlEvents(.touchUpInside).observeValues { (button) in
             _ = searchClouse()
         }
@@ -107,7 +107,7 @@ extension HomeSearchNavigationBar : UITextFieldDelegate {
         if self.searchTextFieldBecomFirstRespoder != nil {
             self.searchTextFieldBecomFirstRespoder()
         }
-        textField.frame = CGRect(x: 20, y: 27,width: SCREENWIDTH - 84, height: 30)
+        textField.frame = CGRect(x: 20, y: IPHONEX ? 47 : 27,width: SCREENWIDTH - 84, height: 30)
         cancelButton.isHidden = false
     }
     

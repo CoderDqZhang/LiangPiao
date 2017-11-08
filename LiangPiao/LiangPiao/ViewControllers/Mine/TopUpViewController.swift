@@ -32,6 +32,10 @@ class TopUpViewController: UIViewController {
         tableView.showsVerticalScrollIndicator = false
         tableView.keyboardDismissMode = .onDrag
         tableView.separatorStyle = .none
+        tableView.contentInset.top = 0
+        tableView.estimatedRowHeight = 0;
+        tableView.estimatedSectionHeaderHeight = 0;
+        tableView.estimatedSectionFooterHeight = 0;
         tableView.register(TopUpMuchTableViewCell.self, forCellReuseIdentifier: "TopUpMuchTableViewCell")
         tableView.register(TopUpTypeTableViewCell.self, forCellReuseIdentifier: "TopUpTypeTableViewCell")
         self.view.addSubview(tableView)
